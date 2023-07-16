@@ -30,6 +30,9 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+
+
+/* ----------------------------- */
 html,
 body {
 	height: 100%;
@@ -323,13 +326,14 @@ ol {
 	margin-right: 0;
 }
 
-.header__top__right__language {
+/* language 부분 */
+/* .header__top__right__language {
 	position: relative;
 	display: inline-block;
 	margin-right: 40px;
 	cursor: pointer;
 }
-
+ */
 .header__top__right__language:hover ul {
 	top: 23px;
 	opacity: 1;
@@ -394,7 +398,7 @@ ol {
 }
 
 .header__top__right__auth {
-	display: inline-block;
+	 display: inline-block;
 }
 
 .header__top__right__auth a {
@@ -573,7 +577,7 @@ ol {
 }
 
 .hero.hero-normal .hero__categories ul {
-	display: none;
+	/* display: none; */
 	position: absolute;
 	left: 0;
 	top: 46px;
@@ -620,10 +624,12 @@ ol {
 	padding-left: 40px;
 	padding-top: 10px;
 	padding-bottom: 12px;
+	display : none;
 }
 
 .hero__categories ul li {
 	list-style: none;
+	
 }
 
 .hero__categories ul li a {
@@ -639,7 +645,7 @@ ol {
 }
 
 .hero__search__form {
-	width: 610px;
+	width: 850px;
 	height: 50px;
 	border: 1px solid #ebebeb;
 	position: relative;
@@ -694,40 +700,8 @@ ol {
 	height: 50px;
 }
 
-.hero__search__phone {
-	float: right;
-}
-
-.hero__search__phone__icon {
-	font-size: 18px;
-	color: #7fad39;
-	height: 50px;
-	width: 50px;
-	background: #f5f5f5;
-	line-height: 50px;
-	text-align: center;
-	border-radius: 50%;
-	float: left;
-	margin-right: 20px;
-}
-
-.hero__search__phone__text {
-	overflow: hidden;
-}
-
-.hero__search__phone__text h5 {
-	color: #1c1c1c;
-	font-weight: 700;
-	margin-bottom: 5px;
-}
-
-.hero__search__phone__text span {
-	font-size: 14px;
-	color: #6f6f6f;
-}
-
 .hero__item {
-	height: 431px;
+	height: 430px;
 	display: flex;
 	align-items: center;
 	padding-left: 75px;

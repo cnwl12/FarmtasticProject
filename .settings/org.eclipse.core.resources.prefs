@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/blog.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/blogDetails.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/farmStore.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/top.jsp=UTF-8

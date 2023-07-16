@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+#contentswrap {
+    margin: 0px auto;
+    width: 980px;
+}
+
+#contentswrap #contents {
+    zoom: 1;
+}
+
+#main_menu {
+    border-width: 1px 1px 0px;
+    border-style: solid solid none;
+    border-color: currentColor;
+    width: 148px;
+    margin-top: -13px;
+    float: left;
+    position: relative;
+    z-index: 993;
+}
+
+#main_menu .bg_menu_else {
+    background: url(//pics.gmarket.co.kr/pc/ko/myg/img_myg.png) no-repeat -160px -50px;
+    left: 149px;
+    top: -1px;
+    width: 8px; 
+    height: 13px;
+    position: absolute;
+    z-index: 994;
+}
+
+#main_menu .menu_list {
+    width: 148px; 
+    border-bottom-color: #7fad39;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    float: left;   
+}
+
+ul, ol, li, dl, dt, dd {
+    list-style: none;
+}
+
+a {
+    color: #ffff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+#main_menu .menu_list li {
+    background: #7fad39;
+    width: 100%;
+    float: left;
+}
+
+#main_menu .menu_list li a.mn1 {
+    border-top-color: currentColor;
+    border-top-width: 0px;
+    border-top-style: none;
+}
+

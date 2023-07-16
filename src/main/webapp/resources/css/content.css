@@ -1,0 +1,3608 @@
+@charset "UTF-8";
+/* ---------------------------------------------------------------
+	공통,기본
+--------------------------------------------------------------- */
+.join2 {
+    margin: 0 15px;
+    font-size: 14px;
+}
+.join2.LO {
+    margin: 0;
+} /* 2017-11-07 : add */
+.join2 strong {
+    font-weight: normal;
+}
+.join2 input[type="text"],
+.join2 input[type="tel"],
+.join2 input[type="number"],
+.join2 input[type="password"],
+.join2 input[type="file"],
+.join2 textarea,
+.join2 select {
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding-left: 6px;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: -0.04em;
+    font-size: 16px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #fff;
+}
+.join2 select {
+    border: none;
+    background: #fff url(../img/login_img/icons2.png) no-repeat 100% -380px;
+    background-size: 200px auto;
+}
+.join2 select::-ms-expand {
+    opacity: 0;
+}
+.join2 select[disabled],
+.join2 select[readonly] {
+    background-position: 100% -355px;
+}
+.join2 select.ready {
+    color: #999;
+}
+.join2 textarea {
+    float: left;
+    width: 100%;
+    min-height: 34px;
+    height: 34px;
+    line-height: 30px;
+    color: #111;
+    resize: none;
+}
+.join2 input[type="text"]:focus,
+.join2 input[type="tel"]:focus,
+.join2 input[type="number"]:focus,
+.join2 input[type="password"]:focus,
+.join2 input[type="file"]:focus,
+.join2 textarea:focus {
+    font-weight: bold;
+}
+
+.bul-list li {
+    position: relative;
+    padding-left: 10px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.38;
+    letter-spacing: -0.2px;
+}
+.bul-list li:first-child {
+    margin-top: 0;
+}
+.bul-list li::before,
+.bul::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin: 0 6px 0 0;
+    background: #ddd;
+    border-radius: 50%;
+    vertical-align: 2px;
+}
+
+/* S: 2018-01-02 : add */
+.icon-txt {
+    position: relative;
+    height: 14px;
+    margin: 0 4px 0 0;
+    vertical-align: top;
+    background: transparent;
+    display: inline-block;
+    margin-top: -2px;
+}
+.icon-txt span {
+    display: inline-block;
+    text-indent: 0;
+    font-size: 10px;
+    padding: 0 4px;
+    line-height: 16px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    border: solid 1px;
+    border-color: #333;
+    background: transparent; /*box-sizing:border-box;transform:scale(0.5);-webkit-transform:scale(0.5);*/
+}
+.icon-txt.len2 {
+    width: 30px;
+}
+.icon-txt.len2 span {
+    width: 20px;
+    left: -15px;
+}
+/* E: 2018-01-02 : add */
+
+.hidden {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* 2020-09-16 : 추가 */
+html.none-body-scroll,
+html.none-body-scroll body {
+    overflow: hidden;
+}
+html.none-body-scroll #ui-wrap {
+    min-height: 0;
+}
+.scroller-y {
+    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+}
+/* //2020-09-16 : 추가 */
+
+.btn-ty1 {
+    display: block;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    background-color: #df0011;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+} /* 2017-11-07 : add */
+.btn-ty3 {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: inline-block;
+    min-width: 66px;
+    height: 27px;
+    padding: 0 8px;
+    line-height: 27px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 12px;
+    color: #555;
+    white-space: nowrap;
+    text-align: center;
+}
+.btn-logo-ty1 {
+    display: block;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.btn-logo-ty1 .naver {
+    display: inline-block;
+    content: "";
+    width: 64px;
+    height: 12px;
+    background: url(../img/login_img/icons-nonmember.png) no-repeat 0 -47px;
+    background-size: 300px auto;
+    vertical-align: middle;
+    margin: -3px 2px 0 0;
+}
+.btn-ty3,
+.btn-small-line-gray {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: inline-block;
+    min-width: 76px;
+    height: 27px;
+    padding: 0 7px;
+    line-height: 25px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 12px;
+    color: #555;
+    white-space: nowrap;
+    text-align: center;
+}
+.btn-ty3.disabled,
+.btn-ty3[disabled],
+.btn-small-line-gray.disabled,
+.btn-small-line-gray[disabled] {
+    background-color: #eee;
+    color: #ccc;
+}
+
+/* S: 2017-11-07 : mod */
+.btn-normal,
+.btn-strong {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: inline-block;
+    min-width: 109px;
+    height: 34px;
+    padding: 0 15px;
+    line-height: 32px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+    text-align: center;
+}
+.btn-normal.disabled,
+.btn-normal[disabled],
+.btn-strong.disabled,
+.btn-strong[disabled] {
+    background-color: #eee;
+    color: #ccc;
+    border: 1px solid #ddd;
+}
+
+.btn-strong {
+    border-color: #555;
+}
+/* E: 2017-11-07 : mod */
+
+.btn i.naver {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 14px;
+    height: 13px;
+    margin-right: 5px;
+    background: url(../img/login_img/icons-nonmember.png) no-repeat 0 -29px;
+    background-size: 300px auto;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.btn i.icon_naver {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    background: url(../img/login_img/icons-nonmember.png) no-repeat 0 0;
+    background-size: 300px auto;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.btn i.phone {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 17px;
+    height: 25px;
+    background: url(../img/login_img/icons2.png) no-repeat -110px -190px;
+    background-size: 200px auto;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.btn i.id {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 23px;
+    height: 23px;
+    background: url(../img/login_img/icons2.png) no-repeat -140px -190px;
+    background-size: 200px auto;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+#ui-content .c-red {
+    color: #df0011;
+}
+
+#ui-content .space-1 {
+    margin-top: 25px;
+}
+
+#ui-content .star {
+    padding-left: 3px;
+    font-size: 0;
+}
+#ui-content .star:before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 6px;
+    margin-top: -12px;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -92px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+
+/* form */
+.checkbox-1 {
+    display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+}
+.checkbox-1:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -293px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.checkbox-1 input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+.checkbox-1.on:before {
+    background-position-x: -21px;
+}
+
+.checkbox-2 {
+    display: inline-block;
+    position: relative;
+    width: 23px;
+    height: 23px;
+    line-height: 1;
+}
+.checkbox-2:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -266px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.checkbox-2 input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+.checkbox-2.on:before {
+    background-position-x: -30px;
+}
+
+.checkbox-3 {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+}
+.checkbox-3:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -314px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.checkbox-3 input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+.checkbox-3.on:before {
+    background-position-x: -25px;
+}
+.checkbox-3.off:before {
+    background-position-x: -50px;
+}
+
+/* 2020-09-16 : 추가 */
+.checkbox-5 {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+}
+.checkbox-5:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -340px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.checkbox-5 input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+.checkbox-5.on:before {
+    background-position-x: -20px;
+}
+/* //2020-09-16 : 추가 */
+
+.radio-1 {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+}
+.radio-1:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url(../img/login_img/icons2.png) no-repeat -100px -268px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.radio-1 input[type="radio"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+.radio-1.on:before {
+    background-position-x: -125px;
+}
+
+.radio-none {
+    padding: 20px 0 20px 15px !important;
+}
+.radio-none .txt2 {
+    line-height: 20px;
+}
+
+.top-tit {
+    overflow: hidden;
+    padding: 23px 0;
+    line-height: 1;
+}
+.top-tit h2 {
+    float: left; /*font-weight:bold;*/
+    font-size: 20px;
+    letter-spacing: -0.05em;
+    color: #333;
+}
+.top-tit h2 .s-txt {
+    font-size: 11px;
+    line-height: 20px;
+    color: #888;
+}
+.top-tit .step {
+    float: right;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+.top-tit .step strong {
+    float: left;
+    margin-right: 8px;
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+}
+.top-tit .step i {
+    content: "";
+    float: left;
+    width: 28px;
+    height: 20px;
+    background: url(../img/login_img/icons2.png) no-repeat -96px 0;
+    background-size: 200px auto;
+    vertical-align: middle;
+    font-size: 0;
+    color: transparent;
+}
+.top-tit .step i.step1 {
+    width: 20px;
+    background-position-x: -96px;
+}
+.top-tit .step i.step2 {
+    background-position-x: -116px;
+}
+.top-tit .step i.step3 {
+    background-position-x: -144px;
+}
+.top-tit .step i.step4 {
+    background-position-x: -172px;
+}
+.top-tit .step i.on {
+    background-position-y: -25px;
+}
+
+.top-tit-info {
+    margin-top: -8px;
+    font-size: 15px;
+    line-height: 20px;
+    color: #111;
+}
+.top-tit-info2 {
+    margin-top: 15px;
+    font-size: 15px;
+    line-height: 20px;
+    color: #888;
+}
+.top-tit-info3 {
+    margin: 18px 0;
+    font-size: 13px;
+    line-height: 17px;
+    color: #888;
+} /* 2017-11-07: add  */
+
+#ui-content .top-tit .star-txt {
+    float: right;
+    margin-top: 7px;
+    font-size: 11px;
+    letter-spacing: -0.3px;
+    color: #666;
+}
+#ui-content .top-tit .star-txt .star {
+    padding-left: 0;
+    padding-right: 3px;
+}
+#ui-content .top-tit .star-txt .star:before {
+    margin-top: -15px;
+}
+
+.join2 h3.tit {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #111;
+    font-weight: bold;
+}
+.join2 h3.tit .right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 30px;
+    font-size: 13px;
+    color: #333;
+    font-weight: normal;
+}
+h3.tit2 {
+    font-size: 18px;
+    color: #111;
+    margin: 13px 0 12px;
+} /* 2020-09-16 : 수정 */
+
+.btn-fixed-bottom {
+    height: 54px;
+}
+.btn-fixed-bottom .btns {
+    margin: 0 -15px;
+}
+.btn-fixed-bottom button,
+.btn-fixed-bottom a,
+.btn-fixed-bottom input[type="submit"] {
+    display: block;
+    width: 100%;
+    height: 54px;
+    border: 0;
+    padding: 0;
+    background-color: #df0011;
+    line-height: 54px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0;
+    text-align: center;
+}
+.btn-fixed-bottom .red {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    border: 0;
+    padding: 0;
+    background-color: #df0011;
+    line-height: 54px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0;
+    text-align: center;
+} /* 2017-07-20 : 추가 */
+.btn-fixed-bottom .gray {
+    display: inline-block;
+    float: right;
+    width: 50%;
+    height: 54px;
+    border: 0;
+    padding: 0;
+    background-color: #333;
+    line-height: 54px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0;
+    text-align: center;
+} /* 2017-07-20 : 추가 */
+.btn-fixed-bottom button:active,
+.btn-fixed-bottom a:active,
+.btn-fixed-bottom input[type="submit"]:active {
+    background-color: #a51419;
+    color: #999;
+}
+.btn-fixed-bottom a:active {
+    background-color: #333;
+    color: #999;
+} /* 2017-07-20 추가 */
+.btn-fixed-bottom button.disabled,
+.btn-fixed-bottom button[disabled],
+.btn-fixed-bottom a.disabled,
+.btn-fixed-bottom a[disabled],
+.btn-fixed-bottom input[type="submit"].disabled,
+.btn-fixed-bottom input[type="submit"][disabled] {
+    background-color: #ddd;
+    color: #bbb !important;
+}
+.btn-fixed-bottom.n-2 button,
+.btn-fixed-bottom.n-2 a,
+.btn-fixed-bottom.n-2 input[type="submit"] {
+    float: left;
+    width: 50%;
+}
+.btn-fixed-bottom *.ty2 {
+    background-color: #333;
+}
+.btn-fixed-bottom button.ty2:active,
+.btn-fixed-bottom a.ty2:active,
+.btn-fixed-bottom input[type="submit"].ty2:active {
+    background-color: #111;
+}
+.join2.btn-fixed-bottom-on .btns {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
+
+/* 고객센터 2017-11-07 : remove */
+/*.join2 .tel-num{ position:relative; display:inline-block; margin-top:25px; font-size:13px; line-height:1; color:#555; }
+.join2 .tel-num a{ display:inline-block; padding:10px 14px 10px 37px; cursor:default; }
+.join2 .tel-num a:hover { text-decoration:none; color:#666; }
+.join2 .tel-num:before{ content:''; position:absolute; top:9px; left:14px; display:inline-block; width:15px; height:15px; }
+.join2 li .tel-num{ margin-top:10px;}*/
+
+/* S: 2017-11-07 : add */
+.tel-num {
+    position: relative;
+    display: inline-block;
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    line-height: 1;
+    color: #555;
+}
+.tel-num a {
+    display: inline-block;
+    padding: 10px 14px 10px 37px;
+    cursor: default;
+    pointer-events: none;
+}
+.tel-num a:hover {
+    text-decoration: none;
+    color: #555;
+}
+.tel-num:before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 14px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: #fff url(../img/login_img/icons.png) no-repeat -66px -127px;
+    background-size: 200px auto;
+}
+li .tel-num {
+    margin-top: 10px;
+}
+/* E: 2017-11-07 : add */
+
+.join2 .bul-ty1 {
+    position: relative;
+    margin-top: 24px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    color: #111;
+}
+.join2 .bul-ty1:before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-top: -5px;
+    margin-right: 6px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #999;
+    vertical-align: middle;
+}
+
+/* 탭 스타일 */
+.join2 .tab-ty1 {
+    overflow: hidden;
+    margin: 20px 0;
+}
+.join2 .tab-ty1 li {
+    float: left;
+    width: 50%;
+}
+.join2 .tab-ty1 li a {
+    display: block;
+    padding: 10px 1px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1em;
+    background-color: #eee;
+    color: #999;
+}
+.join2 .tab-ty1 .on a {
+    position: relative;
+    z-index: 1;
+    border: 1px solid #111;
+    background-color: #fff;
+    color: #111;
+}
+
+/* 박스 스타일 */
+.join2 .msg-box1 {
+    padding: 30px 0;
+    text-align: center;
+}
+.join2 .msg-box1 strong {
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+    color: #111;
+}
+
+/* 텍스트 스타일 */
+.join2 .txt-ty1 {
+    display: block;
+    padding-top: 25px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #111;
+}
+.join2 .txt-ty1.left {
+    padding: 25px 10px;
+    text-align: left;
+}
+.join2 .txt-ty2 {
+    display: block;
+    padding-top: 25px;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.03em;
+    color: #555;
+}
+.join2 .txt-ty3 {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.3px;
+    text-align: left;
+    color: #888;
+}
+.txt-ty4 {
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: -0.3px;
+    text-align: left;
+    color: #555;
+} /* 2017-11-07 : mod */
+.txt-ty5 {
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: -0.3px;
+    text-align: left;
+    color: #888;
+} /* 2017-12-18 : add */
+.join2 .box-ty1 {
+    padding-top: 16px;
+}
+.join2 .mes-ty1 strong {
+    display: block;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+    color: #111;
+}
+
+/* 리스트 스타일 */
+.join2 .list-info1 {
+    padding-top: 25px;
+    border-top: 1px solid #111;
+}
+.list-info1.ty1 {
+    padding-top: 10px;
+    border: 0;
+} /* 2017-11-07 : mod  */
+.join2 .list-info1 li {
+    position: relative;
+    margin-bottom: 12px;
+    padding-left: 15px;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    color: #555;
+}
+.join2 .list-info1 li:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #999;
+}
+.list-info1 li p.btn {
+    margin-top: 10px;
+} /* 2017-11-07 : mod */
+.list-info1 li .tit1 {
+    display: block;
+    font-weight: bold;
+} /* 2017-11-07 : mod */
+
+/* 2017-11-07 : mod */
+.info-box1 {
+    margin-top: 24px;
+    padding: 20px 5px 20px 14px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #ddd;
+    line-height: 20px;
+    text-align: left;
+}
+.info-box1 .txt1 {
+    font-size: 16px;
+    color: #111;
+}
+.info-box1 .txt2 {
+    font-size: 14px;
+    color: #888;
+}
+/* //2017-11-07 : mod */
+
+/* 체크박스 그룹 */
+.wrap-check-box .wrap-check {
+    overflow: hidden;
+}
+.wrap-check-box .wrap-check li {
+    float: left;
+    width: 50%;
+}
+.wrap-check-box .checkbox-3 {
+    margin-top: 15px;
+}
+
+/* S: 2017-11-07 : mod */
+.list-options {
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    padding-bottom: 10px;
+} /* 2018-01-04 : mod */
+.list-options > li {
+    position: relative;
+    padding-left: 39px;
+    border-top: 1px solid #ddd;
+    word-break: break-all;
+} /* 2017-11-07 : mod */
+.list-options > li:first-child {
+    border-top: 0;
+}
+.list-options > li > .radio-1 {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    margin-top: -10px;
+}
+.list-options > li > label {
+    display: block;
+    padding: 20px 0;
+    line-height: 1;
+}
+.list-options > li > .btn-ty3 {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 34px;
+    line-height: 34px;
+    margin-top: -17px;
+    font-size: 13px;
+}
+.list-options > li.with-btn {
+    padding-right: 96px;
+}
+.list-options > li .txt1 {
+    display: block;
+    font-size: 16px;
+    color: #111;
+}
+.list-options > li .txt2 {
+    display: block;
+    margin-top: 3px;
+    font-size: 14px;
+    color: #888;
+} /* 2017-12-20 : mod */
+.list-options > li.radio-top > .radio-1 {
+    top: 18px;
+    margin-top: 0;
+}
+.list-options > li.radio-top .ui-fold {
+    margin-top: -20px;
+    min-height: 20px;
+}
+.list-options > li.radio-top .ui-fold ul.list-field {
+    display: none;
+    margin-top: -20px;
+    margin-left: -6px;
+}
+.list-options > li.radio-top .ui-fold ul.list-field li:last-child {
+    border-bottom: 0;
+}
+.list-options > li.full {
+    position: relative;
+    z-index: 1;
+    padding-left: 0;
+}
+.list-options > li.full ul.list-field li {
+    margin-bottom: -1px;
+}
+.list-options > li.side-margin {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.list-options > li ul.list-field {
+    margin-top: 0;
+}
+.list-options .txt1,
+.list-options .txt2 {
+    line-height: 20px;
+}
+/* E: 2017-11-07 : mod */
+.list-options .line-none {
+    border-top: 0;
+}
+.list-options > li.btn-ty1-only {
+    margin-top: -10px;
+    padding-bottom: 15px;
+}
+.list-options.line-strong > li {
+    border-color: #111;
+}
+.list-options.line-strong > li ul.list-field > li:last-child {
+    border-bottom: 0;
+}
+
+.join2 .form-ty1 {
+    margin-top: 25px;
+    border-top: 1px solid #111;
+}
+.join2 .form-ty1 h3.tit {
+    margin-top: 25px;
+}
+.join2 .form-ty1 ul.list-field {
+    margin-top: 0;
+}
+.join2 .form-ty1 ul.list-options {
+    margin-top: -10px;
+    border-top: 0;
+}
+
+/* S: 2017-06-16 : 추가및 수정 */
+.banner {
+    position: relative;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.banner .flex-control-paging {
+    position: absolute;
+    z-index: 100;
+    top: 8px;
+    right: 0;
+    text-align: right;
+    font-size: 0;
+}
+.banner .flex-control-paging > li {
+    display: inline-block;
+    margin: 0 2px;
+    vertical-align: top;
+}
+.banner .flex-control-paging > li a {
+    overflow: hidden;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 4px;
+    background: #c6c6c6;
+    text-indent: -9999px;
+    vertical-align: top;
+}
+.banner .flex-control-paging > li:last-child {
+    margin-right: 8px;
+}
+.banner .flex-control-paging > li a.flex-active {
+    background-color: #444;
+}
+
+/*.banner .flex-control-paging { display:none; }*/
+.banner .flex-direction-nav {
+    display: none;
+}
+.banner:hover .flex-direction-nav {
+    display: block;
+}
+/* E: 2017-06-16 : 추가및 수정 */
+.banner .flex-direction-nav li a {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    margin-top: -11px;
+    width: 12px;
+    height: 22px;
+    padding: 0 10px;
+    overflow: hidden;
+    color: transparent;
+}
+.banner .flex-direction-nav li a:before {
+    display: block;
+    content: "";
+    width: 12px;
+    height: 22px;
+    background: url(../img/login_img/icons2.png) no-repeat -168px -52px;
+    background-size: 200px auto;
+}
+.banner .flex-direction-nav a.flex-prev {
+    left: 0;
+}
+.banner .flex-direction-nav a.flex-next {
+    right: 0;
+}
+.banner .flex-direction-nav a.flex-next:before {
+    background-position-x: 100%;
+}
+
+/* ---------------------------------------------------------------
+	본인인증
+--------------------------------------------------------------- */
+.join2 .certify {
+    margin: 25px 14.5px;
+}
+.join2 .certify .select-cert {
+    overflow: hidden;
+    padding-left: 10px;
+    text-align: center;
+}
+.join2 .certify .select-cert a {
+    position: relative;
+    float: right;
+    width: 50%;
+    height: 148px;
+    margin: 0 3px;
+    line-height: 1;
+    font-size: 16px;
+    color: #555;
+}
+.join2 .certify .select-cert a span {
+    display: block;
+    margin-top: 25px;
+}
+.join2 .certify .select-cert a:first-child {
+    float: left;
+    margin-left: -10px;
+}
+.join2 .certify .select-cert a:before {
+    display: inline-block;
+    content: "";
+    width: 32px;
+    height: 46px;
+    margin-top: 38px;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -190px;
+    background-size: 200px auto;
+}
+.join2 .certify .select-cert a:after {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+}
+.join2 .certify .select-cert a:first-child:before {
+    background-position-x: -35px;
+}
+.join2 .certify .select-cert a:hover,
+.join2 .certify .select-cert a:focus {
+    color: #df0011;
+}
+.join2 .certify .select-cert a:hover:after,
+.join2 .certify .select-cert a:focus:after {
+    border: 1px solid #df0011;
+}
+.join2 .certify .select-cert .policy1 {
+}
+.join2 .certify .select-cert .policy2 {
+}
+.join2 .certify .list-info1 {
+    padding-top: 0;
+    border-top: 0;
+}
+.join2 .certify .list-info1 li {
+    margin-top: 15px;
+}
+/* ---------------------------------------------------------------
+	약관동의
+--------------------------------------------------------------- */
+.agreement-form {
+    padding-bottom: 15px;
+}
+.list-terms {
+    padding: 0 15px;
+    border: 1px solid #ddd;
+}
+.list-terms .hr {
+    border-top: 1px solid #ddd;
+}
+.list-terms .wrap-agree-ty1 {
+    position: relative;
+}
+.list-terms .agree {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    min-height: 54px;
+    padding: 20px 60px 20px 0;
+    font-size: 14px;
+    color: #111;
+    line-height: 1.43;
+}
+.list-terms .agree .icon-ps {
+    font-size: 11px;
+    color: #df0011;
+    font-weight: bold;
+}
+.list-terms .agree .icon-free {
+    font-size: 11px;
+    color: #888;
+    font-weight: bold;
+}
+.list-terms .agree.multi {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.list-terms .agree .checkbox-2 {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -11px;
+}
+.list-terms .agree + .note {
+    margin-top: -15px;
+} /* 2019-04-10 : 추가 */
+.list-terms .note.mt-15 {
+    margin-top: -15px !important;
+} /* 2017-07-21 : 추가 */
+/* 2020-10-05 : 삭제
+.list-terms .terms-wrap { overflow:hidden; height:150px; border:0; background-color:#eee; -webkit-overflow-scrolling:touch; overflow-y:scroll; z-index:0; } /* 2020-09-25 : 수정 * /
+*/
+.list-terms .terms-wrap iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+.list-terms .wrap-check {
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    line-height: 1;
+}
+.list-terms .wrap-check .checkbox-1 {
+    margin-left: 16px;
+}
+.list-terms .note {
+    margin: 12px 0;
+    font-size: 10px;
+    color: #888;
+}
+
+/* 2020-09-16 : 추가 */
+.list-terms.ty3 {
+    padding: 0;
+    border: 0;
+}
+.list-terms.ty3 .agree {
+    min-height: 0;
+    padding: 8px 0 8px 26px;
+    border: 0;
+    font-size: 16px;
+}
+.list-terms.ty3 .agree .checkbox-5 {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    margin-top: 0;
+}
+.list-terms.ty3 .agree.multi .checkbox-5 {
+    top: 9px;
+}
+.list-terms.ty3 .wrap-agree-ty1 .right {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    margin-top: 0;
+}
+/* 2020-09-25 : 수정/추가 */
+.list-terms.ty3 .wrap-agree-ty1 .right a {
+    font-size: 13px;
+    color: #999;
+}
+.list-terms.ty3 .wrap-agree-ty1 .right a .hide {
+    display: none;
+}
+.list-terms.ty3 .wrap-agree-ty1 .right a:after {
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-top-color: #999;
+    vertical-align: middle;
+    margin-left: 4px;
+    transition: 0.2s;
+}
+.list-terms.ty3 .wrap-agree-ty1 .right a.open:after {
+    margin-top: -7px;
+    transform: rotate(-180deg);
+}
+.list-terms.ty3 .wrap-agree-ty1 .right a.open .show {
+    display: none;
+}
+.list-terms.ty3 .wrap-agree-ty1 .right a.open .hide {
+    display: inline;
+}
+.list-terms.ty3 .wrap-agree-ty1.hr {
+    margin-top: 8px;
+    padding-top: 8px;
+}
+.list-terms.ty3 .wrap-agree-ty1.hr .right {
+    top: 15px;
+}
+.list-terms.ty3 .wrap-agree-ty1 .note1 {
+    padding: 2px 0 10px 26px;
+    font-size: 14px;
+    color: #111;
+}
+.list-terms.ty3 .wrap-agree-ty1 .note2 {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #888;
+    line-height: 18px;
+}
+/* 2020-10-05 : 수정 */
+.list-terms.ty3 .wrap-agree-ty1 .terms-wrap {
+    display: none;
+    padding: 6px 0 6px 6px;
+}
+.list-terms.ty3 .wrap-agree-ty1 #terms2 {
+    padding: 6px 0 6px 16px;
+}
+/* //2020-10-05 : 수정 */
+/* //2020-09-25 : 수정/추가 */
+/* //2020-09-16 : 추가 */
+
+/* ---------------------------------------------------------------
+	정보입력
+--------------------------------------------------------------- */
+.join-form {
+    padding-bottom: 40px;
+}
+.join-form.pb0 {
+    padding-bottom: 0;
+}
+.join-form .list-info1:last-child {
+    margin-bottom: -35px;
+}
+ul.list-field {
+    margin-bottom: 5px;
+}
+ul.list-field li {
+    position: relative;
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 0;
+    border-bottom: 1px solid #ddd;
+    zoom: 1;
+}
+ul.list-field li:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+ul.list-field li.focus {
+    padding-bottom: 8px;
+    border-bottom: 2px solid #df0011;
+}
+ul.list-field li.space {
+    margin-top: 30px;
+}
+ul.list-field li .col {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    float: left;
+    padding: 0 8px 0 9px;
+}
+ul.list-field li .col:before {
+    display: block;
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    left: 0;
+    width: 1px;
+    height: 24px;
+    background-color: #ddd;
+    vertical-align: middle;
+}
+ul.list-field li .col.first:before {
+    display: none;
+}
+ul.list-field li .col:first-of-type:before {
+    display: none;
+}
+ul.list-field li .col.first {
+    padding-left: 0;
+}
+ul.list-field li .col:first-of-type {
+    padding-left: 0;
+}
+ul.list-field li .col.last {
+    padding-right: 0;
+}
+ul.list-field li .col:last-of-type {
+    padding-right: 0;
+}
+ul.list-field li .col label {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 9px;
+    padding-left: 6px;
+    font-size: 16px;
+    color: #999;
+    line-height: 36px;
+    white-space: nowrap;
+}
+ul.list-field li *::placeholder {
+    font-size: 16px;
+    color: #999;
+    opacity: 1;
+} /* 2018-05-31 : 추가 */
+ul.list-field li *:-ms-input-placeholder {
+    font-size: 16px;
+    color: #999;
+} /* 2018-05-31 : 추가 */
+ul.list-field li *::-ms-input-placeholder {
+    font-size: 16px;
+    color: #999;
+} /* 2018-05-31 : 추가 */
+ul.list-field li .col label small {
+    font-size: 11px;
+}
+ul.list-field li .col.first label {
+    left: 0;
+}
+ul.list-field li .col:first-of-type label {
+    left: 0;
+}
+/* S: 2017-11-07 */
+ul.list-field li .col input[type="text"],
+ul.list-field li .col input[type="tel"],
+ul.list-field li .col input[type="number"],
+ul.list-field li .col input[type="password"] {
+    color: #df0011;
+    color:/*＼**/ #222;
+    text-shadow: 0px 0px 0px #111;
+    -webkit-text-fill-color: transparent;
+} /* 2018-08-29 : 수정(ie8 컬러) */
+_:-ms-fullscreen,
+:root ul.list-field li .col input {
+    color: #222;
+} /* 2017-12-06 : add [ie11 hack] */
+:root ul.list-field li .col input {
+    color: #222 \0 / IE9;
+} /* 2018-01-26 : add */
+/* E: 2017-11-07 */
+ul.list-field li .col input[type="text"],
+ul.list-field li .col input[type="tel"],
+ul.list-field li .col input[type="number"],
+ul.list-field li .col input[type="password"],
+ul.list-field li .col input[type="file"],
+ul.list-field li .col select {
+    position: relative;
+    width: 100%;
+    height: 36px;
+}
+ul.list-field li .col .txt {
+    padding-top: 5px;
+    padding-left: 6px;
+    font-size: 16px;
+    color: #111;
+}
+ul.list-field li .col .btn-ty3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 13px;
+    height: 34px;
+    line-height: 34px;
+}
+ul.list-field li .col .btn-ty3.btn-2 {
+    position: absolute;
+    top: 0;
+    right: 70px;
+}
+ul.list-field li .small-tit {
+    display: block;
+    margin-bottom: 3px;
+    padding-left: 6px;
+    font-size: 11px;
+    color: #666;
+}
+ul.list-field li.full .col {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+ul.list-field li.birth .col {
+    width: 33.33333%;
+}
+ul.list-field li.email .col {
+    width: 50%;
+}
+ul.list-field li.email .col .at {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    line-height: 36px;
+}
+ul.list-field li.email .col.c-1 {
+    padding-right: 29px;
+}
+ul.list-field li.email .col.c-2 {
+    padding-right: 42px;
+}
+ul.list-field li.phone-number .col.c-1 {
+    width: 23%;
+}
+ul.list-field li.phone-number .col.c-2 {
+    width: 77%;
+}
+ul.list-field li.card-number .col.c-1 {
+    width: 33%;
+}
+ul.list-field li.card-number .col.c-2 {
+    width: 67%;
+}
+ul.list-field li.pw .col {
+    padding-right: 54px;
+}
+ul.list-field li.radio-tab {
+    overflow: hidden;
+    margin: 20px 0;
+    padding: 0 1px;
+    border-bottom: 0;
+}
+ul.list-field li.radio-tab .radio {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+ul.list-field li.radio-tab .radio label {
+    display: block;
+    margin: 0 -1px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    line-height: 34px;
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+}
+ul.list-field li.radio-tab .radio input[type="radio"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity: 0);
+}
+ul.list-field li.radio-tab .radio.on label {
+    position: relative;
+    z-index: 1;
+    border-color: #111;
+    background-color: #fff;
+    color: #111;
+}
+ul.list-field li .ps {
+    /*display:none;*/
+    clear: both;
+    margin: 0.5px 0 5.5px;
+    padding-left: 6px;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: -0.03em;
+} /* 2017-06-05 : display:none 주석 해제요망 */
+ul.list-field li .ps.line2 {
+    line-height: 15px;
+}
+ul.list-field li .ps strong {
+    color: #df0011;
+    font-weight: normal;
+}
+ul.list-field li .ps .countdown {
+    font-weight: bold;
+}
+ul.list-field li .col.with-btn {
+    padding-right: 116px;
+}
+ul.list-field li .flag-pw {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 0;
+    padding: 0 23px 1px 0;
+    font-size: 12px;
+    white-space: nowrap;
+    line-height: 1.1;
+}
+ul.list-field li .flag-pw:after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 17px;
+    height: 23px;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -238px;
+    background-size: 200px auto;
+    vertical-align: bottom;
+}
+ul.list-field li .flag-pw.lv1 {
+    color: #df0011;
+}
+ul.list-field li .flag-pw.lv2 {
+    color: #ff7e00;
+}
+ul.list-field li .flag-pw.lv3 {
+    color: #3bc200;
+}
+ul.list-field li .flag-pw.same {
+    color: #3bc200;
+}
+ul.list-field li .flag-pw.lv2:after {
+    background-position-x: -44px;
+}
+ul.list-field li .flag-pw.lv3:after {
+    background-position-x: -22px;
+}
+ul.list-field li .flag-pw.same:after {
+    background-position-x: -66px;
+}
+ul.list-field li.f-card .c-1 {
+    width: 100%;
+    padding-right: 42px;
+}
+ul.list-field .detail-addr {
+    margin: 5px 10px 0 5px;
+    font-size: 16px;
+    min-height: 31px;
+    line-height: 30px;
+} /* 추가 */
+ul.list-field li .col.sel-notext {
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+}
+ul.list-field li .col.sel-notext:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #ddd;
+}
+ul.list-field li .col.sel-notext:before {
+    z-index: 1;
+    top: 0;
+    height: 100%;
+}
+ul.list-field li .col.sel-notext select {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 160px 0 0;
+    border: 1px solid #ddd;
+    background: #fff url(../img/login_img/icons2.png) no-repeat 100% -380px;
+    background-size: 200px auto;
+}
+ul.list-field li .col.sel-notext select * {
+    font-size: 14px;
+}
+ul.list-field li .col.sel-notext label {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    font-size: 0;
+    color: transparent;
+}
+ul.list-field .btn-ty1 {
+    margin: 6px 0;
+    font-weight: bold;
+} /* 2017-11-07 : add */
+ul.list-field .btn-ty3 {
+    height: 34px;
+    line-height: 34px;
+}
+.join2 .join-form .list-options {
+    margin-top: 25px;
+}
+.join2 .join-form .list-options .txt1 {
+    line-height: 20px;
+}
+.join2 .join-form .join-info1 {
+    margin-top: 37px;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.05em;
+    text-align: center;
+    color: #111;
+}
+
+.join2 .join-form .join-info1 .point-c {
+    color: #df0011;
+}
+.join2 .join-form .join-info1 .point-c2 {
+    margin-top: 15px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #888;
+}
+.join2 .join-form .join-info1 .point-c3 {
+    margin-top: 15px;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+    color: #888;
+}
+.join2 .join-form .list-info1 {
+    border-top: 0;
+    text-align: center;
+}
+.join2 .join-form .list-info1 li {
+    padding-left: 0;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #555;
+}
+.join2 .join-form .list-info1 li:before {
+    position: static;
+    margin-right: 7px;
+    margin-top: -5px;
+    vertical-align: middle;
+}
+.join2 .join-form .list-info1.left li {
+    padding-left: 14px;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    word-break: keep-all;
+}
+.join2 .join-form .list-info1.left li:before {
+    position: absolute;
+    top: 10px;
+}
+/* S: 2017-07-24 : 추가 */
+.join2 .join-form .join-info1 .ul-ty1-wrap {
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #ddd;
+    padding: 18px 15px;
+    margin-top: 25px;
+    width: 420px;
+}
+.join2 .join-form .join-info1 .ul-ty1-wrap .ul-ty1 li.normal {
+    list-style: none;
+    text-align: left;
+    font-size: 16px;
+}
+.join2 .join-form .join-info1 .ul-ty1-wrap .ul-ty1 li.normal.gray {
+    color: #888;
+    font-size: 14px;
+}
+/* E: 2017-07-24 : 추가 */
+
+/* ---------------------------------------------------------------
+	아이디/비밀번호 찾기
+--------------------------------------------------------------- */
+.join2 .search-for {
+    padding-bottom: 20px;
+}
+.join2 .search-for .msg-box2 {
+    margin-top: 40px;
+    text-align: center;
+}
+.join2 .search-for .msg-box2.line1 {
+    margin: 40px 0;
+    text-align: center;
+}
+.join2 .search-for .msg-box2 .txt1 {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.05em;
+    font-weight: normal;
+    color: #111;
+}
+.join2 .search-for .msg-box2 .txt2 {
+    margin: 15px 0 25px 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #888;
+}
+.join2 .list-info1.bt0 {
+    border-top: 0;
+}
+.join2 .search-for .list-info1 button {
+    margin-top: 10px;
+}
+/* ---------------------------------------------------------------
+	비밀번호 변경
+--------------------------------------------------------------- */
+.join2 .change-pw .list-field li:first-child {
+    margin-top: 15px;
+}
+
+/* ---------------------------------------------------------------
+	회원정보 수정
+--------------------------------------------------------------- */
+.member-modify-wrap .top-info {
+    padding: 23px 0;
+    font-size: 13px;
+    line-height: 17px;
+    color: #888;
+} /* 2017-11-03 : 추가  */
+.join2 .member-modify {
+    padding-bottom: 20px;
+}
+.join2 .member-modify .phone-number {
+    margin-top: 0;
+}
+.join2 .member-modify .list-field {
+    margin-top: 25px;
+}
+.join2 .member-modify .list-info1 {
+    padding-top: 16px;
+    border-top: 0;
+}
+.join2 .member-modify .list-info2 {
+    padding: 20px 13px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+.join2 .member-modify .list-info2 .txt-ty1 {
+    padding-top: 0;
+    text-align: left;
+}
+.join2 .member-modify .msg-box-ty1 {
+    padding: 25px 10px;
+}
+.join2 .member-modify .msg-box-ty1 .txt-ty1 {
+    padding-top: 0;
+    text-align: left;
+}
+.join2 .member-modify .msg-box-ty2 {
+    padding: 50px 15px 7px 10px;
+}
+.join2 .member-modify .msg-box-ty2 .txt1 {
+    display: block;
+    margin-bottom: 24px;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.05em;
+    text-align: left;
+    color: #333;
+}
+.join2 .member-modify .msg-box-ty2 .txt2 {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    color: #888;
+}
+
+.join2 .join-form.member-modify {
+    padding-bottom: 0;
+}
+.join2 .join-form.member-modify .list-info1 li {
+    padding: 0 10px 0 13px;
+    text-align: left;
+    font-size: 13px;
+    line-height: 17px;
+    word-break: keep-all;
+}
+.join2 .join-form.member-modify .list-info1 li:before {
+    position: absolute;
+    padding-left: 0;
+    margin-top: 0;
+}
+.join2 .join-form.member-modify .agreement-form h3.tit {
+    margin-top: 35px;
+}
+.join2 .join-form.member-modify .list-terms .retract {
+    padding-top: 19px;
+    margin-bottom: 20px;
+    border-top: 1px solid #ddd;
+}
+.join2 .join-form.member-modify .retract .agree-qst {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #111;
+}
+.join2 .join-form.member-modify .retract label {
+    padding-left: 8px;
+}
+.join2 .join-form.member-modify ul.list-field {
+    margin-top: 5px;
+}
+.join2 .join-form.member-modify ul.list-field li.email .col.c-3.sel-notext,
+.join2 .join-form.member-modify ul.list-field li.f-card .col.c-2.sel-notext {
+    top: 27px;
+}
+
+/* ---------------------------------------------------------------
+	가입 완료
+--------------------------------------------------------------- */
+.join-finish {
+    padding-bottom: 15px;
+}
+.join-finish .top-msg {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 24px 0 0;
+    text-align: center;
+}
+.join-finish .top-msg .txt1 {
+    font-size: 40px;
+    color: #111;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-weight: normal;
+}
+.join-finish .top-msg .txt2 {
+    margin-top: 35px;
+    font-size: 20px;
+    line-height: 1.4;
+    letter-spacing: -0.05em;
+}
+.join-finish .banner {
+    margin-top: 25px;
+    text-align: center;
+}
+.join-finish .banner img {
+    width: 100%;
+    max-width: 100%;
+}
+.join-finish .field-box {
+    margin-top: 53px;
+    padding: 0 16px 10px;
+    border: 1px solid #111;
+}
+.join-finish .field-box h3 {
+    position: relative;
+    margin-top: -18px;
+    text-align: center;
+    font-weight: normal;
+}
+.join-finish .field-box h3 span {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 27px;
+    border: 1px solid #111;
+    font-size: 19px;
+    color: #111;
+    background-color: #fff;
+    border-radius: 18px;
+}
+.join-finish .field-box .txt1 {
+    margin: 13px 0 17px;
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    line-height: 20px;
+}
+.join-finish .field-box h4 {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #111;
+    font-weight: bold;
+    line-height: 1;
+}
+.join-finish .field-box .wrap {
+    padding: 0 10px 15px;
+    border-top: 1px solid #ddd;
+}
+.join-finish .field-box .wrap .list-info1 {
+    margin-top: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 0;
+}
+.join-finish .field-box p.note {
+    margin-top: 17px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.46;
+}
+.join-finish .field-box p.note:before {
+    display: inline-block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    margin: -5px 2px 0 0;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -60px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.join-finish .field-box ul.note {
+    margin-top: 17px;
+    line-height: 1;
+}
+.join-finish .field-box ul.note li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.46;
+}
+.join-finish .field-box ul.note li .btn-ty3 {
+    margin-top: 5px;
+}
+.join-finish .field-box ul.note li:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 17px;
+    height: 17px;
+    margin: -5px 2px 0 0;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -59px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.join-finish .field-box .btn1 {
+    display: block;
+    height: 54px;
+    margin-top: 22px;
+    line-height: 54px;
+    border: 1px solid #df0011;
+    font-size: 16px;
+    color: #df0011;
+    text-align: center;
+}
+.join-finish .field-box .txt1 {
+    color: #111;
+}
+.join-finish .list-info1 li {
+    font-size: 15px;
+}
+.join-finish.ty2 .list-info1 {
+    overflow: hidden;
+}
+.join-finish.ty2 .list-info1 li {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    float: left;
+    width: 50%;
+}
+
+/* ---------------------------------------------------------------
+	회원탈퇴
+--------------------------------------------------------------- */
+.member-leave {
+    padding-bottom: 20px;
+}
+.member-leave .mes-ty1 {
+    padding: 50px 0 25px 0;
+    text-align: center;
+}
+.member-leave .list-info1 {
+    padding-top: 25px;
+    border-top: 1px solid #111;
+}
+.member-leave .list-info1 li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    color: #555;
+}
+.member-leave .leave-con .list-info1 li {
+    color: #111;
+}
+.member-leave .list-info1 li:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #999;
+}
+.member-leave .tb-ty1 {
+    width: 100%;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+.member-leave .tb-ty1 tr th {
+    padding: 15px 10px 15px;
+    text-align: left;
+    vertical-align: top;
+}
+.member-leave .tb-ty1 tr td {
+    padding: 15px 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+    letter-spacing: -0.3px;
+    color: #111;
+}
+.member-leave .tb-ty1 .line {
+    border-bottom: 1px solid #ddd;
+}
+.member-leave .tb-ty1 .txt-ty3 {
+    margin-left: 10px;
+}
+.member-leave h3.leave-tit {
+    margin-top: 0;
+}
+.member-leave .leave-con .list-info1 {
+    padding: 17px 20px 15px 15px;
+    border: 1px solid #ddd;
+}
+.member-leave .leave-con .list-info1 li {
+    margin-bottom: 14px;
+}
+.member-leave .leave-con .list-info1 li span {
+    display: inline-block;
+    margin-top: 9px;
+}
+.member-leave .leave-con .list-info1 li span.y-txt {
+    font-weight: bold;
+    font-size: 16px;
+}
+.member-leave .leave-con .list-info1 li b {
+    font-size: 14px;
+    line-height: 20px;
+    color: #111;
+}
+.member-leave .leave-con .list-info1 li.ipt-box {
+    padding: 14px 20px 17px 14px;
+    background-color: #eee;
+}
+.member-leave .leave-con .list-info1 li.ipt-box .txt {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.03em;
+    word-break: keep-all;
+    color: #111;
+}
+.member-leave .leave-con .list-info1 li.li-radio {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.member-leave .leave-con .list-info1 li.li-radio label {
+    margin-left: 6px;
+}
+.member-leave .leave-con .list-info1 li.ipt-box:before,
+.member-leave .leave-con .list-info1 li.li-radio:before {
+    display: none;
+}
+.member-leave .withdraw-info h4 {
+    margin: 50px 0 8px 0;
+    font-size: 15px;
+    color: #111;
+}
+.member-leave .withdraw-info .wrap-check-box {
+    padding: 5px 15px 20px 15px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+.member-leave .withdraw-info .list-field .opi {
+    border-bottom: 0;
+}
+.member-leave .withdraw-info .list-field .opi p {
+    margin-bottom: 5px;
+}
+.member-leave .withdraw-info .list-field .opi select,
+.member-leave .withdraw-info .list-field .opi textarea {
+    border: 1px solid #ddd;
+}
+.member-leave .withdraw-info .list-field .opi textarea {
+    height: 100px;
+}
+.member-leave .withdraw-info .list-field li:first-child {
+    padding-top: 20px;
+}
+.member-leave .withdraw-info .join-form {
+    padding-bottom: 0;
+}
+.member-leave .family-remove h4 {
+    margin-top: 20px;
+}
+.member-leave .family-remove .txt {
+    margin-bottom: 20px;
+    font-size: 11px;
+    line-height: 15px;
+    color: #666;
+}
+.member-leave .family-remove .remove label {
+    padding-left: 6px;
+}
+.member-leave .family-remove .remove label .notice {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    color: #111;
+    vertical-align: top;
+}
+.member-leave .family-remove .remove label .notice em {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #111;
+}
+
+/* ---------------------------------------------------------------
+	훼밀리카드 발급/등록
+--------------------------------------------------------------- */
+.reg-family-card {
+    padding-bottom: 40px;
+}
+.reg-family-card .list-options > li > label {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.reg-family-card .list-options li .fmc-card1:before,
+.reg-family-card .list-options li .fmc-card2:before {
+    display: inline-block;
+    content: "";
+    width: 54px;
+    height: 32px;
+    margin-right: 9px;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -103px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.reg-family-card .list-options li .fmc-card2:before {
+    background-position-x: -59px;
+}
+.reg-family-card .list-options .list-info1 {
+    margin-top: 7px;
+    border-top: 0;
+    padding-top: 0;
+}
+.reg-family-card .list-options .list-info1 li {
+    margin-bottom: 0;
+    line-height: 20px;
+    color: #888;
+}
+.reg-family-card .list-options .list-info1 li:before {
+    top: 6px;
+}
+.reg-family-card ul.list-field li.note {
+    margin-bottom: -20px;
+    border-bottom: 0;
+    font-size: 11px;
+    color: #df0011;
+}
+.reg-family-card ul.list-field li.note:before {
+    display: inline-block;
+    content: "";
+    width: 13px;
+    height: 12px;
+    margin-left: 2px;
+    background: #fff url(../img/login_img/icons2.png) no-repeat 0 -79px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.reg-family-card p.txt-ty1.left {
+    padding: 25px 0 11px;
+}
+
+/* ---------------------------------------------------------------
+	SSO 진입불가 안내 - FMC서비스 종료 안내
+--------------------------------------------------------------- */
+/* 2017-10-17: 추가 */
+.fmc-close {
+    margin: 40px 25px 25px 25px;
+    text-align: center;
+}
+.fmc-close h1.tit {
+    font-size: 25px;
+    line-height: 28px;
+    font-weight: bold;
+    color: #df0011;
+}
+.fmc-close h1.tit:before {
+    content: "";
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    margin-right: 5px;
+    background: url(../img/login_img/icons2.png) no-repeat 0 -140px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.fmc-close .tit-info {
+    display: inline-block;
+    margin: 17px 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #888;
+}
+.fmc-close .member-join {
+    padding: 29px 23px 23px 23px;
+    border: 2px solid #ccc;
+    text-align: center;
+}
+.fmc-close .member-join .info1 {
+    font-size: 17px;
+    line-height: 21px;
+    font-weight: bold;
+    color: #333;
+}
+.fmc-close .member-join .info2 {
+    margin: 13px 0 20px;
+    font-size: 13px;
+    line-height: 17px;
+    color: #555;
+}
+.fmc-close .member-join .join-close-box {
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    text-align: left;
+}
+.fmc-close .member-join .join-close-box .btns-pc .btn {
+    display: block;
+    height: 54px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 54px;
+    font-weight: bold;
+    background-color: #df0011;
+    color: #fff;
+}
+.fmc-close .member-join .join-close-box .btns-pc .btn:first-child {
+    margin-top: 0;
+}
+.fmc-close .member-join .join-close-box .btns-pc .btn .point-c {
+    color: #ffea00;
+}
+/* //2017-10-17: 추가 */
+
+/* S: 2017-11-07 추가 */
+.tab-ty2 {
+    overflow: hidden;
+    margin: 0 -15px;
+}
+.tab-ty2 li {
+    float: left;
+    width: 50%;
+}
+.tab-ty2 li a {
+    display: block;
+    height: 43px;
+    line-height: 47px;
+    padding: 0 1px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    background-color: #eee;
+    color: #999;
+}
+.tab-ty2 li:first-child a {
+    border-left: 0;
+}
+.tab-ty2 .on a {
+    position: relative;
+    z-index: 1;
+    border-bottom-color: #fff;
+    background-color: #fff;
+    color: #111;
+}
+
+/* 하단 연락처 정보 */
+.join2.btn-fixed-bottom-on .footer-customer {
+    height: 40px;
+}
+.footer-customer {
+    margin-top: 23px;
+    text-align: center;
+}
+.footer-customer-inner {
+    padding-bottom: 15px;
+}
+.footer-customer .tel,
+.footer-customer .mail {
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    font-size: 11px;
+    color: #666;
+}
+.footer-customer .tel:after,
+.footer-customer .mail:after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 9px;
+    height: 12px;
+    margin-top: -6px;
+    background: url(../img/login_img/icons2.png) no-repeat -138px -244px;
+    background-size: 200px auto;
+}
+.footer-customer .mail {
+    margin-left: 20px;
+    padding-left: 15px;
+}
+.footer-customer .mail:after {
+    margin-top: -3px;
+    width: 11px;
+    height: 8px;
+    background-position: -151px -244px;
+}
+
+/* 전화 걸기 확인 팝업 */
+.pop-call-confirm .txt {
+    padding-top: 30px;
+    font-size: 15px;
+    color: #111;
+    text-align: center;
+}
+.pop-call-confirm .txt strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 17px;
+    font-weight: bold;
+}
+.pop-call-confirm .txt em {
+    display: block;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #888;
+}
+.pop-call-confirm .btn-bottom {
+    margin-top: 25px;
+}
+
+.pop-join-guide .tit {
+    font-size: 16px;
+    color: #111;
+    font-weight: bold;
+    text-align: center;
+}
+.pop-join-guide .txt1 {
+    padding-bottom: 10px;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    line-height: 19px;
+}
+.pop-join-guide .tit2 {
+    padding: 15px 0 5px;
+    border-top: 1px solid #ddd;
+    font-size: 15px;
+    color: #111;
+    font-weight: bold;
+    text-align: center;
+}
+.pop-join-guide .list-fmcsite {
+    overflow: hidden;
+}
+.pop-join-guide .list-fmcsite li {
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    width: 50%;
+    margin-top: 8px;
+    padding-left: 22px;
+    font-size: 15px;
+    color: #666;
+    line-height: normal;
+}
+.pop-join-guide .list-fmcsite li:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #999;
+}
+
+/* ---------------------------------------------------------------
+	뉴멤버십
+--------------------------------------------------------------- */
+/* 로그인 */
+.login-wrap .keypad-kor {
+    margin: 5px 0;
+    text-align: right;
+}
+.login-wrap .keypad-kor .toggle {
+    display: block;
+    position: relative;
+    padding: 10px 20px 0 0;
+    font-size: 13px;
+    color: #666;
+}
+.login-wrap .keypad-kor .toggle:after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 17px;
+    right: 0;
+    width: 10px;
+    height: 6px;
+    background: url(../img/login_img/icons2.png) no-repeat 100% -82px;
+    background-size: 200px auto;
+    transform: rotate(180deg);
+    transition: all 0.3s;
+}
+.login-wrap .keypad-kor .toggle.open:after {
+    transform: rotate(0deg);
+}
+.login-wrap .keypad-kor .toggle-detail {
+    margin: 15px 0 12px;
+    padding-bottom: 25.8%;
+    text-align: center;
+    background: url(../img/login_img/common/keypad-kor.png) no-repeat 50% 0;
+    background-size: cover;
+}
+.login-wrap ul.list-field .login-id label,
+.login-wrap ul.list-field .login-pw label {
+    padding-left: 32px;
+}
+.login-wrap ul.list-field .login-id label:before,
+.login-wrap ul.list-field .login-pw label:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    width: 15px;
+    height: 16px;
+    margin-top: -8px;
+    background: url(../img/login_img/icons2.png) no-repeat -167px -244px;
+    background-size: 200px auto;
+}
+.login-wrap ul.list-field .login-pw label:before {
+    left: 4px;
+    margin-top: -9px;
+    background-position: 100% -244px;
+}
+.login-wrap .check-list {
+    overflow: hidden;
+    margin-top: -5px;
+}
+.login-wrap .check-list li {
+    float: left;
+    padding: 15px 0 0;
+    font-size: 14px;
+    color: #222;
+}
+.login-wrap .check-list li:first-child {
+    margin-right: 47px;
+}
+.login-wrap .check-list li.full {
+    clear: both;
+    float: none;
+    width: 100%;
+}
+.login-wrap .check-list li.search {
+    float: right;
+}
+.login-wrap .check-list li.search a {
+    color: #666;
+    position: relative;
+    float: left;
+    padding: 0 0 0 10px;
+}
+.login-wrap .check-list li.search a:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -6px;
+    width: 1px;
+    height: 9px;
+    background-color: #ccc;
+    font-size: 0;
+}
+.login-wrap .check-list li.search a:first-child {
+    padding-right: 10px;
+    padding-left: 0;
+}
+.login-wrap .check-list li.search a:first-child:before {
+    display: none;
+}
+.login-wrap .check-list li .checkbox-2 {
+    margin-right: 4px;
+}
+
+.login-wrap {
+    margin-bottom: 30px;
+}
+.login-wrap .btn-login {
+    margin-top: 30px;
+}
+.login-wrap .btn-login button {
+    width: 100%;
+    height: 50px;
+    background-color: #7fad39;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+.login-wrap .btn-login a {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #df0011;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+} /* 2017-12-14 : add */
+.login-wrap .join-guide {
+    margin: 20px 0 0;
+    text-align: center;
+}
+.login-wrap .join-guide.PC {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; /*padding-bottom:20px;*/
+    margin-bottom: 70px;
+}
+.login-wrap .join-guide.PC p.txt {
+    margin-top: 20px;
+}
+.login-wrap .join-guide.PC.phone {
+    border-top: 0;
+    text-align: left;
+    padding-left: 20px;
+    margin-top: 32px;
+}
+.login-wrap .join-guide.PC.phone p.txt {
+    padding-left: 0;
+}
+.login-wrap .join-guide .links {
+    overflow: hidden;
+    text-align: center;
+}
+.login-wrap .join-guide .links li {
+    position: relative;
+    display: inline-block;
+    padding: 0 4px 0 8px;
+}
+.login-wrap .join-guide .links li a {
+    color: #666;
+}
+.login-wrap .join-guide .links li:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -6px;
+    width: 1px;
+    height: 9px;
+    background-color: #ccc;
+    font-size: 0;
+}
+.login-wrap .join-guide .links li:first-child {
+    padding-left: 4px;
+}
+.login-wrap .join-guide .links li:first-child:before {
+    display: none;
+}
+.login-wrap .join-guide .links.PC {
+    width: 160px;
+    margin-left: 250px;
+}
+.login-wrap .join-guide .links li a.fs-13 {
+    font-size: 13px;
+    font-weight: bold;
+    height: 16px;
+}
+.login-wrap .join-guide .links li a.fs-13:hover {
+    text-decoration: none;
+}
+.login-wrap .join-guide .txt {
+    margin-top: 70px;
+    font-size: 13px;
+    text-align: center;
+    color: #888;
+    line-height: 24px;
+}
+.login-wrap .join-guide .btn-strong,
+.login-wrap .join-guide .btn-normal {
+    margin-top: 10px;
+}
+.login-wrap .join-guide .btn {
+    display: inline-block;
+    min-width: 196px;
+    height: 34px;
+    margin: 25px auto 0;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+    line-height: 34px;
+    box-sizing: border-box;
+}
+.login-wrap .join-guide .btn.ty1 {
+    border-color: #555;
+}
+.login-wrap .join-guide .log-in {
+    overflow: hidden;
+}
+.login-wrap .join-guide .log-in li {
+    position: relative;
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    border-left: 1px solid #ddd;
+    border-width: 0 0 0 1px;
+}
+.login-wrap .join-guide .log-in li:first-child {
+    border: 0;
+}
+.login-wrap .join-guide .log-in a.btn {
+    display: block;
+    min-width: auto;
+    margin-top: 0;
+    height: 60px;
+    border: 0;
+}
+.login-wrap .join-guide .log-in a.btn span {
+    display: block;
+}
+.login-wrap .join-notice {
+    position: relative;
+    margin: 16px 0 0 15px;
+    padding-left: 16px;
+    font-size: 13px;
+    color: #888;
+    line-height: 17px; /*margin-bottom: 117px;*/
+}
+.login-wrap .join-notice:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background: url(../img/login_img/icons2.png) no-repeat -20px -60px;
+    background-size: 200px auto;
+    vertical-align: middle;
+}
+.login-wrap .login-top-txt {
+    margin-top: 30px;
+    padding-bottom: 6px;
+    font-size: 13px;
+    color: #888;
+}
+.login-wrap.tab-phone .join-guide .txt {
+    margin-top: 65px;
+}
+.login-wrap.tab-phone .join-guide + .join-guide .txt {
+    margin-top: 50px;
+}
+.login-wrap.tab-phone .btn-strong {
+    width: 230px;
+    height: 46px;
+    font-size: 15px;
+    line-height: 46px;
+    border-color: #ddd;
+    color: #555;
+}
+.login-wrap.tab-phone .link-btn {
+    margin-top: 35px;
+}
+.login-wrap.PC {
+    width: 400px;
+    margin: 5px 15px 30px;
+}
+.login-wrap.PC.tab-phone {
+    margin-bottom: 46px;
+}
+
+/* 2022-03-02 : 수정 */
+.login-wrap .link-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+.login-wrap .link-btn .btn {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 46px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    line-height: 46px;
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+}
+/* //2022-03-02 : 수정 */
+
+.captcha {
+    margin-top: 15px;
+}
+.captcha.voice {
+    display: none;
+} /* 2018-01-25 : 추가 */
+.captcha .both {
+    position: relative;
+}
+.captcha .img {
+    width: 63%;
+    border: 1px solid #c5c5c5;
+}
+.captcha .img img {
+    width: 100%;
+}
+.captcha .func {
+    position: absolute;
+    left: 63%;
+    bottom: -4px;
+    margin-left: 12px;
+}
+/* S: 2018-01-25 : 수정 */
+.captcha .func .sound,
+.captcha .func .image,
+.captcha .func .refresh {
+    margin-top: 10px;
+}
+.captcha .func .sound button,
+.captcha .func .image button,
+.captcha .func .refresh button {
+    position: relative;
+    height: 24px;
+    font-size: 12px;
+    color: #888;
+    padding-left: 27px;
+}
+/* E: 2018-01-25 : 수정 */
+.captcha .func .sound.first,
+.captcha .func .refresh {
+    text-align: left;
+} /* 2018-01-25 : 추가 */
+.captcha .func .refresh button {
+}
+.captcha .func .sound button:before,
+.captcha .func .image button:before, /* 2018-01-25 : 추가 */
+.captcha .func .refresh button:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 21px;
+    height: 20px;
+    margin-top: -10px;
+    background: url(../img/login_img/icons2.png) no-repeat -98px -52px;
+    background-size: 200px auto;
+}
+.captcha .func .refresh button:before {
+    background-position-x: -125px;
+}
+.captcha ul.list-field .inp-captcha {
+    position: relative;
+}
+.captcha ul.list-field .inp-captcha label,
+.captcha ul.list-field .inp-captcha input {
+    padding-left: 31px;
+}
+.captcha ul.list-field .inp-captcha .col:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    width: 15px;
+    height: 16px;
+    margin-top: -8px;
+    background: url(../img/login_img/icons2.png) no-repeat -148px -52px;
+    background-size: 200px auto;
+}
+@media only screen and (max-width: 340px) {
+    .captcha .img {
+        width: 54%;
+    }
+    .captcha .func {
+        left: 54%;
+    }
+}
+
+.list-bar {
+    overflow: hidden;
+    margin-top: 20px;
+    text-align: center;
+}
+.list-bar.local {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+} /* 2019-06-11 : 추가 */
+.list-bar li {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+.list-bar li:first-child {
+    padding-right: 15px;
+}
+.list-bar li a {
+    color: #666;
+}
+.list-bar li:before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -6px;
+    width: 1px;
+    height: 9px;
+    background-color: #ccc;
+    font-size: 0;
+}
+.list-bar li:first-child:before {
+    display: none;
+}
+
+/* 2018-02-14 : 추가  */
+/* MHC 정보 불일치 팝업 */
+.pop-wrap .list-options.pop-form {
+    padding-bottom: 0;
+}
+.pop-wrap .list-options.pop-form .line-ty1 label {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+/* //2018-02-14 : 추가  */
+
+/* 2022-06-22 : 수정 */
+/* gateway */
+.gateway-wrap {
+    padding-bottom: 30px;
+}
+.gateway-wrap .logo {
+    margin-top: 50px;
+    display: inline-block;
+    width: 89px;
+    height: 15px;
+    background: url(../img/login_img/logo_red.png) no-repeat;
+    background-size: auto 15px;
+    font-size: 0;
+    color: transparent;
+}
+.gateway-wrap .title {
+    margin-top: 18px;
+    font-size: 40px;
+    color: #111;
+}
+.gateway-wrap .txtbox1 .tit {
+    display: block;
+    padding: 30px 0 0;
+    font-size: 16px;
+    line-height: 1.13;
+    font-weight: bold;
+    color: #111;
+    letter-spacing: -0.24px;
+}
+.gateway-wrap .link1 {
+    margin-top: 30px;
+}
+.gateway-wrap .link1,
+.gateway-wrap .link2 .txt {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.31;
+    letter-spacing: -0.2px;
+}
+.gateway-wrap .link1 .btn {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    background-color: #df0011;
+    line-height: 50px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+.gateway-wrap .link2 .btn,
+.gateway-wrap .link2 .btn-logo-ty1 {
+    flex: 1 1 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 50px; /* 20220624 : 40 > 50 변경 */
+    background-color: #fff;
+    line-height: 50px; /* 20220624 : 40 > 50 변경 */
+    font-size: 16px; /* 20220624 : 수정 */
+    text-align: center;
+}
+.gateway-wrap .link2 {
+    margin-top: 40px; /* 20220624 : 수정 */
+}
+.gateway-wrap .link2 .btn {
+    border: 1px solid #df0011;
+    color: #df0011;
+}
+.gateway-wrap .link2 .btn-logo-ty1 {
+    margin: 0 0 0 10px;
+    border: 1px solid #ddd;
+    color: #555;
+}
+.gateway-wrap .list-info1 {
+    padding-top: 12px;
+}
+.gateway-wrap .list-info1 li {
+    color: #888;
+}
+/* // 2022-06-22 : 수정 */
+
+/* 멤버십 카드발급 */
+.shinhan-myhomeplus .top-tit {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 66px;
+}
+.frame-shinhan {
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding-top: 110px;
+}
+
+/* 2020-09-16 : 추가 */
+.frame-terms {
+    padding: 0 6px;
+    font-size: 0;
+}
+.frame-terms h1 {
+    padding: 20px 10px 3px;
+    font-size: 16px;
+    color: #111;
+    font-weight: bold;
+}
+.frame-terms iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 602px;
+}
+.frame-terms.privacy {
+    padding: 0 16px;
+}
+.frame-terms.privacy h1 {
+    padding: 20px 0 10px;
+}
+/* //2020-09-16 : 추가 */
+
+/* 로그인 */
+.login-wrap .api-wrap {
+    position: relative;
+    margin-top: 20px;
+}
+.login-wrap .api-wrap .num-txt-api {
+    width: 238px;
+    height: 78px;
+    border: 1px solid #c5c5c5;
+    margin-top: 10px;
+    text-align: center;
+}
+.login-wrap .api-wrap .img-reload {
+    position: absolute;
+    left: 250px;
+    top: 0;
+}
+.login-wrap .api-wrap .num-txt {
+    position: absolute;
+    left: 250px;
+    bottom: 0;
+}
+.login-wrap .api-wrap .ipt-num-txt {
+    border: 1px solid #ddd;
+    width: 150px;
+    color: #999;
+    font-size: 14px;
+}
+
+.api-wrap .ipt {
+    padding-top: 12px;
+    display: block;
+    vertical-align: top;
+}
+
+.pop-wrap h1 {
+    height: 36px;
+    background: #df0011
+    /*url("/images/mart/popup/pop-logo.png") 100% 0 no-repeat*/;
+    font-size: 18px;
+    color: #fff;
+    padding: 11px 0 0 31px;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+.fs-16 {
+    font-size: 16px;
+} /* 2017-12-14 : add */
+.fc-2 {
+    color: #222;
+}
+.w430 {
+    width: 430px;
+    margin: 0 auto;
+}
+.w497 {
+    width: 497px;
+    margin: 0 auto;
+}
+.l-h36 {
+    line-height: 36px !important;
+}
+.b-t111 {
+    border-top: 1px solid #111 !important;
+}
+.b-b0 {
+    border-bottom: 0 !important;
+}
+.b-t0 {
+    border-top: 0 !important;
+}
+.m-t9 {
+    margin-top: 9px !important;
+}
+.m-b9 {
+    margin-bottom: 9px !important;
+}
+.p-b6 {
+    padding-bottom: 6px !important;
+}
+.mt25 {
+    margin-top: 25px !important;
+}
+.mt30 {
+    margin-top: 30px !important;
+}
+.abs-aB {
+    position: absolute;
+    left: 50%;
+    margin-left: -100px !important;
+    bottom: 25px;
+}
+.bg-fff {
+    background-color: #fff;
+}
+/* E: 2017-11-07 : add */
+
+/* IOS */
+.ios .join2 input[type="text"],
+.ios .join2 input[type="tel"],
+.ios .join2 input[type="number"],
+.ios .join2 input[type="password"],
+.ios .join2 input[type="file"],
+.ios .join2 textarea {
+    color: rgb(255, 0, 0);
+    text-shadow: none;
+    -webkit-text-fill-color: #111;
+}
+
+/* PC */
+html,
+body {
+    height: 100%;
+    background-color: #ffff;
+}
+#ui-wrap {
+    position: relative;
+    width: 480px;
+    min-height: 720px;
+    margin: 0 auto 40px;
+    border: 2px solid #ddd;
+    background-color: #fff;
+}
+#ui-header {
+    margin: 0 -1px; /*border-bottom:1px solid #ddd;*/
+    background-color: #f4f4f4;
+    width: 100%;
+}
+#ui-header .tit-page.type-fixed {
+    position: static;
+    border-bottom: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+#ui-header .back,
+#ui-header .home {
+    display: none;
+}
+#ui-header {
+    height: 120px;
+}
+#ui-header h1,
+#ui-header h1.hide {
+    display: block;
+    padding-top: 48px;
+    padding-bottom: 10px;
+}
+#ui-header h1 a {
+    display: inline-block;
+    width: 186px;
+    height: 37px;
+    background: url(../img/login_img/logo_red.png) no-repeat;
+    background-size: auto;
+    font-size: 0;
+    color: transparent;
+} /* 2018-06-21 : 수정  : 넓이,높이 수정*/
+#ui-header h2,
+#ui-header ul {
+    display: none;
+}
+#ui-wrap .btn-fixed-bottom .btns {
+    width: 480px;
+}
+#ui-wrap .join2.btn-fixed-bottom-on .btns {
+    position: absolute;
+    left: 50%;
+    margin-left: -240px;
+}
+#ui-wrap .btn-ty3 {
+    min-width: 76px;
+    padding: 3px 2px;
+    width: 109px;
+    height: 34px;
+    border-color: #ddd;
+    font-size: 13px;
+} /* 2017-11-07 : mod*/
+legend {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+    padding: 0;
+}
+
+/* 2022-03-02 로그인 배너 추가 */
+.banner-box {
+    margin: 70px 0 0;
+}
+.banner-box .img img {
+    width: 100%;
+}
+
+/* 2022-03-02 gateway 추가 */
+.gateway-wrap .benefitbox {
+    padding: 20px 0 0;
+}
+.gateway-wrap .benefitbox img {
+    width: 100%;
+}
+.gateway-wrap .link1 p {
+    letter-spacing: -0.2px;
+}
+.gateway-wrap .link1 p::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url(../images/ico-warning.png) 50% 50% no-repeat;
+    background-size: 14px 14px;
+    vertical-align: -3px;
+}
+.gateway-wrap .link2 .btnbox {
+    display: flex;
+    justify-content: space-between;
+    margin: 26px 0 0;
+}
+.gateway-wrap .link2 .txtbox1 {
+    /* margin: 40px 0 0; */ /* 20220624 : 제거 */
+    border-top: 1px solid #ddd;
+}
+.gateway-wrap .link2 .txtbox1 .tit {
+    padding: 40px 0 0;
+}
+.gateway-wrap .link2 .txtbox1 .txt {
+    display: inline-block;
+    padding: 8px 0 0;
+}
+.gateway-wrap .link2 .btn-link {
+    display: block;
+}
+.gateway-wrap .link2 .btn-link img {
+    width: 100%;
+}
+
+/* 2022-03-02 가입완료 추가 */
+.join-finish.case2 {
+    padding-bottom: 30px;
+}
+.join-finish.case2 .top-msg {
+    margin: 40px 0 30px;
+    padding: 0;
+}
+.join-finish.case2 .top-msg .txt1 {
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.7px;
+}
+.join-finish.case2 .top-msg .txt2 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #888;
+    line-height: 1.5;
+    letter-spacing: -0.4px;
+}
+.join-finish.case2 .join-benefit img {
+    width: 100%;
+}
+.join-finish.case2 .field-box .wrap {
+    padding: 0 0 15px;
+}
+.join-finish.case2 .field-box .wrap .list-info1 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
+}
+.join-finish.case2 .field-box .wrap .list-info1 li {
+    width: 50%;
+    margin: 20px 0 0;
+    padding-left: 26px;
+    box-sizing: border-box;
+    line-height: 1.2;
+}
+.join-finish.case2 .field-box .wrap .list-info1 li::before {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0 10px 0 0;
+    vertical-align: 3px;
+}
+
+/* 20220707 통합회원가입 2차 로그인 UI변경 */
+.join2.type{
+    margin: 0;
+}
+.join2.type .login-wrap.PC{
+    margin: 5px auto 30px;
+}
+.join2.type .tab-ty2{
+    width:480px;
+    /* margin:0;  */
+}
+.join2.type .tab-ty2 li a{
+    height: 70px;
+    font-size: 18px;
+    line-height: 70px;
+    background: #fff;
+    border-left: none;
+}
+.join2.type .tab-ty2 li.on a{
+    border-bottom: 2px solid #333;
+    color: #333;
+}
+.join2.type a:hover{
+    text-decoration: none;
+}
+.join2.type ul.list-field{
+    margin-top: 36px;
+    margin-bottom: 0;
+}
+.join2.type .login-wrap .join-guide{
+    margin: 16px 0 0;
+}
+.join2.type .login-wrap .join-guide .links.PC{
+    width: inherit;
+    text-align: right;
+    margin: 0;
+}
+.join2.type .login-wrap .join-guide .links li a.fs-13{
+    font-size: 14px;
+    font-weight: normal;
+    color: #999;
+}
+.join2.type .login-wrap .btn-login{
+    margin-top: 20px;
+}
+.join2.type ul.list-field li.birth .col{
+    width: 100%;
+}
+.join2.type .login-wrap .join-guide .log-in{
+    display: table;
+    width: 100%;
+}
+.join2.type .login-wrap .join-guide .log-in li{
+    display: table-cell;
+    width: initial;
+    float: initial;
+}
+.join2.type .btn-ty4{
+    width: 94px;
+    position: absolute;
+    top: 3px;
+    right: 0;
+    border-radius: 2px;
+    border: 1px solid #333;
+    padding: 0 10px;
+    line-height: 28px;
+    color: #333;
+}
+.join2.type ul.list-field li .col:before{
+    display: none;
+}
+.join2.type input[type="text"],
+.join2.type input[type="tel"],
+.join2.type input[type="number"],
+.join2.type input[type="password"],
+.join2.type input[type="file"],
+.join2.type textarea, .join2 select,
+.join2.type ul.list-field li .col:first-of-type label,
+.join2.type  ul.list-field li .col label,
+.join2.type ul.list-field li.phone-number .col.c-1{
+    padding-left: 0;
+}
+.join2.type .btn i.icon_kakao{
+    display: inline-block;  
+    width: 32px;
+    height: 32px;
+    background: url(../img/icon_kakao.png) no-repeat 0 0;
+    background-size: 100% auto;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.join2.type .btn i.icon_naver{
+    display: inline-block;
+    width: 32px;
+    height: 32px; 
+    background: url(../img/icon_naver.png) no-repeat 0 0;
+ 	background-size: 100% auto;
+}
+.join2.type .btn i.icon_phone{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url(../images/icn_phone.png) no-repeat 0 0;
+    background-size: 100% auto;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+.join2.type .login-wrap .join-guide .log-in a.btn span{
+    display: block;
+    font-size: 16px;
+    color: #666;
+}
+.join2.type .list-bar li a{
+    color: #555;
+}
+.join2.type ul.list-field .ps {
+    clear: both;
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: #df0011;
+    letter-spacing: -0.03em;
+}
+.join2.type ul.list-field .ps strong{
+    display: block;
+}
+.join2.type .captcha ul.list-field .inp-captcha label,
+.join2.type .captcha ul.list-field .inp-captcha input{
+    padding-left: 0;
+}
+.join2.type .join-finish .top-msg{
+    margin-top: 212px;
+    margin-bottom: 25px;
+    padding: 0;
+    text-align: center;
+}
+.join2.type .join-finish .top-msg .txt1{
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.46;
+    letter-spacing: -0.39px;
+    color: #111;
+}
+.join2.type .join-finish .top-msg .txt1 span{
+    color: #df0011;
+}
+.join2.type .join-finish .top-msg .txt2{
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.24px;
+    color:#888888;
+}
+.join2.type .btn-fixed-bottom a,
+.join2.type .btn-fixed-bottom.n-2 a{
+    font-size: 18px;
+}
+/* //20220707 통합회원가입 2차 로그인 UI변경 */
+
+/* 20230125 아이디 저장, 자동 로그인 퍼블 요청 */
+.join2.type .login-wrap .join-guide.join-bottom{
+    position: absolute;
+    min-width: 400px;
+    bottom: 40px;
+    margin: 0;
+}
+.join2.type .login-wrap .join-guide.join-bottom .link-btn,
+.join2.type .login-wrap .join-guide.join-bottom .link-btn .btn{
+    margin: 0;
+}
+.join2.type .join-guide .links li:nth-child(2)::before{
+    display: none;
+}
+.login-wrap .join-guide .links{
+    overflow: visible;
+}
+.join2.type .join-guide .links .fL span{
+    top: -2px;
+    display: inline-block;
+}
+.join2.type .join-guide .links .fL label{
+    padding-left:6px;
+}
+.join2.type .join-guide .links .fL input{
+    width: 105px;
+}
+.join2.type .join-guide .links .fL input,
+.join2.type .join-guide .links .fL label{
+    cursor: pointer;
+}
+.join-guide.type{
+    padding-bottom: 39px;
+}
+.id-s{
+    display: none;
+    width: 100%;
+    height: 39px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #333;
+}
+.id-s span{
+    position: absolute;
+    top: 16px;
+    left: 13px;
+    letter-spacing: -0.3px;
+}
+.id-s::before{
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 281px;
+    height: 39px;
+    background: url(../img/login_img/tool-tip.png) no-repeat 0 0;
+}
+.id-s em{
+    color: #df0011;
+}
+.id-s.active{
+    display: block;
+}
+/* // 20230125 아이디 저장, 자동 로그인 퍼블 요청 */
