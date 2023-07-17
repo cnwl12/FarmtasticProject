@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-    </footer>
+    </footer> 
     <!-- Footer Section End -->
 
 
