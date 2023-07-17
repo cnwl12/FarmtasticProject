@@ -23,21 +23,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("blog 매핑확인여부");
 		
-		return "/member/blog";
+		return "/member/blog"; 
 	}
-	
+	 
 	@RequestMapping(value = "/blogDetails", method = RequestMethod.GET)
 	public String blogDetails(Locale locale, Model model) {
 		
 		System.out.println("blogDetails 매핑확인여부");
 		return "/member/blogDetails";
-	}
+	} 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 		
 		System.out.println("login 매핑확인여부");
-		
+		 
 		return "/member/login";
 	}
 	

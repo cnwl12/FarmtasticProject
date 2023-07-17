@@ -75,7 +75,7 @@
                             <li><a href="farmStore">팜팜마켓</a></li>
                             <li><a href="#">기획전</a> </li>
                             <li><a href="blog">제철팜</a></li>
-                            <li><a href="mypage">마이페이지</a></li>
+                            <!-- <li><a href="mypage">마이페이지</a></li> -->
                             <li class="active"><a href="contact">고객센터</a></li>
                         </ul>
                     </nav>
@@ -83,7 +83,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="mypage"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
 	                        <div class="header__top__right__auth">
@@ -96,7 +96,7 @@
                                 </ul> -->
 	                     	</div>      
                     </div>
-                </div>
+                </div> 
               </div>
           </div>
             <div class="humberger__open">

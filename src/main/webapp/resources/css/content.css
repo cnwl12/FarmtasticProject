@@ -3398,11 +3398,11 @@ legend {
     border-left: none;
 }
 .join2.type .tab-ty2 li.on a{
-    border-bottom: 2px solid #333;
+    border-bottom: 1px solid #ddd;
     color: #333;
 }
 .join2.type a:hover{
-    text-decoration: none;
+    text-decoration: none; 
 }
 .join2.type ul.list-field{
     margin-top: 36px;
