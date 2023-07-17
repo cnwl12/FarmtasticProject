@@ -108,7 +108,7 @@
                         <div class="hero__search__form">
                             <form action="#">
                                 <div class="hero__search__categories">
-                                    모든 카테고리
+                                    모든 카테고리 
                                     <span class="arrow_carrot-down"></span>
                                 </div>
                                 <input type="text" placeholder="지민이네 당근은 어떠세요?">
@@ -593,7 +593,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </section>
     <!-- Blog Section End -->

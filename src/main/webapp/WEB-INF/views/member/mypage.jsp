@@ -34,37 +34,126 @@
 				</ul>
 			 </div>
 		</div>		
-	</div>  			
+	  			
 			<div id="main_cont">
 				<form>
 					<div class="myoption">
-						<h4>나의 설정</h4>					
+						<h4>나의 설정</h4>			
+						<!-- <h5 class="list1">회원정보 설정</h5>		 -->
 					<table class="myg_tab">
-						<caption>나의설정 메뉴 탭</caption>
 						<tbody>
 						<tr>
 							<td class="on" style="width:50%;">
-							<a class="first short" href="MemberInfo"><span>회원정보 설정</span></a>
+							<a class="first short" href="MemberInfo">
+								<span>회원정보 설정</span></a>
 							</td>			
-			
 						</tr>
 						</tbody>
 					</table>
-					<h5 class="list1">회원정보 설정</h5>
-					
-					
+					 <!-- <h5 class="list1">회원정보 설정</h5> -->
+					<div class="my_info_setting">
+						<a class="member_quit btn_s_gray10" id="CustomerWithdraw">
+							<span>회원탈퇴</span> 
+						 </a> 
+					<table class="myinfo">
+						<colgroup>
+						<col style="width:17%; ">
+						<col>
+						</colgroup>
+						<tbody> 
+						<!-- 	id, name, type 등 작업하면서 수정해야함 -->
+						<input type="hidden" name="hidLoginUserId" id="hidLoginUserId" value="farmtastic">
+						<tr>
+							<th scope="row"><label for="name">이름</label></th>
+							   
+							<td>
+							<div id="CustNAShow" class="nameCell" style="display:inline">
+							팜**틱
+							</div>
+							</td>
+						</tr>
+						<tr>
+						<th scope="row">사용자ID</th>
+						<td>farmtas***</td>
+					</tr>
+						<tr style="visibility:visible; ">
+	<th scope="row">비밀번호</th> 
+	<td id="PasswordEdit" class="PwdEdit" style="display:block;">
+		<ul class="llist-style1">
+			<li>
+				<label for="nowpw"><span class="bg_bul"></span>현재 비밀번호</label>
+				<input type="password" class="txt" id="pwd" name="pwd" size="26" maxlength="15" style="width:195px;">
+				<span class="font_style1">현재 비밀번호를 입력해 주세요</span>
+			</li>
+			<li> 
+				<label for="newpw"><span class="bg_bul"></span>새 비밀번호</label>
+				<input type="password" class="txt" id="pwd1" name="pwd1" size="26" maxlength="15" onkeydown="return keycheck(this.event);" onkeypress="Capskeycheck(this,'Password1');" onkeyup="validatePasswordType(this,'Password1');" onfocus="helpOn('Password1');" onblur="chkBlur(this,'Password1');" style="width:195px;">
+				<!-- 비밀번호 안전등급 -->
+				<span class="font_style1">8~15자의 영문 대/소문자, 숫자 및 특수문자 조합</span>
+			</li>   
+			<li>
+				<label for="new_pw_corfirm"><span class="bg_bul"></span>새 비밀번호 확인</label>
+				<input type="password" class="txt" id="pwd2" name="pwd2" size="26" maxlength="15" onfocus="helpOn('Password2');" onkeyup="helpOff('Password2');" onblur="helpOff('Password2');" style="width:203px;">
+			</li>
+		</ul> 
+	</td>
+	<!-- 비밀번호/G통장 비밀번호 리스트 -->
+	<td id="PasswordQnAEdit" class="PwdQna" style="display:none">	
+		<span class="PassEdit"><a class="btn_acccount btn_s_gray"><span>비밀번호 수정</span></a></span>
+	</td>
+</tr>
+ 
+ <tr>
+ 	<th scope="row"><label>휴대폰번호</label></th>
+ 		<td>
+ 		<input type="text" class="txt" id="hp_no1" name="hp_no1" size="4" maxlength="4" value="" title="휴대폰 첫자리">
+ 		<span>-</span>
+ 		<input type="text" class="txt" id="hp_no2" name="hp_no2" size="4" maxlength="4" value="" title="휴대폰 가운데 자리">
+ 		<span>-</span>
+ 		<input type="text" class="txt" id="hp_no3" name="hp_no3" size="4" maxlength="4" value="" title="휴대폰 뒷자리" >
+ 		</td>
+  
+  
+ </tr>
+ 
+ 
+<tr style="visibility:visible;">
+	<th scope="row"><label for="email">E-mail</label></th>
+	<td>
+		<!-- 메일 앞부분  -->
+		<input type="text" class="txt" id="e_mail1" name="e_mail1" title="이메일 아이디" value="">
+		@
+		<!-- 주소부분 -->
+		<input class="txt" id="e_mail2" name="e_mail2" title="이메일 도메인" value="n****.com">
+		
+
+		<a style="display:none;" id="EmailChange" class="btn_acccount btn_s_gray"><span>수정하기</span></a>
+		
+		<input type="hidden" name="hdnOldIsRcvMail" id="hdnOldIsRcvMail" value="True">
+		<input type="hidden" name="old_email" id="old_email" value="wjc5510@naver.com">
+		<input type="hidden" name="old_email_pre" id="old_email_pre" value="wjc5***">
+	</td>
+</tr>
+						
+						</tbody>
+					 </table>
+					  </div>
 					</div>
+					 <div class="btn_center">
+						<a class="btn_blue_style2" id="img_submit" name="img_submit"><span style="color: #fff; text-align: center;">수정하기</span></a>
+					</div>	 
 				</form>
 			</div>
 	
+	</div> 
 	
 	
 	
 	
-	
-
+	<%-- <div>
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
+	</div> --%>
 
     <!-- Js Plugins -->
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
