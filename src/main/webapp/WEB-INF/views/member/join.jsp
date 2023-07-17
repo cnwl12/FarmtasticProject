@@ -17,13 +17,13 @@
 	
 	<!-- 지마켓  -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member_join.css" type="text/css">
-
+ 
 </head>
 <body>
 
 <jsp:include page="../top.jsp"></jsp:include>
 
-<div id="container">
+<div id="container"> 
 	<div class="join_wrap">
 		<div id="join_container" role="main">
 			<!-- join_header -->
@@ -42,14 +42,14 @@
 							<ul class="form_list">
 								<li>
 								<input type="text" placeholder="ID를 만들어주세요" name="" id="" maxlength="10">
-								</li>
+								</li>   
 								<li>
 								<input type="password" placeholder="비밀번호 입력" name="" id="" maxlength="15">
-								</li>
-								<li>
+								</li>  
+								<li> 
 								<input type="password" placeholder="위의 비밀번호를 다시 입력해주세요" name="" id="" maxlength="15">
 								</li>
-								<li>
+								<li>   
 								<input type="text" placeholder="이름" name="" id="" maxlength="10">
 								</li>
 							  	<li>
@@ -65,8 +65,8 @@
 								<a href="#" id="next" class="bg_area btn_bg l1 md"><span>확인</span></a>
 							</div>
 							
-						</fieldset>
-					</form>
+						</fieldset>  
+					</form> 
 				</div>
 			</div>
 		</div> 

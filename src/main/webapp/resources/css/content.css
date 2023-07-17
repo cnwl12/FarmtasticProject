@@ -1452,8 +1452,8 @@ ul.list-field li .col input[type="number"],
 ul.list-field li .col input[type="password"] {
     color: #df0011;
     color:/*＼**/ #222;
-    text-shadow: 0px 0px 0px #111;
-    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 0px 0px 0px;
+   /*  -webkit-text-fill-color: transparent; */
 } /* 2018-08-29 : 수정(ie8 컬러) */
 _:-ms-fullscreen,
 :root ul.list-field li .col input {
@@ -3199,7 +3199,7 @@ ul.list-field .btn-ty3 {
 .ios .join2 textarea {
     color: rgb(255, 0, 0);
     text-shadow: none;
-    -webkit-text-fill-color: #111;
+  /*   -webkit-text-fill-color: #111; */
 }
 
 /* PC */

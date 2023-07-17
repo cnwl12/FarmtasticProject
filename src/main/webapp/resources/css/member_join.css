@@ -21,7 +21,7 @@
 }
 
 .join_wrap {
-    padding: 65px 0 200px 0;
+    padding: 0px 0px 200px 72px;
     min-height: 380px;
     background: #ffff;
     margin-bottom: -20px;
@@ -103,7 +103,7 @@ a.bg_area, span.bg_area {
 
 /* btn */
 .btn_bg {
-    background: url(//pics.gmarket.co.kr/pc/ko/member/join/sprite_btn.png) no-repeat right 0;
+    background: #7fad39;
     min-width: 115px;
     margin-left: 5px;
     padding-right: 15px
@@ -119,7 +119,7 @@ a.btn_bg {
 }
 
 a.btn_bg>span {
-    background: url(//pics.gmarket.co.kr/pc/ko/member/join/sprite_btn.png) no-repeat 0 0;
+    background: #7fad39;
     padding-left: 15px;
     display: block;
     color: #fff
@@ -408,9 +408,13 @@ a.quest {
 }
 
 .form input[type="password"] {
-    font-size: 12px !important;
-    letter-spacing: 1px;
-    -webkit-text-stroke-width:1px;
+     height: 14px;
+    padding: 20px 30px;
+    border: 0;
+    background: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000
 }
 
 /* checkbox */
@@ -713,8 +717,10 @@ a.quest {
     margin-bottom: 20px;
     background: #fff;
     border: 1px solid #999;
+        width: 750px;
     *position: relative;
-    *overflow: hidden
+    *overflow: hidden;
+    
 }
 
 .form ul.form_list > li {
@@ -1077,7 +1083,6 @@ a.quest {
 #join_container .join_header {
     clear: both;
     height: 45px;
-    margin-bottom: 28px
 }
 
 #join_container .join_header h2 {

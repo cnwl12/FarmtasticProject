@@ -21,7 +21,7 @@
     display: contents;
 } 
 
-#main_menu .bg_menu_else {
+#main_menu  {
     background: url(//pics.gmarket.co.kr/pc/ko/myg/img_myg.png) no-repeat -160px -50px;
     left: 149px;
     top: -1px;
@@ -37,6 +37,9 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     float: left;   
+      text-align: center;
+    width: 230px;
+
 }
 
 ul, ol, li, dl, dt, dd {
@@ -103,7 +106,7 @@ table.myg_tab td a {
 .btn_blue_style2 {
     background: #7fad39 no-repeat right 0px;
     height: 31px;
-    padding-right: 46px;
+    padding: 0 20px;
     display: inline-block;
 }
 
@@ -113,8 +116,8 @@ table.myg_tab td a {
 }
 
 #main_cont {
-    padding: 15px 0px 10px 40px;
-    width: 820px;
+    padding: 0px 0px 10px 220px;
+    width: 980px;
     float: left;
     min-height: 650px;
 }

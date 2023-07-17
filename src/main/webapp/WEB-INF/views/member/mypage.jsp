@@ -22,39 +22,31 @@
 <body>
 	<jsp:include page="../top.jsp"></jsp:include>
 	
-	<div id="contentswrap"> 
+	<div id="contentswrap">   
 		<div id="contents">
-			<div id="main_menu">
-				<span class="bg_menu_else"></span>
+			 <div id="main_menu">
 				<ul class="menu_list">
 					<li id="menu1"><a href="#" class="mn1">나의정보</a></li>
 					<li id="menu2"><a href="#" class="mn2">주문내역</a></li>
 					<li id="menu3"><a href="#" class="mn3">적립금/확인</a></li>
 					<li id="menu4"><a href="#" class="mn4">어쩌고...</a></li>
 				</ul>
-			 </div>
+			 </div> 
 		</div>		
 	  			
 			<div id="main_cont">
 				<form>
 					<div class="myoption">
-						<h4>나의 설정</h4>			
+						<h4>나의 정보</h4>			
 						<!-- <h5 class="list1">회원정보 설정</h5>		 -->
 					<table class="myg_tab">
 						<tbody>
 						<tr>
-							<td class="on" style="width:50%;">
-							<a class="first short" href="MemberInfo">
-								<span>회원정보 설정</span></a>
-							</td>			
 						</tr>
 						</tbody>
 					</table>
 					 <!-- <h5 class="list1">회원정보 설정</h5> -->
 					<div class="my_info_setting">
-						<a class="member_quit btn_s_gray10" id="CustomerWithdraw">
-							<span>회원탈퇴</span> 
-						 </a> 
 					<table class="myinfo">
 						<colgroup>
 						<col style="width:17%; ">
@@ -140,7 +132,8 @@
 					  </div>
 					</div>
 					 <div class="btn_center">
-						<a class="btn_blue_style2" id="img_submit" name="img_submit"><span style="color: #fff; text-align: center;">수정하기</span></a>
+						<a class="btn_blue_style2" id="img_submit" name="img_submit">
+						<span style="color: #fff; text-align: center;">수정하기</span></a>
 					</div>	 
 				</form>
 			</div>
