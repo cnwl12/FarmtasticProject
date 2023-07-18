@@ -60,7 +60,7 @@
 								</li>
 							</ul>
 							
-							<div class="btn_zone">
+							<div class="btn_zone"df>
 								<a href="#" id="" class="bg_area btn_bg l2"><span>처음으로</span></a>
 								<a href="#" id="next" class="bg_area btn_bg l1 md"><span>확인</span></a>
 							</div>
