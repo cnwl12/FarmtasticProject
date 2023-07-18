@@ -22,7 +22,7 @@ public class MainController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -33,15 +33,28 @@ public class MainController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/seller/main";
+		return "/seller/sellerMain";
 	}
 	
 	@RequestMapping(value = "/tables", method = RequestMethod.GET)
-	public String index(Locale locale, Model model) {
+	public String tables(Locale locale, Model model) {
 		
 		System.out.println("tables 매핑확인여부");
 		
-		return "tables";
+		return "/seller/tables";
 	}
-	
+	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
+	public String sellerMemb(Locale locale, Model model) {
+		
+		System.out.println("sellerMemb 매핑확인여부");
+		
+		return "/seller/sellerMemb";
+	}
+	@RequestMapping(value = "/membAdmin", method = RequestMethod.GET)
+	public String membAdmin(Locale locale, Model model) {
+		
+		System.out.println("membAdmin 매핑확인여부");
+		
+		return "/seller/membAdmin";
+	}
 }
