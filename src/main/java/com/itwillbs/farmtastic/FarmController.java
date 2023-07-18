@@ -54,7 +54,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("join 매핑확인여부");
 		
-		return "/member/join";
+		return "/member/join"; 
 	}
 	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
