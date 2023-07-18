@@ -29,7 +29,7 @@
 			<!-- join_header -->
 			<div class="join_header">
 				<h2>회원가입</h2>
-			</div>
+			</div> 
 			<!-- // join_header -->
 			<div class="join_content">  
 				<div class="form">
