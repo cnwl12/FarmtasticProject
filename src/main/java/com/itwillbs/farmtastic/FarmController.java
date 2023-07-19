@@ -41,6 +41,22 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/login";
 	}
 	
+	@RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
+	public String naverlogin(Locale locale, Model model) {
+		
+		System.out.println("naverlogin 매핑확인여부");
+		 
+		return "/member/naverlogin";
+	}
+	
+	@RequestMapping(value = "/navercallback", method = RequestMethod.GET)
+	public String navercallback(Locale locale, Model model) {
+		
+		System.out.println("navercallback 매핑확인여부");
+		 
+		return "/member/navercallback";
+	}
+	
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
 	public String kakaologin(Locale locale, Model model) {
 		
