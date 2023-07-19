@@ -30,4 +30,25 @@ public class AdminController {
 		return "/admin/adminMain";
 	}
 	
+	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
+	public String cnotice(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/cnotice";
+	}
+	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
+	public String customerAdmin(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/customerAdmin";
+	}
+	@RequestMapping(value = "/customerLev", method = RequestMethod.GET)
+	public String customerLev(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/customerLev";
+	}
 }
