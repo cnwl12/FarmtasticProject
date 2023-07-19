@@ -96,7 +96,7 @@
 							<!-- 간편로그인 -->
 							<div class="join-guide">
 								<ul class="log-in">     	
-												<li><a href="javascript:void(0)" onclick="javascript:fn_pageOpen(4); return false;" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
+												<li><a href="naverlogin" onclick="naverlogin;" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
 												<li><a id="custom-login-btn" href="kakaologin" onclick="kakaologin";  class="btn"><i class="icon_kakao"></i><span>카카오 로그인</span></a></li>
 												
 								</ul>

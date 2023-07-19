@@ -1,0 +1,54 @@
+package com.itwillbs.adminController;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class AdminController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		
+		System.out.println("adminMain 매핑확인여부");
+		
+		return "/admin/adminMain";
+	}
+	
+	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
+	public String cnotice(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/cnotice";
+	}
+	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
+	public String customerAdmin(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/customerAdmin";
+	}
+	@RequestMapping(value = "/customerLev", method = RequestMethod.GET)
+	public String customerLev(Locale locale, Model model) {
+		
+		System.out.println("cnotice 매핑확인여부");
+		
+		return "/admin/customerMenu/customerLev";
+	}
+}
