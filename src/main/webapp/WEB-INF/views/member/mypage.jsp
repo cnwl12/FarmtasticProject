@@ -21,7 +21,7 @@
 </head>
 <body>
 	<jsp:include page="../top.jsp"></jsp:include>
-	
+	      
 	<div id="contentswrap">   
 		<div id="contents"> 
 			 <div id="main_menu">

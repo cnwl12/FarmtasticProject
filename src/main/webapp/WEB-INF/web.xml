@@ -10,6 +10,7 @@
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!--ContextLoaderListener context 파일을 불러서 사용하겠다 (9번줄 /WEB-INF/spring/root-context.xml 불러서)-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -24,12 +25,32 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	
+	<!-- 	http://localhost:8080/myweb/ 가상주소 요청 
+            / 로 시작하는 주소가 요청되어지면 
+            appServlet 연결
+            DispatcherServlet 스프링파일 연결
+            /WEB-INF/spring/appServlet/servlet-context.xml 
+            서블릿(처리담당자)연결-->
+	
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- post방식 request utf-8 한글처리 -->
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
 	
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>
