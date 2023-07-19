@@ -40,6 +40,7 @@
 						</ul>
 						<div class="login-wrap PC tab-phone">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
+							<form class="validation-form" novalidate action="" id="login" name="login" method="post" onsubmit="return false;">
 							<div class="join-info1">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -49,6 +50,10 @@
 											<div class="col">
 												<label for="f-id"></label>
 												<input type="text" name="loginId" id="loginId" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<div id="invalid_id0" class="invalid-feedback">
+                								아이디를 입력해주세요.
+              									</div>
+												
 											</div>
 										</li>
 										<!--비밀번호 -->
@@ -56,12 +61,14 @@
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
 												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd" id="pwd" value="">
+												
+												
 											</div>
 										</li>
 									</ul>
 								</fieldset>
 							</div>
-
+							</form>
 
 							<!-- 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
 							<fieldset>
