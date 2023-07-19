@@ -21,9 +21,9 @@
 </head>
 <body>
 	<jsp:include page="../top.jsp"></jsp:include>
-	
+	      
 	<div id="contentswrap">   
-		<div id="contents">
+		<div id="contents"> 
 			 <div id="main_menu">
 				<ul class="menu_list">
 					<li id="menu1"><a href="#" class="mn1">나의정보</a></li>

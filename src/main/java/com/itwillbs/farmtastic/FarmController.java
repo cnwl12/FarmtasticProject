@@ -143,4 +143,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "redirect:/contact";
 	}
 
+	   
+	
 }

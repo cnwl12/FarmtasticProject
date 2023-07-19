@@ -57,4 +57,12 @@ public class MainController {
 		
 		return "/seller/membAdmin";
 	}
+	
+	@RequestMapping(value = "/itemAdmin", method = RequestMethod.GET)
+	public String itemAdmin(Locale locale, Model model) {
+		
+		System.out.println("itemAdmin 매핑확인여부");
+		
+		return "/seller/itemAdmin";
+	}
 }
