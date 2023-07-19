@@ -17,9 +17,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="sellerMain">
+                <a class="nav-link" href="adminMain">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <span>판매자 메인으로가기</span></a>
+                    <span>관리자 메인으로가기</span></a>
             </li>
 
             <!-- Divider -->
@@ -27,17 +27,21 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                메뉴
+                소비자
             </div>
 
             <!-- Nav Item - Member Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="membAdmin">
+                    <span>공지사항</span></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="membAdmin">
                     <span>회원관리</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="">
-                    <span>매출관리</span></a>
+                    <span>등급관리</span></a>
             </li>
 
          
@@ -46,6 +50,9 @@
            <hr class="sidebar-divider"> -->
 
             <!-- Heading -->
+            <div class="sidebar-heading">
+                판매자
+            </div>
            
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -57,7 +64,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="">상품등록</a>
-                        <a class="collapse-item" href="itemAdmin">상품처리</a>
+                        <a class="collapse-item" href="">상품처리</a>
                     </div>
                 </div>
             </li>
