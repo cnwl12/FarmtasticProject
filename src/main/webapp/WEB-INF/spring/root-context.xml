@@ -4,5 +4,39 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- 디비연동 보통 root-context에서 진행 -->
+	
+	<!-- 디비연결 객체생성  -->
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>		
+			<property name="url" value="jdbc:mysql://itwillbs.com:3306/c2d2303t2?serverTimezone=UTC"></property>
+			<property name="username" value="c2d2303t2"></property>
+			<property name="password" value="1234"></property>
+		</bean>
+		
+	<!-- 마이바티스 설정  -->
+		<!-- https://mybatis.org/mybatis-3/getting-started.html -->
+		<!-- 마이바티스 환경설정 파일 src/main/resources/mybatis-config.xml -->
+		<!-- 마이바티스 sql구문 파일 src/main/resources/mappers 폴더 / 폴더 /memberMapper.xml  -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property> <!-- 객체생성한 참조변수 값 -->
+			<property name="configLocation" value="classpath:/mybatis-config.xml"></property>  <!-- 위치값이라 value -->
+			<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+											<!-- /*(폴더)/memberMapper안에 여러개의 구문이 들어있을거라 *로 / 파일이름은 mapper로 -->	
+		</bean>
+		
+		<!-- 마이바티스 객체생성 -> 디비연동 자원 만들기 -->										<!--destroy-method="clearCache 정리하는 작업 -->
+		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		</bean>
+		
+		<!-- 디비 연결위한 프로그램 설치 : 스프링에서 Maven 프로그램 설정(설치) | Maven 저장소에 프로그램 저장 
+			pom.xml 파일에 사용하고자하는 프로그램 목록 적어놓으면 자동으로  Maven 저장소(https://mvnrepository.com/)에서 다운됨
+			mysql 검색 후 나온 코드를 -> pom.xml 코드 넣기 
+			jdbc 검색
+			mybatis 검색
+			 
+			-->
+	
 		
 </beans>
