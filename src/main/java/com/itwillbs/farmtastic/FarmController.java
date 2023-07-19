@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class FarmController { // 소비자 (컨트롤러) 
-
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		
@@ -112,6 +112,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		return "/member/farmStoreDetail";
 	}
+  
 	
+	
+	   
 	
 }
