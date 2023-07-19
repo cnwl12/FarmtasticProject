@@ -41,12 +41,20 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/login";
 	}
 	
+	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
+	public String kakaologin(Locale locale, Model model) {
+		
+		System.out.println("kakaologin 매핑확인여부");
+		 
+		return "/member/kakaologin";
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 		
 		System.out.println("join 매핑확인여부");
 		
-		return "/member/join";
+		return "/member/join"; 
 	}
 	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)

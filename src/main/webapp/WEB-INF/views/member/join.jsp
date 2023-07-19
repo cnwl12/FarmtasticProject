@@ -46,6 +46,7 @@
 								<div class="invalid-feedback">
                 				아이디를 입력해주세요.
               					</div>
+								<input type="text" placeholder="ID를 만들어주세요" name="" id="" maxlength="10">
 								</li>   
 								
 								<li>
@@ -56,10 +57,7 @@
 								</li>  
 								
 								<li> 
-								<input type="password" placeholder="위의 비밀번호를 다시 입력해주세요" name="pass2" id="pass2" maxlength="15">
-								<div class="invalid-feedback">
-               					비밀번호를 다시 확인해주세요.
-              					</div>
+								<input type="password" placeholder="위의 비밀번호를 다시 입력해주세요" name="" id="" maxlength="15">
 								</li>
 								
 								<li>   
