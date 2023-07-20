@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<!-- 2) @어노테이션 자동으로 동작 -->
-	<!-- 어노테이션 붙여주고, 패키지안에 들어있어야함 -->
-	<annotation-driven />
+   <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+   
+   <!-- Enables the Spring MVC @Controller programming model -->
+   <!-- 2) @어노테이션 자동으로 동작 -->
+   <!-- 어노테이션 붙여주고, 패키지안에 들어있어야함 -->
+   <annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<!-- 3) 이미지, css, js, 업로드 파일 위치 설정 -->
-	<resources mapping="/resources/**" location="/resources/" />
+   <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+   <!-- 3) 이미지, css, js, 업로드 파일 위치 설정 -->
+   <resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<!-- 4) jsp 위치설정 -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-	
-	<!-- 1) com.itwillbs.myweb 패키지 자동으로 스캔 (@어노테이션 찾기)
-	 		com.itwillbs.controller 패키지 자동으로 스캔 추가
-	 		자바폴더(패키지)만들 때 마다 경로 추가 !-->
-	<context:component-scan base-package="com.itwillbs.farmtastic" />
-	<context:component-scan base-package="com.itwillbs.sellerController" />
-	<context:component-scan base-package="com.itwillbs.adminController" />
-	<context:component-scan base-package="com.itwillbs.dao" />
-	<context:component-scan base-package="com.itwillbs.domain" />
-	<context:component-scan base-package="com.itwillbs.service" />
-	
-	
+   <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+   <!-- 4) jsp 위치설정 -->
+   <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <beans:property name="prefix" value="/WEB-INF/views/" />
+      <beans:property name="suffix" value=".jsp" />
+   </beans:bean>
+   
+   <!-- 1) com.itwillbs.myweb 패키지 자동으로 스캔 (@어노테이션 찾기)
+          com.itwillbs.controller 패키지 자동으로 스캔 추가
+          자바폴더(패키지)만들 때 마다 경로 추가 !-->
+   <context:component-scan base-package="com.itwillbs.farmtastic" />
+   <context:component-scan base-package="com.itwillbs.sellerController" />
+   <context:component-scan base-package="com.itwillbs.adminController" />
+   <context:component-scan base-package="com.itwillbs.dao" />
+   <context:component-scan base-package="com.itwillbs.domain" />
+   <context:component-scan base-package="com.itwillbs.service" />
+   
+   
 </beans:beans>
