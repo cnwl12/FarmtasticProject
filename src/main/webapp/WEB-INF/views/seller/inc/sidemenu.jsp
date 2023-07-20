@@ -32,7 +32,7 @@
 
             <!-- Nav Item - Member Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="membAdmin">
+                <a class="nav-link" href="memberMng">
                     <span>회원관리</span></a>
             </li>
             <li class="nav-item">
@@ -56,21 +56,21 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">상품등록</a>
-                        <a class="collapse-item" href="itemAdmin">상품처리</a>
+                        <a class="collapse-item" href="itemRegister">상품등록</a>
+                        <a class="collapse-item" href="itemMng">상품처리</a>
                     </div>
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="reviewMng">
                     <span>리뷰관리</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="settlementList">
                     <span>정산관리</span></a>
             </li>	
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="questionMng">
                     <span>문의관리</span></a>
             </li>	
             <!-- Nav Item - Charts -->
