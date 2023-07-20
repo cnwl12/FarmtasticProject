@@ -5,7 +5,7 @@ public class MemberDTO {
 	private int member_num;
 	private String member_id;
 	private String member_pass;
-	private	String member_name;
+	private	String member_name; 
 	
 	public int getMember_num() {
 		return member_num;
