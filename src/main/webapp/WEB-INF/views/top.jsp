@@ -139,7 +139,10 @@
                                     모든 카테고리
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                              	<input type="text" placeholder="지민이네 당근은 어떠세요?">
+                                <section class="search">
+	                              	<input type="text" id="search" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
+	                              	<div class="autocomplete"></div>
+                              	</section>
                                 <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>
@@ -149,3 +152,4 @@
         </div>
     </section>
     <!-- Hero Section End -->
+    
