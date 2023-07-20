@@ -24,14 +24,7 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		System.out.println("sellerMain 매핑확인여부");
 		
 		return "/seller/sellerMain";
 	}
@@ -50,19 +43,49 @@ public class MainController {
 		
 		return "/seller/sellerMemb";
 	}
-	@RequestMapping(value = "/membAdmin", method = RequestMethod.GET)
-	public String membAdmin(Locale locale, Model model) {
+	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
+	public String memberMng(Locale locale, Model model) {
 		
-		System.out.println("membAdmin 매핑확인여부");
+		System.out.println("memberMng 매핑확인여부");
 		
-		return "/seller/membAdmin";
+		return "/seller/memberMng";
 	}
 	
-	@RequestMapping(value = "/itemAdmin", method = RequestMethod.GET)
-	public String itemAdmin(Locale locale, Model model) {
+	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
+	public String itemMng(Locale locale, Model model) {
 		
-		System.out.println("itemAdmin 매핑확인여부");
+		System.out.println("itemMng 매핑확인여부");
 		
-		return "/seller/itemAdmin";
+		return "/seller/itemMng";
+	}
+	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
+	public String itemRegister(Locale locale, Model model) {
+		
+		System.out.println("itemRegister 매핑확인여부");
+		
+		return "/seller/itemRegister";
+	}
+	@RequestMapping(value = "/reviewMng", method = RequestMethod.GET)
+	public String reviewAdmin(Locale locale, Model model) {
+		
+		System.out.println("reviewMng 매핑확인여부");
+		
+		return "/seller/reviewMng";
+	}
+	@RequestMapping(value = "/settlementList", method = RequestMethod.GET)
+	public String settlementList(Locale locale, Model model) {
+		
+		System.out.println("settlementList 매핑확인여부");
+		
+		return "/seller/settlementList";
+	}
+	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
+	public String questionMng(Locale locale, Model model) {
+		
+		System.out.println("questionMng 매핑확인여부");
+		
+		return "/seller/questionMng";
+
+	
 	}
 }
