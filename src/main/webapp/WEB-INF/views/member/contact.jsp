@@ -23,11 +23,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+
+	<!-- 지마켓  -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myg.css" type="text/css">
+
 </head>
 
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 
+<%-- 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
         <div class="container">
@@ -45,8 +50,39 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
+     --%>
+     
+      <section class="blog spad" style="padding-top: 10px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="blog__sidebar">
+                        <div class="blog__sidebar__search">
+                            <form action="#">
+                                <input type="text" placeholder="Search..." style="width: 235px;">
+                                <button type="submit"><span class="icon_search"></span></button>
+                            </form>
+                        </div>
+                        <div class="blog__sidebar__item">
+                            <h4>고객센터</h4>
+                            <ul>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">1:1 문의</a></li>
+                            </ul>
+                        </div>
+                     </div>
+                </div>
+            </div>
+       </div>
+     </section>
+                        
+     <!-- /////////////////////////  -->
+     
+    
 
-    <!-- Contact Section Begin -->
+<!-- 
+    Contact Section Begin
     <section class="contact spad">
         <div class="container">
             <div class="row">
@@ -81,9 +117,13 @@
             </div>
         </div>
     </section>
-    <!-- Contact Section End -->
+    Contact Section End -->
+    
+    
+    
 
-    <!-- Map Begin -->
+<!-- 
+    Map Begin
     <div class="map">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49116.39176087041!2d-86.41867791216099!3d39.69977417971648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886ca48c841038a1%3A0x70cfba96bf847f0!2sPlainfield%2C%20IN%2C%20USA!5e0!3m2!1sen!2sbd!4v1586106673811!5m2!1sen!2sbd"
@@ -99,7 +139,10 @@
             </div>
         </div>
     </div>
-    <!-- Map End -->
+    Map End
+    
+     -->
+    
 
     <!-- Contact Form Begin -->
     <div class="contact-form spad">

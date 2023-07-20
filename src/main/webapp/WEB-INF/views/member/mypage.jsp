@@ -19,29 +19,28 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myg.css" type="text/css">
 	
 </head>
-<body>
+<body> 
 	<jsp:include page="../top.jsp"></jsp:include>
-	      
-	<div id="contentswrap">   
-		<div id="contents"> 
-			 <div id="main_menu">
-				<ul class="menu_list">
-					<li id="menu1"><a href="#" class="mn1">나의정보</a></li>
-					<li id="menu2"><a href="#" class="mn2">주문내역</a></li>
-					<li id="menu3"><a href="#" class="mn3">적립금/확인</a></li>
-					<li id="menu4"><a href="#" class="mn4">어쩌고...</a></li>
-				</ul>
-			 </div> 
-		</div>		
-	  			
-			<div id="main_cont">
+	       
+	<div id="contentswrap">     
+		<div id="contents">  
+		  <div id="main_menu">
+					<ul class="menu_list"> 
+						<li id="menu1"><a href="mypage" class="mn1">나의정보</a></li>
+						<li id="menu2"><a href="#" class="mn2">주문배송</a></li>
+						<li id="menu3"><a href="#" class="mn3">리뷰관리</a></li>
+						<li id="menu4"><a href="#" class="mn4">1:1 문의</a></li>
+					</ul>
+		  </div>   
+	  			  
+			<div id="main_cont">  
 				<form>
 					<div class="myoption">
 						<h4>나의 정보</h4>			
 						<!-- <h5 class="list1">회원정보 설정</h5>		 -->
 					<table class="myg_tab">
 						<tbody>
-						<tr>
+						<tr> 
 						</tr>
 						</tbody>
 					</table>
@@ -137,7 +136,7 @@
 					</div>	 
 				</form>
 			</div>
-	
+		</div>
 	</div> 
 	
 	

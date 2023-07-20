@@ -62,8 +62,8 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shopingCart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="mypage"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                      <div class="header__top__right__auth">
                         	 <a href="login"><i class="fa fa-user"></i>Login</a>

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #contentswrap {
-    margin: 0px auto;
+    margin-left: 119px;
     width: 980px;
 }
 
@@ -10,33 +10,16 @@
 }
 
 #main_menu {
-    border-width: 1px 1px 0px;
-    border-style: solid solid none;
-    border-color: currentColor;
+	padding-left : 270px;
     width: 148px;
-    margin-top: -13px;
     float: left;
     position: relative;
-    z-index: 993;
-    display: contents;
+   /*  display: inline-block; */
 } 
 
-#main_menu  {
-    background: url(//pics.gmarket.co.kr/pc/ko/myg/img_myg.png) no-repeat -160px -50px;
-    left: 149px;
-    top: -1px;
-    width: 8px; 
-    height: 13px;
-    position: absolute;
-    z-index: 994;
-}
-
-#main_menu .menu_list {
+.menu_list {
     width: 148px; 
-    border-bottom-color: #7fad39;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    float: left;   
+    /* float: left;    */
       text-align: center;
     width: 230px;
 
@@ -54,7 +37,7 @@ a {
 
 #main_menu .menu_list li {
     background: #7fad39;
-    width: 100%;
+    width: 270px;
     float: left;
 }
 
@@ -116,9 +99,8 @@ table.myg_tab td a {
 }
 
 #main_cont {
-    padding: 0px 0px 10px 220px;
-    width: 980px;
-    float: left;
+	padding-left: 570px;
+    width: 1300px;
     min-height: 650px;
 }
 
