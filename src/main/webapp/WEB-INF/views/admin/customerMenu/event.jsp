@@ -29,20 +29,20 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-		<jsp:include page="./inc/sidemenu.jsp"></jsp:include>
+		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
 
-                <jsp:include page="./inc/top.jsp"></jsp:include>
+                <jsp:include page="../inc/top.jsp"></jsp:include>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">관리자 메인</h1>
+                        <h1 class="h3 mb-0 text-gray-800">이벤트관리</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>

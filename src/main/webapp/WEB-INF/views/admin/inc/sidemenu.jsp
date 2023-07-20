@@ -91,7 +91,7 @@
                     <span>정산관리</span></a>
             </li>	
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="sales">
                     <span>매출관리</span></a>
             </li>	
             <!-- Nav Item - Charts -->

@@ -26,6 +26,7 @@
     apiURL += "&state=" + state;
     String access_token = "";
     String refresh_token = "";
+    
     System.out.println("apiURL="+apiURL);
     try {
       URL url = new URL(apiURL);
@@ -47,10 +48,20 @@
       br.close();
       if(responseCode==200) {
         out.println(res.toString());
+        JSONObject jsonObject = new JSONObject(res.toString());
+        access_token = jsonObject.getString("access_token");
+        refresh_token = jsonObject.getString("refresh_token");
       }
     } catch (Exception e) {
       System.out.println(e);
     }
+    
+    // access_token을 세션에 저장
+    session.setAttribute("accessToken", access_token);
+
+    // 사용자 정보를 요청할 API를 호출하는 별도의 JSP (naverauth.jsp)로 리다이렉트
+    response.sendRedirect(request.getContextPath() + "/naverauth");
+    
   %>
   </body>
 </html>
