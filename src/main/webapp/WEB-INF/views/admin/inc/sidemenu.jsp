@@ -44,7 +44,7 @@
                     <span>등급관리</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="cnotice">
+                <a class="nav-link" href="report">
                     <span>신고관리</span></a>
             </li>
              <!-- Nav Item - Pages Collapse Menu -->
@@ -55,14 +55,14 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">쿠폰관리</a>
-                        <a class="collapse-item" href="">적립금관리</a>
+                        <a class="collapse-item" href="cupon">쿠폰관리</a>
+                        <a class="collapse-item" href="point">적립금관리</a>
                     </div>
                 </div>
             </li>
      
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="event">
                     <span>이벤트관리</span></a>
             </li>
 			
@@ -79,19 +79,19 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="cnotice">
+                <a class="nav-link" href="snotice">
                     <span>공지사항</span></a>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="sellerAdmin">
                     <span>업체관리</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="settlement">
                     <span>정산관리</span></a>
             </li>	
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="sales">
                     <span>매출관리</span></a>
             </li>	
             <!-- Nav Item - Charts -->

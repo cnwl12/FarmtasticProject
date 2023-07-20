@@ -51,4 +51,60 @@ public class AdminController {
 		
 		return "/admin/customerMenu/customerLev";
 	}
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public String report(Locale locale, Model model) {
+		
+		System.out.println("report 매핑확인여부");
+		
+		return "/admin/customerMenu/report";
+	}
+	@RequestMapping(value = "/cupon", method = RequestMethod.GET)
+	public String cupon(Locale locale, Model model) {
+		
+		System.out.println("cupon 매핑확인여부");
+		
+		return "/admin/customerMenu/cupon";
+	}
+	@RequestMapping(value = "/point", method = RequestMethod.GET)
+	public String point(Locale locale, Model model) {
+		
+		System.out.println("point 매핑확인여부");
+		
+		return "/admin/customerMenu/point";
+	}
+	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	public String event(Locale locale, Model model) {
+		
+		System.out.println("event 매핑확인여부");
+		
+		return "/admin/customerMenu/event";
+	}
+	@RequestMapping(value = "/snotice", method = RequestMethod.GET)
+	public String snotice(Locale locale, Model model) {
+		
+		System.out.println("snotice 매핑확인여부");
+		
+		return "/admin/sellerMenu/snotice";
+	}
+	@RequestMapping(value = "/sellerAdmin", method = RequestMethod.GET)
+	public String sellerAdmin(Locale locale, Model model) {
+		
+		System.out.println("sellerAdmin 매핑확인여부");
+		
+		return "/admin/sellerMenu/sellerAdmin";
+	}
+	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
+	public String settlement(Locale locale, Model model) {
+		
+		System.out.println("settlement 매핑확인여부");
+		
+		return "/admin/sellerMenu/settlement";
+	}
+	@RequestMapping(value = "/sales", method = RequestMethod.GET)
+	public String sales(Locale locale, Model model) {
+		
+		System.out.println("sales 매핑확인여부");
+		
+		return "/admin/sellerMenu/sales";
+	}
 }
