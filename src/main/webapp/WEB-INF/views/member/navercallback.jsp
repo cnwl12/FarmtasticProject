@@ -1,4 +1,5 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="org.json.JSONObject"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URL" %>
@@ -26,7 +27,7 @@
     apiURL += "&state=" + state;
     String access_token = "";
     String refresh_token = "";
-    
+    String naver = "";
     System.out.println("apiURL="+apiURL);
     try {
       URL url = new URL(apiURL);
@@ -64,4 +65,4 @@
     
   %>
   </body>
-</html> --%>
+</html>

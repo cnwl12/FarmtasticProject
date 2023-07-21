@@ -23,4 +23,10 @@ public class MemberDAO {
 		sqlSession.insert(namespace+".insertMember", memberDTO); 
 	}
 
+	public void nuserCheck(MemberDTO memberDTO) {
+		System.out.println("MemberDAO nuserCheck() 확인");
+		
+		sqlSession.insert(namespace+".nuserCheck", memberDTO); 
+	}
+
 }
