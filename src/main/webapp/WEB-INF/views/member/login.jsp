@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
 </head>
 <body>  
 <jsp:include page="../top.jsp"></jsp:include>
@@ -61,7 +63,9 @@
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
 												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd" id="pwd" value="">
-												
+												<div id="invalid_pass0" class="invalid-feedback">
+                								비밀번호를 입력해주세요.
+              									</div>
 												
 											</div>
 										</li>
@@ -71,7 +75,7 @@
 							</form>
 
 							<!-- 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
-							<fieldset>
+							<fieldset> 
 								<legend>체크 옵션</legend>
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
@@ -92,11 +96,11 @@
 							<!-- // 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
 							
 																			<!-- 로그인 넘어가는 페이지 설정  -->
-							<div class="btn-login"><button type="button" onclick="location.href='loginPro'" >로그인</button></div>
+							<div class="btn-login"><button type="button" onclick="validateAndSubmit()">로그인</button></div>
 							<!-- 간편로그인 -->
 							<div class="join-guide">
 								<ul class="log-in">     	
-												<li><a id="naverlogin" href="naverlogin" onclick="naverlogin;" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
+												<li><a href="naverlogin" onclick="naverlogin;" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
 												<li><a id="custom-login-btn" href="kakaologin" onclick="kakaologin";  class="btn"><i class="icon_kakao"></i><span>카카오 로그인</span></a></li>
 												
 								</ul>
@@ -154,6 +158,159 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 		
+
+
+<!-- <script>
+    // 유효성 검사 메서드
+    function Validation() {
+        //변수에 저장 (html에서 jsp한테 어떻게 들고오냐? -> document.getElementById)
+        var uid1 = document.getElementById("id")
+        var pw1 = document.getElementById("pass")
+    
+        
+        // 정규식
+        // id, pw
+        var regId1 = /^[a-zA-Z0-9]{2,10}$/;
+        var regPw1 = /^[a-zA-Z0-9]{2,10}$/;
+        
+		
+		/* /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/; */
+        
+		
+		//아이디 확인
+        if(uid1.value == ""){
+//         	alert("아이디를 입력해주세요")
+            document.getElementById('invalid_id0').style.display = 'block';
+            uid1.focus();
+            return false;
+        } 
+		
+//         //아이디 영어 대소문자 확인
+//         else if(!regId1.test(uid.value)){
+// //             alert("최소 2자 이상 최대 10자 / 영문 대소문자, 숫자만 입력하세요.")
+//             document.getElementById('invalid_id2').style.display = 'block';
+//             uid1.focus();
+//             return false;
+//         }
+		
+//      // 아이디가 공백이 아닐때
+//         else if(uid1.value != ""){
+//         	document.getElementById('invalid_id').style.display = 'none';
+//         	document.getElementById('invalid_id2').style.display = 'none';
+//         }
+		
+		
+        //비밀번호 확인
+        if(pw1.value == ""){
+            document.getElementById('invalid_pass').style.display = 'block';
+            pw1.focus();
+            return false;
+        }
+     
+//         //비밀번호 영어 대소문자 확인
+//         else if(!regPw1.test(pw.value)){
+// //             alert("최소 2자 최대 15자 영문 대소문자, 숫자만 입력하세요.")
+// 			document.getElementById('invalid_pass').style.display = 'none';
+//             document.getElementById('invalid_pass2').style.display = 'block';
+//             pw1.focus();
+//             return false;
+//         }
+       
+//         //비밀번호와 아이디 비교
+//         else if(pw1.value == uid1.value){
+// //             alert("아이디와 동일한 비밀번호를 사용할 수 없습니다.")
+// 			document.getElementById('invalid_pass').style.display = 'none';
+// 			document.getElementById('invalid_pass2').style.display = 'none';
+//             document.getElementById('invalid_pass3').style.display = 'block';
+//             pw1.focus();
+//             return false;
+//         }
+
+//      // 비밀번호가 공백이 아닐때
+//         else if(pw1.value != ""){
+//         	document.getElementById('invalid_pass').style.display = 'none';
+//         	document.getElementById('invalid_pass2').style.display = 'none';
+//         	document.getElementById('invalid_pass3').style.display = 'none';
+//         }
+        
+       
+        
+
+        // 유효성 문제 없을 시 폼에 submit
+//         	document.info.submit();
+        	
+        
+        
+    }
+
+   
+</script> -->
+
+<script>
+  $(document).ready(function() {
+    // 유효성 검색 변수
+    var validId = false;
+    var validPwd = false;
+
+    // 정규식
+    var regId1 = /^[a-zA-Z0-9]{2,10}$/;
+    var regPw1 = /^[a-zA-Z0-9]{2,10}$/;
+
+    // 아이디 입력란에 keyup 이벤트 적용
+    $("#loginId").on("keyup", function() {
+      var uid1 = $(this).val();
+
+      if (uid1 == "" || !regId1.test(uid1)) {
+        validId = false;
+        $("#invalid_id0").show();
+      } else {
+        validId = true;
+        $("#invalid_id0").hide();
+      }
+
+      validateForm();
+    });
+
+    // 비밀번호 입력란에 keyup 이벤트 적용
+    $("#pwd").on("keyup", function() {
+      var pw1 = $(this).val();
+
+      if (pw1 == "" || !regPw1.test(pw1)) {
+        validPwd = false;
+        $("#invalid_pass0").show();
+      } else {
+        validPwd = true;
+        $("#invalid_pass0").hide();
+      }
+
+      validateForm();
+    });
+  
+    function validateForm() {
+      if (validId && validPwd) {
+        $('button[type="button"]').prop('disabled', false);
+      } else {
+        $('button[type="button"]').prop('disabled', true);
+      }
+    }
+    
+    //폼 유효성 검사 및 폼 제출
+    function validateAndSubmit() {
+      validateForm();
+      
+      if (validId && validPwd) {
+        location.href = 'loginPro';
+      } else {
+        // 경고 및 오류 메시지를 나타내는 작업을 여기에 추가하십시오.
+        // 예: alert("올바른 정보를 입력해주세요.");
+      alert("올바른 정보를 입력해주세요");
+      }
+    }
+    
+    // 버튼 클릭 시 폼 유효성 검사 및 이동 실행
+    $('button[type="button"]').on('click', validateAndSubmit);
+  });
+</script>
 
 </body>
 </html>

@@ -2387,11 +2387,15 @@ ol {
 	background: transparent;
 	border: none;
 	position: absolute;
-	right: 0;
+	/* right: 0; */
 	top: 0;
 	height: 100%;
 	padding: 0px 18px;
 }
+
+
+
+
 
 .blog__sidebar__recent .blog__sidebar__recent__item {
 	display: block;

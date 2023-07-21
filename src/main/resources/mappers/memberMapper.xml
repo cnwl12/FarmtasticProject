@@ -8,6 +8,12 @@
 	<insert id="insertMember"> 
 	 	insert into members(member_num, member_id, member_pass,member_name)
 	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name})
-	</insert>
+	</insert>  
 	
+	<select id="nuserCheck" 
+                  resultType="com.itwillbs.domain.MemberDTO">
+    select * from members       
+    where member_nid = #{member_nid}
+  	</select> 
+	 
 </mapper>

@@ -24,6 +24,13 @@ public class MemberService {
 		// insertMember 메서드 호출
 		memberDAO.insertMember(memberDTO);
 	}	
+	
+	public void nuserCheck(MemberDTO memberDTO) {
+		System.out.println("MemberService nuserCheck() 확인!!!");
+		
+		// insertMember 메서드 호출
+		memberDAO.nuserCheck(memberDTO);
+	}
 		
 		
 
