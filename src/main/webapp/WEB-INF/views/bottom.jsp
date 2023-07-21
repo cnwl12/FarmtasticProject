@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
  <!-- Footer Section Begin : 카피라이트 제외 삭제 -->
-    <footer>
+    <footer> 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
