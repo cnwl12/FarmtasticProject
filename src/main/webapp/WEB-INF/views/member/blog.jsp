@@ -60,7 +60,7 @@
                                 <input type="text" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
-                        </div>   
+                        </div>
                         <div class="blog__sidebar__item">
                             <h4>Categories</h4>
                             <ul>
