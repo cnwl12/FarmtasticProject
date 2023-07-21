@@ -9,11 +9,11 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Farmtastic_contact</title>
+    <title>Farmtastic_contact</title>  
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
+ 
     <!-- Css Styles -->
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" type="text/css">
@@ -60,12 +60,12 @@
                         <div class="blog__sidebar__search">
                             <form action="#">
                                 <input type="text" placeholder="Search..." style="width: 235px;">
-                                <button type="submit"><span class="icon_search"></span></button>
+                                <button type="submit" id="id01"><span class="icon_search"></span></button>
                             </form>
-                        </div>
+                        </div>   
                         <div class="blog__sidebar__item">
                             <h4>고객센터</h4>
-                            <ul>
+                            <ul>  
                                 <li><a href="#">공지사항</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">1:1 문의</a></li>
