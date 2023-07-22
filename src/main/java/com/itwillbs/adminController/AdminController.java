@@ -106,9 +106,11 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/settlement";
 	}
+	
+	//admin에 매출관리 목록 불러오기위한 구문
 	@Autowired
 	    private SellerService sellerService;
-	
+	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
 	public String sales(Locale locale, Model model) {
 		

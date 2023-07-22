@@ -62,8 +62,21 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                 
                                     <thead>
-                                        <tr>
+                                        <tr id="avg" style="background-color: #4167d5; color: #f8f9fc;">
+                                            <th colspan="2">총 정산액</th>
+                                            <th colspan="2">총 수수료</th>
+                                            <th colspan="2">총 매출</th>
+                                        </tr>
+                                      <c:forEach items="${sellers}" var="seller" begin="0" end="0">
+    									<tr>
+        									<td colspan="2">${seller.grand_settlement_amount}</td>
+        									<td colspan="2">${seller.grand_fee}</td>
+        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.grand_total_revenue}</td>
+    									</tr>
+									  </c:forEach>
+                                        <tr style="background-color: #edf1f5;">
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
@@ -73,7 +86,7 @@
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
+                                        <tr style="background-color: #edf1f5;">
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
@@ -88,9 +101,9 @@
                                             <td>${seller.seller_num}</td>
                                             <td>${seller.seller_storeName}</td>
                                             <td>${seller.seller_name}</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td>${seller.total_revenue}</td>
+                                            <td>${seller.fee}</td>
+                                            <td>${seller.settlement_amount}</td>
                                         </tr>
                                        </c:forEach>
                                     </tbody>
