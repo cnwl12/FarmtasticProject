@@ -85,9 +85,9 @@
                                     <tbody>
                                        <c:forEach items="${sellers}" var="seller">
                                         <tr>
-                                            <td>${seller.seller_id}</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td>${seller.seller_num}</td>
+                                            <td>${seller.seller_storeName}</td>
+                                            <td>${seller.seller_name}</td>
                                             <td>61</td>
                                             <td>2011/04/25</td>
                                             <td>$320,800</td>
