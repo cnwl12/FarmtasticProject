@@ -22,8 +22,10 @@
 <a href="contact">고객센터</a>
 <a href="contact">장바구니</a>
 <a href="farmStore">팜팜마켓</a>
-<a href="farmStoreDetail">팜팜마켓2(상세)</a>
+<a href="farmStoreDetail">팜팜마켓2(상세)</a><br>
 <a href="sellerMain">판매자(홈)</a>
 <a href="adminMain">관리자(홈)</a>
+<a href="adminLogin">관리자(로그인)</a>
+
 </body>
 </html>
