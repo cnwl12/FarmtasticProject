@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 * {
     margin: 0;
@@ -91,7 +92,12 @@ h3 {
                 <div class="button-wrap">
                     <h3>ADMIN LOGIN</h3>
                 </div>
-           		<form action="${pageContext.request.contextPath}/adminLogin" id="join" method="post">
+                 <!-- 로그인 실패 메시지 출력 -->
+   				 <c:if test="${not empty msg}">
+        			<div class="alert alert-danger" role="alert">${msg}</div>
+   				 </c:if>
+             
+           		<form action="${pageContext.request.contextPath}/Login" id="join" method="post">
             		<input type="text" class="input-field" name="admin_id" placeholder="Admin Id" required>
             		<input type="password" class="input-field" name="admin_pass" placeholder="Enter Password" required>
             		<button class="submit" value="Submit">Login</button>

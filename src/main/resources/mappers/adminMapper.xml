@@ -5,10 +5,10 @@
   
 <mapper namespace="adminMapper"> <!-- 파일이름x / 예명  -->
 
-	<select id="adminCheck" 
-                  resultType="map">
-    select * from admin       
-    where admin_id = #{admin_id}
-  	</select> 
+	 <select id="adminCheck" parameterType="String" resultType="com.itwillbs.domain.AdminDTO">
+        SELECT admin_id, admin_pass
+        FROM admin
+        WHERE admin_id = #{admin_id}
+    </select>
 	 
 </mapper>
