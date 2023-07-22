@@ -79,6 +79,16 @@ public class AdminController {
 	 * rttr.addFlashAttribute("msg", "로그인 중 오류가 발생했습니다."); return
 	 * "redirect:/adminLogin"; } }
 	 */
+	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	 public String logout(HttpServletRequest request) {
+	     HttpSession session = request.getSession();
+	     if (session != null) {
+	         session.invalidate();
+	     }
+	     // 로그아웃 후, 리디렉션할 페이지를 반환합니다.
+	     return "redirect:/adminLogin";
+	 } 
+	 
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
