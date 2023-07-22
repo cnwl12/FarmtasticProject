@@ -2,9 +2,13 @@ package com.itwillbs.farmtastic;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -25,6 +31,8 @@ import com.itwillbs.service.SellerService;
 @Controller
 public class SellerController {
 	
+	@Inject
+	private SellerService sellerService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -92,11 +100,40 @@ public class SellerController {
 		System.out.println("questionMng 매핑확인여부");
 		
 		return "/seller/questionMng";
-
 	
 	}
 	
 	
+	@RequestMapping(value = "/itemInsert", method = RequestMethod.GET)
+	public String itemInsert(Locale locale, Model model) {
+		
+		System.out.println("itemInsert 매핑확인여부");
+		
+		return "/seller/itemInsert";
+	}
+	
+	
+	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
+	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
+	                             @RequestParam("file") List<MultipartFile> files, HttpServletRequest request) {
+		// itemList의 키(Key) 목록 출력
+	    System.out.println("itemList의 키(Key) 목록:");
+	    for (String key : itemList.keySet()) {
+	        System.out.println(key);
+	    }
+	 // 폼 데이터 직접 확인
+	    System.out.println("폼 데이터 확인:");
+	    Map<String, String[]> paramMap = request.getParameterMap();
+	    for (String key : paramMap.keySet()) {
+	        String[] values = paramMap.get(key);
+	        for (String value : values) {
+	            System.out.println(key + ": " + value);
+	        }
+	    }
 
+	    sellerService.itemInsert(itemList, files);
+	    
+	    return "/seller/questionMng";
+	}
 
 }

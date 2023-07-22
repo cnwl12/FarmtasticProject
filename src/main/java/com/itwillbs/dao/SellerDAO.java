@@ -10,8 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.domain.MemberDTO; 
+import com.itwillbs.domain.MemberDTO;
 
 
 
@@ -27,6 +28,9 @@ public class SellerDAO {
 	        return sqlSession.selectList("SellerMapper.getSellers");
 	    }
 	
-
+	    public void itemInsert(HashMap<String, String> itemList,  List<MultipartFile> files) {
+	    	System.out.println("오나요");
+	        sqlSession.insert(namespace + ".itemInsert", itemList);
+	    }
 	
 }

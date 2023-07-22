@@ -41,5 +41,18 @@
          WHERE s.seller_num != 'admin'
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
 
+
     </select>
+    
+    
+    <insert id="itemInsert">
+    	insert into item(category_num, item_name, item_price, item_mainImg, item_detail )
+	 	values(#{category_num}, #{item_name}, #{item_price}, #{item_mainImg}, #{item_detail} )
+    </insert>
+    
+    <!-- <select id="getItemList" resultType="List">
+    
+    	
+    
+    </select> -->
 </mapper>
