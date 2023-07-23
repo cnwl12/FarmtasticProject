@@ -27,11 +27,13 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers() {
 	        return sqlSession.selectList("SellerMapper.getSellers");
 	    }
-	
-	    public void itemInsert(HashMap<String, String> itemList,  List<MultipartFile> files) {
-	    	System.out.println("오나요");
+
+
+		public void itemInsert(HashMap<String, String> itemList) {
+			System.out.println("오나요");
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
-	    }
+			
+		}
 
 		
 	

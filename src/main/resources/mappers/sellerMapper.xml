@@ -40,15 +40,18 @@
          LEFT JOIN orders o ON i.item_num = o.item_num
          WHERE s.seller_num != 'admin'
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
-
-
     </select>
     
-    
+
     <insert id="itemInsert">
-    	insert into item( item_name, item_price, item_detail )
-	 	values( #{item_name}, #{item_price}, #{item_detail} )
+    	insert into item(category_num ,item_name, item_price, item_mainImg, item_detail )
+	 	values(#{category_num}, #{item_name}, #{item_price}, #{item_mainImg}, #{item_detail} )
     </insert>
+    
+    <!-- <insert id="itemInsertFile">
+    	insert into item(item_mainImg)
+	 	values(#{item_mainImg})
+    </insert> -->
     
     <!-- <select id="getItemList" resultType="List">
     

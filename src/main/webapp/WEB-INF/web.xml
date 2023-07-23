@@ -53,13 +53,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- MultipartResolver 설정 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 최대 업로드 크기 설정 (바이트 단위) -->
-		<property name="maxUploadSize" value="5242880" /> <!-- 예: 5MB -->
-		<!-- 파일 업로드 시 임시 폴더 설정 -->
-		<property name="uploadTempDir" value="/tmp" /> <!-- 임시 폴더 경로 설정 -->
-	</bean>
 
 
 </web-app>

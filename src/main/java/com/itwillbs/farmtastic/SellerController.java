@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,45 +114,35 @@ public class SellerController {
 	}
 	
 	
-//	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
-//	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
-//	                             @RequestParam("file") List<MultipartFile> files, HttpServletRequest request) {
-//		// itemList의 키(Key) 목록 출력
-//	    System.out.println("itemList의 키(Key) 목록:" + itemList);
-//	    for (String key : itemList.keySet()) {
-//	        System.out.println(key);
-//	    }
-//	 // 폼 데이터 직접 확인
-//	    System.out.println("폼 데이터 확인:");
-//	    Map<String, String[]> paramMap = request.getParameterMap();
-//	    for (String key : paramMap.keySet()) {
-//	        String[] values = paramMap.get(key);
-//	        for (String value : values) {
-//	            System.out.println(key + ": " + value);
-//	        }
-//	    }
-//
-//	    sellerService.itemInsert(itemList, files);
-//	    
-//	    return "/seller/questionMng";
-//	}
-	
-	
 	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
-	public String itemInsertList(
-	                             @RequestParam("item_name") String itemName,
-	                             @RequestParam("item_price") String itemPrice,
-	                             @RequestParam("item_mainImg") MultipartFile itemMainImg,
-	                             @RequestParam("item_detail") String itemDetail) {
-	    System.out.println("itemInsertList 매핑확인여부");
-
-//	    System.out.println("카테고리 번호: " + categoryNum);
-	    System.out.println("상품명: " + itemName);
-	    System.out.println("가격: " + itemPrice);
-	    System.out.println("상품 이미지: " + itemMainImg.getOriginalFilename());
-	    System.out.println("상품 설명: " + itemDetail);
-
+	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
+	                             @RequestParam("file") List<MultipartFile> files,
+	                             HttpSession session) {
+		
+		System.out.println(itemList);
+		System.out.println(files);
+	    sellerService.itemInsert(itemList, files, session);
+	    
 	    return "/seller/questionMng";
 	}
+	
+//	
+//	// 개별 항목 넘어오는지 확인용 (나중에 지워도 됨)
+//	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
+//	public String itemInsertList(@RequestParam("category_num") Integer categoryNum,
+//	                             @RequestParam("item_name") String itemName,
+//	                             @RequestParam("item_price") String itemPrice,
+//	                             @RequestParam("item_mainImg") MultipartFile itemMainImg,
+//	                             @RequestParam("item_detail") String itemDetail) {
+//	    
+//		System.out.println("itemInsertPro 매핑확인여부");
+//	    System.out.println("카테고리 번호: " + categoryNum);
+//	    System.out.println("상품명: " + itemName);
+//	    System.out.println("가격: " + itemPrice);
+//	    System.out.println("상품 이미지: " + itemMainImg.getOriginalFilename());
+//	    System.out.println("상품 설명: " + itemDetail);
+//
+//	    return "/seller/questionMng";
+//	}
 
 }

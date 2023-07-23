@@ -54,7 +54,6 @@
                     	상품등록 테스트 페이지
                     </p>
 
-
 					<form action="itemInsertPro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 						<table border="1">
 							<tr>
@@ -72,12 +71,17 @@
 							<!-- value 사용자가 적을거 -->
 							<tr>
 								<td>상품 이미지</td>
-								<td><input type="file" name="item_mainImg" value=""></td>
+								<td><input type="file" name="file" value=""></td>
 							</tr>
 							<tr>
 								<td>상품설명</td>
 								<td><textarea name="item_detail" rows="10" cols="20" value=""></textarea></td>
 							</tr>
+							<tr>
+								<td>이미지확인</td>
+								<td><img src="http://c3d2212t3.itwillbs.com/Moneytto/resources/upload/c9bbe06a.png"></td>
+							</tr>
+							
 							<tr>
 								<td colspan="2"><input type="submit" value="등록"></td>
 							</tr>
