@@ -59,6 +59,8 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
+                       <form action="${pageContext.request.contextPath}/changeMemberStatus" method="post"> 
+                   		<button id="deletemember" type="submit">회원탈퇴</button>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -88,19 +90,21 @@
                                         
                                  	<c:forEach items="${members}" var="member">
                                         <tr>
-                                        	<td><input type="checkbox" class=""/></td>
+                                        	<td><input type="checkbox" class="memberCheckbox" name="result" value="${member.member_num}" /></td>
                                             <td>${member.member_num}</td>
                                             <td>${member.member_id}</td>
                                             <td>${member.member_name}</td>
                                             <td>27</td>
-                                            <td>2011/01/25</td>
+                                            <td>${member.member_delYn}</td>
                                             <td>$112,000</td>
                                         </tr>
                                      </c:forEach>   
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
+                      </form>
                     </div>
 
                 </div>

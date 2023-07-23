@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.AdminDTO;
@@ -115,10 +116,21 @@ public class AdminController {
 		System.out.println("customerAdmin 매핑확인여부");
 		 List<Map<String, Object>> resultList = memberService.getMembers();
 		 model.addAttribute("members", resultList);
-		
-		
 		return "/admin/customerMenu/customerAdmin";
 	}
+	
+	@PostMapping("/changeMemberStatus")
+	public String changeMemberStatus(@RequestParam(value = "result", required = false) List<String> memberNums, RedirectAttributes redirectAttributes) {
+	if (memberNums == null || memberNums.isEmpty()) {
+	redirectAttributes.addFlashAttribute("message", "체크된 회원이 없습니다.");
+	} else {
+	System.out.println("/changeMemberStatus 매핑확인여부");
+	memberService.changeMemberStatus(memberNums);
+	redirectAttributes.addFlashAttribute("message", "선택된 회원의 상태가 변경되었습니다.");
+	}
+	return "redirect:/customerAdmin";
+	}
+	
 	@RequestMapping(value = "/customerLev", method = RequestMethod.GET)
 	public String customerLev(Locale locale, Model model) {
 		

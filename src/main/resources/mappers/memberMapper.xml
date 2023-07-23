@@ -19,5 +19,14 @@
   	<select id="getMembers" resultType="map">
     SELECT * FROM member;
    </select>
-  	
+   
+   <update id="changeMemberStatus" parameterType="list">
+    UPDATE member
+    SET member_delYn = 'N'
+    WHERE member_num IN
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </update>
+  
 </mapper>

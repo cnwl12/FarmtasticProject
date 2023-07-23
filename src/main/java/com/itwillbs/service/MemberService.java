@@ -38,6 +38,9 @@ public class MemberService {
 		return memberDAO.getMembers();
 	}
 		
-		
+	 public void changeMemberStatus(List<String> memberNums) {
+		 System.out.println("MemberService changeMemberStatus 확인!");
+	        memberDAO.changeMemberStatus(memberNums);
+	 }	
 
 }
