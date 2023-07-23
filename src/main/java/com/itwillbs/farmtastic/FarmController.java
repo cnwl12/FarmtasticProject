@@ -1,13 +1,16 @@
 package com.itwillbs.farmtastic;
 
+import java.sql.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
@@ -114,6 +117,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/join";
 	}
 
+
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(Locale locale, Model model) {
 
@@ -156,26 +160,62 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 디비 연동 확인용
 
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insert() {
+//	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+//	public String insert() {
+//
+//		System.out.println("insert 매핑확인여부");
+//		return "/member/insert";
+//	}
 
-		System.out.println("insert 매핑확인여부");
-		return "/member/insert";
-	}
+	/*
+	 * @RequestMapping(value = "/join", method = RequestMethod.GET) public String
+	 * insert() {
+	 * 
+	 * System.out.println("join 매핑확인여부"); return "/member/join"; }
+	 */
+	
+//	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
+//	public String insertPro(MemberDTO memberDTO) {
+//
+//		System.out.println(memberDTO.getMember_id());
+//		System.out.println(memberDTO.getMember_pass());
+//		System.out.println(memberDTO.getMember_name());
+//
+//		// insertMember() 메서드 호출
+//		memberService.insertMember(memberDTO);
+//
+//		return "redirect:/contact";
+//	}
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) {
-
+	public String insertPro(MemberDTO memberDTO ) {
+		
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-
+		System.out.println(memberDTO.getMember_phone());
+		System.out.println(memberDTO.getMember_email());
+		System.out.println(memberDTO.getMember_joinDay());
+		System.out.println(memberDTO.getMember_post());
+		System.out.println(memberDTO.getMember_addMain());
+		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
-		return "redirect:/contact";
+		return "redirect:/login";
 	}
 
-	   
+//	@PostMapping("/checkId")
+//	public String checkId(@RequestParam("member_id") String memberId) {
+//	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
+//	  if (isDuplicated) {
+//	    return "DUPLICATED";
+//	  } else {
+//	    return "OK";
+//	  }
+//	}
+	  
+	
+	
 	
 }

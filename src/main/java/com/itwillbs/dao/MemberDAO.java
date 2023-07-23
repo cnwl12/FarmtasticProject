@@ -3,6 +3,7 @@ package com.itwillbs.dao;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO; 
@@ -28,5 +29,9 @@ public class MemberDAO {
 		
 		sqlSession.insert(namespace+".nuserCheck", memberDTO); 
 	}
-
+	
+//	 public int checkIdDuplicate(String memberId) {
+//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
+//	 }
+	
 }

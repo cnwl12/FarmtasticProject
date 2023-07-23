@@ -1,6 +1,5 @@
 package com.itwillbs.service;
 
-import java.sql.Timestamp;
 
 import javax.inject.Inject;
 
@@ -14,7 +13,8 @@ public class MemberService {
 	
 	@Inject
 	private MemberDAO memberDAO;
-
+	
+	
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberService insertMember() 확인!!!");
 		
@@ -31,7 +31,12 @@ public class MemberService {
 		// insertMember 메서드 호출
 		memberDAO.nuserCheck(memberDTO);
 	}
-		
-		
 
+//	public boolean checkIdDuplicate(String memberId) {
+//		  // DAO에서 반환된 중복 개수를 확인하여 결과 반환
+//		return memberDAO.checkIdDuplicate(memberId) > 0;
+//	}
+	
+	
+	
 }
