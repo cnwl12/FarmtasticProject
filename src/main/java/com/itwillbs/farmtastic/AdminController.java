@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.AdminDTO;
 import com.itwillbs.service.AdminService;
+import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
 /**
@@ -38,7 +39,12 @@ public class AdminController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-
+	@Autowired
+    private SellerService sellerService;
+	@Autowired
+    private AdminService adminService;
+	@Autowired
+    private MemberService memberService;
 	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin(Locale locale, Model model) {
@@ -47,8 +53,7 @@ public class AdminController {
 		
 		return "/admin/adminLogin";
 	}
-	@Autowired
-    private AdminService adminService;
+	
 	 @RequestMapping(value = "/Login", method = RequestMethod.POST)
 	    public String login(String admin_id, String admin_pass, HttpSession session, RedirectAttributes rttr) {
 	        try {
@@ -107,14 +112,17 @@ public class AdminController {
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {
 		
-		System.out.println("cnotice 매핑확인여부");
+		System.out.println("customerAdmin 매핑확인여부");
+		 List<Map<String, Object>> resultList = memberService.getMembers();
+		 model.addAttribute("members", resultList);
+		
 		
 		return "/admin/customerMenu/customerAdmin";
 	}
 	@RequestMapping(value = "/customerLev", method = RequestMethod.GET)
 	public String customerLev(Locale locale, Model model) {
 		
-		System.out.println("cnotice 매핑확인여부");
+		System.out.println("customerLev 매핑확인여부");
 		
 		return "/admin/customerMenu/customerLev";
 	}
@@ -169,8 +177,7 @@ public class AdminController {
 	}
 	
 	//admin에 매출관리 목록 불러오기위한 구문
-	@Autowired
-	    private SellerService sellerService;
+	
 	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
 	public String sales(Locale locale, Model model) {
