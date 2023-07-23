@@ -21,7 +21,7 @@ public class SellerService {
 	    public List<Map<String, Object>> getSellers() {
 	        return sellerDAO.getSellers();
 	    }
-	
+	    
 	    public void itemInsert(HashMap<String, String> itemList,  List<MultipartFile> files ) {
 	        System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList, files);

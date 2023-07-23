@@ -32,5 +32,7 @@ public class SellerDAO {
 	    	System.out.println("오나요");
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 	    }
+
+		
 	
 }

@@ -56,37 +56,33 @@
 
 					<!-- 수정 / 삭제도 할 수 있어야함 -->
 					<form action="itemInsertPro" method="post" enctype="multipart/form-data">
-						<table border="1">
-							<tr>
-								<td>카테고리 번호</td>
-								<td><input type="text" name="category_num" value=""
-									readonly="readonly"></td>
-							</tr>
-							<tr>
-								<td>상품명</td>
-								<td><input type="text" name="item_name" value=""
-									readonly="readonly"></td>
-							</tr>
-							<tr>
-								<td>가격</td>
-								<td><input type="text" name="item_price"></td>
-							</tr>
-							<!-- value 사용자가 적을거 -->
-							<tr>
-								<td>상품 이미지</td>
-								<td><input type="file" name="item_mainImg"></td>
-							</tr>
-							<tr>
-								<td>상품설명</td>
-								<td><textarea name="item_detail" rows="10" cols="20"></textarea></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="등록"></td>
-							</tr>
-						</table>
-
-
-					</form>
+    <table border="1">
+        <tr>
+            <td>카테고리 번호</td>
+            <td><input type="text" name="category_num" value="123"></td>
+        </tr>
+        <tr>
+            <td>상품명</td>
+            <td><input type="text" name="item_name" value="상품명 테스트"></td>
+        </tr>
+        <tr>
+            <td>가격</td>
+            <td><input type="text" name="item_price" value="50000"></td>
+        </tr>
+        <!-- value 사용자가 적을거 -->
+        <tr>
+            <td>상품 이미지</td>
+            <td><input type="file" name="item_mainImg"></td>
+        </tr>
+        <tr>
+            <td>상품설명</td>
+            <td><textarea name="item_detail" rows="10" cols="20">상품 설명 테스트</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="등록"></td>
+        </tr>
+    </table>
+</form>
 
 
 

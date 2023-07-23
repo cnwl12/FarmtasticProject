@@ -55,28 +55,28 @@
                     </p>
 
 
-					<form action="itemInsertPro" method="post" enctype="multipart/form-data">
+					<form action="itemInsertPro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 						<table border="1">
 							<tr>
 								<td>카테고리 번호</td>
-								<td><input type="text" name="category_num" value="123"></td>
+								<td><input type="text" name="category_num" value=""></td>
 							</tr>
 							<tr>
 								<td>상품명</td>
-								<td><input type="text" name="item_name" value="45fsww485"></td>
+								<td><input type="text" name="item_name" value=""></td>
 							</tr>
 							<tr>
 								<td>가격</td>
-								<td><input type="text" name="item_price" value="45fdfs485"></td>
+								<td><input type="text" name="item_price" value=""></td>
 							</tr>
 							<!-- value 사용자가 적을거 -->
 							<tr>
 								<td>상품 이미지</td>
-								<td><input type="file" name="item_mainImg" value="4dfd5"></td>
+								<td><input type="file" name="item_mainImg" value=""></td>
 							</tr>
 							<tr>
 								<td>상품설명</td>
-								<td><textarea name="item_detail" rows="10" cols="20" value="454sdfsf85"></textarea></td>
+								<td><textarea name="item_detail" rows="10" cols="20" value=""></textarea></td>
 							</tr>
 							<tr>
 								<td colspan="2"><input type="submit" value="등록"></td>

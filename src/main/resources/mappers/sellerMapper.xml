@@ -46,8 +46,8 @@
     
     
     <insert id="itemInsert">
-    	insert into item(category_num, item_name, item_price, item_mainImg, item_detail )
-	 	values(#{category_num}, #{item_name}, #{item_price}, #{item_mainImg}, #{item_detail} )
+    	insert into item( item_name, item_price, item_detail )
+	 	values( #{item_name}, #{item_price}, #{item_detail} )
     </insert>
     
     <!-- <select id="getItemList" resultType="List">
