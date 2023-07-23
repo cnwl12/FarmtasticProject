@@ -1,6 +1,8 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,6 +32,10 @@ public class MemberService {
 		
 		// insertMember 메서드 호출
 		memberDAO.nuserCheck(memberDTO);
+	}
+
+	public List<Map<String, Object>> getMembers() {
+		return memberDAO.getMembers();
 	}
 		
 		

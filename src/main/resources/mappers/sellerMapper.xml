@@ -42,20 +42,29 @@
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
     </select>
     
-
+	<!-- 상품 등록 -->
     <insert id="itemInsert">
-    	insert into item(category_num ,item_name, item_price, item_mainImg, item_detail )
-	 	values(#{category_num}, #{item_name}, #{item_price}, #{item_mainImg}, #{item_detail} )
-    </insert>
+	    INSERT INTO item (
+	        category_num,
+	        item_name,
+	        item_price,
+	        item_mainImg,
+	        item_detail,
+	        item_register
+	    )
+	    VALUES (
+	        #{category_num},
+	        #{item_name},
+	        #{item_price},
+	        #{item_mainImg},
+	        #{item_detail},
+	        now()
+	    )
+	</insert>
+
     
-    <!-- <insert id="itemInsertFile">
-    	insert into item(item_mainImg)
-	 	values(#{item_mainImg})
-    </insert> -->
-    
-    <!-- <select id="getItemList" resultType="List">
-    
-    	
-    
-    </select> -->
+    <select id="getItems" resultType="map">
+    	SELECT *
+    	FROM item
+    </select>
 </mapper>

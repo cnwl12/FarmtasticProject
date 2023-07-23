@@ -1,5 +1,8 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,6 +30,10 @@ public class MemberDAO {
 		System.out.println("MemberDAO nuserCheck() 확인");
 		
 		sqlSession.insert(namespace+".nuserCheck", memberDTO); 
+	}
+
+	public List<Map<String, Object>> getMembers() {
+		return sqlSession.selectList(namespace);
 	}
 
 }

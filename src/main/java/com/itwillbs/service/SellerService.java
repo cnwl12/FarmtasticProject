@@ -30,14 +30,10 @@ public class SellerService {
 			System.out.println("itemInsert 확인!!!");
 			
 			try {
-				
 				// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				
 				System.out.println(uploadPath);
-				
-				// 파일 크기 설정 
-				int maxSize =10*1024*1024;
 				
 				for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
@@ -50,6 +46,8 @@ public class SellerService {
                         String storedFileName = uuid.substring(0, 8) + "." + fileExtension; // 자리수 0~8까지
 
                         String filePath = uploadPath + "/" + storedFileName;
+                        
+                        System.out.println("filePath : " + filePath);
 
                         String saveFileName = "http://c2d2302t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
@@ -79,6 +77,13 @@ public class SellerService {
 			// 파일 자체는(try안에서 저장됨) //  파일 이름만 서비스에서 itemList로 저장
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 
 			
+		}
+
+
+		public List<Map<String, Object>> getItems() {
+			
+			System.out.println("서비스 오나요");
+			return sellerDAO.getItems();
 		}
 		
 		

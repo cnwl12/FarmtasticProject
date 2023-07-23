@@ -49,105 +49,31 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">상품등록</h1>
                     <p class="mb-4">
                     	상품등록 등록확인 
                     </p>
 
-					<!-- 수정 / 삭제도 할 수 있어야함 -->
-					<form action="itemInsertPro" method="post" enctype="multipart/form-data">
-					    <table border="1">
-					        <tr>
-					            <td>카테고리 번호</td>
-					            <td><input type="text" name="category_num" value="123"></td>
-					        </tr>
-					        <tr>
-					            <td>상품명</td>
-					            <td><input type="text" name="item_name" value="상품명 테스트"></td>
-					        </tr>
-					        <tr>
-					            <td>가격</td>
-					            <td><input type="text" name="item_price" value="50000"></td>
-					        </tr>
-					        <!-- value 사용자가 적을거 -->
-					        <tr>
-					            <td>상품 이미지</td>
-					            <td><input type="file" name="item_mainImg"></td>
-					        </tr>
-					        <tr>
-					            <td>상품설명</td>
-					            <td><textarea name="item_detail" rows="10" cols="20">상품 설명 테스트</textarea></td>
-					        </tr>
-					        <tr>
-					            <td colspan="2"><input type="submit" value="등록"></td>
-					        </tr>
-					    </table>
-					</form>
+					<table border="1">
+						<tr>
+							<th>카테고리 번호</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>상품 이미지</th>
+							<th>상품 설명</th>
+						</tr>
+						<c:forEach var="item" items="${itemList}">
+							<tr>
+								<td>${item.category_num}</td>
+								<td>${item.item_name}</td>
+								<td>${item.item_price}</td>
+								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
+								<td>${item.item_detail}</td>
+							</tr>
+						</c:forEach>
+					</table>
 
 
-
-
-					<!-- //////////////////  -->
-<%-- 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                 
-                                    <thead>
-                                        <tr id="avg" style="background-color: #4167d5; color: #f8f9fc;">
-                                            <th colspan="2">총 정산액</th>
-                                            <th colspan="2">총 수수료</th>
-                                            <th colspan="2">총 매출</th>
-                                        </tr>
-                                      <c:forEach items="${sellers}" var="seller" begin="0" end="0">
-    									<tr>
-        									<td colspan="2">${seller.grand_settlement_amount}</td>
-        									<td colspan="2">${seller.grand_fee}</td>
-        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.grand_total_revenue}</td>
-    									</tr>
-									  </c:forEach>
-                                        <tr style="background-color: #edf1f5;">
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>매출액(업체)</th>
-                                            <th>수수료</th>
-                                            <th>정산액</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr style="background-color: #edf1f5;">
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>매출액(업체)</th>
-                                            <th>수수료</th>
-                                            <th>정산액</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                       <c:forEach items="${sellers}" var="seller">
-                                        <tr>
-                                            <td>${seller.seller_num}</td>
-                                            <td>${seller.seller_storeName}</td>
-                                            <td>${seller.seller_name}</td>
-                                            <td>${seller.total_revenue}</td>
-                                            <td>${seller.fee}</td>
-                                            <td>${seller.settlement_amount}</td>
-                                        </tr>
-                                       </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> --%>
-
-                </div>
+				</div>
                 <!-- /.container-fluid -->
 
             </div>
