@@ -44,17 +44,21 @@ public class MemberService {
 	 }	
 	 
 	 
-	 // 아이디 중복검사 - 해결안됌
-//		public boolean checkIdDuplicate(String memberId) {
-//	  // DAO에서 반환된 중복 개수를 확인하여 결과 반환
-//		return memberDAO.checkIdDuplicate(memberId) > 0;
-//	}
+	
 	 
 	 public MemberDTO userCheck(MemberDTO memberDTO) {
 		 System.out.println("MemberService userCheck()");
 		 
 		 return memberDAO.userCheck(memberDTO);
 	 }
+
+
+	public MemberDTO getMember(String member_id) {
+		System.out.println("MemberService getMember()");
+		
+		return memberDAO.getMember(member_id);
+	}
+	
 
 	
 	 
