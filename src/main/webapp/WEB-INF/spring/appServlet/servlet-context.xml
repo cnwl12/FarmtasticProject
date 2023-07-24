@@ -34,11 +34,13 @@
         <beans:property name="uploadTempDir" value="/tmp" /> <!-- 임시 폴더 경로 설정 -->
     </beans:bean>
    
+   
    <!-- 1) com.itwillbs.myweb 패키지 자동으로 스캔 (@어노테이션 찾기) com.itwillbs.controller 패키지 자동으로 스캔 추가  자바폴더(패키지)만들 때 마다 경로 추가 !-->
    <context:component-scan base-package="com.itwillbs.farmtastic" />
    <context:component-scan base-package="com.itwillbs.dao" />
    <context:component-scan base-package="com.itwillbs.domain" />
    <context:component-scan base-package="com.itwillbs.service" />
+   <context:component-scan base-package="com.itwillbs.naverController" />
    
    
 </beans:beans>

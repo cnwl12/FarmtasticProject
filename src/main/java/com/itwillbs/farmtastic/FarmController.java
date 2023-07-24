@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 
 @Controller
@@ -68,6 +70,9 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/navercallback";
 	}
+	
+	@Autowired
+	private NaverController naverController;
 	
 	@RequestMapping(value = "/naverauth", method = RequestMethod.GET)
 	public String naverauth(Locale locale, Model model) {
