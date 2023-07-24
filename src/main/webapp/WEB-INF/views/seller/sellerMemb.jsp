@@ -24,7 +24,7 @@
 <!-- Custom styles for this template -->
 <link
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> 
 
 <!-- Custom styles for this page -->
 <link rel="stylesheet"
@@ -39,7 +39,7 @@
 <body id="page-top">
 
 	<!-- Page Wrapper -->
-	<div id="wrapper">
+	<div id="wrapper">   
 		<jsp:include page="./inc/sidemenu.jsp"></jsp:include>
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
