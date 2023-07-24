@@ -93,7 +93,7 @@ public class SellerService {
 			 return sellerDAO.getSales();
 		}
 		 public void settlementStatus(List<String> sellerNums) {
-			 System.out.println("SellerService settlementStatus 확인!");
+			 System.out.println("SellerService settlementStatus 확인!!");
 		        sellerDAO.settlementStatus(sellerNums);
 		 }	
 
