@@ -49,4 +49,8 @@ public class SellerDAO {
 			sqlSession.update(namespace+".settlementStatus", params);
 		}
 		
+		
+		public List<Map<String, Object>> getSeller() {
+			return sqlSession.selectList("SellerMapper.getSeller()");
+		}
 }

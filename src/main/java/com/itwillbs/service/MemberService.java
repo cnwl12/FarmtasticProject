@@ -27,12 +27,20 @@ public class MemberService {
 		memberDAO.insertMember(memberDTO);
 	}	
 	
-	public void nuserCheck(MemberDTO memberDTO) {
+	public MemberDTO nuserCheck(MemberDTO memberDTO) {
 		System.out.println("MemberService nuserCheck() 확인!!!");
 		
-		// insertMember 메서드 호출
-		memberDAO.nuserCheck(memberDTO);
+		    MemberDTO existingMember = memberDAO.nuserCheck(memberDTO);
+		    return existingMember;
 	}
+	
+	public void ninsertMember(MemberDTO memberDTO) {
+	    System.out.println("MemberService ninsertMemberk() 확인!!!");
+
+	    // ninsertMember 메서드 호출
+	    memberDAO.ninsertMember(memberDTO);
+	}
+	
 	 public List<Map<String, Object>> getMembers() {
 		 System.out.println("MemberService getMembers() 확인!");
 	        return memberDAO.getMembers();

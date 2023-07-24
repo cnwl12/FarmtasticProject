@@ -173,13 +173,18 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/snotice";
 	}
+	
+	//가맹점관리
 	@RequestMapping(value = "/sellerAdmin", method = RequestMethod.GET)
 	public String sellerAdmin(Locale locale, Model model) {
-		
+			
 		System.out.println("sellerAdmin 매핑확인여부");
-		
+		 List<Map<String, Object>> resultList = sellerService.getSeller();
+		 model.addAttribute("sellers", resultList);
 		return "/admin/sellerMenu/sellerAdmin";
 	}
+	
+	
 	@RequestMapping(value = "/settest", method = RequestMethod.GET)
 	public String settest(Locale locale, Model model) {
 		

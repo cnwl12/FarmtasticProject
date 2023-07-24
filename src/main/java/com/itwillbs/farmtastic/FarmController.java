@@ -80,6 +80,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/navercallback";
 	}
 	
+	@Autowired
+	private NaverController naverController;
+	
 	@RequestMapping(value = "/naverauth", method = RequestMethod.GET)
 	public String naverauth(Locale locale, Model model) {
 

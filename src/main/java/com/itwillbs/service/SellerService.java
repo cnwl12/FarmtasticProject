@@ -98,4 +98,10 @@ public class SellerService {
 
 	    }
 
+	    // 가맹점관리
+		public List<Map<String, Object>> getSeller() {
+			return sellerDAO.getSeller();
+		}
+		
+		
 }
