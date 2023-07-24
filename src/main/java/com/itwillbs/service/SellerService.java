@@ -92,6 +92,10 @@ public class SellerService {
 		public List<Map<String, Object>> getSales() {
 			 return sellerDAO.getSales();
 		}
+		 public void settlementStatus(List<String> sellerNums) {
+			 System.out.println("SellerService settlementStatus 확인!!");
+		        sellerDAO.settlementStatus(sellerNums);
+		 }	
 
 	    
 

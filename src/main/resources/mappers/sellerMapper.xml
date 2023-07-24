@@ -83,7 +83,13 @@
 		WHERE s.seller_num != 'admin'
 		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
 		ORDER BY order_month;
-    
-    
     </select>
+    <update id="settlementStatus" parameterType="list">
+    UPDATE settlement
+    SET settlement_yn = 'Y'
+    WHERE seller_num IN
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </update>
 </mapper>

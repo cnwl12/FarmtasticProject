@@ -19,7 +19,7 @@ public class SellerDAO {
 	   private SqlSession sqlSession;
 
 	    public List<Map<String, Object>> getSellers() {
-	        return sqlSession.selectList("SellerMapper.getSellers");
+	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
 
 
@@ -38,5 +38,9 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getSales");
 		}
 
-	
+
+		public void settlementStatus(List<String> sellerNums) {
+			System.out.println("SelelrDAO settlementStatus 확인");
+			sqlSession.update(namespace+".settlementStatus",sellerNums);
+		} 
 }

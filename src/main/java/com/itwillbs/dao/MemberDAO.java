@@ -41,15 +41,16 @@ public class MemberDAO {
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
 	}
 	
-//	아이디 중복검사 - 해결안됌
-//	 public int checkIdDuplicate(String memberId) {
-//    return sqlSession.selectOne("checkIdDuplicate", memberId);
-//}
 	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberDAO userCheck()");
 		
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
+	}
+
+	public MemberDTO getMember(String member_id) {
+		System.out.println("MemberDAO getMember");
+		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
 
 }

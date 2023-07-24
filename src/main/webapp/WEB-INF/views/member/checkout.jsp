@@ -127,14 +127,14 @@
             
             <!-- 주문내역 정보 확인 -->
             <div class="checkout__form">
-                <h4>Billing Details</h4>
+                <h4>주문정보</h4>
                 <form action="#">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
+                                        <p>주문자정보<span>*</span></p>
                                         <input type="text">
                                     </div>
                                 </div>
@@ -146,13 +146,10 @@
                                 </div>
                             </div>
                             <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
+                                <p>주소<span>*</span></p>
+                                <input type="text" placeholder="우편번호" class="checkout__input__add">
+                                <input type="text" placeholder="메인주소" class="checkout__input__add">
+                                <input type="text" placeholder="상세주소">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
@@ -169,7 +166,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
+                                        <p>연락처<span>*</span></p>
                                         <input type="text">
                                     </div>
                                 </div>
@@ -240,7 +237,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn" onclick="requestPay()">PLACE ORDER</button>
+                                <button type="submit" class="site-btn">결제하기</button>
                             </div>
                         </div>
                     </div>
