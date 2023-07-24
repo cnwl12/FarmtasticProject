@@ -173,17 +173,33 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/snotice";
 	}
+	
+	//가맹점관리
 	@RequestMapping(value = "/sellerAdmin", method = RequestMethod.GET)
 	public String sellerAdmin(Locale locale, Model model) {
-		
+			
 		System.out.println("sellerAdmin 매핑확인여부");
-		
+		 List<Map<String, Object>> resultList = sellerService.getSeller();
+		 model.addAttribute("sellers", resultList);
 		return "/admin/sellerMenu/sellerAdmin";
 	}
+	
+	
+	@RequestMapping(value = "/settest", method = RequestMethod.GET)
+	public String settest(Locale locale, Model model) {
+		
+		System.out.println("settest 매핑확인여부");
+		 List<Map<String, Object>> resultList = sellerService.getSales();
+		 model.addAttribute("sales", resultList);
+   		return "/admin/sellerMenu/settest";
+	}
+	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model) {
 		
 		System.out.println("settlement 매핑확인여부");
+		
+	
 		
 		return "/admin/sellerMenu/settlement";
 	}
@@ -200,6 +216,17 @@ public class AdminController {
 		 model.addAttribute("sellers", resultList);
 		
 		return "/admin/sellerMenu/sales";
+	}
+	@PostMapping("/settlementStatus")
+	public String settlementStatus(@RequestParam(value = "result", required = false) List<String> sellerNums, RedirectAttributes redirectAttributes) {
+	if (sellerNums == null || sellerNums.isEmpty()) {
+	redirectAttributes.addFlashAttribute("message", "체크된 내역이 없습니다.");
+	} else {
+	System.out.println("/settlementStatus 매핑확인여부");
+	memberService.changeMemberStatus(sellerNums);
+	redirectAttributes.addFlashAttribute("message", "정산이 완료되었습니다..");
+	}
+	return "redirect:/settest";
 	}
 	
 	

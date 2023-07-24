@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.*"%>
+    db연동작업중.....많이기다려줘요......
+    workspace-sts에서 콜백 토큰정보확인해보세요....
+<%--<%@ page import="java.io.*"%>
 <%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="javax.net.ssl.*"%>
@@ -14,10 +16,10 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException" %>
-<%
+<%    
     String accessToken = request.getParameter("access_token");
     String apiUrl = "https://kapi.kakao.com/v2/user/me";
-
+ 
     URL url = new URL(apiUrl);
     HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
@@ -83,3 +85,4 @@
 
 %>
 
+ --%>

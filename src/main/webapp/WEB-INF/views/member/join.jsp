@@ -63,7 +63,15 @@ button#submitBtn {
     color: #dc3545;
     margin-left: 25px;
 }
+.idcheck-used {
+    color: red;
+    margin-left: 25px;
+}
 
+ .idcheck-available {
+    color: blue;
+    margin-left: 25px
+}
 
 </style>
  
@@ -151,17 +159,15 @@ button#submitBtn {
 							<legend>팜타스틱 회원가입 정보입력</legend>
 							<p class="">회원정보를 입력해주세요. 모두 입력하셔야 가입이 가능합니다.</p>
 							
-<!-- 							구현하는 사람이 NAME, ID 맞추기  -->
+				<!-- 	구현하는 사람이 NAME, ID 맞추기  -->
  							
 							<ul class="form_list">
 							
 								<li>
 								<input type="hidden" name="join_date" id="join_date">
 								<input type="text" class="form-control" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
-<!-- 								<button type="button" class="btn btn-primary" id="checkIdBtn">중복검사</button> -->
-<!--   								<div id="idError" class="invalid-feedback" style="display:none;"> -->
-<!--     							중복된 아이디 입니다. -->
-<!--   								</div> -->
+								<input type="button" value="중복체크" class="idcheckbtn">
+								<div id = "idcheckdiv"></div>
 								<div id="invalid_id" class="invalid-feedback">
                 				아이디를 입력해주세요.
               					</div>
@@ -307,39 +313,6 @@ button#submitBtn {
         validateId();
       });
       
-     
-      /* 아이디 중복검사 해결안됌 */
-//         // 중복 검사 버튼 클릭 이벤트 핸들러
-//         $("#checkIdBtn").on("click", async function() {
-//           await checkIdDuplicate();
-//         });
-
-//         // 아이디 중복 검사 함수
-//         async function checkIdDuplicate() {
-//           const memberId = $("#member_id").val();
-
-//           if (validateId()) {
-//             try {
-//               const response = await $.ajax({
-//                 url: "/checkId",
-//                 type: "POST",
-//                 data: {
-//                   member_id: member_id
-//                 },
-//                 dataType: "text",
-//               });
-
-//               if (response === "DUPLICATED") {
-//                 $("#idError").show();
-//               } else {
-//                 $("#idError").hide();
-//               }
-//             } catch (error) {
-//               console.error(error);
-//             }
-//           }
-//         }
-      
       $("#member_pass").on("input", function() {
         validatePass();
       });
@@ -391,10 +364,34 @@ button#submitBtn {
     	      }
     	    });
     	  }
-    	}); 
+   	 	}); 
 
-    });
-
+ });
+    
+    $(document).ready(function() {
+ $('.idcheckbtn').click(function(){ 
+	  if($('#member_id').val() == "") {
+			alert("아이디 입력하세요");
+			$('#member_id').focus();
+			return false;
+		} 
+	  $.ajax({
+			url: '${pageContext.request.contextPath }/idCheck',
+			data : {'member_id' : $('#member_id').val()},
+			success:function(result){
+				// id = "idcheckdiv" 출력
+				if (result == 'id is used') {
+					result =  "<span class='idcheck-used'>아이디 중복</span>";
+				} else {
+					result =  "<span class='idcheck-available'>아이디 사용가능</span>";
+				}
+				
+				$('#idcheckdiv').html(result);
+			}
+		});
+ 	});
+ });
+ 
     // 정규식
     var regId = /^[a-zA-Z0-9]{2,10}$/;
     var regPw = /^[a-zA-Z0-9]{2,10}$/;
