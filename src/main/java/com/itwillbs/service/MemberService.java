@@ -42,5 +42,10 @@ public class MemberService {
 		 System.out.println("MemberService changeMemberStatus 확인!");
 	        memberDAO.changeMemberStatus(memberNums);
 	 }	
-
+	 
+//		public boolean checkIdDuplicate(String memberId) {
+//	  // DAO에서 반환된 중복 개수를 확인하여 결과 반환
+//		return memberDAO.checkIdDuplicate(memberId) > 0;
+//	}
+	 
 }

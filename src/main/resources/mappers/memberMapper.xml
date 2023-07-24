@@ -29,4 +29,9 @@
     </foreach>
   </update>
   
+  <!-- 	<select id="checkIdDuplicate" resultType="int"> -->
+<!--         SELECT COUNT(*) FROM member WHERE member_id = #{member_id} -->
+<!--     </select> -->
+  
+  
 </mapper>

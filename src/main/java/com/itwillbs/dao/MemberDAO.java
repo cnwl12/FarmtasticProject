@@ -39,4 +39,10 @@ public class MemberDAO {
 		System.out.println("MemberDAO changeMemberStatus 확인");
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
 	}
+
+//	 public int checkIdDuplicate(String memberId) {
+//    return sqlSession.selectOne("checkIdDuplicate", memberId);
+//}
+
+
 }

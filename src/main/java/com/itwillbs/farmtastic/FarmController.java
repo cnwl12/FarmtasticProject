@@ -165,26 +165,52 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 디비 연동 확인용
 
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insert() {
-
-		System.out.println("insert 매핑확인여부");
-		return "/member/insert";
-	}
+//	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+//	public String insert() {
+//
+//		System.out.println("insert 매핑확인여부");
+//		return "/member/insert";
+//	}
+//
+//	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
+//	public String insertPro(MemberDTO memberDTO) {
+//
+//		System.out.println(memberDTO.getMember_id());
+//		System.out.println(memberDTO.getMember_pass());
+//		System.out.println(memberDTO.getMember_name());
+//
+//		// insertMember() 메서드 호출
+//		memberService.insertMember(memberDTO);
+//
+//		return "redirect:/contact";
+//	}
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) {
-
+	public String insertPro(MemberDTO memberDTO ) {
+		
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-
+		System.out.println(memberDTO.getMember_phone());
+		System.out.println(memberDTO.getMember_email());
+		System.out.println(memberDTO.getMember_joinDay());
+		System.out.println(memberDTO.getMember_post());
+		System.out.println(memberDTO.getMember_addMain());
+		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
-		return "redirect:/contact";
+		return "redirect:/login";
 	}
 
-	   
+//	@PostMapping("/checkId")
+//	public String checkId(@RequestParam("member_id") String memberId) {
+//	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
+//	  if (isDuplicated) {
+//	    return "DUPLICATED";
+//	  } else {
+//	    return "OK";
+//	  }
+//	}   
 	
 }

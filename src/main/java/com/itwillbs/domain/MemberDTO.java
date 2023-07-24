@@ -9,7 +9,10 @@ public class MemberDTO {
 	private	String member_phone;
 	private	String member_email;
 	private	String member_nid;
-	
+	private String member_post;
+	private String member_addMain;
+	private String member_addSub;
+	private int member_joinDay;
 	
 	public int getMember_num() {
 		return member_num;
@@ -52,6 +55,30 @@ public class MemberDTO {
 	}
 	public void setMember_nid(String member_nid) {
 		this.member_nid = member_nid;
+	}
+	public String getMember_post() {
+		return member_post;
+	}
+	public void setMember_post(String member_post) {
+		this.member_post = member_post;
+	}
+	public String getMember_addMain() {
+		return member_addMain;
+	}
+	public void setMember_addMain(String member_addMain) {
+		this.member_addMain = member_addMain;
+	}
+	public String getMember_addSub() {
+		return member_addSub;
+	}
+	public void setMember_addSub(String member_addSub) {
+		this.member_addSub = member_addSub;
+	}
+	public int getMember_joinDay() {
+		return member_joinDay;
+	}
+	public void setMember_joinDay(int member_joinDay) {
+		this.member_joinDay = member_joinDay;
 	}
 	
 
