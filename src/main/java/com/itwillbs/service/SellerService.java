@@ -49,7 +49,7 @@ public class SellerService {
                         
                         System.out.println("filePath : " + filePath);
 
-                        String saveFileName = "http://c2d2302t2.itwillbs.com/Farmtastic/resources/upload/" + storedFileName;
+                        String saveFileName = "http://c2d2303t2.itwillbs.com/Farmtastic/resources/upload/" + storedFileName;
 
                         // 임시경로에서 filePath로 파일이동 
                         File dest = new File(filePath);
