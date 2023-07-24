@@ -39,8 +39,14 @@ public class SellerDAO {
 		}
 
 
-		public void settlementStatus(List<String> sellerNums) {
+		
+		 public void settlementStatus(List<String> sellerNumList, String orderMonth) {
 			System.out.println("SelelrDAO settlementStatus 확인");
-			sqlSession.update(namespace+".settlementStatus",sellerNums);
-		} 
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("sellerNumList", sellerNumList);
+			params.put("orderMonth", orderMonth);
+			    
+			sqlSession.update(namespace+".settlementStatus", params);
+		}
+		
 }

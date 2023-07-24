@@ -84,12 +84,14 @@
 		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
 		ORDER BY order_month;
     </select>
-    <update id="settlementStatus" parameterType="list">
+   <update id="settlementStatus" parameterType="map">
     UPDATE settlement
     SET settlement_yn = 'Y'
     WHERE seller_num IN
-    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+    <foreach item="item" index="index" collection="sellerNumList" open="(" separator="," close=")">
         #{item}
     </foreach>
-  </update>
+    AND DATE_FORMAT(order_month, '%Y-%m') = #{orderMonth}
+   </update>
+  
 </mapper>
