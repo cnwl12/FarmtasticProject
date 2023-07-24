@@ -60,7 +60,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeMemberStatus" method="post"> 
-                   		<button id="deletemember" type="submit">회원탈퇴</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="deletemember" type="submit">회원탈퇴</button>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
