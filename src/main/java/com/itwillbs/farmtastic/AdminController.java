@@ -212,6 +212,17 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/sales";
 	}
+	@PostMapping("/settlementStatus")
+	public String settlementStatus(@RequestParam(value = "result", required = false) List<String> sellerNums, RedirectAttributes redirectAttributes) {
+	if (sellerNums == null || sellerNums.isEmpty()) {
+	redirectAttributes.addFlashAttribute("message", "체크된 내역이 없습니다.");
+	} else {
+	System.out.println("/settlementStatus 매핑확인여부");
+	memberService.changeMemberStatus(sellerNums);
+	redirectAttributes.addFlashAttribute("message", "정산이 완료되었습니다..");
+	}
+	return "redirect:/settest";
+	}
 	
 	
 }
