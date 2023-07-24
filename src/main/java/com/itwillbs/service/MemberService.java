@@ -1,6 +1,8 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,7 +26,21 @@ public class MemberService {
 		// insertMember 메서드 호출
 		memberDAO.insertMember(memberDTO);
 	}	
+	
+	public void nuserCheck(MemberDTO memberDTO) {
+		System.out.println("MemberService nuserCheck() 확인!!!");
 		
+		// insertMember 메서드 호출
+		memberDAO.nuserCheck(memberDTO);
+	}
+
+	public List<Map<String, Object>> getMembers() {
+		return memberDAO.getMembers();
+	}
 		
+	 public void changeMemberStatus(List<String> memberNums) {
+		 System.out.println("MemberService changeMemberStatus 확인!");
+	        memberDAO.changeMemberStatus(memberNums);
+	 }	
 
 }

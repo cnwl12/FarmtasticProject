@@ -81,7 +81,31 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/kakaologin";
 	}
+	
+	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
+	public String kakaocallback(Locale locale, Model model) {
 
+		System.out.println("kakaocallback 매핑확인여부");
+
+		return "/member/kakaocallback";
+	}
+	
+	@RequestMapping(value = "/kakaoUserInfo", method = RequestMethod.GET)
+	public String kakaoUserInfo(Locale locale, Model model) {
+
+		System.out.println("kakaoUserInfo 매핑확인여부");
+
+		return "/member/kakaoUserInfo";
+	}
+
+	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
+	public String kakaoLogout(Locale locale, Model model) {
+
+		System.out.println("kakaoLogout 매핑확인여부");
+
+		return "/member/kakaoLogout";
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
@@ -129,6 +153,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/farmStoreDetail";
 	}
+	
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String checkout(Locale locale, Model model) {
+
+		System.out.println("checkout 매핑확인여부");
+
+		return "/member/checkout";
+	}
+
 
 	// 디비 연동 확인용
 
