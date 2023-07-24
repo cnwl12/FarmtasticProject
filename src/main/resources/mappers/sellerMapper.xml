@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SellerMapper">
+    <select id="getSellers" resultType="map">
+    	<!-- 이중조인해서 결제금을 이용해 판매자별 총매출불러오고 format으로 1000단위 구분함. -->
+    <!-- 관리자 총매출 구하기전
+         SELECT s.seller_num, s.seller_storeName, s.seller_name,
+       	 FORMAT(SUM(o.order_pay), 0) AS total_revenue,
+         FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+         FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount
+         FROM seller s
+         LEFT JOIN item i ON s.seller_num = i.seller_num
+         LEFT JOIN orders o ON i.item_num = o.item_num
+         WHERE s.seller_num != 'admin'
+         GROUP BY s.seller_num, s.seller_id, s.seller_name;   
+    -->
+   		 SELECT s.seller_num, s.seller_storeName, s.seller_name,
+       	 FORMAT(SUM(o.order_pay), 0) AS total_revenue,
+         FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+         FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
+         
+         FORMAT((SELECT SUM(o.order_pay) FROM orders o
+               INNER JOIN item i ON i.item_num = o.item_num
+               INNER JOIN seller s ON s.seller_num = i.seller_num
+               WHERE s.seller_num != 'admin'), 0) as grand_total_revenue,
+         FORMAT((SELECT SUM(floor(o.order_pay * 0.05)) FROM orders o
+               INNER JOIN item i ON i.item_num = o.item_num
+               INNER JOIN seller s ON s.seller_num = i.seller_num
+               WHERE s.seller_num != 'admin'), 0) as grand_fee,
+         FORMAT((SELECT SUM(o.order_pay) - SUM(floor(o.order_pay * 0.05)) FROM orders o
+               INNER JOIN item i ON i.item_num = o.item_num
+               INNER JOIN seller s ON s.seller_num = i.seller_num
+               WHERE s.seller_num != 'admin'), 0) as grand_settlement_amount
+         
+         FROM seller s
+         LEFT JOIN item i ON s.seller_num = i.seller_num
+         LEFT JOIN orders o ON i.item_num = o.item_num
+         WHERE s.seller_num != 'admin'
+         GROUP BY s.seller_num, s.seller_id, s.seller_name;
+    </select>
+    
+	<!-- 상품 등록 -->
+    <insert id="itemInsert">
+	    INSERT INTO item (
+	        category_num,
+	        item_name,
+	        item_price,
+	        item_mainImg,
+	        item_detail,
+	        item_register
+	    )
+	    VALUES (
+	        #{category_num},
+	        #{item_name},
+	        #{item_price},
+	        #{item_mainImg},
+	        #{item_detail},
+	        now()
+	    )
+	</insert>
+
+    
+    <select id="getItems" resultType="map">
+    	SELECT *
+    	FROM item
+    </select>
+</mapper>
