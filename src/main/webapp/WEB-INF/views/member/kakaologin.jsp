@@ -4,20 +4,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>카카오 간편로그인 예제</title>
+    <title>카카오 간편로그인</title>
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script type="text/javascript">
         // SDK 초기화
         Kakao.init('149628d775b80692adf63d544addda79');
-
+     
         function loginWithKakao() {
             Kakao.Auth.login({
-                success: function(authObj) {
+                success: function(authObj) {   
                     // 로그인 성공, authObj에 access_token, refresh_token 등이 담겨있습니다.
                     location.href = "http://localhost:8080/farmtastic/kakaocallback?access_token=" + authObj.access_token;
                 },
                 fail: function(err) {
-                    // 로그인 실패, 에러메시지 alert로 출력
+                    // 로그인 실패, 에러메시지 alert로 출력 
                     alert(JSON.stringify(err));
                 }
             });
