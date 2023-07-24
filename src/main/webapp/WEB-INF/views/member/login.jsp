@@ -36,7 +36,7 @@
 				<div id="ui-content" class="join2 PC box-content btn-fixed-bottom-on">
 					<!-- ### 컨텐츠 시작 ###  -->
 					<div id="ui-content-body" class="join2 type btn-fixed-bottom-on">
-						<ul class="tab-ty2">
+						<ul class="tab-ty2">  
 							<li><a href="#">휴대폰 로그인</a></li>
 							<li class="on"><a href="#">아이디 로그인</a></li>
 						</ul>
