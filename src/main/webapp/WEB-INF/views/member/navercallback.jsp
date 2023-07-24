@@ -1,4 +1,5 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="org.json.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URL" %>
@@ -8,9 +9,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>네이버로그인</title>
+    <title>네이버로그인   </title>
   </head>
-  <body>
+  <body>  
   <%
     String clientId = "P5XN0dR3HKnKenJtWjZC";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "so1IESXtfI";//애플리케이션 클라이언트 시크릿값";
@@ -26,7 +27,7 @@
     apiURL += "&state=" + state;
     String access_token = "";
     String refresh_token = "";
-    
+    String naver = "";
     System.out.println("apiURL="+apiURL);
     try {
       URL url = new URL(apiURL);
@@ -64,4 +65,4 @@
     
   %>
   </body>
-</html> --%>
+</html>

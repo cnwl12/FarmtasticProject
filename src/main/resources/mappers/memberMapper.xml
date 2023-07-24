@@ -6,8 +6,14 @@
 <mapper namespace="com.itwillbs.mappers.memberMapper"> <!-- 파일이름x / 예명  -->
 	
 	<insert id="insertMember"> 
-	 	insert into members(member_num, member_id, member_pass, member_name, member_phone, member_email, member_joinDay, member_post, member_addMain, member_addSub)
-	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name}, #{member_phone}, #{member_email}, #{member_joinDay}, #{member_post}, #{member_addMain}, #{member_addSub})
-	</insert>
+	 	insert into members(member_num, member_id, member_pass,member_name)
+	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name})
+	</insert>  
 	
+	<select id="nuserCheck" 
+                  resultType="com.itwillbs.domain.MemberDTO">
+    select * from members       
+    where member_nid = #{member_nid}
+  	</select> 
+	 
 </mapper>

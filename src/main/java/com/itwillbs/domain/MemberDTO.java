@@ -1,21 +1,15 @@
 package com.itwillbs.domain;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-
 public class MemberDTO {
 	
 	private int member_num;
 	private String member_id;
 	private String member_pass;
 	private	String member_name;
-	private String member_phone;
-	private String member_email;
-	private String member_post;
-	private String member_addMain;
-	private String member_addSub;
-	private Timestamp member_joinDay;
+	private	String member_phone;
+	private	String member_email;
+	private	String member_nid;
+	
 	
 	public int getMember_num() {
 		return member_num;
@@ -38,9 +32,6 @@ public class MemberDTO {
 	public String getMember_name() {
 		return member_name;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
-	}
 	public String getMember_phone() {
 		return member_phone;
 	}
@@ -53,36 +44,15 @@ public class MemberDTO {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
-	public String getMember_post() {
-		return member_post;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
-	public void setMember_post(String member_post) {
-		this.member_post = member_post;
+	public String getMember_nid() {
+		return member_nid;
 	}
-	public String getMember_addMain() {
-		return member_addMain;
+	public void setMember_nid(String member_nid) {
+		this.member_nid = member_nid;
 	}
-	public void setMember_addMain(String member_addMain) {
-		this.member_addMain = member_addMain;
-	}
-	public String getMember_addSub() {
-		return member_addSub;
-	}
-	public void setMember_addSub(String member_addSub) {
-		this.member_addSub = member_addSub;
-	}
-	public Timestamp getMember_joinDay() {
-		return member_joinDay;
-	}
-	public void setMember_joinDay(Timestamp member_joinDay) {
-		this.member_joinDay = member_joinDay;
-	}
-	
-	
-	
-	
-	
-	
 	
 
 

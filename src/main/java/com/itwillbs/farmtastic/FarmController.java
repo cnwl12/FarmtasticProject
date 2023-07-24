@@ -81,14 +81,38 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/kakaologin";
 	}
+	
+	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
+	public String kakaocallback(Locale locale, Model model) {
 
-//	@RequestMapping(value = "/join", method = RequestMethod.GET)
-//	public String join(Locale locale, Model model) {
-//
-//		System.out.println("join 매핑확인여부");
-//
-//		return "/member/join";
-//	}
+		System.out.println("kakaocallback 매핑확인여부");
+
+		return "/member/kakaocallback";
+	}
+	
+	@RequestMapping(value = "/kakaoUserInfo", method = RequestMethod.GET)
+	public String kakaoUserInfo(Locale locale, Model model) {
+
+		System.out.println("kakaoUserInfo 매핑확인여부");
+
+		return "/member/kakaoUserInfo";
+	}
+
+	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
+	public String kakaoLogout(Locale locale, Model model) {
+
+		System.out.println("kakaoLogout 매핑확인여부");
+
+		return "/member/kakaoLogout";
+	}
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String join(Locale locale, Model model) {
+
+		System.out.println("join 매핑확인여부");
+
+		return "/member/join";
+	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(Locale locale, Model model) {
@@ -132,11 +156,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 디비 연동 확인용
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String insert() {
 
-		System.out.println("join 매핑확인여부");
-		return "/member/join";
+		System.out.println("insert 매핑확인여부");
+		return "/member/insert";
 	}
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
@@ -145,16 +169,11 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-		System.out.println(memberDTO.getMember_phone());
-		System.out.println(memberDTO.getMember_email());
-		System.out.println(memberDTO.getMember_joinDay());
-		System.out.println(memberDTO.getMember_post());
-		System.out.println(memberDTO.getMember_addMain());
-		System.out.println(memberDTO.getMember_addSub());
+
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
-		return "redirect:/member/login";
+		return "redirect:/contact";
 	}
 
 	   
