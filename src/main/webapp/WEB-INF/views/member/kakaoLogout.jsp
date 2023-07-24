@@ -4,7 +4,7 @@
 <%@page import="java.nio.charset.StandardCharsets"%>
 
 <%!
-  final String CLIENT_ID = "93a4658677400f85346634975b9da8d5"; // 카카오 REST API 키 입력
+  final String CLIENT_ID = "1c28cf425959000febc204db32a43237"; // 카카오 REST API 키 입력
   final String KAKAO_LOGOUT_BASE_URL = "https://kauth.kakao.com/oauth/logout";
 %>
 
@@ -17,7 +17,7 @@
   <%
 try {
     // 카카오 로그아웃 처리를 위한 URL 생성하기
-    String redirectUri = "http://localhost:8080/farmtastic/kakaoLogout"; // 로그아웃 후 리다이렉트 될 페이지 주소
+    String redirectUri = "http://localhost:8080/farmtastic/login"; // 로그아웃 후 리다이렉트 될 페이지 주소
     String requestUrl = KAKAO_LOGOUT_BASE_URL + "?client_id=" + CLIENT_ID + "&logout_redirect_uri=" + URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.name());
 	// 카카오 로그아웃 처리하기
     response.sendRedirect(requestUrl);
