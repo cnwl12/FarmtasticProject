@@ -61,25 +61,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <!-- ////////////////////// -->
-				<%-- 					<table border="1">
-						<tr>
-							<th>카테고리 번호</th>
-							<th>상품명</th>
-							<th>가격</th>
-							<th>상품 이미지</th>
-							<th>상품 설명</th>
-						</tr>
-						<c:forEach var="item" items="${itemList}">
-							<tr>
-								<td>${item.category_num}</td>
-								<td>${item.item_name}</td>
-								<td>${item.item_price}</td>
-								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
-								<td>${item.item_detail}</td>
-							</tr>
-						</c:forEach>
-					</table> --%>
 
                             <!-- ////////////////////// -->
                             <c:forEach var="item" items="${itemList}">
@@ -127,14 +108,14 @@
             
             <!-- 주문내역 정보 확인 -->
             <div class="checkout__form">
-                <h4>Billing Details</h4>
+                <h4>주문정보</h4>
                 <form action="#">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
+                                        <p>주문자정보<span>*</span></p>
                                         <input type="text">
                                     </div>
                                 </div>
@@ -146,13 +127,10 @@
                                 </div>
                             </div>
                             <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
+                                <p>주소<span>*</span></p>
+                                <input type="text" placeholder="우편번호" class="checkout__input__add">
+                                <input type="text" placeholder="메인주소" class="checkout__input__add">
+                                <input type="text" placeholder="상세주소">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
@@ -169,7 +147,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
+                                        <p>연락처<span>*</span></p>
                                         <input type="text">
                                     </div>
                                 </div>
@@ -240,7 +218,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <button type="submit" class="site-btn">결제하기</button>
                             </div>
                         </div>
                     </div>
