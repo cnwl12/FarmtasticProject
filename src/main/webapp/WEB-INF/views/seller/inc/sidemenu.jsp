@@ -36,7 +36,7 @@
                     <span>회원관리</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="salesMng">
                     <span>매출관리</span></a>
             </li>
 
@@ -58,6 +58,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="itemRegister">상품등록</a>
                         <a class="collapse-item" href="itemMng">상품처리</a>
+                        <a class="collapse-item" href="itemDelMng">배송관리</a>
+                        <a class="collapse-item" href="itemRetExcMng">반품/교환관리</a>
                     </div>
                 </div>
             </li>

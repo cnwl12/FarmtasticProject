@@ -57,7 +57,13 @@ public class SellerController {
 		
 		return "/seller/memberMng";
 	}
-	
+	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
+	public String salesMng(Locale locale, Model model) {
+		
+		System.out.println("salesMng 매핑확인여부");
+		
+		return "/seller/salesMng";
+	}
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
 		
@@ -71,6 +77,20 @@ public class SellerController {
 		System.out.println("itemRegister 매핑확인여부");
 		
 		return "/seller/itemRegister";
+	}
+	@RequestMapping(value = "/itemDelMng", method = RequestMethod.GET)
+	public String itemDelMng(Locale locale, Model model) {
+		
+		System.out.println("itemDelMng 매핑확인여부");
+		
+		return "/seller/itemDelMng";
+	}
+	@RequestMapping(value = "/itemRetExcMng", method = RequestMethod.GET)
+	public String itemRetExcMng(Locale locale, Model model) {
+		
+		System.out.println("itemRetExcMng 매핑확인여부");
+		
+		return "/seller/itemRetExcMng";
 	}
 	@RequestMapping(value = "/reviewMng", method = RequestMethod.GET)
 	public String reviewAdmin(Locale locale, Model model) {

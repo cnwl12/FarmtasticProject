@@ -70,7 +70,6 @@
 						</div>
 						<div class="panel-body">
 							<ul class="seller-list-border">
-							<c:forEach items="${sellers}" var="seller">
 								<li>
 								<label class="control-label">이름</label>
 								<div class="input-content">
@@ -81,14 +80,14 @@
 								<li>
 								<label class="control-label">로그인ID</label>
 								<div class="input-content">
-									<div class="form-control-static">wl*******</div>
+									<div class="form-control-static">${seller.seller_id}</div>
 								</div>
 								</li>
 								
 								<li>
 								<label class="control-label">이메일 주소</label>
 								<div class="input-content">
-									<div class="form-control-static">wl*******@naver.com</div>
+									<div class="form-control-static">${seller.seller_email}</div>
 								</div>
 								</li>
 								
@@ -96,10 +95,9 @@
 								<label class="control-label">휴대폰<br class="visible-xs">번호
 								</label>
 								<div class="input-content">
-									<div class="form-control-static">010-91**-10**</div>
+									<div class="form-control-static">${seller.seller_mobile}</div>
 								</div>
 								</li>
-							</c:forEach>
 							</ul>
 						</div>
 					</div>
