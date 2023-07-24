@@ -40,10 +40,17 @@ public class MemberDAO {
 		System.out.println("MemberDAO changeMemberStatus 확인");
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
 	}
+	
+	
+	public MemberDTO userCheck(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck()");
+		
+		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
+	}
 
-//	 public int checkIdDuplicate(String memberId) {
-//    return sqlSession.selectOne("checkIdDuplicate", memberId);
-//}
-
+	public MemberDTO getMember(String member_id) {
+		System.out.println("MemberDAO getMember");
+		return sqlSession.selectOne(namespace+".getMember", member_id);
+	}
 
 }

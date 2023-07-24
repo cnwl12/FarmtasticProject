@@ -34,6 +34,13 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getItems");
 		}
 
-		
-	
+		public List<Map<String, Object>> getSales() {
+			return sqlSession.selectList(namespace + ".getSales");
+		}
+
+
+		public void settlementStatus(List<String> sellerNums) {
+			System.out.println("SelelrDAO settlementStatus 확인");
+			sqlSession.update(namespace+".settlementStatus",sellerNums);
+		} 
 }

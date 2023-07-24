@@ -1,8 +1,18 @@
 package com.itwillbs.farmtastic;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.SellerService;
 
 @Controller
 public class FarmController { // 소비자 (컨트롤러)
 
 	@Inject
 	private MemberService memberService;
+	
+	@Autowired
+	private SellerService sellerService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -137,11 +151,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/shoppingCart";
 	}
-
+	
+	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임 
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
+		
+		 List<Map<String, Object>> itemList = sellerService.getItems();
+		 model.addAttribute("itemList", itemList);
 
-		System.out.println("farmStore 매핑확인여부");
+		System.out.println("팜팜마켓 매핑확인여부");
 
 		return "/member/farmStore";
 	}
@@ -154,15 +172,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 	
-	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(Locale locale, Model model) {
-
-		System.out.println("checkout 매핑확인여부");
-
-		return "/member/checkout";
-	}
-
-
 	// 디비 연동 확인용
 
 //	@RequestMapping(value = "/insert", method = RequestMethod.GET)
@@ -191,26 +200,53 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-//		System.out.println(memberDTO.getMember_phone());
-//		System.out.println(memberDTO.getMember_email());
-//		System.out.println(memberDTO.getMember_joinDay());
-//		System.out.println(memberDTO.getMember_post());
-//		System.out.println(memberDTO.getMember_addMain());
-//		System.out.println(memberDTO.getMember_addSub());
+		System.out.println(memberDTO.getMember_phone());
+		System.out.println(memberDTO.getMember_email());
+		System.out.println(memberDTO.getMember_joinDay());
+		System.out.println(memberDTO.getMember_post());
+		System.out.println(memberDTO.getMember_addMain());
+		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
 		return "redirect:/login";
 	}
-
-//	@PostMapping("/checkId")
-//	public String checkId(@RequestParam("member_id") String memberId) {
-//	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
-//	  if (isDuplicated) {
-//	    return "DUPLICATED";
-//	  } else {
-//	    return "OK";
-//	  }
-//	}   
+   
+	
+	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("MemberController loginPro()");
+		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+		if(memberDTO2 != null) {
+			session .setAttribute("member_id", memberDTO.getMember_id());
+			return "redirect:/index";
+		} else {
+			return "redirect:/login";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> idCheck(HttpServletRequest request) {
+		
+		String member_id = request.getParameter("member_id");
+		
+		MemberDTO memberDTO = memberService.getMember(member_id);
+		String result = "";
+		if (memberDTO != null) {
+			// 아이디 있음 => 아이디 중복
+			result = "id is used";
+		} else {
+			// 아이디 없음 => 아이디 사용가능
+			result = "id is available";
+		}
+		// ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+		
+		return entity;
+	}// idCheck 끝
+	
+	
 	
 }

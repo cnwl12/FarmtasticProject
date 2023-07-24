@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <title>카카오 로그아웃</title>
 </head>
-<body>
+<body>   
   <%
 try {
     // 카카오 로그아웃 처리를 위한 URL 생성하기

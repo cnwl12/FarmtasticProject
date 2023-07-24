@@ -36,13 +36,13 @@
 				<div id="ui-content" class="join2 PC box-content btn-fixed-bottom-on">
 					<!-- ### 컨텐츠 시작 ###  -->
 					<div id="ui-content-body" class="join2 type btn-fixed-bottom-on">
-						<ul class="tab-ty2">  
-							<li id="personal-login-section" class="on"><a href="#" class="toggle-login" data-target="personal">개인 로그인</a></li>
-							<li id="business-login-section"><a href="#" class="toggle-login" data-target="business">사업자 로그인</a></li>
+						<ul class="tab-ty2">
+							<li><a href="#">휴대폰 로그인</a></li>
+							<li class="on"><a href="#">아이디 로그인</a></li>
 						</ul>
-						<div id="personal-login-wrap" class="login-wrap PC tab-phone">
+						<div class="login-wrap PC tab-phone">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="index" id="login" name="login" method="post" onsubmit="return false;">
+							<form class="validation-form" novalidate action="" id="login" name="login" method="post" onsubmit="return false;">
 							<div class="join-info1">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -51,7 +51,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="loginId1" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="loginId" id="loginId" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
 												<div id="invalid_id0" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -62,7 +62,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd1" id="pwd1" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd" id="pwd" value="">
 												<div id="invalid_pass0" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
@@ -118,7 +118,7 @@
 						<!-- login2-wrap -->
 						<div id="business-login-wrap" class="login-wrap PC tab-phone" style="display: none;">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="sellerMain" id="login2" name="login2" method="post" onsubmit="return false;">
+							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerMain" id="login2" name="login2" method="post">
 							<div class="join-info2">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -320,16 +320,16 @@ $(document).ready(function() {
   $("#pwd2").on("keyup", function() {
     var pw2 = $(this).val();
 
-    if (pw2 == "" || !regPw2.test(pw1)) {
-      validPwd2 = false;
-      $("#invalid_pass1").show();
+    if (pw2 == "" || !regPw2.test(pw2)) {
+        validPwd2 = false;
+        $("#invalid_pass1").show();
     } else {
-      validPwd2 = true;
-      $("#invalid_pass1").hide();
+        validPwd2 = true;
+        $("#invalid_pass1").hide();
     }
 
     validateForm2();
-  });
+});
 
   function validateForm() {
     if (validId && validPwd) {
@@ -340,29 +340,37 @@ $(document).ready(function() {
   }
 
   function validateForm2() {
-	    if (validId && validPwd) {
-	      $('button[type="button"]').prop('disabled', false);
+	    if (validId2 && validPwd2) {
+	        $('button[type="button"]').prop('disabled', false);
 	    } else {
-	      $('button[type="button"]').prop('disabled', true);
+	        $('button[type="button"]').prop('disabled', true);
 	    }
-	  }
+	}
   
-  //폼 유효성 검사 및 폼 제출
-  function validateAndSubmitPersonal() {
+//폼 유효성 검사 및 폼 제출
+  window.validateAndSubmitPersonal = function() {
     validateForm();
 
     if (validId && validPwd) {
-      location.href = 'index'; // 개인 로그인 경로를 변경해주세요.
+      if ($("#loginId1").val() === "admin") {
+        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
+      } else {
+        location.href = 'index'; // 개인 로그인 경로를 변경해주세요.
+      }
     } else {
       alert("올바른 정보를 입력해주세요");
     }
   }
 
-  function validateAndSubmitBusiness() {
+  window.validateAndSubmitBusiness = function() {
     validateForm2();
 
-    if (validId && validPwd) {
-      location.href = 'sellerMain'; // 사업자 로그인 경로를 변경해주세요.
+    if (validId2 && validPwd2) {
+      if ($("#loginId2").val() === "admin") {
+        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
+      } else {
+        location.href = 'sellerMain'; // 사업자 로그인 경로를 변경해주세요.
+      }
     } else {
       alert("올바른 정보를 입력해주세요");
     }

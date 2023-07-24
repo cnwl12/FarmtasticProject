@@ -34,11 +34,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Vegetableâs Package</h2>
+                        <h2>FarmFarm Market</h2>
                         <div class="breadcrumb__option">
                             <a href="index">Home</a>
-                            <a href="./index.html">Vegetables</a>
-                            <span>Vegetableâs Package</span>
+                            <a href="index">Vegetables</a>
+                            <span>맛있는 채소</span>
                         </div>
                     </div>
                 </div>
@@ -162,8 +162,11 @@
     </section>
     <!-- Product Details Section End -->
 
+
+
+	<!-- 최근 본 상품 나열 페이지 : 일단은 삭제함 -->
     <!-- Related Product Section Begin -->
-    <section class="related-product">
+   <%--  <section class="related-product">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -235,7 +238,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --%>
     <!-- Related Product Section End -->
 
    <!-- bottom.jsp로 분리  -->

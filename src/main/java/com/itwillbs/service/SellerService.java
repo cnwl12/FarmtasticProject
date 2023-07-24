@@ -43,14 +43,15 @@ public class SellerService {
 
                         String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
 
-                        String storedFileName = uuid.substring(0, 8) + "." + fileExtension; // 자리수 0~8까지
+                        String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
                         String filePath = uploadPath + "/" + storedFileName;
                         
                         System.out.println("filePath : " + filePath);
                         
-                        // 서버랑 이름 맞춰줘야함
+                        // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                         String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
 
                         // 임시경로에서 filePath로 파일이동 
                         File dest = new File(filePath);
@@ -87,8 +88,15 @@ public class SellerService {
 			return sellerDAO.getItems();
 		}
 		
-		
-	    
+		//정산 위한 판매자별 월별 매출리스트
+		public List<Map<String, Object>> getSales() {
+			 return sellerDAO.getSales();
+		}
+		 public void settlementStatus(List<String> sellerNums) {
+			 System.out.println("SellerService settlementStatus 확인!!");
+		        sellerDAO.settlementStatus(sellerNums);
+		 }	
+
 	    
 
 }

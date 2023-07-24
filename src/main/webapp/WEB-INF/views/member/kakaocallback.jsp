@@ -9,9 +9,9 @@
 	<title>카카오 콜백</title>
 </head>
 <body>
-<%
+<% 
 String access_token = request.getParameter("access_token");
-
+   
 try {
     String url = "https://kapi.kakao.com/v2/user/me";
     URL myurl = new URL(url);
@@ -37,12 +37,13 @@ try {
             buffer.append(inputLine);
             System.out.println(inputLine);
         }
+        System.out.println("토큰전달성공");
+        System.out.println("토큰값 : " + access_token);
         in.close();
         
-        System.out.println("토큰전달성공");
+         
 
-
-        String nextUrl = "http://localhost:8080/farmtastic/kakaojoin";
+       String nextUrl = "http://localhost:8080/farmtastic/kakaojoin";
 
         // redirect URL 생성
         String redirectUrl = nextUrl + "?access_token=" + access_token;
