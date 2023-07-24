@@ -72,7 +72,8 @@
                                             <th>이름</th>
                                             <th>등급</th>
                                             <th>상태</th>
-                                            <th>정보조회</th>
+                                            <th>정보조회</th> 
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
