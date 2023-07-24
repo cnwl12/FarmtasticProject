@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
@@ -13,7 +14,7 @@ import com.itwillbs.domain.MemberDTO;
 
 @Service
 public class MemberService {
-	
+	@Autowired 
 	@Inject
 	private MemberDAO memberDAO;
 
@@ -33,9 +34,9 @@ public class MemberService {
 		// insertMember 메서드 호출
 		memberDAO.nuserCheck(memberDTO);
 	}
-
-	public List<Map<String, Object>> getMembers() {
-		return memberDAO.getMembers();
+	 public List<Map<String, Object>> getMembers() {
+		 System.out.println("MemberService getMembers() 확인!");
+	        return memberDAO.getMembers();
 	}
 		
 	 public void changeMemberStatus(List<String> memberNums) {
