@@ -240,7 +240,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <button type="submit" class="site-btn" onclick="requestPay()">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
