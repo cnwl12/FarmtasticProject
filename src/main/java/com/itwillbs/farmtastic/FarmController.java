@@ -3,6 +3,7 @@ package com.itwillbs.farmtastic;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -191,18 +192,19 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-//		System.out.println(memberDTO.getMember_phone());
-//		System.out.println(memberDTO.getMember_email());
-//		System.out.println(memberDTO.getMember_joinDay());
-//		System.out.println(memberDTO.getMember_post());
-//		System.out.println(memberDTO.getMember_addMain());
-//		System.out.println(memberDTO.getMember_addSub());
+		System.out.println(memberDTO.getMember_phone());
+		System.out.println(memberDTO.getMember_email());
+		System.out.println(memberDTO.getMember_joinDay());
+		System.out.println(memberDTO.getMember_post());
+		System.out.println(memberDTO.getMember_addMain());
+		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
 		return "redirect:/login";
 	}
 
+	// 아이디 중복검사 - 해결안됌
 //	@PostMapping("/checkId")
 //	public String checkId(@RequestParam("member_id") String memberId) {
 //	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
@@ -212,5 +214,21 @@ public class FarmController { // 소비자 (컨트롤러)
 //	    return "OK";
 //	  }
 //	}   
+	
+	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("MemberController loginPro()");
+		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+		if(memberDTO2 != null) {
+			session .setAttribute("member_id", memberDTO.getMember_id());
+			return "redirect:/index";
+		} else {
+			return "redirect:/login";
+		}
+		
+	}
+	
+	
+	
 	
 }

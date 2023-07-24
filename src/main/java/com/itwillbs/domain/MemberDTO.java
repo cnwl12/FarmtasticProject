@@ -14,6 +14,7 @@ public class MemberDTO {
 	private String member_addSub;
 	private int member_joinDay;
 	
+	
 	public int getMember_num() {
 		return member_num;
 	}
@@ -35,6 +36,9 @@ public class MemberDTO {
 	public String getMember_name() {
 		return member_name;
 	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public String getMember_phone() {
 		return member_phone;
 	}
@@ -47,9 +51,7 @@ public class MemberDTO {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
-	}
+	
 	public String getMember_nid() {
 		return member_nid;
 	}
@@ -80,6 +82,7 @@ public class MemberDTO {
 	public void setMember_joinDay(int member_joinDay) {
 		this.member_joinDay = member_joinDay;
 	}
+	
 	
 
 

@@ -42,7 +42,7 @@
 						</ul>
 						<div id="personal-login-wrap" class="login-wrap PC tab-phone">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="index" id="login" name="login" method="post" onsubmit="return false;">
+							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/loginPro" id="login" name="login" method="post">
 							<div class="join-info1">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -118,7 +118,7 @@
 						<!-- login2-wrap -->
 						<div id="business-login-wrap" class="login-wrap PC tab-phone" style="display: none;">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="sellerMain" id="login2" name="login2" method="post" onsubmit="return false;">
+							<form class="validation-form" novalidate action="sellerMain" id="login2" name="login2" method="post">
 							<div class="join-info2">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -320,16 +320,16 @@ $(document).ready(function() {
   $("#pwd2").on("keyup", function() {
     var pw2 = $(this).val();
 
-    if (pw2 == "" || !regPw2.test(pw1)) {
-      validPwd2 = false;
-      $("#invalid_pass1").show();
+    if (pw2 == "" || !regPw2.test(pw2)) {
+        validPwd2 = false;
+        $("#invalid_pass1").show();
     } else {
-      validPwd2 = true;
-      $("#invalid_pass1").hide();
+        validPwd2 = true;
+        $("#invalid_pass1").hide();
     }
 
     validateForm2();
-  });
+});
 
   function validateForm() {
     if (validId && validPwd) {
@@ -340,29 +340,37 @@ $(document).ready(function() {
   }
 
   function validateForm2() {
-	    if (validId && validPwd) {
-	      $('button[type="button"]').prop('disabled', false);
+	    if (validId2 && validPwd2) {
+	        $('button[type="button"]').prop('disabled', false);
 	    } else {
-	      $('button[type="button"]').prop('disabled', true);
+	        $('button[type="button"]').prop('disabled', true);
 	    }
-	  }
+	}
   
-  //폼 유효성 검사 및 폼 제출
-  function validateAndSubmitPersonal() {
+//폼 유효성 검사 및 폼 제출
+  window.validateAndSubmitPersonal = function() {
     validateForm();
 
     if (validId && validPwd) {
-      location.href = 'index'; // 개인 로그인 경로를 변경해주세요.
+      if ($("#loginId1").val() === "admin") {
+        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
+      } else {
+        location.href = 'index'; // 개인 로그인 경로를 변경해주세요.
+      }
     } else {
       alert("올바른 정보를 입력해주세요");
     }
   }
 
-  function validateAndSubmitBusiness() {
+  window.validateAndSubmitBusiness = function() {
     validateForm2();
 
-    if (validId && validPwd) {
-      location.href = 'sellerMain'; // 사업자 로그인 경로를 변경해주세요.
+    if (validId2 && validPwd2) {
+      if ($("#loginId2").val() === "admin") {
+        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
+      } else {
+        location.href = 'sellerMain'; // 사업자 로그인 경로를 변경해주세요.
+      }
     } else {
       alert("올바른 정보를 입력해주세요");
     }

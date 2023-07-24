@@ -308,7 +308,7 @@ button#submitBtn {
       });
       
      
-      
+      /* 아이디 중복검사 해결안됌 */
 //         // 중복 검사 버튼 클릭 이벤트 핸들러
 //         $("#checkIdBtn").on("click", async function() {
 //           await checkIdDuplicate();
