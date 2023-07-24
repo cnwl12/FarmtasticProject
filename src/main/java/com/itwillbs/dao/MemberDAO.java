@@ -35,6 +35,7 @@ public class MemberDAO {
 	public List<Map<String, Object>> getMembers() {
 		return sqlSession.selectList("MemberMapper.getMembers");
 	}
+	
 	public void changeMemberStatus(List<String> memberNums) {
 		System.out.println("MemberDAO changeMemberStatus 확인");
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);

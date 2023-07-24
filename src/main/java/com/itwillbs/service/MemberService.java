@@ -24,7 +24,7 @@ public class MemberService {
 		// 날짜 저장 (테스트 dto에서는 date 지웠음)
 		// memberDTO.setDate(new Timestamp(System.currentTimeMillis()));
 		
-		// insertMember 메서드 호출
+		// insertMember 메서드 호출  
 		memberDAO.insertMember(memberDTO);
 	}	
 	
