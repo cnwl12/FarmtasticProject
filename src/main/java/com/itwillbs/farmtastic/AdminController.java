@@ -125,7 +125,7 @@ public class AdminController {
 	redirectAttributes.addFlashAttribute("message", "체크된 회원이 없습니다.");
 	} else {
 	System.out.println("/changeMemberStatus 매핑확인여부");
-	memberService.changeMemberStatus(memberNums);
+	memberService.changeMemberStatus(memberNums;
 	redirectAttributes.addFlashAttribute("message", "선택된 회원의 상태가 변경되었습니다.");
 	}
 	return "redirect:/customerAdmin";
@@ -180,10 +180,21 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/sellerAdmin";
 	}
+	@RequestMapping(value = "/settest", method = RequestMethod.GET)
+	public String settest(Locale locale, Model model) {
+		
+		System.out.println("settest 매핑확인여부");
+		 List<Map<String, Object>> resultList = sellerService.getSales();
+		 model.addAttribute("sales", resultList);
+   		return "/admin/sellerMenu/settest";
+	}
+	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model) {
 		
 		System.out.println("settlement 매핑확인여부");
+		
+	
 		
 		return "/admin/sellerMenu/settlement";
 	}

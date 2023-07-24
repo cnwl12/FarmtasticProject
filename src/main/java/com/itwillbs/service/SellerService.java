@@ -88,7 +88,11 @@ public class SellerService {
 		}
 		
 		
-	    
+		//정산 위한 판매자별 월별 매출리스트
+		public List<Map<String, Object>> getSales() {
+			 return sellerDAO.getSales();
+		}
+
 	    
 
 }
