@@ -237,7 +237,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">결제하기</button>
+                                <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button>
                             </div>
                         </div>
                     </div>
@@ -259,6 +259,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
+    
 
  
 
