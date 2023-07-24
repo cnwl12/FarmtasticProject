@@ -56,5 +56,7 @@ public class MemberService {
 		 
 		 return memberDAO.userCheck(memberDTO);
 	 }
+
+	
 	 
 }

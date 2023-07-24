@@ -125,7 +125,7 @@ public class AdminController {
 	redirectAttributes.addFlashAttribute("message", "체크된 회원이 없습니다.");
 	} else {
 	System.out.println("/changeMemberStatus 매핑확인여부");
-	memberService.changeMemberStatus(memberNums;
+	memberService.changeMemberStatus(memberNums);
 	redirectAttributes.addFlashAttribute("message", "선택된 회원의 상태가 변경되었습니다.");
 	}
 	return "redirect:/customerAdmin";
