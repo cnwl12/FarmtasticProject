@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,12 +93,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/kakaocallback";
 	}
 	
-	@RequestMapping(value = "/kakaoUserInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/kakaojoin", method = RequestMethod.GET)
 	public String kakaoUserInfo(Locale locale, Model model) {
 
-		System.out.println("kakaoUserInfo 매핑확인여부");
+		System.out.println("kakaojoin 매핑확인여부");
 
-		return "/member/kakaoUserInfo";
+		return "/member/kakaojoin";
 	}
 
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
@@ -158,26 +159,69 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	// 디비 연동 확인용
 
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insert() {
-
-		System.out.println("insert 매핑확인여부");
-		return "/member/insert";
-	}
+//	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+//	public String insert() {
+//
+//		System.out.println("insert 매핑확인여부");
+//		return "/member/insert";
+//	}
+//
+//	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
+//	public String insertPro(MemberDTO memberDTO) {
+//
+//		System.out.println(memberDTO.getMember_id());
+//		System.out.println(memberDTO.getMember_pass());
+//		System.out.println(memberDTO.getMember_name());
+//
+//		// insertMember() 메서드 호출
+//		memberService.insertMember(memberDTO);
+//
+//		return "redirect:/contact";
+//	}
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) {
-
+	public String insertPro(MemberDTO memberDTO ) {
+		
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-
+		System.out.println(memberDTO.getMember_phone());
+		System.out.println(memberDTO.getMember_email());
+		System.out.println(memberDTO.getMember_joinDay());
+		System.out.println(memberDTO.getMember_post());
+		System.out.println(memberDTO.getMember_addMain());
+		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
-		return "redirect:/contact";
+		return "redirect:/login";
 	}
 
-	   
+	// 아이디 중복검사 - 해결안됌
+//	@PostMapping("/checkId")
+//	public String checkId(@RequestParam("member_id") String memberId) {
+//	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
+//	  if (isDuplicated) {
+//	    return "DUPLICATED";
+//	  } else {
+//	    return "OK";
+//	  }
+//	}   
+	
+	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("MemberController loginPro()");
+		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+		if(memberDTO2 != null) {
+			session .setAttribute("member_id", memberDTO.getMember_id());
+			return "redirect:/index";
+		} else {
+			return "redirect:/login";
+		}
+		
+	}
+	
+	
+	
 	
 }
