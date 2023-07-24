@@ -283,7 +283,7 @@
 											<div class="_initializing_layer initializing_layer"
 												style="display: none;">
 												초기화 중입니다.<img
-													src="${pageContext.request.contextPath}/resources/img/uiogrid_loading.gif"
+													src="${pageContext.request.contextPath}/resources/naver/naverImg/uiogrid_loading.gif"
 													width="150" height="13" border="0" alt="">
 											</div>
 											<div class="_no_row_layer no_row_layer"
@@ -292,7 +292,7 @@
 											<div class="_loading_layer loading_layer"
 												style="display: none; height: 280px; margin-top: 47px;">
 												데이터 로딩 중입니다.<img
-													src="${pageContext.request.contextPath}/resources/img/uiogrid_loading.gif"
+													src="${pageContext.request.contextPath}/resources/naver/naverImg/uiogrid_loading.gif"
 													width="150" height="13" border="0" alt="">
 											</div>
 											<div class="left_line"></div>
@@ -426,30 +426,30 @@
 											</div>
 										</div>
 									</div>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.all.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.base.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.variables.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.utility.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.event_delegator.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.Component.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.Pagination.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.Timer.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.WatchInput.js"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.LayerManager.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.LayerPosition.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.Calendar.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.DatePicker.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.WeekPicker.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.MonthPicker.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.PeriodDisplay.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/jindo.DateRangePicker.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/DateCoreAPI_Lite.js" charset="UTF-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.component.Base.js" charset="utf-8"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.component.Grid.js"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.component.ExtendGrid.js"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.component.DataRequester.js"></script>
-									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/js/nmp.component.Grid.Configurator.js"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.all.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.base.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.variables.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.utility.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.event_delegator.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.Component.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.Pagination.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.Timer.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.WatchInput.js"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.LayerManager.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.LayerPosition.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.Calendar.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.DatePicker.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.WeekPicker.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.MonthPicker.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.PeriodDisplay.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/jindo.DateRangePicker.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/DateCoreAPI_Lite.js" charset="UTF-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.component.Base.js" charset="utf-8"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.component.Grid.js"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.component.ExtendGrid.js"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.component.DataRequester.js"></script>
+									<script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/resources/naver/naverjs/nmp.component.Grid.Configurator.js"></script>
 					
 									<script type="text/javascript">
 										var toDate = "2023-07-20";

@@ -1,0 +1,622 @@
+@charset "utf-8";
+/* NTS UI Development 2Team LEH 110518 */
+
+/* 이미지의 경로는 절대경로를 사용하는 것이 기본 룰이나, 공용 컴포넌트에서 사용하는 이미지 경로는 SSL 지원 문제로 인하여 예외적으로 상대 경로로 처리한다. */
+
+body,
+input,
+textarea,
+select,
+button,
+table {
+    font-family: '돋움', dotum, applegothic, sans-serif;
+    font-size: 12px
+}
+
+img {
+    border: 0
+}
+
+.grid_input {
+    height: 16px;
+    padding: 2px 0 0 2px;
+    border: solid 1px #c9c9c9;
+    border-right: solid 1px #ebebeb;
+    border-bottom: solid 1px #ebebeb
+}
+
+.grid_chk {
+    margin: -1px 0 1px;
+    _margin: -1px -2px 1px;
+    padding: 0;
+    vertical-align: middle
+}
+
+.grid_dim {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    background-color: #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"
+}
+
+.uio_grid {
+    width: 100%;
+    background: #fff;
+    color: #555;
+    position: relative;
+    border-bottom: solid 1px #efefef;
+    clear: both;
+}
+
+.uio_grid {
+    scrollbar-highlight-color: #fff;
+    scrollbar-shadow-color: #f1f1f1;
+    scrollbar-arrow-color: #808080;
+    scrollbar-face-color: #f1f1f1;
+    scrollbar-3dlight-color: #bebebe;
+    scrollbar-darkshadow-color: #bebebe;
+    scrollbar-track-color: #dcdcdc
+}
+
+.uio_grid .initializing_layer {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    font-weight: bold;
+    text-align: center;
+    border-top: solid 1px #efefef
+}
+
+.uio_grid .initializing_layer img {
+    display: block;
+    margin: 10px auto 0
+}
+
+.uio_grid .no_row_layer {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-top: 50px;
+    border-top: solid 1px #efefef;
+    border-bottom: solid 1px #efefef;
+    background: #fff;
+    font-weight: bold;
+    text-align: center
+}
+
+.uio_grid .loading_layer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: solid 1px #efefef;
+    border-bottom: solid 1px #efefef;
+    background: #fff;
+    text-align: center;
+    padding-top: 50px;
+    font-weight: bold;
+    z-index: 9
+}
+
+.uio_grid .loading_layer img {
+    display: block;
+    margin: 10px auto 0
+}
+
+.uio_grid .left_line {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: #ebebeb;
+    left: 0;
+    z-index: 10
+}
+
+.uio_grid .right_line {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: #ebebeb;
+    right: 0;
+    z-index: 10
+}
+
+.uio_grid .clipboard {
+    position: absolute;
+    top: 0;
+    left: -999px;
+    width: 0;
+    height: 0
+}
+
+.uio_grid .textbox_container {
+    margin-right: 6px
+}
+
+.uio_grid table {
+    border: 0;
+    table-layout: fixed;
+    background-color: #e2e2e2;
+    border-collapse: separate
+}
+
+.uio_grid table th {
+    overflow: hidden;
+    white-space: nowrap;
+    *white-space: pre;
+    text-align: center;
+    padding: 0;
+    border: 0
+}
+
+.uio_grid table th .sort a {
+    text-decoration: underline
+}
+
+.uio_grid table th .sort .direction {
+    display: inline-block;
+    width: 5px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.uio_grid table th .sort .direction.up {
+    background: url(../../img/component/grid/uiogrid_btn_sortup.png) no-repeat 0 3px
+}
+
+.uio_grid table th .sort .direction.down {
+    background: url(../../img/component/grid/uiogrid_btn_sortdown.png) no-repeat 0 3px
+}
+
+.uio_grid table tr.selected {
+    background-color: #ebf6f8
+}
+
+.uio_grid table tr.disabled {
+    color: #b0b0b0
+}
+
+.uio_grid table td {
+    overflow: hidden;
+    padding: 0 10px;
+    *padding: 0 10px;
+    border: 0;
+    white-space: nowrap;
+    *white-space: pre
+}
+
+.uio_grid table td.ellipsis {
+    -o-text-overflow: ellipsis;
+    /*Opera 9*/
+    -moz-binding: url('ellipsis.xml#ellipsis');
+    /* Firefox */
+    width: 100%;
+    /* for IE6 */
+    text-overflow: ellipsis
+}
+
+.uio_grid table td.editable {
+    background-color: #ffffef !important
+}
+
+.uio_grid table td .category {
+    display: inline-block;
+    padding: 4px 0 0;
+    color: #a3a3a3
+}
+
+.uio_grid table td .stit {
+    display: inline-block;
+    margin-right: 3px;
+    padding-left: 6px;
+    background: url(../../img/component/grid/uiogrid_dot.gif) no-repeat 0 6px;
+    line-height: 15px
+}
+
+.uio_grid table td .stit2 {
+    display: inline-block;
+    width: 66px;
+    color: #888
+}
+
+.uio_grid table td img {
+    vertical-align: middle
+}
+
+.uio_grid table td input[type=text] {
+    width: 100%;
+    padding: 2px 0;
+    border: solid 1px #E2E3EA;
+    border-top: solid 1px #ABADB3;
+    border-bottom: solid 1px #E3E9EF;
+}
+
+.uio_grid table td input.editing {
+    border: solid 1px #748eea
+}
+
+.uio_grid table td select {
+    width: 100%;
+}
+
+.uio_grid table td a {
+    color: #00b5a6;
+    text-decoration: underline;
+}
+
+.uio_grid table col {
+    background: #fff
+}
+
+.uio_grid .inflexible_area {
+    display: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}
+
+.uio_grid .inflexible_area .header {
+    _width: 100%;
+    overflow: hidden;
+}
+
+.uio_grid .inflexible_area .body {
+    _width: 100%;
+    overflow: scroll;
+    position: relative;
+    margin-right: -17px;
+    *padding-right: 17px
+}
+
+.uio_grid .inflexible_area .body table {
+    *margin-right: -17px;
+}
+
+.uio_grid .inflexible_area .body .selection_layer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: 0;
+    height: 0;
+    border: dotted 2px red;
+    background: orange;
+    opacity: 0.1;
+    filter: alpha(opacity=10)
+}
+
+.uio_grid .flexible_area {
+    display: none;
+    height: 100%;
+}
+
+.uio_grid .flexible_area .header {
+    _width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    *padding-right: 17px;
+}
+
+.uio_grid .flexible_area .header table {
+    *margin-right: -17px
+}
+
+.uio_grid .flexible_area .body {
+    _width: 100%;
+    overflow: scroll;
+    position: relative;
+    *padding-right: 17px;
+}
+
+.uio_grid .flexible_area .body table {
+    *margin-right: -17px
+}
+
+.uio_grid .flexible_area .body .selection_layer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: dotted 2px red;
+    background: orange;
+    opacity: 0.1;
+    filter: alpha(opacity=10)
+}
+
+.uio_grid .flexible_area .space {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    border: solid 1px #ebebeb;
+    background: #fcfcfc;
+}
+
+/* 2015.03.04 그리드 header 영역 버그? 수정 */
+
+/*.uio_grid .header th{background:#fcfcfc url(../../img/component/grid/uiogrid_bg_th_new.gif) repeat-y;}*/
+
+.uio_grid .header th {
+    background: #fcfcfc url(../../img/component/grid/uiogrid_bg_th_new.gif);
+}
+
+.uio_grid .header .resize_handle_container {
+    display: none;
+    position: relative;
+    width: 0;
+}
+
+.uio_grid .header .resize_handle_container .resize_handle {
+    float: left;
+    position: absolute;
+    top: -1px;
+    left: -99px;
+    width: 7px;
+    height: 100%;
+    background: red;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: col-resize
+}
+
+.uio_grid .header .resize_handle_container .resize_handle_last {
+    width: 3px;
+}
+
+.uio_grid .body .virtual_bar {
+    display: none;
+    position: absolute;
+    width: 1px;
+    top: 0;
+    left: -1px;
+}
+
+.uio_grid .virtual_scrollbar {
+    display: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    width: 18px;
+    right: 0;
+    top: 0
+}
+
+.uio_grid .virtual_scrollbar .content {
+    width: 1px;
+    background: #ebebeb
+}
+
+.grid_configurator {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    width: 523px;
+    padding: 20px;
+    border: solid 1px #888;
+    background: #fff;
+    font-family: '돋움', dotum;
+    font-size: 11px;
+}
+
+.grid_configurator h3 {
+    margin: 0 0 9px;
+    color: #454545;
+    font-size: 12px
+}
+
+.grid_configurator tr {
+    height: 37px
+}
+
+.grid_configurator table td {
+    padding-right: 0;
+    background: #fff;
+    text-align: left;
+}
+
+.grid_configurator td:first-child {
+    width: 110px;
+    background: #fcfcfc;
+    font-weight: bold
+}
+
+.grid_configurator .hidden_column {
+    color: #a0a0a0
+}
+
+.grid_configurator .focus {
+    border: solid 1px green
+}
+
+.grid_configurator .column_order {
+    overflow: auto;
+    overflow-x: hidden;
+    width: 168px;
+    height: 151px;
+    margin: 0;
+    padding: 0;
+    border: solid 1px #c9c9c9;
+    border-right: solid 1px #ebebeb;
+    border-bottom: solid 1px #ebebeb;
+    scrollbar-highlight-color: #fff;
+    scrollbar-shadow-color: #fff;
+    scrollbar-arrow-color: #a1a1a1;
+    scrollbar-face-color: #fff;
+    scrollbar-3dlight-color: #ebebeb;
+    scrollbar-darkshadow-color: #ebebeb;
+    scrollbar-track-color: #f9f9f9
+}
+
+.grid_configurator .column_order li {
+    margin: 0;
+    padding: 2px 0 0 5px;
+    color: #888;
+    line-height: 15px;
+    list-style: none;
+    cursor: pointer
+}
+
+.grid_configurator .column_order li:first-child {
+    margin-top: 5px
+}
+
+.grid_configurator .column_order li.disabled {
+    color: #b0b0b0;
+    cursor: pointer
+}
+
+.grid_configurator .column_order li.on {
+    background-color: #f7f7f7;
+    color: #00adff;
+    font-weight: bold;
+    text-decoration: underline
+}
+
+.grid_configurator .set_column {
+    width: 100%;
+    padding: 5px 0
+}
+
+.grid_configurator .set_column:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.grid_configurator .set_column .sort {
+    float: left;
+    position: relative;
+    width: 195px;
+    background: url(../../img/component/grid/uiogrid_arr.gif) no-repeat 180px 50%
+}
+
+.grid_configurator .set_column .sort .stit {
+    display: block;
+    margin-bottom: 5px
+}
+
+.grid_configurator .set_column .sort .btn {
+    position: absolute;
+    top: 1px;
+    right: 25px
+}
+
+.grid_configurator .set_column .item {
+    float: left;
+    width: 180px
+}
+
+.grid_configurator .set_column .item .stit {
+    display: block;
+    margin-bottom: 5px
+}
+
+.grid_configurator .set_column .item .inner {
+    height: 137px;
+    padding: 7px;
+    border: 1px solid #ebebeb;
+    line-height: 21px;
+    background: url(../../img/component/grid/uiogrid_bg.gif) repeat-y
+}
+
+.grid_configurator .set_column .item .inner input {
+    vertical-align: middle
+}
+
+.grid_configurator .grid_btn_area {
+    margin-top: 20px;
+    text-align: center
+}
+
+.uio_grid_btn {
+    display: inline-block;
+    padding-left: 3px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 0 -58px;
+    color: #666;
+    text-decoration: none;
+    vertical-align: middle
+}
+
+.uio_grid_btn span {
+    display: inline-block;
+    overflow: hidden;
+    height: 20px;
+    padding: 0 8px 0 6px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 100% -58px;
+    color: #666;
+    font-size: 11px;
+    line-height: 21px;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.uio_grid_btn2 {
+    display: inline-block;
+    padding-left: 3px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 0 0;
+    color: #14aade;
+    text-decoration: none;
+    vertical-align: middle
+}
+
+.uio_grid_btn2 span {
+    display: inline-block;
+    overflow: hidden;
+    height: 28px;
+    padding: 0 8px 0 6px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 100% 0;
+    color: #14aade;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 27px;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.uio_grid_btn3 {
+    display: inline-block;
+    padding-left: 3px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 0 -29px;
+    color: #666;
+    text-decoration: none;
+    vertical-align: middle
+}
+
+.uio_grid_btn3 span {
+    display: inline-block;
+    overflow: hidden;
+    height: 28px;
+    padding: 0 8px 0 6px;
+    background: url(../../img/component/grid/uiogrid_bg_btn.gif) no-repeat 100% -29px;
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 27px;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.yellow {
+    background: #ffffef
+}
+
+.grey {
+    background: #dcdcdc
+}
