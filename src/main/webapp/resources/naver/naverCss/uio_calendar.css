@@ -1,0 +1,226 @@
+@charset "utf-8";
+/* NTS UI development 2Team LYM 110421 */
+
+/* 이미지의 경로는 절대경로를 사용하는 것이 기본 룰이나, 공용 컴포넌트에서 사용하는 이미지 경로는 SSL 지원 문제로 인하여 예외적으로 상대 경로로 처리한다. */
+
+.uio_calendar {
+    position: absolute;
+    width: 165px;
+    background-color: #fff;
+    font-family: '돋움', dotum, applegothic, sans-serif;
+    font-size: 12px;
+    z-index: 25
+}
+
+.uio_calendar .blind {
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
+.uio_calendar caption {
+    display: none
+}
+
+.uio_calendar .top {
+    overflow: hidden;
+    height: 22px;
+    background: url(../../img/component/calendar/uico_bg_calendar.gif) repeat-x 0 0;
+    text-align: center
+}
+
+.uio_calendar .top a {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px;
+    background: url(../../img/component/calendar/uico_spr_calendar.gif) no-repeat
+}
+
+.uio_calendar .top a.calendar-btn-prev-year {
+    width: 7px;
+    height: 5px;
+    background-position: 2px 2px
+}
+
+.uio_calendar .top a.calendar-btn-prev-mon {
+    width: 4px;
+    height: 5px;
+    background-position: 2px -8px
+}
+
+.uio_calendar .top a.calendar-btn-next-mon {
+    width: 4px;
+    height: 5px;
+    background-position: -8px -8px
+}
+
+.uio_calendar .top a.calendar-btn-next-year {
+    width: 7px;
+    height: 5px;
+    background-position: -8px 2px
+}
+
+.uio_calendar .top a.calendar-btn-prev-year.off {
+    width: 7px;
+    height: 5px;
+    background-position: 2px -18px
+}
+
+.uio_calendar .top a.calendar-btn-prev-mon.off {
+    width: 4px;
+    height: 5px;
+    background-position: 2px -28px
+}
+
+.uio_calendar .top a.calendar-btn-next-mon.off {
+    width: 4px;
+    height: 5px;
+    background-position: -8px -28px
+}
+
+.uio_calendar .top a.calendar-btn-next-year.off {
+    width: 7px;
+    height: 5px;
+    background-position: -8px -18px
+}
+
+.uio_calendar .top strong.calendar-title {
+    display: inline-block;
+    margin-top: 4px;
+    color: #fff;
+    font-family: tahoma, geneva, sans-serif;
+    font-size: 11px
+}
+
+.uio_calendar .middle {
+    overflow: hidden;
+    padding: 1px;
+    border: 1px solid #bcbcbc;
+    border-top: 1px solid #ebebeb
+}
+
+.uio_calendar .middle table {
+    width: 147px;
+    margin: 2px auto 7px;
+    border: none
+}
+
+.uio_calendar .middle th,
+.uio_calendar .middle td {
+    border: none
+}
+
+.uio_calendar .middle th {
+    padding: 4px 0 3px;
+    border-bottom: 1px solid #f3f3f3;
+    color: #999;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center
+}
+
+.uio_calendar .middle td {
+    color: #424242;
+    font-family: tahoma, geneva, sans-serif;
+    font-size: 10px;
+    text-align: center
+}
+
+.uio_calendar .middle td a {
+    display: inline-block;
+    width: 21px;
+    padding: 2px 0 3px;
+    color: #424242;
+    text-decoration: none
+}
+
+.uio_calendar .middle td a:visited,
+.uio_calendar .middle td a:active {
+    color: #424242
+}
+
+.uio_calendar .middle td.calendar-selected a,
+.uio_calendar .middle td.calendar-over a {
+    background-color: #c6d4ff;
+    text-decoration: none
+}
+
+.uio_calendar .middle td.calendar-today a {
+    background-color: #eee;
+    text-decoration: none
+}
+
+.uio_calendar .middle td.calendar-sun a,
+.uio_calendar .middle td.calendar-sun a:visited,
+.uio_calendar .middle td.calendar-sun a:active {
+    color: #f00
+}
+
+.uio_calendar .middle td.blank {
+    height: 3px;
+    font-size: 0;
+    line-height: 0
+}
+
+.uio_calendar .middle td.calendar-unselectable a,
+.uio_calendar .middle td.calendar-unselectable a:visited,
+.uio_calendar .middle td.calendar-unselectable a:active {
+    background: none;
+    color: #bababa
+}
+
+/* 기획의 요구사항에 의해 이전, 다음달 날짜들을 색상으로는 구분하지 않음 :2011. 5. 13 EC전시서비스 개발팀 박정기
+.uio_calendar .middle td.calendar-prev-mon a,.uio_calendar .middle td.calendar-prev-mon  a:visited,.uio_calendar .middle td.calendar-prev-mon  a:active,.uio_calendar .middle td.calendar-next-mon a,.uio_calendar .middle td.calendar-next-mon a:visited,.uio_calendar .middle td.calendar-next-mon a:active{color:#bababa}
+*/
+
+.uio_calendar .middle .calendar_month {
+    margin: 10px auto;
+    border: 1px solid #f3f2f0;
+    border-collapse: collapse
+}
+
+.uio_calendar .middle .calendar_month td {
+    border: 1px solid #f3f2f0;
+    font-family: '돋움', dotum, applegothic, sans-serif;
+    font-size: 11px
+}
+
+.uio_calendar .middle .calendar_month td a {
+    width: 100%;
+    padding: 7px 0 8px !important
+}
+
+.uio_calendar .btm {
+    padding: 8px 0 8px 8px;
+    background-color: #f7f7f7;
+    color: #999;
+    font-size: 11px
+}
+
+.uio_calendar .btm span {
+    padding-left: 5px;
+    background: url(../../img/component/calendar/uico_bu_square.gif) no-repeat 0 5px;
+    letter-spacing: -1px
+}
+
+/* highlight 기능 추가. 추후 디자인, 마크업에서 확인후 변경해야 함.:2011. 4. 29 EC전시서비스 개발팀 박정기 
+.uio_calendar .middle td.calendar-highlight a{background-color:#cccccc;text-decoration:none}
+*/
+
+/* iframe */
+
+.ifr_layer {
+    display: none;
+    display/**/
+    : block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 2000px;
+    filter: mask()
+}
