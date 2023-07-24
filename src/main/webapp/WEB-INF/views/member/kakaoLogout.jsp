@@ -20,7 +20,7 @@ try {
     String redirectUri = "http://localhost:8080/farmtastic/login"; // 로그아웃 후 리다이렉트 될 페이지 주소
     String requestUrl = KAKAO_LOGOUT_BASE_URL + "?client_id=" + CLIENT_ID + "&logout_redirect_uri=" + URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.name());
 	// 카카오 로그아웃 처리하기
-    response.sendRedirect(requestUrl);
+    response.sendRedirect(requestUrl); 
 } catch (Exception e) {
     out.println("오류가 발생했습니다. 오류 메시지: " + e.getMessage());
     return;
