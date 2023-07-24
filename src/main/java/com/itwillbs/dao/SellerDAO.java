@@ -19,7 +19,7 @@ public class SellerDAO {
 	   private SqlSession sqlSession;
 
 	    public List<Map<String, Object>> getSellers() {
-	        return sqlSession.selectList("SellerMapper.getSellers");
+	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
 
 
