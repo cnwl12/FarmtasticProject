@@ -141,7 +141,7 @@
                                 </div>
                                 <section class="search">
 	                              	<input type="text" id="search" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
-	                              	<div class="autocomplete"></div>
+                              		<div class="autocomplete"></div>
                               	</section>
                                 <button type="submit" class="site-btn">검색</button>
                             </form>

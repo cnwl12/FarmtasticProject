@@ -144,7 +144,7 @@ button#submitBtn {
 <!-- 			// join_header -->
 			<div class="join_content">  
 				<div class="form">
-					<form class="validation-form" novalidate action=login id="join" name="info" method="post">
+					<form class="validation-form" novalidate action="${pageContext.request.contextPath}/insertPro" id="join" name="join" method="post">
 						<fieldset>
 							<legend>팜타스틱 회원가입 정보입력</legend>
 							<p class="">회원정보를 입력해주세요. 모두 입력하셔야 가입이 가능합니다.</p>
@@ -153,7 +153,7 @@ button#submitBtn {
  							
 							<ul class="form_list">
 								<li>
-								<input type="text" class="form-control" placeholder="ID를 작성해주세요" name="id" id="id" maxlength="10" >
+								<input type="text" class="form-control" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
 								<div id="invalid_id" class="invalid-feedback">
                 				아이디를 입력해주세요.
               					</div>
@@ -163,7 +163,7 @@ button#submitBtn {
 								</li>   
 								
 								<li>
-								<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="pass" id="pass" maxlength="15">
+								<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
 								<div id= "invalid_pass" class="invalid-feedback">
                 				비밀번호를 입력해주세요.
               					</div>
@@ -176,14 +176,14 @@ button#submitBtn {
 								</li>  
 								
 								<li> 
-								<input type="password" class="form-control" placeholder="위의 비밀번호를 다시 입력해주세요" name="pass2" id="pass2" maxlength="15">
+								<input type="password" class="form-control" placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
 								<div id= "invalid_pass4" class="invalid-feedback">
                 				비밀번호가 일치하지 않습니다.
               					</div>
 								</li>
 								
 								<li>   
-								<input type="text" class="form-control" placeholder="이름" name="name" id="name" maxlength="10">
+								<input type="text" class="form-control" placeholder="이름" name="member_name" id="member_name" maxlength="10">
 								<div id= "invalid_name" class="invalid-feedback">
                 				이름을 입력해주세요.
               					</div>
@@ -193,7 +193,7 @@ button#submitBtn {
 								</li>
 							  	
 							  	<li>
-								<input type="text" class="form-control" placeholder="연락처" name="phone" id="phone" maxlength="13">
+								<input type="text" class="form-control" placeholder="연락처" name="member_phone" id="member_phone" maxlength="13">
 								<div id= "invalid_phone" class="invalid-feedback">
                 				연락처를 입력해주세요.
               					</div>
@@ -203,7 +203,7 @@ button#submitBtn {
 								</li>
 								
 								<li>
-								<input type="email" class="form-control" placeholder="이메일" name="email" id="email" >
+								<input type="email" class="form-control" placeholder="이메일" name="member_email" id="member_email" >
 								<div id= "invalid_email" class="invalid-feedback">
                 				이메일을 입력해주세요.
               					</div>
@@ -213,29 +213,31 @@ button#submitBtn {
 								</li>
 							
 								<li>
-								<input type="text" id="sample4_postcode" placeholder="우편번호">
+								<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
 								<div id="btbt">
-								<input type="button" id="post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required>
+								<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required>
 								</div>
 								<div id="invalid_post" class="invalid-feedback">
               					주소를 입력해주세요.
            						</div>
 								</li>
 								<li>
-								<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+								<input type="text" name="member_addMain" id="sample4_roadAddress" placeholder="도로명주소">
 								</li>
 								<li>
 								<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
 								<span id="guide" style="color:#999;display:none"></span>
 								</li>
 								<li>
-								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+								<input type="text" name="member_addSub" id="sample4_detailAddress" placeholder="상세주소">
 								</li>
 								<li>
 								<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 								</li>
-							
+								
 							</ul>
+							
+								
 							
 							<div class="btn_zone">
 							<button type="button" id="goMain" class="bg_area btn_bg l2" style="color: #fff;" >처음으로</button>
@@ -480,27 +482,27 @@ button#submitBtn {
       });
 
       // 유효성 검사 이벤트 핸들러를 각 입력란에 추가
-      $("#id").on("input", function() {
+      $("#member_id").on("input", function() {
         validateId();
       });
 
-      $("#pass").on("input", function() {
+      $("#member_pass").on("input", function() {
         validatePass();
       });
 
-      $("#pass2").on("input", function() {
+      $("#member_pass2").on("input", function() {
         validatePass2();
       });
 
-      $("#name").on("input", function() {
+      $("#member_name").on("input", function() {
         validateName();
       });
 
-      $("#phone").on("input", function() {
+      $("#member_phone").on("input", function() {
         validatePhone();
       });
 
-      $("#email").on("input", function() {
+      $("#member_email").on("input", function() {
         validateEmail();
       });
 
@@ -550,7 +552,7 @@ button#submitBtn {
 
     //  유효성 검사 메서드
     function validateId() {
-      var uid = $("#id");
+      var uid = $("#member_id");
       if (uid.val() == "" || !regId.test(uid.val())) {
         $('#invalid_id').show();
         uid.focus();
@@ -562,8 +564,8 @@ button#submitBtn {
     }
 
     function validatePass() {
-      var uid = $("#id");
-      var pw = $("#pass");
+      var uid = $("#member_id");
+      var pw = $("#member_pass");
       if (pw.val() == uid.val()) {
           $('#invalid_pass3').show();
           pw.focus();
@@ -581,8 +583,8 @@ button#submitBtn {
       }
 
     function validatePass2() {
-      var pw = $("#pass");
-      var cpw = $("#pass2");
+      var pw = $("#member_pass");
+      var cpw = $("#member_pass2");
       if (cpw.val() == "" || pw.val() != cpw.val()) {
         $('#invalid_pass4').show();
         cpw.focus();
@@ -594,7 +596,7 @@ button#submitBtn {
     }
 
     function validateName() {
-      var uname = $("#name");
+      var uname = $("#member_name");
       if (uname.val() == "" || !regName.test(uname.val())) {
         $('#invalid_name').show();
         uname.focus();
@@ -606,7 +608,7 @@ button#submitBtn {
     }
 
     function validatePhone() {
-      var uphone = $("#phone");
+      var uphone = $("#member_phone");
       if (uphone.val() == "" || !regPhone.test(uphone.val())) {
         $('#invalid_phone').show();
         uphone.focus();
@@ -618,7 +620,7 @@ button#submitBtn {
     }
 
     function validateEmail() {
-      var mail = $("#email");
+      var mail = $("#member_email");
       if (mail.val() == "" || !regMail.test(mail.val())) {
         $('#invalid_email').show();
         mail.focus();
@@ -645,7 +647,7 @@ button#submitBtn {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();
     }
 
-  </script>
+    </script>
 </body>
 
 </html> 
