@@ -18,9 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
@@ -32,6 +34,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@Autowired
 	private SellerService sellerService;
+	
+	@Autowired
+	private NaverController naverController;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -80,8 +85,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/navercallback";
 	}
 	
-	@Autowired
-	private NaverController naverController;
+	
 	
 	@RequestMapping(value = "/naverauth", method = RequestMethod.GET)
 	public String naverauth(Locale locale, Model model) {
@@ -166,11 +170,19 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/farmStore";
 	}
-
+	
+	// 상품 개별 페이지로 이동
 	@RequestMapping(value = "/farmStoreDetail", method = RequestMethod.GET)
-	public String farmStoreDetail(Locale locale, Model model) {
+	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model) {
+		
+		System.out.println("item_num : ??? "+item_num);
+		
+		Map<String, Object> item = sellerService.getItem(item_num);
 
-		System.out.println("farmStoreDetail 매핑확인여부");
+		 model.addAttribute("item", item);
+		 
+		 System.out.println(item);
+		 System.out.println("farmStoreDetail 매핑확인여부");
 
 		return "/member/farmStoreDetail";
 	}

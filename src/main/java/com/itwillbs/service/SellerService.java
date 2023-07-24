@@ -102,6 +102,12 @@ public class SellerService {
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
 		}
+
+
+		public Map<String, Object> getItem(int item_num) {
+			System.out.println("서비스 아이템넘");
+			return sellerDAO.getItem(item_num);
+		}
 		
 		
 }

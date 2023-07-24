@@ -381,7 +381,7 @@
                                     </ul>
                                 </div>
                                    <div class="product__item__text">
-                                    <h6><a href="farmStoreDetail">${item.item_name}</a></h6>
+                                    <h6><a href="farmStoreDetail?item_num=${item.item_num}">${item.item_name}</a></h6>
                                     <h5> ${item.item_price}</h5>
                                 </div>
                             </div>

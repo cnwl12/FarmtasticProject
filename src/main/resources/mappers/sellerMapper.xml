@@ -76,12 +76,20 @@
 	    )
 	</insert>
 
-    
+    <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
     	SELECT *
     	FROM item
     </select>
-    
+
+	<!-- 개별상품 가져오기  -->
+	<select id="getItem" resultType="map">
+	    SELECT *
+	    FROM item
+	    WHERE item_num = #{item_num}
+	    LIMIT 1
+	</select>
+	    
       <!--월별 판매량 가져오기  -->
     <select id="getSales" resultType="map">
     	SELECT s.seller_num, s.seller_storeName, s.seller_name,

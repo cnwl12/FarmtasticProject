@@ -53,4 +53,10 @@ public class SellerDAO {
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList("SellerMapper.getSeller()");
 		}
+
+
+		public Map<String, Object> getItem(int item_num) {
+			System.out.println("dao itemNum : !! " + item_num );
+			return sqlSession.selectOne(namespace+".getItem", item_num);
+		}
 }
