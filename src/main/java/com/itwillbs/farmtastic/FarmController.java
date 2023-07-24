@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.SellerService;
 
 @Controller
 public class FarmController { // 소비자 (컨트롤러)
 
 	@Inject
 	private MemberService memberService;
+	
+	@Autowired
+	private SellerService sellerService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -140,11 +145,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/shoppingCart";
 	}
-
+	
+	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임 
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
+		
+		 List<Map<String, Object>> itemList = sellerService.getItems();
+		 model.addAttribute("itemList", itemList);
 
-		System.out.println("farmStore 매핑확인여부");
+		System.out.println("팜팜마켓 매핑확인여부");
 
 		return "/member/farmStore";
 	}
