@@ -6,8 +6,8 @@
 <mapper namespace="MemberMapper"> <!-- 파일이름x / 예명  -->
 	
 	<insert id="insertMember"> 
-	 	insert into member(member_num, member_id, member_pass,member_name)
-	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name})
+	 	insert into member(member_num, member_id, member_pass, member_name, member_phone, member_email, member_joinDay, member_post, member_addMain, member_addSub)
+	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name}, #{member_phone}, #{member_email}, now(), #{member_post}, #{member_addMain}, #{member_addSub})
 	</insert>  
 	
 	<select id="nuserCheck" 
@@ -15,6 +15,11 @@
     select * from member       
     where member_nid = #{member_nid}
   	</select> 
+  	
+  	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
+  	select * from member
+  	where member_id = #{member_id}
+  	</select>
   	
   	<select id="getMembers" resultType="map">
     SELECT * FROM member;
@@ -28,5 +33,11 @@
         #{item}
     </foreach>
   </update>
+  
+   <!-- 아이디 중복검사 - 해결안됌 -->
+  <!-- 	<select id="checkIdDuplicate" resultType="int"> -->
+<!--         SELECT COUNT(*) FROM member WHERE member_id = #{member_id} -->
+<!--     </select> -->
+  
   
 </mapper>

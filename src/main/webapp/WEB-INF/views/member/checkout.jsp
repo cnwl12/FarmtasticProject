@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
 <!DOCTYPE html>
 <html>
 
@@ -44,16 +45,87 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
+	<!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!-- ////////////////////// -->
+				<%-- 					<table border="1">
+						<tr>
+							<th>카테고리 번호</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>상품 이미지</th>
+							<th>상품 설명</th>
+						</tr>
+						<c:forEach var="item" items="${itemList}">
+							<tr>
+								<td>${item.category_num}</td>
+								<td>${item.item_name}</td>
+								<td>${item.item_price}</td>
+								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
+								<td>${item.item_detail}</td>
+							</tr>
+						</c:forEach>
+					</table> --%>
+
+                            <!-- ////////////////////// -->
+                            <c:forEach var="item" items="${itemList}">
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
+                                        <h5>${item.item_name}</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                       ${item.item_price}
+                                    </td>
+                                    <!-- 수량 부분 수정할 예정  -->
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                       ${item.item_price}
+                                    </td>
+                               	 </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</section>	
+	
+
 
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
+            <!-- 쿠폰 관련
             <div class="row">
                 <div class="col-lg-12">
                     <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
                     </h6>
                 </div>
-            </div>
+            </div> -->
+            
+            <!-- 주문내역 정보 확인 -->
             <div class="checkout__form">
                 <h4>Billing Details</h4>
                 <form action="#">

@@ -34,6 +34,9 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getItems");
 		}
 
-		
+		public List<Map<String, Object>> getSales() {
+			return sqlSession.selectList(namespace + ".getSales");
+		}
+
 	
 }

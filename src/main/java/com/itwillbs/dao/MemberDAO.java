@@ -35,8 +35,21 @@ public class MemberDAO {
 	public List<Map<String, Object>> getMembers() {
 		return sqlSession.selectList("MemberMapper.getMembers");
 	}
+	
 	public void changeMemberStatus(List<String> memberNums) {
 		System.out.println("MemberDAO changeMemberStatus 확인");
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
 	}
+	
+//	아이디 중복검사 - 해결안됌
+//	 public int checkIdDuplicate(String memberId) {
+//    return sqlSession.selectOne("checkIdDuplicate", memberId);
+//}
+	
+	public MemberDTO userCheck(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck()");
+		
+		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
+	}
+
 }
