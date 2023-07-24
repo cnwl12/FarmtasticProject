@@ -1,6 +1,5 @@
 package com.itwillbs.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +55,14 @@ public class MemberService {
 		 
 		 return memberDAO.userCheck(memberDTO);
 	 }
+
+
+	public MemberDTO getMember(String member_id) {
+		System.out.println("MemberService getMember()");
+		
+		return memberDAO.getMember(member_id);
+	}
+	
 
 	
 	 

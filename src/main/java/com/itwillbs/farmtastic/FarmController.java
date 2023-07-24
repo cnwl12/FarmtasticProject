@@ -5,9 +5,15 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -205,17 +211,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/login";
 	}
-
-	// 아이디 중복검사 - 해결안됌
-//	@PostMapping("/checkId")
-//	public String checkId(@RequestParam("member_id") String memberId) {
-//	  boolean isDuplicated = memberService.checkIdDuplicate(memberId);
-//	  if (isDuplicated) {
-//	    return "DUPLICATED";
-//	  } else {
-//	    return "OK";
-//	  }
-//	}   
+   
 	
 	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
@@ -230,6 +226,26 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 	}
 	
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> idCheck(HttpServletRequest request) {
+		
+		String member_id = request.getParameter("member_id");
+		
+		MemberDTO memberDTO = memberService.getMember(member_id);
+		String result = "";
+		if (memberDTO != null) {
+			// 아이디 있음 => 아이디 중복
+			result = "id is used";
+		} else {
+			// 아이디 없음 => 아이디 사용가능
+			result = "id is available";
+		}
+		// ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+		
+		return entity;
+	}// idCheck 끝
 	
 	
 	
