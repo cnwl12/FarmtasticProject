@@ -90,12 +90,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/kakaocallback";
 	}
 	
-	@RequestMapping(value = "/kakaoUserInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/kakaojoin", method = RequestMethod.GET)
 	public String kakaoUserInfo(Locale locale, Model model) {
 
-		System.out.println("kakaoUserInfo 매핑확인여부");
+		System.out.println("kakaojoin 매핑확인여부");
 
-		return "/member/kakaoUserInfo";
+		return "/member/kakaojoin";
 	}
 
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
