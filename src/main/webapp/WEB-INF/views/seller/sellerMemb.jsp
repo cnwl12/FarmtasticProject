@@ -111,45 +111,6 @@
 						<div class="panel-body">
 							<ul class="seller-list-border">
 								<!---->
-								<li
-									ng-if="(vm.accountInfo.represent.representType === 'DOMESTIC_PERSONAL' || vm.accountInfo.represent.representType === 'DOMESTIC_BUSINESS')"><label
-									class="control-label">정산대금<br class="visible-xs">수령방법
-								</label>
-								<div class="input-content">
-										<div class="form-group">
-											<div class="seller-input">
-												<!---->
-												<label
-													ng-repeat="settlementType in vm.enums['SettlementType'].values"><input
-													type="radio"
-													ng-model="vm.accountInfo.naverPay.settlementType"
-													name="settlementType" value="BANKACCOUNT"
-													class="ng-pristine ng-untouched ng-valid ng-not-empty">정산대금
-													입금계좌<span></span></label>
-												<!---->
-												<label
-													ng-repeat="settlementType in vm.enums['SettlementType'].values"><input
-													type="radio"
-													ng-model="vm.accountInfo.naverPay.settlementType"
-													name="settlementType" value="CHARGEPAY"
-													class="ng-pristine ng-untouched ng-valid ng-not-empty">네이버페이
-													비즈 월렛<span></span></label>
-												<!---->
-											</div>
-										</div>
-										<p class="sub-text text-primary">정산대금 수령방법 변경시 변경일로부터 1영업일
-											이후에 적용됩니다.</p>
-										<!---->
-										<p class="sub-text text-primary"
-											ng-if="vm.accountInfo.represent.representType === 'DOMESTIC_PERSONAL'">개인판매자는
-											세금계산서발행동의 후 정산대금이 계좌로 정산됩니다.</p>
-										<!---->
-										<!---->
-										<p class="sub-text text-primary"
-											ng-if="vm.accountInfo.represent.representType === 'DOMESTIC_PERSONAL'">세금계산서
-											발행동의는 정산예정금액이 있을경우, 스마트스토어센터 &gt; 판매자 정보 메뉴에서 동의할 수 있습니다.</p>
-										<!---->
-									</div></li>
 								<!---->
 								<!---->
 								<li
@@ -160,7 +121,7 @@
 								<div class="input-content">
 										<div class="form-inline mobile-inline">
 											<div class="form-group form-control-static">
-												농협 35104******** <span class="text-sub">(예금주:정선진)</span>
+												${seller.seller_bank}${seller.seller_accountNum} <span class="text-sub">(예금주: ${seller.seller_accountHolder})</span>
 											</div>
 											<div class="form-group">
 												<button type="button" class="btn btn-default2"
@@ -169,13 +130,7 @@
 											</div>
 										</div>
 										<!---->
-										<p class="sub-text text-primary">
-											판매자 정보 메뉴에서 정산계좌 변경이 불가능할 경우 정보변경신청 메뉴에서 변경 신청 해주세요. <a
-												ui-sref="main.judgment.modification.input-info"
-												href="#/judgment/modification" class="btn-link text-primary"
-												data-nclicks-code="settleInfo.changeSettleBA">정보변경신청<i
-												class="fn-shopping fn-shopping-forward2" aria-hidden="true"></i></a>
-										</p>
+										
 									</div></li>
 								<!---->
 								<!---->
