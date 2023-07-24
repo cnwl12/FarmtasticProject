@@ -36,13 +36,13 @@
 				<div id="ui-content" class="join2 PC box-content btn-fixed-bottom-on">
 					<!-- ### 컨텐츠 시작 ###  -->
 					<div id="ui-content-body" class="join2 type btn-fixed-bottom-on">
-						<ul class="tab-ty2">
-							<li><a href="#">휴대폰 로그인</a></li>
-							<li class="on"><a href="#">아이디 로그인</a></li>
+						<ul class="tab-ty2">  
+							<li id="personal-login-section" class="on"><a href="#" class="toggle-login" data-target="personal">개인 로그인</a></li>
+							<li id="business-login-section"><a href="#" class="toggle-login" data-target="business">사업자 로그인</a></li>
 						</ul>
-						<div class="login-wrap PC tab-phone">
+						<div id="personal-login-wrap" class="login-wrap PC tab-phone">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="" id="login" name="login" method="post" onsubmit="return false;">
+							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/loginPro" id="login" name="login" method="post">
 							<div class="join-info1">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -51,7 +51,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="loginId" id="loginId" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="loginId1" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
 												<div id="invalid_id0" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -62,7 +62,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd" id="pwd" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd1" id="pwd1" value="">
 												<div id="invalid_pass0" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
