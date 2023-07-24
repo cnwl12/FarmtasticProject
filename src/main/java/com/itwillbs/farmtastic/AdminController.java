@@ -180,10 +180,21 @@ public class AdminController {
 		
 		return "/admin/sellerMenu/sellerAdmin";
 	}
+	@RequestMapping(value = "/settest", method = RequestMethod.GET)
+	public String settest(Locale locale, Model model) {
+		
+		System.out.println("settest 매핑확인여부");
+		 List<Map<String, Object>> resultList = sellerService.getSales();
+		 model.addAttribute("sales", resultList);
+   		return "/admin/sellerMenu/settest";
+	}
+	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model) {
 		
 		System.out.println("settlement 매핑확인여부");
+		
+	
 		
 		return "/admin/sellerMenu/settlement";
 	}

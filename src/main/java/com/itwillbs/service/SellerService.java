@@ -52,6 +52,7 @@ public class SellerService {
                         // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                         String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
+
                         // 임시경로에서 filePath로 파일이동 
                         File dest = new File(filePath);
                         file.transferTo(dest);
@@ -87,8 +88,11 @@ public class SellerService {
 			return sellerDAO.getItems();
 		}
 		
-		
-	    
+		//정산 위한 판매자별 월별 매출리스트
+		public List<Map<String, Object>> getSales() {
+			 return sellerDAO.getSales();
+		}
+
 	    
 
 }

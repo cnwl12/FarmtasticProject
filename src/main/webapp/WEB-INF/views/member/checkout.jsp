@@ -61,6 +61,25 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <!-- ////////////////////// -->
+				<%-- 					<table border="1">
+						<tr>
+							<th>카테고리 번호</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>상품 이미지</th>
+							<th>상품 설명</th>
+						</tr>
+						<c:forEach var="item" items="${itemList}">
+							<tr>
+								<td>${item.category_num}</td>
+								<td>${item.item_name}</td>
+								<td>${item.item_price}</td>
+								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
+								<td>${item.item_detail}</td>
+							</tr>
+						</c:forEach>
+					</table> --%>
 
                             <!-- ////////////////////// -->
                             <c:forEach var="item" items="${itemList}">
