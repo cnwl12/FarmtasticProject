@@ -1,6 +1,8 @@
 package com.itwillbs.farmtastic;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -154,15 +156,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 	
-	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(Locale locale, Model model) {
-
-		System.out.println("checkout 매핑확인여부");
-
-		return "/member/checkout";
-	}
-
-
 	// 디비 연동 확인용
 
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)

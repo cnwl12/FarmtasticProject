@@ -128,7 +128,17 @@ public class SellerController {
 	    return "/seller/itemInsertList";
 	}
 	
-	
+	// 장바구니 멤버에서 새로 생길 예정임!! 일단은 확인용으로 여기있는거!!!!! 
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String checkout(Locale locale, Model model) {
+
+		System.out.println("checkout 매핑확인여부");
+		
+		List<Map<String, Object>> itemList = sellerService.getItems();
+		 model.addAttribute("itemList", itemList);
+
+		return "/member/checkout";
+	}
 	
 }
 
