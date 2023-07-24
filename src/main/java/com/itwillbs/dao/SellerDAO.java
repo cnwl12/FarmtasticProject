@@ -43,4 +43,8 @@ public class SellerDAO {
 			System.out.println("SelelrDAO settlementStatus 확인");
 			sqlSession.update(namespace+".settlementStatus",sellerNums);
 		} 
+		
+		public List<Map<String, Object>> getSeller() {
+			return sqlSession.selectList("SellerMapper.getSeller()");
+		}
 }
