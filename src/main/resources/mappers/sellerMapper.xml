@@ -108,13 +108,18 @@
     </select>
    
 <update id="updateSettlementYn" parameterType="map">
-    UPDATE settlement st
+     UPDATE settlement st
     SET st.settlement_yn = 'Y'
     WHERE st.seller_num IN
     (
-        <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
-            #{sellerNum}
-        </foreach>
+        SELECT s.seller_num
+        FROM seller s
+        WHERE s.seller_num IN
+        (
+            <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
+                #{sellerNum}
+            </foreach>
+        )
     )
     AND EXISTS
     (
@@ -125,5 +130,5 @@
         AND DATE_FORMAT(o.order_day, '%Y-%m') = #{orderMonth}
     );
 </update>
-  
+
 </mapper>

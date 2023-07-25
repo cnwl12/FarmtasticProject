@@ -101,7 +101,7 @@
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>
-                                            <td>${sale.settlement_settlement_yn}</td>
+                                            <td>${sale.settlement_yn}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>

@@ -218,10 +218,14 @@ public class AdminController {
 		return "/admin/sellerMenu/sales";
 	}
 
-	@PostMapping("/settlementStatus")
-	 public String settlementStatus(@RequestParam("result") List<String> sellerNumList, @RequestParam("order_month") String orderMonth) {
-	    sellerService.settlementStatus(sellerNumList, orderMonth);
-	    return "redirect:/settest";
-	 }
-	
+	@PostMapping("/settlementYn")
+	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
+		System.out.println("컨트롤러 오나요");
+	  sellerService.updateSettlementYn(sellerNum, orderMonth);
+	  System.out.println("sellerNum: " + sellerNum);
+	  System.out.println("orderMonth: " + orderMonth);
+	  String message = "정산 업데이트가 완료되었습니다.";
+	  redirectAttributes.addFlashAttribute("message", message);
+	  return "redirect:/settest";
+	}
 }
