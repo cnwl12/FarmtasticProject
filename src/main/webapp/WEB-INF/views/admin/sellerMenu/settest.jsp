@@ -59,7 +59,9 @@
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
                          <form action="${pageContext.request.contextPath}/settlementStatus" method="post"> 
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit">정산하기</button>
+                            <!--  <label for="orderMonth">월 선택:</label>
+   							<input type="month" id="orderMonth" name="orderMonth" required> -->
+                   		<button class="d-none d-sm-inline-block btn bn-sm btn-primary shadow-sm" type="submit">정산하기</button>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -93,7 +95,7 @@
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
-                                          	<td><input type="checkbox" class="saleCheckbox" name="result" value="${sale.seller_num}" /></td>
+                                          	<td><td><input type="checkbox" class="saleCheckbox" name="result" value="${sale.seller_num}" /></td></td>
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>

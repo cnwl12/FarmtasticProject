@@ -90,13 +90,11 @@ public class SellerService {
 		
 		//정산 위한 판매자별 월별 매출리스트
 		public List<Map<String, Object>> getSales() {
+			System.out.println("service:getSales()");
 			 return sellerDAO.getSales();
 		}
 		
-		public void settlementStatus(List<String> sellerNumList, String orderMonth) {
-		  sellerDAO.settlementStatus(sellerNumList, orderMonth);
-
-	    }
+		
 
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {

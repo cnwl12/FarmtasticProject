@@ -35,6 +35,7 @@ public class SellerDAO {
 		}
 
 		public List<Map<String, Object>> getSales() {
+			System.out.println("getSales 오나요");
 			return sqlSession.selectList(namespace + ".getSales");
 		}
 
@@ -50,7 +51,17 @@ public class SellerDAO {
 		}
 		
 		
+		/*
+		 * public void settlementStatus(List<String> sellerNumList, String orderMonth) {
+		 * System.out.println("SelelrDAO settlementStatus 확인"); Map<String, Object>
+		 * params = new HashMap<String, Object>(); params.put("sellerNumList",
+		 * sellerNumList); params.put("orderMonth", orderMonth);
+		 * 
+		 * sqlSession.update(namespace+".settlementStatus", params); }
+		 * 
+		 */		
 		public List<Map<String, Object>> getSeller() {
+			System.out.println("getSeller() 오나요");
 			return sqlSession.selectList("SellerMapper.getSeller()");
 		}
 }

@@ -2,6 +2,7 @@ package com.itwillbs.farmtastic;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -193,6 +194,9 @@ public class AdminController {
 		 model.addAttribute("sales", resultList);
    		return "/admin/sellerMenu/settest";
 	}
+
+	
+	
 	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model) {
