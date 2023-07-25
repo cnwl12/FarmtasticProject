@@ -20,7 +20,8 @@
                 session.setAttribute("state", state);
             %>
             var apiURL = '<%=apiURL%>';
-            window.open(apiURL, 'naver-login-popup', 'width=600, height=500');
+            window.location.replace('<%=apiURL%>');
+            
         }
     </script>
 </head>
