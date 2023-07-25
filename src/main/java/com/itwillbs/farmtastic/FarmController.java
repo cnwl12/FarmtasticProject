@@ -126,17 +126,17 @@ public class FarmController { // 소비자 (컨트롤러)
             String member_email = userProfile.getString("email");
             String member_phone = userProfile.getString("mobile");
             MemberDTO memberDTO = new MemberDTO();
-            memberDTO.setMember_nid(member_nid);
-            memberDTO.setMember_name(member_name);
-            memberDTO.setMember_email(member_email);
-            memberDTO.setMember_phone(member_phone);
+//            memberDTO.setMember_nid(member_nid);
+//            memberDTO.setMember_name(member_name);
+//            memberDTO.setMember_email(member_email);
+//            memberDTO.setMember_phone(member_phone);
             System.out.println(memberDTO.getMember_name());
             MemberDAO memberDAO = new MemberDAO();
             
             MemberDTO existingMember = memberService.nuserCheck(memberDTO);
             if(existingMember != null){
                 System.out.println("로그인");
-                session .setAttribute("member_nid", memberDTO.getMember_nid());
+//                session .setAttribute("member_nid", memberDTO.getMember_nid());
     			return "redirect:/index";
             } else {
                 memberService.ninsertMember(memberDTO);
@@ -191,12 +191,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-		System.out.println(memberDTO.getMember_phone());
-		System.out.println(memberDTO.getMember_email());
-		System.out.println(memberDTO.getMember_joinDay());
-		System.out.println(memberDTO.getMember_post());
-		System.out.println(memberDTO.getMember_addMain());
-		System.out.println(memberDTO.getMember_addSub());
+//		System.out.println(memberDTO.getMember_phone());
+//		System.out.println(memberDTO.getMember_email());
+//		System.out.println(memberDTO.getMember_joinDay());
+//		System.out.println(memberDTO.getMember_post());
+//		System.out.println(memberDTO.getMember_addMain());
+//		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
@@ -293,12 +293,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println(memberDTO.getMember_id());
 		System.out.println(memberDTO.getMember_pass());
 		System.out.println(memberDTO.getMember_name());
-		System.out.println(memberDTO.getMember_phone());
-		System.out.println(memberDTO.getMember_email());
-		System.out.println(memberDTO.getMember_joinDay());
-		System.out.println(memberDTO.getMember_post());
-		System.out.println(memberDTO.getMember_addMain());
-		System.out.println(memberDTO.getMember_addSub());
+//		System.out.println(memberDTO.getMember_phone());
+//		System.out.println(memberDTO.getMember_email());
+//		System.out.println(memberDTO.getMember_joinDay());
+//		System.out.println(memberDTO.getMember_post());
+//		System.out.println(memberDTO.getMember_addMain());
+//		System.out.println(memberDTO.getMember_addSub());
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
