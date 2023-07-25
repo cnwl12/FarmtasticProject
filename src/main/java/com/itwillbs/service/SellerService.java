@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,12 +93,17 @@ public class SellerService {
 		public List<Map<String, Object>> getSales() {
 			 return sellerDAO.getSales();
 		}
-		
-		public void settlementStatus(List<String> sellerNumList, String orderMonth) {
-		  sellerDAO.settlementStatus(sellerNumList, orderMonth);
-
-	    }
-
+		//정산 확인
+		public void updateSettlementYn(String sellerNum, String orderMonth) {
+		    System.out.println("서비스 오나요");
+		    List<String> sellerNums = Arrays.asList(sellerNum.split(","));
+		    Map<String, Object> parameters = new HashMap<>();
+		    parameters.put("sellerNums", sellerNums);
+		    parameters.put("order_month", orderMonth);
+		    sellerDAO.updateSettlementYn(parameters);
+		    System.out.println("sellerNum: " + sellerNums);
+		    System.out.println("orderMonth: " + orderMonth);
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();

@@ -12,6 +12,5 @@ public class NaverController {
 	public String authNaver(@RequestParam String code) {
 		return "code : " + code;
 	}
-	
 }
 

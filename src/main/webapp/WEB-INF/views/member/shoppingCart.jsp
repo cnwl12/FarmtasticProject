@@ -170,9 +170,9 @@
                             <li>Subtotal <span>$454.98</span></li>
                             <li>Total <span>$454.98</span></li>
                         </ul>
-                        <a href="#" class="primary-btn" onclick="requestPay()">PROCEED TO CHECKOUT</a>
+                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </section>
@@ -190,7 +190,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
     
 
 

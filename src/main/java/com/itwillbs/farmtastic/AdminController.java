@@ -235,7 +235,7 @@ public class AdminController {
 
 	@PostMapping("/settlementStatus")
 	 public String settlementStatus(@RequestParam("result") List<String> sellerNumList, @RequestParam("order_month") String orderMonth) {
-	    sellerService.settlementStatus(sellerNumList, orderMonth);
+//	    sellerService.settlementStatus(sellerNumList, orderMonth);
 	    return "redirect:/settest";
 	 }
 	

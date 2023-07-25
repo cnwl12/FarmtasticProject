@@ -39,16 +39,12 @@ public class SellerDAO {
 		}
 
 
-		
-		 public void settlementStatus(List<String> sellerNumList, String orderMonth) {
-			System.out.println("SelelrDAO settlementStatus 확인");
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("sellerNumList", sellerNumList);
-			params.put("orderMonth", orderMonth);
-			    
-			sqlSession.update(namespace+".settlementStatus", params);
+		// 정산 'Y'로 바꾸기
+		public void updateSettlementYn(Map<String, Object> parameters) {
+			System.out.println("dao 오나요");
+			System.out.println(parameters);
+			  sqlSession.update("SellerMapper.updateSettlementYn", parameters);
 		}
-		
 		
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList(namespace+".getSeller");
@@ -74,5 +70,8 @@ public class SellerDAO {
 
 		
 			
+		
+
+
 		
 }

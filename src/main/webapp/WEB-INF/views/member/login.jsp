@@ -176,10 +176,14 @@
 							<!-- 간편로그인 -->
 							<div class="join-guide">
 								<ul class="log-in">     	
-								<li><a href="naverlogin" onclick="naverlogin;" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
+								<li><a href="#" onclick="openNaverLoginPopup()" class="btn"><i class="icon_naver"></i><span>네이버 로그인</span></a></li>
 								<li><a id="custom-login-btn" href="kakaologin" onclick="kakaologin";  class="btn"><i class="icon_kakao"></i><span>카카오 로그인</span></a></li>
-												
 								</ul>
+								<script>
+								    function openNaverLoginPopup() {
+								        window.open('naverlogin', 'naver-login-popup', 'width=600, height=500');
+								    }
+								</script>
 							</div>
  
 							<div class="join-guide ">
