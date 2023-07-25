@@ -1,5 +1,10 @@
 package com.itwillbs.farmtastic;
 
+import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -18,8 +23,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
@@ -33,6 +40,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@Autowired
 	private SellerService sellerService;
+	
+	@Autowired
+	private NaverController naverController;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -81,16 +91,68 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/navercallback";
 	}
 	
-	@Autowired
-	private NaverController naverController;
 	
 	@RequestMapping(value = "/naverauth", method = RequestMethod.GET)
-	public String naverauth(Locale locale, Model model) {
+	public String naverAuth(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String access_token = (String) session.getAttribute("accessToken");
+        String apiUrl = "https://openapi.naver.com/v1/nid/me";
 
-		System.out.println("naverauth 매핑확인여부");
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + access_token);
+    
+            int responseCode = conn.getResponseCode();
+            BufferedReader br;
+            if (responseCode == 200) { // HTTP OK
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            } else {
+                br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
+            }
+    
+            String inputLine;
+            StringBuffer respon = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                respon.append(inputLine);
+            }
+            br.close();
+            
+            org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
+            org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
 
-		return "/member/naverauth";
-	}
+            String member_nid = userProfile.getString("id");
+            String member_name = userProfile.getString("name");
+            String member_email = userProfile.getString("email");
+            String member_phone = userProfile.getString("mobile");
+            MemberDTO memberDTO = new MemberDTO();
+            memberDTO.setMember_nid(member_nid);
+            memberDTO.setMember_name(member_name);
+            memberDTO.setMember_email(member_email);
+            memberDTO.setMember_phone(member_phone);
+            System.out.println(memberDTO.getMember_name());
+            MemberDAO memberDAO = new MemberDAO();
+            
+            MemberDTO existingMember = memberService.nuserCheck(memberDTO);
+            if(existingMember != null){
+                System.out.println("로그인");
+                session .setAttribute("member_nid", memberDTO.getMember_nid());
+    			return "redirect:/index";
+            } else {
+                memberService.ninsertMember(memberDTO);
+                System.out.println("회원가입");
+                return "redirect:/index";
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return "errorPage"; // 오류가 발생한 경우 에러 페이지로 이동
+        }// 정상적으로 처리된 경우 authResult 페이지로 이동
+    }
+	
+	
 
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
 	public String kakaologin(Locale locale, Model model) {
@@ -148,14 +210,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/contact";
 	}
 
-	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
-	public String shopingCart(Locale locale, Model model) {
-
-		System.out.println("shoppingCart 매핑확인여부");
-
-		return "/member/shoppingCart";
-	}
-	
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임 
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
@@ -167,11 +221,19 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/farmStore";
 	}
-
+	
+	// 상품 개별 페이지로 이동
 	@RequestMapping(value = "/farmStoreDetail", method = RequestMethod.GET)
-	public String farmStoreDetail(Locale locale, Model model) {
+	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model) {
+		
+		/* System.out.println("item_num : ??? "+item_num); */
+		
+		Map<String, Object> item = sellerService.getItem(item_num);
 
-		System.out.println("farmStoreDetail 매핑확인여부");
+		 model.addAttribute("item", item);
+		 
+		/* System.out.println(item); */
+		 System.out.println("farmStoreDetail 매핑확인여부");
 
 		return "/member/farmStoreDetail";
 	}
@@ -185,19 +247,51 @@ public class FarmController { // 소비자 (컨트롤러)
 //		return "/member/insert";
 //	}
 //
-//	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
-//	public String insertPro(MemberDTO memberDTO) {
-//
-//		System.out.println(memberDTO.getMember_id());
-//		System.out.println(memberDTO.getMember_pass());
-//		System.out.println(memberDTO.getMember_name());
-//
-//		// insertMember() 메서드 호출
-//		memberService.insertMember(memberDTO);
-//
-//		return "redirect:/contact";
-//	}
+	
+	
+	// ---------------카트 조지는 중임 --------------------------
+	// if(담는건 맞고, 페이지 유지 or 이동할것)
+	
+	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
+	public String insertCart(@RequestParam("item_num") int item_num,
+							 @RequestParam HashMap<String, String> cartProduct) {
+		
+		System.out.println("addToCart Controller 오는지");
+		memberService.insertCart(cartProduct);
 
+//		// insertCart() 메서드 호출
+//		memberService.insertCart();
+
+		return "redirect:/shoppingCart";
+	}
+	
+	
+//	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
+//	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
+//	                             @RequestParam("file") List<MultipartFile> files,
+//	                             HttpSession session) {
+//		
+//		System.out.println(itemList);
+//		System.out.println(files);
+//	    sellerService.itemInsert(itemList, files, session);
+//	    
+//	    return "redirect:/itemInsertList";
+//	}
+	
+	
+	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
+	public String shopingCart(Model model) {
+		/* @RequestParam("item_num") int item_num, */
+		
+		System.out.println("shoppingCart 매핑확인여부");
+
+		return "/member/shoppingCart";
+	}
+
+	
+	
+	// -------------------------------------------------------
+	
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO ) {
 		

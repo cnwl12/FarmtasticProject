@@ -1,5 +1,6 @@
 package com.itwillbs.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,24 +27,6 @@ public class MemberDAO {
 		sqlSession.insert(namespace+".insertMember", memberDTO); 
 	}
 
-//	public MemberDTO nuserCheck(MemberDTO memberDTO) {
-//		System.out.println("MemberDAO nuserCheck() 확인");
-//
-//	    // sqlSession.selectOne을 사용해서 멤버를 조회하고 결과를 반환
-//	    MemberDTO existingMember = sqlSession.selectOne(namespace + ".nuserCheck", memberDTO);
-//
-//	    // 사용자를 찾았다면
-//	    if (existingMember != null) {
-//	        // MemberDTO 객체를 반환합니다.
-//	        return existingMember;
-//	    } else return null;
-//	}
-//	
-//	public void ninsertMember(MemberDTO memberDTO) {
-//		System.out.println("MemberDAO ninsertMember() 확인");
-//		
-//		sqlSession.insert(namespace+".ninsertMember", memberDTO); 
-//	}
 	
 	 public MemberDTO nuserCheck(MemberDTO memberDTO) {
 		 System.out.println("MemberDAO nuserCheck() 확인");
@@ -52,17 +35,13 @@ public class MemberDAO {
 
 	 public void ninsertMember(MemberDTO memberDTO) {
 		 System.out.println("MemberDAO ninsertMember() 확인");
-	    sqlSession.insert(namespace+".ninsertMember", memberDTO); 
+		 if (sqlSession == null) {
+		        System.err.println("sqlSession is null!");
+		        return;
+		    }
+		 sqlSession.insert(namespace+".ninsertMember", memberDTO); 
 	 }
 	 
-//	 public MemberDTO getMemberByNaverId(String naver_id) {
-//	        System.out.println("MemberDAO getMemberByNaverId() 확인");
-//
-//	        // sqlSession.selectOne() 메소드를 사용하여 멤버를 조회하고 결과를 반환
-//	        MemberDTO existingMember = sqlSession.selectOne(namespace + ".getMemberByNaverId", naver_id);
-//
-//	        return existingMember;
-//	 }
 
 	public List<Map<String, Object>> getMembers() {
 		return sqlSession.selectList("MemberMapper.getMembers");
@@ -83,6 +62,11 @@ public class MemberDAO {
 	public MemberDTO getMember(String member_id) {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
+	}
+
+	public void insertCart(HashMap<String, String> cartProduct) {
+		System.out.println("MemberDAO insertCart : " + cartProduct);
+		sqlSession.insert(namespace+".insertCart",cartProduct);
 	}
 
 }

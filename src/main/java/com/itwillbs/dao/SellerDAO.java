@@ -40,28 +40,39 @@ public class SellerDAO {
 		}
 
 
-		
-		 public void settlementStatus(List<String> sellerNumList, String orderMonth) {
-			System.out.println("SelelrDAO settlementStatus 확인");
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("sellerNumList", sellerNumList);
-			params.put("orderMonth", orderMonth);
-			    
-			sqlSession.update(namespace+".settlementStatus", params);
+		// 정산 'Y'로 바꾸기
+		public void updateSettlementYn(Map<String, Object> parameters) {
+			System.out.println("dao 오나요");
+			System.out.println(parameters);
+			  sqlSession.update("SellerMapper.updateSettlementYn", parameters);
 		}
 		
-		
-		/*
-		 * public void settlementStatus(List<String> sellerNumList, String orderMonth) {
-		 * System.out.println("SelelrDAO settlementStatus 확인"); Map<String, Object>
-		 * params = new HashMap<String, Object>(); params.put("sellerNumList",
-		 * sellerNumList); params.put("orderMonth", orderMonth);
-		 * 
-		 * sqlSession.update(namespace+".settlementStatus", params); }
-		 * 
-		 */		
 		public List<Map<String, Object>> getSeller() {
-			System.out.println("getSeller() 오나요");
-			return sqlSession.selectList("SellerMapper.getSeller()");
+			return sqlSession.selectList(namespace+".getSeller");
 		}
+
+		public void approveSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerDAO approveSellerStatus 확인");
+		    sqlSession.update(namespace+".approveSellerStatus", sellerNum);
+		}
+
+		public void rejectSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerDAO rejectSellerStatus 확인");
+		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
+		}
+		
+		
+		
+		public Map<String, Object> getItem(int item_num) {
+			System.out.println("dao itemNum : !! " + item_num );
+			return sqlSession.selectOne(namespace+".getItem", item_num);
+		}
+
+
+		
+			
+		
+
+
+		
 }

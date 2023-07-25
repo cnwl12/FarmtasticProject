@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +29,13 @@ public class MemberService {
 	}	
 	
 	public MemberDTO nuserCheck(MemberDTO memberDTO) {
-		System.out.println("MemberService nuserCheck() 확인!!!");
-		
-		    MemberDTO existingMember = memberDAO.nuserCheck(memberDTO);
-		    return existingMember;
-	}
+		 System.out.println("MemberDAO nuserCheck() 확인");
+		 if (memberDAO.nuserCheck(memberDTO) == null) {
+		        System.err.println("sqlSession is null!");
+		        return null;
+		    }
+	     return memberDAO.nuserCheck(memberDTO);
+	    }
 	
 	public void ninsertMember(MemberDTO memberDTO) {
 	    System.out.println("MemberService ninsertMemberk() 확인!!!");
@@ -65,6 +68,21 @@ public class MemberService {
 		System.out.println("MemberService getMember()");
 		
 		return memberDAO.getMember(member_id);
+	}
+	
+	
+	// 카트 조지는중 ... 
+	public void insertCart(HashMap<String, String> cartProduct) {
+		System.out.println("insertCart 확인!!!");
+		System.out.println(cartProduct);
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+		}
+		memberDAO.insertCart(cartProduct);
 	}
 	
 

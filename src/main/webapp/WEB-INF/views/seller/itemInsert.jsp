@@ -82,6 +82,10 @@
 								<td><textarea name="item_detail" rows="10" cols="20" value=""></textarea></td>
 							</tr>
 							<tr>
+								<td>재고</td>
+								<td><input type="text" name="item_left" value=""></td>
+							</tr>
+							<tr>
 								<td>이미지확인 - 아래 주소처럼 나와야함</td>
 								<td><img src="http://c3d2212t3.itwillbs.com/Moneytto/resources/upload/c9bbe06a.png" style="width: 300px; height: 200px"></td>
 							</tr>

@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class SellerService {
 				// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				
-				System.out.println(uploadPath);
+//				System.out.println(uploadPath);
 				
 				for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
@@ -81,10 +82,9 @@ public class SellerService {
 			
 		}
 
-
+		// 마켓 전체 페이지
 		public List<Map<String, Object>> getItems() {
 			
-			System.out.println("서비스 오나요");
 			return sellerDAO.getItems();
 		}
 		
@@ -93,12 +93,36 @@ public class SellerService {
 			System.out.println("service:getSales()");
 			 return sellerDAO.getSales();
 		}
-		
-		
-
+		//정산 확인
+		public void updateSettlementYn(String sellerNum, String orderMonth) {
+		    System.out.println("서비스 오나요");
+		    List<String> sellerNums = Arrays.asList(sellerNum.split(","));
+		    Map<String, Object> parameters = new HashMap<>();
+		    parameters.put("sellerNums", sellerNums);
+		    parameters.put("order_month", orderMonth);
+		    sellerDAO.updateSettlementYn(parameters);
+		    System.out.println("sellerNum: " + sellerNums);
+		    System.out.println("orderMonth: " + orderMonth);
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
+		}
+
+		public void approveSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerService approveSellerStatus 확인!");
+		    sellerDAO.approveSellerStatus(sellerNum);
+		}
+
+		public void rejectSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerService rejectSellerStatus 확인!");
+		    sellerDAO.rejectSellerStatus(sellerNum);
+		}
+	
+		
+		public Map<String, Object> getItem(int item_num) {
+			System.out.println("서비스 아이템넘");
+			return sellerDAO.getItem(item_num);
 		}
 		
 		

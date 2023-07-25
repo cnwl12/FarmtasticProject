@@ -27,7 +27,7 @@
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -95,7 +95,7 @@
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
-                                          	<td><td><input type="checkbox" class="saleCheckbox" name="result" value="${sale.seller_num}" /></td></td>
+                                          	<td><input type="checkbox" class="saleCheckbox" data-seller-num="${sale.seller_num}" data-order-month="${sale.order_month}" /></td>
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
@@ -103,14 +103,15 @@
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>
-                                            <td>${sale.settlement_settlement_yn}</td>
+                                            <td>${sale.settlement_yn}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        </form>
+                      </form>
+                 
                     </div>
 
                 </div>
@@ -156,7 +157,35 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+	<script>
+document.getElementById("settlementForm").addEventListener("submit", function(event) {
+    const checkboxes = document.getElementsByClassName("saleCheckbox");
+    let sellerNums = [];
+    let orderMonths = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            sellerNums.push(checkboxes[i].dataset.sellerNum);
+            orderMonths.push(checkboxes[i].dataset.orderMonth);
+        }
+    }
+    if (sellerNums.length === 0) {
+        event.preventDefault();
+        alert("적어도 하나의 업체를 선택해주세요!");
+    } else {
+        const sellerNumInput = document.createElement("input");
+        sellerNumInput.type = "hidden";
+        sellerNumInput.name = "sellerNum";
+        sellerNumInput.value = sellerNums.join(",");
+        event.target.appendChild(sellerNumInput);
 
+        const orderMonthInput = document.createElement("input");
+        orderMonthInput.type = "hidden";
+        orderMonthInput.name = "orderMonth";
+        orderMonthInput.value = orderMonths.join(",");
+        event.target.appendChild(orderMonthInput);
+    }
+});
+</script>
 </body>
 
 </html>

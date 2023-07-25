@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 
@@ -23,6 +25,27 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+	
+<!-- 카트추가 함수 -->
+<script type="text/javascript">
+function insertCart(item_num){	/* insertCart(${item.item_num}) */
+	
+	location.href="insertCart?item_num="+item_num+"";
+	
+}
+
+</script>
+ 
+ 
+<%-- var board_num = ${dto.getBoard_num()};
+	// alert(board_num);
+	
+	if(confirm("삭제하시겠습니까?")){
+		location.href="commentDelete.bo?comment_num="+comment_num +"&board_num="+board_num;
+	//	location.href="main.bs";
+	}
+ --%>
+
 </head>
 
 <body>
@@ -55,7 +78,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="${pageContext.request.contextPath}/resources/img/product/details/product-details-1.jpg" alt="">
+                                src="${item.item_mainImg}" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-2.jpg"
@@ -71,7 +94,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>Vetgetableâs Package</h3>
+                        <h3>${item.item_name}</h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -80,18 +103,17 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">$50.00</div>
-                        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                        <div class="product__details__price">${item.item_price}</div>
+                        <p>${item.item_detail}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
+                                    <input type="text" value="${item.item_amount}">
+                                </div>  
                             </div>
-                        </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
+                        </div>  
+                       	<%-- <input type="button" value="삭제" onclick="comment_delete(${comment.comment_num})"> --%>
+                        <input type="button" onclick="insertCart(${item.item_num})" class="primary-btn" value="ADD TO CARD">
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -106,6 +128,8 @@
                                 </div>
                             </li>
                         </ul>
+                        
+                        
                     </div>
                 </div>
                 <div class="col-lg-12">
