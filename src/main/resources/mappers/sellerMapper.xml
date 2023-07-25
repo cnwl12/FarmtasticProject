@@ -42,19 +42,29 @@
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
     </select>
     
-    <!-- 가맹점 관리 -->
+<!--     가맹점 관리 -->
     <select id="getSeller" resultType="map">
     select * from seller;
     </select>
     
-    <update id="changeSellerStatus" parameterType="list">
+    <update id="approveSellerStatus" parameterType="list">
     update seller
-    set seller_delYn = 'N'
+    set seller_recoYn = 'Y'
     where seller_num in 
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>
-    </update>
+</update>
+
+<update id="rejectSellerStatus" parameterType="list">
+    update seller
+    set seller_recoYn = 'N'
+    where seller_num in 
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</update>
+    
     
 	<!-- 상품 등록 -->
     <insert id="itemInsert">

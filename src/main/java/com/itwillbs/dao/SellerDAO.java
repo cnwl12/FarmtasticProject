@@ -47,14 +47,30 @@ public class SellerDAO {
 		}
 		
 		public List<Map<String, Object>> getSeller() {
-			return sqlSession.selectList("SellerMapper.getSeller()");
+			return sqlSession.selectList(namespace+".getSeller");
 		}
 
+		public void approveSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerDAO approveSellerStatus 확인");
+		    sqlSession.update(namespace+".approveSellerStatus", sellerNum);
+		}
 
+		public void rejectSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerDAO rejectSellerStatus 확인");
+		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
+		}
+		
+		
+		
 		public Map<String, Object> getItem(int item_num) {
 			System.out.println("dao itemNum : !! " + item_num );
 			return sqlSession.selectOne(namespace+".getItem", item_num);
 		}
+
+
+		
+			
+		
 
 
 		
