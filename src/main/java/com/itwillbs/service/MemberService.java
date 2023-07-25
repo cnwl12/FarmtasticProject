@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,21 @@ public class MemberService {
 		System.out.println("MemberService getMember()");
 		
 		return memberDAO.getMember(member_id);
+	}
+	
+	
+	// 카트 조지는중 ... 
+	public void insertCart(HashMap<String, String> cartProduct) {
+		System.out.println("insertCart 확인!!!");
+		System.out.println(cartProduct);
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+		}
+		memberDAO.insertCart(cartProduct);
 	}
 	
 

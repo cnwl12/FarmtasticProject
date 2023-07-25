@@ -25,6 +25,27 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+	
+<!-- 카트추가 함수 -->
+<script type="text/javascript">
+function insertCart(item_num){	/* insertCart(${item.item_num}) */
+	
+	location.href="insertCart?item_num="+item_num+"";
+	
+}
+
+</script>
+ 
+ 
+<%-- var board_num = ${dto.getBoard_num()};
+	// alert(board_num);
+	
+	if(confirm("삭제하시겠습니까?")){
+		location.href="commentDelete.bo?comment_num="+comment_num +"&board_num="+board_num;
+	//	location.href="main.bs";
+	}
+ --%>
+
 </head>
 
 <body>
@@ -87,11 +108,12 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
+                                    <input type="text" value="${item.item_amount}">
+                                </div>  
                             </div>
-                        </div>
-                        <input type="button" onclick="">ADD TO CARD</a>
+                        </div>  
+                       	<%-- <input type="button" value="삭제" onclick="comment_delete(${comment.comment_num})"> --%>
+                        <input type="button" onclick="insertCart(${item.item_num})" class="primary-btn" value="ADD TO CARD">
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>

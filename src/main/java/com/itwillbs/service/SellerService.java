@@ -33,7 +33,7 @@ public class SellerService {
 				// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				
-				System.out.println(uploadPath);
+//				System.out.println(uploadPath);
 				
 				for (int i = 0; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
@@ -81,10 +81,9 @@ public class SellerService {
 			
 		}
 
-
+		// 마켓 전체 페이지
 		public List<Map<String, Object>> getItems() {
 			
-			System.out.println("서비스 오나요");
 			return sellerDAO.getItems();
 		}
 		

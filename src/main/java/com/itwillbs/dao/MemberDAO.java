@@ -1,5 +1,6 @@
 package com.itwillbs.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +84,11 @@ public class MemberDAO {
 	public MemberDTO getMember(String member_id) {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
+	}
+
+	public void insertCart(HashMap<String, String> cartProduct) {
+		System.out.println("MemberDAO insertCart : " + cartProduct);
+		sqlSession.insert(namespace+".insertCart",cartProduct);
 	}
 
 }

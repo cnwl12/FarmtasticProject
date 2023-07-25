@@ -1,5 +1,6 @@
 package com.itwillbs.farmtastic;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.naverController.NaverController;
@@ -151,14 +153,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/contact";
 	}
 
-	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
-	public String shopingCart(Locale locale, Model model) {
-
-		System.out.println("shoppingCart 매핑확인여부");
-
-		return "/member/shoppingCart";
-	}
-	
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임 
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
@@ -175,13 +169,13 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/farmStoreDetail", method = RequestMethod.GET)
 	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model) {
 		
-		System.out.println("item_num : ??? "+item_num);
+		/* System.out.println("item_num : ??? "+item_num); */
 		
 		Map<String, Object> item = sellerService.getItem(item_num);
 
 		 model.addAttribute("item", item);
 		 
-		 System.out.println(item);
+		/* System.out.println(item); */
 		 System.out.println("farmStoreDetail 매핑확인여부");
 
 		return "/member/farmStoreDetail";
@@ -196,19 +190,51 @@ public class FarmController { // 소비자 (컨트롤러)
 //		return "/member/insert";
 //	}
 //
-//	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
-//	public String insertPro(MemberDTO memberDTO) {
-//
-//		System.out.println(memberDTO.getMember_id());
-//		System.out.println(memberDTO.getMember_pass());
-//		System.out.println(memberDTO.getMember_name());
-//
-//		// insertMember() 메서드 호출
-//		memberService.insertMember(memberDTO);
-//
-//		return "redirect:/contact";
-//	}
+	
+	
+	// ---------------카트 조지는 중임 --------------------------
+	// if(담는건 맞고, 페이지 유지 or 이동할것)
+	
+	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
+	public String insertCart(@RequestParam("item_num") int item_num,
+							 @RequestParam HashMap<String, String> cartProduct) {
+		
+		System.out.println("addToCart Controller 오는지");
+		memberService.insertCart(cartProduct);
 
+//		// insertCart() 메서드 호출
+//		memberService.insertCart();
+
+		return "redirect:/shoppingCart";
+	}
+	
+	
+//	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
+//	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
+//	                             @RequestParam("file") List<MultipartFile> files,
+//	                             HttpSession session) {
+//		
+//		System.out.println(itemList);
+//		System.out.println(files);
+//	    sellerService.itemInsert(itemList, files, session);
+//	    
+//	    return "redirect:/itemInsertList";
+//	}
+	
+	
+	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
+	public String shopingCart(Model model) {
+		/* @RequestParam("item_num") int item_num, */
+		
+		System.out.println("shoppingCart 매핑확인여부");
+
+		return "/member/shoppingCart";
+	}
+
+	
+	
+	// -------------------------------------------------------
+	
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO ) {
 		
