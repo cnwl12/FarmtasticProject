@@ -184,6 +184,21 @@ public class AdminController {
 		return "/admin/sellerMenu/sellerAdmin";
 	}
 	
+	@PostMapping("/changeSellerStatus")
+	public String changeSellerStatus(@RequestParam(value = "result", required = false) List<String> sellerNum, @RequestParam("actionType") String actionType, RedirectAttributes redirectAttributes) {
+	    if (sellerNum == null || sellerNum.isEmpty()) {
+	        redirectAttributes.addFlashAttribute("message", "체크된 가맹점이 없습니다.");
+	    } else {
+	        if (actionType.equals("approve")) {
+	            sellerService.approveSellerStatus(sellerNum);
+	        } else if (actionType.equals("reject")) {
+	            sellerService.rejectSellerStatus(sellerNum);
+	        }
+	        redirectAttributes.addFlashAttribute("message", "선택된 가맹점의 상태가 변경되었습니다.");
+	    }
+	    return "redirect:/sellerAdmin";
+	}
+	
 	
 	@RequestMapping(value = "/settest", method = RequestMethod.GET)
 	public String settest(Locale locale, Model model) {

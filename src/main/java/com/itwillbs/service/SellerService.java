@@ -103,7 +103,17 @@ public class SellerService {
 			return sellerDAO.getSeller();
 		}
 
+		public void approveSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerService approveSellerStatus 확인!");
+		    sellerDAO.approveSellerStatus(sellerNum);
+		}
 
+		public void rejectSellerStatus(List<String> sellerNum) {
+		    System.out.println("SellerService rejectSellerStatus 확인!");
+		    sellerDAO.rejectSellerStatus(sellerNum);
+		}
+	
+		
 		public Map<String, Object> getItem(int item_num) {
 			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
