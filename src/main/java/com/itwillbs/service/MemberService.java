@@ -28,11 +28,13 @@ public class MemberService {
 	}	
 	
 	public MemberDTO nuserCheck(MemberDTO memberDTO) {
-		System.out.println("MemberService nuserCheck() 확인!!!");
-		
-		    MemberDTO existingMember = memberDAO.nuserCheck(memberDTO);
-		    return existingMember;
-	}
+		 System.out.println("MemberDAO nuserCheck() 확인");
+		 if (memberDAO.nuserCheck(memberDTO) == null) {
+		        System.err.println("sqlSession is null!");
+		        return null;
+		    }
+	     return memberDAO.nuserCheck(memberDTO);
+	    }
 	
 	public void ninsertMember(MemberDTO memberDTO) {
 	    System.out.println("MemberService ninsertMemberk() 확인!!!");
