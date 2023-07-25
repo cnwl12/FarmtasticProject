@@ -172,7 +172,7 @@
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </section>

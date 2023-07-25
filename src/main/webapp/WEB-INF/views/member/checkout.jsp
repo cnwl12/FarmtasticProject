@@ -184,7 +184,7 @@
                                     Create an account?
                                     <input type="checkbox" id="acc">
                                     <span class="checkmark"></span>
-                                </label>
+                                </label> 
                             </div>
                             <p>Create an account by entering the information below. If you are a returning customer
                                 please login at the top of the page</p>
@@ -246,7 +246,7 @@
 	                            <div id="member_addMain">${member_addMain}</div>
 	                            <div id="member_addSub">${member_addSub}</div>
 	                            <div id="member_email">${member_email}</div>
-	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button>
+	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button> 
                             </div>
                         </div>
                     </div>

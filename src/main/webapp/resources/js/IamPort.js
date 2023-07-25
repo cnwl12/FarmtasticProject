@@ -27,7 +27,7 @@ window.onload = function() {
     const buyerEmailElement = document.getElementById("member_email");
     const buyerEmail = buyerEmailElement.innerText;
 
-    IMP.request_pay(
+    IMP.request_pay(  
       {
         // 이전에 설정한 다른 값들 ...
         name: itemName,
