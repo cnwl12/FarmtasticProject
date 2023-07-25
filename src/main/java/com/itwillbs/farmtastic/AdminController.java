@@ -185,6 +185,21 @@ public class AdminController {
 	}
 	
 	
+	@PostMapping("/changeSellerStatus")
+	public String changeSellerStatus(@RequestParam(value = "result", required = false) List<String> sellerNum, @RequestParam("actionType") String actionType, RedirectAttributes redirectAttributes) {
+	    if (sellerNum == null || sellerNum.isEmpty()) {
+	        redirectAttributes.addFlashAttribute("message", "체크된 가맹점이 없습니다.");
+	    } else {
+	        if (actionType.equals("approve")) {
+	            sellerService.approveSellerStatus(sellerNum);
+	        } else if (actionType.equals("reject")) {
+	            sellerService.rejectSellerStatus(sellerNum);
+	        }
+	        redirectAttributes.addFlashAttribute("message", "선택된 가맹점의 상태가 변경되었습니다.");
+	    }
+	    return "redirect:/sellerAdmin";
+	}
+	
 	@RequestMapping(value = "/settest", method = RequestMethod.GET)
 	public String settest(Locale locale, Model model) {
 		
@@ -218,10 +233,22 @@ public class AdminController {
 		return "/admin/sellerMenu/sales";
 	}
 
+	
 	@PostMapping("/settlementStatus")
 	 public String settlementStatus(@RequestParam("result") List<String> sellerNumList, @RequestParam("order_month") String orderMonth) {
-	    sellerService.settlementStatus(sellerNumList, orderMonth);
+//	    sellerService.settlementStatus(sellerNumList, orderMonth);
 	    return "redirect:/settest";
 	 }
 	
+	
+	@PostMapping("/settlementYn")
+	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
+		System.out.println("컨트롤러 오나요");
+	  sellerService.updateSettlementYn(sellerNum, orderMonth);
+	  System.out.println("sellerNum: " + sellerNum);
+	  System.out.println("orderMonth: " + orderMonth);
+	  String message = "정산 업데이트가 완료되었습니다.";
+	  redirectAttributes.addFlashAttribute("message", message);
+	  return "redirect:/settest";
+	}
 }
