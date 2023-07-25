@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Farmtastic_Check</title>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -237,21 +239,14 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <div id="item_name">${item_name}
-                                	<div id="item_price">${item_price}
-	                                	<div id="member_name">${member_name}
-	                                		<div id="member_phone">${member_phone}
-	                                			<div id="member_addMain">${member_addMain}
-	                                				<div id="member_addSub">${member_addSub}
-	                                					<div id="member_email">${member_email}
-	                                	<button type="submit" class="site-btn" onclick="requestPay()">결제하기</button>
-	                                					</div>
-	                                				</div>
-	                                			</div>
-	                                		</div>
-	                                	</div>
-	                                </div>
-                                </div>
+                                <div id="item_name">${item_name}</div>
+                                <div id="item_price">${item_price}</div>
+	                            <div id="member_name">${member_name}</div>
+	                            <div id="member_phone">${member_phone}</div>
+	                            <div id="member_addMain">${member_addMain}</div>
+	                            <div id="member_addSub">${member_addSub}</div>
+	                            <div id="member_email">${member_email}</div>
+	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button>
                             </div>
                         </div>
                     </div>
@@ -274,7 +269,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 
  
 
