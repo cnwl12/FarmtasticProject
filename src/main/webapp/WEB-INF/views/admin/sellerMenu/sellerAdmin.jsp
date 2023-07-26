@@ -32,7 +32,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
+        <jsp:include page="../inc/sidemenu.jsp"></jsp:include>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -86,134 +86,75 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach items="${sellers}" var="seller">
-                                        <tr>
-                                            <td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
-                                            <td>${seller.seller_num}</td>
-                                            <td>${seller.seller_storeName}</td>
-                                            <td>${seller.seller_name}</td>
-                                            <td>${seller.seller_licenseNum}</td>
-                                            <td>${seller.seller_recoYn}</td>
-                                            <td>${seller.seller_joinDay}</td>
-                                        </tr>
-                                        </c:forEach>
-                                    </tbody>
+    								<c:set var="count" value="0" /> <!-- 카운트 초기화 -->
+    								<c:forEach items="${sellers}" var="seller">
+        							<c:if test="${seller.seller_recoYn != 'Y'}">
+            						<c:set var="count" value="${count + 1}" /> <!-- 카운트 증가 -->
+            						<tr>
+                					<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
+               	 					<td>${count}</td> <!-- 카운트 표시 -->
+                					<td>${seller.seller_storeName}</td>
+                					<td>${seller.seller_name}</td>
+                					<td>${seller.seller_licenseNum}</td>
+                					<td>${seller.seller_recoYn}</td>
+                					<td>${seller.seller_joinDay}</td>
+            						</tr>
+        							</c:if>
+    								</c:forEach>
+									</tbody>
                                 </table>
                             </div>
                         </div>
                        </form>
-                       </div>	
                        
-                       
-                       
-                       
-                       <div class="card shadow mb-4">
                        <div class="card-header py-3">
-                       <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
-                       </div>
-                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post"> 
-                       <div class="card-body">
+                        <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
+                        </div>
+                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
+                        <input type="hidden" id="actionType" name="actionType" /> 
+                        <div class="card-body">
                             <div class="table-responsive">
-                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                	<div class="row">
-                                		<div class="col-sm-12 col-md-6">
-                                			<div class="dataTables_length" id="dataTable_length">
-                                				<label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                                				<option value="10">10</option>
-                                				<option value="25">25</option>
-                                				<option value="50">50</option>
-                                				<option value="100">100</option></select> entries</label>
-                                			</div>
-                                		</div>
-                                		<div class="col-sm-12 col-md-6">
-                                			<div id="dataTable_filter" class="dataTables_filter">
-                                				<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
-                                			</div>
-                                		</div>
-                                	</div>
-                                	<div class="row">
-                                		<div class="col-sm-12">
-                                		<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" class="reco-check-all"/></th>
+                                            <th><input type="checkbox" class="reject-check-all"/></th>
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업장 번호</th>
-                                            <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th><input type="checkbox" class="reco-check-all"/></th>
+                                            <th><input type="checkbox" class="reject-check-all"/></th>
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업장 번호</th>
-                                            <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <c:forEach items="${sellers}" var="seller">
-                                        <tr>
-                                            <td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
-                                            <td>${seller.seller_num}</td>
-                                            <td>${seller.seller_storeName}</td>
-                                            <td>${seller.seller_name}</td>
-                                            <td>${seller.seller_licenseNum}</td>
-                                            <td>${seller.seller_recoYn}</td>
-                                            <td>${seller.seller_joinDay}</td>
-                                        </tr>
-                                        </c:forEach>
-                                        </tbody>
+                                        <c:forEach items="${sellers}" var="seller">
+   								 		<c:if test="${seller.seller_recoYn == 'Y'}">
+        								<tr>
+            							<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
+            							<td>${seller.seller_num}</td>
+            							<td>${seller.seller_storeName}</td>
+            							<td>${seller.seller_name}</td>
+            							<td>${seller.seller_licenseNum}</td>
+            							<td>${seller.seller_joinDay}</td>
+        								</tr>
+    									</c:if>
+										</c:forEach>
+                                    </tbody>
                                 </table>
-                                </div>
-                                </div>
-                                <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                <ul class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                                </li>
-                                <li class="paginate_button page-item active">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                                </li>
-                                <li class="paginate_button page-item next" id="dataTable_next">
-                                <a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                </li>
-                                </ul>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
                             </div>
                         </div>
-                       
                        </form>
+                       </div>   
                        
-                       
-                    </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -262,14 +203,38 @@
 	
 	<!-- changeSellerStatus -->
 	<script>
-  	document.getElementById('recoSeller').addEventListener('click', function() {
-    document.getElementById('actionType').value = 'approve';
-    document.getElementById('changeSellerStatus').submit();
-  	});
-  	document.getElementById('rejectSeller').addEventListener('click', function() {
-    document.getElementById('actionType').value = 'reject';
-    document.getElementById('changeSellerStatus').submit();
-  	});
+	// Change Seller Status
+    document.getElementById('recoSeller').addEventListener('click', function () {
+        document.getElementById('actionType').value = 'approve';
+        document.getElementById('changeSellerStatus').submit();
+    });
+    document.getElementById('rejectSeller').addEventListener('click', function () {
+        document.getElementById('actionType').value = 'reject';
+        document.getElementById('changeSellerStatus').submit();
+    });
+
+    // Check All checkboxes
+    const rejectCheckAll = document.querySelectorAll('.reject-check-all');
+    const recoCheckAll = document.querySelectorAll('.reco-check-all');
+    const sellerRejectboxes = document.querySelectorAll('.sellerRejectbox');
+
+    function toggleCheckboxes(checkboxes, checked) {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = checked;
+        });
+    }
+
+    rejectCheckAll.forEach(checkAll => {
+        checkAll.addEventListener('click', (event) => {
+            toggleCheckboxes(sellerRejectboxes, event.target.checked);
+        });
+    });
+
+    recoCheckAll.forEach(checkAll => {
+        checkAll.addEventListener('click', (event) => {
+            toggleCheckboxes(sellerRejectboxes, event.target.checked);
+        });
+    });
 </script>
 	
 </body>
