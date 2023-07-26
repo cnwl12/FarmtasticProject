@@ -106,17 +106,6 @@ public class SellerService {
 
 		    return filteredSales;
 		}
-		// 정산관리 월 이동
-		 public List<Map<String, Object>> getSalesByMonth(String month) {
-		        List<Map<String, Object>> sales = sellerDAO.getSales();
-
-		        // 현재 날짜에서 년과 월 정보 가져온 후 필터 적용
-		        List<Map<String, Object>> filteredSales = sales.stream()
-		                .filter(sale -> month.equals(sale.get("order_month")))
-		                .collect(Collectors.toList());
-
-		        return filteredSales;
-		}
 		//정산 확인
 		public void updateSettlementYn(String sellerNum, String orderMonth) {
 		    System.out.println("서비스 오나요");

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -226,21 +225,7 @@ public class AdminController {
 
    	    return "/admin/sellerMenu/settest";
 	}
-	//날짜이동
-	@RequestMapping(value = "/loadSalesByMonth", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<Map<String, Object>> loadSalesByMonth(@RequestParam(value = "month", required = false) String month, Locale locale, Model model) {
-	    if (month == null) {
-	        Calendar now = Calendar.getInstance();
-	        month = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-	    }
 
-	    List<Map<String, Object>> resultList = sellerService.getSalesByMonth(month);
-	    Map<String, Object> responseBody = new HashMap<>();
-	    responseBody.put("sales", resultList);
-	    responseBody.put("requestedMonth", month);
-	
-	    return ResponseEntity.ok(responseBody);
-	}
 	
 	
 	
