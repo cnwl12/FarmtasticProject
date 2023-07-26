@@ -45,16 +45,16 @@
   </update>
   
   <insert id="insertCart">
-	INSERT INTO cart_product (
-				cart_item_id,
+	INSERT INTO cart (   
 				cart_num,
 				item_num,
+				member_num,
 				cart_cnt
 	)
 	VALUES (
-	#{cart_product},
-	#{cart_item_id},
+	#{cart_num},
 	#{item_num},
+	#{member_num},
 	#{cart_cnt}
 	)
   </insert>

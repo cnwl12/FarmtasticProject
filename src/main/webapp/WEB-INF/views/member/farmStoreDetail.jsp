@@ -26,25 +26,30 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 	
+	 <!-- Js Plugins -->
+  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 <!-- 카트추가 함수 -->
 <script type="text/javascript">
-function insertCart(item_num){	/* insertCart(${item.item_num}) */
+function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
-	location.href="insertCart?item_num="+item_num+"";
+	var cart_cnt = $("#cart_cnt").val(); // cart_cnt id값의 value값 
+	
+	
+	
+	location.href="insertCart?item_num="+item_num+"&cart_cnt"+cart_cnt;
 	
 }
 
 </script>
  
- 
-<%-- var board_num = ${dto.getBoard_num()};
-	// alert(board_num);
-	
-	if(confirm("삭제하시겠습니까?")){
-		location.href="commentDelete.bo?comment_num="+comment_num +"&board_num="+board_num;
-	//	location.href="main.bs";
-	}
- --%>
 
 </head>
 
@@ -108,12 +113,11 @@ function insertCart(item_num){	/* insertCart(${item.item_num}) */
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="${item.item_amount}">
+                                    <input type="text" value="1" id="cart_cnt">
                                 </div>  
                             </div>
                         </div>  
-                       	<%-- <input type="button" value="삭제" onclick="comment_delete(${comment.comment_num})"> --%>
-                        <input type="button" onclick="insertCart(${item.item_num})" class="primary-btn" value="ADD TO CARD">
+                        <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CARD">
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -267,19 +271,6 @@ function insertCart(item_num){	/* insertCart(${item.item_num}) */
 
    <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
-
-    <!-- Js Plugins -->
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
-
-
 
 </body>
 

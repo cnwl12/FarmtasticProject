@@ -253,15 +253,17 @@ public class FarmController { // 소비자 (컨트롤러)
 	// if(담는건 맞고, 페이지 유지 or 이동할것)
 	
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
-	public String insertCart(@RequestParam("item_num") int item_num,
-							 @RequestParam HashMap<String, String> cartProduct) {
+	public String insertCart(@RequestParam HashMap<String, String> cart
+							 ,HttpServletRequest session) {
 		
-		System.out.println("addToCart Controller 오는지");
-		memberService.insertCart(cartProduct);
-
-//		// insertCart() 메서드 호출
-//		memberService.insertCart();
-
+		// 나중에 변경할거임...
+		String id = (String)session.getAttribute("member_id");
+		id = "admin"; // <- 로그인 됐을 때 지울거임
+		System.out.println(id + ", "+ cart);
+		
+		System.out.println("insertCart 오는지");
+		memberService.insertCart(cart);
+		
 		return "redirect:/shoppingCart";
 	}
 	
