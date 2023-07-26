@@ -60,6 +60,13 @@
   </insert>
   
   
+  <select id="getCart" resultType="map">
+  	SELECT * 
+	FROM cart c  JOIN item i 
+	ON i.item_num = c.item_num
+	WHERE member_num = #{member_num};
+  </select>
+  
   
   
   

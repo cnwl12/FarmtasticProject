@@ -253,39 +253,36 @@ public class FarmController { // 소비자 (컨트롤러)
 	// if(담는건 맞고, 페이지 유지 or 이동할것)
 	
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
-	public String insertCart(@RequestParam HashMap<String, String> cart
+	public String insertCart(@RequestParam HashMap<String, Object> cart
 							 ,HttpServletRequest session) {
 		
 		// 나중에 변경할거임...
-		String id = (String)session.getAttribute("member_id");
-		id = "admin"; // <- 로그인 됐을 때 지울거임
-		System.out.println(id + ", "+ cart);
+		// String member_num = (String)session.getAttribute("member_num");
+		int member_num = 123456; // <- 로그인 됐을 때 지울거임
+		System.out.println(member_num + ", "+ cart);
 		
-		System.out.println("insertCart 오는지");
+		cart.put("member_num", member_num);
+		
+		//System.out.println("insertCart 오는지");
+		
 		memberService.insertCart(cart);
 		
 		return "redirect:/shoppingCart";
 	}
 	
-	
-//	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
-//	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
-//	                             @RequestParam("file") List<MultipartFile> files,
-//	                             HttpSession session) {
-//		
-//		System.out.println(itemList);
-//		System.out.println(files);
-//	    sellerService.itemInsert(itemList, files, session);
-//	    
-//	    return "redirect:/itemInsertList";
-//	}
-	
-	
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
-	public String shopingCart(Model model) {
-		/* @RequestParam("item_num") int item_num, */
+	public String shopingCart(Model model ,HttpServletRequest session) {
 		
 		System.out.println("shoppingCart 매핑확인여부");
+		
+		// 나중에 변경할거임...
+		//int member_num = (int) session.getAttribute("member_num");
+		int member_num = 123456; // <- 로그인 됐을 때 지울거임
+		
+		
+		 List<Map<String, Object>> itemList = memberService.getCart(member_num);
+		 model.addAttribute("itemList", itemList);
+		// System.out.println(itemList);
 
 		return "/member/shoppingCart";
 	}

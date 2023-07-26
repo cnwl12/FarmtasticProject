@@ -72,20 +72,16 @@ public class MemberService {
 	
 	
 	// 카트 조지는중 ... 
-	public void insertCart(HashMap<String, String> cartProduct) {
+	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("insertCart 확인!!!");
-		System.out.println(cartProduct);
-		
-		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		memberDAO.insertCart(cartProduct);
+		memberDAO.insertCart(cart);
+	}
+
+	public List<Map<String, Object>> getCart(int member_num) {
+		 System.out.println("MemberService getCart() 확인!");
+		return memberDAO.getCart(member_num);
 	}
 	
-
 	
 	 
 }

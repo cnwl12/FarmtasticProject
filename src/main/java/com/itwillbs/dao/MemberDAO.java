@@ -65,9 +65,15 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
 
-	public void insertCart(HashMap<String, String> cartProduct) {
-		System.out.println("MemberDAO insertCart : " + cartProduct);
-		sqlSession.insert(namespace+".insertCart",cartProduct);
+	public void insertCart(HashMap<String, Object> cart) {
+		System.out.println("MemberDAO insertCart : " + cart);
+		sqlSession.insert(namespace+".insertCart",cart);
+	}
+
+
+	public List<Map<String, Object>> getCart(int member_num) {
+		System.out.println("getCart 확인");
+		return sqlSession.selectList(namespace+".getCart", member_num);
 	}
 	
 //	 public int checkIdDuplicate(String memberId) {

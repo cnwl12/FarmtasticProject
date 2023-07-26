@@ -1,9 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
+    
 <!DOCTYPE html>
 <html>
 
 <head>
+
+	<!-- 인호야 이거 안옮기니????   -->
     <!-- jQuery -->
     <script
       type="text/javascript"
@@ -14,6 +17,7 @@
       type="text/javascript"
       src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
     ></script>
+    
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
@@ -74,70 +78,28 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                <c:forEach var="item" items="${itemList}">
                                     <td class="shoping__cart__item">
-                                        <img src="${pageContext.request.contextPath}/resources/img/cart/cart-1.jpg" alt="">
-                                        <h5>Vegetableâs Package</h5>
+                                        <img src="${item.item_mainImg} alt="" style="width: 300px; height: 200px">
+                                        <h5>${item.item_name}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        $55.00
+                                        ${item.item_price}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="1">
+                                                <input type="text" value="${item.cart_cnt}">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        $110.00
+                                         ${item.item_price * item.cart_cnt}
                                     </td>
                                     <td class="shoping__cart__item__close">
                                         <span class="icon_close"></span>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="${pageContext.request.contextPath}/resources/img/cart/cart-2.jpg" alt="">
-                                        <h5>Fresh Garden Vegetable</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $39.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $39.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="${pageContext.request.contextPath}/resources/img/cart/cart-3.jpg" alt="">
-                                        <h5>Organic Bananas</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $69.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $69.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
+                                    </c:forEach>
                                 </tr>
                             </tbody>
                         </table>

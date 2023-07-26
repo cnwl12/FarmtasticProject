@@ -26,25 +26,18 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 	
-	 <!-- Js Plugins -->
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	
 <!-- 카트추가 함수 -->
 <script type="text/javascript">
 function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	var cart_cnt = $("#cart_cnt").val(); // cart_cnt id값의 value값 
+	var item_num = $('.item_wrap').data("item_num");
 	
+	//console.log(item_num);
 	
-	
-	location.href="insertCart?item_num="+item_num+"&cart_cnt"+cart_cnt;
+	location.href="insertCart?item_num="+item_num+"&cart_cnt="+cart_cnt;
 	
 }
 
@@ -97,7 +90,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                							<!-- class 추가 / 임의로 데이터 item_num 생성 / 모델에 담긴 값  -->
+                <div class="col-lg-6 col-md-6 item_wrap" data-item_num = "${item.item_num}">
                     <div class="product__details__text">
                         <h3>${item.item_name}</h3>
                         <div class="product__details__rating">
@@ -117,7 +111,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                 </div>  
                             </div>
                         </div>  
-                        <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CARD">
+                        <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -271,6 +265,16 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
    <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
+	
+	 <!-- Js Plugins -->
+  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 </body>
 
