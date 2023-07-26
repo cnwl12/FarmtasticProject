@@ -323,6 +323,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 	}
 	
+	@RequestMapping(value = "/farm/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+	    session.invalidate();
+	    return "redirect:/login";
+	}
+	
 	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> idCheck(HttpServletRequest request) {

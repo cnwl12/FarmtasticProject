@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <%-- JSTL의 fmt 라이브러리를 사용하기 위한 설정입니다. --%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,7 @@
 
 <body id="page-top">
 
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
@@ -49,11 +51,14 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
+                      <jsp:useBean id="now" class="java.util.Date" />
+					<fmt:formatDate value="${now}" pattern="yyyy-MM" var="currentMonth" />
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
+                  
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
@@ -61,6 +66,9 @@
                          <form action="${pageContext.request.contextPath}/settlementStatus" method="post"> 
                             <!--  <label for="orderMonth">월 선택:</label>
    							<input type="month" id="orderMonth" name="orderMonth" required> -->
+                   		<p>이전 월: ${prevMonth}</p>
+						<p>현재 월: ${currentMonth}</p>
+						<p>다음 월: ${nextMonth}</p>
                    		<button class="d-none d-sm-inline-block btn bn-sm btn-primary shadow-sm" type="submit">정산하기</button>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -99,7 +107,7 @@
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
-                                            <td>${sale.order_month}</td>
+                                            <td><c:if test="${sale.order_month eq currentMonth}">${sale.order_month}</c:if></td>
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>

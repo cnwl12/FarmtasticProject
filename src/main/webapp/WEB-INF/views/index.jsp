@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
  
@@ -67,9 +67,16 @@
                             <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                      <div class="header__top__right__auth">
-                        	 <a href="login"><i class="fa fa-user"></i>Login</a>
-                        	 
-                     	</div>      
+  						<c:choose>
+      					<c:when test="${empty sessionScope.member_id}">
+         				 <a href="login"><i class="fa fa-user"></i>Login</a>
+      					</c:when>
+      					<c:otherwise>
+         				<span>${sessionScope.member_id}님이 로그인하셨습니다.</span>
+         				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
+     					</c:otherwise>
+  						</c:choose>
+					</div>
                     </div>
   	               </div>
             </div>  

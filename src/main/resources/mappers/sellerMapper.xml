@@ -116,7 +116,7 @@
 		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
 		ORDER BY order_month;
     </select>
-   
+   <!-- 정산작업 아직 미완성구문 -->
 <update id="updateSettlementYn" parameterType="map">
      UPDATE settlement st
     SET st.settlement_yn = 'Y'

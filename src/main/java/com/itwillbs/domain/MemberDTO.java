@@ -1,5 +1,7 @@
 package com.itwillbs.domain;
 
+import java.sql.Date;
+
 public class MemberDTO {
 	
 	private int member_num;
@@ -12,7 +14,7 @@ public class MemberDTO {
 	private String member_post;
 	private String member_addMain;
 	private String member_addSub;
-	private int member_joinDay;
+	private Date member_joinDay;
 	
 	
 	public int getMember_num() {
@@ -76,10 +78,10 @@ public class MemberDTO {
 	public void setMember_addSub(String member_addSub) {
 		this.member_addSub = member_addSub;
 	}
-	public int getMember_joinDay() {
+	public Date getMember_joinDay() {
 		return member_joinDay;
 	}
-	public void setMember_joinDay(int member_joinDay) {
+	public void setMember_joinDay(Date member_joinDay) {
 		this.member_joinDay = member_joinDay;
 	}
 	

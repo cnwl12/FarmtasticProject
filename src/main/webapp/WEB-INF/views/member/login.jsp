@@ -51,7 +51,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="loginId1" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="member_id" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
 												<div id="invalid_id0" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -62,7 +62,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd1" id="pwd1" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="member_pass" id="pwd1" value="">
 												<div id="invalid_pass0" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
@@ -356,11 +356,7 @@ $(document).ready(function() {
     validateForm();
 
     if (validId && validPwd) {
-      if ($("#loginId1").val() === "admin") {
-        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
-      } else {
-        location.href = 'index'; // 개인 로그인 경로를 변경해주세요.
-      }
+      document.login.submit(); // 여기를 수정하여 폼을 서버로 전송해주세요.
     } else {
       alert("올바른 정보를 입력해주세요");
     }
@@ -370,11 +366,7 @@ $(document).ready(function() {
     validateForm2();
 
     if (validId2 && validPwd2) {
-      if ($("#loginId2").val() === "admin") {
-        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
-      } else {
-        location.href = 'sellerMain'; // 사업자 로그인 경로를 변경해주세요.
-      }
+      document.login2.submit(); // 여기를 수정하여 폼을 서버로 전송해주세요.
     } else {
       alert("올바른 정보를 입력해주세요");
     }

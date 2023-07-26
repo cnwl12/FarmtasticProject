@@ -2,10 +2,12 @@ package com.itwillbs.service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -90,8 +92,19 @@ public class SellerService {
 		
 		//정산 위한 판매자별 월별 매출리스트
 		public List<Map<String, Object>> getSales() {
-			System.out.println("service:getSales()");
-			 return sellerDAO.getSales();
+		    System.out.println("service:getSales()");
+		    List<Map<String, Object>> sales = sellerDAO.getSales();
+
+		    // 현재 날짜에서 년과 월 정보 가져오기
+		    Calendar now = Calendar.getInstance();
+		    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+
+		    // 필터 적용하여 해당 월의 데이터만 가져오기
+		    List<Map<String, Object>> filteredSales = sales.stream()
+		            .filter(sale -> currentMonth.equals(sale.get("order_month")))
+		            .collect(Collectors.toList());
+
+		    return filteredSales;
 		}
 		//정산 확인
 		public void updateSettlementYn(String sellerNum, String orderMonth) {

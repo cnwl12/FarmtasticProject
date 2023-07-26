@@ -1,6 +1,7 @@
 package com.itwillbs.farmtastic;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -205,9 +206,24 @@ public class AdminController {
 	public String settest(Locale locale, Model model) {
 		
 		System.out.println("settest 매핑확인여부");
-		 List<Map<String, Object>> resultList = sellerService.getSales();
-		 model.addAttribute("sales", resultList);
-   		return "/admin/sellerMenu/settest";
+	
+   	 // 날짜 정보 추가
+   	    Calendar now = Calendar.getInstance();
+   	    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+   	    now.add(Calendar.MONTH, -1);
+   	    String prevMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+   	    now.add(Calendar.MONTH, 2);
+   	    String nextMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+
+   	    List<Map<String, Object>> resultList = sellerService.getSales();
+   	    model.addAttribute("sales", resultList);
+
+   	    // 모델에 날짜 정보 추가
+   	    model.addAttribute("currentMonth", currentMonth);
+   	    model.addAttribute("prevMonth", prevMonth);
+   	    model.addAttribute("nextMonth", nextMonth);
+
+   	    return "/admin/sellerMenu/settest";
 	}
 
 	
@@ -237,13 +253,6 @@ public class AdminController {
 		return "/admin/sellerMenu/sales";
 	}
 
-	
-	@PostMapping("/settlementStatus")
-	 public String settlementStatus(@RequestParam("result") List<String> sellerNumList, @RequestParam("order_month") String orderMonth) {
-//	    sellerService.settlementStatus(sellerNumList, orderMonth);
-	    return "redirect:/settest";
-	 }
-	
 	
 	@PostMapping("/settlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
