@@ -202,41 +202,41 @@ public class AdminController {
 	    return "redirect:/sellerAdmin";
 	}
 	
-	@RequestMapping(value = "/settest", method = RequestMethod.GET)
+	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settest(Locale locale, Model model) {
 		
-		System.out.println("settest 매핑확인여부");
+		System.out.println("settlement 매핑확인여부");
 	
    	 // 날짜 정보 추가
-   	    Calendar now = Calendar.getInstance();
-   	    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-   	    now.add(Calendar.MONTH, -1);
-   	    String prevMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-   	    now.add(Calendar.MONTH, 2);
-   	    String nextMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+//   	    Calendar now = Calendar.getInstance();
+//   	    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+//   	    now.add(Calendar.MONTH, -1);
+//   	    String prevMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+//   	    now.add(Calendar.MONTH, 2);
+//   	    String nextMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
 
    	    List<Map<String, Object>> resultList = sellerService.getSales();
    	    model.addAttribute("sales", resultList);
 
    	    // 모델에 날짜 정보 추가
-   	    model.addAttribute("currentMonth", currentMonth);
-   	    model.addAttribute("prevMonth", prevMonth);
-   	    model.addAttribute("nextMonth", nextMonth);
+//   	    model.addAttribute("currentMonth", currentMonth);
+//   	    model.addAttribute("prevMonth", prevMonth);
+//   	    model.addAttribute("nextMonth", nextMonth);
 
-   	    return "/admin/sellerMenu/settest";
+   	    return "/admin/sellerMenu/settlement";
 	}
 
 	
 	
 	
-	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
+	@RequestMapping(value = "/settle_month", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model) {
 		
-		System.out.println("settlement 매핑확인여부");
+		System.out.println("settle_month 매핑확인여부");
 		
 	
 		
-		return "/admin/sellerMenu/settlement";
+		return "/admin/sellerMenu/settle_month";
 	}
 	
 	//admin에 매출관리 목록 불러오기위한 구문
@@ -262,6 +262,6 @@ public class AdminController {
 	  System.out.println("orderMonth: " + orderMonth);
 	  String message = "정산 업데이트가 완료되었습니다.";
 	  redirectAttributes.addFlashAttribute("message", message);
-	  return "redirect:/settest";
+	  return "redirect:/settlement";
 	}
 }
