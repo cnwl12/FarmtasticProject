@@ -104,6 +104,13 @@ public class SellerService {
 		    System.out.println("sellerNum: " + sellerNums);
 		    System.out.println("orderMonth: " + orderMonth);
 		}
+		//정산 위한 판매자별 일별 매출리스트
+		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
+			System.out.println("서비스");
+			System.out.println("서비스"+sellerNum);
+			System.out.println("서비스"+orderMonth);
+			return sellerDAO.daySales(sellerNum, orderMonth);
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();

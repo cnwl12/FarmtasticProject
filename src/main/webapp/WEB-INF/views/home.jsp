@@ -32,7 +32,7 @@
 <a href="sellerMain">판매자(홈)</a>
 <a href="adminMain">관리자(홈)</a>
 <a href="adminLogin">관리자(로그인)</a>
-<a href="settest">관리자(정산테스트)</a>
+<a href="settlement">관리자(정산테스트)</a>
 </p>
 
 <p>

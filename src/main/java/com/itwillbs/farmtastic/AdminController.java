@@ -203,7 +203,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
-	public String settest(Locale locale, Model model) {
+	public String settlement(Locale locale, Model model) {
 		
 		System.out.println("settlement 매핑확인여부");
 	
@@ -229,14 +229,22 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping(value = "/settle_month", method = RequestMethod.GET)
-	public String settlement(Locale locale, Model model) {
-		
-		System.out.println("settle_month 매핑확인여부");
-		
-	
-		
-		return "/admin/sellerMenu/settle_month";
+	@RequestMapping(value = "/settle_day", method = RequestMethod.GET)
+	public String settle_day(@RequestParam("seller_num") String sellerNum, @RequestParam("order_month") String orderMonth, Locale locale, Model model) {
+
+	    System.out.println("settle_day 매핑확인여부");
+
+	    // sellerService에서 daySales 메서드를 호출할 때, sellerNum과 orderMonth를 인자로 전달합니다.
+	    List<Map<String, Object>> resultList = sellerService.daySales(sellerNum, orderMonth);
+
+	    // resultList를 모델에 추가
+	    model.addAttribute("sales", resultList);
+	    model.addAttribute("seller_num", sellerNum);
+	    model.addAttribute("orderMonth", orderMonth);
+	    System.out.println("controller" + resultList);
+
+	    // 뷰 이름 반환
+	    return "/admin/sellerMenu/settle_day";
 	}
 	
 	//admin에 매출관리 목록 불러오기위한 구문

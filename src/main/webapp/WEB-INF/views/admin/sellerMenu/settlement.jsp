@@ -94,7 +94,7 @@
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
                                           	<td><input type="checkbox" class="saleCheckbox" data-seller-num="${sale.seller_num}" data-order-month="${sale.order_month}" /></td>
-                                            <td> ${sale.seller_num}</td>
+                                            <td><a href="${pageContext.request.contextPath}/settle_day?seller_num=${sale.seller_num}&order_month=${sale.order_month}"> ${sale.seller_num}</a></td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
                                             <td>${sale.order_month}</td>

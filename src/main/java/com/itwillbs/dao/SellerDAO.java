@@ -33,15 +33,20 @@ public class SellerDAO {
 			System.out.println("List 오나요");
 			return sqlSession.selectList(namespace + ".getItems");
 		}
-
+		// 정산용 매출내역
 		public List<Map<String, Object>> getSales() {
 			System.out.println("getSales 오나요");
 			return sqlSession.selectList(namespace + ".getSales");
-			
-			
 		}
-
-
+		//정산 일별매출
+		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
+			System.out.println("daySales 오나요");
+			Map<String, String> param = new HashMap<String, String>();
+			System.out.println(param);
+		    param.put("sellerNum", sellerNum);
+		    param.put("orderMonth", orderMonth);
+		    return sqlSession.selectList(namespace + ".daySales", param);
+		}
 		// 정산 'Y'로 바꾸기
 		public void updateSettlementYn(Map<String, Object> parameters) {
 			System.out.println("dao 오나요");
