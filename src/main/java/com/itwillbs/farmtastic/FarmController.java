@@ -258,7 +258,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 123456; // <- 로그인 됐을 때 지울거임
+		int member_num = 321; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -271,23 +271,36 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
-	public String shopingCart(Model model ,HttpServletRequest session) {
+	public String shopingCart(Model model, HttpServletRequest session) {
 		
 		System.out.println("shoppingCart 매핑확인여부");
 		
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 123456; // <- 로그인 됐을 때 지울거임
+		int member_num = 321; // <- 로그인 됐을 때 지울거임
 		
 		
-		 List<Map<String, Object>> itemList = memberService.getCart(member_num);
+		 List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		 model.addAttribute("itemList", itemList);
 		// System.out.println(itemList);
 
 		return "/member/shoppingCart";
 	}
-
 	
+	// 장바구니 멤버에서 새로 생길 예정임!! 일단은 확인용으로 여기있는거!!!!! 
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String checkout(Model model, HttpServletRequest session) {
+
+		System.out.println("checkout 매핑확인여부");
+		
+		int member_num = 321;
+		
+		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
+		model.addAttribute("itemList", itemList);
+
+		return "/member/checkout";
+	}
+
 	
 	// -------------------------------------------------------
 	

@@ -70,11 +70,23 @@ public class MemberDAO {
 		sqlSession.insert(namespace+".insertCart",cart);
 	}
 
-
-	public List<Map<String, Object>> getCart(int member_num) {
-		System.out.println("getCart 확인");
-		return sqlSession.selectList(namespace+".getCart", member_num);
+	public Boolean getCart(HashMap<String, Object> cart) {
+		System.out.println("getCart 확인"+ cart);
+		return sqlSession.selectOne(namespace+".getCart", cart);
 	}
+
+	public List<Map<String, Object>> getCartList(int member_num) {
+		System.out.println("getCartList 확인");
+		return sqlSession.selectList(namespace+".getCartList", member_num);
+	}
+
+	public void updateCart(HashMap<String, Object> cart) {
+		System.out.println("update 카트 ");
+		sqlSession.update(namespace + ".updateCart", cart);
+	}
+	
+	
+	 
 	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);

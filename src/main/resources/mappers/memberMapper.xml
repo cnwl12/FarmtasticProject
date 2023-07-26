@@ -59,15 +59,29 @@
 	)
   </insert>
   
-  
-  <select id="getCart" resultType="map">
+  <!-- 카트 목록 조회 -->
+  <select id="getCartList" resultType="map">
   	SELECT * 
 	FROM cart c  JOIN item i 
 	ON i.item_num = c.item_num
 	WHERE member_num = #{member_num};
   </select>
   
+  <!-- 카트에 상품 있는지 조회(개별) -->
+  <select id="getCart" resultType="boolean"> 
+  	SELECT *
+	FROM  cart
+  	WHERE member_num = #{member_num}
+  	AND item_num = #{item_num}
+  	LIMIT 1;
+  </select>
   
+  <update id="updateCart">
+  	UPDATE cart as c
+  	SET	cart_cnt = c.cart_cnt + #{cart_cnt}
+  	WHERE item_num = #{item_num}
+  	AND member_num = #{member_num}
+  </update>
   
   
 </mapper>

@@ -77,8 +77,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
                                 <c:forEach var="item" items="${itemList}">
+                                <tr>
                                     <td class="shoping__cart__item">
                                         <img src="${item.item_mainImg} alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
@@ -99,8 +99,8 @@
                                     <td class="shoping__cart__item__close">
                                         <span class="icon_close"></span>
                                     </td>
-                                    </c:forEach>
                                 </tr>
+                                    </c:forEach>
                             </tbody>
                         </table>
                     </div>

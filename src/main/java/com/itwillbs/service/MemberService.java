@@ -73,15 +73,23 @@ public class MemberService {
 	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
-		System.out.println("insertCart 확인!!!");
-		memberDAO.insertCart(cart);
-	}
-
-	public List<Map<String, Object>> getCart(int member_num) {
-		 System.out.println("MemberService getCart() 확인!");
-		return memberDAO.getCart(member_num);
+		// 카트 조회했을 때 제품이 있는지 없는지 조회
+		Boolean result = memberDAO.getCart(cart); 
+		// result = null - insert // true -update 진행
+		if(result != null) {
+			memberDAO.updateCart(cart);
+			System.out.println("true update");	
+		}else {
+			System.out.println("null 인서트");
+			memberDAO.insertCart(cart);
+		}
 	}
 	
+	// 카트리스트
+	public List<Map<String, Object>> getCartList(int member_num) {
+		 System.out.println("MemberService getCart() 확인!");
+		return memberDAO.getCartList(member_num);
+	}
 	
 	 
 }
