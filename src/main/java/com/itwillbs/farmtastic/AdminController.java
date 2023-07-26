@@ -1,6 +1,7 @@
 package com.itwillbs.farmtastic;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -205,11 +207,40 @@ public class AdminController {
 	public String settest(Locale locale, Model model) {
 		
 		System.out.println("settest 매핑확인여부");
-		 List<Map<String, Object>> resultList = sellerService.getSales();
-		 model.addAttribute("sales", resultList);
-   		return "/admin/sellerMenu/settest";
-	}
+	
+   	 // 날짜 정보 추가
+   	    Calendar now = Calendar.getInstance();
+   	    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+   	    now.add(Calendar.MONTH, -1);
+   	    String prevMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+   	    now.add(Calendar.MONTH, 2);
+   	    String nextMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
 
+   	    List<Map<String, Object>> resultList = sellerService.getSales();
+   	    model.addAttribute("sales", resultList);
+
+   	    // 모델에 날짜 정보 추가
+   	    model.addAttribute("currentMonth", currentMonth);
+   	    model.addAttribute("prevMonth", prevMonth);
+   	    model.addAttribute("nextMonth", nextMonth);
+
+   	    return "/admin/sellerMenu/settest";
+	}
+	//날짜이동
+	@RequestMapping(value = "/loadSalesByMonth", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Map<String, Object>> loadSalesByMonth(@RequestParam(value = "month", required = false) String month, Locale locale, Model model) {
+	    if (month == null) {
+	        Calendar now = Calendar.getInstance();
+	        month = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
+	    }
+
+	    List<Map<String, Object>> resultList = sellerService.getSalesByMonth(month);
+	    Map<String, Object> responseBody = new HashMap<>();
+	    responseBody.put("sales", resultList);
+	    responseBody.put("requestedMonth", month);
+	
+	    return ResponseEntity.ok(responseBody);
+	}
 	
 	
 	
@@ -237,13 +268,6 @@ public class AdminController {
 		return "/admin/sellerMenu/sales";
 	}
 
-	
-	@PostMapping("/settlementStatus")
-	 public String settlementStatus(@RequestParam("result") List<String> sellerNumList, @RequestParam("order_month") String orderMonth) {
-//	    sellerService.settlementStatus(sellerNumList, orderMonth);
-	    return "redirect:/settest";
-	 }
-	
 	
 	@PostMapping("/settlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {

@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <%-- JSTL의 fmt 라이브러리를 사용하기 위한 설정입니다. --%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,7 @@
 
 <body id="page-top">
 
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
@@ -49,18 +51,27 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
+                      <jsp:useBean id="now" class="java.util.Date" />
+					<fmt:formatDate value="${now}" pattern="yyyy-MM" var="currentMonth" />
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
+                  
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
-                         <form action="${pageContext.request.contextPath}/settlementStatus" method="post"> 
+                         <form action="${pageContext.request.contextPath}/settlementYn" method="post"> 
                             <!--  <label for="orderMonth">월 선택:</label>
    							<input type="month" id="orderMonth" name="orderMonth" required> -->
+                   		<p>
+   								 <button id="prevMonthBtn">이전 월: ${prevMonth}</button>
+    							 <p>현재 월: ${currentMonth}</p>
+    							 <button id="nextMonthBtn">다음 월: ${nextMonth}</button>
+					    </p>
+						
                    		<button class="d-none d-sm-inline-block btn bn-sm btn-primary shadow-sm" type="submit">정산하기</button>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -99,7 +110,7 @@
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
-                                            <td>${sale.order_month}</td>
+                                            <td><c:if test="${sale.order_month eq currentMonth}">${sale.order_month}</c:if></td>
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>
@@ -157,34 +168,82 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-	<script>
-document.getElementById("settlementForm").addEventListener("submit", function(event) {
-    const checkboxes = document.getElementsByClassName("saleCheckbox");
-    let sellerNums = [];
-    let orderMonths = [];
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            sellerNums.push(checkboxes[i].dataset.sellerNum);
-            orderMonths.push(checkboxes[i].dataset.orderMonth);
-        }
-    }
-    if (sellerNums.length === 0) {
-        event.preventDefault();
-        alert("적어도 하나의 업체를 선택해주세요!");
-    } else {
-        const sellerNumInput = document.createElement("input");
-        sellerNumInput.type = "hidden";
-        sellerNumInput.name = "sellerNum";
-        sellerNumInput.value = sellerNums.join(",");
-        event.target.appendChild(sellerNumInput);
+<script>
+    // 이전 월 버튼 클릭 이벤트
+    document.getElementById('prevMonthBtn').addEventListener('click', () => {
+        loadSalesByMonth('${prevMonth}');
+    });
 
-        const orderMonthInput = document.createElement("input");
-        orderMonthInput.type = "hidden";
-        orderMonthInput.name = "orderMonth";
-        orderMonthInput.value = orderMonths.join(",");
-        event.target.appendChild(orderMonthInput);
+    // 다음 월 버튼 클릭 이벤트
+    document.getElementById('nextMonthBtn').addEventListener('click', () => {
+        loadSalesByMonth('${nextMonth}');
+    });
+
+    // 월별 판매 데이터 로드 함수
+    function loadSalesByMonth(month) {
+        fetch(`/admin/sellerMenu/settest?month=${encodeURIComponent(month)}`)
+            .then((response) => response.json())
+            .then((sales) => {
+                createTable(sales);
+            });
     }
-});
+
+    // 테이블 생성 함수
+    function createTable(sales) {
+        const tableBody = document.querySelector("#dataTable tbody");
+
+        // 기존 테이블 데이터 삭제
+        tableBody.innerHTML = "";
+
+        sales.forEach(sale => {
+            const newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+                <td><input type="checkbox" class="saleCheckbox" data-seller-num="${sale.seller_num}" data-order-month="${sale.order_month}" /></td>
+                <td>${sale.seller_num}</td>
+                <td>${sale.seller_storeName}</td>
+                <td>${sale.seller_name}</td>
+                <td>${sale.order_month}</td>
+                <td>${sale.total_revenue}</td>
+                <td>${sale.fee}</td>
+                <td>${sale.settlement_amount}</td>
+                <td>${sale.settlement_yn}</td>
+            `;
+
+            tableBody.appendChild(newRow);
+        });
+    }
+
+    // 페이지 로드 시 초기 데이터 로드
+    loadSalesByMonth('${currentMonth}');
+
+    document.getElementById("settlementForm").addEventListener("submit", function(event) {
+        const checkboxes = document.getElementsByClassName("saleCheckbox");
+        let sellerNums = [];
+        let orderMonths = [];
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                sellerNums.push(checkboxes[i].dataset.sellerNum);
+                orderMonths.push(checkboxes[i].dataset.orderMonth);
+            }
+        }
+        if (sellerNums.length === 0) {
+            event.preventDefault();
+            alert("적어도 하나의 업체를 선택해주세요!");
+        } else {
+            const sellerNumInput = document.createElement("input");
+            sellerNumInput.type = "hidden";
+            sellerNumInput.name = "sellerNum";
+            sellerNumInput.value = sellerNums.join(",");
+            event.target.appendChild(sellerNumInput);
+
+            const orderMonthInput = document.createElement("input");
+            orderMonthInput.type = "hidden";
+            orderMonthInput.name = "orderMonth";
+            orderMonthInput.value = orderMonths.join(",");
+            event.target.appendChild(orderMonthInput);
+        }
+    });
 </script>
 </body>
 

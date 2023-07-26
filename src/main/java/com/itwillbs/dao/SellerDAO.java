@@ -37,6 +37,8 @@ public class SellerDAO {
 		public List<Map<String, Object>> getSales() {
 			System.out.println("getSales 오나요");
 			return sqlSession.selectList(namespace + ".getSales");
+			
+			
 		}
 
 
