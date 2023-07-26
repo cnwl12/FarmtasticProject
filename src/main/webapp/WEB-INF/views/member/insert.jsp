@@ -13,7 +13,7 @@
 <!-- 프로젝트명 <%-- <%=request.getContextPath() %> --%> 대신  -->
 <%-- <form action="${pageContext.request.contextPath}/insertPro" method="post"> --%>
 <!-- 						절대경로 프로젝트명 / 폴더 / 파일이름  -->
-<!-- 회원번호 : <input type="text" name="member_num" ><br>name값은 테이블 생성할 때 이름이랑 맞춰주는게 좋음   -->
+<!-- 회원번호 : <input type="text" name="member_num"><br>name값은 테이블 생성할 때 이름이랑 맞춰주는게 좋음   -->
 <!-- 아이디 : <input type="text" name="member_id"><br>name값은 테이블 생성할 때 이름이랑 맞춰주는게 좋음   -->
 <!-- 비밀번호 : <input type="password"	name="member_pass"><br> -->
 <!-- 이름 : <input type="text"	name="member_name"><br> -->

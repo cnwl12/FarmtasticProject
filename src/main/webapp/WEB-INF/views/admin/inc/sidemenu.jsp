@@ -83,11 +83,11 @@
                     <span>공지사항</span></a>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="sellerAdmin">
                     <span>업체관리</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="settlement">
                     <span>정산관리</span></a>
             </li>	
             <li class="nav-item">

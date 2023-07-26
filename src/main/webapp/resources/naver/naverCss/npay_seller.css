@@ -1,0 +1,2614 @@
+@charset "utf-8";
+/* NHN TS Web Standardization Team KYH 110401, KHS 110718 */
+
+/* Common */
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+select {
+    margin: 0;
+    padding: 0
+}
+
+body,
+input,
+textarea,
+select,
+button,
+table {
+    font-family: '돋움', dotum, applegothic, sans-serif;
+    font-size: 12px;
+    color: #555
+}
+
+img,
+fieldset {
+    border: 0
+}
+
+ul,
+ol {
+    list-style: none
+}
+
+em,
+address {
+    font-style: normal
+}
+
+select {
+    vertical-align: middle
+}
+
+a {
+    color: #555;
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+caption,
+hr,
+legend,
+.dn {
+    display: none
+}
+
+.blind {
+    visibility: hidden;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0
+}
+
+.scrl {
+    scrollbar-face-color: #fff;
+    scrollbar-shadow-color: #dddde1;
+    scrollbar-highlight-color: #dddde1;
+    scrollbar-3dlight-color: #fff;
+    scrollbar-darkshadow-color: #fff;
+    scrollbar-track-color: #f5f5f7;
+    scrollbar-arrow-color: #747c85
+}
+
+.fl {
+    float: left !important
+}
+
+.fr {
+    float: right !important
+}
+
+.f11 {
+    font-size: 11px !important
+}
+
+.f12 {
+    font-size: 12px !important
+}
+
+.vline_m {
+    vertical-align: middle !important
+}
+
+.tc {
+    text-align: center !important
+}
+
+.f_bold {
+    font-weight: bold
+}
+
+.p_color,
+.link_style {
+    color: #00b5a6 !important
+}
+
+.p_color2 {
+    color: #f00
+}
+
+/* red */
+
+.p_color9 {
+    color: #95969e !important
+}
+
+/* gray */
+
+.link_com3 {
+    padding: 0 7px 0 6px;
+    font-weight: normal;
+    color: #00b5a6;
+    font-size: 11px;
+    text-decoration: underline;
+    letter-spacing: -1px;
+    background: url(../../img/npay/npay_sp_btn.png) no-repeat 100% 0
+}
+
+.line_h18 {
+    line-height: 18px !important
+}
+
+.num_meta2 {
+    display: inline-block;
+    padding-left: 3px;
+    font-family: tahoma;
+    font-size: 11px;
+    color: #b4b4b4;
+    text-align: left
+}
+
+.num_meta2 em {
+    margin-right: 1px;
+    font-weight: bold;
+    color: #00b5a6
+}
+
+.num_meta2 strong {
+    margin-left: 1px;
+    color: #959595
+}
+
+.num_meta2.fr {
+    margin: 3px -6px 0 0
+}
+
+.line_alignment {
+    word-wrap: break-word
+}
+
+.space_h {
+    position: relative;
+    margin-top: 8px
+}
+
+.ellipsis {
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+/* skip navigation */
+
+#u_skip {
+    position: relative;
+    z-index: 2147483647;
+    width: 1080px;
+    margin: 0 auto
+}
+
+.customer_on #u_skip {
+    width: 100%
+}
+
+#u_skip a {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    width: 128px;
+    background: url(http://static.naver.net/common/sp_u_skip.png) repeat-x 0 -11px;
+    border: 1px solid #4ec53d;
+    text-align: center;
+    outline: none
+}
+
+#u_skip a:active,
+#u_skip a:focus {
+    top: 0;
+    text-decoration: none;
+    cursor: pointer;
+    zoom: 1
+}
+
+#u_skip span {
+    display: inline-block;
+    padding: 2px 6px 0 0;
+    background: url(http://static.naver.net/common/sp_u_skip.png) no-repeat 100% 11px;
+    font-size: 11px;
+    letter-spacing: -1px;
+    color: #fff;
+    line-height: 26px
+}
+
+/* Layout */
+
+#wrap {
+    position: relative;
+    width: 100%;
+    min-width: 1080px
+}
+
+#container {
+    min-height: 640px;
+    zoom: 1
+}
+
+#container:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+#content {
+    padding: 30px 20px 85px 26px;
+    zoom: 1
+}
+
+/* Paginate */
+
+.paginate {
+    display: none;
+    height: 22px;
+    margin: 18px 0;
+    line-height: normal;
+    text-align: center
+}
+
+.paginate a,
+.paginate strong {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 4px 8px 5px;
+    color: #333;
+    font-family: tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: normal;
+    text-decoration: none;
+    vertical-align: middle
+}
+
+.paginate a:hover,
+.paginate a:active,
+.paginate a:focus {
+    background-color: #f8f8f8
+}
+
+.paginate strong {
+    color: #00b5a6;
+    border: 1px solid #00b5a6
+}
+
+.paginate .direction {
+    color: #767676;
+    font-weight: normal;
+    white-space: nowrap
+}
+
+.paginate .direction span {
+    font-size: 14px;
+    font-weight: bold
+}
+
+.paginate .direction:hover,
+.paginate .direction:active,
+.paginate .direction:focus {
+    background-color: #fff;
+    color: #333;
+    text-decoration: none
+}
+
+.paginate .pre_end,
+.paginate .pre,
+.paginate .next,
+.paginate .next_end {
+    overflow: hidden;
+    height: 11px;
+    margin: 1px 0 0;
+    padding: 0;
+    background: url(../../img/npay/npay_sp_btn.png) no-repeat;
+    font-size: 0;
+    line-height: 999px;
+    color: #767676;
+    font-weight: normal;
+    white-space: nowrap
+}
+
+.paginate .pre_end:hover,
+.paginate .pre:hover,
+.paginate .next:hover,
+.paginate .next_end:hover {
+    background-color: #fff;
+    color: #333;
+    text-decoration: none
+}
+
+.paginate .pre_end {
+    width: 40px;
+    background-position: 0 -20px
+}
+
+.paginate .pre_end:hover {
+    background-position: 0 -40px
+}
+
+.paginate .pre {
+    width: 32px;
+    margin: 0 10px 0 15px;
+    background-position: -50px -20px
+}
+
+.paginate .pre:hover {
+    background-position: -50px -40px
+}
+
+.paginate .next {
+    width: 33px;
+    margin: 0 15px 0 10px;
+    background-position: -50px -60px
+}
+
+.paginate .next:hover {
+    background-position: -50px -80px
+}
+
+.paginate .next_end {
+    width: 39px;
+    background-position: 0 -60px
+}
+
+.paginate .next_end:hover {
+    background-position: 0 -80px
+}
+
+/* Page Title */
+
+.hd2_wrap {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 27px;
+    border-bottom: 3px solid #454545
+}
+
+.hd2_wrap:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.hd2_wrap .qst_wrap {
+    float: left;
+    margin: 5px 0 0 4px;
+    *margin-top: 3px
+}
+
+.hd2_wrap .qst_wrap .qst {
+    _padding: 1px 0
+}
+
+.hd2 {
+    display: block;
+    height: 19px;
+    background: url(../../img/npay/npay_sp_tit.png) no-repeat
+}
+
+.h_sell8 {
+    width: 94px;
+    background-position: 0 0
+}
+
+/* 고객문의 관리 */
+
+.h_sell10 {
+    width: 128px;
+    background-position: 0 -20px
+}
+
+/* 판매방해 고객관리 */
+
+/* Control Button (날짜,금액) */
+
+.day_link_ct {
+    display: inline-block;
+    *display: inline;
+    margin-right: -3px;
+    *margin-right: 0;
+    vertical-align: middle;
+    zoom: 1
+}
+
+.day_link_ct li {
+    float: left;
+    height: 21px;
+    margin-right: 3px
+}
+
+.day_link_ct li a {
+    display: inline-block;
+    height: 21px;
+    background: url(../../img/npay/npay_sp_jindo_btn.png) no-repeat
+}
+
+.day_link_ct li a.per {
+    width: 33px;
+    background-position: 0 0
+}
+
+/* 오늘 */
+
+.day_link_ct li a.per2 {
+    width: 36px;
+    background-position: 0 -30px
+}
+
+/* 1주일 */
+
+.day_link_ct li a.per3 {
+    width: 36px;
+    background-position: 0 -60px
+}
+
+/* 1개월 */
+
+.day_link_ct li a.per4 {
+    width: 37px;
+    background-position: 0 -90px
+}
+
+/* 3개월 */
+
+.day_link_ct li a.per5 {
+    width: 37px;
+    background-position: 0 -120px
+}
+
+/* 6개월 */
+
+.day_link_ct li a.per6 {
+    width: 28px;
+    background-position: 0 -150px
+}
+
+/* 1년 */
+
+.day_link_ct li a.per7 {
+    width: 28px;
+    background-position: 0 -180px
+}
+
+/* 3일 */
+
+.day_link_ct li a.per8 {
+    width: 28px;
+    background-position: 0 -210px
+}
+
+/* 5일 */
+
+.day_link_ct li a.per9 {
+    width: 28px;
+    background-position: 0 -240px
+}
+
+/* 7일 */
+
+.day_link_ct li a.per10 {
+    width: 34px;
+    background-position: 0 -270px
+}
+
+/* 15일 */
+
+.day_link_ct li a.per11 {
+    width: 34px;
+    background-position: 0 -300px
+}
+
+/* 30일 */
+
+.day_link_ct li a.per12 {
+    width: 34px;
+    background-position: 0 -330px
+}
+
+/* 60일 */
+
+.day_link_ct li a.per13 {
+    width: 34px;
+    background-position: 0 -360px
+}
+
+/* 90일 */
+
+.day_link_ct li a.per14 {
+    width: 39px;
+    background-position: 0 -390px
+}
+
+/* 120일 */
+
+.day_link_ct li a.per15 {
+    width: 33px;
+    background-position: 0 -720px
+}
+
+/* 일간 */
+
+.day_link_ct li a.per16 {
+    width: 33px;
+    background-position: 0 -750px
+}
+
+/* 주간 */
+
+.day_link_ct li a.per17 {
+    width: 33px;
+    background-position: 0 -780px
+}
+
+/* 월간 */
+
+.day_link_ct li a.per18 {
+    width: 33px;
+    background-position: 0 -990px
+}
+
+/* 어제 */
+
+.day_link_ct li.on a.per {
+    width: 33px;
+    background-position: 100% 0
+}
+
+/* 오늘 */
+
+.day_link_ct li.on a.per2 {
+    width: 36px;
+    background-position: 100% -30px
+}
+
+/* 1주일 */
+
+.day_link_ct li.on a.per3 {
+    width: 36px;
+    background-position: 100% -60px
+}
+
+/* 1개월 */
+
+.day_link_ct li.on a.per4 {
+    width: 37px;
+    background-position: 100% -90px
+}
+
+/* 3개월 */
+
+.day_link_ct li.on a.per5 {
+    width: 37px;
+    background-position: 100% -120px
+}
+
+/* 6개월 */
+
+.day_link_ct li.on a.per6 {
+    width: 28px;
+    background-position: 100% -150px
+}
+
+/* 1년 */
+
+.day_link_ct li.on a.per7 {
+    width: 28px;
+    background-position: 100% -180px
+}
+
+/* 3일 */
+
+.day_link_ct li.on a.per8 {
+    width: 28px;
+    background-position: 100% -210px
+}
+
+/* 5일 */
+
+.day_link_ct li.on a.per9 {
+    width: 28px;
+    background-position: 100% -240px
+}
+
+/* 7일 */
+
+.day_link_ct li.on a.per10 {
+    width: 34px;
+    background-position: 100% -270px
+}
+
+/* 15일 */
+
+.day_link_ct li.on a.per11 {
+    width: 34px;
+    background-position: 100% -300px
+}
+
+/* 30일 */
+
+.day_link_ct li.on a.per12 {
+    width: 34px;
+    background-position: 100% -330px
+}
+
+/* 60일 */
+
+.day_link_ct li.on a.per13 {
+    width: 34px;
+    background-position: 100% -360px
+}
+
+/* 90일 */
+
+.day_link_ct li.on a.per14 {
+    width: 39px;
+    background-position: 100% -390px
+}
+
+/* 120일 */
+
+.day_link_ct li.on a.per15 {
+    width: 33px;
+    background-position: 100% -720px
+}
+
+/* 일간 */
+
+.day_link_ct li.on a.per16 {
+    width: 33px;
+    background-position: 100% -750px
+}
+
+/* 주간 */
+
+.day_link_ct li.on a.per17 {
+    width: 33px;
+    background-position: 100% -780px
+}
+
+/* 월간 */
+
+.day_link_ct li.on a.per18 {
+    width: 33px;
+    background-position: 100% -990px
+}
+
+/* 어제 */
+
+.day_link_ct li a.sum {
+    width: 38px;
+    background-position: 0 -420px
+}
+
+/* 5만원 */
+
+.day_link_ct li a.sum2 {
+    width: 43px;
+    background-position: 0 -450px
+}
+
+/* 10만원 */
+
+.day_link_ct li a.sum3 {
+    width: 44px;
+    background-position: 0 -480px
+}
+
+/* 50만원 */
+
+.day_link_ct li a.sum4 {
+    width: 49px;
+    background-position: 0 -510px
+}
+
+/* 100만원 */
+
+.day_link_ct li a.sum5 {
+    width: 50px;
+    background-position: 0 -540px
+}
+
+/* 300만원 */
+
+.day_link_ct li a.sum6 {
+    width: 50px;
+    background-position: 0 -570px
+}
+
+/* 500만원 */
+
+.day_link_ct li a.sum7 {
+    width: 38px;
+    background-position: 0 -600px
+}
+
+/* 3천원 */
+
+.day_link_ct li a.sum8 {
+    width: 38px;
+    background-position: 0 -630px
+}
+
+/* 5천원 */
+
+.day_link_ct li a.sum9 {
+    width: 38px;
+    background-position: 0 -660px
+}
+
+/* 1만원 */
+
+.day_link_ct li a.sum10 {
+    width: 38px;
+    background-position: 0 -690px
+}
+
+/* 3만원 */
+
+.day_link_ct li.on a.sum {
+    width: 38px;
+    background-position: 100% -420px
+}
+
+/* 5만원 */
+
+.day_link_ct li.on a.sum2 {
+    width: 43px;
+    background-position: 100% -450px
+}
+
+/* 10만원 */
+
+.day_link_ct li.on a.sum3 {
+    width: 44px;
+    background-position: 100% -480px
+}
+
+/* 50만원 */
+
+.day_link_ct li.on a.sum4 {
+    width: 49px;
+    background-position: 100% -510px
+}
+
+/* 100만원 */
+
+.day_link_ct li.on a.sum5 {
+    width: 50px;
+    background-position: 100% -540px
+}
+
+/* 300만원 */
+
+.day_link_ct li.on a.sum6 {
+    width: 50px;
+    background-position: 100% -570px
+}
+
+/* 500만원 */
+
+.day_link_ct li.on a.sum7 {
+    width: 38px;
+    background-position: 100% -600px
+}
+
+/* 3천원 */
+
+.day_link_ct li.on a.sum8 {
+    width: 38px;
+    background-position: 100% -630px
+}
+
+/* 5천원 */
+
+.day_link_ct li.on a.sum9 {
+    width: 38px;
+    background-position: 100% -660px
+}
+
+/* 1만원 */
+
+.day_link_ct li.on a.sum10 {
+    width: 38px;
+    background-position: 100% -690px
+}
+
+/* 3만원 */
+
+.day_link_ct li a.total {
+    width: 33px;
+    background-position: 0 -900px
+}
+
+/* 전체 */
+
+.day_link_ct li a.self {
+    width: 52px;
+    background-position: 0 -930px
+}
+
+/* 직접입력 */
+
+.day_link_ct li.on a.total {
+    width: 33px;
+    background-position: 100% -900px
+}
+
+/* 전체 */
+
+.day_link_ct li.on a.self {
+    width: 52px;
+    background-position: 100% -930px
+}
+
+/* 직접입력 */
+
+/* Jindo Control Button */
+
+.browsebutton_product .browse-box {
+    display: inline;
+    overflow: hidden;
+    position: absolute;
+    z-index: 32000;
+    background-color: #b5b5b5;
+    opacity: 0 !important;
+    -ms-opacity: 0 !important;
+    filter: alpha(opacity=0) !important;
+    -ms-filter: alpha(opacity=0) !important
+}
+
+.browsebutton_product .browse-file-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer
+}
+
+.browsebutton {
+    display: inline-block;
+    *display: inline;
+    overflow: hidden;
+    position: relative;
+    width: 73px;
+    height: 24px;
+    *margin-right: 3px;
+    vertical-align: top;
+    zoom: 1
+}
+
+.browsebutton .browse-box {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 73px;
+    height: 24px;
+    opacity: 0 !important;
+    -ms-opacity: 0 !important;
+    filter: alpha(opacity=0) !important;
+    -ms-filter: alpha(opacity=0) !important
+}
+
+.browsebutton .browse-file-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer
+}
+
+.browsebutton .browse-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 73px;
+    height: 24px
+}
+
+.browsebutton .browse-button .png24 {
+    margin-left: -147px
+}
+
+.browsebutton .browse-button .btn_change_png {
+    margin: -30px 0 0
+}
+
+.browsebutton .browse-applied {
+    display: block
+}
+
+.browseb_img_reg,
+.browseb_edt,
+.browseb_find,
+.browseb_che {
+    width: 67px;
+    height: 20px
+}
+
+.browseb_img_reg .browse-box,
+.browseb_edt .browse-box,
+.browseb_find .browse-box,
+.browseb_che .browse-box {
+    width: 67px;
+    height: 20px
+}
+
+.browseb_img_reg .browse-file-input,
+.browseb_edt .browse-file-input,
+.browseb_find .browse-file-input,
+.browseb_che .browse-file-input {
+    width: auto !important
+}
+
+.browseb_img_reg .browse-button,
+.browseb_edt .browse-button,
+.browseb_find .browse-button,
+.browseb_che .browse-button {
+    display: inline-block;
+    overflow: hidden;
+    width: 67px;
+    height: 20px;
+    background: url(../../img/npay/sp_jindo_btn.gif) no-repeat 0 -810px;
+    font-size: 0;
+    line-height: 999px
+}
+
+.browseb_img_reg.banner {
+    width: 88px
+}
+
+.browseb_img_reg.banner .browse-button {
+    width: 88px;
+    background-position: 0 -1020px
+}
+
+.browseb_edt,
+.browseb_edt .browse-box {
+    width: 36px
+}
+
+.browseb_edt .browse-button {
+    width: 36px;
+    background-position: 0 -840px
+}
+
+.browseb_che,
+.browseb_che .browse-box {
+    width: 67px
+}
+
+.browseb_che .browse-button {
+    width: 67px;
+    background-position: 0 -961px
+}
+
+.browseb_find,
+.browseb_find .browse-box {
+    width: 56px
+}
+
+.browseb_find .browse-button {
+    width: 56px;
+    background-position: 0 -870px
+}
+
+.ly_sdp_wrap .dim_uio .browsebutton .browse-button {
+    filter: alpha(opacity=30)
+}
+
+.ly_sdp_wrap .dim_uio .browsebutton .browse-file-input {
+    cursor: default
+}
+
+/* Text Button */
+
+.btn_a,
+.btn_b,
+.btn_c,
+.btn_c_off,
+.btn_d,
+.btn_i,
+.btn_l,
+.btn_a span,
+.btn_b span,
+.btn_c span,
+.btn_c_off span,
+.btn_d span,
+.btn_e span,
+.btn_f span,
+.btn_g span {
+    display: inline-block;
+    background: url(../../img/npay/npay_bg_btn.png) no-repeat;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer
+}
+
+.btn_a:hover,
+.btn_b:hover,
+.btn_d:hover,
+.btn_l:hover {
+    text-decoration: none
+}
+
+.btn_a,
+.btn_b,
+.btn_c,
+.btn_d,
+.btn_l {
+    vertical-align: middle;
+    _vertical-align: baseline
+}
+
+.btn_a,
+.btn_a span {
+    height: 20px;
+    background-position: 0 -30px;
+    font-size: 11px;
+    line-height: 21px;
+    _line-height: 22px;
+    color: #555 !important
+}
+
+.btn_a span {
+    margin-left: 8px;
+    padding-right: 8px;
+    background-position: 100% -30px
+}
+
+.btn_b,
+.btn_b span {
+    min-width: 26px;
+    height: 28px;
+    background-position: 0 0;
+    font-weight: bold;
+    line-height: 28px;
+    _line-height: 30px;
+    color: #00d2b9 !important
+}
+
+.btn_b span {
+    margin-left: 11px;
+    padding-right: 12px;
+    background-position: 100% 0
+}
+
+.btn_b.v2 {
+    height: 37px;
+    line-height: 37px;
+    background-position: 0 -299px
+}
+
+.btn_b.v2 span {
+    height: 37px;
+    line-height: 37px;
+    margin-left: 25px;
+    padding-right: 25px;
+    background-position: 100% -299px
+}
+
+.btn_b.v3 span {
+    font-weight: normal;
+    color: #00b5a6 !important
+}
+
+.btn_c,
+.btn_c span {
+    min-width: 26px;
+    height: 28px;
+    background-position: 0 -90px;
+    font-weight: bold;
+    line-height: 28px;
+    _line-height: 30px;
+    color: #666 !important
+}
+
+.btn_c span {
+    margin-left: 11px;
+    padding-right: 12px;
+    background-position: 100% -90px
+}
+
+.btn_d,
+.btn_d span {
+    height: 23px;
+    background-position: 0 -60px;
+    font-weight: bold;
+    line-height: 24px;
+    _line-height: 25px;
+    color: #00b5a6 !important
+}
+
+.btn_d span {
+    margin-left: 9px;
+    padding-right: 9px;
+    background-position: 100% -60px
+}
+
+.btn_d.v2 {
+    background-color: #00d2b8
+}
+
+.btn_go {
+    float: right;
+    *margin-top: -20px
+}
+
+.btn_go:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+/* Button 정렬 */
+
+.btn_wrap {
+    margin-top: 30px;
+    text-align: center
+}
+
+/* Form Style */
+
+.ipt_check {
+    width: 13px;
+    height: 14px;
+    margin: 0 0 1px;
+    padding: 0;
+    vertical-align: middle
+}
+
+input.ipt {
+    height: 18px;
+    padding-left: 5px;
+    border: 1px solid;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    line-height: 18px;
+    vertical-align: top
+}
+
+input.ipt:-ms-input-placeholder {
+    color: #b7b7b7
+}
+
+input.ipt_va {
+    color: #b7b7b7 !important
+}
+
+input.ipt_va:focus {
+    color: #555 !important
+}
+
+input.ipt_gray {
+    height: 18px;
+    padding: 0 5px;
+    border: 1px solid;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    background: #f2f2f2;
+    line-height: 18px;
+    vertical-align: middle
+}
+
+input.ipt_on,
+input.ipt:focus {
+    border-color: #00b5a6
+}
+
+input.ipt_off {
+    color: #b7b7b7
+}
+
+input.ipt_on[readonly],
+input.ipt[readonly]:focus {
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9 !important
+}
+
+input.ipt_dis {
+    background: #f2f2f2
+}
+
+textarea.ta {
+    overflow: auto;
+    padding: 2px 0 2px 5px;
+    border: 1px solid;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    line-height: 18px;
+    vertical-align: middle
+}
+
+textarea.ta_on,
+textarea.ta:focus {
+    border-color: #00b5a6
+}
+
+textarea.ta_on[readonly],
+textarea.ta[readonly]:focus {
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9 !important
+}
+
+.ipt_date {
+    display: inline-block;
+    *display: inline;
+    height: 20px;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+    zoom: 1
+}
+
+.ipt_date span,
+.ipt_date div {
+    display: inline-block;
+    *display: inline;
+    position: relative;
+    height: 18px;
+    border: 1px solid;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    vertical-align: middle;
+    zoom: 1
+}
+
+.ipt_date a {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 15px;
+    height: 14px;
+    background: url(../../img/npay/npay_sp_ico.png) no-repeat 0 0;
+    text-indent: -900px;
+    cursor: pointer
+}
+
+.ipt_date input {
+    height: 13px;
+    padding: 1px 0 0 5px;
+    border: 0;
+    font-family: tahoma;
+    font-size: 11px;
+    line-height: 13px;
+    vertical-align: top
+}
+
+.rdo_lb {
+    margin-right: 27px;
+    vertical-align: middle
+}
+
+.rdo_lb2 {
+    margin-right: 15px;
+    vertical-align: middle
+}
+
+.rdo_lb3 {
+    margin-right: 5px;
+    vertical-align: middle
+}
+
+/* Common Contents */
+
+.qst {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    *position: static;
+    width: 14px;
+    height: 14px;
+    margin-top: -3px;
+    *margin-top: -1px;
+    margin-left: 2px;
+    background: url(../../img/npay/npay_sp_btn.png) no-repeat 0 0;
+    line-height: 100px;
+    vertical-align: middle;
+    cursor: pointer
+}
+
+.dot_txt {
+    margin: 0 0 7px;
+    padding-left: 6px;
+    background: url(../../img/npay/npay_bu_help.png) no-repeat 0 5px
+}
+
+.dot_txt em {
+    font-style: normal;
+    color: #b7b7b7
+}
+
+span.dot_txt {
+    display: inline-block
+}
+
+.dsc_txt {
+    font-size: 11px;
+    color: #9696a0;
+    letter-spacing: -1px
+}
+
+.dsc_txt6 {
+    margin: -8px 0 7px;
+    font-size: 11px;
+    color: #959595;
+    letter-spacing: -1px
+}
+
+.hd_wrap {
+    clear: both;
+    width: 100%;
+    padding: 30px 0 9px;
+    zoom: 1
+}
+
+.hd_wrap:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.hd_wrap .hd3 {
+    margin: 0;
+    padding-right: 10px
+}
+
+.hd_wrap .btn_e_fr {
+    float: right;
+    margin: -9px 0 -4px
+}
+
+.hd_wrap .btn_e_fr .btn_g,
+.hd_wrap .btn_e_fr .btn_g span {
+    vertical-align: top
+}
+
+.hd_wrap .dot_txt {
+    margin-bottom: 0
+}
+
+.hd_wrap .sel_fr {
+    float: right;
+    margin: -3px 0 -2px
+}
+
+.hd_wrap .btn_a_fr {
+    float: right;
+    margin: -5px 0 -5px
+}
+
+.hd_wrap .qst {
+    margin: -2px 0 0 -4px
+}
+
+.hd_wrap .btn_a_fr .qst {
+    margin: 0
+}
+
+.tbl_dsc2 {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #b7b7b7;
+    letter-spacing: -1px
+}
+
+.scrl_lst3 {
+    overflow: hidden;
+    overflow-x: scroll;
+    _width: 99.9%;
+    border: 1px solid #ebebeb
+}
+
+h3.hd3 {
+    margin: 30px 16px 9px 0;
+    padding-left: 8px;
+    background: url(../../img/npay/npay_sp_bu.png) no-repeat 0 0;
+    color: #222;
+    font-size: 12px;
+    font-weight: bold
+}
+
+:root h3.hd3 {
+    background-position: 0 2px
+}
+
+.box_type {
+    position: relative;
+    padding: 16px 0 16px 17px;
+    border: 1px solid #ebebeb;
+    border-width: 1px 0;
+    background-color: #fcfcfc;
+    zoom: 1
+}
+
+.box_type:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.box_type .line_h {
+    margin: -3px 0 -5px
+}
+
+.box_type .btn_sp {
+    position: absolute;
+    top: 50%;
+    right: 17px;
+    margin-top: -20px
+}
+
+.box_type .btn_type {
+    margin-top: -29px
+}
+
+.box_type .tit {
+    margin-bottom: 10px;
+    font-size: 12px
+}
+
+.box_type.v3 {
+    margin-bottom: 10px;
+    padding: 13px 17px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #555
+}
+
+.uio_calendar .btm {
+    text-align: left
+}
+
+/* 공통 캘린더 css추가 */
+
+/* 1:1 talk */
+
+.box_type.talk {
+    padding: 18px 20px 18px 18px;
+    border-width: 1px
+}
+
+.tit_talk {
+    color: #555
+}
+
+.tit_talk .txt {
+    vertical-align: -1px
+}
+
+.ico_talk {
+    overflow: hidden;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url(../../img/npay/npay_sp_ico.png) no-repeat 0 -20px;
+    text-indent: -999px;
+    vertical-align: top
+}
+
+.talk .btn_go {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 11px;
+    color: #929292
+}
+
+.talk .btn_go .ico {
+    display: inline-block;
+    margin-left: 3px;
+    width: 4px;
+    height: 7px;
+    background: url(../../img/npay/npay_sp_ico.png) no-repeat 0px -40px;
+    vertical-align: 1px
+}
+
+/* Tab Menu */
+
+.tab_menu {
+    position: relative;
+    margin-top: 30px;
+    zoom: 1
+}
+
+.tab_menu ul {
+    width: 100%;
+    border-bottom: 1px solid #e2e2e2
+}
+
+.tab_menu ul:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.tab_menu li {
+    float: left;
+    position: relative;
+    margin: 0 -1px -1px 0;
+    border: 1px solid #e2e2e2
+}
+
+.tab_menu li.on {
+    border-bottom: 0
+}
+
+.tab_menu li a {
+    display: block;
+    padding: 8px 21px 7px;
+    _padding: 8px 21px 5px;
+    background-color: #f8f8f8;
+    color: #929292;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap
+}
+
+.tab_menu li a:hover {
+    text-decoration: none
+}
+
+.tab_menu li.on a {
+    padding-bottom: 8px;
+    _padding-bottom: 6px;
+    background-color: #fff;
+    color: #5b5b5b
+}
+
+.tab_menu li.v2 a,
+.tab_menu li.v3 a {
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center
+}
+
+.tab_menu li.v2 a {
+    width: 155px
+}
+
+.tab_menu li.v3 a {
+    width: 125px
+}
+
+/* Table Style */
+
+.tbl_type {
+    clear: both
+}
+
+.tbl_type table {
+    width: 100%;
+    border: 1px solid #ebebeb;
+    border-width: 0 0 1px 1px;
+    table-layout: fixed
+}
+
+.tbl_type th,
+.tbl_type td {
+    padding: 11px 16px 9px;
+    border: 1px solid #ebebeb;
+    border-width: 1px 1px 0 0;
+    text-align: left
+}
+
+.tbl_type th {
+    background-color: #fcfcfc;
+    line-height: 15px;
+    vertical-align: top
+}
+
+.tbl_type th.v2 {
+    text-align: center
+}
+
+.tbl_type th.v3 {
+    background-color: #fff;
+    font-weight: normal;
+    vertical-align: middle
+}
+
+.tbl_type th span.point {
+    display: inline-block;
+    background: url(../../img/npay/sp_bu2_v2.gif) no-repeat -15px -649px;
+    text-indent: 8px
+}
+
+.tbl_type th.must2 {
+    color: #00b5a6
+}
+
+.tbl_type th.must3 {
+    color: #555
+}
+
+.tbl_type th.must2 em,
+.tbl_type th.must3 em {
+    padding-left: 3px;
+    font-size: 11px;
+    letter-spacing: -1px;
+    font-weight: normal;
+    vertical-align: top
+}
+
+.tbl_type th img {
+    vertical-align: middle
+}
+
+.tbl_type th br {
+    line-height: 3px
+}
+
+.tbl_type th .txt {
+    font-weight: normal
+}
+
+.tbl_type th.pg_head {
+    padding: 0 0 0 16px;
+    vertical-align: middle
+}
+
+.tbl_type td {
+    background-color: #fff;
+    line-height: 15px
+}
+
+.tbl_type td.v2 {
+    padding: 11px 10px 9px;
+    text-align: center
+}
+
+.tbl_type td a {
+    text-decoration: underline
+}
+
+.tbl_type td br {
+    line-height: 8px
+}
+
+.tbl_type td .scrl_txt {
+    overflow: auto;
+    overflow-x: hidden;
+    padding: 6px 10px;
+    border: 1px solid #c9c9c9;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    line-height: 21px
+}
+
+.tbl_type td.in_tbl {
+    padding: 17px
+}
+
+.tbl_type .tbl_type2 th,
+.tbl_type .tbl_type2 td {
+    vertical-align: middle
+}
+
+.tbl_type tr.tr_line th,
+.tbl_type tr.tr_line td {
+    padding-top: 0 !important;
+    border-top: 0 !important
+}
+
+.tbl_type .tr {
+    padding-right: 17px;
+    text-align: right
+}
+
+.tbl_type label {
+    vertical-align: middle
+}
+
+.tbl_type tr.tr_none,
+.tbl_type tr.tr_none th,
+.tbl_type tr.tr_none td {
+    display: none
+}
+
+.tbl_type td.modify {
+    color: #888;
+    letter-spacing: -1px
+}
+
+.tbl_type td.modify .num {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0;
+    text-decoration: underline
+}
+
+.tbl_type td.modify .nodata {
+    padding: 68px 0 80px;
+    text-align: center
+}
+
+.tbl_type.v2 td {
+    line-height: 20px
+}
+
+.tbl_type.v3 th,
+.tbl_type.v3 td {
+    padding: 6px 16px
+}
+
+.tbl_type2 {
+    clear: both;
+    position: relative
+}
+
+.tbl_type2 table {
+    width: 100%;
+    border: 0 none;
+    table-layout: fixed;
+    border-collapse: collapse
+}
+
+.tbl_type2 th {
+    padding: 6px 0 8px;
+    border: 1px solid #ebebeb;
+    background-color: #fcfcfc;
+    text-align: center;
+    line-height: 17px
+}
+
+.tbl_type2 th span {
+    font-weight: normal
+}
+
+.tbl_type2 th.d_open a,
+.tbl_type2 th.d_clse a {
+    display: inline-block;
+    padding-right: 10px;
+    background: url(../../img/npay/sp_bu2_v2.gif) no-repeat
+}
+
+.tbl_type2 th.d_open a {
+    background-position: 100% -175px
+}
+
+.tbl_type2 th.d_clse a {
+    background-position: 100% -310px
+}
+
+.tbl_type2 tbody th {
+    background-color: #fcfcfc;
+    font-weight: normal
+}
+
+.tbl_type2 td {
+    padding: 12px 16px 10px;
+    border: 1px solid #ebebeb;
+    line-height: 18px;
+    text-align: left;
+    word-wrap: break-word
+}
+
+.tbl_type2 td br {
+    line-height: 1px
+}
+
+.tbl_type2 td img {
+    vertical-align: middle
+}
+
+.tbl_type2 td .spot {
+    padding-right: 5px;
+    text-decoration: underline
+}
+
+.tbl_type2 td .attach {
+    display: inline-block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: url(../../img/npay/sp_bu_v3.gif) no-repeat 3px -454px;
+    vertical-align: middle
+}
+
+.tbl_type2 td .btn_remove {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 12px;
+    height: 12px;
+    background: url(../../img/npay/sp_btn_v8.gif) no-repeat 100% -75px;
+    line-height: 100px;
+    vertical-align: middle
+}
+
+.tbl_type2 tfoot td {
+    border-top: 1px solid #dbecf3;
+    background-color: #f9fcfd;
+    color: #7c909c;
+    font-weight: bold
+}
+
+.tbl_type2 .txt_hd {
+    text-align: left
+}
+
+.tbl_type2 .txt_hd p {
+    overflow: hidden;
+    width: 92%;
+    margin-left: 8px;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.tbl_type2 .star_area {
+    margin: 0;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center
+}
+
+.tbl_type2 .star_area strong {
+    color: #00b5a6
+}
+
+.tbl_type2 .tc td,
+.tbl_type2 .tc {
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center
+}
+
+.tbl_type2 .tr td,
+.tbl_type2 .tr,
+.tbl_type2 td.tr {
+    text-align: right
+}
+
+.tbl_type2 .th_txt th {
+    color: #999;
+    font-weight: normal
+}
+
+.tbl_type2 .tbl_tc td {
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center
+}
+
+.tbl_type2 .tbl_tc td.tr {
+    padding-right: 14px;
+    text-align: right
+}
+
+.tbl_type2 .tbl_tc td.tl,
+.tbl_type2 .tc td.tl {
+    padding-left: 14px;
+    text-align: left
+}
+
+.tbl_type2 .tbl_tc td .addr_con {
+    display: block;
+    position: relative;
+    padding-left: 41px;
+    line-height: 15px
+}
+
+.tbl_type2 .tbl_tc td .addr_lst {
+    display: inline-block;
+    margin-bottom: 2px;
+    padding-right: 10px;
+    word-break: break-all
+}
+
+.tbl_type2 .tbl_tc td .ico_addr_new,
+.tbl_type2 .tbl_tc td .ico_addr_old,
+.tbl_type2 .tbl_tc td .ico_addr_global {
+    position: absolute;
+    left: 0
+}
+
+.tbl_type2 .tbl_tc td .ellipsis {
+    width: auto;
+    padding: 0 12px
+}
+
+.tbl_type2 .tbl_tc2 td {
+    padding: 6px 0 5px;
+    color: #777;
+    text-align: center
+}
+
+.tbl_type2 .ico_box {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 2px 3px 1px;
+    border: 1px solid #d6d6d6;
+    font-size: 11px;
+    letter-spacing: -1px;
+    line-height: 13px;
+    vertical-align: middle
+}
+
+.tbl_type2 .dim {
+    color: #b7b7b7
+}
+
+.tbl_type2 tr.selected {
+    background: #f9fdf9
+}
+
+.tbl_type2 tr.selected .underline {
+    color: #00b5a6
+}
+
+.tbl_type2 tr.selected2 {
+    background: #ebf6f8
+}
+
+.tbl_type2 th.white {
+    background: #fff
+}
+
+.tbl_type2 tbody th.tit {
+    padding: 15px 0 13px 16px;
+    text-align: left
+}
+
+.tbl_type2 tbody th.tit2 {
+    padding: 15px 0 13px;
+    text-align: center
+}
+
+.tbl_type2 .tfoot_type th,
+.tbl_type2 .tfoot_type td {
+    border-top: 1px solid #dbecf3;
+    border-bottom: 1px solid #dbecf3;
+    background: #f9fcfd;
+    font-weight: bold;
+    color: #7c909c
+}
+
+.tbl_type2 .tfoot_type a {
+    color: #7c909c;
+    text-decoration: underline
+}
+
+.tbl_type2 .total_line_top th,
+.tbl_type2 .total_line_top td,
+.tbl_type2 .total_line_top {
+    border-top-color: #dbecf3
+}
+
+.tbl_type2 .total_line_btm th,
+.tbl_type2 .total_line_btm {
+    border-bottom-color: #dbecf3
+}
+
+.tbl_type2 .total {
+    border-right-color: #dbecf3;
+    border-left-color: #dbecf3;
+    background: #f9fcfd;
+    font-weight: bold;
+    color: #7c909c
+}
+
+.tbl_type2 .total_line_rgt {
+    border-right-color: #dbecf3
+}
+
+.tbl_type2 table.line_no th,
+.tbl_type2 table.line_no td {
+    border-right: 0;
+    border-left: 0
+}
+
+.tbl_type2 table.line_no2 {
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb
+}
+
+.tbl_type2 table.line_no2 th,
+.tbl_type2 table.line_no2 td {
+    border-right: 0;
+    border-left: 0
+}
+
+.tbl_type2 .line_h16 td {
+    line-height: 16px
+}
+
+.tbl_type2 td.pd_ct {
+    padding-right: 14px;
+    padding-left: 14px;
+    text-align: left
+}
+
+.tbl_type2 td.pd_ct p.name {
+    margin-bottom: 10px;
+    line-height: 16px
+}
+
+.tbl_type2 td.pd_ct p.num {
+    color: #b7b7b7
+}
+
+.tbl_type2 td.sug a {
+    display: block;
+    color: #00b5a6
+}
+
+.tbl_type2 td.sug span {
+    color: #c8c8c8
+}
+
+.tbl_type2 td.btn_area a:first-child {
+    margin-bottom: 3px
+}
+
+.tbl_type2 td.btn_area a span {
+    width: 33px
+}
+
+.tbl_type5 {
+    clear: both;
+    position: relative;
+    margin-top: 7px
+}
+
+.tbl_type5 table {
+    width: 100%;
+    border: 0;
+    table-layout: fixed;
+    border-collapse: collapse
+}
+
+.tbl_type5 caption {
+    display: table-caption;
+    *display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 14px 0 9px;
+    border-bottom: 1px solid #bcbcbc;
+    color: #414141;
+    text-align: left
+}
+
+.tbl_type5 .oder_num {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 11px;
+    color: #999
+}
+
+.tbl_type5 .oder_num em {
+    color: #00b5a6;
+    letter-spacing: -1px
+}
+
+.tbl_type5 th,
+.tbl_type5 td {
+    border: 0;
+    border-bottom: 1px solid #eeeef0
+}
+
+.tbl_type5 th {
+    padding: 9px 0 8px 9px;
+    border-right: 1px solid #eeeef0;
+    font-weight: normal;
+    background: #fbfbfb;
+    line-height: 15px;
+    text-align: left
+}
+
+.tbl_type5 th.date {
+    padding: 9px 0 8px;
+    border-right: 0;
+    background: none;
+    font-size: 11px;
+    color: #6f707b;
+    letter-spacing: -1px;
+    text-align: right
+}
+
+.tbl_type5 td {
+    padding: 9px 0 8px 11px;
+    color: #6f707b;
+    line-height: 14px
+}
+
+.tbl_type5 td.date {
+    padding: 9px 0 8px;
+    font-size: 11px;
+    text-align: right
+}
+
+.tbl_type5 td .tx {
+    display: block;
+    overflow: hidden;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.tbl_type5 .check {
+    padding-left: 5px;
+    font-size: 11px;
+    color: #00b5a6;
+    letter-spacing: -1px;
+    text-decoration: underline
+}
+
+/* jindo selectbox */
+
+.selectbox-noscript * {
+    display: none
+}
+
+.selectbox-noscript .selectbox-source {
+    display: inline;
+    position: relative;
+    left: 0
+}
+
+.selectbox-noscript .selectbox-source * {
+    display: block
+}
+
+.selectbox-source {
+    position: absolute;
+    left: -9999px
+}
+
+.selectbox-focused .selectbox-box {
+    border-color: #00b5a6;
+    background: #fff url(http://img.shop.naver.net/front/common/ico_select.gif) no-repeat 100% 0
+}
+
+.selectbox-box {
+    z-index: 999999;
+    height: 19px;
+    padding: 0 5px;
+    border: 1px solid transparent;
+    border-color: #c5c5c5 #e9e9e9 #e9e9e9 #c5c5c5;
+    line-height: 19px;
+    text-align: left;
+    background: #fff url(http://img.shop.naver.net/front/common/ico_select.gif) no-repeat 100% 0;
+    font-size: 11px;
+    font-family: '돋움', dotum;
+    color: #565960;
+    cursor: pointer
+}
+
+.selectbox-layer {
+    display: none;
+    overflow: hidden;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 9999;
+    border: 1px solid #888;
+    background: #fff;
+    scrollbar-face-color: #fff;
+    scrollbar-shadow-color: #fff;
+    scrollbar-highlight-color: #fff;
+    scrollbar-3dlight-color: #f7f7f7;
+    scrollbar-darkshadow-color: #f7f7f7;
+    scrollbar-track-color: #f7f7f7;
+    scrollbar-arrow-color: #8d8d8d
+}
+
+.selectbox-list ul {
+    padding: 4px 0 2px
+}
+
+.selectbox-list ul li {
+    overflow: hidden;
+    margin-bottom: 2px;
+    padding: 1px 8px 0;
+    font-size: 11px;
+    font-family: '돋움', dotum;
+    line-height: 15px;
+    color: #888;
+    cursor: default;
+    word-wrap: break-word;
+    word-break: break-all
+}
+
+.selectbox-list ul li.selectbox-item-over {
+    background-color: #ececec
+}
+
+.selectbox-list ul li a {
+    color: #888;
+    text-decoration: none
+}
+
+.selectbox_add_ipt {
+    overflow: hidden;
+    padding-bottom: 31px
+}
+
+.selectbox_add_ipt .selectbox-list {
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+    scrollbar-face-color: #fff;
+    scrollbar-shadow-color: #fff;
+    scrollbar-highlight-color: #fff;
+    scrollbar-3dlight-color: #f7f7f7;
+    scrollbar-darkshadow-color: #f7f7f7;
+    scrollbar-track-color: #f7f7f7;
+    scrollbar-arrow-color: #8d8d8d
+}
+
+.selectbox_add_ipt .person_ipt {
+    display: block
+}
+
+.selectbox_add_ipt .selectbox-list_v2 {
+    height: 57px
+}
+
+/* 회원 Step */
+
+.hd2_wrap .member_step {
+    float: right;
+    text-align: right
+}
+
+.hd2_wrap .member_step span {
+    display: inline-block;
+    overflow: hidden;
+    width: 358px;
+    height: 19px;
+    background: url(../../img/npay/sp_img_txt_v5.gif) no-repeat 0 -855px;
+    font-size: 0;
+    line-height: 9999px
+}
+
+.hd2_wrap .member_step .step2 {
+    background-position: 0 -880px
+}
+
+.hd2_wrap .member_step .step3 {
+    background-position: 0 -905px
+}
+
+.hd2_wrap .member_step .step4 {
+    width: 210px;
+    background-position: 0 -930px
+}
+
+.hd2_wrap .member_step .step5 {
+    width: 210px;
+    background-position: 0 -955px
+}
+
+.hd2_wrap .member_step .step6 {
+    width: 255px;
+    background-position: 0 -980px
+}
+
+.hd2_wrap .member_step .step7 {
+    width: 255px;
+    background-position: 0 -1005px
+}
+
+/* Box Style */
+
+.box_type3 {
+    margin-top: 45px;
+    padding: 14px 15px;
+    border: 1px solid #efefef;
+    zoom: 1
+}
+
+.box_type3:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.box_type3 .tit {
+    padding-bottom: 13px;
+    font-size: 0
+}
+
+.blue_box_wrap {
+    position: relative;
+    width: 100%
+}
+
+.blue_box {
+    clear: both;
+    margin-top: 20px;
+    padding: 17px 24px 15px;
+    border: 4px solid #dbecf3;
+    background: #f9fcfd;
+    zoom: 1
+}
+
+.blue_box:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.blue_box .btn_refresh2 {
+    display: blodk;
+    overflow: hidden;
+    position: absolute;
+    top: 21px;
+    right: 29px;
+    width: 17px;
+    height: 15px;
+    margin-top: 1px;
+    background: url(../../img/npay/npay_sp_btn.png) no-repeat -20px 0;
+    line-height: 100px;
+    vertical-align: middle
+}
+
+.blue_box_wrap .blue_box {
+    margin-top: 0;
+    padding: 17px 20px 15px
+}
+
+.case_lst2 {
+    overflow: hidden;
+    clear: both;
+    padding: 0 6px;
+    zoom: 1
+}
+
+.case_lst2:after {
+    display: block;
+    clear: both;
+    content: ''
+}
+
+.case_lst2 dt,
+.case_lst2 dd,
+.case_lst2 li {
+    display: inline;
+    height: 18px;
+    line-height: 18px
+}
+
+.case_lst2 dt .tlt {
+    padding-left: 59px
+}
+
+.case_lst2 li {
+    float: left
+}
+
+.case_lst2 .bar {
+    padding: 0 7px 0 3px;
+    color: #dbecf3
+}
+
+.case_lst2 dt .tit {
+    display: inline-block;
+    margin-right: 10px
+}
+
+.case_lst2 a.btn_refresh {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 17px;
+    height: 15px;
+    margin-top: 1px;
+    background: url(../../img/npay/sp_btn_v7.gif) no-repeat 100% -150px;
+    line-height: 100px;
+    vertical-align: middle
+}
+
+.case_lst2 a.num {
+    font-weight: bold;
+    color: #00b5a6;
+    text-decoration: none
+}
+
+.case_lst2 dt .big_num {
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    min-width: 27px;
+    font-size: 16px;
+    font-family: helvetica;
+    color: #00b5a6;
+    text-align: right
+}
+
+.case_lst2 a.num:link {
+    text-decoration: none
+}
+
+.case_lst2 a.num:visited,
+.case_lst2 a.num:hover,
+.case_lst2 a.num:active,
+.case_lst2 a.num:focus {
+    text-decoration: underline
+}
+
+.case_lst2 .stit {
+    color: #666
+}
+
+.case_lst2 .qst {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 14px;
+    height: 15px;
+    background: url(../../img/npay/sp_btn_v7.gif) no-repeat 100% -125px;
+    line-height: 100px;
+    vertical-align: middle
+}
+
+.box_notice {
+    margin-bottom: -8px
+}
+
+.box_notice li {
+    margin-bottom: 5px;
+    padding-left: 9px;
+    background: url(../../img/npay/npay_sp_bu.png) no-repeat 0 -20px;
+    line-height: 17px
+}
+
+.box_column2 {
+    overflow: hidden;
+    clear: both;
+    width: 100%
+}
+
+.box_column2 .ct_box {
+    float: left;
+    width: 49%
+}
+
+.box_column2 .blue_box {
+    display: inline;
+    clear: none;
+    float: left;
+    width: 41.5%;
+    padding: 20px 30px;
+    background: #fff
+}
+
+.calculate_lst_wrap {
+    float: left;
+    width: 25%
+}
+
+.calculate_notice_wrap {
+    float: left;
+    width: 70%;
+    min-height: 110px;
+    padding: 0 0 2px 20px;
+    border-left: 1px solid #e7e7e7
+}
+
+/* 기간선택 */
+
+.sp_txt {
+    display: inline-block;
+    overflow: hidden;
+    width: 130px;
+    height: 12px;
+    background: url(../../img/npay/npay_sp_img_txt.png) no-repeat 0 -85px;
+    line-height: 1000px;
+    vertical-align: middle
+}
+
+.sp_txt3 {
+    width: 69px;
+    background-position: 0 0
+}
+
+.h_bar {
+    margin: 0 10px 0 9px;
+    color: #e1e1e1
+}
+
+/* 판매방해 고객관리 */
+
+.textenter_box {
+    margin-top: 8px;
+}
+
+.textenter_box .num_meta2 {
+    margin-top: 0;
+}
+
+.button_area {
+    margin: 24px 0 10px;
+}
+
+.box_tit {
+    margin-right: 20px;
+}
+
+.tbl_select.tbl_type2 th {
+    padding: 14px 0;
+}
+
+/* Popup Layout */
+
+#pop_wrap {
+    position: relative;
+    text-align: center
+}
+
+#pop_header {
+    position: relative;
+    margin: 0 20px;
+    text-align: left;
+    zoom: 1
+}
+
+#pop_header h1 {
+    height: 25px;
+    padding-top: 27px;
+    border-bottom: 3px solid #454545
+}
+
+#pop_header h1 span {
+    display: block;
+    overflow: hidden;
+    height: 18px;
+    background: url(../../img/npay/npay_sp_pop_tit.png) no-repeat;
+    text-indent: -9000px
+}
+
+#pop_header .pop_h167 span {
+    width: 121px;
+    background-position: 0 0
+}
+
+/* 상품주문정보 조회 */
+
+#pop_content {
+    position: relative;
+    margin: 0 20px;
+    padding-top: 30px;
+    text-align: left;
+    zoom: 1
+}
+
+#pop_content.v2 {
+    z-index: 10;
+    margin-top: -1px;
+    padding-top: 0
+}
+
+#pop_footer {
+    margin: -1px 20px 0;
+    padding: 20px 0;
+    border-top: 1px solid #eeeeec
+}

@@ -3,23 +3,64 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.itwillbs.mappers.memberMapper"> <!-- 파일이름x / 예명  -->
+<mapper namespace="MemberMapper"> <!-- 파일이름x / 예명  -->
 	
 	<insert id="insertMember"> 
-
 	 	insert into member(member_num, member_id, member_pass, member_name, member_phone, member_email, member_joinDay, member_post, member_addMain, member_addSub)
 	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name}, #{member_phone}, #{member_email}, now(), #{member_post}, #{member_addMain}, #{member_addSub})
-	</insert>
+	</insert>  
 	
 	<select id="nuserCheck" 
                   resultType="com.itwillbs.domain.MemberDTO">
     select * from member       
     where member_nid = #{member_nid}
   	</select> 
-	
-<!-- 	<select id="checkIdDuplicate" resultType="int"> -->
-<!--         SELECT COUNT(*) FROM member WHERE member_id = #{member_id} -->
-<!--     </select> -->
-	
-	 
+  	
+  	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
+  	select * from member
+  	where member_id = #{member_id} and pass = #{member_pass}
+  	</select>
+  	
+  	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
+  	select * from member
+	where member_id = #{member_id}  	
+  	</select>
+  	
+  	<insert id="ninsertMember"> 
+	 	insert into member(member_num, member_nid, member_name, member_phone, member_email)
+	 	values(#{member_num}, #{member_nid},#{member_name}, #{member_phone}, #{member_email})
+	</insert> 
+  	
+  	<select id="getMembers" resultType="map">
+    SELECT * FROM member;
+   </select>
+   
+   <update id="changeMemberStatus" parameterType="list">
+    UPDATE member
+    SET member_delYn = 'N'
+    WHERE member_num IN
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </update>
+  
+  <insert id="insertCart">
+	INSERT INTO cart_product (
+				cart_item_id,
+				cart_num,
+				item_num,
+				cart_cnt
+	)
+	VALUES (
+	#{cart_product},
+	#{cart_item_id},
+	#{item_num},
+	#{cart_cnt}
+	)
+  </insert>
+  
+  
+  
+  
+  
 </mapper>

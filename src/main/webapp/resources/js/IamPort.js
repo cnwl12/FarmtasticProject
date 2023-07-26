@@ -1,23 +1,49 @@
-      var IMP = window.IMP;
-      IMP.init("imp24125441");
- 
-      function requestPay() {
-        IMP.request_pay(
-          {
-            pg: "kcp.{store-2ff01f8f-c184-4ee8-8f10-deed85d4ac53}",
-            pay_method: "card",
-            merchant_uid: "57008833-33003",
-            name: "당근 20kg",
-            amount: 2000,
-            buyer_email: "Iamport2@chai.finance",
-            buyer_name: "이인호",
-            buyer_tel: "010-1234-5679",
-            buyer_addr: "서울특별시 강남구 성삼동",
-            buyer_postcode: "123-457",
-          },
-          function (rsp) {
-            callback
-            //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-          }
-        );
+window.onload = function() {
+
+  var IMP = window.IMP;
+  IMP.init("imp24125441");
+
+  function requestPay() {
+    // item_name, item_price, buyer_name, buyer_tel, buyer_addr,
+    // buyer_postcode 값을 HTML에서 가져옵니다.
+    const itemNameElement = document.getElementById("item_name");
+    const itemName = itemNameElement.innerText;
+
+    const itemPriceElement = document.getElementById("item_price");
+    const itemPrice = parseInt(itemPriceElement.innerText);
+
+    const buyerNameElement = document.getElementById("member_name");
+    const buyerName = buyerNameElement.innerText;
+
+    const buyerTelElement = document.getElementById("member_phone");
+    const buyerTel = buyerTelElement.innerText;
+
+    const buyerAddrElement = document.getElementById("member_addMain");
+    const buyerAddr = buyerAddrElement.innerText;
+
+    const buyerPostcodeElement = document.getElementById("member_addSub");
+    const buyerPostcode = buyerPostcodeElement.innerText;
+
+    const buyerEmailElement = document.getElementById("member_email");
+    const buyerEmail = buyerEmailElement.innerText;
+
+    IMP.request_pay(  
+      {
+        // 이전에 설정한 다른 값들 ...
+        name: itemName,
+        amount: itemPrice,
+        buyer_name: buyerName,
+        buyer_tel: buyerTel,
+        buyer_addr: buyerAddr,
+        buyer_postcode: buyerPostcode,
+        buyer_email: buyerEmail
+        // 이전에 설정한 다른 값들 ...
+      },
+      function (rsp) {
+        // 결제 결과 처리 코드입니다.
       }
+    );
+  }
+
+  // 해당 window.onload 함수를 통해 앞서 선언된 requestPay 함수에 접근이 가능해집니다.
+}

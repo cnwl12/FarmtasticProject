@@ -1,27 +1,28 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Seller</title>
+    <title>seller/sellerMain</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this page -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
 
 </head>
 
@@ -33,343 +34,40 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
+            <!-- 메인 컨텐츠 시작 -->
             <div id="content">
 
                 <jsp:include page="./inc/top.jsp"></jsp:include>
-                <!-- Begin Page Content -->
+                
+                <!-- 페이지 컨텐츠 시작 -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    <!-- 페이지 상단 시작 -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">판매자 메인</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-download fa-sm text-white-50"></i>Generate Report
+                        </a>
                     </div>
+                    <!-- 페이지 상단 끝 -->
+                    
+                    <!-- 매출통계그래프 시작 -->
+					<div class="panel panel-dashboard panel-stats"><div class="panel-heading"><div class="pull-left"><h3 class="panel-title">스토어 매출 통계<span class="text-muted sub-text">오전 8시 업데이트</span></h3></div><!----><div class="pull-right"><span class="store-name"><a ng-href="https://smartstore.naver.com/test-farmtastic" target="_blank" data-nclicks-code="sales.storemove" href="https://smartstore.naver.com/test-farmtastic"><!----> <!----><img ng-if="!vm.channelRepresentImageUrl || vm.channelRepresentImageUrl === ''" src="${pageContext.request.contextPath}/resources/naver/naverimg/no-img.jpg" class="img-circle" width="36" height="36" alt="등록된 스토어 대표이미지 없음"><!----> <span class="label mg-right-sm storefarm" style="">스마트스토어</span>TEST - 팜타스틱<i class="fn-shopping fn-shopping-forward2 text-muted" aria-hidden="true"></i></a></span></div></div><div class="panel-body"><div class="text-center"><div data-toggle="buttons" class="btn-group btn-group-customize"><label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay"><input type="radio">결제건수</label> <label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer"><input type="radio">결제자수</label> <label class="btn btn-default active" ng-class="{active: vm.currentChartIndex === 2}" ng-click="vm.showChart(2)" data-nclicks-code="sales.price"><input type="radio">결제금액</label></div></div><div class="stats-area"><!----><!----><!----><div id="chart-container-payamount" style="height: 275px; margin: 0px auto; overflow: hidden;" ng-if="vm.currentChartIndex === 2 &amp;&amp; vm.canShowChart()" ng-click="vm.movePeriodStat()" data-nclicks-code="sales.pricecont" class="" data-highcharts-chart="12"><div id="highcharts-ivbnxbt-378" dir="ltr" class="highcharts-container " style="position: relative; overflow: hidden; width: 858px; height: 275px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" class="highcharts-root" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="858" height="275" viewBox="0 0 858 275"><desc>Created with Highcharts 7.1.1</desc><defs><clipPath id="highcharts-ivbnxbt-379-"><rect x="0" y="0" width="816" height="207" fill="none"></rect></clipPath><clipPath id="highcharts-ivbnxbt-411-"><rect x="0" y="0" width="816" height="207" fill="none"></rect></clipPath></defs><rect fill="#ffffff" class="highcharts-background" x="0" y="0" width="858" height="275" rx="0" ry="0"></rect><rect fill="none" class="highcharts-plot-background" x="32" y="10" width="816" height="207"></rect><g class="highcharts-grid highcharts-xaxis-grid" data-z-index="1"><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 58.5 10 L 58.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 85.5 10 L 85.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 113.5 10 L 113.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 140.5 10 L 140.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 167.5 10 L 167.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 194.5 10 L 194.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 221.5 10 L 221.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 249.5 10 L 249.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 276.5 10 L 276.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 303.5 10 L 303.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 330.5 10 L 330.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 357.5 10 L 357.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 385.5 10 L 385.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 412.5 10 L 412.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 439.5 10 L 439.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 466.5 10 L 466.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 493.5 10 L 493.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 521.5 10 L 521.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 548.5 10 L 548.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 575.5 10 L 575.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 602.5 10 L 602.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 629.5 10 L 629.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 657.5 10 L 657.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 684.5 10 L 684.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 711.5 10 L 711.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 738.5 10 L 738.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 765.5 10 L 765.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 793.5 10 L 793.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 820.5 10 L 820.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 847.5 10 L 847.5 217" opacity="1"></path><path fill="none" data-z-index="1" class="highcharts-grid-line" d="M 31.5 10 L 31.5 217" opacity="1"></path></g><g class="highcharts-grid highcharts-yaxis-grid" data-z-index="1"><path fill="none" stroke="#dfe5e7" stroke-width="1" stroke-dasharray="1,3" data-z-index="1" class="highcharts-grid-line" d="M 32 114.5 L 848 114.5" opacity="1"></path></g><rect fill="none" class="highcharts-plot-border" data-z-index="1" x="32" y="10" width="816" height="207"></rect><g class="highcharts-axis highcharts-xaxis" data-z-index="2"><path fill="none" class="highcharts-axis-line" stroke="#ccd6eb" stroke-width="1" data-z-index="7" d="M 32 217.5 L 848 217.5"></path></g><g class="highcharts-axis highcharts-yaxis" data-z-index="2"><path fill="none" class="highcharts-axis-line" data-z-index="7" d="M 32 10 L 32 217"></path></g><g class="highcharts-series-group" data-z-index="3"><g data-z-index="0.1" class="highcharts-series highcharts-series-0 highcharts-spline-series  " transform="translate(32,10) scale(1 1)" clip-path="url(#highcharts-ivbnxbt-411-)"><path fill="none" d="M 13.6 103.5 C 13.6 103.5 29.919999999999998 103.5 40.8 103.5 C 51.67999999999999 103.5 57.120000000000005 103.5 68 103.5 C 78.88 103.5 84.32000000000001 103.5 95.2 103.5 C 106.08000000000001 103.5 111.52000000000001 103.5 122.4 103.5 C 133.28000000000003 103.5 138.71999999999997 103.5 149.6 103.5 C 160.48 103.5 165.92000000000002 103.5 176.8 103.5 C 187.68 103.5 193.12 103.5 204 103.5 C 214.88000000000002 103.5 220.32 103.5 231.2 103.5 C 242.07999999999998 103.5 247.51999999999998 103.5 258.4 103.5 C 269.28000000000003 103.5 274.71999999999997 103.5 285.6 103.5 C 296.48 103.5 301.92 103.5 312.8 103.5 C 323.68 103.5 329.12 103.5 340 103.5 C 350.88 103.5 356.32 103.5 367.2 103.5 C 378.08 103.5 383.52 103.5 394.4 103.5 C 405.28 103.5 410.7200000000001 103.5 421.6 103.5 C 432.48 103.5 437.9200000000001 103.5 448.8 103.5 C 459.68 103.5 465.12 103.5 476 103.5 C 486.88 103.5 492.32 103.5 503.2 103.5 C 514.0799999999999 103.5 519.52 103.5 530.4 103.5 C 541.28 103.5 546.72 103.5 557.6 103.5 C 568.48 103.5 573.92 103.5 584.8 103.5 C 595.68 103.5 601.12 103.5 612 103.5 C 622.88 103.5 628.32 103.5 639.2 103.5 C 650.08 103.5 655.52 103.5 666.4 103.5 C 677.28 103.5 682.72 103.5 693.6 103.5 C 704.48 103.5 709.9199999999998 103.5 720.8 103.5 C 731.68 103.5 737.12 103.5 748 103.5 C 758.88 103.5 764.32 103.5 775.2 103.5 C 786.0800000000002 103.5 802.4 103.5 802.4 103.5" class="highcharts-graph" data-z-index="1" stroke="#40c65a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M 3.5999999999999996 103.5 L 13.6 103.5 C 13.6 103.5 29.919999999999998 103.5 40.8 103.5 C 51.67999999999999 103.5 57.120000000000005 103.5 68 103.5 C 78.88 103.5 84.32000000000001 103.5 95.2 103.5 C 106.08000000000001 103.5 111.52000000000001 103.5 122.4 103.5 C 133.28000000000003 103.5 138.71999999999997 103.5 149.6 103.5 C 160.48 103.5 165.92000000000002 103.5 176.8 103.5 C 187.68 103.5 193.12 103.5 204 103.5 C 214.88000000000002 103.5 220.32 103.5 231.2 103.5 C 242.07999999999998 103.5 247.51999999999998 103.5 258.4 103.5 C 269.28000000000003 103.5 274.71999999999997 103.5 285.6 103.5 C 296.48 103.5 301.92 103.5 312.8 103.5 C 323.68 103.5 329.12 103.5 340 103.5 C 350.88 103.5 356.32 103.5 367.2 103.5 C 378.08 103.5 383.52 103.5 394.4 103.5 C 405.28 103.5 410.7200000000001 103.5 421.6 103.5 C 432.48 103.5 437.9200000000001 103.5 448.8 103.5 C 459.68 103.5 465.12 103.5 476 103.5 C 486.88 103.5 492.32 103.5 503.2 103.5 C 514.0799999999999 103.5 519.52 103.5 530.4 103.5 C 541.28 103.5 546.72 103.5 557.6 103.5 C 568.48 103.5 573.92 103.5 584.8 103.5 C 595.68 103.5 601.12 103.5 612 103.5 C 622.88 103.5 628.32 103.5 639.2 103.5 C 650.08 103.5 655.52 103.5 666.4 103.5 C 677.28 103.5 682.72 103.5 693.6 103.5 C 704.48 103.5 709.9199999999998 103.5 720.8 103.5 C 731.68 103.5 737.12 103.5 748 103.5 C 758.88 103.5 764.32 103.5 775.2 103.5 C 786.0800000000002 103.5 802.4 103.5 802.4 103.5 L 812.4 103.5" visibility="visible" data-z-index="2" class="highcharts-tracker-line" stroke-linejoin="round" stroke="rgba(192,192,192,0.0001)" stroke-width="22"></path></g><g data-z-index="0.1" class="highcharts-markers highcharts-series-0 highcharts-spline-series  highcharts-tracker " transform="translate(32,10) scale(1 1)"><path fill="#40c65a" visibility="hidden" d="M 720 103.5 A 0 0 0 1 1 720 103.5 Z" class="highcharts-halo highcharts-color-undefined" data-z-index="-1" fill-opacity="0.25"></path><path fill="#40c65a" d="M 13 107.5 A 4 4 0 1 1 13.003999999333336 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 40 107.5 A 4 4 0 1 1 40.00399999933334 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 68 107.5 A 4 4 0 1 1 68.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 95 107.5 A 4 4 0 1 1 95.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 122 107.5 A 4 4 0 1 1 122.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 149 107.5 A 4 4 0 1 1 149.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 176 107.5 A 4 4 0 1 1 176.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 204 107.5 A 4 4 0 1 1 204.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 231 107.5 A 4 4 0 1 1 231.00399999933333 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 258 107.5 A 4 4 0 1 1 258.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 285 107.5 A 4 4 0 1 1 285.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 312 107.5 A 4 4 0 1 1 312.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 340 107.5 A 4 4 0 1 1 340.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 367 107.5 A 4 4 0 1 1 367.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 394 107.5 A 4 4 0 1 1 394.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 421 107.5 A 4 4 0 1 1 421.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 448 107.5 A 4 4 0 1 1 448.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 476 107.5 A 4 4 0 1 1 476.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 503 107.5 A 4 4 0 1 1 503.00399999933336 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 530 107.5 A 4 4 0 1 1 530.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 557 107.5 A 4 4 0 1 1 557.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 584 107.5 A 4 4 0 1 1 584.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 612 107.5 A 4 4 0 1 1 612.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 639 107.5 A 4 4 0 1 1 639.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 666 107.5 A 4 4 0 1 1 666.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 693 107.5 A 4 4 0 1 1 693.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 720 107.5 A 4 4 0 1 1 720.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point "></path><path fill="#40c65a" d="M 748 107.5 A 4 4 0 1 1 748.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 775 107.5 A 4 4 0 1 1 775.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point"></path><path fill="#40c65a" d="M 802 107.5 A 4 4 0 1 1 802.0039999993334 107.49999800000016 Z" opacity="1" class="highcharts-point"></path></g></g><text x="429" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24"></text><text x="429" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color:#666666;fill:#666666;" y="24"></text><g class="highcharts-axis-labels highcharts-xaxis-labels" data-z-index="7"><text x="48.19272486435067" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 48.19272486435067 233)" y="233" opacity="1">06.20.</text><text x="75.39272486435068" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 75.39272486435068 233)" y="233" opacity="1">06.21.</text><text x="102.59272486435067" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 102.59272486435067 233)" y="233" opacity="1">06.22.</text><text x="129.7927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 129.7927248643507 233)" y="233" opacity="1">06.23.</text><text x="156.9927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 156.9927248643507 233)" y="233" opacity="1">06.24.</text><text x="184.19272486435068" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 184.19272486435068 233)" y="233" opacity="1">06.25.</text><text x="211.3927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 211.3927248643507 233)" y="233" opacity="1">06.26.</text><text x="238.59272486435069" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 238.59272486435069 233)" y="233" opacity="1">06.27.</text><text x="265.79272486435065" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 265.79272486435065 233)" y="233" opacity="1">06.28.</text><text x="292.99272486435063" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 292.99272486435063 233)" y="233" opacity="1">06.29.</text><text x="320.1927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 320.1927248643506 233)" y="233" opacity="1">06.30.</text><text x="347.3927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 347.3927248643506 233)" y="233" opacity="1">07.01.</text><text x="374.59272486435066" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 374.59272486435066 233)" y="233" opacity="1">07.02.</text><text x="401.79272486435065" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 401.79272486435065 233)" y="233" opacity="1">07.03.</text><text x="428.99272486435063" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 428.99272486435063 233)" y="233" opacity="1">07.04.</text><text x="456.1927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 456.1927248643506 233)" y="233" opacity="1">07.05.</text><text x="483.3927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 483.3927248643506 233)" y="233" opacity="1">07.06.</text><text x="510.59272486435066" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 510.59272486435066 233)" y="233" opacity="1">07.07.</text><text x="537.7927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 537.7927248643506 233)" y="233" opacity="1">07.08.</text><text x="564.9927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 564.9927248643506 233)" y="233" opacity="1">07.09.</text><text x="592.1927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 592.1927248643507 233)" y="233" opacity="1">07.10.</text><text x="619.3927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 619.3927248643506 233)" y="233" opacity="1">07.11.</text><text x="646.5927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 646.5927248643507 233)" y="233" opacity="1">07.12.</text><text x="673.7927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 673.7927248643506 233)" y="233" opacity="1">07.13.</text><text x="700.9927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 700.9927248643506 233)" y="233" opacity="1">07.14.</text><text x="728.1927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 728.1927248643507 233)" y="233" opacity="1">07.15.</text><text x="755.3927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 755.3927248643506 233)" y="233" opacity="1">07.16.</text><text x="782.5927248643507" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 782.5927248643507 233)" y="233" opacity="1">07.17.</text><text x="809.7927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 809.7927248643506 233)" y="233" opacity="1">07.18.</text><text x="836.9927248643506" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0) rotate(-45 836.9927248643506 233)" y="233" opacity="1">07.19.</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" data-z-index="7"><text x="17" style="color:#858992;cursor:default;font-size:11px;fill:#858992;" text-anchor="end" transform="translate(0,0)" y="118" opacity="1">0</text></g><g class="highcharts-label highcharts-tooltip highcharts-color-undefined" style="pointer-events:none;white-space:nowrap;" data-z-index="8" transform="translate(726,-9999)" opacity="0" visibility="visible"><path fill="none" class="highcharts-label-box highcharts-tooltip-box highcharts-shadow" d="M 3.5 0.5 L 51.5 0.5 C 54.5 0.5 54.5 0.5 54.5 3.5 L 54.5 60.5 C 54.5 63.5 54.5 63.5 51.5 63.5 L 32.5 63.5 26.5 69.5 20.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke="#000000" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"></path><path fill="none" class="highcharts-label-box highcharts-tooltip-box highcharts-shadow" d="M 3.5 0.5 L 51.5 0.5 C 54.5 0.5 54.5 0.5 54.5 3.5 L 54.5 60.5 C 54.5 63.5 54.5 63.5 51.5 63.5 L 32.5 63.5 26.5 69.5 20.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke="#000000" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"></path><path fill="none" class="highcharts-label-box highcharts-tooltip-box highcharts-shadow" d="M 3.5 0.5 L 51.5 0.5 C 54.5 0.5 54.5 0.5 54.5 3.5 L 54.5 60.5 C 54.5 63.5 54.5 63.5 51.5 63.5 L 32.5 63.5 26.5 69.5 20.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke="#000000" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"></path><path fill="rgba(255,255,255,0.90)" class="highcharts-label-box highcharts-tooltip-box" d="M 3.5 0.5 L 51.5 0.5 C 54.5 0.5 54.5 0.5 54.5 3.5 L 54.5 60.5 C 54.5 63.5 54.5 63.5 51.5 63.5 L 32.5 63.5 26.5 69.5 20.5 63.5 3.5 63.5 C 0.5 63.5 0.5 63.5 0.5 60.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" stroke="#91959d" stroke-width="1"></path></g></svg><div class="highcharts-label highcharts-tooltip highcharts-color-undefined" style="position: absolute; left: 726px; top: -9999px; opacity: 0; pointer-events: none; visibility: visible;"><span data-z-index="1" style="position: absolute; font-family: &quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif; font-size: 12px; white-space: nowrap; color: rgb(51, 51, 51); cursor: default; margin-left: 0px; margin-top: 0px; left: 8px; top: 8px;"><span style="font-size: 12px;color: #52555c"><b>07.16.</b></span><br><span style="font-size: 18px;color:#40c65a"><b>0</b></span><span style="font-size: 12px;color:#848992"> 원</span></span></div></div></div><!----><!----><!----></div></div><!----><!----></div>
+					<!-- 매출통계그래프 끝 -->
+					
+					<!-- 주문내역 / 배송내역 시작 -->
+					<div class="panel panel-dashboard"><div class="panel-heading"><div class="pull-left"><h3 class="panel-title">주문/배송</h3></div><div class="pull-right"><ncp-dashboard-refresh component-name="vm.componentName" refresh-interval="vm.refreshIntervalMinutes" on-block="vm.blockRefresh()" on-refresh="vm.refresh()" nclicks-code="orddel.ref"><span class="text-muted sub-text">최근 04:16</span> <a href="" role="button" class="btn-refresh font-icon-button" ng-click="vm.refresh()" data-nclicks-code="orddel.ref"><i class="fn fn-refresh" aria-hidden="true"></i> <span class="sr-only">새로고침</span></a></ncp-dashboard-refresh></div></div><div class="panel-body flex flex-wrap"><div class="list-wrap deposit-list flex-col-6 flex-col-md-12"><!----><div ng-if="vm.saleStats &amp;&amp; vm.saleStats.$resolved" class="" style=""><div class="panel-icon-area"><span class="square-ico-area"><i class="seller-icon icon-order" aria-hidden="true"></i></span></div><ul class="panel-list"><li><span class="info-title">결제대기</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_unpayment" class="text-number" ng-bind="::vm.saleStats.paymentWaitCases" data-nclicks-code="orddel.paymentwait" href="#/naverpay/sale/unpayment">0</a><!----> <!----><span>건</span></span></li><li><div class="clearfix"><span class="info-title"><em class="pull-left">신규주문</em> <a href="javascript:void(0)" role="button" class="font-icon-button" uib-popover-html="'<ul class=&quot;seller-ul-list&quot;><li><strong>&amp;apos;선물 수락대기&amp;apos; 상태의 주문 건은 포함되지 않습니다.</strong></li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=3355&quot; target=&quot;_blank&quot; role=&quot;button&quot; class=&quot;btn-link text-primary&quot;><span>그럼 선물 주문은 어디서 확인하나요?<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li></ul>'" popover-trigger="'outsideClick'" popover-placement="bottom-left" data-nclicks-code="orddel.newtip"><i class="fn fn-info1" aria-hidden="true"></i><span class="sr-only">툴팁</span> </a></span><span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery" class="text-number" ng-bind="::vm.saleStats.newOrderCases" data-nclicks-code="orddel.new" href="#/naverpay/sale/delivery">0</a><!----> <!----><span>건</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 오늘출발<a href="javascript:void(0)" role="button" class="font-icon-button" uib-popover-html="'<ul class=&quot;seller-ul-list&quot;><li>&amp;apos;정기구독&amp;apos; 주문건은 &amp;apos;오늘출발&amp;apos;에 포함되지 않습니다.</li></ul>'" popover-trigger="'outsideClick'" popover-placement="bottom-left" data-nclicks-code="orddel.departtodaytip"><i class="fn fn-info1" aria-hidden="true"></i><span class="sr-only">툴팁</span> </a></span><span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery({summaryInfoType : 'NEW_ORDERS_DELIVERY_OPERATED_BEFORE', sellerOrderSearchTypes: 'TODAY_DISPATCH'})" class="text-number" ng-bind="::vm.saleStats.todayDispatchCases" data-nclicks-code="orddel.departtoday" href="#/naverpay/sale/delivery?summaryInfoType=NEW_ORDERS_DELIVERY_OPERATED_BEFORE&amp;sellerOrderSearchTypes=TODAY_DISPATCH">0</a><!----> <!----><span>건</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 예약구매</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery({summaryInfoType : 'NEW_ORDERS_DELIVERY_OPERATED_BEFORE', sellerOrderSearchTypes: 'PRE_ORDER'})" class="text-number" ng-bind="::vm.saleStats.preOrderCases" data-nclicks-code="orddel.preord" href="#/naverpay/sale/delivery?summaryInfoType=NEW_ORDERS_DELIVERY_OPERATED_BEFORE&amp;sellerOrderSearchTypes=PRE_ORDER">0</a><!----> <!----><span>건</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 정기구독</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery({summaryInfoType : 'NEW_ORDERS_DELIVERY_OPERATED_BEFORE', sellerOrderSearchTypes: 'SUBSCRIPTION'})" class="text-number" ng-bind="::vm.saleStats.subscriptionCases" data-nclicks-code="orddel.subscription" href="#/naverpay/sale/delivery?summaryInfoType=NEW_ORDERS_DELIVERY_OPERATED_BEFORE&amp;sellerOrderSearchTypes=SUBSCRIPTION">0</a><!----> <!----><span>건</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 네이버도착보장<a href="javascript:void(0)" role="button" class="font-icon-button" uib-popover-html="'<ul class=&quot;seller-ul-list&quot;><li>&amp;apos;정기구독&amp;apos; 주문건은 &amp;apos;네이버도착보장&amp;apos;에 포함되지 않습니다.</li></ul>'" popover-trigger="'outsideClick'" popover-placement="bottom-left" data-nclicks-code="orddel.avgttip"><i class="fn fn-info1" aria-hidden="true"></i><span class="sr-only">툴팁</span> </a></span><span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery" class="text-number" ng-bind="::vm.saleStats.arrivalGuaranteeCases" data-nclicks-code="orddel.avgt" href="#/naverpay/sale/delivery">0</a><!----> <!----><span>건</span></span></div></li></ul></div><!----><!----></div><div class="list-wrap delivery-list flex-col-6 flex-col-md-12"><!----><div ng-if="vm.saleStats &amp;&amp; vm.saleStats.$resolved" class="" style=""><div class="panel-icon-area"><span class="square-ico-area"><i class="seller-icon icon-delivery" aria-hidden="true"></i></span></div><ul class="panel-list"><li><span class="info-title">배송준비</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery({summaryInfoType : 'DELIVERY_READY'})" class="text-number" ng-bind="::vm.saleStats.deliveryPreparingCases" data-nclicks-code="orddel.wait" href="#/naverpay/sale/delivery?summaryInfoType=DELIVERY_READY">0</a><!----> <!----><span>건</span></span></li><li><span class="info-title">배송중</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery_situation({summaryInfoType : 'DELIVERING'})" class="text-number" ng-bind="::vm.saleStats.deliveringCases" data-nclicks-code="orddel.ing" href="#/naverpay/sale/delivery/situation?summaryInfoType=DELIVERING">0</a><!----> <!----><span>건</span></span></li><li><span class="info-title">배송완료</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_delivery_situation({summaryInfoType : 'DELIVERED'})" class="text-number" ng-bind="::vm.saleStats.deliveredCases" data-nclicks-code="orddel.completed" href="#/naverpay/sale/delivery/situation?summaryInfoType=DELIVERED">0</a><!----> <!----><span>건</span></span></li></ul></div><!----></div></div><!----><!----></div>
+					<!-- 주문내역 / 배송내역 끝 -->
+					
+					<!-- 취소,반품내역 / 정산내역 시작 -->
+					<div class="panel panel-dashboard"><div class="panel-heading"><div class="pull-left"><h3 class="panel-title">클레임/정산 <!----></h3></div><div class="pull-right"><ncp-dashboard-refresh component-name="vm.componentName" refresh-interval="vm.refreshIntervalMinutes" on-block="vm.blockRefresh()" on-refresh="vm.refresh()" nclicks-code="claimset.ref"><span class="text-muted sub-text">최근 04:16</span> <a href="" role="button" class="btn-refresh font-icon-button" ng-click="vm.refresh()" data-nclicks-code="claimset.ref"><i class="fn fn-refresh" aria-hidden="true"></i> <span class="sr-only">새로고침</span></a></ncp-dashboard-refresh></div></div><div class="panel-body flex flex-wrap"><div class="list-wrap return-list flex-col-6 flex-col-md-12"><!----><div ng-if="vm.claim &amp;&amp; vm.claim.$resolved" class="" style=""><div class="panel-icon-area"><span class="square-ico-area"><i class="seller-icon icon-return" aria-hidden="true"></i></span></div><ul class="panel-list"><li><span class="info-title">취소요청</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_claim_cancel({summaryInfoType : 'CANCEL_REQUEST'})" class="text-number" ng-bind="::vm.claim.cancelClaimCases" data-nclicks-code="claimset.cancel" href="#/naverpay/claim/cancel?summaryInfoType=CANCEL_REQUEST">0</a><!----> <!----><span>건</span></span></li><li><span class="info-title">반품요청</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_claim_return({summaryInfoType : 'RETURN_REQUEST'})" class="text-number" ng-bind="::vm.claim.returnClaimCases" data-nclicks-code="claimset.return" href="#/naverpay/claim/return?summaryInfoType=RETURN_REQUEST">0</a><!----> <!----><span>건</span></span></li><!----><li ng-if="::vm.isDesktop"><span class="info-title">반품수거완료</span> <span class="number-area"><a ui-sref="main.naverpay_claim_return({summaryInfoType : 'RETURN_COLLECT_DONE'})" class="text-number" ng-bind="::vm.claim.returnCollectDoneCases" data-nclicks-code="claimset.returncollectdone" href="#/naverpay/claim/return?summaryInfoType=RETURN_COLLECT_DONE">0</a> <span>건</span></span></li><!----><li><span class="info-title">교환요청</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_claim_exchange({summaryInfoType : 'EXCHANGE_REQUEST'})" class="text-number" ng-bind="::vm.claim.exchangeClaimCases" data-nclicks-code="claimset.exchange" href="#/naverpay/claim/exchange?summaryInfoType=EXCHANGE_REQUEST">0</a><!----> <!----><span>건</span></span></li><!----><li ng-if="::vm.isDesktop"><span class="info-title">교환수거완료</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_claim_exchange({summaryInfoType : 'EXCHANGE_COLLECT_DONE'})" class="text-number" ng-bind="::vm.claim.exchangeCollectDoneCases" data-nclicks-code="claimset.exchangecollectdone" href="#/naverpay/claim/exchange?summaryInfoType=EXCHANGE_COLLECT_DONE">0</a><!----> <span>건</span></span></li><!----></ul></div><!----><!----></div><div class="list-wrap settlement-list flex-col-6 flex-col-md-12"><!----><div ng-if="vm.settlement &amp;&amp; vm.settlement.$resolved" class="" style=""><div class="panel-icon-area"><span class="square-ico-area"><i class="seller-icon icon-settlement" aria-hidden="true"></i></span></div><ul class="panel-list"><li><span class="info-title">구매확정</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_sale_purchaseDecision({summaryInfoType : 'PURCHASE_DECIDED'})" class="text-number" ng-bind="::vm.purchaseCompletion.purchaseCompletionCases" data-nclicks-code="claimset.confirmed" href="#/naverpay/sale/purchaseDecision?summaryInfoType=PURCHASE_DECIDED">0</a><!----> <!----><span>건</span></span></li><li><div class="clearfix"><span class="info-title"><em class="pull-left">오늘정산</em> <a href="javascript:void(0)" role="button" class="font-icon-button" uib-popover-html="'<ul class=&quot;seller-ul-list&quot;><li>&amp;apos;일반정산(전일 구매확정)금액&amp;apos;과 &amp;apos;빠른정산(전일 집화처리&amp;amp;공제)금액&amp;apos;, &amp;apos;반품안심케어 비용&amp;apos;이 합산된 <strong>오늘 정산받을 금액</strong>입니다.</li><li>빠른정산 금액은 <strong>&amp;apos;빠른정산 금액&amp;apos;과 &amp;apos;빠른정산 지급액 공제&amp;apos;가 합산</strong>되어 노출되므로 <span class=&quot;text-danger&quot;>빠른정산 금액보다 빠른정산 지급액 공제가 큰 경우, 마이너스 금액으로 노출될 수 있습니다.</span></li><li>자세한 금액은 [정산관리 >정산내역 >일별 정산내역] 에서 확인 가능합니다.<br>※ 월요일 정산의 경우, 금/토/일 포함됩니다.</li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=5885&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>빠른정산 지급액 공제란?<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=4121&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>정산 금액은 언제 입금되나요?<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=6103&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>빠른정산 자세히 알아보기<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li></ul>'" popover-trigger="'outsideClick'" popover-placement="bottom-left" data-nclicks-code="claimset.todaytip"><i class="fn fn-info1" aria-hidden="true"></i><span class="sr-only">툴팁</span> </a></span><span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_settlemgt_sellerdailysettle({searchType: 'settleToday'})" class="text-number" ng-bind="::vm.settlement.todayAmount" data-nclicks-code="claimset.today" href="#/naverpay/settlemgt/sellerdailysettle?searchType=settleToday">0</a><!----> <!----><span>원</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 빠른정산</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_settlemgt_quicksettlebycase({searchType: 'settleToday'})" class="text-number" ng-bind="::vm.settlement.quickTodayAmount" data-nclicks-code="claimset.todayfast" href="#/naverpay/quicksettle/quicksettlebycase?searchType=settleToday">0</a><!----> <!----><span>원</span></span></div></li><li><div class="clearfix"><span class="info-title"><em class="pull-left">정산예정</em> <a href="javascript:void(0)" role="button" class="font-icon-button" uib-popover-html="'<ul class=&quot;seller-ul-list&quot;><li>&amp;apos;일반정산(오늘 구매확정)금액&amp;apos;과 &amp;apos;빠른정산(오늘 집화처리&amp;amp;공제)금액&amp;apos;이 합산된 <strong>내일 정산받을 금액</strong>입니다.</li><li>빠른정산 금액은 <strong>&amp;apos;빠른정산 금액&amp;apos;과 &amp;apos;빠른정산 지급액 공제&amp;apos;가 합산</strong>되어 노출되므로 <span class=&quot;text-danger&quot;>빠른정산 금액보다 빠른정산 지급액 공제가 큰 경우, 마이너스 금액으로 노출될 수 있습니다.</span></li><li>자세한 금액은 [정산관리 > 정산내역 > 건별 정산내역] 및 [정산관리 > 빠른정산 > 빠른정산내역]에서 확인이 가능합니다.<br>※ 월요일 정산의 경우, 금/토/일 포함됩니다.<br>※ 빠른정산을 이용하는 경우 정산예정금액 100%를 선정산 지급 후, 주문 종료(구매확정)시점에 세금계산서 및 부가세 발행을 위해 내부 데이터에서는 공제처리가 진행되므로 대시보드에서의 정산예정금액은 변동될 수 있습니다.</li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=5885&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>빠른정산 지급액 공제란?<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=3578&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>발주/발송관리 메뉴에서 확인되는 정산예정 금액과 다르다면?<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li><li><a href=&quot;https://help.sell.smartstore.naver.com/faq/content.help?faqId=6103&quot; target=&quot;_blank&quot; class=&quot;btn-link text-primary&quot;><span>빠른정산 자세히 알아보기<i class=&quot;fn-shopping fn-shopping-forward2&quot; aria-hidden=&quot;true&quot;></i><span></span></li></ul>'" popover-trigger="'outsideClick'" popover-placement="bottom-left" data-nclicks-code="claimset.expectedtip"><i class="fn fn-info1" aria-hidden="true"></i><span class="sr-only">툴팁</span> </a></span><span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_settlemgt_settlecasebycase({searchType: 'settleExpect'})" class="text-number" ng-bind="::vm.settlement.expectedAmount" data-nclicks-code="claimset.expected" href="#/naverpay/settlemgt/settlecasebycase?searchType=settleExpect">0</a><!----> <!----><span>원</span></span></div><div class="clearfix panel-sub-info"><span class="info-title"><em class="sub-icon">⌞</em> 빠른정산</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_settlemgt_quicksettlebycase({searchType: 'settleExpect'})" class="text-number" ng-bind="::vm.settlement.quickExpectedAmount" data-nclicks-code="claimset.expectedfast" href="#/naverpay/quicksettle/quicksettlebycase?searchType=settleExpect">0</a><!----> <!----><span>원</span></span></div></li><li><span class="info-title">비즈 월렛</span> <span class="number-area"><!----><a ng-if="::vm.isDesktop" ui-sref="main.naverpay_charge" class="text-number" ng-bind="::vm.settlement.chargeBalance" data-nclicks-code="claimset.charge" href="#/naverpay/charge">0</a><!----> <!----><span>원</span></span></li></ul></div><!----></div></div><!----><!----></div>
+					<!-- 취소,반품내역 / 정산내역 끝 -->
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Color System -->
-                            <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="${pageContext.request.contextPath}/resources/bootstrap/img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
-                                </div>
-                            </div>
-
-                            <!-- Approach -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
+				</div>
+				<!-- 페이지 컨텐츠 끝 -->
+				
+			</div>
+			<!-- 메인 컨텐츠 끝 -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">

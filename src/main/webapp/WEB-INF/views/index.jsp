@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
  
@@ -67,6 +68,7 @@
                         </ul>
                      <div class="header__top__right__auth">
                         	 <a href="login"><i class="fa fa-user"></i>Login</a>
+                        	 
                      	</div>      
                     </div>
   	               </div>
@@ -612,6 +614,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
+    
 
 
 

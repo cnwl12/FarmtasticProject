@@ -1,5 +1,9 @@
 package com.itwillbs.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,7 +20,7 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	
 	//mapper파일 이름 => 변수 정의
-	private static final String namespace = "com.itwillbs.mappers.memberMapper";
+	private static final String namespace = "MemberMapper";
 
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO insertMember() 확인");
@@ -24,10 +28,46 @@ public class MemberDAO {
 		sqlSession.insert(namespace+".insertMember", memberDTO); 
 	}
 
-	public void nuserCheck(MemberDTO memberDTO) {
-		System.out.println("MemberDAO nuserCheck() 확인");
+	
+	 public MemberDTO nuserCheck(MemberDTO memberDTO) {
+		 System.out.println("MemberDAO nuserCheck() 확인");
+	     return sqlSession.selectOne(namespace+".nuserCheck", memberDTO);
+	    }
+
+	 public void ninsertMember(MemberDTO memberDTO) {
+		 System.out.println("MemberDAO ninsertMember() 확인");
+		 if (sqlSession == null) {
+		        System.err.println("sqlSession is null!");
+		        return;
+		    }
+		 sqlSession.insert(namespace+".ninsertMember", memberDTO); 
+	 }
+	 
+
+	public List<Map<String, Object>> getMembers() {
+		return sqlSession.selectList("MemberMapper.getMembers");
+	}
+	
+	public void changeMemberStatus(List<String> memberNums) {
+		System.out.println("MemberDAO changeMemberStatus 확인");
+	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
+	}
+	
+	
+	public MemberDTO userCheck(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck()");
 		
-		sqlSession.insert(namespace+".nuserCheck", memberDTO); 
+		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
+	}
+
+	public MemberDTO getMember(String member_id) {
+		System.out.println("MemberDAO getMember");
+		return sqlSession.selectOne(namespace+".getMember", member_id);
+	}
+
+	public void insertCart(HashMap<String, String> cartProduct) {
+		System.out.println("MemberDAO insertCart : " + cartProduct);
+		sqlSession.insert(namespace+".insertCart",cartProduct);
 	}
 	
 //	 public int checkIdDuplicate(String memberId) {

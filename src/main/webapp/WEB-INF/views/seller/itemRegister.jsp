@@ -1,32 +1,28 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Seller</title>
+    <title>seller/itemRegister</title>
 
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/app.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/pace.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/vendors.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
@@ -40,19 +36,16 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
+            <!-- 메인 컨텐츠 시작 -->
             <div id="content">
 
                  <jsp:include page="./inc/top.jsp"></jsp:include>
 
-                <!-- Begin Page Content -->
+                <!-- 페이지 컨텐츠 시작 -->
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
                     <h1 class="h3 mb-2 text-gray-800">상품등록</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
                     <!-- 페이지 상단 끝 -->
                     
                     <!-- 카테고리 선택 시작-->
@@ -62,7 +55,7 @@
 					
 					<!-- 상품명 등록 시작 -->
 					<ui-view name="name"><div class="form-section"><div class="title-line" role="button" ncp-click-except-target=".fn-help1" ncp-click="vm.toggleMenu()"><label class="col-lg-2 col-sm-3 col-xs-6 control-label">상품명<i class="icon-must" aria-label="필수항목"></i> <!----><a role="button" ng-if="::!vm.isMobile" ng-click="vm.showHelpLayerForName()" href=""><i class="fn fn-help1 text-primary" aria-hidden="true"></i><span class="sr-only">도움말</span></a><!----></label><div class="col-lg-10 col-sm-9 col-xs-6 input-content"><div class="set-option no-set" ng-class="{'no-set': !vm.product.name}"> <a class="btn btn-default btn-hide active" ng-class="{active: vm.isMenuOpen}" href=""><span class="sr-only">메뉴토글</span></a></div></div></div><!----><div class="inner-content input-content" ng-if="vm.isMenuOpen"><div class="form-section-sub"><div class="form-sub-wrap"><div class="input-content"><div class="form-group"><div class="input-group"><div class="seller-input-wrap"><input name="product.name" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength" ng-model="vm.product.name" required="" ng-pattern-err-type="invalidSpecialCharacter" ng-maxlength="100" maxlength="100" title="상품명 입력" ncp-input-clear=""><a role="button" class="btn-clear" tabindex="-1" style="display:none;"><span aria-label="삭제">×</span></a></div><span class="input-group-addon"><span class="text-primary">0</span>/100</span></div></div><!----><p class="sub-text text-primary">판매 상품과 직접 관련이 없는 다른 상품명, 스팸성 키워드 입력 시 관리자에 의해 판매 금지될 수 있습니다.</p><p class="sub-text text-primary">유명 상품 유사문구를 무단으로 도용하여 ~스타일, ~st 등과 같이 기재하는 경우 별도 고지 없이 제재될 수 있습니다.</p><p class="sub-text text-primary">전용 상품명을 사용 중인 경우 대표 상품명 수정 시에도 전용 상품명으로 노출됩니다.</p><p class="sub-text"><span class="text-primary">상품명을 검색최적화 가이드에 잘 맞게 입력하면 검색 노출에 도움이 될 수 있습니다.</span> <a href="" role="button" class="btn btn-xs btn-primary btn-vertical" ng-click="vm.productSearchQualityCheck()" data-nclicks-code="sch.namecheck">상품명 검색품질 체크</a></p></div></div><!----></div><!----></div><!----></div></ui-view>
-					<!-- 상품명 등록 끝 -->  
+					<!-- 상품명 등록 끝 --> 
 					
 					<!-- 판매가 설정 시작 -->
 					<ui-view name="priceBenefit" id="anchor-price-benefit"><!---->
@@ -474,6 +467,12 @@
 						상세설명 권장 크기 : 가로 860px
 					</p></ng-bind-html></div><!----><div class="detail-content btn-group-lg"><a role="button" href="" class="btn btn-primary ng-hide" ng-disabled="vm.disabled" ng-show="vm.editorType === 'NONE'" ng-click="vm.func.preview(vm.editorType, vm.editorContent, false)"><i class="fn fn-pc1 fn-18" aria-hidden="true"></i> PC 미리보기 </a><a role="button" href="" class="btn btn-primary ng-hide" ng-disabled="vm.disabled" ng-show="vm.editorType === 'NONE'" ng-click="vm.func.preview(vm.editorType, vm.editorContent, true)"><i class="fn fn-smartphone2 fn-18" aria-hidden="true"></i> 모바일 미리보기 </a><a role="button" href="" class="btn btn-default" ng-disabled="vm.disabled" ng-show="vm.editorType !== 'NONE'" ng-click="vm.func.openGuideModal()"><i class="inline-block sp-editorone-logo-black-24 sp-editorone-logo-black-24-dims vertical-icon-middle"></i><span class="sr-only">스마트 에디터 ONE</span> <em class="txt">쉽게 작성하는 방법<i class="fn-shopping fn-shopping-forward2 text-muted" aria-hidden="true"></i></em> </a><!----><a role="button" href="" class="btn btn-default2 ng-hide" ng-disabled="vm.disabled" ng-click="vm.func.reset()" ng-hide="vm.func.isEditorDocumentEmpty()" ng-if="::!vm.isMobile"><i class="fn fn-refresh fn-auto-size" aria-hidden="true"></i> 초기화</a><!----><div class="btn-group-lg"><a role="button" href="" class="btn btn-default ng-hide" ng-disabled="vm.disabled" ng-show="vm.editorType === 'NONE'" ng-click="vm.func.editorLoadForHtml($event)"><i class="inline-block sp-editorone-logo-black-24 sp-editorone-logo-black-24-dims vertical-icon-middle"></i><span class="sr-only">스마트 에디터 ONE</span> <em class="txt">으로 변환하기 (1회성)</em></a></div><!----></div></ncp-editor-form></div></div></div><!----></div></ui-view>
 					<!-- 상품 상세설명 등록 끝 -->
+				
+				</div>
+				<!-- 페이지 컨텐츠 끝 -->
+				
+			</div>
+			<!-- 메인 컨텐츠 끝 -->		
           
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
