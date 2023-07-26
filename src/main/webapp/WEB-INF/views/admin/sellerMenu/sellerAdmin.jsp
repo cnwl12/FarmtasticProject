@@ -52,7 +52,7 @@
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" id="sellerAdmin">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">미승인된 업체 목록</h6>
                         </div>
@@ -214,14 +214,17 @@
     });
 
     // Check All checkboxes
-    const rejectCheckAll = document.querySelectorAll('.reject-check-all');
-    const recoCheckAll = document.querySelectorAll('.reco-check-all');
-    const sellerRejectboxes = document.querySelectorAll('.sellerRejectbox');
+    const sellerAdmin = document.querySelector('#sellerAdmin');
+    const rejectCheckAll = sellerAdmin.querySelectorAll('.reject-check-all');
+    const recoCheckAll = sellerAdmin.querySelectorAll('.reco-check-all');
+    const sellerRejectboxes = sellerAdmin.querySelectorAll('.sellerRejectbox');
 
     function toggleCheckboxes(checkboxes, checked) {
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = checked;
-        });
+    	 checkboxes.forEach(checkbox => {
+    	        if (checkbox.closest('.card-body') === sellerAdmin.querySelector('.card-body')) {
+    	            checkbox.checked = checked;
+    	        }
+    	    });
     }
 
     rejectCheckAll.forEach(checkAll => {

@@ -55,7 +55,7 @@
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" id="memberAdmin">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
@@ -66,7 +66,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th><input type="checkbox" class="js-check-all"/></th>
+                                        	<th><input type="checkbox" class="check-all"/></th>
                                             <th>회원번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
@@ -78,7 +78,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        	<th><input type="checkbox" class="js-check-all"/></th>
+                                        	<th><input type="checkbox" class="check-all"/></th>
                                              <th>회원번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
@@ -151,7 +151,28 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+<script>
+const memberAdmin = document.querySelector('#memberAdmin');
+// Check All checkboxes
+const checkAll = memberAdmin.querySelectorAll('.check-all');
+  
+const memberCheckbox = memberAdmin.querySelectorAll('.memberCheckbox');
 
+function toggleCheckboxes(checkboxes, checked) {
+    checkboxes.forEach(checkbox => {
+        if (checkbox.closest('.card-body') === memberAdmin.querySelector('.card-body')) {
+            checkbox.checked = checked;
+        }
+    });
+}
+
+checkAll.forEach(checkAll => {
+    checkAll.addEventListener('click', (event) => {
+        toggleCheckboxes(memberCheckbox, event.target.checked);
+    });
+});
+
+</script>
 </body>
 
 </html>
