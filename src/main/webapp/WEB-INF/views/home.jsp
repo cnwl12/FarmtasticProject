@@ -24,6 +24,7 @@
 <a href="farmStore">팜팜마켓</a>
 <a href="farmStoreDetail">팜팜마켓2(상세)</a>
 <a href="checkout">주문</a><br>
+<a href="oneboard">1:1문의</a><br>
 
 
 </p>

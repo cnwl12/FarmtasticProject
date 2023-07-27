@@ -21,6 +21,7 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers() {
 	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
+
 	    
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
@@ -85,7 +86,7 @@ public class SellerDAO {
 		
 		
 		public Map<String, Object> getItem(int item_num) {
-			System.out.println("dao itemNum : !! " + item_num );
+			// System.out.println("dao itemNum : !! " + item_num );
 			return sqlSession.selectOne(namespace+".getItem", item_num);
 		}
 
