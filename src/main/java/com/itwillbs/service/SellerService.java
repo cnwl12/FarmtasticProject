@@ -111,6 +111,11 @@ public class SellerService {
 			System.out.println("서비스"+orderMonth);
 			return sellerDAO.daySales(sellerNum, orderMonth);
 		}
+		//판매자별 연간 매출리스트
+		public List<Map<String, Object>> yearSales(String sellerNum) {
+			System.out.println("서비스"+sellerNum);
+			return sellerDAO.yearSales(sellerNum);
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();

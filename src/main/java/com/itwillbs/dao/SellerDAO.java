@@ -75,6 +75,12 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".getItem", item_num);
 		}
 
+		//판매자별 연간
+		public List<Map<String, Object>> yearSales(String sellerNum) {
+			System.out.println("dao itemNum : !! " + sellerNum );
+			return sqlSession.selectList(namespace+".yearSales", sellerNum);
+		}
+
 
 		
 			

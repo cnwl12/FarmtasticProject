@@ -160,4 +160,25 @@
 		ORDER BY order_day
 		;
 	</select>
+	
+	<!--판매자별 연간판매량전체-->
+	<select id="yearSales" resultType="map" parameterType="map">
+	 	SELECT s.seller_num, s.seller_name,
+       	DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
+      	FORMAT(SUM(o.order_pay), 0) AS revenue,
+       	FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+       	FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as income
+		FROM seller s
+		LEFT JOIN item i ON s.seller_num = i.seller_num
+		LEFT JOIN orders o ON i.item_num = o.item_num
+		LEFT JOIN settlement st ON s.seller_num = st.seller_num
+		WHERE s.seller_num != 'admin'
+		AND s.seller_num = #{sellerNum}
+		GROUP BY s.seller_num, s.seller_name, order_month
+		ORDER BY order_month;
+	</select>
+	
+	
+	
+	
 </mapper>
