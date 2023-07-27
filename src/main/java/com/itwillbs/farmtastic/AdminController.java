@@ -105,6 +105,13 @@ public class AdminController {
 		
 		return "/admin/adminMain";
 	}
+	@RequestMapping(value = "/notetest", method = RequestMethod.GET)
+	public String notetest(Locale locale, Model model) {
+		
+		System.out.println("notetest 매핑확인여부");
+		
+		return "/admin/customerMenu/notetest";
+	}
 	
 	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
 	public String cnotice(Locale locale, Model model) {

@@ -34,6 +34,7 @@
 <a href="adminMain">관리자(홈)</a>
 <a href="adminLogin">관리자(로그인)</a>
 <a href="settlement">관리자(정산테스트)</a>
+<a href="notetest">공지사항테스트</a>
 </p>
 
 <p>
