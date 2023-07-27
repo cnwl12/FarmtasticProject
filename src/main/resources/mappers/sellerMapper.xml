@@ -154,9 +154,10 @@
 		LEFT JOIN orders o ON i.item_num = o.item_num
 		LEFT JOIN settlement st ON s.seller_num = st.seller_num
 		WHERE s.seller_num != 'admin'
-		AND s.seller_num = #{seller_num} <!-- s.seller_num을 필터링하기 위해 추가된 부분 -->
-    	AND DATE_FORMAT(order_day, '%Y-%m') = #{order_month} 
+		AND s.seller_num = #{sellerNum} <!-- s.seller_num을 필터링하기 위해 추가된 부분 -->
+    	AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth} 
 		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_day,order_pay
-		ORDER BY order_day;
+		ORDER BY order_day
+		;
 	</select>
 </mapper>
