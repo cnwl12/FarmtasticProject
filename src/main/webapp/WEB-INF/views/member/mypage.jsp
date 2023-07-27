@@ -33,8 +33,8 @@
 					</ul>
 		  </div>   
 	  			  
-			<div id="main_cont">  
-				<form>
+				<div id="main_cont">  
+				<form action="${pageContext.request.contextPath }/member/updatePro" method="post">
 					<div class="myoption">
 						<h4>나의 정보</h4>			
 						<!-- <h5 class="list1">회원정보 설정</h5>		 -->
@@ -56,10 +56,13 @@
 						<input type="hidden" name="hidLoginUserId" id="hidLoginUserId" value="farmtastic">
 						<tr>
 							<th scope="row"><label for="name">이름</label></th>
+							 <td type="text" name="member_name" value="${memberDTO.member_name }">
+							 </td>
+							   
 							   
 							<td>
 							<div id="CustNAShow" class="nameCell" style="display:inline">
-							팜**틱
+							
 							</div>
 							</td>
 						</tr>

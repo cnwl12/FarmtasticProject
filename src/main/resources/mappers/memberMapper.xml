@@ -86,4 +86,13 @@
   </update>
   
   
+   <update id="updateMember">
+  UPDATE members
+  SET member_name = #{member_name},
+      member_phone = #{member_phone},
+      member_email = #{member_email}
+      <if test="member_password != null">, member_password = #{member_password}</if>
+  WHERE member_id = #{member_id}
+</update>
+  
 </mapper>

@@ -90,6 +90,12 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
 	}
 	
+	public void updateMember(MemberDTO memberDTO) {
+		System.out.println("MemberDAO updateMember()");
+		
+		sqlSession.update(namespace+".updateMember", memberDTO);
+	}
+	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }

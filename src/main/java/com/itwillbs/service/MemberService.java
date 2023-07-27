@@ -91,6 +91,11 @@ public class MemberService {
 		return memberDAO.getCartList(member_num);
 	}
 	
+	public void updateMember(MemberDTO memberDTO) {
+		System.out.println("MemberService updateMember()");
+		
+		memberDAO.updateMember(memberDTO);
+	}
 	/*
 	 * // 주문 상세 테이블에 담을것 public void insertOrderDetail(HashMap<String, String>
 	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");

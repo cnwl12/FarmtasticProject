@@ -380,5 +380,33 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck 끝
 	
 	
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(HttpSession session, Model model) {
+		
+		String id=(String)session.getAttribute("id");
+	
+		MemberDTO memberDTO=memberService.getMember(id);
+		
+		model.addAttribute("memberDTO", memberDTO);
+		
+		return "member/update";
+	}
+
+	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
+	public String updatePro(MemberDTO memberDTO) {
+		System.out.println("MemberController updatePro()");
+		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+		if(memberDTO2 !=null) {
+			//아이디 비밀번호 일치 => 수정작업 => /member/main 이동
+			memberService.updateMember(memberDTO);
+			return "redirect:/member/index";
+		}else {
+			//아이디 비밀번호 틀림 => member/msg.jsp 이동 
+			return "member/msg";
+		}
+	}
+	
+	
 	
 }
