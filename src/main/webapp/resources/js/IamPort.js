@@ -1,16 +1,21 @@
-window.onload = function() {
-
   var IMP = window.IMP;
   IMP.init("imp24125441");
 
-  function requestPay() {
+function requestPay() {
+  
     // item_name, item_price, buyer_name, buyer_tel, buyer_addr,
     // buyer_postcode 값을 HTML에서 가져옵니다.
-    const itemNameElement = document.getElementById("item_name");
+	const merchantUidElement = document.getElementById("order_num");
+    const merchantUid = merchantUidElement.innerText;
+    
+    const itemNameElement = document.getElementById("item_name");  
     const itemName = itemNameElement.innerText;
 
     const itemPriceElement = document.getElementById("item_price");
     const itemPrice = parseInt(itemPriceElement.innerText);
+    
+    const buyerEmailElement = document.getElementById("member_email");
+    const buyerEmail = buyerEmailElement.innerText;
 
     const buyerNameElement = document.getElementById("member_name");
     const buyerName = buyerNameElement.innerText;
@@ -24,26 +29,28 @@ window.onload = function() {
     const buyerPostcodeElement = document.getElementById("member_addSub");
     const buyerPostcode = buyerPostcodeElement.innerText;
 
-    const buyerEmailElement = document.getElementById("member_email");
-    const buyerEmail = buyerEmailElement.innerText;
-
     IMP.request_pay(  
       {
-        // 이전에 설정한 다른 값들 ...
-        name: itemName,
-        amount: itemPrice,
+        pg: "kcp.{store-2ff01f8f-c184-4ee8-8f10-deed85d4ac53}",
+        pay_method: "card",
+        merchant_uid: "57008833-33006",
+        name: ,
+        amount: 3000,
+        buyer_email: buyerEmail,
         buyer_name: buyerName,
         buyer_tel: buyerTel,
         buyer_addr: buyerAddr,
         buyer_postcode: buyerPostcode,
-        buyer_email: buyerEmail
-        // 이전에 설정한 다른 값들 ...
       },
       function (rsp) {
-        // 결제 결과 처리 코드입니다.
+        if (rsp.success) {
+        	// 결제 성공 시 실행할 코드
+        	alert("결제가 완료되었습니다.");
+    	} else {
+        // 실패할 경우 실행할 코드
+	        alert("결제에 실패하였습니다.");
+	        console.log("이 오류의 정보: " + rsp.error_msg);
+    	}
       }
     );
   }
-
-  // 해당 window.onload 함수를 통해 앞서 선언된 requestPay 함수에 접근이 가능해집니다.
-}

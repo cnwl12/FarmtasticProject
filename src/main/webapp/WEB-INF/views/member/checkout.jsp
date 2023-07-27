@@ -12,6 +12,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Farmtastic_Check</title>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+        <!-- iamport.payment.js -->
+    <script
+      type="text/javascript"
+      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+    ></script>
     
 
     <!-- Google Font -->
@@ -239,13 +244,14 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+                                <div id="order_num">${order_num}</div>
+                                <div id="member_email">${member_email}</div>
                                 <div id="item_name">${item_name}</div>
                                 <div id="item_price">${item_price}</div>
 	                            <div id="member_name">${member_name}</div>
 	                            <div id="member_phone">${member_phone}</div>
 	                            <div id="member_addMain">${member_addMain}</div>
 	                            <div id="member_addSub">${member_addSub}</div>
-	                            <div id="member_email">${member_email}</div>
 	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button> 
                             </div>
                         </div>
