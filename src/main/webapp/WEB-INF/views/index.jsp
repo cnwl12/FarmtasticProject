@@ -68,11 +68,10 @@
                         </ul>
                      <div class="header__top__right__auth">
   						<c:choose>
-      					<c:when test="${empty sessionScope.member_id}">
+      					<c:when test="${empty sessionScope.member_num}">
          				 <a href="login"><i class="fa fa-user"></i>Login</a>
       					</c:when>
       					<c:otherwise>
-         				<span>${sessionScope.member_id}님이 로그인하셨습니다.</span>
          				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
      					</c:otherwise>
   						</c:choose>

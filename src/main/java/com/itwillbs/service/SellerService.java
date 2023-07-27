@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
+import com.itwillbs.domain.MemberDTO;
 
 @Service
 public class SellerService {
@@ -25,8 +26,28 @@ public class SellerService {
 	    public List<Map<String, Object>> getSellers() {
 	        return sellerDAO.getSellers();
 	    }
+	    
+	    // 가맹점관리
+		public List<Map<String, Object>> getSeller() {
+			return sellerDAO.getSeller();
+		}
+	    // 판매자 정보 수정
+		public List<Map<String, Object>> sellerCheck(List<Map<String, Object>> sellerList) {
+			System.out.println("SellerService sellerCheck 확인!");
+			return sellerDAO.sellerCheck(sellerList);
+		}
+		
+		public List<Map<String, Object>> getSellerInfo(String seller_id) {
+			System.out.println("SellerService getSellerInfo 확인!");
+			return sellerDAO.getSellerInfo(seller_id);
+		}
+		
+		public void updateSeller(List<Map<String, Object>> sellerList) {
+			System.out.println("SellerService updateSeller 확인!");
+			sellerDAO.updateSeller(sellerList);
+		}
 
-
+		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 			
@@ -111,9 +132,10 @@ public class SellerService {
 			System.out.println("서비스"+orderMonth);
 			return sellerDAO.daySales(sellerNum, orderMonth);
 		}
-	    // 가맹점관리
-		public List<Map<String, Object>> getSeller() {
-			return sellerDAO.getSeller();
+		//판매자별 연간 매출리스트
+		public List<Map<String, Object>> yearSales(String sellerNum) {
+			System.out.println("서비스"+sellerNum);
+			return sellerDAO.yearSales(sellerNum);
 		}
 
 		public void approveSellerStatus(List<String> sellerNum) {
@@ -131,6 +153,9 @@ public class SellerService {
 			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
 		}
+
+
+
 		
 		
 }
