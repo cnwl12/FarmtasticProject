@@ -33,7 +33,7 @@
 					</ul>
 		  </div>   
 	  			  
-				<div id="main_cont">  
+			<div id="main_cont">  
 				<form action="${pageContext.request.contextPath }/member/updatePro" method="post">
 					<div class="myoption">
 						<h4>나의 정보</h4>			

@@ -87,7 +87,7 @@
   
   
    <update id="updateMember">
-  UPDATE members
+  UPDATE member
   SET member_name = #{member_name},
       member_phone = #{member_phone},
       member_email = #{member_email}
