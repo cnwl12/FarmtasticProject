@@ -81,12 +81,14 @@ public class MemberDAO {
 	}
 
 	public void updateCart(HashMap<String, Object> cart) {
-		System.out.println("update 카트 ");
+		System.out.println("update 카트 (수량 변경)");
 		sqlSession.update(namespace + ".updateCart", cart);
 	}
-	
-	
-	 
+
+	public void insertOrderDetail(HashMap<String, String> orderDetail) {
+		System.out.println("membetDAO sqlSession까지 오는지");
+		sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
+	}
 	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
