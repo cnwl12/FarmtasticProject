@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
     <!-- Humberger Begin : 모바일버전 -->
     <!-- <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
@@ -86,8 +87,19 @@
                             <li><a href="mypage"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span> 3 </span></a></li>
                         </ul>
-	                        <div class="header__top__right__auth">
-	                        	 <a href="login"><i class="fa fa-user"></i>Login</a>
+	                        
+                    
+                     <div class="header__top__right__auth">
+  						<c:choose>
+      					<c:when test="${empty sessionScope.member_num}">
+         				 <a href="login"><i class="fa fa-user"></i>Login</a>
+      					</c:when>
+      					<c:otherwise>
+         				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
+     					</c:otherwise>
+  						</c:choose>
+					</div>
+                    </div>
 	                        	<!--  <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
                                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>

@@ -198,13 +198,34 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model) {
+	public String mypage(HttpSession session, Model model) {
 
 		System.out.println("mypage 매핑확인여부");
+		
+		String id=(String)session.getAttribute("id");
+		
+		MemberDTO memberDTO=memberService.getMember(id);
+		
+		model.addAttribute("memberDTO", memberDTO);
 
 		return "/member/mypage";
 	}
 
+	
+	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
+	public String updatePro(MemberDTO memberDTO) {
+		System.out.println("MemberController updatePro()");
+		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+		if(memberDTO2 !=null) {
+			//아이디 비밀번호 일치 => 수정작업 => /member/index 이동
+			memberService.updateMember(memberDTO);
+			return "redirect:/member/index";
+		}else {
+			//아이디 비밀번호 틀림 => member/msg.jsp 이동 
+			return "member/msg";
+		}
+	}
+	
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
@@ -381,32 +402,5 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	
 
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(HttpSession session, Model model) {
-		
-		String id=(String)session.getAttribute("id");
-	
-		MemberDTO memberDTO=memberService.getMember(id);
-		
-		model.addAttribute("memberDTO", memberDTO);
-		
-		return "member/update";
-	}
-
-	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(MemberDTO memberDTO) {
-		System.out.println("MemberController updatePro()");
-		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		if(memberDTO2 !=null) {
-			//아이디 비밀번호 일치 => 수정작업 => /member/main 이동
-			memberService.updateMember(memberDTO);
-			return "redirect:/member/index";
-		}else {
-			//아이디 비밀번호 틀림 => member/msg.jsp 이동 
-			return "member/msg";
-		}
-	}
-	
-	
 	
 }
