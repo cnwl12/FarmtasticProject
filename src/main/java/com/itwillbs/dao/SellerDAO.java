@@ -42,9 +42,9 @@ public class SellerDAO {
 		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
 			System.out.println("daySales 오나요");
 			Map<String, String> param = new HashMap<String, String>();
-			System.out.println(param);
 		    param.put("sellerNum", sellerNum);
 		    param.put("orderMonth", orderMonth);
+		    System.out.println(param);
 		    return sqlSession.selectList(namespace + ".daySales", param);
 		}
 		// 정산 'Y'로 바꾸기
