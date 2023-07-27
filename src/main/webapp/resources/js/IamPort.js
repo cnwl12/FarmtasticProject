@@ -34,7 +34,7 @@ function requestPay() {
         pg: "kcp.{store-2ff01f8f-c184-4ee8-8f10-deed85d4ac53}",
         pay_method: "card",
         merchant_uid: "57008833-33006",
-        name: ,
+        name: member_name,
         amount: 3000,
         buyer_email: buyerEmail,
         buyer_name: buyerName,
