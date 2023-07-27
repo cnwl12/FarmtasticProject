@@ -238,6 +238,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 	
+	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+	public String onehelp(Locale locale, Model model) {
+
+		System.out.println("contact 매핑확인여부");
+
+		return "/member/oneboard";
+	}
+	
 	// 디비 연동 확인용
 
 //	@RequestMapping(value = "/insert", method = RequestMethod.GET)

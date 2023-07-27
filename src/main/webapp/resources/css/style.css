@@ -2905,10 +2905,10 @@ ol {
 		right: 0;
 	}
 	.product__details__tab .nav-tabs:before {
-		width: 265px;
+		width: 150px;
 	}
 	.product__details__tab .nav-tabs:after {
-		width: 265px;
+		width: 150px;
 	}
 	.shoping__discount form input {
 		width: 240px;

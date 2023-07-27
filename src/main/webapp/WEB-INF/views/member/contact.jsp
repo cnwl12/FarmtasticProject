@@ -66,7 +66,7 @@
                         <div class="blog__sidebar__item">
                             <h4>고객센터</h4>
                             <ul>  
-                                <li><a href="#">공지사항</a></li>
+                                <li><a href="contact">공지사항</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">1:1 문의</a></li>
                             </ul>

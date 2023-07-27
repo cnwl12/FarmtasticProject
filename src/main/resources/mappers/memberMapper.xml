@@ -67,6 +67,11 @@
 	WHERE member_num = #{member_num};
   </select>
   
+  <select id="oneboard">
+  	SELECT one_board.one_board_num AS id, one_board.one_board_title AS title, members.name AS author, one_board.one_board_day AS date
+	FROM one_board
+	JOIN members ON one_board.member_num = members.member_num;
+  </select>
   <!-- 카트에 상품 있는지 조회(개별) -->
   <select id="getCart" resultType="boolean"> 
   	SELECT *

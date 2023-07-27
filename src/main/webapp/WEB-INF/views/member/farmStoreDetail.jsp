@@ -145,6 +145,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
                                     aria-selected="false">Reviews <span>(1)</span></a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
+                                    aria-selected="false">1:1 문의 <span>(1)</span></a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -176,6 +180,22 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                         Proin eget tortor risus.</p>
                                 </div>
                             </div>
+                             <div class="tab-pane" id="tabs-4" role="tabpanel">
+			        <div class="product__details__tab__desc">
+			            <table class="table">
+			                <thead>
+			                    <tr>
+			                        <th>#</th>
+			                        <th>제목</th>
+			                        <th>작성자</th>
+			                        <th>작성일</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="inquiryList">
+			                    <!-- 여기에 문의 내용이 추가됩니다. -->
+			                </tbody>
+			            </table>
+			        </div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +295,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
+	<script src="onehelp.jsp"></script>
+	
 </body>
 
 </html>
