@@ -76,20 +76,26 @@ public class MemberService {
 		// 카트 조회했을 때 제품이 있는지 없는지 조회
 		Boolean result = memberDAO.getCart(cart); 
 		// result = null - insert // true -update 진행
-		if(result != null) {
+		if(result != null) {// 기존 카트목록 getCart했을때 item에 들어있으면 update(수량변경)
 			memberDAO.updateCart(cart);
 			System.out.println("true update");	
-		}else {
+		}else { // getCart했을 때 item 없으면 insert
 			System.out.println("null 인서트");
 			memberDAO.insertCart(cart);
 		}
 	}
 	
-	// 카트리스트
+	// 카트 전체 목록
 	public List<Map<String, Object>> getCartList(int member_num) {
 		 System.out.println("MemberService getCart() 확인!");
 		return memberDAO.getCartList(member_num);
 	}
+	
+	/*
+	 * // 주문 상세 테이블에 담을것 public void insertOrderDetail(HashMap<String, String>
+	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");
+	 * memberDAO.insertOrderDetail(orderDetail); }
+	 */
 	
 	 
 }
