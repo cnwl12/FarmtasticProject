@@ -116,16 +116,14 @@ public class SellerService {
 			 return sellerDAO.getSales();
 		}
 		//정산 확인
-		public void updateSettlementYn(String sellerNum, String orderMonth) {
-		    System.out.println("서비스 오나요");
-		    List<String> sellerNums = Arrays.asList(sellerNum.split(","));
-		    Map<String, Object> parameters = new HashMap<>();
-		    parameters.put("sellerNums", sellerNums);
-		    parameters.put("order_month", orderMonth);
-		    sellerDAO.updateSettlementYn(parameters);
-		    System.out.println("sellerNum: " + sellerNums);
-		    System.out.println("orderMonth: " + orderMonth);
-		}
+		public void updateSettlementYn(String sellerNum, String orderMonth) { 
+			System.out.println("서비스 오나요"); 
+			List<String> sellerNums = Arrays.asList(sellerNum.split(",")); 
+			Map<String, Object> parameters = new HashMap<>(); parameters.put("sellerNums", sellerNums); 
+			parameters.put("order_month", orderMonth); 
+			sellerDAO.updateSettlementYn(parameters); 
+			System.out.println("service sellerNum: " + sellerNums); 
+			System.out.println("service orderMonth: " + orderMonth); } 
 		//정산 위한 판매자별 일별 매출리스트
 		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
 			System.out.println("서비스");

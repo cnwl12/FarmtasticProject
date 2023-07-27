@@ -68,11 +68,10 @@ public class SellerDAO {
 		    return sqlSession.selectList(namespace + ".daySales", param);
 		}
 		// 정산 'Y'로 바꾸기
-		public void updateSettlementYn(Map<String, Object> parameters) {
-			System.out.println("dao 오나요");
-			System.out.println(parameters);
-			  sqlSession.update("SellerMapper.updateSettlementYn", parameters);
-		}
+		public void updateSettlementYn(Map<String, Object> parameters) { 
+			System.out.println("dao 오나요"); 
+			System.out.println(parameters); 
+			sqlSession.update("SellerMapper.updateSettlementYn", parameters); }
 		
 		public void approveSellerStatus(List<String> sellerNum) {
 		    System.out.println("SellerDAO approveSellerStatus 확인");

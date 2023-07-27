@@ -1,3 +1,4 @@
+
 package com.itwillbs.farmtastic;
 
 import java.text.DateFormat;
@@ -277,7 +278,7 @@ public class AdminController {
 	}
 
 	
-	@PostMapping("/settlementYn")
+	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");
 	  sellerService.updateSettlementYn(sellerNum, orderMonth);

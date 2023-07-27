@@ -139,15 +139,15 @@
     
     
    <!-- 정산작업 아직 미완성구문 -->
-   <update id="updateSettlementYn" parameterType="map">		
-   		UPDATE settlement 
-		SET settlement_yn = 'Y'
-		WHERE seller_num IN 
-		( <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
-                #{sellerNum} </foreach> ) 
-		AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth};
-   </update>
-   
+<update id="updateSettlementYn" parameterType="map">       
+    UPDATE settlement
+    SET settlement_yn = 'Y'
+    WHERE seller_num IN
+    (   <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
+            #{sellerNum}
+        </foreach> ) 
+    AND DATE_FORMAT(order_day, '%Y-%m') = #{order_month};
+</update>
    
 
 	<!-- 일별 판매량 가져오기 -->

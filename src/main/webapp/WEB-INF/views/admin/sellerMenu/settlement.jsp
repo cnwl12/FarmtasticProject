@@ -58,7 +58,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
-                         <form action="${pageContext.request.contextPath}/settlementYn" method="post" id="settlementForm">
+                         <form action="${pageContext.request.contextPath}/updateSettlementYn" method="post" id="settlementForm">
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit">정산하기</button>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -101,7 +101,7 @@
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>
-                                            <td>${sale.settlement_settlement_yn}</td>
+                                            <td>${sale.settlement_yn}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
