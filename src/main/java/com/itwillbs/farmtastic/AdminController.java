@@ -247,6 +247,21 @@ public class AdminController {
 	    return "/admin/sellerMenu/settle_day";
 	}
 	
+	
+	@RequestMapping(value = "/settle_year", method = RequestMethod.GET)
+	public String settle_year(@RequestParam("seller_num") String sellerNum,Locale locale, Model model) {
+
+	    System.out.println("settle_year 매핑확인여부");
+	    List<Map<String, Object>> resultList = sellerService.yearSales(sellerNum);
+		 model.addAttribute("sales", resultList);
+		 model.addAttribute("seller_num", sellerNum);
+		 System.out.println(resultList+sellerNum);
+	    return "/admin/sellerMenu/settle_year";
+	}
+	
+	
+	
+	
 	//admin에 매출관리 목록 불러오기위한 구문
 	
 	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음

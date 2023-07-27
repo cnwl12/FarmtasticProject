@@ -1852,7 +1852,7 @@ ol {
 
 .shoping-cart {
 	padding-top: 80px;
-	padding-bottom: 80px;
+	padding-bottom: 0px;
 }
 
 .shoping__cart__table {
@@ -1898,6 +1898,10 @@ ol {
 .shoping__cart__table table tbody tr td.shoping__cart__item h5 {
 	color: #1c1c1c;
 	display: inline-block;
+	font-size: 18px;
+    color: #1c1c1c;
+    font-weight: 700;
+    width: 150px;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__price {
@@ -1925,7 +1929,10 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__quantity {
-	width: 225px;
+	font-size: 18px;
+    color: #1c1c1c;
+    font-weight: 700;
+    width: 110px;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__quantity .pro-qty {

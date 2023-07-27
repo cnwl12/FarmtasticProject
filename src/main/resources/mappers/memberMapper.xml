@@ -44,6 +44,7 @@
     </foreach>
   </update>
   
+  <!-- 장바구니에 목록 추가  -->
   <insert id="insertCart">
 	INSERT INTO cart (   
 				cart_num,
@@ -59,7 +60,7 @@
 	)
   </insert>
   
-  <!-- 카트 목록 조회 -->
+  <!-- 장바구니에 목록 조회 -->
   <select id="getCartList" resultType="map">
   	SELECT * 
 	FROM cart c  JOIN item i 
@@ -67,12 +68,7 @@
 	WHERE member_num = #{member_num};
   </select>
   
-  <select id="oneboard">
-  	SELECT one_board.one_board_num AS id, one_board.one_board_title AS title, members.name AS author, one_board.one_board_day AS date
-	FROM one_board
-	JOIN members ON one_board.member_num = members.member_num;
-  </select>
-  <!-- 카트에 상품 있는지 조회(개별) -->
+  <!-- 장바구니에 상품 있는지 조회(개별) -->
   <select id="getCart" resultType="boolean"> 
   	SELECT *
 	FROM  cart
@@ -81,6 +77,7 @@
   	LIMIT 1;
   </select>
   
+  <!-- 장바구니에 수량 변경 -->
   <update id="updateCart">
   	UPDATE cart as c
   	SET	cart_cnt = c.cart_cnt + #{cart_cnt}

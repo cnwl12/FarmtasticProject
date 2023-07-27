@@ -11,10 +11,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Farmtastic_Check</title>
+    
+    <!-- jQuery -->
+    <script type="text/javascript"
+      		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+        <!-- iamport.payment.js -->
+    <script
+      type="text/javascript"
+      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  
     
 
-    <!-- Google Font -->
+    <!-- Google Font --> 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
@@ -49,7 +59,7 @@
     <!-- Breadcrumb Section End -->
 	<!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
-        <div class="container">
+        <div class="container"> 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
@@ -64,45 +74,23 @@
                             </thead>
                             <tbody>
                             <!-- ////////////////////// -->
-				<%-- 					<table border="1">
-						<tr>
-							<th>카테고리 번호</th>
-							<th>상품명</th>
-							<th>가격</th>
-							<th>상품 이미지</th>
-							<th>상품 설명</th>
-						</tr>
-						<c:forEach var="item" items="${itemList}">
-							<tr>
-								<td>${item.category_num}</td>
-								<td>${item.item_name}</td>
-								<td>${item.item_price}</td>
-								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
-								<td>${item.item_detail}</td>
-							</tr>
-						</c:forEach>
-					</table> --%>
-
-                            <!-- ////////////////////// -->
 								<c:forEach var="item" items="${itemList}">
 								  <tr>
 								    <td class="shoping__cart__item">
 								      <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
 								      <h5>${item.item_name}</h5>
-								    </td>
+								    </td> 
 								    <td class="shoping__cart__price">
 								      ${item.item_price}
 								    </td>
 								    <!-- 수량 부분 수정 -->
 								    <td class="shoping__cart__quantity">
 								      <div class="quantity">
-								        <div class="pro-qty">
-								          <input type="text" name="quantity" value="${item.item_quantity}">
-								        </div>
+								          <div>${item.cart_cnt}</div>
 								      </div>
 								    </td>
 								    <td class="shoping__cart__total">
-								      ${item.item_price * item.item_quantity}
+								      ${item.item_price * item.cart_cnt}
 								    </td>
 								  </tr>
 								</c:forEach>
@@ -177,7 +165,7 @@
                                         <p>Email<span>*</span></p>
                                         <input type="text">
                                     </div>
-                                </div>
+                                </div>  
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="acc">
@@ -239,13 +227,14 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+                                <div id="order_num">${order_num}</div>
+                                <div id="member_email">${member_email}</div>
                                 <div id="item_name">${item_name}</div>
                                 <div id="item_price">${item_price}</div>
 	                            <div id="member_name">${member_name}</div>
 	                            <div id="member_phone">${member_phone}</div>
 	                            <div id="member_addMain">${member_addMain}</div>
 	                            <div id="member_addSub">${member_addSub}</div>
-	                            <div id="member_email">${member_email}</div>
 	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button> 
                             </div>
                         </div>

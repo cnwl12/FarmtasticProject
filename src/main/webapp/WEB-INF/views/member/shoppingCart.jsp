@@ -6,17 +6,14 @@
 
 <head>
 
-	<!-- 인호야 이거 안옮기니????   -->
-    <!-- jQuery -->
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-1.12.4.min.js"
-    ></script>
-    <!-- iamport.payment.js -->
-    <script
-      type="text/javascript"
-      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
-    ></script>
+<!-- 주문상세 테이블에 추가함수  -->
+<script type="text/javascript">
+function insertOrderDetail(){
+	
+	location.href="checkout?item_num="+item_num+"&cart_cnt="+cart_cnt;
+	
+}
+</script>
     
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
@@ -109,7 +106,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <input type="button" onclick="history()" value="CONTINUE SHOPPING">
                         <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             Upadate Cart</a>
                     </div>
@@ -132,8 +129,12 @@
                             <li>Subtotal <span>$454.98</span></li>
                             <li>Total <span>$454.98</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <!-- 복사 -->
+                         <!-- <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART"> -->
+                        <!-- 기존 -->
+                        <!-- <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a> -->
                     </div>
+                         <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
                 </div>
             </div>
         </div>
@@ -153,7 +154,13 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
-
+	<script type="text/javascript">
+	function history(){
+		alert("계속 쇼핑하시겠습니까?");
+		history.back();
+	}
+	
+	</script>
 
 </body>
 

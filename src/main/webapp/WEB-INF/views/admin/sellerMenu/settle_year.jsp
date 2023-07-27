@@ -51,29 +51,26 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
-                    <form action="${pageContext.request.contextPath}/settle_year" method="get">
-  					<input type="hidden" name="seller_num" value="${seller_num}">
-  					<button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">연간상세내역보기</button>
-					</form>
-                   
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">업체별 일별 매출</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">업체별 연간 매출</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <form id="searchForm" method="get"  action="/settle_day">
-                                <input type="hidden" name="seller_num" value="${seller_num}" />
-  								<input type="hidden" name="order_month" value="${orderMonth}" />
+                                <form id="searchForm" method="get"  action="/settle_year">
+                                  <input type="hidden" name="seller_num" value="${seller_num}" />
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>코드</th>
-                                            <th>업체명</th>
                                             <th>대표자</th>
-                                            <th>매출일</th>
-                                            <th>매출액(업체)</th>
+                                            <th>매출월</th>
+                                            <th>매출액</th>
                                             <th>수수료</th>
                                             <th>정산액</th>
                                         </tr>
@@ -81,10 +78,9 @@
                                     <tfoot>
                                         <tr>
                                             <th>코드</th>
-                                            <th>업체명</th>
                                             <th>대표자</th>
-                                            <th>매출일</th>
-                                            <th>매출액(업체)</th>
+                                            <th>매출월</th>
+                                            <th>매출액</th>
                                             <th>수수료</th>
                                             <th>정산액</th>
                                         </tr>
@@ -92,10 +88,9 @@
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
-                                            <td> ${sale.seller_num}</td>
-                                            <td>${sale.seller_storeName}</td>
+                                            <td>${sale.seller_num}</td>
                                             <td>${sale.seller_name}</td>
-                                            <td>${sale.order_day}</td>
+                                            <td>${sale.order_month}</td>
                                             <td>${sale.revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.income}</td>

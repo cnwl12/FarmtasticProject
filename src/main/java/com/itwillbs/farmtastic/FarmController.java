@@ -48,6 +48,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String index(Locale locale, Model model) {
 
 		System.out.println("index 매핑확인여부");
+		
+		List<Map<String, Object>> itemList = sellerService.getItems();
+		model.addAttribute("itemList", itemList);
 
 		return "index";
 	}
@@ -214,8 +217,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
 		
-		 List<Map<String, Object>> itemList = sellerService.getItems();
-		 model.addAttribute("itemList", itemList);
+		List<Map<String, Object>> itemList = sellerService.getItems();
+		model.addAttribute("itemList", itemList);
 
 		System.out.println("팜팜마켓 매핑확인여부");
 
@@ -295,9 +298,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/shoppingCart";
 	}
 	
-	// 장바구니 멤버에서 새로 생길 예정임!! 일단은 확인용으로 여기있는거!!!!! 
+	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(Model model, HttpServletRequest session) {
+	public String checkout(Model model, HttpServletRequest session){
 
 		System.out.println("checkout 매핑확인여부");
 		
@@ -305,8 +308,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
-
+		
+		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
+		/* memberService.insertOrderDetail(orderDetail); */
+		
 		return "/member/checkout";
+		
+		// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert) 진행
 	}
 
 	
@@ -336,7 +344,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("MemberController loginPro()");
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 		if(memberDTO2 != null) {
-			session .setAttribute("member_id", memberDTO.getMember_id());
+			session.setAttribute("member_num", memberDTO2.getMember_num());
 			return "redirect:/index";
 		} else {
 			return "redirect:/login";
