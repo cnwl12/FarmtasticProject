@@ -120,12 +120,12 @@
 	    
       <!--월별 판매량 가져오기  -->
     <select id="getSales" resultType="map">
-    	SELECT s.seller_num, s.seller_storeName, s.seller_name,
-       	DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
+    	SELECT s.seller_num, s.seller_id, s.seller_name,
+       	DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
        	FORMAT(SUM(o.order_pay), 0) AS total_revenue,
        	FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
        	FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
-      	st.settlement_yn
+       	st.settlement_yn
 		FROM seller s
 		LEFT JOIN item i ON s.seller_num = i.seller_num
 		LEFT JOIN orders o ON i.item_num = o.item_num
@@ -134,30 +134,19 @@
 		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
 		ORDER BY order_month;
     </select>
+    
+    
    <!-- 정산작업 아직 미완성구문 -->
-<update id="updateSettlementYn" parameterType="map">
-     UPDATE settlement st
-    SET st.settlement_yn = 'Y'
-    WHERE st.seller_num IN
-    (
-        SELECT s.seller_num
-        FROM seller s
-        WHERE s.seller_num IN
-        (
-            <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
-                #{sellerNum}
-            </foreach>
-        )
-    )
-    AND EXISTS
-    (
-        SELECT 1
-        FROM orders o
-        JOIN item i ON o.item_num = i.item_num
-        WHERE i.seller_num = st.seller_num
-        AND DATE_FORMAT(o.order_day, '%Y-%m') = #{orderMonth}
-    );
-</update>
+   <update id="updateSettlementYn" parameterType="map">		
+   		UPDATE settlement 
+		SET settlement_yn = 'Y'
+		WHERE seller_num IN 
+		( <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
+                #{sellerNum} </foreach> ) 
+		AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth};
+   </update>
+   
+   
 
 	<!-- 일별 판매량 가져오기 -->
 	<select id="daySales" resultType="map" parameterType="map">
