@@ -65,7 +65,6 @@
     </foreach>
 </update>
     
-    
 	<!-- 상품 등록 -->
     <insert id="itemInsert">
 	    INSERT INTO item (
