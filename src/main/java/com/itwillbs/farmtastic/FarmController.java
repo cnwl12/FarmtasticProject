@@ -331,7 +331,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("MemberController loginPro()");
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 		if(memberDTO2 != null) {
-			session .setAttribute("member_id", memberDTO.getMember_id());
+			session.setAttribute("member_num", memberDTO2.getMember_num());
 			return "redirect:/index";
 		} else {
 			return "redirect:/login";

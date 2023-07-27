@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,8 +59,8 @@
                         </div>
                         <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
                         <input type="hidden" id="actionType" name="actionType" /> 
-                        <button class="" id="recoSeller" type="submit">업체 승인</button>
-                        <button class="" id="rejectSeller" type="submit">업체 거절</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -86,18 +87,20 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-    								<c:set var="count" value="0" /> <!-- 카운트 초기화 -->
-    								<c:forEach items="${sellers}" var="seller">
+    								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
+    								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
+    								<c:forEach items="${sellers}" var="seller" varStatus="status">
         							<c:if test="${seller.seller_recoYn != 'Y'}">
-            						<c:set var="count" value="${count + 1}" /> <!-- 카운트 증가 -->
+            						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
+            						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
             						<tr>
-                					<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
-               	 					<td>${count}</td> <!-- 카운트 표시 -->
-                					<td>${seller.seller_storeName}</td>
-                					<td>${seller.seller_name}</td>
-                					<td>${seller.seller_licenseNum}</td>
-                					<td>${seller.seller_recoYn}</td>
-                					<td>${seller.seller_joinDay}</td>
+                						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
+                						<td>${count}</td> <!-- 순차 카운터 표시 -->
+                						<td>${seller.seller_storeName}</td>
+                						<td>${seller.seller_name}</td>
+                						<td>${seller.seller_licenseNum}</td>
+                						<td>${seller.seller_recoYn}</td>
+                						<td>${seller.seller_joinDay}</td>
             						</tr>
         							</c:if>
     								</c:forEach>
@@ -114,10 +117,10 @@
                         <input type="hidden" id="actionType" name="actionType" /> 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" class="reject-check-all"/></th>
+                                            <th><input type="checkbox" class="reco-check-all"/></th>
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
@@ -127,7 +130,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th><input type="checkbox" class="reject-check-all"/></th>
+                                            <th><input type="checkbox" class="reco-check-all"/></th>
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
@@ -139,7 +142,7 @@
                                         <c:forEach items="${sellers}" var="seller">
    								 		<c:if test="${seller.seller_recoYn == 'Y'}">
         								<tr>
-            							<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
+            							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
             							<td>${seller.seller_num}</td>
             							<td>${seller.seller_storeName}</td>
             							<td>${seller.seller_name}</td>
@@ -214,30 +217,34 @@
     });
 
     // Check All checkboxes
-    const sellerAdmin = document.querySelector('#sellerAdmin');
-    const rejectCheckAll = sellerAdmin.querySelectorAll('.reject-check-all');
-    const recoCheckAll = sellerAdmin.querySelectorAll('.reco-check-all');
-    const sellerRejectboxes = sellerAdmin.querySelectorAll('.sellerRejectbox');
+    function toggleRejectCheckAll() {
+  const rejectCheckAll = sellerAdmin.querySelectorAll(".reject-check-all");
+  const sellerRejectboxes = sellerAdmin.querySelectorAll(".sellerRejectbox");
 
-    function toggleCheckboxes(checkboxes, checked) {
-    	 checkboxes.forEach(checkbox => {
-    	        if (checkbox.closest('.card-body') === sellerAdmin.querySelector('.card-body')) {
-    	            checkbox.checked = checked;
-    	        }
-    	    });
-    }
-
-    rejectCheckAll.forEach(checkAll => {
-        checkAll.addEventListener('click', (event) => {
-            toggleCheckboxes(sellerRejectboxes, event.target.checked);
-        });
+  rejectCheckAll.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      sellerRejectboxes.forEach((checkbox) => {
+        checkbox.checked = event.target.checked;
+      });
     });
+  });
+}
 
-    recoCheckAll.forEach(checkAll => {
-        checkAll.addEventListener('click', (event) => {
-            toggleCheckboxes(sellerRejectboxes, event.target.checked);
-        });
+function toggleRecoCheckAll() {
+  const recoCheckAll = sellerAdmin.querySelectorAll(".reco-check-all");
+  const sellerRecoboxes = sellerAdmin.querySelectorAll(".sellerRecobox");
+
+  recoCheckAll.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      sellerRecoboxes.forEach((checkbox) => {
+        checkbox.checked = event.target.checked;
+      });
     });
+  });
+}
+
+toggleRejectCheckAll();
+toggleRecoCheckAll();
 </script>
 	
 </body>

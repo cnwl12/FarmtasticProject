@@ -356,7 +356,7 @@ $(document).ready(function() {
     validateForm();
 
     if (validId && validPwd) {
-      document.login.submit(); // 여기를 수정하여 폼을 서버로 전송해주세요.
+      document.login.submit(); 
     } else {
       alert("올바른 정보를 입력해주세요");
     }
@@ -366,7 +366,7 @@ $(document).ready(function() {
     validateForm2();
 
     if (validId2 && validPwd2) {
-      document.login2.submit(); // 여기를 수정하여 폼을 서버로 전송해주세요.
+      document.login2.submit(); 
     } else {
       alert("올바른 정보를 입력해주세요");
     }
