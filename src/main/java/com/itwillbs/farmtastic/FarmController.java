@@ -48,6 +48,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String index(Locale locale, Model model) {
 
 		System.out.println("index 매핑확인여부");
+		
+		List<Map<String, Object>> itemList = sellerService.getItems();
+		model.addAttribute("itemList", itemList);
 
 		return "index";
 	}
@@ -214,8 +217,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
 	public String farmStore(Locale locale, Model model) {
 		
-		 List<Map<String, Object>> itemList = sellerService.getItems();
-		 model.addAttribute("itemList", itemList);
+		List<Map<String, Object>> itemList = sellerService.getItems();
+		model.addAttribute("itemList", itemList);
 
 		System.out.println("팜팜마켓 매핑확인여부");
 

@@ -109,7 +109,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <input type="button" onclick="history()" value="CONTINUE SHOPPING">
                         <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             Upadate Cart</a>
                     </div>
@@ -132,7 +132,7 @@
                             <li>Subtotal <span>$454.98</span></li>
                             <li>Total <span>$454.98</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,13 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
-
+	<script type="text/javascript">
+	function history(){
+		history.back();
+		alert("계속 쇼핑하시겠습니까?");
+	}
+	
+	</script>
 
 </body>
 
