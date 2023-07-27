@@ -31,6 +31,7 @@ public class SellerService {
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
 		}
+		
 	    // 판매자 정보 수정
 		public List<Map<String, Object>> sellerCheck(List<Map<String, Object>> sellerList) {
 			System.out.println("SellerService sellerCheck 확인!");

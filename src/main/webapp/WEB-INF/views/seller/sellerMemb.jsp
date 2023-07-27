@@ -96,7 +96,7 @@
 									<div class="form-control-static">${seller.seller_mobile}</div>
 								</div>
 								</li>
-								<a href="${pageContext.request.contextPath}/sellerUpdate">회원정보수정</a><br>
+								<a href="${pageContext.request.contextPath}/sellerUpdate">판매자정보수정</a><br>
 							</ul>
 						</div>
 					</div>
@@ -119,9 +119,7 @@
 												${seller.seller_bank}${seller.seller_accountNum} <span class="text-sub">(예금주: ${seller.seller_accountHolder})</span>
 											</div>
 											<div class="form-group">
-												<button type="button" class="btn btn-default2"
-													ng-click="vm.openBankAccountInfoModal()"
-													data-nclicks-code="settleInfo.changeIndividualSettleBA">변경</button>
+												<a href="${pageContext.request.contextPath}/sellerUpdate">계좌정보수정</a><br>
 											</div>
 										</div>
 										<!---->

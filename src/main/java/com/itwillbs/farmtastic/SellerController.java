@@ -66,9 +66,8 @@ public class SellerController {
 		return "/seller/sellerUpdate";
 	}
 	
-	// 판매자 정보 수정Pro
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	public String sellerUpdatePro(List<Map<String, Object>> sellerList) {
+	public String sellerUpdatePro(@RequestParam List<Map<String, Object>> sellerList) {
 		System.out.println("sellerUpdatePro 매핑확인여부");
 		
 		List<Map<String, Object>> sellerList2 = sellerService.sellerCheck(sellerList);

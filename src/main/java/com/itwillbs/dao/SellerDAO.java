@@ -48,7 +48,6 @@ public class SellerDAO {
 			
 		}
 
-
 		public List<Map<String, Object>> getItems() {
 			System.out.println("List 오나요");
 			return sqlSession.selectList(namespace + ".getItems");
@@ -83,7 +82,6 @@ public class SellerDAO {
 		    System.out.println("SellerDAO rejectSellerStatus 확인");
 		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
 		}
-		
 		
 		
 		public Map<String, Object> getItem(int item_num) {
