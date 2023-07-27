@@ -21,8 +21,28 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers() {
 	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
-
-
+	    
+	    // 가맹점관리
+		public List<Map<String, Object>> getSeller() {
+			return sqlSession.selectList("SellerMapper.getSeller()");
+		}
+		
+		// 판매자 정보 수정
+		public List<Map<String, Object>> sellerCheck(List<Map<String, Object>> sellerList) {
+			System.out.println("SellerDAO sellerCheck 확인");
+			return sqlSession.selectOne(namespace + ".sellerCheck", sellerList);
+		}
+		
+		public List<Map<String, Object>> getSellerInfo(String seller_id) {
+			System.out.println("SellerDAO getSellerInfo 확인");
+			return sqlSession.selectList(namespace+".getSellerInfo", seller_id);
+		}
+		public void updateSeller(List<Map<String, Object>> sellerList) {
+			System.out.println("SellerDAO의 updateSeller 확인");
+			sqlSession.update(namespace + ".updateSeller", sellerList);
+		}
+		
+		
 		public void itemInsert(HashMap<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			
@@ -54,10 +74,6 @@ public class SellerDAO {
 			  sqlSession.update("SellerMapper.updateSettlementYn", parameters);
 		}
 		
-		public List<Map<String, Object>> getSeller() {
-			return sqlSession.selectList(namespace+".getSeller");
-		}
-
 		public void approveSellerStatus(List<String> sellerNum) {
 		    System.out.println("SellerDAO approveSellerStatus 확인");
 		    sqlSession.update(namespace+".approveSellerStatus", sellerNum);
@@ -80,6 +96,10 @@ public class SellerDAO {
 			System.out.println("dao itemNum : !! " + sellerNum );
 			return sqlSession.selectList(namespace+".yearSales", sellerNum);
 		}
+
+
+
+
 
 
 		

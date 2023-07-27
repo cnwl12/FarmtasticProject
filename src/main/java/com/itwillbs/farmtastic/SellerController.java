@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
 /**
@@ -50,6 +51,37 @@ public class SellerController {
 		
 		return "/seller/sellerMemb";
 	}
+	
+	// 판매자 정보 수정
+	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
+	public String sellerUpdate(HttpSession session, Model model) {
+		System.out.println("sellerUpdate 매핑확인여부");
+		
+		String seller_id = (String)session.getAttribute("seller_id");
+		
+		List<Map<String, Object>> sellerList = sellerService.getSellerInfo(seller_id);
+		
+		model.addAttribute("sellerList", sellerList);
+		
+		return "/seller/sellerUpdate";
+	}
+	
+	// 판매자 정보 수정Pro
+	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
+	public String sellerUpdatePro(List<Map<String, Object>> sellerList) {
+		System.out.println("sellerUpdatePro 매핑확인여부");
+		
+		List<Map<String, Object>> sellerList2 = sellerService.sellerCheck(sellerList);
+		
+		if(sellerList2 != null) {
+			sellerService.updateSeller(sellerList);
+			return "redirect:/seller/sellerMain";
+		} else {
+			return "/seller/msg";
+		}
+	}
+	
+	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
