@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -399,6 +400,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		return entity;
 	}// idCheck 끝
+	
+//	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+//	    public String oneBoard(Model model) {
+//	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
+//	        model.addAttribute("oneBoardList", oneBoardList);
+//
+//	        return "/member/oneboard";
+//	    }
+
+	  @PostMapping("/oneboardForm")
+	    public String oneBoardForm(MemberDTO memberDTO) {
+	        memberService.insertOneBoard(memberDTO);
+
+	        return "redirect:/oneboard";
+	    }
 	
 	
 

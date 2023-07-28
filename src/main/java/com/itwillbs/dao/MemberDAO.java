@@ -100,4 +100,11 @@ public class MemberDAO {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }
 	
+	 public void insertOneBoard(MemberDTO memberDTO) {
+	        sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
+	    }
+
+	 public List<MemberDTO> getOneBoardList() {
+	        return sqlSession.selectList(namespace + ".getOneBoardList");
+	    }
 }

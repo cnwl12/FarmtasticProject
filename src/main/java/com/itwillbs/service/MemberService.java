@@ -101,6 +101,12 @@ public class MemberService {
 	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");
 	 * memberDAO.insertOrderDetail(orderDetail); }
 	 */
-	
+	public void insertOneBoard(MemberDTO memberDTO) {
+        memberDAO.insertOneBoard(memberDTO);
+    }
+
+    public List<MemberDTO> getOneBoardList() {
+        return memberDAO.getOneBoardList();
+    }
 	 
 }

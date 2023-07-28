@@ -87,12 +87,21 @@
   
   
    <update id="updateMember">
-  UPDATE member
-  SET member_name = #{member_name},
+  	UPDATE member
+ 	SET member_name = #{member_name},
       member_phone = #{member_phone},
       member_email = #{member_email}
       <if test="member_password != null">, member_password = #{member_password}</if>
-  WHERE member_id = #{member_id}
-</update>
+  	WHERE member_id = #{member_id}
+	</update>
+	
+	<insert id="insertOneBoard">
+	insert into one_board(one_board_type, one_board_title, one_board_content, one_board_file,
+	one_board_private, one_board_pass, one_board_day,one_board_repYn)
+	values(#{one_board_type}, #{one_board_title}, #{one_board_content}, #{one_board_file},
+	#{one_board_private}, #{one_board_pass}, #{one_board_day}, #{one_board_repYn})
+	</insert>
+
+
   
 </mapper>
