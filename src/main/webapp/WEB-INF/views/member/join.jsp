@@ -37,24 +37,6 @@ input#post {
     width: 329px;
 }
 
-button#goMain {
-    background-color: #7fad39;
-    color : #fff !important; 
-    min-width: 115px;
-    margin-left: 5px;
-    padding-right: 15px;
-    min-height: 40px;
-}
-
-button#submitBtn {
-	background: #7fad39; 
-	color : #fff !important;
-    min-width: 115px;
-    margin-left: 5px;
-    padding-right: 15px;
-    min-height: 40px;
-}
-
 .invalid-feedback {
     display: none;
     width: 100%;
@@ -254,8 +236,8 @@ button#submitBtn {
 								
 							
 							<div class="btn_zone">
-							<button type="button" id="goMain" class="bg_area btn_bg l2" style="color: #fff;" >처음으로</button>
-							<button type="button" id="submitBtn" class="bg_area btn_bg l1 md" style="color: #fff;">확인</button>
+							<button type="button" id="goMain" class="site-btn">처음으로</button>
+							<button type="button" id="submitBtn" class="site-btn">확인</button>
 							</div>
  							
 							

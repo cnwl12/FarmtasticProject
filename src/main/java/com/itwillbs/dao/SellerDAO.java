@@ -8,9 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.SellerDTO;
-
 
 
 @Repository
@@ -24,23 +21,18 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers() {
 	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
-	    
-	    // 판매자 회원 가입
-	    public void insertSeller(SellerDTO sellerDTO) {
-			System.out.println("SellerDAO insertSeller() 확인");
-			System.out.println(sellerDTO);
-			sqlSession.insert(namespace+".insertSeller", sellerDTO); 
-		}
+
 	    
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
-			return sqlSession.selectList("SellerMapper.getSeller()");
+			return sqlSession.selectList(namespace+".getSeller");
 		}
 		
 		// 판매자 ID 중복체크
 		public SellerDTO sellerCheck(String seller_id) {
 			System.out.println("SellerDAO sellerCheck");
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
+			return sqlSession.selectList(namespace+".getSeller");
 		}
 		
 		// 판매자 정보 수정
@@ -48,18 +40,24 @@ public class SellerDAO {
 	         System.out.println("SellerDAO sellerCheck 확인");
 	         return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList);
 	      }
+	      
+		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfo) {
+			System.out.println("SellerDAO의 sellerCheck 매핑완");
+			return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfo);
+		}
 		
 		public Map<String, Object> getSellerInfo(String seller_num) {
 			System.out.println("SellerDAO getSellerInfo 확인");
 			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
 		}
-		public void updateSeller(Map<String, Object> sellerInfoList) {
-			System.out.println("SellerDAO의 updateSeller 확인");
-			sqlSession.update(namespace + ".updateSeller", sellerInfoList);
+		
+		public void updateSeller(Map<String, Object> sellerInfo) {
+			System.out.println("SellerDAO의 updateSeller 매핑완");
+			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 		
 		
-		public void itemInsert(HashMap<String, String> itemList) {
+		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			
 		}

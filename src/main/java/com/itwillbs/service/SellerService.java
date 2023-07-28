@@ -16,30 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
 import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.SellerDTO;
 
 @Service
 public class SellerService {
 	
 	 @Autowired
 	    private SellerDAO sellerDAO;
-	 
-		public void insertSeller(SellerDTO sellerDTO) {
-			System.out.println("SellerService insertSeller() 확인!!!");
-			
-			// 날짜 저장 (테스트 dto에서는 date 지웠음)
-			// sellerDTO.setDate(new Timestamp(System.currentTimeMillis()));
-			
-			// insertSeller 메서드 호출  
-			sellerDAO.insertSeller(sellerDTO);
-		}	
-		
-		public SellerDTO sellerCheck(String seller_id) {
-			System.out.println("SellerService sellerCheck()");
-			
-			return sellerDAO.sellerCheck(seller_id);
-		}
-	 	
 	 	//매출관리에 판매자별 총매출 불러오기 위한 구문
 	    public List<Map<String, Object>> getSellers() {
 	        return sellerDAO.getSellers();
@@ -50,21 +32,29 @@ public class SellerService {
 			return sellerDAO.getSeller();
 		}
 		
+		// 판매자 체크
 		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
 	         System.out.println("SellerService sellerCheck 확인!");
 	         return sellerDAO.sellerCheck(sellerInfoList);
 	      }
+			System.out.println("SellerService의 sellerCheck 매핑완");
+			return sellerDAO.sellerCheck(sellerInfoList);
+		}
 		
 		// 판매자 정보 수정
-	      public Map<String, Object> getSellerInfo(String seller_num) {
-	         System.out.println("SellerService getSellerInfo 확인!");
-	         System.out.println("넘어온 셀러 코드 : " + seller_num);
-	         return sellerDAO.getSellerInfo(seller_num);
-	      }
+		public Map<String, Object> getSellerInfo(String seller_num) {
+			System.out.println("SellerService의 getSellerInfo 매핑완");
+	
+			return sellerDAO.getSellerInfo(seller_num);
+		}
 		
 		public void updateSeller (Map<String, Object> sellerInfoList) {
 			System.out.println("SellerService updateSeller 확인!");
 			sellerDAO.updateSeller(sellerInfoList);
+		public void updateSeller(Map<String, Object> sellerInfo) {
+			System.out.println("SellerService의 updateSeller 매핑완");
+			sellerDAO.updateSeller(sellerInfo);
+
 		}
 
 		
