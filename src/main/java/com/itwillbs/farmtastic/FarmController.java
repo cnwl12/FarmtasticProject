@@ -290,7 +290,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 321; // <- 로그인 됐을 때 지울거임
+		int member_num = 578; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -302,6 +302,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "redirect:/shoppingCart";
 	}
 	
+	// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
 	public String shopingCart(Model model, HttpServletRequest session) {
 		
@@ -309,7 +310,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 321; // <- 로그인 됐을 때 지울거임
+		int member_num = 578; // <- 로그인 됐을 때 지울거임
 		
 		
 		 List<Map<String, Object>> itemList = memberService.getCartList(member_num);
@@ -325,19 +326,35 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		System.out.println("checkout 매핑확인여부");
 		
-		int member_num = 321;
+		int member_num = 578;
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
 		
-		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
-		/* memberService.insertOrderDetail(orderDetail); */
-		
 		return "/member/checkout";
 		
-		// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert) 진행
 	}
 
+	
+	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert) 진행
+	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가 
+	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
+	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail
+									,HttpServletRequest session){
+		
+		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
+		
+		int member_num = 578; // <- 로그인 됐을 때 지울거임
+//		System.out.println(member_num + ", "+ orderDetail);
+		
+		orderDetail.put("member_num", member_num);
+				
+		memberService.insertOrderDetail(orderDetail);
+		System.out.println("컨-서 다녀왔을 때" + orderDetail);
+	
+		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
+		return "redirect:/checkout";
+	}
 	
 	// -------------------------------------------------------
 	

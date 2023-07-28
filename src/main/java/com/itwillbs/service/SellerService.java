@@ -146,14 +146,11 @@ public class SellerService {
 		    System.out.println("SellerService rejectSellerStatus 확인!");
 		    sellerDAO.rejectSellerStatus(sellerNum);
 		}
-	
 		
 		public Map<String, Object> getItem(int item_num) {
 			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
 		}
-
-
 
 		
 		
