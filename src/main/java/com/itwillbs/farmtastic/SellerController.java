@@ -65,7 +65,7 @@ public class SellerController {
 	
 	
 	
-	// 판매자 정보 수정
+	// 선진) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
 	public String sellerUpdate(Model model) {
 		System.out.println("SellerController의 sellerUpdate 매핑완");
@@ -83,14 +83,16 @@ public class SellerController {
 		return "/seller/sellerUpdate";
 	}
 	
+	// 선진) 판매자 정보 수정
+	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
 		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 		
 //		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfo);
 //		System.out.println(sellerInfoList2);
-		
 		System.out.println("!@#!@#");
 		System.out.println(sellerInfo);
+		
 		
 		if(sellerInfo != null) {
 			System.out.println("null 아님");
@@ -102,6 +104,7 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
+	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {

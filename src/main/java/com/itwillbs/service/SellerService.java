@@ -32,30 +32,35 @@ public class SellerService {
 			return sellerDAO.getSeller();
 		}
 		
-		// 판매자 체크
+		// 선진) 판매자 체크
 		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
-	         System.out.println("SellerService sellerCheck 확인!");
-	         return sellerDAO.sellerCheck(sellerInfoList);
-	    }
-		
-		public SellerDTO sellerCheck(String seller_id) {
-         System.out.println("SellerService sellerCheck()");
-         
-         return sellerDAO.sellerCheck(seller_id);
+			System.out.println("SellerService의 sellerCheck 매핑완");
+			return sellerDAO.sellerCheck(sellerInfoList);
 		}
 		
-		// 판매자 정보 수정
+		// 7시 32분에 푸시된 코드같아서 일단 추가해봄 필요없으면 지우셔요
+		public SellerDTO sellerCheck(String seller_id) {
+	         System.out.println("SellerService sellerCheck()");
+	         
+	         return sellerDAO.sellerCheck(seller_id);
+		}
+		
+		
+		// 판매자 정보
 		public Map<String, Object> getSellerInfo(String seller_num) {
 			System.out.println("SellerService의 getSellerInfo 매핑완");
 	
 			return sellerDAO.getSellerInfo(seller_num);
 		}
 		
-		public void updateSeller (Map<String, Object> sellerInfoList) {
-			System.out.println("SellerService updateSeller 확인!");
-			sellerDAO.updateSeller(sellerInfoList);
-		}	
-			
+		// 판매자 정보 수정
+		public void updateSeller(Map<String, Object> sellerInfo) {
+			System.out.println("SellerService의 updateSeller 매핑완");
+			sellerDAO.updateSeller(sellerInfo);
+
+		}
+
+		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 			
