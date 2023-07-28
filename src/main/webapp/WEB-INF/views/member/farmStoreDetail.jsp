@@ -182,10 +182,12 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                              <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        <div class="product__details__tab__desc">
+			        <a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
 			            <table class="table">
 			                <thead>
 			                    <tr>
-			                        <th>#</th>
+			                        <th>답변상태</th>
+			                        <th>문의유형</th>
 			                        <th>제목</th>
 			                        <th>작성자</th>
 			                        <th>작성일</th>
@@ -196,6 +198,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                </tbody>
 			            </table>
 			        </div>
+			        		</div>
                         </div>
                     </div>
                 </div>
@@ -296,6 +299,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="onehelp.jsp"></script>
+	<script>
+	function openPopup() {
+	  window.open(
+	    "oneboard", 
+	    "oneboardpop", 
+	    "width=600, height=1000, left=100, top=50, scrollbars=no, resizable=yes"
+	  );
+	}
+	</script>
 	
 </body>
 

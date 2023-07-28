@@ -50,21 +50,30 @@
 	<!-- 판매자 체크 -->
     <select id="sellerCheck" resultType="map">
     select * from seller
-    where seller_id = #{seller_id} and seller_pass = #{seller_pass}
+<!--     where seller_id = #{seller_id} and seller_pass = #{seller_pass} -->
+    where seller_num = #{seller_num}
   	</select>
   	
   	<!-- 판매자 정보 -->
     <select id="getSellerInfo" resultType="map">
     select * from seller
-    where seller_id = #{seller_id}
+    where seller_num = #{seller_num}
     </select>
     
     <!-- 판매자 정보 수정 -->
     <update id="updateSeller">
-    <!-- 아이디가 일치하는 판매자의 이메일, 휴대폰번호를 수정 -->
+    <!-- 판매자 코드가 일치하는 판매자의 개인정보를 수정 -->
   	update seller
-  	set seller_email = #{seller_email} and seller_mobile = #{seller_mobile} 
-  	where seller_id = #{seller_id}
+  	set seller_email = #{seller_email}, 
+  		seller_mobile = #{seller_mobile}, 
+  		seller_bank = #{seller_bank},
+  		seller_accountNo = #{seller_accountNo},
+  		seller_accountHolder = #{seller_accountHolder},
+  		seller_post = #{seller_post},
+  		seller_addMain = #{seller_addMain},
+  		seller_addSub = #{seller_addSub},
+  		seller_bank = #{seller_bank}
+  	where seller_num = #{seller_num}
     </update>
     
     

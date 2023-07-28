@@ -8,8 +8,10 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,9 @@ public class SellerController {
 	
 	@Inject
 	private SellerService sellerService;
+	
+	//일단
+	String seller_num = "CT0001"; 
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -46,37 +51,44 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
 	public String sellerMemb(Locale locale, Model model) {
-		
 		System.out.println("sellerMemb 매핑확인여부");
+		System.out.println(seller_num);
 		
+		Map<String, Object> seller = sellerService.getSellerInfo(seller_num);
+		
+		model.addAttribute("seller", seller);
+		
+		System.out.println("sellerMemb에서 넘어온 셀러코드 : " + seller_num);
 		return "/seller/sellerMemb";
 	}
 	
 	// 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
-	public String sellerUpdate(HttpSession session, Model model) {
+	public String sellerUpdate(Model model) {
 		System.out.println("sellerUpdate 매핑확인여부");
 		
-		String seller_id = (String)session.getAttribute("seller_id");
+		// 나중에 로그인되면 디비에서 가져올 것
+//		String seller_num = (String)session.getAttribute("seller_num");
 		
-		List<Map<String, Object>> sellerList = sellerService.getSellerInfo(seller_id);
+		// 위로 뺌 String seller_num = "CR0001";
+		Map<String, Object> sellerInfoList = sellerService.getSellerInfo(seller_num);
 		
-		model.addAttribute("sellerList", sellerList);
+		model.addAttribute("sellerInfoList", sellerInfoList);
 		
 		return "/seller/sellerUpdate";
 	}
 	
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	public String sellerUpdatePro(@RequestParam List<Map<String, Object>> sellerList) {
+	public String sellerUpdatePro(@RequestBody Map<String, Object> sellerInfoList) {
 		System.out.println("sellerUpdatePro 매핑확인여부");
 		
-		List<Map<String, Object>> sellerList2 = sellerService.sellerCheck(sellerList);
+		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfoList);
 		
-		if(sellerList2 != null) {
-			sellerService.updateSeller(sellerList);
+		if(sellerInfoList2 != null) {
+			sellerService.updateSeller(sellerInfoList);
 			return "redirect:/seller/sellerMain";
 		} else {
-			return "/seller/msg";
+			return "이상하다!!!!!!!!!!!!!!!!!!!!";
 		}
 	}
 	
