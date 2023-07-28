@@ -185,7 +185,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			            <table class="table">
 			                <thead>
 			                    <tr>
-			                        <th>#</th>
+			                        <th>답변상태</th>
+			                        <th>문의유형</th>
 			                        <th>제목</th>
 			                        <th>작성자</th>
 			                        <th>작성일</th>
@@ -196,6 +197,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                </tbody>
 			            </table>
 			        </div>
+			        		</div>
                         </div>
                     </div>
                 </div>
