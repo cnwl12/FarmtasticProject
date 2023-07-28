@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
-import com.itwillbs.domain.MemberDTO;
 
 @Service
 public class SellerService {
