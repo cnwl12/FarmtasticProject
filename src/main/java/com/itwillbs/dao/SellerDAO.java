@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.SellerDTO;
+
 
 
 @Repository
@@ -32,7 +34,6 @@ public class SellerDAO {
 		public SellerDTO sellerCheck(String seller_id) {
 			System.out.println("SellerDAO sellerCheck");
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
-			return sqlSession.selectList(namespace+".getSeller");
 		}
 		
 		// 판매자 정보 수정
@@ -40,11 +41,6 @@ public class SellerDAO {
 	         System.out.println("SellerDAO sellerCheck 확인");
 	         return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList);
 	      }
-	      
-		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfo) {
-			System.out.println("SellerDAO의 sellerCheck 매핑완");
-			return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfo);
-		}
 		
 		public Map<String, Object> getSellerInfo(String seller_num) {
 			System.out.println("SellerDAO getSellerInfo 확인");
@@ -109,14 +105,10 @@ public class SellerDAO {
 		}
 
 
-
-
-
-
-		
-			
-		
-
-
-		
+		// 판매자 회원 가입
+		public void insertSeller(SellerDTO sellerDTO) {
+	         System.out.println("SellerDAO insertSeller() 확인");
+	         System.out.println(sellerDTO);
+	         sqlSession.insert(namespace+".insertSeller", sellerDTO); 
+		}
 }

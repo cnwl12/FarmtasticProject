@@ -521,6 +521,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck 끝
 	
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
+	
 	@ResponseBody
 	public ResponseEntity<String> idCheck2(HttpServletRequest request) {
 		

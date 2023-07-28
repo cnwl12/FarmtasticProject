@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
+import com.itwillbs.domain.SellerDTO;
 
 @Service
 public class SellerService {
@@ -35,9 +36,12 @@ public class SellerService {
 		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
 	         System.out.println("SellerService sellerCheck 확인!");
 	         return sellerDAO.sellerCheck(sellerInfoList);
-	      }
-			System.out.println("SellerService의 sellerCheck 매핑완");
-			return sellerDAO.sellerCheck(sellerInfoList);
+	    }
+		
+		public SellerDTO sellerCheck(String seller_id) {
+         System.out.println("SellerService sellerCheck()");
+         
+         return sellerDAO.sellerCheck(seller_id);
 		}
 		
 		// 판매자 정보 수정
@@ -50,13 +54,8 @@ public class SellerService {
 		public void updateSeller (Map<String, Object> sellerInfoList) {
 			System.out.println("SellerService updateSeller 확인!");
 			sellerDAO.updateSeller(sellerInfoList);
-		public void updateSeller(Map<String, Object> sellerInfo) {
-			System.out.println("SellerService의 updateSeller 매핑완");
-			sellerDAO.updateSeller(sellerInfo);
-
-		}
-
-		
+		}	
+			
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 			
@@ -160,6 +159,16 @@ public class SellerService {
 			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
 		}
+
+		public void insertSeller(SellerDTO sellerDTO) {
+         System.out.println("SellerService insertSeller() 확인!!!");
+         
+         // 날짜 저장 (테스트 dto에서는 date 지웠음)
+         // sellerDTO.setDate(new Timestamp(System.currentTimeMillis()));
+         
+         // insertSeller 메서드 호출  
+         sellerDAO.insertSeller(sellerDTO);
+		}   
 
 
 

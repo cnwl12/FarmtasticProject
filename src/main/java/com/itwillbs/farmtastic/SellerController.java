@@ -83,19 +83,6 @@ public class SellerController {
 		return "/seller/sellerUpdate";
 	}
 	
-	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	   public String sellerUpdatePro(@RequestBody Map<String, Object> sellerInfoList) {
-	      System.out.println("sellerUpdatePro 매핑확인여부");
-	      
-	      Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfoList);
-	      
-	      if(sellerInfoList2 != null) {
-	         sellerService.updateSeller(sellerInfoList);
-	         return "redirect:/seller/sellerMain";
-	      } else {
-	         return "이상하다!!!!!!!!!!!!!!!!!!!!";
-	      }
-	   }
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
 		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 		
@@ -115,22 +102,6 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-	
-		
-		System.out.println("!@#!@#");
-		System.out.println(sellerInfo);
-		
-		if(sellerInfo != null) {
-			System.out.println("null 아님");
-			sellerService.updateSeller(sellerInfo);
-			return "redirect:/sellerMain";
-			
-		} else {
-			System.out.println("null임");
-			return "/seller/mgs";
-		}
-	}
-	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
