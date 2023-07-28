@@ -179,9 +179,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String kakaojoin(HttpServletRequest request, Model model) {
 
 		System.out.println("kakaojoin 매핑확인여부");
+		
 		HttpSession session = request.getSession();
 		String access_token = request.getParameter("access_token");
 		String apiUrl = "https://kapi.kakao.com/v2/user/me";
+		
 		JSONObject jsonObject = null; 
 		try {
 			URL url = new URL(apiUrl);
@@ -191,19 +193,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			// Header에 Access Token 추가
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Authorization", "Bearer " + access_token);
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
+		
 			/// 응답 받기
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
@@ -221,8 +211,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			}
 			br.close();
 			
-			 jsonObject = new JSONObject(response.toString());
-			
+		 jsonObject = new JSONObject(response.toString());
 			 
 		} catch (Exception e) {
 	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
@@ -230,439 +219,31 @@ public class FarmController { // 소비자 (컨트롤러)
 	        return "errorPage"; 
 	    }
 			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
+		/*
+		 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
+		 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
+		 */
 			 
 			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
+		/*
+		 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
+		 * userProfile = jsonObject.getJSONObject("response");
+		 */
 			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
+	 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
 		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
+	 	//String member_id = userProfile.getString("id");
+	 	String member_name = userProfile.getString("name");
+	 	String member_email = userProfile.getString("email");
+	 	//String member_phone = userProfile.getString("phone_number");
 
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-		HttpSession session = request.getSession();
-		String access_token = request.getParameter("access_token");
-		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		JSONObject jsonObject = null; 
-		try {
-			URL url = new URL(apiUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
-			// Header에 Access Token 추가
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			/// 응답 받기
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			 jsonObject = new JSONObject(response.toString());
-			
-			 
-		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-
+	 	// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
+	 	MemberDTO memberDTO = new MemberDTO();
+	 	//memberDTO.setMember_id(member_id);
+	 	memberDTO.setMember_name(member_name);
+	 	memberDTO.setMember_email(member_email);
+	 	//memberDTO.setMember_phone(member_phone);
+		
 			System.out.println(memberDTO.getMember_name());
 			MemberDAO memberDAO = new MemberDAO();
 			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
@@ -675,30 +256,7 @@ public class FarmController { // 소비자 (컨트롤러)
 				System.out.println("회원가입");
 				return "redirect:/index";
 			}
-			System.out.println(memberDTO.getMember_name());
-			MemberDAO memberDAO = new MemberDAO();
-			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-			if (memberDTO2 != null) {
-				System.out.println("로그인");
-				session.setAttribute("member_id", memberDTO.getMember_id());
-				return "redirect:/index";
-			} else {
-				memberService.insertMember(memberDTO);
-				System.out.println("회원가입");
-				return "redirect:/index";
-			}
-			System.out.println(memberDTO.getMember_name());
-			MemberDAO memberDAO = new MemberDAO();
-			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-			if (memberDTO2 != null) {
-				System.out.println("로그인");
-				session.setAttribute("member_id", memberDTO.getMember_id());
-				return "redirect:/index";
-			} else {
-				memberService.insertMember(memberDTO);
-				System.out.println("회원가입");
-				return "redirect:/index";
-			}
+			
 	}
 
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
@@ -965,13 +523,15 @@ public class FarmController { // 소비자 (컨트롤러)
 //
 //	        return "/member/oneboard";
 //	    }
-
-	  @PostMapping("/oneboardForm")
-	    public String oneBoardForm(MemberDTO memberDTO) {
-	        memberService.insertOneBoard(memberDTO);
-
-	        return "redirect:/oneboard";
-	    }
+	
+	
+	// 서영쓰 여기 한번 확인해주세여~~ 
+	/*
+	 * @PostMapping("/oneboardForm") public String oneBoardForm(MemberDTO memberDTO)
+	 * { memberService.insertOneBoard(memberDTO);
+	 * 
+	 * return "redirect:/oneboard"; }
+	 */
 	
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
 	

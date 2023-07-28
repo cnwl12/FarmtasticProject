@@ -41,18 +41,6 @@
          WHERE s.seller_num != 'admin'
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
     </select>
-<!--     저장프로시저 -->
-    <!-- 판매자 회원가입 -->
-    <insert id="insertSeller">  
- 	 	insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post, seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay)
- 	 	values((SELECT *
-		  FROM (
-				SELECT CONCAT(#{seller_type}, LPAD( (SELECT COUNT(*) + 1 as next_num 
-									 FROM seller 
-									WHERE seller_type = #{seller_type}), 3, '0'))
-					FROM DUAL
-		  ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
- 	</insert>   
     
    <!-- 가맹점 관리 -->
    <select id="getSeller" resultType="map"> 
