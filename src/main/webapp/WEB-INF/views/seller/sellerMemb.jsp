@@ -51,7 +51,8 @@
 
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
-
+				<form action="${pageContext.request.contextPath}/sellerUpdatePro" method="post">
+					<input type="hidden" name="seller_num" value="${seller.seller_num}">
 					<!-- 페이지 상단 시작 -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">판매자정보</h1>
@@ -62,6 +63,8 @@
 					<div class="panel panel-seller" id="chargePersonInfoPanelInSellerInfoPage">
 						<div class="panel-heading">
 							<div class="pull-left">
+<%-- 								<a href="${pageContext.request.contextPath}/sellerUpdatePro">판매자정보수정</a><br> --%>
+								
 								<h3 class="panel-title">판매자 정보</h3>
 							</div>
 						</div>
@@ -85,19 +88,16 @@
 								<li>
 								<label class="control-label">이메일 주소</label>
 								<div class="input-content">
-									<input type="text" name="seller_email" value="${seller.seller_email}" ><br>
-									<div class="form-control-static">${seller.seller_email}</div>
-								</div>
+<%-- 									<div class="form-control-static">${seller.seller_email} --%>
+									<input type="text" class="form-control" name="seller_email" value="${seller.seller_email}"></div>
 								</li>
 								
 								<li>							<!-- 이 class 뭐지?  -->
-								<label class="control-label">휴대폰<br class="visible-xs">번호
-								</label>
+								<label class="control-label">휴대폰<br class="visible-xs">번호</label>
 								<div class="input-content">
-									<div class="form-control-static">${seller.seller_mobile}</div>
-								</div>
+<%-- 									<div class="form-control-static">${seller.seller_mobile} --%>
+									<input type="text" class="form-control" name="seller_mobile" value="${seller.seller_mobile}"></div>
 								</li>
-								<a href="${pageContext.request.contextPath}/sellerUpdate">판매자정보수정</a><br>
 							</ul>
 						</div>
 					</div>
@@ -117,7 +117,10 @@
 								<div class="input-content">
 										<div class="form-inline mobile-inline">
 											<div class="form-group form-control-static">
-												${seller.seller_bank}${seller.seller_accountNum} <span class="text-sub">(예금주: ${seller.seller_accountHolder})</span>
+												<input type="text" class="form-control" name="seller_accountHolder" value="(예금주: ${seller.seller_accountHolder})">
+												<input type="text" class="form-control" name="seller_bank" value="(은행: ${seller.seller_bank})">
+												<input type="text" class="form-control" name="seller_accountNum" value="${seller.seller_accountNum}">
+												 <span class="text-sub"></span>
 											</div>
 											<div class="form-group">
 											</div>
@@ -142,8 +145,7 @@
 							설명
 							</div>
 							<ul class="seller-list-border">
-								<li><label class="control-label" for="delivery-addr">출고지
-										주소</label>
+								<li><label class="control-label" for="delivery-addr">출고지 주소</label>
 								<div class="input-content">
 										<div class="form-inline">
 											<div class="form-group">
@@ -152,18 +154,16 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="text" class="form-control"
-												value="(우:${seller.seller_post}) ${seller.seller_addMain} (${seller.seller_addSub}) "
-												title="출고지 주소">
+											<input type="text" class="form-control" name="seller_post" value="(우:${seller.seller_post})">
+											<input type="text" class="form-control" name="seller_addMain" value="${seller.seller_addMain}">
+											<input type="text" class="form-control" name="seller_addSub" value="${seller.seller_addSub}">
 										</div>
 										<div class="form-inline">
 											<div class="form-group">
-												<input type="text" class="form-control"
-													value="${seller.seller_mobile}" title="출고지 전화번호1">
+												<input type="text" class="form-control" name="seller_mobile" value="${seller.seller_mobile}" title="출고지 전화번호1">
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control" 
-													value="${seller.seller_phone}" title="출고지 전화번호2">
+												<input type="text" class="form-control" name="seller_phone" value="${seller.seller_phone}" title="출고지 전화번호2">
 											</div>
 										</div>
 									</div></li>
@@ -178,18 +178,14 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="text" class="form-control"
-												value="(우:${seller.seller_post}) ${seller.seller_addMain} (${seller.seller_addSub}) "
+											<input type="text" class="form-control" name="seller_addMain" value="(우:${seller.seller_post}) ${seller.seller_addMain} (${seller.seller_addSub}) "
 												title="반품/교환지 주소">
 										</div>
 										<div class="form-inline">
 											<div class="form-group">
-												<input type="text" class="form-control"
-													value="${seller.seller_mobile}" title="반품/교환지 전화번호1">
-											</div>
+												<input type="text" class="form-control" name="seller_mobile" value="${seller.seller_mobile}" title="반품/교환지 전화번호1"> </div>
 											<div class="form-group">
-												<input type="text" class="form-control" value="${seller.seller_phone}"
-													title="반품/교환지 전화번호2">
+												<input type="text" class="form-control" name="seller_phone" value="${seller.seller_phone}" title="반품/교환지 전화번호2">
 											</div>
 										</div>
 									</div></li>
@@ -198,7 +194,9 @@
 								<!---->
 							</ul>
 						</div>
+						<input type="submit" value="정보수정">							
 					</div>
+				</form>
 					<!-- 배송정보 끝 -->
 
 					<!-- 관리자권한 시작 -->
@@ -270,8 +268,7 @@
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
 
 	<!-- Page level custom scripts -->
 	<script

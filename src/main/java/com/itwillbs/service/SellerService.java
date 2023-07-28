@@ -32,21 +32,23 @@ public class SellerService {
 			return sellerDAO.getSeller();
 		}
 		
+		// 판매자 체크
 		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
-			System.out.println("SellerService sellerCheck 확인!");
+			System.out.println("SellerService의 sellerCheck 매핑완");
 			return sellerDAO.sellerCheck(sellerInfoList);
 		}
 		
 		// 판매자 정보 수정
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			System.out.println("SellerService getSellerInfo 확인!");
-			System.out.println("넘어온 셀러 코드 : " + seller_num);
+			System.out.println("SellerService의 getSellerInfo 매핑완");
+	
 			return sellerDAO.getSellerInfo(seller_num);
 		}
 		
-		public void updateSeller(Map<String, Object> sellerInfoList) {
-			System.out.println("SellerService updateSeller 확인!");
-			sellerDAO.updateSeller(sellerInfoList);
+		public void updateSeller(Map<String, Object> sellerInfo) {
+			System.out.println("SellerService의 updateSeller 매핑완");
+			sellerDAO.updateSeller(sellerInfo);
+
 		}
 
 		

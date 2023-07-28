@@ -29,20 +29,19 @@ public class SellerDAO {
 		}
 		
 		// 판매자 정보 수정
-		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
-			System.out.println("SellerDAO sellerCheck 확인");
-			return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList);
+		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfo) {
+			System.out.println("SellerDAO의 sellerCheck 매핑완");
+			return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfo);
 		}
 		
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			System.out.println("SellerDAO getSellerInfo 확인");
-			System.out.println("넘어온 셀러 코드 :" + seller_num);
-			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
+			System.out.println("SellerDAO의 getSellerInfo 매핑완");
+			return sqlSession.selectOne(namespace + ".getSellerInfo", seller_num);
 		}
 		
-		public void updateSeller(Map<String, Object> sellerInfoList) {
-			System.out.println("SellerDAO의 updateSeller 확인");
-			sqlSession.update(namespace + ".updateSeller", sellerInfoList);
+		public void updateSeller(Map<String, Object> sellerInfo) {
+			System.out.println("SellerDAO의 updateSeller 매핑완");
+			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 		
 		

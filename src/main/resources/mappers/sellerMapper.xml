@@ -65,14 +65,14 @@
     <!-- 판매자 코드가 일치하는 판매자의 개인정보를 수정 -->
   	update seller
   	set seller_email = #{seller_email}, 
-  		seller_mobile = #{seller_mobile}, 
+  		seller_mobile = #{seller_mobile},
+  		seller_phone = #{seller_phone}, 
   		seller_bank = #{seller_bank},
-  		seller_accountNo = #{seller_accountNo},
+  		seller_accountNum = #{seller_accountNum},
   		seller_accountHolder = #{seller_accountHolder},
   		seller_post = #{seller_post},
   		seller_addMain = #{seller_addMain},
-  		seller_addSub = #{seller_addSub},
-  		seller_bank = #{seller_bank}
+  		seller_addSub = #{seller_addSub}
   	where seller_num = #{seller_num}
     </update>
     

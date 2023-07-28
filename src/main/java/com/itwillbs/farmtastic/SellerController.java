@@ -29,7 +29,8 @@ public class SellerController {
 	@Inject
 	private SellerService sellerService;
 	
-	//일단
+	// 로그인 기능이 없어서 일단 판매자 정보 페이지에 접속하면 이 판매자가 뜨게 하드코딩함
+	// 로그인해서 세션으로 값 가져오면 삭제할 코드
 	String seller_num = "CT0001"; 
 	
 	/**
@@ -49,46 +50,57 @@ public class SellerController {
 		
 		return "/seller/tables";
 	}
+	
+	
 	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
 	public String sellerMemb(Locale locale, Model model) {
-		System.out.println("sellerMemb 매핑확인여부");
-		System.out.println(seller_num);
+		System.out.println("SellerController의 sellerMemb 매핑완");
 		
-		Map<String, Object> seller = sellerService.getSellerInfo(seller_num);
+		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+		System.out.println("가져온 sellerInfo : " + sellerInfo);
 		
-		model.addAttribute("seller", seller);
-		
-		System.out.println("sellerMemb에서 넘어온 셀러코드 : " + seller_num);
+		model.addAttribute("seller", sellerInfo);
 		return "/seller/sellerMemb";
 	}
+	
+	
 	
 	// 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
 	public String sellerUpdate(Model model) {
-		System.out.println("sellerUpdate 매핑확인여부");
+		System.out.println("SellerController의 sellerUpdate 매핑완");
 		
 		// 나중에 로그인되면 디비에서 가져올 것
 //		String seller_num = (String)session.getAttribute("seller_num");
 		
 		// 위로 뺌 String seller_num = "CR0001";
-		Map<String, Object> sellerInfoList = sellerService.getSellerInfo(seller_num);
+//		Map<String, Object> sellerInfoList = sellerService.getSellerInfo(seller_num);
+//		model.addAttribute("sellerInfoList", sellerInfoList);
 		
-		model.addAttribute("sellerInfoList", sellerInfoList);
+		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+		model.addAttribute("sellerInfo", sellerInfo);
 		
 		return "/seller/sellerUpdate";
 	}
 	
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	public String sellerUpdatePro(@RequestBody Map<String, Object> sellerInfoList) {
-		System.out.println("sellerUpdatePro 매핑확인여부");
+	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
+		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 		
-		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfoList);
+//		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfo);
+//		System.out.println(sellerInfoList2);
 		
-		if(sellerInfoList2 != null) {
-			sellerService.updateSeller(sellerInfoList);
-			return "redirect:/seller/sellerMain";
+		System.out.println("!@#!@#");
+		System.out.println(sellerInfo);
+		
+		if(sellerInfo != null) {
+			System.out.println("null 아님");
+			sellerService.updateSeller(sellerInfo);
+			return "redirect:/sellerMain";
+			
 		} else {
-			return "이상하다!!!!!!!!!!!!!!!!!!!!";
+			System.out.println("null임");
+			return "/seller/mgs";
 		}
 	}
 	
