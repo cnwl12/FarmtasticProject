@@ -58,21 +58,44 @@
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
+                    
                     <div class="card shadow mb-4">
-                         <!-- 글쓰기 -->
-                        <form action="${pageContext.request.contextPath }/writePro" method="post" enctype="multipart/form-data">
-                        <div class="card-header py-3">
-                         	<div class="row">
-                            <h6 class="m-0 font-weight-bold text-primary">공지사항 글쓰기</h6>
-                            <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">
+                      <!-- 글쓰기 -->
+                   		 <form action="${pageContext.request.contextPath }/writePro" method="post" >
+                    		<div class="card-header py-3">
+                    			<div class="row">
+                         			<input type="hidden" name="admin_id" value=" ${admin.admin_id}" /> 
+                             		<h6 class="m-0 font-weight-bold text-primary">공지사항 글쓰기</h6> 
+                            		<button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
+                            	</div>
+                             <label>작성자: </label><input type="text" name="writer" style="width: 20%; border: none; background-color: white; "value=" ${admin.admin_id}" readonly="readonly"/><br>	
+                             <label>제목: </label><input type="text" name="title" style="width: 40%; border: none; background-color: white;"/>
                             </div>
-                            <label>title</label><input type="text">
-                           	  
-                        </div>
+                			<div style="width: 80%; margin: auto;">
+								<br><br> 
+								    <textarea id="summernote" name="content"></textarea>
+								<!-- 	<input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
+							</div>
+						</form>
+					</div>	         
+                         
+                       
+                         
+                    <%--  	 <form action="${pageContext.request.contextPath }/writePro" method="post" > 
+                     		 <div class="card-header py-3">
+                         		<div class="row"> 
+                          		<input type="hidden" name="admin_id" value=" ${admin.admin_id}" />
+                          		 <h6 class="m-0 font-weight-bold text-primary">공지사항 글쓰기</h6>
+                           		 <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
+                            	</div>
+                         <label>title</label><input type="text">
+                           	  </div>
                  
                         	<div class="card shadow mb-4" id="summernote"></div>
- 							                   
-                        </form>	
+                      </form>	 --%>
+                	
+                
+                
                     </div>
 
                 </div>
@@ -148,7 +171,10 @@
                 ['height', ['height']], // 에디터 높이 조절 옵션
                 ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
                 ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
+                
             ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica neue', 'Helvetica', 'Impact', 'Lucida Grande', 'Tahoma', 'Times New Roman', 'Verdana', 'Tahoma', 'Courier New', '맑은 고딕', '굴림', '돋움'], 
+            fontNamesIgnoreCheck: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica neue', 'Helvetica', 'Impact', 'Lucida Grande', 'Tahoma', 'Times New Roman', 'Verdana', 'Tahoma', 'Courier New',  '맑은 고딕', '굴림', '돋움'],
 
             fontSizes: [
                 '8', '9', '10', '11', '12', '14', '16', '18',
