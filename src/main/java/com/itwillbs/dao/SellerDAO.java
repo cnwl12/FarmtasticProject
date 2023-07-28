@@ -25,7 +25,7 @@ public class SellerDAO {
 	    
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
-			return sqlSession.selectList("SellerMapper.getSeller()");
+			return sqlSession.selectList(namespace+".getSeller");
 		}
 		
 		// 판매자 정보 수정

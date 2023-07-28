@@ -76,7 +76,7 @@
   	where seller_num = #{seller_num}
     </update>
     
-    
+    <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller
     set seller_recoYn = 'Y'
@@ -84,16 +84,16 @@
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>
-</update>
+	</update>
 
-<update id="rejectSellerStatus" parameterType="list">
+	<update id="rejectSellerStatus" parameterType="list">
     update seller
     set seller_recoYn = 'N'
     where seller_num in 
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>
-</update>
+	</update>
     
 	<!-- 상품 등록 -->
     <insert id="itemInsert">

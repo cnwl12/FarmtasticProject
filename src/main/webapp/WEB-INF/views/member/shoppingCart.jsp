@@ -5,16 +5,7 @@
 <html>
 
 <head>
-
-<!-- 주문상세 테이블에 추가함수  -->
-<script type="text/javascript">
-function insertOrderDetail(){
-	
-	location.href="checkout?item_num="+item_num+"&cart_cnt="+cart_cnt;
-	
-}
-</script>
-    
+   
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
@@ -34,6 +25,19 @@ function insertOrderDetail(){
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+
+	<!-- 주문상세 테이블에 추가함수  -->
+	<script type="text/javascript">
+	function insertOrderDetail(){
+		
+		var item_num = $('.item_wrap').data("item_num");
+		
+		//?item_num="+item_num+"&cart_cnt="+cart_cnt
+		location.href="insertOrderDetail?item_num="+item_num";
+		
+	}
+	</script>
+
 </head>
 
 <body>
@@ -62,7 +66,7 @@ function insertOrderDetail(){
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__table">
+                    <div class="shoping__cart__table item_wrap" data-item_num = "${item.item_num}" >
                         <table>
                             <thead>
                                 <tr>

@@ -1,3 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+카카오 로그인성공 id값 휴대폰 변수찾아서 추가해야되고 로그아웃버튼추가해야됨.참고
+</body>
+</html>
+
+
 <%-- <%@page import="com.itwillbs.domain.MemberDTO"%>
 <%@page import="com.itwillbs.dao.MemberDAO"%>
 <%@page import="com.itwillbs.service.MemberService"%>
@@ -14,7 +28,7 @@ db연동작업중.....많이기다려줘요...... workspace-sts에서 콜백 토
 <%@page import="java.net.*"%>
 <%@page import="java.util.*"%>
 <%@page import="javax.net.ssl.*"%>
-<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -92,4 +106,4 @@ db연동작업중.....많이기다려줘요...... workspace-sts에서 콜백 토
 </script>
 </body>
 </html>
- --%>
+  --%>

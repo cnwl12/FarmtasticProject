@@ -1,4 +1,5 @@
 package com.itwillbs.dao;
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,17 @@ public class AdminDAO {
     private static final String NAMESPACE = "adminMapper.";
 
     public AdminDTO adminCheck(String admin_id) {
+    	System.out.println("dao");
         return sqlSession.selectOne(NAMESPACE + "adminCheck", admin_id);
-    }   
+    }
+
+	public List<Map<String, Object>> getCnotice() {
+		System.out.println("dao");
+		return sqlSession.selectList(NAMESPACE+"getCnotice");
+	}   
+	public void insertNotice(Map<String, Object> params) {
+	     sqlSession.insert(NAMESPACE + "insertNotice", params);
+	}
 }
 	
 	
