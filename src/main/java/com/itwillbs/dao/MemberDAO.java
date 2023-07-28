@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.domain.MemberDTO; 
+import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.ReviewDTO; 
 
 @Repository
 public class MemberDAO {
@@ -95,9 +95,18 @@ public class MemberDAO {
 		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
+
+	//리뷰용도
+	public void createReview(ReviewDTO reviewDTO) {
+		System.out.println("DAO 리뷰작성");
+		sqlSession.insert(namespace+".createReview", reviewDTO);
+	}
+
+	public List<ReviewDTO> getReviewsByItem(int item_num) {
+		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
+    }
 	
-//	 public int checkIdDuplicate(String memberId) {
-//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
-//	 }
+	
+	
 	
 }

@@ -26,7 +26,48 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 	
+<style>
+.star {
+    font-size: 24px;
+    color: #dddddd;
+    cursor: pointer;
+    margin-right: 5px;
+	}
+.star.selected {
+    color: #ffcc00;
+	}
 	
+.product__details__tab .product__details__tab__desc h6 {
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 5px;
+	}
+	
+textarea#review_content {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+	}
+
+input#review_title {
+	border-top: none;
+    border-left: none;
+    border-right: none;
+	} 	
+
+input#file-upload-button {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 13px 30px 12px;
+    background: #7fad39;
+    border: none;
+	}		    
+}
+
+</style>	
 	
 <!-- 카트추가 함수 -->
 <script type="text/javascript">
@@ -171,36 +212,87 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                         nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
                                 </div>
                             </div>
+                            <!-- 리뷰칸 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                        Proin eget tortor risus.</p>
+                                    <h6>리뷰 쓰기</h6>
+                                    <form action="/createReview" method="post" enctype="multipart/form-data">
+    								<input type="hidden" name="item_num" value="${item_num}">
+   									<div class="rating">
+  									<span class="star" data-value="1">★</span>
+  									<span class="star" data-value="2">★</span>
+  									<span class="star" data-value="3">★</span>
+ 					 				<span class="star" data-value="4">★</span>
+  									<span class="star" data-value="5">★</span>
+  									<input type="hidden" id="review_star" name="review_star" value="">
+									</div>
+									<br>
+    								<label for="review_title"></label>
+    								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
+    								<label for="file"></label>
+        							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;">
+    								<br><br>
+    								<label for="review_content"></label>
+    								<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요" required></textarea>
+    								<br>
+    								<input class="site-btn" type="submit" value="리뷰 작성">
+									</form>
+                                    <br>
+                                    <br>
+									<!--수정 필요 -->
+                                    <h6>리뷰 목록</h6>
+                                   	<table class="table">
+    								<thead>
+        							<tr>
+            						<th>번호</th>
+            						<th>별점</th>
+            						<th>작성자</th>
+            						<th>작성일</th>
+            						<th>제목</th>
+            						<th>내용</th>
+            						<th>이미지</th>
+        							</tr>
+    								</thead>
+    								<tbody>
+       								<c:forEach var="review" items="${reviews}">
+            						<tr>
+                					<td>${review.review_num}</td>
+                					<td>${review.review_star}</td>
+                					<td>${review.member_num}</td>
+                					<td>${review.review_day}</td>
+                					<td>${review.review_title}</td>
+                					<td>${review.review_content}</td>
+                					<td><img src="${review.review_img}" alt="리뷰 이미지" style="max-width: 100px; max-height: 100px;"/></td>
+            						</tr>
+        							</c:forEach>
+    								</tbody>
+									</table>
                                 </div>
                             </div>
-                             <div class="tab-pane" id="tabs-4" role="tabpanel">
-			        <div class="product__details__tab__desc">
-			            <table class="table">
-			                <thead>
+                            <!--  리뷰칸 끝 -->
+                            
+                            <div class="tab-pane" id="tabs-4" role="tabpanel">
+			        		 <div class="product__details__tab__desc">
+			            	 <table class="table">
+			                 <thead>
 			                    <tr>
 			                        <th>#</th>
 			                        <th>제목</th>
 			                        <th>작성자</th>
 			                        <th>작성일</th>
 			                    </tr>
-			                </thead>
-			                <tbody id="inquiryList">
+			                 </thead>
+			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
-			                </tbody>
-			            </table>
-			        </div>
-                        </div>
-                    </div>
+			                 </tbody>
+			            	 </table>
+			        		</div>
+                         </div>
+                    	</div>
                 </div>
             </div>
         </div>
+     </div>   
     </section>
     <!-- Product Details Section End -->
 
@@ -296,6 +388,25 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="onehelp.jsp"></script>
+	
+	<script type="text/javascript">
+	const stars = document.querySelectorAll(".star");
+
+	stars.forEach((star) => {
+	  star.addEventListener("click", function () {
+	    const selectedValue = parseInt(this.getAttribute("data-value"));
+	    stars.forEach((s) => {
+	      if (parseInt(s.getAttribute("data-value")) <= selectedValue) {
+	        s.classList.add("selected");
+	      } else {
+	        s.classList.remove("selected");
+	      }
+	    });
+
+	    document.getElementById("review_star").value = selectedValue;
+	  });
+	});
+	</script>
 	
 </body>
 

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -400,7 +401,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck 끝
 	
-	
+	// Review 기능!
+	@RequestMapping(value = "/createReview", method = RequestMethod.POST)
+	public String createReview(ReviewDTO reviewDTO) {
+	    System.out.println("controller 리뷰작성");
+	    memberService.createReview(reviewDTO);
+	    return "redirect:/FarmStoreDetail?item_num=" + reviewDTO.getItem_num();
+	}
 
+	@RequestMapping(value = "/FarmStoreDetail", method = RequestMethod.GET)
+	public String getItemReviews(@RequestParam("item_num") int item_num, Model model) {
+	    List<ReviewDTO> reviews = memberService.getReviewsByItem(item_num);
+	    model.addAttribute("reviews", reviews);
+	    return "FarmStoreDetail";
+	}
+	
+	
 	
 }
