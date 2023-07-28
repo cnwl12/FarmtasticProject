@@ -36,17 +36,18 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
 		}
 		
-		// 판매자 정보 수정
-	      public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
-	         System.out.println("SellerDAO sellerCheck 확인");
-	         return sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList);
-	      }
-		
+		/*
+		 * // 선진) 판매자 체크, 안쓰는 코드라 삭제예정 public Map<String, Object>
+		 * sellerCheck(Map<String, Object> sellerInfoList) {
+		 * System.out.println("SellerDAO sellerCheck 확인"); return
+		 * sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList); }
+		 */
+		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
 			System.out.println("SellerDAO getSellerInfo 확인");
 			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
 		}
-		
+		// 선진) 판매자 정보 수정
 		public void updateSeller(Map<String, Object> sellerInfo) {
 			System.out.println("SellerDAO의 updateSeller 매핑완");
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);

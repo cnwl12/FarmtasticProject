@@ -63,26 +63,28 @@ public class SellerController {
 		return "/seller/sellerMemb";
 	}
 	
+	/*
+	 * // 선진) 판매자 정보 수정, 안쓰는 코드라 삭제 예정
+	 *
+	 * @RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET) public
+	 * String sellerUpdate(Model model) {
+	 * System.out.println("SellerController의 sellerUpdate 매핑완");
+	 * 
+	 * // 나중에 로그인되면 디비에서 가져올 것 // String seller_num =
+	 * (String)session.getAttribute("seller_num");
+	 * 
+	 * // 위로 뺌 String seller_num = "CR0001"; // Map<String, Object> sellerInfoList =
+	 * sellerService.getSellerInfo(seller_num); //
+	 * model.addAttribute("sellerInfoList", sellerInfoList);
+	 * 
+	 * Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+	 * model.addAttribute("sellerInfo", sellerInfo);
+	 * 
+	 * return "/seller/sellerUpdate"; }
+	 */
 	
-	
-	// 판매자 정보 수정
-	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
-	public String sellerUpdate(Model model) {
-		System.out.println("SellerController의 sellerUpdate 매핑완");
-		
-		// 나중에 로그인되면 디비에서 가져올 것
-//		String seller_num = (String)session.getAttribute("seller_num");
-		
-		// 위로 뺌 String seller_num = "CR0001";
-//		Map<String, Object> sellerInfoList = sellerService.getSellerInfo(seller_num);
-//		model.addAttribute("sellerInfoList", sellerInfoList);
-		
-		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-		model.addAttribute("sellerInfo", sellerInfo);
-		
-		return "/seller/sellerUpdate";
-	}
-	
+	// 선진) 판매자 정보 수정
+	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
 		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 		
@@ -102,6 +104,7 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
+	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
