@@ -96,7 +96,11 @@
             </li>	
             <li class="nav-item">
                 <a class="nav-link" href="notetest">
-                    <span>테스트</span></a>
+                    <span>글쓰기테스트</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contenttest">
+                    <span>글보기</span></a>
             </li>	
             <!-- Nav Item - Charts -->
             <li class="nav-item">
