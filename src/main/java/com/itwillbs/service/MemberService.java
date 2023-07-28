@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.ReviewDTO;
 
 @Service
 public class MemberService {
@@ -54,8 +55,6 @@ public class MemberService {
 	        memberDAO.changeMemberStatus(memberNums);
 	 }	
 	 
-	 
-	
 	 
 	 public MemberDTO userCheck(MemberDTO memberDTO) {
 		 System.out.println("MemberService userCheck()");
@@ -108,5 +107,23 @@ public class MemberService {
     public List<MemberDTO> getOneBoardList() {
         return memberDAO.getOneBoardList();
     }
+	 
+	// 리뷰작성
+	public void createReview(ReviewDTO reviewDTO) {
+		System.out.println("service 리뷰작성");
+        memberDAO.createReview(reviewDTO);
+    }
+
+	public List<ReviewDTO> getReviewsByItem(int item_num) {
+        return memberDAO.getReviewsByItem(item_num);
+    }
+
+    
+
+	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
+		System.out.println("서비스 오더디테일 까지 오는징");
+		memberDAO.insertOrderDetail(orderDetail);
+	}
+	
 	 
 }

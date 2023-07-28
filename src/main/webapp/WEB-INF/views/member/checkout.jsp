@@ -73,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <!-- ////////////////////// -->
+                            <!-- 장바구니 담긴 내용 / 수량 수정 불가 -->
 								<c:forEach var="item" items="${itemList}">
 								  <tr>
 								    <td class="shoping__cart__item">

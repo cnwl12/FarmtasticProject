@@ -41,20 +41,31 @@
          WHERE s.seller_num != 'admin'
          GROUP BY s.seller_num, s.seller_id, s.seller_name;
     </select>
+<!--     저장프로시저 -->
+    <!-- 판매자 회원가입 -->
+    <insert id="insertSeller">  
+ 	 	insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post, seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay)
+ 	 	values((SELECT *
+		  FROM (
+				SELECT CONCAT(#{seller_type}, LPAD( (SELECT COUNT(*) + 1 as next_num 
+									 FROM seller 
+									WHERE seller_type = #{seller_type}), 3, '0'))
+					FROM DUAL
+		  ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
+ 	</insert>   
     
-	<!-- 가맹점 관리 -->
-	<select id="getSeller" resultType="map"> 
-	select * from seller; 
-	</select>
-	
-	<!-- 판매자 체크 -->
+   <!-- 가맹점 관리 -->
+   <select id="getSeller" resultType="map"> 
+   select * from seller; 
+   </select>
+   
+   <!-- 판매자 체크 -->
     <select id="sellerCheck" resultType="map">
     select * from seller
-<!--     where seller_id = #{seller_id} and seller_pass = #{seller_pass} -->
-    where seller_num = #{seller_num}
-  	</select>
-  	
-  	<!-- 판매자 정보 -->
+    where seller_id = #{seller_id}
+     </select>
+     
+     <!-- 판매자 정보 -->
     <select id="getSellerInfo" resultType="map">
     select * from seller
     where seller_num = #{seller_num}
@@ -62,21 +73,13 @@
     
     <!-- 판매자 정보 수정 -->
     <update id="updateSeller">
-    <!-- 판매자 코드가 일치하는 판매자의 개인정보를 수정 -->
-  	update seller
-  	set seller_email = #{seller_email}, 
-  		seller_mobile = #{seller_mobile}, 
-  		seller_bank = #{seller_bank},
-  		seller_accountNo = #{seller_accountNo},
-  		seller_accountHolder = #{seller_accountHolder},
-  		seller_post = #{seller_post},
-  		seller_addMain = #{seller_addMain},
-  		seller_addSub = #{seller_addSub},
-  		seller_bank = #{seller_bank}
-  	where seller_num = #{seller_num}
+    <!-- 아이디가 일치하는 판매자의 이메일, 휴대폰번호를 수정 -->
+     update seller
+     set seller_email = #{seller_email} and seller_mobile = #{seller_mobile} 
+     where seller_id = #{seller_id}
     </update>
     
-    
+    <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller
     set seller_recoYn = 'Y'
@@ -84,66 +87,66 @@
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>
-</update>
+	</update>
 
-<update id="rejectSellerStatus" parameterType="list">
+	<update id="rejectSellerStatus" parameterType="list">
     update seller
     set seller_recoYn = 'N'
     where seller_num in 
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>
-</update>
+	</update>
     
-	<!-- 상품 등록 -->
+   <!-- 상품 등록 -->
     <insert id="itemInsert">
-	    INSERT INTO item (
-	        category_num,
-	        item_name,
-	        item_price,
-	        item_mainImg,
-	        item_detail,
-	        item_register
-	    )
-	    VALUES (
-	        #{category_num},
-	        #{item_name},
-	        #{item_price},
-	        #{item_mainImg},
-	        #{item_detail},
-	        now()
-	    )
-	</insert>
+       INSERT INTO item (
+           category_num,
+           item_name,
+           item_price,
+           item_mainImg,
+           item_detail,
+           item_register
+       )
+       VALUES (
+           #{category_num},
+           #{item_name},
+           #{item_price},
+           #{item_mainImg},
+           #{item_detail},
+           now()
+       )
+   </insert>
 
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
-    	SELECT *
-    	FROM item
+       SELECT *
+       FROM item
     </select>
 
-	<!-- 개별상품 가져오기  -->
-	<select id="getItem" resultType="map">
-	    SELECT *
-	    FROM item
-	    WHERE item_num = #{item_num}
-	    LIMIT 1
-	</select>
-	    
+   <!-- 개별상품 가져오기  -->
+   <select id="getItem" resultType="map">
+       SELECT *
+       FROM item
+       WHERE item_num = #{item_num}
+       LIMIT 1
+   </select>
+       
       <!--월별 판매량 가져오기  -->
     <select id="getSales" resultType="map">
-    	SELECT s.seller_num, s.seller_id, s.seller_name,
-       	DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
-       	FORMAT(SUM(o.order_pay), 0) AS total_revenue,
-       	FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
-       	FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
-       	st.settlement_yn
-		FROM seller s
-		LEFT JOIN item i ON s.seller_num = i.seller_num
-		LEFT JOIN orders o ON i.item_num = o.item_num
-		LEFT JOIN settlement st ON s.seller_num = st.seller_num
-		WHERE s.seller_num != 'admin'
-		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
-		ORDER BY order_month;
+       SELECT s.seller_num, s.seller_id, s.seller_name,
+          DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
+          FORMAT(SUM(o.order_pay), 0) AS total_revenue,
+          FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+          FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
+          st.settlement_yn
+      FROM seller s
+      LEFT JOIN item i ON s.seller_num = i.seller_num
+      LEFT JOIN orders o ON i.item_num = o.item_num
+      LEFT JOIN settlement st ON s.seller_num = st.seller_num
+      WHERE s.seller_num != 'admin'
+      GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
+      ORDER BY order_month;
     </select>
     
     
@@ -159,44 +162,56 @@
 </update>
    
 
-	<!-- 일별 판매량 가져오기 -->
-	<select id="daySales" resultType="map" parameterType="map">
-		SELECT s.seller_num, s.seller_storeName, s.seller_name,
-		DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
-    	DATE_FORMAT(o.order_day, '%Y-%m-%d') as order_day,
-       	FORMAT(o.order_pay, 0) as revenue,
-       	FORMAT(floor((o.order_pay) * 0.05), 0) as fee,
-       	FORMAT((o.order_pay) - floor((o.order_pay) * 0.05), 0) as income
-		FROM seller s
-		LEFT JOIN item i ON s.seller_num = i.seller_num
-		LEFT JOIN orders o ON i.item_num = o.item_num
-		LEFT JOIN settlement st ON s.seller_num = st.seller_num
-		WHERE s.seller_num != 'admin'
-		AND s.seller_num = #{sellerNum} <!-- s.seller_num을 필터링하기 위해 추가된 부분 -->
-    	AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth} 
-		GROUP BY s.seller_num, s.seller_id, s.seller_name, order_day,order_pay
-		ORDER BY order_day
-		;
-	</select>
-	
-	<!--판매자별 연간판매량전체-->
-	<select id="yearSales" resultType="map" parameterType="map">
-	 	SELECT s.seller_num, s.seller_name,
-       	DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
-      	FORMAT(SUM(o.order_pay), 0) AS revenue,
-       	FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
-       	FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as income
-		FROM seller s
-		LEFT JOIN item i ON s.seller_num = i.seller_num
-		LEFT JOIN orders o ON i.item_num = o.item_num
-		LEFT JOIN settlement st ON s.seller_num = st.seller_num
-		WHERE s.seller_num != 'admin'
-		AND s.seller_num = #{sellerNum}
-		GROUP BY s.seller_num, s.seller_name, order_month
-		ORDER BY order_month;
-	</select>
-	
-	
-	
-	
+   <!-- 일별 판매량 가져오기 -->
+   <select id="daySales" resultType="map" parameterType="map">
+      SELECT s.seller_num, s.seller_storeName, s.seller_name,
+      DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
+       DATE_FORMAT(o.order_day, '%Y-%m-%d') as order_day,
+          FORMAT(o.order_pay, 0) as revenue,
+          FORMAT(floor((o.order_pay) * 0.05), 0) as fee,
+          FORMAT((o.order_pay) - floor((o.order_pay) * 0.05), 0) as income
+      FROM seller s
+      LEFT JOIN item i ON s.seller_num = i.seller_num
+      LEFT JOIN orders o ON i.item_num = o.item_num
+      LEFT JOIN settlement st ON s.seller_num = st.seller_num
+      WHERE s.seller_num != 'admin'
+      AND s.seller_num = #{sellerNum} <!-- s.seller_num을 필터링하기 위해 추가된 부분 -->
+       AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth} 
+      GROUP BY s.seller_num, s.seller_id, s.seller_name, order_day,order_pay
+      ORDER BY order_day
+      ;
+   </select>
+   
+   <!--판매자별 연간판매량전체-->
+   <select id="yearSales" resultType="map" parameterType="map">
+       SELECT s.seller_num, s.seller_name,
+          DATE_FORMAT(o.order_day, '%Y-%m') as order_month,
+         FORMAT(SUM(o.order_pay), 0) AS revenue,
+          FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+          FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as income
+      FROM seller s
+      LEFT JOIN item i ON s.seller_num = i.seller_num
+      LEFT JOIN orders o ON i.item_num = o.item_num
+      LEFT JOIN settlement st ON s.seller_num = st.seller_num
+      WHERE s.seller_num != 'admin'
+      AND s.seller_num = #{sellerNum}
+      GROUP BY s.seller_num, s.seller_name, order_month
+      ORDER BY order_month;
+   </select>
+   
+   <!-- 판매자 회원가입 -->
+    <insert id="insertSeller">  
+        insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post, seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay)
+        values((SELECT *
+        FROM (
+            SELECT CONCAT(#{seller_type}, LPAD( (SELECT COUNT(*) + 1 as next_num 
+                            FROM seller 
+                           WHERE seller_type = #{seller_type}), 3, '0'))
+               FROM DUAL
+        ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
+    </insert>   
+   
+   
+   
+   
 </mapper>

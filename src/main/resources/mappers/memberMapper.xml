@@ -48,14 +48,14 @@
   <insert id="insertCart">
 	INSERT INTO cart (   
 				cart_num,
-				item_num,
 				member_num,
+				item_num,
 				cart_cnt
 	)
 	VALUES (
 	#{cart_num},
-	#{item_num},
 	#{member_num},
+	#{item_num},
 	#{cart_cnt}
 	)
   </insert>
@@ -87,21 +87,36 @@
   
   
    <update id="updateMember">
-  	UPDATE member
- 	SET member_name = #{member_name},
+  UPDATE member
+  SET member_name = #{member_name},
       member_phone = #{member_phone},
       member_email = #{member_email}
       <if test="member_password != null">, member_password = #{member_password}</if>
-  	WHERE member_id = #{member_id}
-	</update>
-	
-	<insert id="insertOneBoard">
-	insert into one_board(one_board_type, one_board_title, one_board_content, one_board_file,
-	one_board_private, one_board_pass, one_board_day,one_board_repYn)
-	values(#{one_board_type}, #{one_board_title}, #{one_board_content}, #{one_board_file},
-	#{one_board_private}, #{one_board_pass}, #{one_board_day}, #{one_board_repYn})
-	</insert>
+  WHERE member_id = #{member_id}
+</update>
 
+  <!-- 주문상세 목록 추가 insert : 주문번호 랜덤 생성 -->
+  <insert id="insertOrderDetail">
+	INSERT INTO order_detail (member_num, order_num, item_num, item_cnt)
+	SELECT
+	     c.member_num AS member_num,
+	     CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(o.id, 4, '0')) AS order_num,
+	     c.item_num AS item_num,
+	     c.cart_cnt AS item_cnt
+	FROM cart c
+	CROSS JOIN (SELECT FLOOR(RAND() * 1000) + 1 AS id) AS o
+	WHERE c.member_num = #{member_num};
+  </insert>		
 
+  
+  <!-- 리뷰작성 -->
+  <insert id="createReview">
+  	insert into review (review_num, member_num, item_num, review_star, review_title, review_content, review_img, review_day) 
+    values (#{review_num}, #{member_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
+  </insert>
+  
+   <select id="getReviewsByItem" parameterType="int" resultType="com.itwillbs.domain.ReviewDTO">
+    SELECT * FROM review WHERE item_num = #{item_num}
+  </select>
   
 </mapper>
