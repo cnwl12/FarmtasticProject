@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.AdminDTO;
@@ -112,7 +114,13 @@ public class AdminController {
 		
 		return "/admin/customerMenu/notetest";
 	}
-	
+	@RequestMapping(value = "/writetest", method = RequestMethod.GET)
+	public String writetest(Locale locale, Model model) {
+		
+		System.out.println("writetest 매핑확인여부");
+		
+		return "/admin/customerMenu/writetest";
+	}
 	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
 	public String cnotice(Locale locale, Model model) {
 		
@@ -295,4 +303,26 @@ public class AdminController {
 	  redirectAttributes.addFlashAttribute("message", message);
 	  return "redirect:/settlement";
 	}
+	
+	@RequestMapping(value = "/writePro", method = RequestMethod.POST)
+	public String writePro(HttpServletRequest request, MultipartFile file) throws Exception {
+		System.out.println("컨트롤러 fwritePro()");	
+		UUID uuid = UUID.randomUUID();
+		String filename=uuid.toString()+"_"+file.getOriginalFilename();
+		
+		
+		return "redirect:/notetest";
+	}
+
+	
+	
+	
+	
+
+
+
+
+
+
+
 }
