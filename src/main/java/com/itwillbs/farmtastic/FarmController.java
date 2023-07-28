@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
-
+import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -277,6 +277,14 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/join";
 	}
+	
+	@RequestMapping(value = "/join2", method = RequestMethod.GET)
+	public String join2(Locale locale, Model model) {
+
+		System.out.println("join2 매핑확인여부");
+
+		return "/member/join2";
+	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
@@ -452,6 +460,24 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/login";
 	}
+	
+	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
+	public String insertPro2(SellerDTO sellerDTO ) {
+		
+		System.out.println(sellerDTO.getSeller_id());
+		System.out.println(sellerDTO.getSeller_pass());
+		System.out.println(sellerDTO.getSeller_name());
+		System.out.println(sellerDTO.getSeller_phone());
+		System.out.println(sellerDTO.getSeller_email());
+		System.out.println(sellerDTO.getSeller_joinDay());
+		System.out.println(sellerDTO.getSeller_post());
+		System.out.println(sellerDTO.getSeller_addMain());
+		System.out.println(sellerDTO.getSeller_addSub());
+		// insertSeller() 메서드 호출
+		sellerService.insertSeller(sellerDTO);
+
+		return "redirect:/login";
+	}
 
 	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
@@ -492,5 +518,26 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return entity;
 	}// idCheck 끝
+	
+	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> idCheck2(HttpServletRequest request) {
+		
+		String seller_id = request.getParameter("seller_id");
+		
+		SellerDTO sellerDTO = sellerService.sellerCheck(seller_id);
+		String result = "";
+		if (sellerDTO != null) {
+			// 아이디 있음 => 아이디 중복
+			result = "id is used";
+		} else {
+			// 아이디 없음 => 아이디 사용가능
+			result = "id is available";
+		}
+		// ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+		
+		return entity;
+	}// idCheck2 끝
 
 }

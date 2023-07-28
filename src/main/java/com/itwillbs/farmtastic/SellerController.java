@@ -79,18 +79,18 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	public String sellerUpdatePro(@RequestBody Map<String, Object> sellerInfoList) {
-		System.out.println("sellerUpdatePro 매핑확인여부");
-		
-		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfoList);
-		
-		if(sellerInfoList2 != null) {
-			sellerService.updateSeller(sellerInfoList);
-			return "redirect:/seller/sellerMain";
-		} else {
-			return "이상하다!!!!!!!!!!!!!!!!!!!!";
-		}
-	}
+	   public String sellerUpdatePro(@RequestBody Map<String, Object> sellerInfoList) {
+	      System.out.println("sellerUpdatePro 매핑확인여부");
+	      
+	      Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfoList);
+	      
+	      if(sellerInfoList2 != null) {
+	         sellerService.updateSeller(sellerInfoList);
+	         return "redirect:/seller/sellerMain";
+	      } else {
+	         return "이상하다!!!!!!!!!!!!!!!!!!!!";
+	      }
+	   }
 	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
