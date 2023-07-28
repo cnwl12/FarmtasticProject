@@ -100,6 +100,11 @@ public class MemberService {
 	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");
 	 * memberDAO.insertOrderDetail(orderDetail); }
 	 */
+
+	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
+		System.out.println("서비스 오더디테일 까지 오는징");
+		memberDAO.insertOrderDetail(orderDetail);
+	}
 	
 	 
 	// 리뷰작성

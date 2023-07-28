@@ -1,14 +1,9 @@
 
 package com.itwillbs.farmtastic;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,9 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,14 +104,14 @@ public class AdminController {
 		
 		return "/admin/customerMenu/notetest";
 	}
-	
-	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
-	public String cnotice(Locale locale, Model model) {
+	@RequestMapping(value = "/writetest", method = RequestMethod.GET)
+	public String writetest(Locale locale, Model model) {
 		
-		System.out.println("cnotice 매핑확인여부");
+		System.out.println("writetest 매핑확인여부");
 		
-		return "/admin/customerMenu/cnotice";
+		return "/admin/customerMenu/writetest";
 	}
+
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {
 		
@@ -295,4 +287,33 @@ public class AdminController {
 	  redirectAttributes.addFlashAttribute("message", message);
 	  return "redirect:/settlement";
 	}
+	
+	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
+	public String cnotice(Locale locale, Model model) {
+		System.out.println("cnotice 매핑확인여부");
+		 List<Map<String, Object>> resultList = adminService.getCnotice();
+		 model.addAttribute("notice", resultList);
+		 System.out.println(resultList);
+		return "/admin/customerMenu/cnotice";
+	}
+	
+	@PostMapping("/writePro")
+	 public String writePro(@RequestParam("writer") String writer, @RequestParam("title") String title, @RequestParam("content") String content) {
+		System.out.println("컨트롤러 writePro()");
+	    adminService.insertBoard(writer, title, content);
+	    return "redirect:/cnotice";
+	 }
+	
+	
+
+	
+	
+	
+
+
+
+
+
+
+
 }

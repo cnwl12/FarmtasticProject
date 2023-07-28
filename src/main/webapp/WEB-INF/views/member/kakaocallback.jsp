@@ -9,7 +9,7 @@
 	<title>카카오 콜백</title>
 </head>
 <body>
-<% 
+<%
 String access_token = request.getParameter("access_token");
    
 try {
@@ -43,12 +43,9 @@ try {
         
          
 
-       String nextUrl = "http://localhost:8080/farmtastic/kakaojoin";
+        session.setAttribute("accessToken", access_token);
 
-        // redirect URL 생성
-        String redirectUrl = nextUrl + "?access_token=" + access_token;
-
-        response.sendRedirect(redirectUrl);
+        response.sendRedirect(request.getContextPath() + "/kakaojoin?access_token=" + access_token);
         
     } else {
     	System.out.println("토큰전달실패");
@@ -58,6 +55,6 @@ try {
     out.print(e.toString());
 }
 
-%>
+%> 
 </body>
 </html>

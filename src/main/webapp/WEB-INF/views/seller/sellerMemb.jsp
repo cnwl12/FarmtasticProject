@@ -85,6 +85,7 @@
 								<li>
 								<label class="control-label">이메일 주소</label>
 								<div class="input-content">
+									<input type="text" name="seller_email" value="${seller.seller_email}" ><br>
 									<div class="form-control-static">${seller.seller_email}</div>
 								</div>
 								</li>
@@ -119,7 +120,6 @@
 												${seller.seller_bank}${seller.seller_accountNum} <span class="text-sub">(예금주: ${seller.seller_accountHolder})</span>
 											</div>
 											<div class="form-group">
-												<a href="${pageContext.request.contextPath}/sellerUpdate">계좌정보수정</a><br>
 											</div>
 										</div>
 										<!---->
@@ -139,11 +139,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="panel-body-info">
-								<span class="pull-left">출고지 주소와 반품/교환지 주소는 주소록에서 수정/변경이
-									가능합니다.</span> <span class="pull-right"><button type="button"
-										class="btn btn-default2 btn-sm"
-										ng-click="vm.openAddressBookModal()"
-										data-nclicks-code="dlvInfo.addressBook">주소록</button></span>
+							설명
 							</div>
 							<ul class="seller-list-border">
 								<li><label class="control-label" for="delivery-addr">출고지
@@ -157,17 +153,17 @@
 										</div>
 										<div class="form-group">
 											<input type="text" class="form-control"
-												value="(우 : 47246) 부산광역시 부산진구 동천로 109 (삼한골든게이트) "
-												title="출고지 주소" readonly="readonly">
+												value="(우:${seller.seller_post}) ${seller.seller_addMain} (${seller.seller_addSub}) "
+												title="출고지 주소">
 										</div>
 										<div class="form-inline">
 											<div class="form-group">
 												<input type="text" class="form-control"
-													value="010-9170-1021" title="출고지 전화번호1" readonly="readonly">
+													value="${seller.seller_mobile}" title="출고지 전화번호1">
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control" value="-"
-													title="출고지 전화번호2" readonly="readonly">
+												<input type="text" class="form-control" 
+													value="${seller.seller_phone}" title="출고지 전화번호2">
 											</div>
 										</div>
 									</div></li>
@@ -183,18 +179,17 @@
 										</div>
 										<div class="form-group">
 											<input type="text" class="form-control"
-												value="(우 : 47246) 부산광역시 부산진구 동천로 109 (삼한골든게이트) "
-												title="반품/교환지 주소" readonly="readonly">
+												value="(우:${seller.seller_post}) ${seller.seller_addMain} (${seller.seller_addSub}) "
+												title="반품/교환지 주소">
 										</div>
 										<div class="form-inline">
 											<div class="form-group">
 												<input type="text" class="form-control"
-													value="010-9170-1021" title="반품/교환지 전화번호1"
-													readonly="readonly">
+													value="${seller.seller_mobile}" title="반품/교환지 전화번호1">
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control" value="-"
-													title="반품/교환지 전화번호2" readonly="readonly">
+												<input type="text" class="form-control" value="${seller.seller_phone}"
+													title="반품/교환지 전화번호2">
 											</div>
 										</div>
 									</div></li>

@@ -32,20 +32,21 @@ public class SellerService {
 			return sellerDAO.getSeller();
 		}
 		
-	    // 판매자 정보 수정
-		public List<Map<String, Object>> sellerCheck(List<Map<String, Object>> sellerList) {
+		public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
 			System.out.println("SellerService sellerCheck 확인!");
-			return sellerDAO.sellerCheck(sellerList);
+			return sellerDAO.sellerCheck(sellerInfoList);
 		}
 		
-		public List<Map<String, Object>> getSellerInfo(String seller_id) {
+		// 판매자 정보 수정
+		public Map<String, Object> getSellerInfo(String seller_num) {
 			System.out.println("SellerService getSellerInfo 확인!");
-			return sellerDAO.getSellerInfo(seller_id);
+			System.out.println("넘어온 셀러 코드 : " + seller_num);
+			return sellerDAO.getSellerInfo(seller_num);
 		}
 		
-		public void updateSeller(List<Map<String, Object>> sellerList) {
+		public void updateSeller(Map<String, Object> sellerInfoList) {
 			System.out.println("SellerService updateSeller 확인!");
-			sellerDAO.updateSeller(sellerList);
+			sellerDAO.updateSeller(sellerInfoList);
 		}
 
 		
@@ -146,14 +147,11 @@ public class SellerService {
 		    System.out.println("SellerService rejectSellerStatus 확인!");
 		    sellerDAO.rejectSellerStatus(sellerNum);
 		}
-	
 		
 		public Map<String, Object> getItem(int item_num) {
 			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
 		}
-
-
 
 		
 		

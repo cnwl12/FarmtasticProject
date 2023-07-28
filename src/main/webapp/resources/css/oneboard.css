@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.inquiry-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  box-sizing:border-box;
+}
+
+input[type="file"] {
+  width: initial;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 20px;
+  width: auto;
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.inquiry-btn:hover {
+  background-color: #6ca22f;
+}
+
+.custom-link {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #00CC99;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.custom-link:hover {
+  text-decoration: none;
+}
+.radio-container {
+  display: flex;
+  align-items: flex-start; /* 글자와 라디오 버튼 정렬 처리 */
+  gap: 16px; /* 기존 간격을 6px에서 16px로 변경 */
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.radio-container div {
+  display: flex;
+  flex-direction: column;
+}

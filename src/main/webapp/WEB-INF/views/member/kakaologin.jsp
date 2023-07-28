@@ -8,7 +8,7 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script type="text/javascript">
         // SDK 초기화
-        Kakao.init('149628d775b80692adf63d544addda79');
+        Kakao.init('fa74773a794ad7a254e291d7cbf8fd00');
      
         function loginWithKakao() {
             Kakao.Auth.login({
