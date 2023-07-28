@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>1대1 문의 작성 페이지</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/oneboard.css" type="text/css">
 </head>
 <body>
   <h1>1대1 문의 작성 페이지</h1>
