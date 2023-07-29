@@ -115,6 +115,7 @@ public class MemberDAO {
 //	 }
 	//서영 작업 1대1문의
 	 public void insertOneBoard(MemberDTO memberDTO) {
+		 System.out.println("MemberDAO insertOneBoard ()!!");
         sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
     }
 

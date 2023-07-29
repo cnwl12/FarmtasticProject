@@ -11,7 +11,7 @@
 <body>
   <div class="inquiry-container">
     <h1>상품 Q&amp;A</h1>
-    <form action="oneboardForm" method="POST" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/oneboardForm" method="GET" enctype="multipart/form-data">
       <input type="hidden" name="action" value="write">
       <input type="hidden" name="item_num" value="${item.item_num}">
       

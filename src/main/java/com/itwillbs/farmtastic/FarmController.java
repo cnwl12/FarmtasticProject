@@ -350,17 +350,17 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 서영 작업중
     @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
     public String oneBoard(Model model) {
-
+    	System.out.println("FarmController oneboard()!");
         return "/member/oneboard";
     }
 
-    @PostMapping("/oneboardForm")
+    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
     public String oneBoardForm(MemberDTO memberDTO) {
     	System.out.println("oneboardForm() 로드");
         memberService.insertOneBoard(memberDTO);
 
-        return "member/farmStoreDetail";
-    }
+        return "/member/farmStoreDetail";
+    } 
 
 
 	// 디비 연동 확인용
@@ -547,13 +547,6 @@ public class FarmController { // 소비자 (컨트롤러)
 //	    }
 	
 	
-	// 서영쓰 여기 한번 확인해주세여~~ 
-	/*
-	 * @PostMapping("/oneboardForm") public String oneBoardForm(MemberDTO memberDTO)
-	 * { memberService.insertOneBoard(memberDTO);
-	 * 
-	 * return "redirect:/oneboard"; }
-	 */
 	
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
 	
