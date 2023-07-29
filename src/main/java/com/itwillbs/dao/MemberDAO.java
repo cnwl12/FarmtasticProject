@@ -110,18 +110,21 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
     }
 	
-	
-	
-	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }
 	//서영 작업 1대1문의
 	 public void insertOneBoard(MemberDTO memberDTO) {
-	        sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
-	    }
+        sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
+    }
 
 //	 public List<MemberDTO> getOneBoardList() {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
+
+
+	public void deleteCart(HashMap<String, Object> cart) {
+		sqlSession.delete(namespace + ".deleteCart", cart);
+	}
+	
 }

@@ -30,13 +30,31 @@
 	<script type="text/javascript">
 	function insertOrderDetail(){
 		
-		//var item_num = $('.item_wrap').data("item_num");
-		
-		//?item_num="+item_num+"&cart_cnt="+cart_cnt
 		location.href="insertOrderDetail";
 		
 	}
 	</script>
+	
+	<script type="text/javascript">
+	function history(){
+		confirm("계속 쇼핑하시겠습니까?");
+		location.href="farmStore";
+	}
+	
+	</script>
+	
+	
+	<script type="text/javascript">
+	function deleteCart(item_num){
+		
+		if(confirm("삭제하시겠습니까?")){
+			location.href="deleteCart?item_num="+item_num;
+		}
+		
+	}
+	
+	</script>
+	
 
 </head>
 
@@ -83,8 +101,10 @@
                                 <tr>
                                 
                                     <td class="shoping__cart__item">
-                                        <img src="${item.item_mainImg} alt="" style="width: 300px; height: 200px">
+                                    <a href="farmStoreDetail?item_num=${item.item_num}">
+                                        <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
+                                     </a>   
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${item.item_price}
@@ -100,7 +120,7 @@
                                          ${item.item_price * item.cart_cnt}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <span class="icon_close" onclick="deleteCart(${item.item_num})"></span>
                                     </td>
                                 </tr>
                                     </c:forEach>
@@ -132,7 +152,7 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Subtotal <span>$454.98</span></li>
-                            <li>Total	 <span>${totalSum}</span></li>
+                            <li>Total	 <span>${totalSum}원</span></li>
                         </ul>
                     </div>
                          <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
@@ -155,13 +175,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
-	<script type="text/javascript">
-	function history(){
-		alert("계속 쇼핑하시겠습니까?");
-		history.back();
-	}
-	
-	</script>
 
 </body>
 

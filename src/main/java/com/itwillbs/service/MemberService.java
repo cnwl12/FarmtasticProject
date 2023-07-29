@@ -120,9 +120,15 @@ public class MemberService {
 		memberDAO.insertOrderDetail(orderDetail);
 	}
 	
+	// 오버로딩
 	public void insertOrderDetail(int member_num) {
 		System.out.println("서비스 오더디테일 까지 오는징");
 		memberDAO.insertOrderDetail(member_num);
+	}
+	
+	public void deleteCart(HashMap<String, Object> cart) {
+		System.out.println("서비스 오는지 딜리트카트 ");
+		memberDAO.deleteCart(cart);
 	}
  
 }

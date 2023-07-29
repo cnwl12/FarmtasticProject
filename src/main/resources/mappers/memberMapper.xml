@@ -126,4 +126,13 @@
   
   </insert>
   
+  <delete id="deleteCart">
+  	DELETE 
+  	FROM cart
+  	WHERE item_num = #{item_num} 
+  	AND member_num = #{member_num}
+  </delete>
+  
+  
+  
 </mapper>

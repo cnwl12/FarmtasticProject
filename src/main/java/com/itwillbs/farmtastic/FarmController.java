@@ -441,10 +441,23 @@ public class FarmController { // 소비자 (컨트롤러)
 //		orderDetail.put("member_num", member_num);
 				
 		memberService.insertOrderDetail(orderDetail);
-		System.out.println("컨-서 다녀왔을 때" + orderDetail);
+		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
 	
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
 		return "redirect:/checkout";
+	} 
+	
+	// 카트안 아이템 삭제
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
+	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session){
+		
+		int member_num = 777;
+		cart.put("member_num", member_num);
+		
+		System.out.println("deleteCart 컨트롤러 오는지");
+		memberService.deleteCart(cart);
+
+		return "redirect:/shoppingCart";
 	}
 	
 	// -------------------------------------------------------
