@@ -197,7 +197,7 @@
       ORDER BY order_month;
    </select>
    
-   <!-- 판매자 회원가입 -->
+   	<!-- 판매자 회원가입 -->
     <insert id="insertSeller">  
         insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post, seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay)
         values((SELECT *

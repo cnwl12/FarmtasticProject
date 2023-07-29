@@ -30,10 +30,10 @@
 	<script type="text/javascript">
 	function insertOrderDetail(){
 		
-		var item_num = $('.item_wrap').data("item_num");
+		//var item_num = $('.item_wrap').data("item_num");
 		
 		//?item_num="+item_num+"&cart_cnt="+cart_cnt
-		location.href="insertOrderDetail?item_num="+item_num";
+		location.href="insertOrderDetail";
 		
 	}
 	</script>

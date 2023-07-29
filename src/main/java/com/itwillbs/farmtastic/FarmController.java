@@ -373,7 +373,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -393,7 +393,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -408,7 +408,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		System.out.println("checkout 매핑확인여부");
 		
-		int member_num = 578;
+		int member_num = 777;
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -426,7 +426,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 		
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 		
 		orderDetail.put("member_num", member_num);
