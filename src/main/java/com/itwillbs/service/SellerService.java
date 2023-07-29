@@ -27,7 +27,7 @@ public class SellerService {
 	        return sellerDAO.getSellers();
 	    }
 	    
-	    // 가맹점관리
+	    // 가맹점관리 혜원
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
 		}
