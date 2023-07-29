@@ -11,7 +11,7 @@
 <body>
   <div class="inquiry-container">
     <h1>상품 Q&amp;A</h1>
-    <form action="OneBoardController" method="post" enctype="multipart/form-data">
+    <form action="oneboardForm" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="action" value="write">
       <input type="hidden" name="item_num" value="${item.item_num}">
       
@@ -35,11 +35,11 @@
      <div class="radio-container">
 		<label for="public">공개</label>
 		<div>
-			<input type="radio" name="visibility" id="public" value="public" checked>
+			<input type="radio" name="one_board_private" id="public" value="public" checked>
 		</div>
 		  	<label for="private">비공개</label>
 		<div>
-		    <input type="radio" name="visibility" id="private" value="private">
+		    <input type="radio" name="one_board_private" id="private" value="private">
 		</div>
 	</div>
 	<br>

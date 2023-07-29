@@ -119,4 +119,11 @@
     SELECT * FROM review WHERE item_num = #{item_num}
   </select>
   
+  <!--  1대1문의 -->
+  <insert id = "insertOneBoard">
+  	insert into one_board (one_board_title, one_board_content)
+  	value(#{one_board_titler}, #{one_board_content})
+  
+  </insert>
+  
 </mapper>

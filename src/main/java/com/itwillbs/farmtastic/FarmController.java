@@ -347,13 +347,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-	public String onehelp(Locale locale, Model model) {
+	// 서영 작업중
+    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+    public String oneBoard(Model model) {
 
-		System.out.println("contact 매핑확인여부");
+        return "/member/oneboard";
+    }
 
-		return "/member/oneboard";
-	}
+    @PostMapping("/oneboardForm")
+    public String oneBoardForm(MemberDTO memberDTO) {
+    	System.out.println("oneboardForm() 로드");
+        memberService.insertOneBoard(memberDTO);
+
+        return "member/farmStoreDetail";
+    }
+
 
 	// 디비 연동 확인용
 

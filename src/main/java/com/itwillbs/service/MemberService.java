@@ -97,12 +97,13 @@ public class MemberService {
 	}
 	
 	public void insertOneBoard(MemberDTO memberDTO) {
+		System.out.println("MemberService insertOneBoard()");
         memberDAO.insertOneBoard(memberDTO);
     }
 
-    public List<MemberDTO> getOneBoardList() {
-        return memberDAO.getOneBoardList();
-    }
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
 	 
 	// 리뷰작성
 	public void createReview(ReviewDTO reviewDTO) {

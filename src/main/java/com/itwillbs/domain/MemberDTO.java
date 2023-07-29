@@ -23,6 +23,7 @@ public class MemberDTO {
 	private String one_board_pass;
 	private Date one_board_day;
 	private String one_board_repYn;
+	private String one_board_private;
 	
 	public int getMember_num() {
 		return member_num;
@@ -139,7 +140,12 @@ public class MemberDTO {
 	public void setOne_board_repYn(String one_board_repYn) {
 		this.one_board_repYn = one_board_repYn;
 	}
-	
+	public String getOne_board_private() {
+		return one_board_private;
+	}
+	public void setOne_board_private(String one_board_private) {
+		this.one_board_private = one_board_private;
+	}
 
 
 }

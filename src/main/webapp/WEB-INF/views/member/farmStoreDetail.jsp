@@ -269,20 +269,13 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									</table>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <!--  리뷰칸 끝 -->
                             
-                            <div class="tab-pane" id="tabs-4" role="tabpanel">
-			        		 <div class="product__details__tab__desc">
-			            	 <table class="table">
-			                 <thead>
-=======
                              <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        <div class="product__details__tab__desc">
 			        <a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
 			            <table class="table">
 			                <thead>
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                    <tr>
 			                        <th>답변상태</th>
 			                        <th>문의유형</th>
@@ -293,20 +286,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
-<<<<<<< HEAD
 			                 </tbody>
 			            	 </table>
 			        		</div>
                          </div>
-                    	</div>
-=======
-			                </tbody>
-			            </table>
-			        </div>
-			        		</div>
-                        </div>
                     </div>
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                 </div>
             </div>
         </div>
