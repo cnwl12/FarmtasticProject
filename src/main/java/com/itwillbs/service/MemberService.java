@@ -114,17 +114,14 @@ public class MemberService {
         return memberDAO.getReviewsByItem(item_num);
     }
 
-    
-
 	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
 		System.out.println("서비스 오더디테일 까지 오는징");
 		memberDAO.insertOrderDetail(orderDetail);
 	}
 	
-	/*
-	 * // 주문 상세 테이블에 담을것 public void insertOrderDetail(HashMap<String, String>
-	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");
-	 * memberDAO.insertOrderDetail(orderDetail); }
-	 */
-	 
+	public void insertOrderDetail(int member_num) {
+		System.out.println("서비스 오더디테일 까지 오는징");
+		memberDAO.insertOrderDetail(member_num);
+	}
+ 
 }

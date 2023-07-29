@@ -90,6 +90,11 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
 	}
 	
+	public void insertOrderDetail(int member_num) {
+		System.out.println("membetDAO insertOrderDetail까지 오는지");
+		sqlSession.insert(namespace + ".insertOrderDetail", member_num);
+	}
+	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
 		sqlSession.update(namespace+".updateMember", memberDTO);

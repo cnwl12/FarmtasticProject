@@ -100,7 +100,7 @@
 	INSERT INTO order_detail (member_num, order_num, item_num, item_cnt)
 	SELECT
 	     c.member_num AS member_num,
-	     CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(o.id, 4, '0')) AS order_num,
+	     CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(o.id, 8, '0')) AS order_num,
 	     c.item_num AS item_num,
 	     c.cart_cnt AS item_cnt
 	FROM cart c

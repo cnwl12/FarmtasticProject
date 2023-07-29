@@ -413,6 +413,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
 		
+		
 		return "/member/checkout";
 		
 	}
@@ -429,7 +430,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		int member_num = 777; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 		
-		orderDetail.put("member_num", member_num);
+//		orderDetail.put("member_num", member_num);
 				
 		memberService.insertOrderDetail(orderDetail);
 		System.out.println("컨-서 다녀왔을 때" + orderDetail);

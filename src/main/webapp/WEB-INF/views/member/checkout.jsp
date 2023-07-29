@@ -75,6 +75,7 @@
                             <tbody>
                             <!-- 장바구니 담긴 내용 / 수량 수정 불가 -->
 								<c:forEach var="item" items="${itemList}">
+								 <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
 								  <tr>
 								    <td class="shoping__cart__item">
 								      <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
@@ -203,7 +204,7 @@
                                     <li>Organic Bananas <span>$53.99</span></li>
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
+                                <div class="checkout__order__total">Total <span>${totalSum}</span></div>
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?
@@ -227,6 +228,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+                                <!-- ??????? 이거는 왜????????  -->
                                 <div id="order_num">${order_num}</div>
                                 <div id="member_email">${member_email}</div>
                                 <div id="item_name">${item_name}</div>

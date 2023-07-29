@@ -79,7 +79,9 @@
                             </thead>
                             <tbody>
                                 <c:forEach var="item" items="${itemList}">
+                                 <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
                                 <tr>
+                                
                                     <td class="shoping__cart__item">
                                         <img src="${item.item_mainImg} alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
@@ -110,9 +112,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <input type="button" onclick="history()" value="CONTINUE SHOPPING">
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+                        <input type="button" onclick="updateCart()" class="primary-btn cart-btn cart-btn-right" value="UPDATE CART">   
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -131,12 +132,8 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Total	 <span>${totalSum}</span></li>
                         </ul>
-                        <!-- 복사 -->
-                         <!-- <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART"> -->
-                        <!-- 기존 -->
-                        <!-- <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a> -->
                     </div>
                          <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
                 </div>
