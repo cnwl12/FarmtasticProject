@@ -204,7 +204,7 @@
                                     <li>Organic Bananas <span>$53.99</span></li>
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>${totalSum}</span></div>
+                                <div class="checkout__order__total">Total <span>${totalSum}원</span></div>
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?
