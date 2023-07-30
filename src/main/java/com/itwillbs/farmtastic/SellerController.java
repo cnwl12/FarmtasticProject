@@ -237,10 +237,9 @@ public class SellerController {
 	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
 	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
-								@RequestParam("file") List<MultipartFile> files,
-								HttpSession session) throws Exception {
+								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 		
-			System.out.println("updatePro");
+			System.out.println("updatePro 오는지");
             
             // 삭제예정 
             String seller_num = "TA002";

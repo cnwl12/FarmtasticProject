@@ -55,6 +55,7 @@
                     </p>
 					
 					<form action="itemUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+							<input type="hidden" name="item_num" value="${item.item_num}">
 						<table border="1">
 							<tr>
 								<td>카테고리 번호</td>
@@ -85,8 +86,8 @@
 							<tr>
 								<td>상품 이미지</td>
 								<td>
-									변경 : <input type="file" name="new_file">
-									기존(삭제예정) : <input type="text" name="file" value="${item.item_mainImg}">
+									변경 : <input type="file" name="file">
+									기존(삭제예정) : <input type="text" name="oldfile" value="${item.item_mainImg}">
 								</td>
 							</tr>
 							<tr>
