@@ -69,6 +69,14 @@ public class MemberService {
 		return memberDAO.getMember(member_id);
 	}
 	
+	/* sungha 07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		
+		System.out.println("MemberService getMember1()");
+		
+		return memberDAO.getMember1(member_num);
+	}
+	
 	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
