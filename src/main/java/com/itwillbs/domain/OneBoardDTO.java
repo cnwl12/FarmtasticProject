@@ -12,8 +12,16 @@ public class OneBoardDTO {
 	private Date one_board_day;
 	private String one_board_repYn;
 	private String one_board_private;
-	private String item_num;
+	private int item_num;
+	private int member_num;
 	
+	
+	public int getMember_num() {
+		return member_num;
+	}
+	public void setMember_num(int member_num) {
+		this.member_num = member_num;
+	}
 	public int getOne_board_num() {
 		return one_board_num;
 	}
@@ -68,10 +76,10 @@ public class OneBoardDTO {
 	public void setOne_board_private(String one_board_private) {
 		this.one_board_private = one_board_private;
 	}
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
 
