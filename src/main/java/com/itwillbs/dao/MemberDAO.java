@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.ReviewDTO; 
 
 @Repository
@@ -110,13 +111,16 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
     }
 	
+	
+	
+	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }
 	//서영 작업 1대1문의
-	 public void insertOneBoard(MemberDTO memberDTO) {
+	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		 System.out.println("MemberDAO insertOneBoard ()!!");
-        sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
+        sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
 
 //	 public List<MemberDTO> getOneBoardList() {
@@ -127,5 +131,5 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
-	
+
 }

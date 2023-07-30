@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.ReviewDTO;
 
 @Service
@@ -96,9 +97,9 @@ public class MemberService {
 		memberDAO.updateMember(memberDTO);
 	}
 	
-	public void insertOneBoard(MemberDTO memberDTO) {
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		System.out.println("MemberService insertOneBoard()");
-        memberDAO.insertOneBoard(memberDTO);
+        memberDAO.insertOneBoard(oneboardDTO);
     }
 
 //    public List<MemberDTO> getOneBoardList() {

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.naverController.NaverController;
@@ -355,9 +356,9 @@ public class FarmController { // 소비자 (컨트롤러)
     }
 
     @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-    public String oneBoardForm(MemberDTO memberDTO) {
+    public String oneBoardForm(OneBoardDTO oneboardDTO) {
     	System.out.println("oneboardForm() 로드");
-        memberService.insertOneBoard(memberDTO);
+        memberService.insertOneBoard(oneboardDTO);
 
         return "/member/farmStoreDetail";
     } 

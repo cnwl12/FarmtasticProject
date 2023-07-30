@@ -274,6 +274,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                              <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        <div class="product__details__tab__desc">
 			        <a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
+			        <input type="hidden" name="item_num" value="${item_num}">
+			        <div>
 			            <table class="table">
 			                <thead>
 			                    <tr>
@@ -288,6 +290,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
 			                 </tbody>
 			            	 </table>
+			            	 </div>
 			        		</div>
                          </div>
                     </div>
@@ -393,11 +396,14 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<script>
 	function openPopup() {
 	  window.open(
-	    "oneboard", 
+	    "oneboard?item_num=" + item_num, 
 	    "oneboardpop", 
 	    "width=600, height=1000, left=100, top=50, scrollbars=no, resizable=yes"
 	  );
 	}
+	</script>
+	<script>
+	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
 	
 	<script type="text/javascript">

@@ -121,8 +121,8 @@
   
   <!--  1대1문의 -->
   <insert id = "insertOneBoard">
-  	insert into one_board (one_board_title, one_board_content)
-  	value(#{one_board_title}, #{one_board_content})
+  	insert into one_board (one_board_title, one_board_content, item_num)
+  	value(#{one_board_title}, #{one_board_content}, #{item_num})
   
   </insert>
   
