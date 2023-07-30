@@ -35,7 +35,7 @@ try {
         
         while ((inputLine = in.readLine()) != null) {
             buffer.append(inputLine);
-            System.out.println(inputLine);
+            System.out.println("sys inputLine -->" + inputLine);
         }
         System.out.println("토큰전달성공");
         System.out.println("토큰값 : " + access_token);
