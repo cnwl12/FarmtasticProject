@@ -99,27 +99,46 @@
    <!-- 상품 등록 -->
     <insert id="itemInsert">
        INSERT INTO item (
-           category_num,
+           seller_type,
            item_name,
            item_price,
+           item_sale,
            item_mainImg,
+           item_left,
            item_detail,
+           seller_num,
            item_register
        )
        VALUES (
-           #{category_num},
+           #{seller_type},
            #{item_name},
            #{item_price},
+           #{item_sale},
            #{item_mainImg},
+           #{item_left},
            #{item_detail},
+           #{seller_num},
            now()
        )
    </insert>
+   
+   <!-- 상품 등록 수정 -->
+   <update id="">
+   UPDATE item
+   SET	item_name = #{item_name},
+   		item_price = #{item_price},
+   		item_detail = #{item_detail},
+   		item_left = #{item_left}
+   
+   WHERE item_num = #{item_num} AND seller_num = #{seller_num}
+   </update>
+   
 
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT *
        FROM item
+       ORDER BY item_num desc
     </select>
 
    <!-- 개별상품 가져오기  -->

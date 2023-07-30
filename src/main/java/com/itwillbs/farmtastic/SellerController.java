@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.reflection.SystemMetaObject;
@@ -173,7 +174,12 @@ public class SellerController {
 	
 	// 상품등록 - 테스트 페이지 
 	@RequestMapping(value = "/itemInsert", method = RequestMethod.GET)
-	public String itemInsert(Locale locale, Model model) {
+	public String itemInsert(Model model, HttpSession session) {
+		
+		// 삭제예정 
+		String seller_num = "TA002";
+		
+		System.out.println("셀러고유번호 확인 : "+seller_num);
 		
 		System.out.println("itemInsert 매핑확인여부");
 		
@@ -186,9 +192,15 @@ public class SellerController {
 	                             @RequestParam("file") List<MultipartFile> files,
 	                             HttpSession session) {
 		
-		System.out.println(itemList);
-		System.out.println(files);
-	    sellerService.itemInsert(itemList, files, session);
+		//System.out.println(itemList);
+		//System.out.println(files);
+		
+		// 삭제예정 
+		String seller_num = "TA002";
+		
+		itemList.put("seller_num", seller_num);
+		
+		sellerService.itemInsert(itemList, files, session);
 	    
 	    return "redirect:/itemInsertList";
 	}
@@ -203,6 +215,31 @@ public class SellerController {
 	    
 	    return "/seller/itemInsertList";
 	}
+	
+	// 판매 품목 수정 - 해쉬맵으로 수정할예정
+	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
+	public String itemUpdate(@RequestParam HashMap<String, Object> item, Model model,
+							 HttpServletRequest session) {
+		
+		 System.out.println("itemUpdate 매핑확인여부");
+		
+		 // 삭제예정 
+		 String seller_num = "TA002";
+		 
+		 item.put("seller_num", seller_num);
+		
+		 List<Map<String, Object>> itemList = sellerService.getItems();
+		 model.addAttribute("itemList", itemList);
+	    
+	    return "/seller/itemUpdate";
+	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 

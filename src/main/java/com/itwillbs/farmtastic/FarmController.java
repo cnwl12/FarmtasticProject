@@ -284,18 +284,17 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/join2";
 	}
 
+	/* sungha 07.29마이페이지*/
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
+	    System.out.println("mypage 매핑확인여부");
 
-		System.out.println("mypage 매핑확인여부");
+	    Integer member_num = (Integer) session.getAttribute("member_num");
+	    MemberDTO memberDTO = memberService.getMember1(member_num);
 
-		String id = (String) session.getAttribute("id");
+	    model.addAttribute("memberDTO", memberDTO);
 
-		MemberDTO memberDTO = memberService.getMember(id);
-
-		model.addAttribute("memberDTO", memberDTO);
-
-		return "/member/mypage";
+	    return "/member/mypage";
 	}
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
