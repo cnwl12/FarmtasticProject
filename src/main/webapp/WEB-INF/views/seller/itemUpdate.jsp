@@ -54,17 +54,13 @@
                     	내가 판매하는 상품만 수정 가능!
                     </p>
 					
-					<!-- 컬럼 이름
-					item_num category_num item_name item_price item_sale item_discount
-					item_left item_amount item_mainImg item_img1 item_img2 item_detail
-					item_salesStatus seller_num item_fee item_register -->
-					
-					<form action="itemUpdate" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+					<form action="itemUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 						<table border="1">
 							<tr>
 								<td>카테고리 번호</td>
 								<td>
 									<select name="seller_type" id="seller_type">
+										<option value="">${item.seller_type}</option>
 										<option value="FR">상품을선택해주세요</option>
 										<option value="FR">사과</option>
 										<option value="PE">배</option>
@@ -82,20 +78,25 @@
 								<td><input type="text" name="item_price" value="${item.item_price}"></td>
 							</tr>
 							<tr>
+								<td>할인율</td>
+								<td><input type="text" name="item_sale" value="">% 
+									<input type="text" name="" value="">원 </td>
+							</tr>
+							<tr>
 								<td>상품 이미지</td>
-								<td><input type="file" name="file" value=""></td>
+								<td>
+									변경 : <input type="file" name="new_file">
+									기존(삭제예정) : <input type="text" name="file" value="${item.item_mainImg}">
+								</td>
+							</tr>
+							<tr>
+								<td>등록 가능 재고</td>
+								<!-- number 1 이하일 경우 예외 방지 -->
+								<td><input type="number" name="item_left" value="${item.item_left}"></td>
 							</tr>
 							<tr>
 								<td>상품설명</td>
-								<td><textarea name="item_detail" rows="10" cols="20" value="${item.item_detail}"></textarea></td>
-							</tr>
-							<tr>
-								<td>재고</td>
-								<td><input type="text" name="item_left" value=""></td>
-							</tr>
-							<tr>
-								<td>이미지확인 - 아래 주소처럼 나와야함</td>
-								<td><img src="http://c3d2212t3.itwillbs.com/Moneytto/resources/upload/c9bbe06a.png" style="width: 300px; height: 200px"></td>
+								<td><textarea name="item_detail" rows="10" cols="20">${item.item_detail}</textarea></td>
 							</tr>
 							
 							<tr>

@@ -1,24 +1,24 @@
 package com.itwillbs.farmtastic;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
 /**
@@ -218,27 +218,38 @@ public class SellerController {
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
-	public String itemUpdate(@RequestParam HashMap<String, Object> item, Model model,
-							 HttpServletRequest session) {
+	public String itemUpdate(@RequestParam("item_num") int item_num, Model model) {
 		
 		 System.out.println("itemUpdate 매핑확인여부");
 		
 		 // 삭제예정 
 		 String seller_num = "TA002";
 		 
-		 item.put("seller_num", seller_num);
+		 // item.put("seller_num", seller_num);
+		 
+		 Map<String, Object> item = sellerService.getItem(item_num);
 		
-		 List<Map<String, Object>> itemList = sellerService.getItems();
-		 model.addAttribute("itemList", itemList);
+		 model.addAttribute("item", item);
 	    
 	    return "/seller/itemUpdate";
 	}
 	
 	
+	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
+	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
+								@RequestParam("file") List<MultipartFile> files,
+								HttpSession session) throws Exception {
+		
+			System.out.println("updatePro");
+            
+            // 삭제예정 
+            String seller_num = "TA002";
+			itemList.put("seller_num", seller_num);
+            
+			sellerService.itemUpdate(itemList, files, session);
 	
-	
-	
-	
+			return "redirect:/itemInsertList";
+	}
 	
 }
 

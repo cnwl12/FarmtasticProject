@@ -169,6 +169,11 @@ public class SellerService {
          
          // insertSeller 메서드 호출  
          sellerDAO.insertSeller(sellerDTO);
+		}
+
+		public void itemUpdate(HashMap<String, String> itemList, List<MultipartFile> files, HttpSession session) {
+			// TODO Auto-generated method stub
+			
 		}   
 
 
