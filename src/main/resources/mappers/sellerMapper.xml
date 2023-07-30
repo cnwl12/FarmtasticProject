@@ -123,10 +123,12 @@
    </insert>
    
    <!-- 상품 등록 수정 -->
-   <update id="">
+   <update id="itemUpdate">
    UPDATE item
-   SET	item_name = #{item_name},
+   SET	seller_type = #{seller_type},
+   		item_name = #{item_name},
    		item_price = #{item_price},
+   		item_mainImg = #{item_mainImg},
    		item_detail = #{item_detail},
    		item_left = #{item_left}
    

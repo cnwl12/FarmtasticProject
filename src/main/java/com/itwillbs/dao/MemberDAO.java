@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -104,6 +105,7 @@ public class MemberDAO {
 	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
+		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
 

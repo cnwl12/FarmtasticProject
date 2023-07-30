@@ -121,4 +121,10 @@ public class SellerDAO {
 		}
 
 
+
+
+		public void itemUpdate(HashMap<String, String> itemList) {
+			System.out.println("맵까지 오는지");
+			sqlSession.update(namespace+".itemUpdate", itemList);
+		}
 }

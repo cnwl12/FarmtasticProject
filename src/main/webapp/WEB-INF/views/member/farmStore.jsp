@@ -358,12 +358,12 @@
                                     <h6><span>16</span> Products found</h6>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-3">
+                            <!-- <div class="col-lg-4 col-md-3">
                                 <div class="filter__option">
                                     <span class="icon_grid-2x2"></span>
                                     <span class="icon_ul"></span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     

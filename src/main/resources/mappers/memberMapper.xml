@@ -18,7 +18,10 @@
   	
   	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
   	select * from member
-  	where member_id = #{member_id} and member_pass = #{member_pass}
+  	where member_id = #{member_id}
+  	  <if test="member_pass != null">
+  	  and member_pass = #{member_pass}
+  	  </if>
   	</select>
   	
   	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
@@ -99,8 +102,9 @@
   UPDATE member
   SET member_name = #{member_name},
       member_phone = #{member_phone},
-      member_email = #{member_email}
-      <if test="member_password != null">, member_password = #{member_password}</if>
+      member_email = #{member_email},
+      member_pass  = #{new_member_pass},
+      <if test="member_pass != null">member_pass = #{member_pass}</if>
   WHERE member_id = #{member_id}
 </update>
 
