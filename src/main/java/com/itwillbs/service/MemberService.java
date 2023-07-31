@@ -137,5 +137,11 @@ public class MemberService {
 		System.out.println("서비스 오는지 딜리트카트 ");
 		memberDAO.deleteCart(cart);
 	}
+
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberService userCheck1()");
+		 
+		 return memberDAO.userCheck1(memberDTO);
+	}
  
 }

@@ -230,9 +230,34 @@ public class FarmController { // 소비자 (컨트롤러)
 	 	String member_id = jsonObject.optString("id");
 	 	String member_name = userProfile.getString("name");
 	 	String member_email = userProfile.getString("email");
-	 	String member_phone = userProfile.getString("phone_number").replace("+82 10", "010");
-	 	// repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
-	 	System.out.println("member_phone -->>>>>" + member_phone);
+		/*
+		 * String member_phone = userProfile.getString("phone_number").replace("+82 10",
+		 * "010"); // repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
+		 * System.out.println("member_phone -->>>>>" + member_phone);
+		 */
+	 	
+	 	String member_phone = userProfile.getString("phone_number");
+
+	 // 국제 전화번호일 경우 국가 코드를 "00"으로 변경
+	 if (member_phone.startsWith("+")) {
+		 member_phone = member_phone.replace("+", "00");
+	 }
+
+	 // 국내 전화번호일 경우 번호의 길이에 따라 처리
+	 if (member_phone.startsWith("02")) {
+	     if (member_phone.length() == 9) {
+	    	 member_phone = member_phone.replaceFirst("02", "02-");
+	     } else if (member_phone.length() == 10) {
+	    	 member_phone = member_phone.replaceFirst("02", "02-");
+	     }
+	 } else { // 국내 지역번호가 아니면서 "01"로 시작하는 경우
+	     if (member_phone.length() == 10) {
+	    	 member_phone = "010-" + member_phone.substring(2, 6) + "-" + member_phone.substring(6);
+	     }
+	 }
+
+	 System.out.println(member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
+	 	
 	 	
 	 	// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
 	 	MemberDTO memberDTO = new MemberDTO();
@@ -288,7 +313,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
 	    System.out.println("mypage 매핑확인여부");
-
+	    MemberDAO memberDAO = new MemberDAO();
 	    Integer member_num = (Integer) session.getAttribute("member_num");
 	    MemberDTO memberDTO = memberService.getMember1(member_num);
 
@@ -297,21 +322,67 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return "/member/mypage";
 	}
 
+//	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
+//	public String updatePro(MemberDTO memberDTO) {
+//		System.out.println("MemberController updatePro()");
+//		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+//		if (memberDTO2 != null) {
+//			// 아이디 비밀번호 일치 => 수정작업 => /member/index 이동
+//			
+//			memberService.updateMember(memberDTO);
+//			System.out.println(memberDTO);
+//			return "redirect:/member/index";
+//			
+//		} else {
+//			// 아이디 비밀번호 틀림 => member/msg.jsp 이동
+//			return "member/msg";
+//		}
+//	}
+//
+//	
+
+	
+
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(MemberDTO memberDTO) {
-		System.out.println("MemberController updatePro()");
-		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-		if (memberDTO2 != null) {
-			// 아이디 비밀번호 일치 => 수정작업 => /member/index 이동
-			memberService.updateMember(memberDTO);
-			//return "redirect:/member/index";
-			return "redirect:/index";
-		} else {
-			// 아이디 비밀번호 틀림 => member/msg.jsp 이동
-			return "member/msg";
-		}
+	public String updatePro(HttpSession session,
+	                        @RequestParam(value = "member_id", required = false) String member_id,
+	                        @RequestParam(value = "member_pass", required = false) String member_pass,
+	                        @RequestParam(value = "new_member_pass", required = false) String new_member_pass) throws Exception {
+
+	    Integer member_num = (Integer) session.getAttribute("member_num");
+
+	    // 입력된 값들도 세션에 저장합니다.
+	    session.setAttribute("member_id", member_id);
+	    session.setAttribute("member_pass", member_pass);
+	    session.setAttribute("new_member_pass", new_member_pass);
+	    
+	    System.out.println(member_num + "-" + member_id + "-" + member_pass + "-" + new_member_pass );
+	    
+	    MemberDTO memberDTO = new MemberDTO();
+	    memberDTO.setMember_num(member_num);
+	    MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
+
+	    if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
+	        // memberDTO 객체에 입력된 값들을 설정합니다.
+	        memberDTO.setMember_id(member_id);
+	        memberDTO.setMember_pass(new_member_pass);
+
+	        memberService.updateMember(memberDTO);
+	        return "redirect:/member/index";
+	    } else {
+	        System.out.println("비밀번호 오류");
+	        return "member/mypage";
+	    }
 	}
 
+
+
+
+
+
+	
+	    
+	    
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 

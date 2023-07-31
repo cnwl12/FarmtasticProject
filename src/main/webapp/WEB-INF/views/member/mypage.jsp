@@ -169,46 +169,41 @@
 										<td id="PasswordEdit" class="PwdEdit" style="display: block;">
 											<ul class="llist-style1">
 												<li><label for="nowpw"><span class="bg_bul"></span>현재
-														비밀번호</label> <input type="password" class="txt" id="pwd"
-													name="pwd" size="26" maxlength="15" style="width: 195px;">
+														비밀번호</label> <input type="password" class="txt" id="member_pass"
+													name="pwd" size="26" maxlength="15"  
+													onkeydown="return keycheck(this.event);"
+													onkeypress="Capskeycheck(this,'new_member_pass');"
+													onkeyup="validatePasswordType(this,'new_member_pass');"
+													onfocus="helpOn('new_member_pass');"
+													onblur="chkBlur(this,'new_member_pass');" style="width: 195px";>
 													<span class="font_style1">현재 비밀번호를 입력해 주세요</span></li>
 												<li><label for="newpw"><span class="bg_bul"></span>새
-														비밀번호</label> <input type="password" class="txt" id="pwd1"
+														비밀번호</label> <input type="password" class="txt" id="new_member_pass"
 													name="pwd1" size="26" maxlength="15"
 													onkeydown="return keycheck(this.event);"
-													onkeypress="Capskeycheck(this,'Password1');"
-													onkeyup="validatePasswordType(this,'Password1');"
-													onfocus="helpOn('Password1');"
-													onblur="chkBlur(this,'Password1');" style="width: 195px;">
+													onkeypress="Capskeycheck(this,'new_member_pass');"
+													onkeyup="validatePasswordType(this,'new_member_pass');"
+													onfocus="helpOn('new_member_pass');"
+													onblur="chkBlur(this,'new_member_pass');" style="width: 195px;">
 													<!-- 비밀번호 안전등급 --> <span class="font_style1"></span></li>
 												<li><label for="new_pw_corfirm"><span
 														class="bg_bul"></span>새 비밀번호 확인</label> <input type="password"
-													class="txt" id="pwd2" name="pwd2" size="26" maxlength="15"
-													onfocus="helpOn('Password2');"
-													onkeyup="helpOff('Password2');"
-													onblur="helpOff('Password2');" style="width: 203px;">
+													class="txt" id="new_member_pass" name="pwd2" size="26" maxlength="15"
+													onfocus="helpOn('new_member_pass');"
+													onkeyup="helpOff('new_member_pass');"
+													onblur="helpOff('new_member_pass');" style="width: 203px;">
 												</li>
 											</ul>
 										</td>
-										<!-- 비밀번호/G통장 비밀번호 리스트 -->
-										<td id="PasswordQnAEdit" class="PwdQna" style="display: none">
-											<span class="PassEdit"><a
-												class="btn_acccount btn_s_gray"><span>비밀번호 수정</span></a></span>
-										</td>
+										
 									</tr>
 
 									<tr>
 										<th scope="row"><label>휴대폰번호</label></th>
-										<td><input type="text" class="txt" id="hp_no1"
-											name="hp_no1" size="4" maxlength="4"
-											value="${memberDTO.member_phone.substring(0, 3)}"
-											title="휴대폰 첫자리"> <span>-</span> <input type="text"
-											class="txt" id="hp_no2" name="hp_no2" size="4" maxlength="4"
-											value="${memberDTO.member_phone.substring(4, 8)}"
-											title="휴대폰 가운데 자리"> <span>-</span> <input type="text"
-											class="txt" id="hp_no3" name="hp_no3" size="4" maxlength="4"
-											value="${memberDTO.member_phone.substring(9, 13)}"
-											title="휴대폰 뒷자리"></td>
+										<td><input type="text" class="txt" id="phone"
+											name="hp_no1" size="15" maxlength="15" 
+											value="${memberDTO.member_phone}"
+											title="휴대폰 첫자리"> 
 
 
 									</tr>
@@ -217,14 +212,10 @@
 									<tr style="visibility: visible;">
 										<th scope="row"><label for="email">E-mail</label></th>
 										<td>
-											<!-- 메일 앞부분  --> <input type="text" class="txt" id="e_mail1"
-											name="e_mail1" title="이메일 아이디"
-											value="${memberDTO.member_email.substring(0, memberDTO.member_email.indexOf("@"))}">
-											@ <!-- 주소부분 --> <input class="txt" id="e_mail2"
-											name="e_mail2" title="이메일 도메인"
-											value=" ${memberDTO.member_email.substring(memberDTO.member_email.indexOf("@") + 1)}">
-											<a style="display: none;" id="EmailChange"
-											class="btn_acccount btn_s_gray"><span>수정하기</span></a> <!-- <input
+											<!-- 메일 앞부분  --> <input type="text" class="txt" id="member_email"
+											name="e_mail1" title="이메일 아이디" size="50"
+											value="${memberDTO.member_email}">
+											<!-- 주소부분 -->  <!-- <input
 											type="hidden" name="hdnOldIsRcvMail" id="hdnOldIsRcvMail"
 											value="True"> <input type="hidden" name="old_email"
 											id="old_email" value="wjc5510@naver.com"> <input

@@ -142,4 +142,11 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 
+
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck1()");
+		
+		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
+	}
+
 }
