@@ -341,7 +341,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		Map<String, Object> item = sellerService.getItem(item_num);
 
 		model.addAttribute("item", item);
+		
+		int reviewCount = memberService.getReviewCountByItemNum(item_num);
+        double averageStarRating = memberService.getAverageReviewStarByItemNum(item_num);
 
+        model.addAttribute("reviewCount", reviewCount);
+        model.addAttribute("averageStarRating", averageStarRating);
+		
 		/* System.out.println(item); */
 		System.out.println("farmStoreDetail 매핑확인여부");
 

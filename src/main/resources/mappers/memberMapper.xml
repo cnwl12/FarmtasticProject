@@ -146,6 +146,13 @@
   	AND member_num = #{member_num}
   </delete>
   
-  
+  <!-- 리뷰모시기 막내 -->
+  <select id="getReviewCountByItemNum" resultType="int">
+        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
+  </select>
+
+  <select id="getAverageReviewStarByItemNum" resultType="double">
+        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
+  </select>
   
 </mapper>

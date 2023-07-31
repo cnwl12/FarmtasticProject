@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
@@ -124,12 +125,6 @@ public class MemberDAO {
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		 System.out.println("MemberDAO insertOneBoard ()!!");
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
-	
-	
-	
-//	 public int checkIdDuplicate(String memberId) {
-//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
-//	 }
     }
 
 //	 public List<MemberDTO> getOneBoardList() {
@@ -140,5 +135,20 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
+	
+	// 막냉이 리뷰붜시기
+	 public int getReviewCountByItemNum(int item_num) {
+	      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
+	  }
 
+	 public double getAverageReviewStarByItemNum(int item_num) {
+		 Double averageReviewStar = null;
+		 try {
+			 averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
+		 } catch (NullPointerException | EmptyResultDataAccessException e) {
+		
+		 }
+		 
+		 return averageReviewStar == null ? 0.0 : averageReviewStar;
+	 }
 }
