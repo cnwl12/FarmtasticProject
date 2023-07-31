@@ -66,6 +66,8 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
 	
+
+		
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
@@ -151,6 +153,10 @@ public class MemberDAO {
 
 
 	
+			// 막냉이 리뷰별점 갯수 기능
+			 public int getReviewCountByItemNum(int item_num) {
+			      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
+			  }
 
 		
 		 public double getAverageReviewStarByItemNum(int item_num) { 

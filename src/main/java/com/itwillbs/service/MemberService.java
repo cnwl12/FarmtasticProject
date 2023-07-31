@@ -154,7 +154,7 @@ public class MemberService {
 	  }
  
 	
-	// 막내 리뷰
+	// 막내 리뷰별점 갯수기능
 	 public int getReviewCountByItemNum(int item_num) {
 	     return memberDAO.getReviewCountByItemNum(item_num);
 	 }

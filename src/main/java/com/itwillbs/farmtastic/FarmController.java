@@ -408,7 +408,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStore";
 	}
 
-	// 상품 개별 페이지로 이동
+	// 상품 개별 페이지로 이동 + 막내 리뷰기능 용도 추가함
 	@RequestMapping(value = "/farmStoreDetail", method = RequestMethod.GET)
 	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model) {
 
