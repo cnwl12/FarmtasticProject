@@ -109,8 +109,8 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-	 
 	
+	 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
@@ -139,7 +139,7 @@ public class SellerController {
         String sixMonthsAgoStr = dateFormat.format(sixMonthsAgo);
         
         // 쿼리 파라미터로 사용할 값 설정
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("seller_num", seller_num);
         params.put("currentDate", currentDateStr);
         params.put("sixMonthsAgo", sixMonthsAgoStr);

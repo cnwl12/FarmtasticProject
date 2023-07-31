@@ -122,13 +122,13 @@
   </insert>		
 
   
-  <!-- 리뷰작성 -->
-  <insert id="createReview">
-  	insert into review (review_num, member_num, item_num, review_star, review_title, review_content, review_img, review_day) 
-    values (#{review_num}, #{member_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
+  <!-- 리뷰작성 - 막내 -->
+  <insert id="insertReview">
+  	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
+    values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
   </insert>
   
-   <select id="getReviewsByItem" parameterType="int" resultType="com.itwillbs.domain.ReviewDTO">
+   <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
     SELECT * FROM review WHERE item_num = #{item_num}
   </select>
   
