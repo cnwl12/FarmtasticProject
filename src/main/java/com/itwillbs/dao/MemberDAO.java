@@ -132,7 +132,7 @@ public class MemberDAO {
 //	 }
     }
 
-	 public List<ReviewDTO> findByItemNum(int item_num) {
+	 public List<OneBoardDTO> findByItemNum(int item_num) {
 			return sqlSession.selectList(namespace+".findByItemNum", item_num);
 	    }
 //	 public List<MemberDTO> getOneBoardList() {

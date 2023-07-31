@@ -295,7 +295,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             <!--  리뷰칸 끝 -->
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        		<div class="product__details__tab__desc">
-			        		<a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
+			        		<a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
 			           		<table class="table">
                              <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        <div class="product__details__tab__desc">

@@ -345,6 +345,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		/* System.out.println(item); */
 		System.out.println("farmStoreDetail 매핑확인여부");
+		
+		List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
+        System.out.println(oneBoardList+"가나다"); 
+        model.addAttribute("oneBoardList", oneBoardList);
 
 		return "/member/farmStoreDetail";
 	}
@@ -585,12 +589,12 @@ public class FarmController { // 소비자 (컨트롤러)
     } 
     
     
-    @RequestMapping("/FarmStoreDetail")
-    public String oneBoard2(@RequestParam("item_num") int item_num, Model model) {
-        List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
-        System.out.println(oneBoardList); 
-        model.addAttribute("oneBoardList", oneBoardList);
-        return "/member/farmStoreDetail"; // 페이지 이름
-    }
+//    @RequestMapping("/FarmStoreDetail")
+//    public String oneBoard2(@RequestParam("item_num") int item_num, Model model) {
+//        List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
+//        System.out.println(oneBoardList+"가나다"); 
+//        model.addAttribute("oneBoardList", oneBoardList);
+//        return "/member/farmStoreDetail"; // 페이지 이름
+//    }
 	
 }
