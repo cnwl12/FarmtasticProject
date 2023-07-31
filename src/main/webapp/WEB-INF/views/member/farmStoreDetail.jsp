@@ -289,6 +289,16 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
+			                    <c:forEach var="row" items="${oneBoardList}">
+								    <tr>
+								        <td>${row.one_board_repYn}</td>
+								        <td>${row.one_board_type}</td>
+								        <td>${row.one_board_title}</td>
+								        <td>${row.member_name}</td>
+								        <td>${row.one_board_day}</td>
+								    </tr>
+								</c:forEach>
+
 			                 </tbody>
 			            	 </table>
 			            	 </div>

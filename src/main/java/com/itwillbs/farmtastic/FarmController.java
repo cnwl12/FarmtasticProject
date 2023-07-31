@@ -21,10 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
@@ -345,21 +347,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	// 서영 작업중
-    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-    public String oneBoard(Model model) {
-    	System.out.println("FarmController oneboard()!");
-        return "/member/oneboard";
-    }
-
-    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-    public String oneBoardForm(OneBoardDTO oneboardDTO) {
-    	System.out.println("oneboardForm() 로드");
-        memberService.insertOneBoard(oneboardDTO);
-
-        return "/member/farmStoreDetail";
-    } 
-
 
 	// 디비 연동 확인용
 
@@ -575,6 +562,28 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return "FarmStoreDetail";
 	}
 	
-	
+	// 서영 작업중
+    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+    public String oneBoard(Model model) {
+    	System.out.println("FarmController oneboard()!");
+        return "/member/oneboard";
+    }
+
+    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
+    public String oneBoardForm(OneBoardDTO oneboardDTO) {
+    	System.out.println("oneboardForm() 로드");
+        memberService.insertOneBoard(oneboardDTO);
+
+        return "/member/farmStoreDetail";
+    } 
+    
+    
+    @RequestMapping("/FarmStoreDetail")
+    public String oneBoard2(@RequestParam("item_num") int item_num, Model model) {
+        List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
+        System.out.println(oneBoardList); 
+        model.addAttribute("oneBoardList", oneBoardList);
+        return "/member/farmStoreDetail"; // 페이지 이름
+    }
 	
 }

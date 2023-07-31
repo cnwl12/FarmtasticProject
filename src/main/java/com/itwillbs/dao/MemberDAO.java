@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -131,6 +130,9 @@ public class MemberDAO {
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
 
+	 public List<ReviewDTO> findByItemNum(int item_num) {
+			return sqlSession.selectList(namespace+".findByItemNum", item_num);
+	    }
 //	 public List<MemberDTO> getOneBoardList() {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
@@ -139,5 +141,7 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
+	
+	
 
 }

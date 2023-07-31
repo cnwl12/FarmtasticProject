@@ -105,14 +105,7 @@ public class MemberService {
 		memberDAO.updateMember(memberDTO);
 	}
 	
-	public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		System.out.println("MemberService insertOneBoard()");
-        memberDAO.insertOneBoard(oneboardDTO);
-    }
-
-//    public List<MemberDTO> getOneBoardList() {
-//        return memberDAO.getOneBoardList();
-//    }
+	
 	 
 	// 리뷰작성
 	public void createReview(ReviewDTO reviewDTO) {
@@ -139,5 +132,19 @@ public class MemberService {
 		System.out.println("서비스 오는지 딜리트카트 ");
 		memberDAO.deleteCart(cart);
 	}
+	
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		System.out.println("MemberService insertOneBoard()");
+        memberDAO.insertOneBoard(oneboardDTO);
+    }
+
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
+	
+//	  public List<OneBoardDTO> findByItemNum(int item_num) {
+//		  System.out.println("1대1문의 노출");
+////	       return memberDAO.findByItemNum(item_num);
+//	  }
  
 }
