@@ -103,14 +103,7 @@ public class MemberService {
 		memberDAO.updateMember(memberDTO);
 	}
 	
-	public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		System.out.println("MemberService insertOneBoard()");
-        memberDAO.insertOneBoard(oneboardDTO);
-    }
-
-//    public List<MemberDTO> getOneBoardList() {
-//        return memberDAO.getOneBoardList();
-//    }
+	
 	 
 	// 리뷰작성 - 막내
     public void insertReview(MemberDTO memberDTO) {
@@ -138,7 +131,30 @@ public class MemberService {
 		memberDAO.deleteCart(cart);
 	}
 
-	// 막냉이 리뷰
+
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberService userCheck1()");
+		 
+		 return memberDAO.userCheck1(memberDTO);
+	}
+
+	
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		System.out.println("MemberService insertOneBoard()");
+        memberDAO.insertOneBoard(oneboardDTO);
+    }
+
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
+	
+	  public List<OneBoardDTO> findByItemNum(int item_num) {
+		  System.out.println("1대1문의 노출");
+	       return memberDAO.findByItemNum(item_num);
+	  }
+ 
+	
+	// 막내 리뷰
 	 public int getReviewCountByItemNum(int item_num) {
 	     return memberDAO.getReviewCountByItemNum(item_num);
 	 }

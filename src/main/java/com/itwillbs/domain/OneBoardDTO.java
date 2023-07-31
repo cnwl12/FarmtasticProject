@@ -14,8 +14,15 @@ public class OneBoardDTO {
 	private String one_board_private;
 	private int item_num;
 	private int member_num;
+	private String member_name;
 	
 	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public int getMember_num() {
 		return member_num;
 	}

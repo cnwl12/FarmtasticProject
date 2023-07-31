@@ -127,6 +127,9 @@ public class MemberDAO {
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
 
+	 public List<OneBoardDTO> findByItemNum(int item_num) {
+			return sqlSession.selectList(namespace+".findByItemNum", item_num);
+	    }
 //	 public List<MemberDTO> getOneBoardList() {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
@@ -135,6 +138,13 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
+	
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck1()");
+		
+		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
+	}
+	
 	
 	// 막냉이 리뷰붜시기
 	 public int getReviewCountByItemNum(int item_num) {
