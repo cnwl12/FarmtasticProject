@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
-import com.itwillbs.domain.ReviewDTO; 
 
 @Repository
 public class MemberDAO {
@@ -108,28 +107,34 @@ public class MemberDAO {
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
 
-	//리뷰용도
-	public void createReview(ReviewDTO reviewDTO) {
-		System.out.println("DAO 리뷰작성");
-		sqlSession.insert(namespace+".createReview", reviewDTO);
-	}
-
-	public List<ReviewDTO> getReviewsByItem(int item_num) {
-		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
+	//리뷰용도 - 막내
+	public void insertReview(MemberDTO memberDTO) {
+        System.out.println("DAO 리뷰작성");
+        sqlSession.insert(namespace+".insertReview", memberDTO);
     }
+
+	public List<MemberDTO> getItemReviews(int item_num) {
+	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
+	}
 	
+	
+	
+	
+	//서영 작업 1대1문의
+	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		 System.out.println("MemberDAO insertOneBoard ()!!");
+        sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
 	
 	
 	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }
-	//서영 작업 1대1문의
-	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		 System.out.println("MemberDAO insertOneBoard ()!!");
-        sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
 
+	 public List<ReviewDTO> findByItemNum(int item_num) {
+			return sqlSession.selectList(namespace+".findByItemNum", item_num);
+	    }
 //	 public List<MemberDTO> getOneBoardList() {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
@@ -138,5 +143,7 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
+	
+	
 
 }

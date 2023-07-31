@@ -122,13 +122,13 @@
   </insert>		
 
   
-  <!-- 리뷰작성 -->
-  <insert id="createReview">
-  	insert into review (review_num, member_num, item_num, review_star, review_title, review_content, review_img, review_day) 
-    values (#{review_num}, #{member_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
+  <!-- 리뷰작성 - 막내 -->
+  <insert id="insertReview">
+  	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
+    values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
   </insert>
   
-   <select id="getReviewsByItem" parameterType="int" resultType="com.itwillbs.domain.ReviewDTO">
+   <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
     SELECT * FROM review WHERE item_num = #{item_num}
   </select>
   
@@ -146,6 +146,20 @@
   	AND member_num = #{member_num}
   </delete>
   
+  <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
+        <result column="one_board_repYn" property="one_board_repYn"/>
+        <result column="one_board_type" property="one_board_type"/>
+        <result column="one_board_title" property="one_board_title"/>
+        <result column="member_name" property="member_name"/>
+        <result column="one_board_day" property="one_board_day"/>
+    </resultMap>
+
+     <select id="findByItemNum" resultMap="oneBoardResultMap">
+        SELECT ob1.one_board_repYn, ob1.one_board_type, ob1.one_board_title, m.member_name, ob1.one_board_day
+        FROM one_board ob1
+        INNER JOIN member m ON ob1.member_num = m.member_num
+        WHERE ob1.item_num = #{item_num}
+    </select>
   
   
 </mapper>

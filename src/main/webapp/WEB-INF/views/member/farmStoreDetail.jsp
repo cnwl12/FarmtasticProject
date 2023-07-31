@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
     
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	
 	
 <style>
 .star {
@@ -215,9 +220,16 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             <!-- 리뷰칸 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
+                                	<c:choose>
+                                	<!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 데이터가 없으니까.. 일단 임시방편이와요 -->
+    								<c:when test="${empty sessionScope.member_num}">
+     								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
+    								</c:when>
+    								<c:otherwise>
                                     <h6>리뷰 쓰기</h6>
-                                    <form action="/createReview" method="post" enctype="multipart/form-data">
-    								<input type="hidden" name="item_num" value="${item_num}">
+                                    <form action="${pageContext.request.contextPath}/insertReview" method="post" name="insertReview" id="insertReview" enctype="multipart/form-data">
+    								<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
+    								<input type="hidden" name="member_num" value="${sessionScope.member_num}">
    									<div class="rating">
   									<span class="star" data-value="1">★</span>
   									<span class="star" data-value="2">★</span>
@@ -229,48 +241,62 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									<br>
     								<label for="review_title"></label>
     								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
-    								<label for="file"></label>
-        							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;">
+<!--  	여긴 이미지.. 넣는거 어려워서 잠시 주석	<label for="file"></label> -->
+<!--         							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;"> -->
     								<br><br>
     								<label for="review_content"></label>
     								<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요" required></textarea>
     								<br>
-    								<input class="site-btn" type="submit" value="리뷰 작성">
+    								<button id="write-review-btn" type="submit">리뷰 작성</button>
 									</form>
+									</c:otherwise>
+  									</c:choose>
                                     <br>
                                     <br>
-									<!--수정 필요 -->
-                                    <h6>리뷰 목록</h6>
-                                   	<table class="table">
-    								<thead>
-        							<tr>
-            						<th>번호</th>
-            						<th>별점</th>
-            						<th>작성자</th>
-            						<th>작성일</th>
-            						<th>제목</th>
-            						<th>내용</th>
-            						<th>이미지</th>
-        							</tr>
-    								</thead>
-    								<tbody>
-       								<c:forEach var="review" items="${reviews}">
+									<h6>리뷰 목록</h6>
+									<div class="reviews-list">
+    								<table class="table" id="getItemReviews" >
+        							<thead>
             						<tr>
-                					<td>${review.review_num}</td>
-                					<td>${review.review_star}</td>
-                					<td>${review.member_num}</td>
-                					<td>${review.review_day}</td>
-                					<td>${review.review_title}</td>
-                					<td>${review.review_content}</td>
-                					<td><img src="${review.review_img}" alt="리뷰 이미지" style="max-width: 100px; max-height: 100px;"/></td>
-            						</tr>
-        							</c:forEach>
-    								</tbody>
-									</table>
+                					<th>번호</th>
+                					<th>별점</th>
+                					<th>작성자</th>
+                					<th>작성일</th>
+                					<th>제목</th>
+                					<th>내용</th>
+           							</tr>
+        							</thead>
+        							<tbody>
+            						<c:set var="total" value="${fn:length(reviews)}" />
+            						<c:if test="${total eq 0}">
+                					<tr>
+                    				<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
+                					</tr>
+            						</c:if>
+            						<c:set var="count" value="0" />
+            						<c:forEach items="${reviews}" var="review" varStatus="status">
+                					<c:set var="reversedCount" value="${total - status.index}" />
+                					<c:set var="count" value="${count + 1}" />
+                					<tr>
+                    				<td>${count}</td>
+                    				<td class="review-star"><c:out value="${review.review_star}"/></td>
+                    				<td>${review.member_num}</td>
+                    				<td class="review-date"><c:out value="${review.review_day}"/></td>
+                    				<td>${review.review_title}</td>
+                    				<td>${review.review_content}</td>
+                					</tr>
+            						</c:forEach>
+        							</tbody>
+    								</table>
+									</div>
                                 </div>
                             </div>
+
                             <!--  리뷰칸 끝 -->
-                            
+                            <div class="tab-pane" id="tabs-4" role="tabpanel">
+			        		<div class="product__details__tab__desc">
+			        		<a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
+			           		<table class="table">
                              <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        <div class="product__details__tab__desc">
 			        <a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
@@ -289,16 +315,32 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
+			                    <c:forEach var="row" items="${oneBoardList}">
+								    <tr>
+								        <td>${row.one_board_repYn}</td>
+								        <td>${row.one_board_type}</td>
+								        <td>${row.one_board_title}</td>
+								        <td>${row.member_name}</td>
+								        <td>${row.one_board_day}</td>
+								    </tr>
+								</c:forEach>
+
 			                 </tbody>
 			            	 </table>
 			            	 </div>
 			        		</div>
                          </div>
+
+			                </tbody>
+			            </table>
+			        </div>
+			        		</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-     </div>   
+        
     </section>
     <!-- Product Details Section End -->
 
@@ -415,6 +457,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		  }
 		}
 	</script>
+
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
@@ -436,6 +479,110 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	    document.getElementById("review_star").value = selectedValue;
 	  });
 	});
+	
+	// ----------------------------------------------------------------------
+	
+	 $("#insertReview").submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData($("#insertReview")[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/insertReview",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert("리뷰가 등록되었습니다.");
+                    location.reload();
+                },
+                error: function () {
+                    alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        });
+	
+	//------------------------------------------------------------
+	
+
+	// -----------------------------------------------------------------------------
+	 $(document).ready(function () {
+    getItemReviews();
+    function getItemReviews() {
+        var item_num = ${item.item_num}; // 임시로 제품 번호를 1로 설정. 실제로는 보유한 item_num 사용
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/getItemReviews",
+            data: { item_num: item_num },
+            dataType: "json",
+            success: function(reviews) {
+                if (reviews.length === 0) {
+                    $("#getItemReviews tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
+                } else {
+                    var rows = "";
+                    for (var i = 0; i < reviews.length; i++) {
+                        var review = reviews[i];
+                        rows += "<tr>" +
+                            "<td>" + (i + 1) + "</td>" +
+                            "<td class='review-star'>" + review.review_star + "</td>" +
+                            "<td>" + review.member_num + "</td>" +
+                            "<td class='review-date'>" + review.review_day + "</td>" +
+                            "<td>" + review.review_title + "</td>" +
+                            "<td>" + review.review_content + "</td>" +
+                        "</tr>";
+                    }
+                    $("#getItemReviews tbody").html(rows);
+
+                    // 별점을 ★로 변경
+                    let reviewStars = document.querySelectorAll('.review-star');
+                    reviewStars.forEach(function(starElement){
+                      let starCount = parseInt(starElement.textContent, 10);
+                      let stars = '';
+                      for (let i = 1; i <= starCount; i++) {
+                        stars += '★';
+                      }
+                      starElement.textContent = stars;
+                    });
+
+                    // 작성일을 YYYY-MM-DD 형식으로 변경
+                    let reviewDates = document.querySelectorAll('.review-date');
+                    console.log('Total review dates:', reviewDates.length);
+                    reviewDates.forEach(function (dateElement) {
+                      console.log('Original date text:', dateElement.textContent);
+                      
+                      let timestamp = parseInt(dateElement.textContent.trim(), 10);
+                      
+                      console.log('Parsed timestamp:', timestamp);
+
+                      // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+                      if (isNaN(timestamp)) {
+                        console.error('Invalid timestamp value:', dateElement.textContent);
+                        return;
+                      }
+
+                      let date = new Date(timestamp * 1000); // 여기서 1000을 곱하여 밀리초로 변환합니다.
+                      let year = date.getFullYear();
+                      let month = String(date.getMonth() + 1).padStart(2, '0');
+                      let day = String(date.getDate()).padStart(2, '0');
+
+                      // 포맷된 날짜를 표시합니다.
+                      let formattedDate = `${year}-${month}-${day}`;
+                      console.log('Formatted date:', formattedDate);
+                      dateElement.textContent = formattedDate;
+                    });
+
+                }
+            },
+            error: function () {
+                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+            }
+        });
+    }
+	 
+	 });
+	
+	
+	
 	</script>
 	
 </body>

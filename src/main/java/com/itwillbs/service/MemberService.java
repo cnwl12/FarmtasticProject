@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
-import com.itwillbs.domain.ReviewDTO;
 
 @Service
 public class MemberService {
@@ -78,7 +77,6 @@ public class MemberService {
 		return memberDAO.getMember1(member_num);
 	}
 	
-	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
 		// 카트 조회했을 때 제품이 있는지 없는지 조회
@@ -105,23 +103,16 @@ public class MemberService {
 		memberDAO.updateMember(memberDTO);
 	}
 	
-	public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		System.out.println("MemberService insertOneBoard()");
-        memberDAO.insertOneBoard(oneboardDTO);
-    }
-
-//    public List<MemberDTO> getOneBoardList() {
-//        return memberDAO.getOneBoardList();
-//    }
+	
 	 
-	// 리뷰작성
-	public void createReview(ReviewDTO reviewDTO) {
-		System.out.println("service 리뷰작성");
-        memberDAO.createReview(reviewDTO);
+	// 리뷰작성 - 막내
+    public void insertReview(MemberDTO memberDTO) {
+        System.out.println("service 리뷰작성");
+        memberDAO.insertReview(memberDTO);
     }
 
-	public List<ReviewDTO> getReviewsByItem(int item_num) {
-        return memberDAO.getReviewsByItem(item_num);
+    public List<MemberDTO> getItemReviews(int item_num) {
+        return memberDAO.getItemReviews(item_num);
     }
 
 	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
@@ -139,5 +130,19 @@ public class MemberService {
 		System.out.println("서비스 오는지 딜리트카트 ");
 		memberDAO.deleteCart(cart);
 	}
+	
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		System.out.println("MemberService insertOneBoard()");
+        memberDAO.insertOneBoard(oneboardDTO);
+    }
+
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
+	
+//	  public List<OneBoardDTO> findByItemNum(int item_num) {
+//		  System.out.println("1대1문의 노출");
+////	       return memberDAO.findByItemNum(item_num);
+//	  }
  
 }

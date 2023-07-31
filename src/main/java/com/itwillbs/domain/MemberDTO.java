@@ -16,6 +16,23 @@ public class MemberDTO {
 	private String member_addMain;
 	private String member_addSub;
 	private Date member_joinDay;
+	private int one_board_num;
+	private String one_board_type;
+	private String one_board_title;
+	private String one_board_content;
+	private String one_board_file;
+	private String one_board_pass;
+	private Date one_board_day;
+	private String one_board_repYn;
+	private int review_num;
+	private int order_num;
+	private int item_num;
+	private int review_star;
+	private String review_title;
+	private String review_content;
+	private String review_img;
+	private Date review_day;
+	
 	
 	public int getMember_num() {
 		return member_num;
@@ -34,12 +51,6 @@ public class MemberDTO {
 	}
 	public void setMember_pass(String member_pass) {
 		this.member_pass = member_pass;
-	}
-	public String getNew_member_pass() {
-		return new_member_pass;
-	}
-	public void setNew_member_pass(String new_member_pass) {
-		this.new_member_pass = new_member_pass;
 	}
 	public String getMember_name() {
 		return member_name;
@@ -90,5 +101,104 @@ public class MemberDTO {
 	public void setMember_joinDay(Date member_joinDay) {
 		this.member_joinDay = member_joinDay;
 	}
+	public int getOne_board_num() {
+		return one_board_num;
+	}
+	public void setOne_board_num(int one_board_num) {
+		this.one_board_num = one_board_num;
+	}
+	public String getOne_board_type() {
+		return one_board_type;
+	}
+	public void setOne_board_type(String one_board_type) {
+		this.one_board_type = one_board_type;
+	}
+	public String getOne_board_title() {
+		return one_board_title;
+	}
+	public void setOne_board_title(String one_board_title) {
+		this.one_board_title = one_board_title;
+	}
+	public String getOne_board_content() {
+		return one_board_content;
+	}
+	public void setOne_board_content(String one_board_content) {
+		this.one_board_content = one_board_content;
+	}
+	public String getOne_board_file() {
+		return one_board_file;
+	}
+	public void setOne_board_file(String one_board_file) {
+		this.one_board_file = one_board_file;
+	}
+	public String getOne_board_pass() {
+		return one_board_pass;
+	}
+	public void setOne_board_pass(String one_board_pass) {
+		this.one_board_pass = one_board_pass;
+	}
+	public Date getOne_board_day() {
+		return one_board_day;
+	}
+	public void setOne_board_day(Date one_board_day) {
+		this.one_board_day = one_board_day;
+	}
+	public String getOne_board_repYn() {
+		return one_board_repYn;
+	}
+	public void setOne_board_repYn(String one_board_repYn) {
+		this.one_board_repYn = one_board_repYn;
+	}
+	public int getReview_num() {
+		return review_num;
+	}
+	public void setReview_num(int review_num) {
+		this.review_num = review_num;
+	}
+	public int getOrder_num() {
+		return order_num;
+	}
+	public void setOrder_num(int order_num) {
+		this.order_num = order_num;
+	}
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
+	public int getReview_star() {
+		return review_star;
+	}
+	public void setReview_star(int review_star) {
+		this.review_star = review_star;
+	}
+	public String getReview_title() {
+		return review_title;
+	}
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
+	}
+	public String getReview_content() {
+		return review_content;
+	}
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
+	}
+	public String getReview_img() {
+		return review_img;
+	}
+	public void setReview_img(String review_img) {
+		this.review_img = review_img;
+	}
+	public Date getReview_day() {
+		return review_day;
+	}
+	public void setReview_day(Date review_day) {
+		this.review_day = review_day;
+	}
+	
+	
+
 
 }

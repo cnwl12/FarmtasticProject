@@ -133,7 +133,7 @@ public class SellerService {
 		public void updateSettlementYn(String sellerNum, String orderMonth) { 
 			System.out.println("서비스 오나요"); 
 			List<String> sellerNums = Arrays.asList(sellerNum.split(",")); 
-			Map<String, Object> parameters = new HashMap<>(); parameters.put("sellerNums", sellerNums); 
+			Map<String, Object> parameters = new HashMap<String, Object>(); parameters.put("sellerNums", sellerNums); 
 			parameters.put("order_month", orderMonth); 
 			sellerDAO.updateSettlementYn(parameters); 
 			System.out.println("service sellerNum: " + sellerNums); 

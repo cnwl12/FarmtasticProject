@@ -21,6 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +35,6 @@ import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
-import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -345,21 +349,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	// 서영 작업중
-    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-    public String oneBoard(Model model) {
-    	System.out.println("FarmController oneboard()!");
-        return "/member/oneboard";
-    }
-
-    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-    public String oneBoardForm(OneBoardDTO oneboardDTO) {
-    	System.out.println("oneboardForm() 로드");
-        memberService.insertOneBoard(oneboardDTO);
-
-        return "/member/farmStoreDetail";
-    } 
-
 
 	// 디비 연동 확인용
 
@@ -568,13 +557,40 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck2 끝
 
-	@RequestMapping(value = "/FarmStoreDetail", method = RequestMethod.GET)
-	public String getItemReviews(@RequestParam("item_num") int item_num, Model model) {
-	    List<ReviewDTO> reviews = memberService.getReviewsByItem(item_num);
-	    model.addAttribute("reviews", reviews);
-	    return "FarmStoreDetail";
+
+	//Review 기능! - 막내
+	// 리뷰작성 -> 데이터저장
+	@PostMapping(value = "/insertReview")
+	@ResponseBody
+	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
+	    System.out.println("controller 리뷰작성");
+	    memberService.insertReview(memberDTO);
+
+	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
 	
-	
+	// 서영 작업중
+    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+    public String oneBoard(Model model) {
+    	System.out.println("FarmController oneboard()!");
+        return "/member/oneboard";
+    }
+
+    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
+    public String oneBoardForm(OneBoardDTO oneboardDTO) {
+    	System.out.println("oneboardForm() 로드");
+        memberService.insertOneBoard(oneboardDTO);
+
+        return "/member/farmStoreDetail";
+    } 
+    
+    
+    @RequestMapping("/FarmStoreDetail")
+    public String oneBoard2(@RequestParam("item_num") int item_num, Model model) {
+        List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
+        System.out.println(oneBoardList); 
+        model.addAttribute("oneBoardList", oneBoardList);
+        return "/member/farmStoreDetail"; // 페이지 이름
+    }
 	
 }
