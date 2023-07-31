@@ -221,7 +221,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                 	<c:choose>
-                                	<!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 데이터가 없으니까.. 일단 임시방편이와요 -->
     								<c:when test="${empty sessionScope.member_num}">
      								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
     								</c:when>

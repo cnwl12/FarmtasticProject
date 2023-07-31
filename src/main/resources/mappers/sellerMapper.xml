@@ -229,22 +229,23 @@
         ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
     </insert>   
    
-   <!-- 선진) 판매자 월별 매출 -->
+   <!-- 선진) 판매자 월별 매출액, 수수료, 정산액 -->
+   <!-- seller_num, seller_id, seller_name, order_month, monthlySalesAmount, monthlyFee, monthlySettlementAmount만 반환 -->
    <select id="getMonthlySales" resultType="map">
-       SELECT s.seller_num, s.seller_id, s.seller_name,
-          DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
-          FORMAT(SUM(o.order_pay), 0) AS total_revenue,
-          FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
-          FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
-          st.settlement_yn
-      FROM seller s
-      LEFT JOIN item i ON s.seller_num = i.seller_num
-      LEFT JOIN orders o ON i.item_num = o.item_num
-      LEFT JOIN settlement st ON s.seller_num = st.seller_num
-      WHERE s.seller_num != 'admin'
-      AND s.seller_num = 'CR0001'
-      GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
-      ORDER BY order_month;
-	</select>
+   	SELECT s.seller_num, s.seller_id, s.seller_name,
+	  DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
+	  FORMAT(SUM(o.order_pay), 0) AS monthlySalesAmount,
+	  FORMAT(floor(sum(o.order_pay) * 0.05), 0) as monthlyFee,
+	  FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as monthlySettlementAmount
+	FROM seller s
+	LEFT JOIN item i ON s.seller_num = i.seller_num
+	LEFT JOIN orders o ON i.item_num = o.item_num
+	LEFT JOIN settlement st ON s.seller_num = st.seller_num
+	WHERE s.seller_num != 'admin'
+	AND s.seller_num = 'CR0001'
+	GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month
+	ORDER BY order_month;
+   </select>
+
    
 </mapper>

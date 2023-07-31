@@ -16,16 +16,21 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
-
     <!-- Custom styles for this page -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
-    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
 
+	<!-- 사이드바 줄어든거 되돌리기 -->
+	<style type="text/css">
+	 html {font-size: 1rem !important;}
+	 body {font-size: 1rem !important;}
+	</style>
+	
 </head>
 
 <body id="page-top">
@@ -62,58 +67,72 @@
 							<div class="text-center">
 								<div data-toggle="buttons" class="btn-group btn-group-customize">
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay">
-										<input type="radio">결제건수
+										<input type="radio">매출액
 									</label>
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer">
-										<input type="radio">결제자수
+										<input type="radio">정산액
 									</label> 
 									<label class="btn btn-default active" ng-class="{active: vm.currentChartIndex === 2}" ng-click="vm.showChart(2)" data-nclicks-code="sales.price">
-										<input type="radio">결제금액
+										<input type="radio">수수료
 									</label>
 								</div>
 							</div>
 
 					<!-- 매출통계그래프 -->
 					
-										<!-- 월별 매출 테이블 시작 -->
+					<!-- 월별 매출 테이블 시작 -->
 				    <!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
 					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 					
-					<canvas id="salesChart"></canvas>
+					<div>
+					  <canvas id="dailySalesAmountChart" width="1000" height="200"></canvas>
+					</div>
 					<script>
-					    // sellerMonthlyRevenues 데이터 (JSP에서 sellerMonthlyRevenues 값 넘겨받음)
-// 					    var sellerMonthlyRevenues = ${sellerMonthlyRevenues};
-					    
-					    var sellerMonthlyRevenues = [{"seller_name":"남궁민수", "total_revenue":39920}, {"seller_name":"홍길동", "total_revenue":25000}];
-					    // 매출 데이터 추출
-					    var labels = sellerMonthlyRevenues.map(item => item.order_month);
-					    var revenueData = sellerMonthlyRevenues.map(item => item.total_revenue);
-					
-					    // 차트 생성
-					    var ctx = document.getElementById('salesChart').getContext('2d');
-					    var salesChart = new Chart(ctx, {
-					        type: 'line',
-					        data: {
-					            labels: labels,
-					            datasets: [{
-					                label: 'Monthly Revenue',
-					                data: revenueData,
-					                borderColor: 'rgba(75, 192, 192, 1)',
-					                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-					                fill: true
-					            }]
-					        },
-					        options: {
-					            scales: {
-					                y: {
-					                    beginAtZero: true,
-					                    ticks: {
-					                        stepSize: 10000 // Y축 간격 설정 (매출 데이터에 따라 조정)
-					                    }
-					                }
-					            }
-					        }
-					    });
+					const ctx = document.getElementById('dailySalesAmountChart');
+
+				    // 현재 월의 첫째 날과 마지막 날을 가져오는 함수
+				    function getCurrentMonthRange() {
+				      const today = new Date();
+				      const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+				      const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+				      return { startDate, endDate };
+				    }
+
+				    // 현재 월의 날짜를 한국어로 가져오는 함수
+				    function getDaysInCurrentMonth() {
+				      const { startDate, endDate } = getCurrentMonthRange();
+				      const days = [];
+				      for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+				        const day = currentDate.getDate(); // 일자를 가져옴
+				        days.push(`${currentDate.getMonth() + 1}월 ${day}일`);
+				      }
+				      return days;
+				    }
+
+				    // 일별 판매액 데이터 (예시 데이터)
+				    const dailySalesData = [1,2,3,4,5];
+
+				    const days = getDaysInCurrentMonth();
+
+				    new Chart(ctx, {
+				      type: 'line',
+				      data: {
+				        // X축에 현재 월의 날짜를 한국어로, Y축에 판매액 데이터를 설정
+				        labels: days,
+				        datasets: [{
+				          label: '이번달 매출액',
+				          data: dailySalesData,
+				          borderWidth: 1
+				        }]
+				      },
+				      options: {
+				        scales: {
+				          y: {
+				            beginAtZero: true
+				          }
+				        }
+				      }
+				    });
 					</script>
 					<!-- 월별 매출 테이블 끝 -->
 					
