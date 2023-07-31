@@ -64,13 +64,7 @@ public class MemberDAO {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
-	
-	/* sungha07.29 마이페이지*/
-	public MemberDTO getMember1(Integer member_num) {
-		System.out.println("MemberDAO getMember1");
-		return sqlSession.selectOne(namespace+".getMember1", member_num);
-	}
-	
+			
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
@@ -99,6 +93,20 @@ public class MemberDAO {
 	public void insertOrderDetail(int member_num) {
 		System.out.println("membetDAO insertOrderDetail까지 오는지");
 		sqlSession.insert(namespace + ".insertOrderDetail", member_num);
+	}
+	
+	
+	
+	/* sungha07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		System.out.println("MemberDAO getMember1");
+		return sqlSession.selectOne(namespace+".getMember1", member_num);
+	}
+	
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck1()");
+		
+		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
@@ -147,10 +155,6 @@ public class MemberDAO {
 	
 
 
-	public MemberDTO userCheck1(MemberDTO memberDTO) {
-		System.out.println("MemberDAO userCheck1()");
-		
-		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
-	}
+	
 
 }

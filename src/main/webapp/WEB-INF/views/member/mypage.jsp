@@ -62,7 +62,8 @@
 						// 건물명이 있고, 공동주택일 경우 추가한다.
 						if (data.buildingName !== '' && data.apartment === 'Y') {
 							extraRoadAddr += (extraRoadAddr !== '' ? ', '
-									+ data.buildingName : data.buildingName);
+									+ data.buildingName
+									: data.buildingName);
 						}
 						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 						if (extraRoadAddr !== '') {
@@ -123,8 +124,8 @@
 			</div>
 
 			<div id="main_cont">
-				<form novalidate action="${pageContext.request.contextPath }/updatePro"
-					method="post">
+				<form novalidate
+					action="${pageContext.request.contextPath }/updatePro" method="post">
 					<div class="myoption">
 						<h4>나의 정보</h4>
 						<!-- <h5 class="list1">회원정보 설정</h5>		 -->
@@ -142,8 +143,6 @@
 									<col>
 								</colgroup>
 								<tbody>
-									<!-- 	id, name, type 등 작업하면서 수정해야함 -->
-									<!-- 	<input type="hidden" name="hidLoginUserId" id="hidLoginUserId" value="farmtastic"> -->
 									<tr>
 										<th scope="row"><label for="name1">이름</label></th>
 
@@ -162,7 +161,9 @@
 									</tr>
 									<tr>
 										<th scope="row">사용자ID</th>
-										<td><span>${memberDTO.member_id}</span></td>
+										<td><span><input type="text" class="txt"
+												id="member_id" name="member_id"
+												value="${memberDTO.member_id}" readonly></span></td>
 									</tr>
 									<tr style="visibility: visible;">
 										<th scope="row">비밀번호</th>
@@ -170,52 +171,82 @@
 											<ul class="llist-style1">
 												<li><label for="nowpw"><span class="bg_bul"></span>현재
 														비밀번호</label> <input type="password" class="txt" id="member_pass"
-													name="pwd" size="26" maxlength="15"  
+													name="member_pass" size="26" maxlength="15" required=""
 													onkeydown="return keycheck(this.event);"
 													onkeypress="Capskeycheck(this,'new_member_pass');"
 													onkeyup="validatePasswordType(this,'new_member_pass');"
 													onfocus="helpOn('new_member_pass');"
-													onblur="chkBlur(this,'new_member_pass');" style="width: 195px";>
-													<span class="font_style1">현재 비밀번호를 입력해 주세요</span></li>
-												<li><label for="newpw"><span class="bg_bul"></span>새
-														비밀번호</label> <input type="password" class="txt" id="new_member_pass"
-													name="pwd1" size="26" maxlength="15"
+													onblur="chkBlur(this,'new_member_pass');"
+													style="width: 195px";> <span class="font_style1">현재
+														비밀번호를 입력해 주세요</span></li>
+
+
+
+												<script>
+													function validateNewPassword() {
+														var newPassword = document
+																.getElementById("new_member_pass").value;
+														var confirmPassword = document
+																.getElementById("pwd2").value;
+
+														if (newPassword != confirmPassword) {
+															document
+																	.getElementById("pwd2").style.borderColor = "red";
+															document
+																	.getElementById("message").innerHTML = "두 개의 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.";
+															document
+    															.getElementById("img_submit").setAttribute("disabled", "true");
+														} else {
+															document
+																	.getElementById("pwd2").style.borderColor = "";
+															document
+																	.getElementById("message").innerHTML = "";
+															document
+    															.getElementById("img_submit").removeAttribute("disabled");
+														}
+													}
+												</script>
+
+
+												<li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
+												</label> <input type="password" class="txt" id="new_member_pass"
+													name="new_member_pass" size="26" maxlength="15" required=""
 													onkeydown="return keycheck(this.event);"
 													onkeypress="Capskeycheck(this,'new_member_pass');"
 													onkeyup="validatePasswordType(this,'new_member_pass');"
 													onfocus="helpOn('new_member_pass');"
-													onblur="chkBlur(this,'new_member_pass');" style="width: 195px;">
-													<!-- 비밀번호 안전등급 --> <span class="font_style1"></span></li>
-												<li><label for="new_pw_corfirm"><span
-														class="bg_bul"></span>새 비밀번호 확인</label> <input type="password"
-													class="txt" id="new_member_pass" name="pwd2" size="26" maxlength="15"
-													onfocus="helpOn('new_member_pass');"
-													onkeyup="helpOff('new_member_pass');"
-													onblur="helpOff('new_member_pass');" style="width: 203px;">
+													onblur="chkBlur(this,'new_member_pass');"
+													style="width: 195px;"> <span class="font_style1"></span>
 												</li>
+												<li><label for="new_pw_corfirm"> <span
+														class="bg_bul"></span>새 비밀번호 확인
+												</label> <input type="password" class="txt" id="pwd2" name="pwd2"
+													size="26" maxlength="15" required=""
+													onfocus="helpOn('new_member_pass');"
+													onkeyup="validateNewPassword(); helpOff('new_member_pass');"
+													onblur="helpOff('new_member_pass');" style="width: 203px;">
+													<span id="message" style="color: red; margin-left: 10px;"></span>
+												</li>
+
 											</ul>
 										</td>
-										
+
 									</tr>
 
 									<tr>
 										<th scope="row"><label>휴대폰번호</label></th>
 										<td><input type="text" class="txt" id="phone"
-											name="hp_no1" size="15" maxlength="15" 
-											value="${memberDTO.member_phone}"
-											title="휴대폰 첫자리"> 
-
-
+											name="hp_no1" size="15" maxlength="15"
+											value="${memberDTO.member_phone}" title="휴대폰 첫자리">
 									</tr>
 
 
 									<tr style="visibility: visible;">
 										<th scope="row"><label for="email">E-mail</label></th>
 										<td>
-											<!-- 메일 앞부분  --> <input type="text" class="txt" id="member_email"
-											name="e_mail1" title="이메일 아이디" size="50"
-											value="${memberDTO.member_email}">
-											<!-- 주소부분 -->  <!-- <input
+											<!-- 메일 앞부분  --> <input type="text" class="txt"
+											id="member_email" name="e_mail1" title="이메일 아이디" size="50"
+											value="${memberDTO.member_email}"> <!-- 주소부분 --> <!-- <input
 											type="hidden" name="hdnOldIsRcvMail" id="hdnOldIsRcvMail"
 											value="True"> <input type="hidden" name="old_email"
 											id="old_email" value="wjc5510@naver.com"> <input
@@ -225,7 +256,8 @@
 									</tr>
 									<tr>
 										<th scope="row"><label>우편번호</label></th>
-										<td><input type="text" class="txt" name="member_post" class="form-control" id="sample4_postcode" placeholder="우편번호">
+										<td><input type="text" class="txt" name="member_post"
+											class="form-control" id="sample4_postcode" placeholder="우편번호">
 											<div id="btbt">
 												<input type="button" id="member_post"
 													onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
@@ -234,29 +266,28 @@
 											<div id="invalid_post" class="invalid-feedback">우편번호를
 												입력해주세요.</div></td>
 									</tr>
-									
+
 									<th scope="row"><label>도로명주소</label></th>
-									<td><input type="text" class="txt" name="member_addMain" id="sample4_roadAddress" placeholder="도로명주소" size="80">
-										
+									<td><input type="text" class="txt" name="member_addMain"
+										id="sample4_roadAddress" placeholder="도로명주소" size="80">
+
 										<div id="invalid_post" class="invalid-feedback">주소를
 											입력해주세요.</div>
 									</tr>
-									
+
 									<th scope="row"><label>지번주소</label></th>
-									<td><input type="text" class="txt" id="sample4_jibunAddress" placeholder="지번주소" size="80">
-										
+									<td><input type="text" class="txt"
+										id="sample4_jibunAddress" placeholder="지번주소" size="80">
 									</tr>
-									
+
 									<th scope="row"><label>상세주소</label></th>
-									<td><input type="text" class="txt" name="member_addSub" id="sample4_detailAddress" placeholder="상세주소" size="80">
-										
-									
+									<td><input type="text" class="txt" name="member_addSub"
+										id="sample4_detailAddress" placeholder="상세주소" size="80">
 									</tr>
-									
+
 									<th scope="row"><label>참고항목</label></th>
-									<td><input type="text" class="txt" id="sample4_extraAddress" placeholder="참고항목" size="80">
-										
-										
+									<td><input type="text" class="txt"
+										id="sample4_extraAddress" placeholder="참고항목" size="80">
 									</tr>
 
 
@@ -266,9 +297,11 @@
 						</div>
 					</div>
 					<div class="btn_center">
-					
-						<button type="submit" class="btn_blue_style2" id="img_submit"> <span
-							style="color: #fff; text-align: center;">수정하기</span></button>
+
+						<button type="submit" class="btn_blue_style2" id="img_submit"
+							disabled="true">
+							<span style="color: #fff; text-align: center;">수정하기</span>
+						</button>
 					</div>
 				</form>
 			</div>
