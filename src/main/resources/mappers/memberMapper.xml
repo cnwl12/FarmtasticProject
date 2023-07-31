@@ -122,7 +122,7 @@
   </insert>		
 
   
-  <!-- 리뷰작성 -->
+  <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
   	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
     values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())

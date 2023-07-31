@@ -112,7 +112,7 @@ public class MemberService {
 //        return memberDAO.getOneBoardList();
 //    }
 	 
-	// 리뷰작성
+	// 리뷰작성 - 막내
     public void insertReview(MemberDTO memberDTO) {
         System.out.println("service 리뷰작성");
         memberDAO.insertReview(memberDTO);

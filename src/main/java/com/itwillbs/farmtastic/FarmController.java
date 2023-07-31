@@ -572,7 +572,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck2 끝
 
 
-	//Review 기능!
+	//Review 기능! - 막내
 	// 리뷰작성 -> 데이터저장
 	@PostMapping(value = "/insertReview")
 	@ResponseBody
