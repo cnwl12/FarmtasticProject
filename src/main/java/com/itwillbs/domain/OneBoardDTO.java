@@ -16,8 +16,15 @@ public class OneBoardDTO {
 	private int member_num;
 	private String member_name;
 	private String one_board_reply;
+	private String seller_num;
 	
 	
+	public String getSeller_num() {
+		return seller_num;
+	}
+	public void setSeller_num(String seller_num) {
+		this.seller_num = seller_num;
+	}
 	public String getOne_board_reply() {
 		return one_board_reply;
 	}
