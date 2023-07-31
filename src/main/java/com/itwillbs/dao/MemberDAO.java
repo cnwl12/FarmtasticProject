@@ -157,13 +157,10 @@ public class MemberDAO {
 
 
 	
-<<<<<<< HEAD
-	// 막냉이 리뷰별점 갯수 기능
-	 public int getReviewCountByItemNum(int item_num) {
-	      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
-	  }
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+			// 막냉이 리뷰별점 갯수 기능
+			 public int getReviewCountByItemNum(int item_num) {
+			      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
+			  }
 
 		
 		 public double getAverageReviewStarByItemNum(int item_num) { 
