@@ -12,7 +12,7 @@ public class OneBoardDTO {
 	private Date one_board_day;
 	private String one_board_repYn;
 	private String one_board_private;
-	private int item_num;
+	private int item_num; 
 	private int member_num;
 	private String member_name;
 	
