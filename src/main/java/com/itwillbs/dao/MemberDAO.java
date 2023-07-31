@@ -146,7 +146,7 @@ public class MemberDAO {
 	}
 	
 	
-	// 막냉이 리뷰붜시기
+	// 막냉이 리뷰별점 갯수 기능
 	 public int getReviewCountByItemNum(int item_num) {
 	      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
 	  }
