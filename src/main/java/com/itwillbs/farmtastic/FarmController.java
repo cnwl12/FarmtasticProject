@@ -417,7 +417,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		Map<String, Object> item = sellerService.getItem(item_num);
 
 		model.addAttribute("item", item);
+		
+		int reviewCount = memberService.getReviewCountByItemNum(item_num);
+        double averageStarRating = memberService.getAverageReviewStarByItemNum(item_num);
 
+        model.addAttribute("reviewCount", reviewCount);
+        model.addAttribute("averageStarRating", averageStarRating);
+		
 		/* System.out.println(item); */
 		System.out.println("farmStoreDetail 매핑확인여부");
 		
@@ -647,6 +653,16 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
+	
+	// 리뷰목록이 불러오고싶다
+	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
+		 List<MemberDTO> reviews = memberService.getItemReviews(item_num);
+		 return reviews;
+	}
+	
+	
 	
 	// 서영 작업중
     @RequestMapping(value = "/oneboard", method = RequestMethod.GET)

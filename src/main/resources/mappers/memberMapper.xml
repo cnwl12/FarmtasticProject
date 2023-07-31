@@ -158,7 +158,7 @@
   	AND member_num = #{member_num}
   </delete>
   
-  <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
+   <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
         <result column="one_board_repYn" property="one_board_repYn"/>
         <result column="one_board_type" property="one_board_type"/>
         <result column="one_board_title" property="one_board_title"/>
@@ -172,7 +172,14 @@
     JOIN member m ON ob.member_num = m.member_num
     WHERE ob.item_num = #{item_num}
 </select>
-
   
+  <!-- 리뷰모시기 막내 -->
+  <select id="getReviewCountByItemNum" resultType="int">
+        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
+  </select>
+
+  <select id="getAverageReviewStarByItemNum" resultType="double">
+        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
+  </select>
   
 </mapper>

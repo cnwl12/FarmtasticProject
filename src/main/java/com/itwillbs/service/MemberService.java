@@ -153,5 +153,18 @@ public class MemberService {
 	       return memberDAO.findByItemNum(item_num);
 	  }
  
- 
+	
+	// 막내 리뷰
+	 public int getReviewCountByItemNum(int item_num) {
+	     return memberDAO.getReviewCountByItemNum(item_num);
+	 }
+
+	 public double getAverageReviewStarByItemNum(int item_num) {
+		  Double averageReviewStar = memberDAO.getAverageReviewStarByItemNum(item_num);
+		  return averageReviewStar == null ? 0.0 : averageReviewStar;
+	 }
+	
+	
+	
+	
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
@@ -64,7 +65,13 @@ public class MemberDAO {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
-			
+	
+	/* sungha07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		System.out.println("MemberDAO getMember1");
+		return sqlSession.selectOne(namespace+".getMember1", member_num);
+	}
+	
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
@@ -132,12 +139,6 @@ public class MemberDAO {
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		 System.out.println("MemberDAO insertOneBoard ()!!");
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
-	
-	
-	
-//	 public int checkIdDuplicate(String memberId) {
-//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
-//	 }
     }
 
 	 public List<OneBoardDTO> findByItemNum(int item_num) {
@@ -157,4 +158,15 @@ public class MemberDAO {
 
 	
 
+		
+		 public double getAverageReviewStarByItemNum(int item_num) { 
+			 Double averageReviewStar = null; 
+			 try { averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
+		 } catch (NullPointerException e) {
+			 
+		 } catch (EmptyResultDataAccessException e) {
+		 
+		 }
+		 return averageReviewStar == null ? 0.0 : averageReviewStar; }
+		 
 }
