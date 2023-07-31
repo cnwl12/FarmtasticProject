@@ -97,8 +97,7 @@
   	AND member_num = #{member_num}
   </update>
   
-  
-   <update id="updateMember">
+   <update id="updateMember" >
   UPDATE member
   SET member_name = #{member_name},
       member_phone = #{member_phone},
