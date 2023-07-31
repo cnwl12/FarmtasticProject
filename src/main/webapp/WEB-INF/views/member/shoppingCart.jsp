@@ -55,6 +55,31 @@
 	
 	</script>
 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// console.log("확인");
+		
+		$('.pro-qty').click(function(){
+			$(document).on('change', '.cart_cnt', function(){
+				var cart_cnt = $(this).val();
+				console.log(cart_cnt);
+
+				$.ajax({
+					url: 'cartInUpdate',
+					data: { 'cart_cnt': cart_cnt },
+					success: function(response) {
+						console.log('장바구니 수량 업데이트 성공:', response);
+					},
+					error: function(error) {
+						console.error('장바구니 수량 업데이트 실패:', error);
+					}
+				});
+			});
+		});	
+	</script>
+	
+	
 
 </head>
 
@@ -113,8 +138,8 @@
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-                                        <div class="pro-qty">							<!-- name="cart_cnt_${item.item_num}"  -->
-                                            <input type="text" value="${item.cart_cnt}" name="item_num=${item.item_num},cart_cnt" >
+                                        <div class="pro-qty">							<!-- name="item_num=${item.item_num},cart_cnt"  -->
+                                            <input type="text" value="${item.cart_cnt}" class="cart_cnt" >
                                         </div>
                                     </div>
                                 </td>
@@ -189,6 +214,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    
     
 
 </body>
