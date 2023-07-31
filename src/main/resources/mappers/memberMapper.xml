@@ -153,12 +153,13 @@
         <result column="one_board_day" property="one_board_day"/>
     </resultMap>
 
-     <select id="findByItemNum" resultMap="oneBoardResultMap">
-        SELECT ob1.one_board_repYn, ob1.one_board_type, ob1.one_board_title, m.member_name, ob1.one_board_day
-        FROM one_board ob1
-        INNER JOIN member m ON ob1.member_num = m.member_num
-        WHERE ob1.item_num = #{item_num}
-    </select>
+<select id="findByItemNum" resultMap="oneBoardResultMap">
+    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title, ob.one_board_day, m.member_name
+    FROM one_board ob
+    JOIN member m ON ob.member_num = m.member_num
+    WHERE ob.item_num = #{item_num}
+</select>
+
   
   
 </mapper>
