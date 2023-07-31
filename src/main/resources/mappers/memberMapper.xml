@@ -119,6 +119,14 @@
   	AND member_num = #{member_num}
   </update>
   
+  <!-- 장바구니 내에서 수량 변경  -->
+   <update id="updateInCart">
+  	UPDATE cart as c
+  	SET	cart_cnt = #{cart_cnt}
+  	WHERE item_num = #{item_num}
+  	AND member_num = #{member_num}
+  </update>
+  
 
   <!-- 주문상세 목록 추가 insert : 주문번호 랜덤 생성 -->
   <insert id="insertOrderDetail">

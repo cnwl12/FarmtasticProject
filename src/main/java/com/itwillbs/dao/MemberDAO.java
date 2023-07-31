@@ -168,5 +168,10 @@ public class MemberDAO {
 		 
 		 }
 		 return averageReviewStar == null ? 0.0 : averageReviewStar; }
+
+
+		public void updateInCart(HashMap<String, Object> cart) {
+			sqlSession.update(namespace+".updateInCart", cart);
+		}
 		 
 }

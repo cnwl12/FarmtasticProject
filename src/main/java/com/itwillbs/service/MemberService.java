@@ -163,6 +163,11 @@ public class MemberService {
 		  Double averageReviewStar = memberDAO.getAverageReviewStarByItemNum(item_num);
 		  return averageReviewStar == null ? 0.0 : averageReviewStar;
 	 }
+
+
+	public void updateInCart(HashMap<String, Object> cart) {
+		memberDAO.updateInCart(cart);
+	}
 	
 	
 	
