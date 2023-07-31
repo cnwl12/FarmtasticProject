@@ -360,12 +360,12 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									    <c:otherwise>
   <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
     <td colspan="5">
-      <div class="content">
+      <div class="image">
         <strong>Q:</strong>
         <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
           <img src="${row.one_board_file}" />
         </c:if>
-        <div class="image">
+        <div class="content">
           ${row.one_board_content}
         </div>
       </div>
@@ -375,7 +375,9 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     <td colspan="5">
       <div class="content">
         <strong>A:</strong>
-        <!-- 답변이 저장될 곳을 추가합니다 -->
+        <c:if test="${row.one_board_reply != null}">
+         	${row.one_board_reply}
+        </c:if>
       </div>
     </td>
   </tr>
@@ -514,16 +516,21 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<script>
     $(document).ready(function() {
         $(".boardTitle").click(function() {
-            // 제목 행 바로 다음에 있는 내용 행을 선택하고 토글합니다.
+            // 질문을 토글합니다.
             $(this).next(".boardContent").toggle();
+            
+            // 답변이 있는 경우에만, 답변을 토글합니다.
+            const answerRow = $(this).next().next(".boardContent");
+            if (answerRow.find(".content").text().trim().length > 3) {
+                answerRow.toggle();
+            }
         });
     });
 	</script>
 	
 	<script>
 	
-	document.addEventListener("DOMContentLoaded", function () {
-		  // 필요한 코드를 여기에 작성하십시오.
+		  // 이거 우선 실행해보고 안되면 document부분 수정할거 다시 생각해보기/ 토글
 		  function checkPassword(correctPassword, oneBoardNum, passwordInputId) {
 		    // const inputPassword = document.getElementById(passwordInputId).value;
 		    const inputPassword = document.getElementById(passwordInputId).value;
@@ -531,8 +538,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		    if (correctPassword === inputPassword) {
 		      alert("비밀번호가 일치합니다");
 		      // 올바른 비밀번호가 입력되면 질문(Q)과 답변(A) 영역을 표시합니다.
-		      document.getElementById(`${oneBoardNum}`).style.display =
-		        "table-row";
+		      document.getElementById(`${oneBoardNum}`).style.display = "table-row";
+
 		      // document.getElementById(`answer${oneBoardNum}`).style.display = 'table-row';
 		    } else {
 		      if (inputPassword) {
@@ -540,7 +547,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		      }
 		    }
 		  }
-		});
 
 
 

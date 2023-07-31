@@ -182,7 +182,7 @@
 <select id="findByItemNum" resultMap="oneBoardResultMap">
     SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
      ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
-      ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num
+      ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply
     FROM one_board ob
     JOIN member m ON ob.member_num = m.member_num
     WHERE ob.item_num = #{item_num}
