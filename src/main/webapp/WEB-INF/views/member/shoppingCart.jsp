@@ -97,8 +97,8 @@
             </thead>
             <tbody>
                 <!-- 장바구니에 상품 있을 때 -->
-                <c:choose>
-                    <c:when test="${not empty itemList}">
+            <%--     <c:choose>
+                    <c:when test="${not empty itemList}"> --%>
                         <c:forEach var="item" items="${itemList}">
                             <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
                             <tr>
@@ -113,8 +113,8 @@
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="${item.cart_cnt}">
+                                        <div class="pro-qty">							<!-- name="cart_cnt_${item.item_num}"  -->
+                                            <input type="text" value="${item.cart_cnt}" name="item_num=${item.item_num},cart_cnt" >
                                         </div>
                                     </div>
                                 </td>
@@ -126,8 +126,8 @@
                                 </td>
                             </tr>
                         </c:forEach>
-                    </c:when>
-                    <c:otherwise>
+                 <%--    </c:when> --%>
+                   <%--  <c:otherwise>
                         <tr>
                             <td colspan="5">
                                 <div class="empty-cart-message" id="emptyCartMessage">
@@ -136,21 +136,21 @@
                                 </div>
                             </td>
                         </tr>
-                    </c:otherwise>
-                </c:choose>
+                    </c:otherwise> --%>
+             <%--    </c:choose> --%>
             </tbody>
         </table>
     </div>
-</div>
-
+		</div>
             </div>
+    
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-                        <input type="button" onclick="updateCart()" class="primary-btn cart-btn cart-btn-right" value="UPDATE CART">   
+                         <!-- <input type="submit" class="primary-btn cart-btn cart-btn-right" value="UPDATE CART "> -->
                     </div>
-                </div>
+    	          </div>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
@@ -172,7 +172,7 @@
                     </div>
                          <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
                 </div>
-            </div>
+             </div>
         </div>
     </section>
     <!-- Shoping Cart Section End -->

@@ -113,8 +113,7 @@
   	AND member_num = #{member_num}
   </update>
   
-  
-   <update id="updateMember">
+   <update id="updateMember" >
   UPDATE member
   SET member_name = #{member_name},
       member_phone = #{member_phone},
@@ -138,7 +137,7 @@
   </insert>		
 
   
-  <!-- 리뷰작성 -->
+  <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
   	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
     values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
@@ -162,6 +161,21 @@
   	AND member_num = #{member_num}
   </delete>
   
+  <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
+        <result column="one_board_repYn" property="one_board_repYn"/>
+        <result column="one_board_type" property="one_board_type"/>
+        <result column="one_board_title" property="one_board_title"/>
+        <result column="member_name" property="member_name"/>
+        <result column="one_board_day" property="one_board_day"/>
+    </resultMap>
+
+<select id="findByItemNum" resultMap="oneBoardResultMap">
+    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title, ob.one_board_day, m.member_name
+    FROM one_board ob
+    JOIN member m ON ob.member_num = m.member_num
+    WHERE ob.item_num = #{item_num}
+</select>
+
   
   
 </mapper>

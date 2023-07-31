@@ -219,7 +219,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                             <!-- 리뷰칸 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">ation 오류 메시지들</h3>
+                                	<%-- <c:choose>
                                 <div class="product__details__tab__desc">
+                                <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 데이터가 없으니까.. 일단 임시방편이와요 -->
                                 	<c:choose>
     								<c:when test="${empty sessionScope.member_num}">
      								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
@@ -240,7 +243,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									<br>
     								<label for="review_title"></label>
     								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
-<!--     								<label for="file"></label> -->
+<!--  	여긴 이미지.. 넣는거 어려워서 잠시 주석	<label for="file"></label> -->
 <!--         							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;"> -->
     								<br><br>
     								<label for="review_content"></label>
@@ -252,7 +255,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
   									</c:choose>
                                     <br>
                                     <br>
-									<!--수정 필요 -->
 									<h6>리뷰 목록</h6>
 									<div class="reviews-list">
     								<table class="table" id="getItemReviews" >
@@ -267,56 +269,40 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
            							</tr>
         							</thead>
         							<tbody>
-            <c:set var="total" value="${fn:length(reviews)}" />
-            <c:if test="${total eq 0}">
-                <tr>
-                    <td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
-                </tr>
-            </c:if>
-            <c:set var="count" value="0" />
-            <c:forEach items="${reviews}" var="review" varStatus="status">
-                <c:set var="reversedCount" value="${total - status.index}" />
-                <c:set var="count" value="${count + 1}" />
-                <tr>
-                    <td>${count}</td>
-                    <td class="review-star"><c:out value="${review.review_star}"/></td>
-                    <td>${review.member_num}</td>
-                    <td class="review-date"><c:out value="${review.review_day}"/></td>
-                    <td>${review.review_title}</td>
-                    <td>${review.review_content}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</div>
-
+            						<c:set var="total" value="${fn:length(reviews)}" />
+            						<c:if test="${total eq 0}">
+                					<tr>
+                    				<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
+                					</tr>
+            						</c:if>
+            						<c:set var="count" value="0" />
+            						<c:forEach items="${reviews}" var="review" varStatus="status">
+                					<c:set var="reversedCount" value="${total - status.index}" />
+                					<c:set var="count" value="${count + 1}" />
+                					<tr>
+                    				<td>${count}</td>
+                    				<td class="review-star"><c:out value="${review.review_star}"/></td>
+                    				<td>${review.member_num}</td>
+                    				<td class="review-date"><c:out value="${review.review_day}"/></td>
+                    				<td>${review.review_title}</td>
+                    				<td>${review.review_content}</td>
+                					</tr>
+            						</c:forEach>
+        							</tbody>
+    								</table>
+									</div>
                                 </div>
                             </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                             <!--  리뷰칸 끝 -->
-                            
-<<<<<<< HEAD
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        		<div class="product__details__tab__desc">
-			        		<a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
-			           		<table class="table">
-=======
-                             <div class="tab-pane" id="tabs-4" role="tabpanel">
-			        <div class="product__details__tab__desc">
-			        <a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
+			        		<a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
 			        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
 			        <input type="hidden" name="item_num" value="${item_num}">
 			        <div>
 			            <table class="table">
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                <thead>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                    <tr>
 			                        <th>답변상태</th>
 			                        <th>문의유형</th>
@@ -327,34 +313,28 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
-<<<<<<< HEAD
+			                    <c:forEach var="row" items="${oneBoardList}">
+								    <tr>
+								        <td>${row.one_board_repYn}</td>
+								        <td>${row.one_board_type}</td>
+								        <td>${row.one_board_title}</td>
+								        <td>${row.member_name}</td>
+								        <td>${row.one_board_day}</td>
+								    </tr>
+								</c:forEach>
 
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                 </tbody>
 			            	 </table>
 			            	 </div>
 			        		</div>
                          </div>
-<<<<<<< HEAD
-                    	</div>
 
-			                </tbody>
-			            </table>
 			        </div>
 			        		</div>
                         </div>
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                 </div>
-            </div>
-        </div>
-     </div>   
+        
     </section>
     <!-- Product Details Section End -->
 
@@ -471,6 +451,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		  }
 		}
 	</script>
+
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>

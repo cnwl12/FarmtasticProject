@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -108,7 +107,7 @@ public class MemberDAO {
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
 
-	//리뷰용도
+	//리뷰용도 - 막내
 	public void insertReview(MemberDTO memberDTO) {
         System.out.println("DAO 리뷰작성");
         sqlSession.insert(namespace+".insertReview", memberDTO);
@@ -133,6 +132,9 @@ public class MemberDAO {
 //	 }
     }
 
+	 public List<OneBoardDTO> findByItemNum(int item_num) {
+			return sqlSession.selectList(namespace+".findByItemNum", item_num);
+	    }
 //	 public List<MemberDTO> getOneBoardList() {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
@@ -141,6 +143,8 @@ public class MemberDAO {
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
+	
+	
 
 
 	public MemberDTO userCheck1(MemberDTO memberDTO) {

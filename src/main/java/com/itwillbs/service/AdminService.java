@@ -29,7 +29,7 @@ public class AdminService {
 	}
 
 	 public void insertBoard(String writer, String title, String content) {
-	     Map<String, Object> params = new HashMap<>();
+	     Map<String, Object> params = new HashMap<String, Object>();
 	     params.put("writer", writer);
 	     params.put("title", title);
 	     params.put("content", content);
