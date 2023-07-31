@@ -33,6 +33,7 @@ public class MemberDTO {
 	private String review_img;
 	private Date review_day;
 	
+	
 	public int getMember_num() {
 		return member_num;
 	}
@@ -50,12 +51,6 @@ public class MemberDTO {
 	}
 	public void setMember_pass(String member_pass) {
 		this.member_pass = member_pass;
-	}
-	public String getNew_member_pass() {
-		return new_member_pass;
-	}
-	public void setNew_member_pass(String new_member_pass) {
-		this.new_member_pass = new_member_pass;
 	}
 	public String getMember_name() {
 		return member_name;
@@ -202,6 +197,7 @@ public class MemberDTO {
 	public void setReview_day(Date review_day) {
 		this.review_day = review_day;
 	}
+	
 	
 
 

@@ -109,8 +109,8 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-	 
 	
+	 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
