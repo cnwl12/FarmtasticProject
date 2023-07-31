@@ -2,6 +2,7 @@ package com.itwillbs.farmtastic;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -293,7 +294,7 @@ public class SellerController {
 		System.out.println("test 들어가냐");
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		List<Map<String, Object>> list = new ArrayList<>();
+		List<Map<String, Object>> list = new ArrayList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "서울");
 		map.put("data", new Double[] {-0.3, 1.0, 2.3, -1.3, 5.0});

@@ -151,14 +151,15 @@ public class MemberDAO {
 	      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
 	  }
 
-	 public double getAverageReviewStarByItemNum(int item_num) {
-		 Double averageReviewStar = null;
-		 try {
-			 averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
-		 } catch (NullPointerException | EmptyResultDataAccessException e) {
 		
-		 }
+		 public double getAverageReviewStarByItemNum(int item_num) { 
+			 Double averageReviewStar = null; 
+			 try { averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
+		 } catch (NullPointerException e) {
+			 
+		 } catch (EmptyResultDataAccessException e) {
 		 
-		 return averageReviewStar == null ? 0.0 : averageReviewStar;
-	 }
+		 }
+		 return averageReviewStar == null ? 0.0 : averageReviewStar; }
+		 
 }

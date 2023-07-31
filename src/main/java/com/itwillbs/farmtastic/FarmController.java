@@ -650,6 +650,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
 	
+	// 리뷰목록이 불러오고싶다
+	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
+		 List<MemberDTO> reviews = memberService.getItemReviews(item_num);
+		 return reviews;
+	}
+	
+	
+	
 	// 서영 작업중
     @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
     public String oneBoard(Model model) {
