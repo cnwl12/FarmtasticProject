@@ -28,6 +28,15 @@ public class MemberDTO {
 	private int review_num;
 	private int order_num;
 	private int item_num;
+	
+	
+	
+	public String getNew_member_pass() {
+		return new_member_pass;
+	}
+	public void setNew_member_pass(String new_member_pass) {
+		this.new_member_pass = new_member_pass;
+	}
 	private int review_star;
 	private String review_title;
 	private String review_content;

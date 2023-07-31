@@ -356,11 +356,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	    session.setAttribute("member_id", member_id);
 	    session.setAttribute("member_pass", member_pass);
 	    session.setAttribute("new_member_pass", new_member_pass);
-	    
+	    System.out.println("FarmController-->updatePro");
 	    System.out.println(member_num + "-" + member_id + "-" + member_pass + "-" + new_member_pass );
 	    
 	    MemberDTO memberDTO = new MemberDTO();
 	    memberDTO.setMember_num(member_num);
+	    memberDTO.setMember_id(member_id);
+	    memberDTO.setMember_pass(member_pass);
+	    memberDTO.setNew_member_pass(new_member_pass);
+	    
 	    MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
 
 	    if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
@@ -369,10 +373,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	        memberDTO.setMember_pass(new_member_pass);
 
 	        memberService.updateMember(memberDTO);
-	        return "redirect:/member/index";
+	        return "/index";
 	    } else {
 	        System.out.println("비밀번호 오류");
-	        return "member/mypage";
+	        return "/member/mypage";
 	    }
 	}
 

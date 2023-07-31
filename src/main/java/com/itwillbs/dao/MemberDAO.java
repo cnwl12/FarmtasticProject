@@ -102,6 +102,20 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".insertOrderDetail", member_num);
 	}
 	
+	
+	
+	/* sungha07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		System.out.println("MemberDAO getMember1");
+		return sqlSession.selectOne(namespace+".getMember1", member_num);
+	}
+	
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck1()");
+		
+		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
+	}
+	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
 		
@@ -139,17 +153,17 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 	
-	public MemberDTO userCheck1(MemberDTO memberDTO) {
-		System.out.println("MemberDAO userCheck1()");
-		
-		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
-	}
 	
+
+
 	
+<<<<<<< HEAD
 	// 막냉이 리뷰별점 갯수 기능
 	 public int getReviewCountByItemNum(int item_num) {
 	      return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
 	  }
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 
 		
 		 public double getAverageReviewStarByItemNum(int item_num) { 
