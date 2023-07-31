@@ -23,6 +23,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
     
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
@@ -144,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
 												<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
-
 											</div>
 										</div>
 									</li>
