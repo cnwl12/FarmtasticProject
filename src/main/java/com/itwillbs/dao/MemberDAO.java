@@ -66,6 +66,8 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
 	
+
+		
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
