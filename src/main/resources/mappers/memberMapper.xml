@@ -16,14 +16,7 @@
     where member_nid = #{member_nid}
   	</select> 
   	
-  	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
-  	select * from member
-  	where member_id = #{member_id}
-  	  <if test="member_pass != null">
-  	  and member_pass = #{member_pass}
-  	  </if>
-  	</select>
-  	
+  	  	  	
   	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
   	select * from member
 	where member_id = #{member_id}  	
@@ -35,7 +28,36 @@
   	select * from member
 	where member_num = #{member_num}
   	</select>
-  
+  	
+  	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
+  		 	
+  	select * from member
+  	where member_id = #{member_id}
+  	  <if test="member_pass != null">
+  	  and member_pass = #{member_pass}
+  	  </if>
+  	</select>
+  	
+  	<select id="userCheck1" resultType="com.itwillbs.domain.MemberDTO">
+  	SELECT * FROM member
+  	WHERE member_num = #{member_num}
+  	AND member_id = #{member_id}
+  	 <if test="member_pass != null">
+  	  and member_pass = #{member_pass}
+  	  </if>
+	</select>
+	
+  	
+ 	<update id="updateMember">
+ 	 UPDATE member
+  	SET member_name = #{member_name},
+      member_phone = #{member_phone},
+      member_email = #{member_email},
+      member_pass  = #{new_member_pass},
+      <if test="member_pass != null">member_pass = #{member_pass}</if>
+  	WHERE member_id = #{member_id}
+	</update>
+  	
   	
   	
   	<insert id="ninsertMember"> 
@@ -97,16 +119,6 @@
   	AND member_num = #{member_num}
   </update>
   
-  
-   <update id="updateMember">
-  UPDATE member
-  SET member_name = #{member_name},
-      member_phone = #{member_phone},
-      member_email = #{member_email},
-      member_pass  = #{new_member_pass},
-      <if test="member_pass != null">member_pass = #{member_pass}</if>
-  WHERE member_id = #{member_id}
-</update>
 
   <!-- 주문상세 목록 추가 insert : 주문번호 랜덤 생성 -->
   <insert id="insertOrderDetail">
@@ -145,7 +157,7 @@
   	AND member_num = #{member_num}
   </delete>
   
-  <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
+   <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
         <result column="one_board_repYn" property="one_board_repYn"/>
         <result column="one_board_type" property="one_board_type"/>
         <result column="one_board_title" property="one_board_title"/>
@@ -167,7 +179,14 @@
     JOIN member m ON ob.member_num = m.member_num
     WHERE ob.item_num = #{item_num}
 </select>
-
   
+  <!-- 리뷰모시기 막내 -->
+  <select id="getReviewCountByItemNum" resultType="int">
+        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
+  </select>
+
+  <select id="getAverageReviewStarByItemNum" resultType="double">
+        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
+  </select>
   
 </mapper>

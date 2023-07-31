@@ -130,6 +130,14 @@ public class MemberService {
 		System.out.println("서비스 오는지 딜리트카트 ");
 		memberDAO.deleteCart(cart);
 	}
+
+
+	public MemberDTO userCheck1(MemberDTO memberDTO) {
+		System.out.println("MemberService userCheck1()");
+		 
+		 return memberDAO.userCheck1(memberDTO);
+	}
+
 	
 	public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		System.out.println("MemberService insertOneBoard()");
@@ -145,4 +153,18 @@ public class MemberService {
 	       return memberDAO.findByItemNum(item_num);
 	  }
  
+	
+	// 막내 리뷰별점 갯수기능
+	 public int getReviewCountByItemNum(int item_num) {
+	     return memberDAO.getReviewCountByItemNum(item_num);
+	 }
+
+	 public double getAverageReviewStarByItemNum(int item_num) {
+		  Double averageReviewStar = memberDAO.getAverageReviewStarByItemNum(item_num);
+		  return averageReviewStar == null ? 0.0 : averageReviewStar;
+	 }
+	
+	
+	
+	
 }

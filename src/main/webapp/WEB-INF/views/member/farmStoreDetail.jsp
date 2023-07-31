@@ -32,15 +32,24 @@
 	
 	
 <style>
+ 
+.fa-star-half-o:before {
+    content: "\f130";
+    color: #EDBB0E !important;
+}
+
+.fa-star-o:before {
+	color: #b2b2b2 !important;
+}
 .star {
     font-size: 24px;
-    color: #dddddd;
+	color: #dddddd; 
     cursor: pointer;
     margin-right: 5px;
 	}
 .star.selected {
-    color: #ffcc00;
-	}
+    color: #EDBB0E;
+	}		
 	
 .product__details__tab .product__details__tab__desc h6 {
     font-weight: 700;
@@ -141,13 +150,22 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     <div class="product__details__text">
                         <h3>${item.item_name}</h3>
                         <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
-                        </div>
+    <c:forEach var="i" begin="1" end="5">
+        <c:choose>
+            <c:when test="${averageStarRating - i >= 0}">
+                <i class="fa fa-star"></i>
+            </c:when>
+            <c:when test="${averageStarRating - i >= -0.5}">
+                <i class="fa fa-star-half"></i>
+            </c:when>
+            <c:otherwise>
+                <i class="fa fa-star-o"></i>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <span>(${reviewCount} reviews)</span>
+</div>
+
                         <div class="product__details__price">${item.item_price}</div>
                         <p>${item.item_detail}</p>
                         <div class="product__details__quantity">
@@ -189,7 +207,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                    aria-selected="false">Reviews <span>(${reviewCount})</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
@@ -218,9 +236,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                 </div>
                             </div>
                             <!-- 리뷰칸 -->
+                            <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 구매내역 데이터가 없으니까.. 일단 임시방편으로 로그인만 작업해둠 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 데이터가 없으니까.. 일단 임시방편이와요 -->
+                                	<div>
                                 	<c:choose>
     								<c:when test="${empty sessionScope.member_num}">
      								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
@@ -251,6 +270,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									</form>
 									</c:otherwise>
   									</c:choose>
+  									</div>
                                     <br>
                                     <br>
 									<h6>리뷰 목록</h6>
@@ -582,7 +602,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	 $(document).ready(function () {
     getItemReviews();
     function getItemReviews() {
-        var item_num = ${item.item_num}; // 임시로 제품 번호를 1로 설정. 실제로는 보유한 item_num 사용
+        var item_num = ${item.item_num}; 
         $.ajax({
             type: "GET",
             url: "${pageContext.request.contextPath}/getItemReviews",
@@ -617,7 +637,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                       starElement.textContent = stars;
                     });
 
-                    // 작성일을 YYYY-MM-DD 형식으로 변경
+                    // 작성일을 YYYY-MM-DD 형식으로 변경 -> 아직 안됌 이거 수정 더 해야할듯
                     let reviewDates = document.querySelectorAll('.review-date');
                     console.log('Total review dates:', reviewDates.length);
                     reviewDates.forEach(function (dateElement) {
@@ -644,13 +664,13 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                       dateElement.textContent = formattedDate;
                     });
 
-                }
-            },
-            error: function () {
-                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
-            }
-        });
-    }
+                   }
+            	},
+           				 error: function () {
+                		alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+            			}
+        	});
+    	}
 	 
 	 });
 	

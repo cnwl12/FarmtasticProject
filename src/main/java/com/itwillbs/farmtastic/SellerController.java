@@ -2,6 +2,7 @@ package com.itwillbs.farmtastic;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.service.SellerService;
@@ -154,6 +156,9 @@ public class SellerController {
 		return "/seller/salesMng";
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
 		
@@ -281,6 +286,23 @@ public class SellerController {
 			sellerService.itemUpdate(itemList, files, session);
 	
 			return "redirect:/itemInsertList";
+	}
+	
+	@RequestMapping("/ch_test")
+	@ResponseBody
+	public Map<String, Object> ch_test() throws Exception{
+		System.out.println("test 들어가냐");
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> list = new ArrayList();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", "서울");
+		map.put("data", new Double[] {-0.3, 1.0, 2.3, -1.3, 5.0});
+		
+		list.add(map);
+		model.put("ch", list);
+		
+		return model;
 	}
 	
 }

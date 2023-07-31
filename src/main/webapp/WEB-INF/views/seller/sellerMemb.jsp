@@ -4,26 +4,33 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<title>seller/sellerMng</title>
+	
+	<!-- Custom fonts for this template -->
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
+	<!-- Custom styles for this page -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
 
-<title>seller/sellerMng</title>
-
-<!-- Custom fonts for this template -->
-<link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
-
-<!-- Custom styles for this page -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
-
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+    
+	<!-- 사이드바 줄어든거 되돌리기 -->
+	<style type="text/css">
+	 html {font-size: 1rem !important;}
+	 body {font-size: 1rem !important;}
+	</style>
+	
 </head>
 
 <body id="page-top">
@@ -138,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
 												<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
-
 											</div>
 										</div>
 									</li>
@@ -175,8 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
 											<div class="form-inline mobile-inline">
 												<div class="form-control-static">${seller.seller_bank}</div><br>
 <%-- 												<input type="text" class="form-control" name="seller_bank" value="${seller.seller_bank}"> --%>
-												<select name="seller_bank" id="seller_bank" style="margin-left: 120px; width: 150px; height: 40px;">
-													<option value="" selected="selected">은행을 선택하세요</option>
+												<select name="seller_bank" id="seller_bank" style="margin-left: 150px; width: 150px; height: 40px;">
+													<option value="${seller.seller_bank}" selected="selected">은행을 선택하세요</option>
 												    <option value="Kookmin">국민은행</option>
 											        <option value="Busan">부산은행</option>
 											        <option value="Kakao">카카오뱅크</option>

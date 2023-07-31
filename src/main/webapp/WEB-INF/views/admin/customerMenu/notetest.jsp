@@ -61,7 +61,7 @@
                     
                     <div class="card shadow mb-4">
                       <!-- 글쓰기 -->
-                   		 <form action="${pageContext.request.contextPath }/writePro" method="post" >
+                   		 <form action="${pageContext.request.contextPath }/writePro" method="post" enctype="multipart/form-data" >
                     		<div class="card-header py-3">
                     			<div class="row">
                          			<input type="hidden" name="admin_id" value=" ${admin.admin_id}" /> 
@@ -149,6 +149,67 @@
 
     <!-- include summernote css/js-->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		  $('#summernote').summernote({
+	 	    	placeholder: '게시글을 작성해주세요.',
+		        minHeight: 370,
+		        maxHeight: null,
+		        focus: true, 
+		        lang : 'ko-KR',
+		        toolbar: [
+	              ["style", ["style"]],
+	              ["font", ["bold", "underline", "clear"]],
+	              ["fontname", ["fontname"]],
+	              ["para", ["ul", "ol", "paragraph"]],
+	              ["table", ["table"]],
+	              ["insert", ["link", "picture", "video"]],
+	              ["view", ["fullscreen", "codeview"]],
+	              ['highlight', ['highlight']]
+	            ],
+	            callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload : function(files) {
+						uploadSummernoteImageFile(files[0],this);
+					}
+				}
+		  });
+	});
+
+	
+	function uploadSummernoteImageFile(file, editor) {
+		var data = new FormData();
+		data.append("file", file);
+		
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadSummernoteImageFile",
+			contentType : false,
+			processData : false,
+			success : function(data) {
+            	            //항상 업로드된 파일의 url이 있어야 한다.
+            	// @param {String} url
+            	// @param {String|Function} filename - optional
+            	$('#summernote').summernote('insertImage', url, filename);
+            	          
+            	                alert("Success");
+			 }
+			,error:function(request,status,error, data){
+            	            alert("Error");
+         	}
+		});
+	
+	}
+	$(function() { 
+		$("#commentForm").validate();
+		$.extend( $.validator.messages, { 
+			required: "필수항목입니다."
+		} ); 
+	});
+</script>
+
+<!-- 
 <script>
     $(document).ready(function () {
         $('#summernote').summernote({
@@ -219,10 +280,28 @@
                         uploadSummernoteImageFile(files[i], this, caption)
                     }
                 },
-            },
+           },
         })
-    })
-
+    });
+    /* 
+    function sendFile(file, el) {
+      var form_data = new FormData();
+      form_data.append('file', file);
+      $.ajax({
+        data: form_data,
+        type: "POST",
+        url: '/image',
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false,
+        success: function(url) {
+          $(el).summernote('editor.insertImage', url);
+          $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+        }
+      });
+    }
+     */
     // 이미지 업로드 함수 ajax 활용
     function uploadSummernoteImageFile(file, el, caption) {
         data = new FormData()
@@ -241,11 +320,11 @@
                     function ($image) {
                         $image.attr('alt', caption) // 캡션 정보를 이미지의 alt 속성에 설정
                     }
-                )
-            },
+                )},
         })
-    }
+    };
 </script>
+ -->
 </body>
 
 </html>

@@ -16,6 +16,7 @@ public class MemberDTO {
 	private String member_addMain;
 	private String member_addSub;
 	private Date member_joinDay;
+
 	private int one_board_num;
 	private String one_board_type;
 	private String one_board_title;
@@ -27,12 +28,21 @@ public class MemberDTO {
 	private int review_num;
 	private int order_num;
 	private int item_num;
+	
+	
+	
+	public String getNew_member_pass() {
+		return new_member_pass;
+	}
+	public void setNew_member_pass(String new_member_pass) {
+		this.new_member_pass = new_member_pass;
+	}
 	private int review_star;
 	private String review_title;
 	private String review_content;
 	private String review_img;
 	private Date review_day;
-	
+
 	
 	public int getMember_num() {
 		return member_num;
@@ -101,6 +111,7 @@ public class MemberDTO {
 	public void setMember_joinDay(Date member_joinDay) {
 		this.member_joinDay = member_joinDay;
 	}
+
 	public int getOne_board_num() {
 		return one_board_num;
 	}
