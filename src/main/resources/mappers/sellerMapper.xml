@@ -55,7 +55,7 @@
 <!--     where seller_num = #{seller_num} -->
 <!--   	</select>  -->
   	
-  	<!-- 선진) 판매자 정보 가져옴 --><!-- 테스트 -->
+  	<!-- 선진) 판매자 정보 가져옴 -->
     <select id="getSellerInfo" resultType="map">
     select * from seller
     where seller_num = #{seller_num}
@@ -99,27 +99,48 @@
    <!-- 상품 등록 -->
     <insert id="itemInsert">
        INSERT INTO item (
-           category_num,
+           seller_type,
            item_name,
            item_price,
+           item_sale,
            item_mainImg,
+           item_left,
            item_detail,
+           seller_num,
            item_register
        )
        VALUES (
-           #{category_num},
+           #{seller_type},
            #{item_name},
            #{item_price},
+           #{item_sale},
            #{item_mainImg},
+           #{item_left},
            #{item_detail},
+           #{seller_num},
            now()
        )
    </insert>
+   
+   <!-- 상품 등록 수정 -->
+   <update id="itemUpdate">
+   UPDATE item
+   SET	seller_type = #{seller_type},
+   		item_name = #{item_name},
+   		item_price = #{item_price},
+   		item_mainImg = #{item_mainImg},
+   		item_detail = #{item_detail},
+   		item_left = #{item_left}
+   
+   WHERE item_num = #{item_num} AND seller_num = #{seller_num}
+   </update>
+   
 
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT *
        FROM item
+       ORDER BY item_num desc
     </select>
 
    <!-- 개별상품 가져오기  -->
@@ -176,8 +197,7 @@
       AND s.seller_num = #{sellerNum} <!-- s.seller_num을 필터링하기 위해 추가된 부분 -->
        AND DATE_FORMAT(order_day, '%Y-%m') = #{orderMonth} 
       GROUP BY s.seller_num, s.seller_id, s.seller_name, order_day,order_pay
-      ORDER BY order_day
-      ;
+      ORDER BY order_day;
    </select>
    
    <!--판매자별 연간판매량전체-->
@@ -209,7 +229,22 @@
         ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
     </insert>   
    
-   
-   
+   <!-- 선진) 판매자 월별 매출 -->
+   <select id="getMonthlySales" resultType="map">
+       SELECT s.seller_num, s.seller_id, s.seller_name,
+          DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
+          FORMAT(SUM(o.order_pay), 0) AS total_revenue,
+          FORMAT(floor(sum(o.order_pay) * 0.05), 0) as fee,
+          FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as settlement_amount,
+          st.settlement_yn
+      FROM seller s
+      LEFT JOIN item i ON s.seller_num = i.seller_num
+      LEFT JOIN orders o ON i.item_num = o.item_num
+      LEFT JOIN settlement st ON s.seller_num = st.seller_num
+      WHERE s.seller_num != 'admin'
+      AND s.seller_num = 'CR0001'
+      GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month, st.settlement_yn
+      ORDER BY order_month;
+	</select>
    
 </mapper>

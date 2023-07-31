@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
@@ -14,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>itemInsert</title>
+    <title>itemUpdate</title>
 
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,37 +49,34 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">상품등록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상품등록 수정</h1>
                     <p class="mb-4">
-                    	상품등록 테스트 페이지
+                    	내가 판매하는 상품만 수정 가능!
                     </p>
 					
-					<!-- 컬럼 이름
-					item_num category_num item_name item_price item_sale item_discount
-					item_left item_amount item_mainImg item_img1 item_img2 item_detail
-					item_salesStatus seller_num item_fee item_register -->
-					
-					<form action="itemInsertPro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+					<form action="itemUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+							<input type="hidden" name="item_num" value="${item.item_num}">
 						<table border="1">
 							<tr>
 								<td>카테고리 번호</td>
 								<td>
 									<select name="seller_type" id="seller_type">
-											<option value="FR">상품을선택해주세요</option>
-											<option value="FR">사과</option>
-											<option value="PE">배</option>
-											<option value="TA">감귤</option>
-  										</select>
-  								</td>	
-							<!-- 	<input type="text" name="category_num" value=""> -->
+										<option value="">${item.seller_type}</option>
+										<option value="FR">상품을선택해주세요</option>
+										<option value="FR">사과</option>
+										<option value="PE">배</option>
+										<option value="TA">감귤</option>
+									</select>
+								<!-- <input type="text" name="category_num" value=""> -->
+								</td>
 							</tr>
 							<tr>
 								<td>상품명</td>
-								<td><input type="text" name="item_name" value=""></td>
+								<td><input type="text" name="item_name" value="${item.item_name}"></td>
 							</tr>
 							<tr>
 								<td>가격</td>
-								<td><input type="text" name="item_price" value="">원</td>
+								<td><input type="text" name="item_price" value="${item.item_price}"></td>
 							</tr>
 							<tr>
 								<td>할인율</td>
@@ -87,24 +85,23 @@
 							</tr>
 							<tr>
 								<td>상품 이미지</td>
-								<td><input type="file" name="file" value=""></td>
+								<td>
+									변경 : <input type="file" name="file">
+									기존(삭제예정) : <input type="text" name="oldfile" value="${item.item_mainImg}">
+								</td>
 							</tr>
 							<tr>
 								<td>등록 가능 재고</td>
 								<!-- number 1 이하일 경우 예외 방지 -->
-								<td><input type="number" name="item_left" value=""></td>
+								<td><input type="number" name="item_left" value="${item.item_left}"></td>
 							</tr>
 							<tr>
 								<td>상품설명</td>
-								<td><textarea name="item_detail" rows="10" cols="20" value=""></textarea></td>
+								<td><textarea name="item_detail" rows="10" cols="20">${item.item_detail}</textarea></td>
 							</tr>
+							
 							<tr>
-							<!-- 	<td>이미지확인 - 아래 주소처럼 나와야함</td>
-								<td><img src="http://c3d2212t3.itwillbs.com/Moneytto/resources/upload/c9bbe06a.png" style="width: 300px; height: 200px"></td>
-						 -->	
-						 	</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="등록"></td>
+								<td colspan="2"><input type="submit" value="수정"></td>
 							</tr>
 						</table>
 					</form>

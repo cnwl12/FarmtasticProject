@@ -44,7 +44,7 @@ public class SellerDAO {
 		 */
 		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			System.out.println("SellerDAO getSellerInfo 확인");
+			System.out.println("SellerDAO getSellerInfo 매핑완");
 			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
 		}
 		// 선진) 판매자 정보 수정
@@ -52,6 +52,13 @@ public class SellerDAO {
 			System.out.println("SellerDAO의 updateSeller 매핑완");
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
+		
+        // 선진)차트
+		public List<Map<String, Object>> getMonthlySales(String seller_num) {
+			System.out.println("SellerDAO의 getMonthlySales 매핑완");
+			return sqlSession.selectList(namespace+".getMonthlySales", seller_num);
+		}
+		
 		
 		
 		public void itemInsert(Map<String, String> itemList) {
@@ -111,5 +118,13 @@ public class SellerDAO {
 	         System.out.println("SellerDAO insertSeller() 확인");
 	         System.out.println(sellerDTO);
 	         sqlSession.insert(namespace+".insertSeller", sellerDTO); 
+		}
+
+
+
+
+		public void itemUpdate(HashMap<String, String> itemList) {
+			System.out.println("맵까지 오는지");
+			sqlSession.update(namespace+".itemUpdate", itemList);
 		}
 }

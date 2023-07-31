@@ -292,15 +292,31 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
                                 </div>
                             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                             <!--  리뷰칸 끝 -->
                             
+<<<<<<< HEAD
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        		<div class="product__details__tab__desc">
 			        		<a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
 			           		<table class="table">
+=======
+                             <div class="tab-pane" id="tabs-4" role="tabpanel">
+			        <div class="product__details__tab__desc">
+			        <a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
+			        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
+			        <input type="hidden" name="item_num" value="${item_num}">
+			        <div>
+			            <table class="table">
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                <thead>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                    <tr>
 			                        <th>답변상태</th>
 			                        <th>문의유형</th>
@@ -311,11 +327,16 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 			                 </tbody>
 			            	 </table>
+			            	 </div>
 			        		</div>
                          </div>
+<<<<<<< HEAD
                     	</div>
 
 			                </tbody>
@@ -323,8 +344,13 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			        </div>
 			        		</div>
                         </div>
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                 </div>
             </div>
         </div>
@@ -427,11 +453,26 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<script>
 	function openPopup() {
 	  window.open(
-	    "oneboard", 
+	    "oneboard?item_num=" + item_num, 
 	    "oneboardpop", 
 	    "width=600, height=1000, left=100, top=50, scrollbars=no, resizable=yes"
 	  );
 	}
+	function checkLogin() {
+		  // 로그인 여부를 확인하려면 input 태그에서 member_num 값을 가져옵니다.
+		  var member_num = document.getElementById("member_num").value;
+
+		  if (member_num == null || member_num == "") {
+		    // 로그인되어 있지 않은 경우 login.jsp로 이동합니다.
+		    window.location.href = "login";
+		  } else {
+		    // 로그인된 경우 openPopup 함수를 호출하여 문의하기 창을 엽니다.
+		    openPopup();
+		  }
+		}
+	</script>
+	<script>
+	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
 	
 	<script type="text/javascript">

@@ -29,6 +29,16 @@
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+	<script type="text/javascript">
+	function itemUpdate(item_num){
+		
+		location.href="itemUpdate?item_num="+item_num;
+		
+	}
+	
+	</script>
+
+
 </head>
 
 <body id="page-top">
@@ -51,23 +61,33 @@
                     <!-- Page Heading -->
                     <p class="mb-4">
                     	상품등록 등록확인 
+                    	내가 판매하는 상품만 수정/삭제 버튼!
+                    	
                     </p>
 
-					<table border="1">
+					<table border="1" width="400" height="200">
 						<tr>
-							<th>카테고리 번호</th>
+							<th>상품 타입</th>
 							<th>상품명</th>
 							<th>가격</th>
 							<th>상품 이미지</th>
 							<th>상품 설명</th>
+							<th>재고</th>
+							<th>판매상태</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 						<c:forEach var="item" items="${itemList}">
 							<tr>
-								<td>${item.category_num}</td>
+								<td>${item.seller_type}</td>
 								<td>${item.item_name}</td>
 								<td>${item.item_price}</td>
-								<td><img src="${item.item_mainImg}" style="width: 300px; height : 200px"></td>
+								<td><img src="${item.item_mainImg}" style="width: 30px; height : 20px"></td>
 								<td>${item.item_detail}</td>
+								<td>${item.item_left}</td>
+								<td>y/n</td>
+								<td><input type="button" onclick="itemUpdate(${item.item_num})" value="수정"></td>
+								<td><input type="button" onclick="itemDelete(${item.item_num})" value="삭제"></td>
 							</tr>
 						</c:forEach>
 					</table>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 
 @Service
 public class MemberService {
@@ -68,6 +69,13 @@ public class MemberService {
 		return memberDAO.getMember(member_id);
 	}
 	
+	/* sungha 07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		
+		System.out.println("MemberService getMember1()");
+		
+		return memberDAO.getMember1(member_num);
+	}
 	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
@@ -95,13 +103,14 @@ public class MemberService {
 		memberDAO.updateMember(memberDTO);
 	}
 	
-	public void insertOneBoard(MemberDTO memberDTO) {
-        memberDAO.insertOneBoard(memberDTO);
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		System.out.println("MemberService insertOneBoard()");
+        memberDAO.insertOneBoard(oneboardDTO);
     }
 
-    public List<MemberDTO> getOneBoardList() {
-        return memberDAO.getOneBoardList();
-    }
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
 	 
 	// 리뷰작성
     public void insertReview(MemberDTO memberDTO) {

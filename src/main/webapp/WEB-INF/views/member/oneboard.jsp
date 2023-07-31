@@ -11,10 +11,14 @@
 <body>
   <div class="inquiry-container">
     <h1>상품 Q&amp;A</h1>
-    <form action="OneBoardController" method="post" enctype="multipart/form-data">
+    <form action="oneboardForm" method="get" enctype="multipart/form-data">
       <input type="hidden" name="action" value="write">
-      <input type="hidden" name="item_num" value="${item.item_num}">
-      
+		<%! int item_num; %>
+		<%
+		item_num = Integer.parseInt(request.getParameter("item_num"));
+		%>      
+		<input type="hidden" name="item_num" value="<%= item_num %>">
+		 <input type="hidden" name="member_num" value="${sessionScope.member_num}">
       <label for="one_board_type">문의유형</label>
       <select name="one_board_type" id="one_board_type">
         <option value="배송">배송</option>
@@ -35,11 +39,11 @@
      <div class="radio-container">
 		<label for="public">공개</label>
 		<div>
-			<input type="radio" name="visibility" id="public" value="public" checked>
+			<input type="radio" name="one_board_private" id="public" value="공개" checked>
 		</div>
 		  	<label for="private">비공개</label>
 		<div>
-		    <input type="radio" name="visibility" id="private" value="private">
+		    <input type="radio" name="one_board_private" id="private" value="비공개">
 		</div>
 	</div>
 	<br>

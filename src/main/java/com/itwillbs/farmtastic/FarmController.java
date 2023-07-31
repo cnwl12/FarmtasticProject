@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
@@ -221,38 +222,31 @@ public class FarmController { // 소비자 (컨트롤러)
 	        e.printStackTrace();
 	        return "errorPage"; 
 	    }
-			 
-		/*
-		 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-		 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-		 */
-			 
-			 
-		/*
-		 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-		 * userProfile = jsonObject.getJSONObject("response");
-		 */
-			
+		
+		System.out.println("jsonObject -->>>>>" + jsonObject.toString());
+		
 	 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-	 	//String member_id = userProfile.getString("id");
+	 	
+	 	String member_id = jsonObject.optString("id");
 	 	String member_name = userProfile.getString("name");
 	 	String member_email = userProfile.getString("email");
-	 	//String member_phone = userProfile.getString("phone_number");
-
+	 	String member_phone = userProfile.getString("phone_number").replace("+82 10", "010");
+	 	// repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
+	 	System.out.println("member_phone -->>>>>" + member_phone);
+	 	
 	 	// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
 	 	MemberDTO memberDTO = new MemberDTO();
-	 	//memberDTO.setMember_id(member_id);
+	 	memberDTO.setMember_id(member_id);
 	 	memberDTO.setMember_name(member_name);
 	 	memberDTO.setMember_email(member_email);
-	 	//memberDTO.setMember_phone(member_phone);
+	 	memberDTO.setMember_phone(member_phone);
 		
 			System.out.println(memberDTO.getMember_name());
 			MemberDAO memberDAO = new MemberDAO();
 			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 			if (memberDTO2 != null) {
 				System.out.println("로그인");
-				session.setAttribute("member_id", memberDTO.getMember_id());
+				session.setAttribute("member_num", memberDTO2.getMember_num());
 				return "redirect:/index";
 			} else {
 				memberService.insertMember(memberDTO);
@@ -262,6 +256,10 @@ public class FarmController { // 소비자 (컨트롤러)
 			
 	}
 
+	
+		
+	
+	
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
 	public String kakaoLogout(Locale locale, Model model) {
 
@@ -286,18 +284,17 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/join2";
 	}
 
+	/* sungha 07.29마이페이지*/
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
+	    System.out.println("mypage 매핑확인여부");
 
-		System.out.println("mypage 매핑확인여부");
+	    Integer member_num = (Integer) session.getAttribute("member_num");
+	    MemberDTO memberDTO = memberService.getMember1(member_num);
 
-		String id = (String) session.getAttribute("id");
+	    model.addAttribute("memberDTO", memberDTO);
 
-		MemberDTO memberDTO = memberService.getMember(id);
-
-		model.addAttribute("memberDTO", memberDTO);
-
-		return "/member/mypage";
+	    return "/member/mypage";
 	}
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
@@ -307,7 +304,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		if (memberDTO2 != null) {
 			// 아이디 비밀번호 일치 => 수정작업 => /member/index 이동
 			memberService.updateMember(memberDTO);
-			return "redirect:/member/index";
+			//return "redirect:/member/index";
+			return "redirect:/index";
 		} else {
 			// 아이디 비밀번호 틀림 => member/msg.jsp 이동
 			return "member/msg";
@@ -350,13 +348,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-	public String onehelp(Locale locale, Model model) {
+	// 서영 작업중
+    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+    public String oneBoard(Model model) {
+    	System.out.println("FarmController oneboard()!");
+        return "/member/oneboard";
+    }
 
-		System.out.println("contact 매핑확인여부");
+    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
+    public String oneBoardForm(OneBoardDTO oneboardDTO) {
+    	System.out.println("oneboardForm() 로드");
+        memberService.insertOneBoard(oneboardDTO);
 
-		return "/member/oneboard";
-	}
+        return "/member/farmStoreDetail";
+    } 
+
 
 	// 디비 연동 확인용
 
@@ -542,13 +548,6 @@ public class FarmController { // 소비자 (컨트롤러)
 //	    }
 	
 	
-	// 서영쓰 여기 한번 확인해주세여~~ 
-	/*
-	 * @PostMapping("/oneboardForm") public String oneBoardForm(MemberDTO memberDTO)
-	 * { memberService.insertOneBoard(memberDTO);
-	 * 
-	 * return "redirect:/oneboard"; }
-	 */
 	
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
 	

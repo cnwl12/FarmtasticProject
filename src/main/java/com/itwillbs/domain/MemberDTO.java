@@ -7,6 +7,7 @@ public class MemberDTO {
 	private int member_num;
 	private String member_id;
 	private String member_pass;
+	private String new_member_pass;
 	private	String member_name;
 	private	String member_phone;
 	private	String member_email;
@@ -15,6 +16,7 @@ public class MemberDTO {
 	private String member_addMain;
 	private String member_addSub;
 	private Date member_joinDay;
+<<<<<<< HEAD
 	private int one_board_num;
 	private String one_board_type;
 	private String one_board_title;
@@ -31,6 +33,8 @@ public class MemberDTO {
 	private String review_content;
 	private String review_img;
 	private Date review_day;
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 	
 	public int getMember_num() {
 		return member_num;
@@ -49,6 +53,12 @@ public class MemberDTO {
 	}
 	public void setMember_pass(String member_pass) {
 		this.member_pass = member_pass;
+	}
+	public String getNew_member_pass() {
+		return new_member_pass;
+	}
+	public void setNew_member_pass(String new_member_pass) {
+		this.new_member_pass = new_member_pass;
 	}
 	public String getMember_name() {
 		return member_name;
@@ -99,6 +109,7 @@ public class MemberDTO {
 	public void setMember_joinDay(Date member_joinDay) {
 		this.member_joinDay = member_joinDay;
 	}
+<<<<<<< HEAD
 	public int getOne_board_num() {
 		return one_board_num;
 	}
@@ -197,5 +208,7 @@ public class MemberDTO {
 	}
 	
 
+=======
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 
 }

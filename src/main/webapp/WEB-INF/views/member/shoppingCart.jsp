@@ -30,7 +30,7 @@
 	<script type="text/javascript">
 	function insertOrderDetail(){
 		
-		location.href="insertOrderDetail";
+		location.href="insertOrderDetail";  
 		
 	}
 	</script>
@@ -84,50 +84,65 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__table item_wrap" data-item_num = "${item.item_num}" >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="item" items="${itemList}">
-                                 <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
-                                <tr>
-                                
-                                    <td class="shoping__cart__item">
+    <div class="shoping__cart__table item_wrap" data-item_num="${item.item_num}">
+        <table>
+            <thead>
+                <tr>
+                    <th class="shoping__product">Products</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 장바구니에 상품 있을 때 -->
+                <c:choose>
+                    <c:when test="${not empty itemList}">
+                        <c:forEach var="item" items="${itemList}">
+                            <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
+                            <tr>
+                                <td class="shoping__cart__item">
                                     <a href="farmStoreDetail?item_num=${item.item_num}">
                                         <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
-                                     </a>   
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        ${item.item_price}
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="${item.cart_cnt}">
-                                            </div>
+                                    </a>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    ${item.item_price}
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="${item.cart_cnt}">
                                         </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                         ${item.item_price * item.cart_cnt}
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close" onclick="deleteCart(${item.item_num})"></span>
-                                    </td>
-                                </tr>
-                                    </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                    </div>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    ${item.item_price * item.cart_cnt}
+                                </td>
+                                <td class="shoping__cart__item__close">
+                                    <span class="icon_close" onclick="deleteCart(${item.item_num})"></span>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-cart-message" id="emptyCartMessage">
+                                    <i class="fas fa-shopping-cart"></i> 
+                                    <p>장바구니가 비어있습니다</p> 
+                                </div>
+                            </td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+            </tbody>
+        </table>
+    </div>
+</div>
+
             </div>
             <div class="row">
                 <div class="col-lg-12">

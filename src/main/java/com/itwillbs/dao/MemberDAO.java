@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 
 @Repository
 public class MemberDAO {
@@ -63,7 +65,13 @@ public class MemberDAO {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
-
+	
+	/* sungha07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		System.out.println("MemberDAO getMember1");
+		return sqlSession.selectOne(namespace+".getMember1", member_num);
+	}
+	
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
@@ -96,6 +104,7 @@ public class MemberDAO {
 	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
+		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
 
@@ -110,16 +119,27 @@ public class MemberDAO {
 	}
 	
 	
-	 public void insertOneBoard(MemberDTO memberDTO) {
-        sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
+	
+	
+	//서영 작업 1대1문의
+	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		 System.out.println("MemberDAO insertOneBoard ()!!");
+        sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
+	
+	
+	
+//	 public int checkIdDuplicate(String memberId) {
+//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
+//	 }
     }
 
-	 public List<MemberDTO> getOneBoardList() {
-        return sqlSession.selectList(namespace + ".getOneBoardList");
-    }
+//	 public List<MemberDTO> getOneBoardList() {
+//	        return sqlSession.selectList(namespace + ".getOneBoardList");
+//	    }
+
 
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
-	
+
 }
