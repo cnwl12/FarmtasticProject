@@ -219,7 +219,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                             <!-- 리뷰칸 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">ation 오류 메시지들</h3>
+                                	<%-- <c:choose>
                                 <div class="product__details__tab__desc">
+                                <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 데이터가 없으니까.. 일단 임시방편이와요 -->
                                 	<c:choose>
     								<c:when test="${empty sessionScope.member_num}">
      								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
@@ -294,11 +297,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             <!--  리뷰칸 끝 -->
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        		<div class="product__details__tab__desc">
-			        		<a class="custom-link" href="#" onclick="openPopup()">문의하기</a>
-			           		<table class="table">
-                             <div class="tab-pane" id="tabs-4" role="tabpanel">
-			        <div class="product__details__tab__desc">
-			        <a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
+			        		<a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
 			        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
 			        <input type="hidden" name="item_num" value="${item_num}">
 			        <div>
@@ -314,21 +313,27 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			                 </thead>
 			                 <tbody id="inquiryList">
 			                    <!-- 여기에 문의 내용이 추가됩니다. -->
+			                    <c:forEach var="row" items="${oneBoardList}">
+								    <tr>
+								        <td>${row.one_board_repYn}</td>
+								        <td>${row.one_board_type}</td>
+								        <td>${row.one_board_title}</td>
+								        <td>${row.member_name}</td>
+								        <td>${row.one_board_day}</td>
+								    </tr>
+								</c:forEach>
+
 			                 </tbody>
 			            	 </table>
 			            	 </div>
 			        		</div>
                          </div>
 
-			                </tbody>
-			            </table>
 			        </div>
 			        		</div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         
     </section>
     <!-- Product Details Section End -->
