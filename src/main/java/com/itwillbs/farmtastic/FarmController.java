@@ -21,6 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +33,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.SellerDTO;
-import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -569,13 +572,25 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck2 끝
 
-	@RequestMapping(value = "/FarmStoreDetail", method = RequestMethod.GET)
-	public String getItemReviews(@RequestParam("item_num") int item_num, Model model) {
-	    List<ReviewDTO> reviews = memberService.getReviewsByItem(item_num);
-	    model.addAttribute("reviews", reviews);
-	    return "FarmStoreDetail";
+
+	//Review 기능!
+	// 리뷰작성 -> 데이터저장
+	@PostMapping(value = "/insertReview")
+	@ResponseBody
+	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
+	    System.out.println("controller 리뷰작성");
+	    memberService.insertReview(memberDTO);
+
+	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
 	
+	// 리뷰목록이 불러오고싶다
+	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
+	@ResponseBody
+	public  List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
+	    List<MemberDTO> reviews = memberService.getItemReviews(item_num);
+	    return reviews;
+	}
 	
 	
 }

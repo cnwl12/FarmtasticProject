@@ -10,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.ReviewDTO; 
 
 @Repository
 public class MemberDAO {
@@ -101,18 +100,15 @@ public class MemberDAO {
 	}
 
 	//리뷰용도
-	public void createReview(ReviewDTO reviewDTO) {
-		System.out.println("DAO 리뷰작성");
-		sqlSession.insert(namespace+".createReview", reviewDTO);
-	}
-
-	public List<ReviewDTO> getReviewsByItem(int item_num) {
-		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
+	public void insertReview(MemberDTO memberDTO) {
+        System.out.println("DAO 리뷰작성");
+        sqlSession.insert(namespace+".insertReview", memberDTO);
     }
+
+	public List<MemberDTO> getItemReviews(int item_num) {
+	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
+	}
 	
-//	 public int checkIdDuplicate(String memberId) {
-//	       return sqlSession.selectOne("checkIdDuplicate", memberId);
-//	 }
 	
 	 public void insertOneBoard(MemberDTO memberDTO) {
         sqlSession.insert(namespace + ".insertOneBoard", memberDTO);
