@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.ReviewDTO;
+import com.itwillbs.domain.OneBoardDTO;
 
 @Service
 public class MemberService {
@@ -69,6 +69,13 @@ public class MemberService {
 		return memberDAO.getMember(member_id);
 	}
 	
+	/* sungha 07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		
+		System.out.println("MemberService getMember1()");
+		
+		return memberDAO.getMember1(member_num);
+	}
 	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
@@ -95,29 +102,40 @@ public class MemberService {
 		
 		memberDAO.updateMember(memberDTO);
 	}
-	/*
-	 * // 주문 상세 테이블에 담을것 public void insertOrderDetail(HashMap<String, String>
-	 * orderDetail) { System.out.println("insertOrderDetail() 확인!");
-	 * memberDAO.insertOrderDetail(orderDetail); }
-	 */
+	
+	public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		System.out.println("MemberService insertOneBoard()");
+        memberDAO.insertOneBoard(oneboardDTO);
+    }
+
+//    public List<MemberDTO> getOneBoardList() {
+//        return memberDAO.getOneBoardList();
+//    }
+	 
+	// 리뷰작성
+    public void insertReview(MemberDTO memberDTO) {
+        System.out.println("service 리뷰작성");
+        memberDAO.insertReview(memberDTO);
+    }
+
+    public List<MemberDTO> getItemReviews(int item_num) {
+        return memberDAO.getItemReviews(item_num);
+    }
 
 	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
 		System.out.println("서비스 오더디테일 까지 오는징");
 		memberDAO.insertOrderDetail(orderDetail);
 	}
 	
-	 
-	// 리뷰작성
-	public void createReview(ReviewDTO reviewDTO) {
-		System.out.println("service 리뷰작성");
-        memberDAO.createReview(reviewDTO);
-    }
-
-	public List<ReviewDTO> getReviewsByItem(int item_num) {
-        return memberDAO.getReviewsByItem(item_num);
-    }
-
-    
+	// 오버로딩
+	public void insertOrderDetail(int member_num) {
+		System.out.println("서비스 오더디테일 까지 오는징");
+		memberDAO.insertOrderDetail(member_num);
+	}
 	
-	
+	public void deleteCart(HashMap<String, Object> cart) {
+		System.out.println("서비스 오는지 딜리트카트 ");
+		memberDAO.deleteCart(cart);
+	}
+ 
 }

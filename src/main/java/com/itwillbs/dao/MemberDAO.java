@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.ReviewDTO; 
+import com.itwillbs.domain.OneBoardDTO;
 
 @Repository
 public class MemberDAO {
@@ -64,7 +64,13 @@ public class MemberDAO {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
-
+	
+	/* sungha07.29 마이페이지*/
+	public MemberDTO getMember1(Integer member_num) {
+		System.out.println("MemberDAO getMember1");
+		return sqlSession.selectOne(namespace+".getMember1", member_num);
+	}
+	
 	public void insertCart(HashMap<String, Object> cart) {
 		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
@@ -90,26 +96,49 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
 	}
 	
+	public void insertOrderDetail(int member_num) {
+		System.out.println("membetDAO insertOrderDetail까지 오는지");
+		sqlSession.insert(namespace + ".insertOrderDetail", member_num);
+	}
+	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
+		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
 
 	//리뷰용도
-	public void createReview(ReviewDTO reviewDTO) {
-		System.out.println("DAO 리뷰작성");
-		sqlSession.insert(namespace+".createReview", reviewDTO);
-	}
-
-	public List<ReviewDTO> getReviewsByItem(int item_num) {
-		return sqlSession.selectList(namespace+".getReviewsByItem", item_num);
+	public void insertReview(MemberDTO memberDTO) {
+        System.out.println("DAO 리뷰작성");
+        sqlSession.insert(namespace+".insertReview", memberDTO);
     }
+
+	public List<MemberDTO> getItemReviews(int item_num) {
+	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
+	}
 	
+	
+	
+	
+	//서영 작업 1대1문의
+	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
+		 System.out.println("MemberDAO insertOneBoard ()!!");
+        sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
 	
 	
 	
 //	 public int checkIdDuplicate(String memberId) {
 //	       return sqlSession.selectOne("checkIdDuplicate", memberId);
 //	 }
-	
+    }
+
+//	 public List<MemberDTO> getOneBoardList() {
+//	        return sqlSession.selectList(namespace + ".getOneBoardList");
+//	    }
+
+
+	public void deleteCart(HashMap<String, Object> cart) {
+		sqlSession.delete(namespace + ".deleteCart", cart);
+	}
+
 }

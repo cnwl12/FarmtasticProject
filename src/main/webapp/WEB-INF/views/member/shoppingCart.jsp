@@ -30,13 +30,31 @@
 	<script type="text/javascript">
 	function insertOrderDetail(){
 		
-		var item_num = $('.item_wrap').data("item_num");
-		
-		//?item_num="+item_num+"&cart_cnt="+cart_cnt
-		location.href="insertOrderDetail?item_num="+item_num";
+		location.href="insertOrderDetail";  
 		
 	}
 	</script>
+	
+	<script type="text/javascript">
+	function history(){
+		confirm("계속 쇼핑하시겠습니까?");
+		location.href="farmStore";
+	}
+	
+	</script>
+	
+	
+	<script type="text/javascript">
+	function deleteCart(item_num){
+		
+		if(confirm("삭제하시겠습니까?")){
+			location.href="deleteCart?item_num="+item_num;
+		}
+		
+	}
+	
+	</script>
+	
 
 </head>
 
@@ -66,53 +84,71 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__table item_wrap" data-item_num = "${item.item_num}" >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="item" items="${itemList}">
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="${item.item_mainImg} alt="" style="width: 300px; height: 200px">
+    <div class="shoping__cart__table item_wrap" data-item_num="${item.item_num}">
+        <table>
+            <thead>
+                <tr>
+                    <th class="shoping__product">Products</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 장바구니에 상품 있을 때 -->
+                <c:choose>
+                    <c:when test="${not empty itemList}">
+                        <c:forEach var="item" items="${itemList}">
+                            <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <a href="farmStoreDetail?item_num=${item.item_num}">
+                                        <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        ${item.item_price}
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="${item.cart_cnt}">
-                                            </div>
+                                    </a>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    ${item.item_price}
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="${item.cart_cnt}">
                                         </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                         ${item.item_price * item.cart_cnt}
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                    </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                    </div>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    ${item.item_price * item.cart_cnt}
+                                </td>
+                                <td class="shoping__cart__item__close">
+                                    <span class="icon_close" onclick="deleteCart(${item.item_num})"></span>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-cart-message" id="emptyCartMessage">
+                                    <i class="fas fa-shopping-cart"></i> 
+                                    <p>장바구니가 비어있습니다</p> 
+                                </div>
+                            </td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+            </tbody>
+        </table>
+    </div>
+</div>
+
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <input type="button" onclick="history()" value="CONTINUE SHOPPING">
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+                        <input type="button" onclick="updateCart()" class="primary-btn cart-btn cart-btn-right" value="UPDATE CART">   
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -131,12 +167,8 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Total	 <span>${totalSum}원</span></li>
                         </ul>
-                        <!-- 복사 -->
-                         <!-- <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART"> -->
-                        <!-- 기존 -->
-                        <!-- <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a> -->
                     </div>
                          <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
                 </div>
@@ -158,13 +190,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
-	<script type="text/javascript">
-	function history(){
-		alert("계속 쇼핑하시겠습니까?");
-		history.back();
-	}
-	
-	</script>
 
 </body>
 

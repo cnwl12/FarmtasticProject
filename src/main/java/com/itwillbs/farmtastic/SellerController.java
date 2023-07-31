@@ -1,23 +1,28 @@
 package com.itwillbs.farmtastic;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
 /**
@@ -63,25 +68,25 @@ public class SellerController {
 		return "/seller/sellerMemb";
 	}
 	
-	
-	
-	// 선진) 판매자 정보 수정
-	@RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET)
-	public String sellerUpdate(Model model) {
-		System.out.println("SellerController의 sellerUpdate 매핑완");
-		
-		// 나중에 로그인되면 디비에서 가져올 것
-//		String seller_num = (String)session.getAttribute("seller_num");
-		
-		// 위로 뺌 String seller_num = "CR0001";
-//		Map<String, Object> sellerInfoList = sellerService.getSellerInfo(seller_num);
-//		model.addAttribute("sellerInfoList", sellerInfoList);
-		
-		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-		model.addAttribute("sellerInfo", sellerInfo);
-		
-		return "/seller/sellerUpdate";
-	}
+	/*
+	 * // 선진) 판매자 정보 수정, 안쓰는 코드라 삭제 예정
+	 *
+	 * @RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET) public
+	 * String sellerUpdate(Model model) {
+	 * System.out.println("SellerController의 sellerUpdate 매핑완");
+	 * 
+	 * // 나중에 로그인되면 디비에서 가져올 것 // String seller_num =
+	 * (String)session.getAttribute("seller_num");
+	 * 
+	 * // 위로 뺌 String seller_num = "CR0001"; // Map<String, Object> sellerInfoList =
+	 * sellerService.getSellerInfo(seller_num); //
+	 * model.addAttribute("sellerInfoList", sellerInfoList);
+	 * 
+	 * Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+	 * model.addAttribute("sellerInfo", sellerInfo);
+	 * 
+	 * return "/seller/sellerUpdate"; }
+	 */
 	
 	// 선진) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
@@ -90,9 +95,9 @@ public class SellerController {
 		
 //		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfo);
 //		System.out.println(sellerInfoList2);
+		
 		System.out.println("!@#!@#");
 		System.out.println(sellerInfo);
-		
 		
 		if(sellerInfo != null) {
 			System.out.println("null 아님");
@@ -105,7 +110,7 @@ public class SellerController {
 		}
 	}
 	
-	
+	 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
@@ -113,13 +118,42 @@ public class SellerController {
 		
 		return "/seller/memberMng";
 	}
+	
+	// 선진) 차트
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, Model model) {
+		System.out.println("SellerController의 salesMng 매핑완");
 		
-		System.out.println("salesMng 매핑확인여부");
-		
+        // 현재 날짜 구하기
+        Date currentDate = new Date();
+        
+        // 6개월 전 날짜 구하기
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MONTH, -6);
+        Date sixMonthsAgo = calendar.getTime();
+        
+        // 날짜 형식 변환
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        String currentDateStr = dateFormat.format(currentDate);
+        String sixMonthsAgoStr = dateFormat.format(sixMonthsAgo);
+        
+        // 쿼리 파라미터로 사용할 값 설정
+        Map<String, String> params = new HashMap<>();
+        params.put("seller_num", seller_num);
+        params.put("currentDate", currentDateStr);
+        params.put("sixMonthsAgo", sixMonthsAgoStr);
+        
+	    List<Map<String, Object>> sellerMonthlyRevenues = sellerService.getMonthlySales(seller_num);
+	    model.addAttribute("sellerMonthlyRevenues", sellerMonthlyRevenues);
+	    
+	    
+	    System.out.println("sellerMonthlyRevenues가 머냐" + sellerMonthlyRevenues);
+	    
+	    
 		return "/seller/salesMng";
 	}
+	
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
 		
@@ -173,7 +207,12 @@ public class SellerController {
 	
 	// 상품등록 - 테스트 페이지 
 	@RequestMapping(value = "/itemInsert", method = RequestMethod.GET)
-	public String itemInsert(Locale locale, Model model) {
+	public String itemInsert(Model model, HttpSession session) {
+		
+		// 삭제예정 
+		String seller_num = "TA002";
+		
+		System.out.println("셀러고유번호 확인 : "+seller_num);
 		
 		System.out.println("itemInsert 매핑확인여부");
 		
@@ -186,9 +225,15 @@ public class SellerController {
 	                             @RequestParam("file") List<MultipartFile> files,
 	                             HttpSession session) {
 		
-		System.out.println(itemList);
-		System.out.println(files);
-	    sellerService.itemInsert(itemList, files, session);
+		//System.out.println(itemList);
+		//System.out.println(files);
+		
+		// 삭제예정 
+		String seller_num = "TA002";
+		
+		itemList.put("seller_num", seller_num);
+		
+		sellerService.itemInsert(itemList, files, session);
 	    
 	    return "redirect:/itemInsertList";
 	}
@@ -203,6 +248,41 @@ public class SellerController {
 	    
 	    return "/seller/itemInsertList";
 	}
+	
+	// 판매 품목 수정 - 해쉬맵으로 수정할예정
+	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
+	public String itemUpdate(@RequestParam("item_num") int item_num, Model model) {
+		
+		 System.out.println("itemUpdate 매핑확인여부");
+		
+		 // 삭제예정 
+		 String seller_num = "TA002";
+		 
+		 // item.put("seller_num", seller_num);
+		 
+		 Map<String, Object> item = sellerService.getItem(item_num);
+		
+		 model.addAttribute("item", item);
+	    
+	    return "/seller/itemUpdate";
+	}
+	
+	
+	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
+	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
+								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
+		
+			System.out.println("updatePro 오는지");
+            
+            // 삭제예정 
+            String seller_num = "TA002";
+			itemList.put("seller_num", seller_num);
+            
+			sellerService.itemUpdate(itemList, files, session);
+	
+			return "redirect:/itemInsertList";
+	}
+	
 }
 
 

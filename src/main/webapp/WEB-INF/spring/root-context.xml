@@ -5,14 +5,26 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		<!-- 디비연동 보통 root-context에서 진행 -->
-	
-	<!-- 디비연결 객체생성  -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+		<!-- DB연동 관련 수정했음 : 추지 -->
+		  <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+            <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+            <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://itwillbs.com:3306/c2d2303t2?serverTimezone=UTC"></property>
+            <property name="username" value="c2d2303t2"></property>
+            <property name="password" value="1234"></property>
+        </bean>
+
+        <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+            <constructor-arg ref="hikariConfig"></constructor-arg>
+        </bean>
+		
+		<!-- 디비연결 객체생성  -->
+		<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>		
 			<property name="url" value="jdbc:mysql://itwillbs.com:3306/c2d2303t2?serverTimezone=UTC"></property>
 			<property name="username" value="c2d2303t2"></property>
 			<property name="password" value="1234"></property>
-		</bean>
+		</bean> -->
 		
 	<!-- 마이바티스 설정  -->
 		<!-- https://mybatis.org/mybatis-3/getting-started.html -->

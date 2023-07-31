@@ -110,10 +110,31 @@ ol {
 	margin: 0;
 }
 
+/* shopping cart */
+
+.empty-cart-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #ff6347;
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 10px;
+  display: none;
+}
+
+.empty-cart-message i {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
 /*---------------------
   Helper CSS
 -----------------------*/
-
 .section-title {
 	margin-bottom: 50px;
 	text-align: center;
@@ -1886,7 +1907,7 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-	width: 630px;
+	width: 760px;
 	text-align: left;
 }
 

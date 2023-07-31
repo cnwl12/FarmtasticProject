@@ -88,18 +88,20 @@
                             <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span> 3 </span></a></li>
                         </ul>
 	                        
-                    
-                     <div class="header__top__right__auth">
-  						<c:choose>
-      					<c:when test="${empty sessionScope.member_num}">
-         				 <a href="login"><i class="fa fa-user"></i>Login</a>
-      					</c:when>
-      					<c:otherwise>
-         				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
-     					</c:otherwise>
-  						</c:choose>
+                    <!--  7.29성하 로그인시 마이페이지 로그아웃버튼생성 -->
+                    <div class="header__top__right__auth">
+						<c:choose>
+							<c:when test="${empty sessionScope.member_num}">
+
+								<a href="login"><i class="fa fa-user"></i>Login</a>
+							</c:when>
+							<c:otherwise>
+								<a href="mypage"><i class="fa fa-user"></i>Mypage</a>
+								<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
-                    </div>
+				</div>
 	                        	<!--  <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
                                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>

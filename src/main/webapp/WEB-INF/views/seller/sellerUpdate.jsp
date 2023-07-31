@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/sellerUpdatePro" method="post">
+<%-- <form action="${pageContext.request.contextPath}/sellerUpdatePro" method="post">
 
 이름 <input type="text" name="seller_name" value="${seller.seller_name}" readonly="readonly"><br>
 아이디 <input type="text" name="seller_id" value="${seller.seller_id}" readonly="readonly"><br>
@@ -23,6 +23,6 @@
 
 <input type="submit" value="회원정보수정">
 </form>
-
+ --%>
 </body>
 </html>

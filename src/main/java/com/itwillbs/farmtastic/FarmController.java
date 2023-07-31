@@ -21,6 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
-import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -179,9 +183,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String kakaojoin(HttpServletRequest request, Model model) {
 
 		System.out.println("kakaojoin 매핑확인여부");
+		
 		HttpSession session = request.getSession();
 		String access_token = request.getParameter("access_token");
 		String apiUrl = "https://kapi.kakao.com/v2/user/me";
+		
 		JSONObject jsonObject = null; 
 		try {
 			URL url = new URL(apiUrl);
@@ -191,7 +197,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			// Header에 Access Token 추가
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Authorization", "Bearer " + access_token);
-
+		
 			/// 응답 받기
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
@@ -209,60 +215,51 @@ public class FarmController { // 소비자 (컨트롤러)
 			}
 			br.close();
 			
-			 jsonObject = new JSONObject(response.toString());
-			
+		 jsonObject = new JSONObject(response.toString());
 			 
 		} catch (Exception e) {
 	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
 	        e.printStackTrace();
 	        return "errorPage"; 
 	    }
-			 
-				/*
-				 * org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
-				 * org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
-				 */
-			 
-			 
-				/*
-				 * JSONObject jsonObject = new JSONObject(respon.toString()); JSONObject
-				 * userProfile = jsonObject.getJSONObject("response");
-				 */
-			
-		 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-		 	
-			//String member_id = userProfile.getString("id");
-			String member_name = userProfile.getString("name");
-			String member_email = userProfile.getString("email");
-			//String member_phone = userProfile.getString("phone_number");
-
-			// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-			MemberDTO memberDTO = new MemberDTO();
-			//memberDTO.setMember_id(member_id);
-			memberDTO.setMember_name(member_name);
-			memberDTO.setMember_email(member_email);
-			//memberDTO.setMember_phone(member_phone);
-
+		
+		System.out.println("jsonObject -->>>>>" + jsonObject.toString());
+		
+	 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
+	 	
+	 	String member_id = jsonObject.optString("id");
+	 	String member_name = userProfile.getString("name");
+	 	String member_email = userProfile.getString("email");
+	 	String member_phone = userProfile.getString("phone_number").replace("+82 10", "010");
+	 	// repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
+	 	System.out.println("member_phone -->>>>>" + member_phone);
+	 	
+	 	// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
+	 	MemberDTO memberDTO = new MemberDTO();
+	 	memberDTO.setMember_id(member_id);
+	 	memberDTO.setMember_name(member_name);
+	 	memberDTO.setMember_email(member_email);
+	 	memberDTO.setMember_phone(member_phone);
+		
 			System.out.println(memberDTO.getMember_name());
 			MemberDAO memberDAO = new MemberDAO();
 			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 			if (memberDTO2 != null) {
 				System.out.println("로그인");
-				session.setAttribute("member_id", memberDTO.getMember_id());
+				session.setAttribute("member_num", memberDTO2.getMember_num());
 				return "redirect:/index";
 			} else {
 				memberService.insertMember(memberDTO);
 				System.out.println("회원가입");
 				return "redirect:/index";
 			}
+			
 	}
 
+	
+		
+	
+	
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
 	public String kakaoLogout(Locale locale, Model model) {
 
@@ -287,18 +284,17 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/join2";
 	}
 
+	/* sungha 07.29마이페이지*/
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
+	    System.out.println("mypage 매핑확인여부");
 
-		System.out.println("mypage 매핑확인여부");
+	    Integer member_num = (Integer) session.getAttribute("member_num");
+	    MemberDTO memberDTO = memberService.getMember1(member_num);
 
-		String id = (String) session.getAttribute("id");
+	    model.addAttribute("memberDTO", memberDTO);
 
-		MemberDTO memberDTO = memberService.getMember(id);
-
-		model.addAttribute("memberDTO", memberDTO);
-
-		return "/member/mypage";
+	    return "/member/mypage";
 	}
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
@@ -308,7 +304,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		if (memberDTO2 != null) {
 			// 아이디 비밀번호 일치 => 수정작업 => /member/index 이동
 			memberService.updateMember(memberDTO);
-			return "redirect:/member/index";
+			//return "redirect:/member/index";
+			return "redirect:/index";
 		} else {
 			// 아이디 비밀번호 틀림 => member/msg.jsp 이동
 			return "member/msg";
@@ -351,13 +348,21 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-	public String onehelp(Locale locale, Model model) {
+	// 서영 작업중
+    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+    public String oneBoard(Model model) {
+    	System.out.println("FarmController oneboard()!");
+        return "/member/oneboard";
+    }
 
-		System.out.println("contact 매핑확인여부");
+    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
+    public String oneBoardForm(OneBoardDTO oneboardDTO) {
+    	System.out.println("oneboardForm() 로드");
+        memberService.insertOneBoard(oneboardDTO);
 
-		return "/member/oneboard";
-	}
+        return "/member/farmStoreDetail";
+    } 
+
 
 	// 디비 연동 확인용
 
@@ -377,7 +382,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -397,7 +402,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -412,10 +417,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		System.out.println("checkout 매핑확인여부");
 		
-		int member_num = 578;
+		int member_num = 777;
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
+		
 		
 		return "/member/checkout";
 		
@@ -430,16 +436,29 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 		
-		int member_num = 578; // <- 로그인 됐을 때 지울거임
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 		
-		orderDetail.put("member_num", member_num);
+//		orderDetail.put("member_num", member_num);
 				
 		memberService.insertOrderDetail(orderDetail);
-		System.out.println("컨-서 다녀왔을 때" + orderDetail);
+		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
 	
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
 		return "redirect:/checkout";
+	} 
+	
+	// 카트안 아이템 삭제
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
+	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session){
+		
+		int member_num = 777;
+		cart.put("member_num", member_num);
+		
+		System.out.println("deleteCart 컨트롤러 오는지");
+		memberService.deleteCart(cart);
+
+		return "redirect:/shoppingCart";
 	}
 	
 	// -------------------------------------------------------
@@ -520,6 +539,16 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck 끝
 	
+//	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+//	    public String oneBoard(Model model) {
+//	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
+//	        model.addAttribute("oneBoardList", oneBoardList);
+//
+//	        return "/member/oneboard";
+//	    }
+	
+	
+	
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
 	
 	@ResponseBody
@@ -542,13 +571,25 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck2 끝
 
-	@RequestMapping(value = "/FarmStoreDetail", method = RequestMethod.GET)
-	public String getItemReviews(@RequestParam("item_num") int item_num, Model model) {
-	    List<ReviewDTO> reviews = memberService.getReviewsByItem(item_num);
-	    model.addAttribute("reviews", reviews);
-	    return "FarmStoreDetail";
+
+	//Review 기능!
+	// 리뷰작성 -> 데이터저장
+	@PostMapping(value = "/insertReview")
+	@ResponseBody
+	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
+	    System.out.println("controller 리뷰작성");
+	    memberService.insertReview(memberDTO);
+
+	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
 	
+	// 리뷰목록이 불러오고싶다
+	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
+	@ResponseBody
+	public  List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
+	    List<MemberDTO> reviews = memberService.getItemReviews(item_num);
+	    return reviews;
+	}
 	
 	
 }
