@@ -293,32 +293,74 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
 
                             <!--  리뷰칸 끝 -->
+                            <c:set var="selectedBoardNum" value="${sessionScope.selectedBoardNum}" />
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
 			        		<div class="product__details__tab__desc">
 			        		<a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
-			        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
-			        <input type="hidden" name="item_num" value="${item_num}">
-			        <div>
-			            <table class="table">
-			                <thead>
-			                    <tr>
-			                        <th>답변상태</th>
-			                        <th>문의유형</th>
-			                        <th>제목</th>
-			                        <th>작성자</th>
-			                        <th>작성일</th>
-			                    </tr>
-			                 </thead>
-			                 <tbody id="inquiryList">
-			                    <!-- 여기에 문의 내용이 추가됩니다. -->
-			                    <c:forEach var="row" items="${oneBoardList}">
-								    <tr>
-								        <td>${row.one_board_repYn}</td>
-								        <td>${row.one_board_type}</td>
-								        <td>${row.one_board_title}</td>
-								        <td>${row.member_name}</td>
-								        <td>${row.one_board_day}</td>
-								    </tr>
+						        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
+						        <input type="hidden" name="item_num" value="${item_num}">
+						        <div>
+						            <table class="table">
+						                <thead>
+						                    <tr>
+						                        <th>답변상태</th>
+						                        <th>문의유형</th>
+						                        <th>제목</th>
+						                        <th>작성자</th>
+						                        <th>작성일</th>
+						                    </tr>
+						                 </thead>
+						                 <tbody id="inquiryList">
+						                    <!-- 여기에 문의 내용이 추가됩니다. -->
+						                    <c:forEach var="row" items="${oneBoardList}">
+								                    <tr class="boardTitle">
+								                        <td>${row.one_board_repYn}</td>
+								                        <td>${row.one_board_type}</td>
+								                        <td>${row.one_board_title}</td>
+								                        <td>${row.member_name}</td>
+								                        <td>${row.one_board_day}</td>
+								                    </tr>
+								                    
+								                    <c:choose>
+													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
+       <tr class="boardContent" id="question${row.one_board_num}" style="display:none;">
+    <td colspan="5">
+                비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+                <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+            </td>
+        </tr>
+    </c:when>
+    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+            <td colspan="5">
+                비공개된 게시글입니다.
+            </td>
+        </tr>
+    </c:when>
+									    <c:otherwise>
+  <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+    <td colspan="5">
+      <div class="content">
+        <strong>Q:</strong>
+        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+          <img src="${row.one_board_file}" />
+        </c:if>
+        <div class="image">
+          ${row.one_board_content}
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+    <td colspan="5">
+      <div class="content">
+        <strong>A:</strong>
+        <!-- 답변이 저장될 곳을 추가합니다 -->
+      </div>
+    </td>
+  </tr>
+</c:otherwise>
+					                    </c:choose>
 								</c:forEach>
 
 			                 </tbody>
@@ -427,7 +469,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<script src="onehelp.jsp"></script>
 	<script>
 	function openPopup() {
 	  window.open(
@@ -449,6 +490,46 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		  }
 		}
 	</script>
+	
+	<script>
+    $(document).ready(function() {
+        $(".boardTitle").click(function() {
+            // 제목 행 바로 다음에 있는 내용 행을 선택하고 토글합니다.
+            $(this).next(".boardContent").toggle();
+        });
+    });
+	</script>
+	
+	<script>
+	
+	document.addEventListener("DOMContentLoaded", function () {
+		  // 필요한 코드를 여기에 작성하십시오.
+		  function checkPassword(correctPassword, oneBoardNum, passwordInputId) {
+		    // const inputPassword = document.getElementById(passwordInputId).value;
+		    const inputPassword = document.getElementById(passwordInputId).value;
+
+		    if (correctPassword === inputPassword) {
+		      alert("비밀번호가 일치합니다");
+		      // 올바른 비밀번호가 입력되면 질문(Q)과 답변(A) 영역을 표시합니다.
+		      document.getElementById(`${oneBoardNum}`).style.display =
+		        "table-row";
+		      // document.getElementById(`answer${oneBoardNum}`).style.display = 'table-row';
+		    } else {
+		      if (inputPassword) {
+		        alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
+		      }
+		    }
+		  }
+		});
+
+
+
+
+
+	function handleBoardClick(one_board_num) {
+	    sessionStorage.setItem('selectedBoardNum', one_board_num); // 선택한 문의의 one_board_num 값을 웹 브라우저의 sessionStorage에 저장
+	}
+</script>
 
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
@@ -576,6 +657,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 </body>
 

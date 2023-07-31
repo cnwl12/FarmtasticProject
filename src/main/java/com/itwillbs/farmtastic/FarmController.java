@@ -585,7 +585,7 @@ public class FarmController { // 소비자 (컨트롤러)
     	System.out.println("oneboardForm() 로드");
         memberService.insertOneBoard(oneboardDTO);
 
-        return "/member/farmStoreDetail";
+        return "/member/success";
     } 
     
     

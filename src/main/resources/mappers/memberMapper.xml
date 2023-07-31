@@ -136,7 +136,6 @@
   <insert id = "insertOneBoard">
   	insert into one_board (one_board_type, one_board_title, one_board_content, one_board_file, one_board_pass, one_board_day, one_board_repYn, item_num, member_num, one_board_private)
   	value(#{one_board_type}, #{one_board_title}, #{one_board_content}, #{one_board_file}, #{one_board_pass}, now(), "미답변", #{item_num}, #{member_num}, #{one_board_private})
-  
   </insert>
   
   <delete id="deleteCart">
@@ -152,10 +151,18 @@
         <result column="one_board_title" property="one_board_title"/>
         <result column="member_name" property="member_name"/>
         <result column="one_board_day" property="one_board_day"/>
+        <result column="one_board_content" property="one_board_content"/>
+        <result column="one_board_file" property="one_board_file"/>
+        <result column="member_num" property="member_num"/>
+        <result column="one_board_pass" property="one_board_pass"/>
+        <result column="one_board_private" property="one_board_private"/>
+        <result column="one_board_num" property="one_board_num"/>
     </resultMap>
 
 <select id="findByItemNum" resultMap="oneBoardResultMap">
-    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title, ob.one_board_day, m.member_name
+    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
+     ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
+      ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num
     FROM one_board ob
     JOIN member m ON ob.member_num = m.member_num
     WHERE ob.item_num = #{item_num}
