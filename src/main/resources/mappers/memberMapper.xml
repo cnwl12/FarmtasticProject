@@ -60,21 +60,14 @@
       <if test="member_pass != null">member_pass = #{member_pass}</if>
   	WHERE member_id = #{member_id}
 	</update>
-  	
-  	
-  	<!-- 
-  	<select id="searchItems" resultMap="itemResultMap">
-  SELECT * FROM item
-  <if test="keyword != null and keyword != ''">
-    WHERE item_name LIKE #{keyword}
-  </if>
+
+	<select id="getItemsearch" parameterType="string" resultType="map">
+	SELECT item_name, item_price, item_mainImg, item_detail
+	FROM item
+	WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
 </select>
-  	 -->
-  	
-  	
-  	
-  	
-  	
+
+  	  	
   	<!-- sungha end-->
   	
   	
@@ -168,6 +161,14 @@
   
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
     SELECT * FROM review WHERE item_num = #{item_num}
+  </select>
+  
+  <!-- 마이페이지 용 -->
+  <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
+    select r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
+from review r left join item i
+on r.item_num = i.item_num
+WHERE member_num = #{member_num}; 
   </select>
   
   <!--  1대1문의 -->

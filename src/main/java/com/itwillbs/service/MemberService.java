@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
@@ -81,6 +83,11 @@ public class MemberService {
 	/* 검색기능 구현중 ha*/
 
 	
+
+    public List<Map<String, Object>> getItemsearch(String query) {
+        return memberDAO.getItemsearch(query);
+    }
+
 	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
@@ -167,7 +174,12 @@ public class MemberService {
 		  return averageReviewStar == null ? 0.0 : averageReviewStar;
 	 }
 
-
+	 // 마이페이지 리뷰 -막내
+	 public List<MemberDTO> getItemMyReview(int member_num) {
+	        return memberDAO.getItemMyReview(member_num);
+	    }
+	 
+	 
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
 	}
@@ -176,6 +188,7 @@ public class MemberService {
 	    memberDAO.insertWishlistItem(wishlistDTO);
 	  }
 	
+
 	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}

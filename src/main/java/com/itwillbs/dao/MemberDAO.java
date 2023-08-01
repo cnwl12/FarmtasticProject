@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -120,7 +121,13 @@ public class MemberDAO {
 	}
 	
 	
-	 
+	
+	public List<Map<String, Object>> getItemsearch(String query) {
+		System.out.println("MemberDAO getItemsearch()");
+
+        return sqlSession.selectList(namespace+".getItemsearch", query);
+    }
+
 	
 	
 	// end sungha
@@ -178,7 +185,11 @@ public class MemberDAO {
 	public void updateInCart(HashMap<String, Object> cart) {
 		sqlSession.update(namespace+".updateInCart", cart);
 	}
-	
+
+	//막내 마이페이지 리뷰관리
+	public List<MemberDTO> getItemMyReview(int member_num) {
+		return sqlSession.selectList(namespace+".getItemMyReview", member_num);
+	}
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
 		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
@@ -186,5 +197,7 @@ public class MemberDAO {
 	
 	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
 		return sqlSession.selectOne(namespace + ".selectWishlist", wishlistDTO);
-	}
+	}	
+	
+		 
 }

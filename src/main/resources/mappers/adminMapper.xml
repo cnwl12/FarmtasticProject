@@ -9,10 +9,14 @@
         SELECT admin_id, admin_pass
         FROM admin
         WHERE admin_id = #{admin_id}
+   
+   
     </select>
     	<select id="getCnotice" resultType="map">
     	select * from admin_csnotice;  
    </select>
+   
+   
      <insert id="insertNotice" parameterType="String">
     	INSERT INTO admin_csnotice (
     	admin_id, 
