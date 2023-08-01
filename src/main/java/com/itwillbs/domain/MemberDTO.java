@@ -29,7 +29,20 @@ public class MemberDTO {
 	private int order_num;
 	private int item_num;
 	private String item_name;
-	
+	private int review_star;
+	private String review_title;
+	private String review_content;
+	private String review_img;
+	private Date review_day;
+	private String msg;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
 	
 	public String getNew_member_pass() {
 		return new_member_pass;
@@ -37,13 +50,7 @@ public class MemberDTO {
 	public void setNew_member_pass(String new_member_pass) {
 		this.new_member_pass = new_member_pass;
 	}
-	private int review_star;
-	private String review_title;
-	private String review_content;
-	private String review_img;
-	private Date review_day;
 
-	
 	public int getMember_num() {
 		return member_num;
 	}
