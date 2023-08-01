@@ -110,6 +110,10 @@ public class SellerController {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 	
 	// 선진)  getDailySales 요일별 매출 가져오는 차트
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
@@ -123,6 +127,15 @@ public class SellerController {
 		
 		return "/seller/salesMng";
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	
+
+	 
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
@@ -132,6 +145,7 @@ public class SellerController {
 		return "/seller/memberMng";
 	}
 
+<<<<<<< HEAD
 	// 선진) 차트
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, Model model) {
@@ -166,6 +180,11 @@ public class SellerController {
 	    
 		return "/seller/salesMng";
 	}
+=======
+	
+	
+	
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {

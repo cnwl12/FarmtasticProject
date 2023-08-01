@@ -346,45 +346,45 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 								                    
 								                    <c:choose>
 													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-       <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
-    <td colspan="5">
-                비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-                <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-            </td>
-        </tr>
-    </c:when>
-    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
-        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-            <td colspan="5">
-                비공개된 게시글입니다.
-            </td>
-        </tr>
-    </c:when>
-									    <c:otherwise>
-  <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-    <td colspan="5">
-      <div class="image">
-        <strong>Q:</strong>
-        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-          <img src="${row.one_board_file}" />
-        </c:if>
-        <div class="content">
-          ${row.one_board_content}
-        </div>
-      </div>
-    </td>
-  </tr>
-  <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-    <td colspan="5">
-      <div class="content">
-        <strong>A:</strong>
-        <c:if test="${row.one_board_reply != null}">
-         	${row.one_board_reply}
-        </c:if>
-      </div>
-    </td>
-  </tr>
-</c:otherwise>
+													       <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+													    <td colspan="5">
+													                비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+													                <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+													            </td>
+													        </tr>
+													  </c:when>
+													    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+													        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+													            <td colspan="5">
+													                비공개된 게시글입니다.
+													            </td>
+													        </tr>
+													    </c:when>
+													<c:otherwise>
+													  <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+													    <td colspan="5">
+													      <div class="image">
+													        <strong>Q:</strong>
+													        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+													          <img src="${row.one_board_file}" />
+													        </c:if>
+													        <div class="content">
+													          ${row.one_board_content}
+													        </div>
+													      </div>
+													    </td>
+													  </tr>
+													  <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+													    <td colspan="5">
+													      <div class="content">
+													        <strong>A:</strong>
+													        <c:if test="${row.one_board_reply != null}">
+													         	${row.one_board_reply}
+													        </c:if>
+													      </div>
+													    </td>
+													  </tr>
+													</c:otherwise>
 					                    </c:choose>
 								</c:forEach>
 
@@ -564,6 +564,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	}
 </script>
 
+
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
@@ -609,9 +610,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
         });
 	
 	//------------------------------------------------------------
-	
 
-	// -----------------------------------------------------------------------------
 	$(document).ready(function () {
     getItemReviews();
     function getItemReviews() {

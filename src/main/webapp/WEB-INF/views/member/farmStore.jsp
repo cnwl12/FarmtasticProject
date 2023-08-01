@@ -377,7 +377,10 @@
                                   <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                   </a>
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li class="wishlist">
+                                        	
+										  <a href="#" onclick="add(event, ${sessionScope.member_num}, ${item.item_num});"><i class="fa fa-heart"></i></a>
+										</li>	
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
@@ -419,6 +422,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     
 
 </body>
