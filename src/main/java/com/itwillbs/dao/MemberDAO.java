@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.WishlistDTO;
 
 @Repository
 public class MemberDAO {
@@ -168,8 +169,16 @@ public class MemberDAO {
 		}
 
 
-		public void updateInCart(HashMap<String, Object> cart) {
-			sqlSession.update(namespace+".updateInCart", cart);
-		}
-		 
+	public void updateInCart(HashMap<String, Object> cart) {
+		sqlSession.update(namespace+".updateInCart", cart);
+	}
+	
+	public void insertWishlistItem(WishlistDTO wishlistDTO) {
+		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
+		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
+	}
+	
+	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
+		return sqlSession.selectOne(namespace + ".selectWishlist", wishlistDTO);
+	}
 }

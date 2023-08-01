@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.WishlistDTO;
 
 @Service
 public class MemberService {
@@ -169,7 +170,17 @@ public class MemberService {
 		memberDAO.updateInCart(cart);
 	}
 	
+	public void insertWishlist(WishlistDTO wishlistDTO) {
+	    memberDAO.insertWishlistItem(wishlistDTO);
+	  }
 	
+	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
+		return memberDAO.selectWishlist(wishlistDTO);
+	}
+	    
+//	  public int removeFromWishlist(int item_num) {
+//	    return memberDAO.deleteWishlistItem(item_num);
+//	  }
 	
 	
 }
