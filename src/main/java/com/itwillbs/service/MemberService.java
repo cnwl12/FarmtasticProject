@@ -176,7 +176,6 @@ public class MemberService {
 	    memberDAO.insertWishlistItem(wishlistDTO);
 	  }
 	
-<<<<<<< HEAD
 	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}
@@ -184,11 +183,9 @@ public class MemberService {
 //	  public int removeFromWishlist(int item_num) {
 //	    return memberDAO.deleteWishlistItem(item_num);
 //	  }
-=======
 
 	
 	
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 	
 	
 }
