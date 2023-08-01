@@ -46,14 +46,15 @@
 		<div id="contents">
 			<div id="main_menu">
 				<ul class="menu_list">
-					<li id="menu1"><a href="mypage" class="mn1">나의정보</a></li>
-					<li id="menu2"><a href="#" class="mn2">주문배송</a></li>
-					<li id="menu3"><a href="#" class="mn3">리뷰관리</a></li>
-					<li id="menu4"><a href="#" class="mn4">1:1 문의</a></li>
+					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
+					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문배송</a></li>
+					<li id="menu3"><a href="#" class="toggle-mypage" data-target="myreview">리뷰관리</a></li>
+					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
 				</ul>
 			</div>
 
 			<div id="main_cont">
+			<div id="menu1_cont">
 				<form novalidate
 					action="${pageContext.request.contextPath }/updatePro"
 					method="post">
@@ -228,13 +229,23 @@
 					</div>
 				</form>
 			</div>
-			<!-- 나의 정보 끝 -->
 			
 			
 			
+			<div id="menu2_cont">
+			<h4>배송</h4>
+			</div>
 			
-
-
+			<div id="menu3_cont">
+			<h4>리뷰</h4>
+			</div>
+			
+			<div id="menu4_cont">
+			<h4>1:1문의</h4>
+			</div>
+		  	
+		  	
+		  </div>	
 		</div>
 
 	</div>
@@ -326,5 +337,47 @@
                 }).open();
         }
     </script>
+    
+<script>
+$(document).ready(function() {
+    // 마이페이지 전환 초기 설정
+    $("#menu2_cont").hide();
+    $("#menu3_cont").hide();
+    $("#menu4_cont").hide();
+
+    // 마이페이지 전환 함수
+    function toggleMypage(target) {
+        $("#menu1_cont").hide();
+        $("#menu1").removeClass("on");
+        $("#menu2_cont").hide();
+        $("#menu2").removeClass("on");
+        $("#menu3_cont").hide();
+        $("#menu3").removeClass("on");
+        $("#menu4_cont").hide();
+        $("#menu4").removeClass("on");
+      
+      if (target === "mypage") {
+          $("#menu1_cont").show();
+          $("#menu1").addClass("on");
+      } else if (target === "myorder") {
+          $("#menu2_cont").show();
+          $("#menu2").addClass("on");
+      } else if (target === "myreview") {
+          $("#menu3_cont").show();
+          $("#menu3").addClass("on");
+      } else if (target === "myoneboard") {
+          $("#menu4_cont").show();
+          $("#menu4").addClass("on");
+      }
+    }
+  // 메뉴 클릭 이벤트 핸들러
+  $(".toggle-mypage").on("click", function(e) {
+    e.preventDefault();
+    let target = $(this).data("target");
+    toggleMypage(target);
+  });
+ });  
+</script>
+    
 </body>
 </html>
