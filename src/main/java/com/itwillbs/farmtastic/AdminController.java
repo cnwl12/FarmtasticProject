@@ -122,6 +122,14 @@ public class AdminController {
 		
 		return "/admin/customerMenu/writetest";
 	}
+	@RequestMapping(value = "/contenttest", method = RequestMethod.GET)
+	public String contenttest(Locale locale, Model model) {
+		
+		System.out.println("contenttest 매핑확인여부");
+	
+		
+		return "/admin/customerMenu/contenttest";
+	}
 
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {

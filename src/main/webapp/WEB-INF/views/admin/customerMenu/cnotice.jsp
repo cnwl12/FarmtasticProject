@@ -66,28 +66,26 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
+                                            <th>작성번호</th>
+                                            <th>작성자</th>
+                                            <th>제목</th>
                                         
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
+                                           <th>작성번호</th>
+                                            <th>작성자</th>
+                                            <th>제목</th>
                                             
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                       <c:forEach items="${notice}" var="list">
                                         <tr>
-                                        
+                                        	<td>${list.admin_cs_num}</td>
                                             <td>${list.admin_id}</td>
-                                            <td>${list.admin_csnotice_sub}</td>
-                                            <td>${list.admin_cs_view}</td>
-                                           
+                                            <td><a href="${pageContext.request.contextPath}/contenttest?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
                                         </tr>
                                      </c:forEach>   
                                     </tbody>
