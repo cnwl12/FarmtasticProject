@@ -288,7 +288,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
            							</tr>
         							</thead>
         							<tbody>
-            						<c:set var="total" value="${fn:length(reviews)}" />
+            						<%-- <c:set var="total" value="${fn:length(reviews)}" />
             						<c:if test="${total eq 0}">
                 					<tr>
                     				<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
@@ -305,9 +305,9 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     				<td class="review-date"><c:out value="${review.review_day}"/></td>
                     				<td>${review.review_title}</td>
                     				<td>${review.review_content}</td>
-<%--                     				<td>${review.review_img}</td> --%>
+                    				<td>${review.review_img}</td>
                 					</tr>
-            						</c:forEach>
+            						</c:forEach> --%>
         							</tbody>
     								</table>
 									</div>
@@ -607,10 +607,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 
 	// -----------------------------------------------------------------------------
-	 $(document).ready(function () {
+	$(document).ready(function () {
     getItemReviews();
     function getItemReviews() {
-        var item_num = ${item.item_num}; 
+        var item_num = ${item.item_num};
         $.ajax({
             type: "GET",
             url: "${pageContext.request.contextPath}/getItemReviews",
@@ -627,7 +627,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             "<td>" + (i + 1) + "</td>" +
                             "<td class='review-star'>" + review.review_star + "</td>" +
                             "<td>" + review.member_num + "</td>" +
-                            "<td class='review-date'>" + review.review_day + "</td>" +
+                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
 //                             "<td>" + review.review_img + "</td>" +
@@ -638,50 +638,38 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     // 별점을 ★로 변경
                     let reviewStars = document.querySelectorAll('.review-star');
                     reviewStars.forEach(function(starElement){
-                      let starCount = parseInt(starElement.textContent, 10);
-                      let stars = '';
-                      for (let i = 1; i <= starCount; i++) {
-                        stars += '★';
-                      }
-                      starElement.textContent = stars;
+                        let starCount = parseInt(starElement.textContent, 10);
+                        let stars = '';
+                        for (let i = 1; i <= starCount; i++) {
+                            stars += '★';
+                        }
+                        starElement.textContent = stars;
                     });
 
-                    // 작성일을 YYYY-MM-DD 형식으로 변경 -> 아직 안됌 이거 수정 더 해야할듯
+                    // 작성일을 YYYY-MM-DD 형식으로 변경
                     let reviewDates = document.querySelectorAll('.review-date');
-                    console.log('Total review dates:', reviewDates.length);
                     reviewDates.forEach(function (dateElement) {
-                      console.log('Original date text:', dateElement.textContent);
-                      
-                      let timestamp = parseInt(dateElement.textContent.trim(), 10);
-                      
-                      console.log('Parsed timestamp:', timestamp);
+                        let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
 
-                      // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
-                      if (isNaN(timestamp)) {
-                        console.error('Invalid timestamp value:', dateElement.textContent);
-                        return;
-                      }
+                        // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+                        if (isNaN(timestamp)) {
+                            console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
+                            return;
+                        }
 
-                      let date = new Date(timestamp * 1000); // 여기서 1000을 곱하여 밀리초로 변환합니다.
-                      let year = date.getFullYear();
-                      let month = String(date.getMonth() + 1).padStart(2, '0');
-                      let day = String(date.getDate()).padStart(2, '0');
+                        let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
 
-                      // 포맷된 날짜를 표시합니다.
-                      let formattedDate = `${year}-${month}-${day}`;
-                      console.log('Formatted date:', formattedDate);
-                      dateElement.textContent = formattedDate;
+                        // 포맷된 날짜를 표시합니다.
+                        dateElement.textContent = date;
                     });
-
-                   }
-            	},
-           				 error: function () {
-                		alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
-            			}
-        	});
-    	}
-	 
-	 });
+                }
+            },
+            error: function () {
+                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+            }
+        });
+    }
+});
 	
 	
 	
