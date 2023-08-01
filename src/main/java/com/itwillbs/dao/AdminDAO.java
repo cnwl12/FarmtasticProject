@@ -1,4 +1,5 @@
 package com.itwillbs.dao;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +35,11 @@ public class AdminDAO {
 	}   
 	public void insertNotice(Map<String, Object> params) {
 	     sqlSession.insert(NAMESPACE + "insertNotice", params);
+	}
+
+	public void insertNotice(HashMap<String, String> noticeList) {
+		sqlSession.insert(NAMESPACE + "insertNotice",noticeList);
+		
 	}
 }
 	

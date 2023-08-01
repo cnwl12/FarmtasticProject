@@ -325,7 +325,43 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	    return "/member/mypage";
 	}
+	
+	
+	/* 택배구현중 */
+	@GetMapping
+	@RequestMapping(value = "/parcel", method = RequestMethod.GET)
+	public String parcel(Locale locale, Model model) {
 
+		System.out.println("parcel 매핑확인여부");
+
+		return "/member/parcel";
+	}
+	/* 검색기능구현중 ha*/
+	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
+	public String search(Locale locale, Model model) {
+
+		System.out.println("searchd 매핑확인여부");
+
+		return "/member/searchd";
+	}
+	
+	/* 검색기능구현중 ha*/	
+//	 @GetMapping("/search") // GET 방식으로 /search 요청이 왔을 때
+//	  public String search(@RequestParam(defaultValue = "") String query, Model model) {
+//	    List<MemberDTO> searchResults = null;
+//	    try {
+//	      searchResults = memberService.searchItems(query); // 검색 결과 조회
+//	      model.addAttribute("searchResults", searchResults); // 검색 결과를 View에서 출력하기 위해 Model에 저장
+//	    } catch (Exception e) {
+//	      e.printStackTrace();
+//	    }
+//	    return "search";
+//	  }
+	
+	
+	
+
+	
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(MemberDTO memberDTO) {
 //		System.out.println("MemberController updatePro()");
@@ -400,14 +436,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    }
 	}
 
-
-
-
-
-
-
-	
-	    
 	    
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {

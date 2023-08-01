@@ -99,6 +99,10 @@
                     <span>글쓰기테스트</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="writetest">
+                    <span>글쓰기2</span></a>
+            </li>	
+            <li class="nav-item">
                 <a class="nav-link" href="contenttest">
                     <span>글보기</span></a>
             </li>	

@@ -62,6 +62,21 @@
 	</update>
   	
   	
+  	<!-- 
+  	<select id="searchItems" resultMap="itemResultMap">
+  SELECT * FROM item
+  <if test="keyword != null and keyword != ''">
+    WHERE item_name LIKE #{keyword}
+  </if>
+</select>
+  	 -->
+  	
+  	
+  	
+  	
+  	
+  	<!-- sungha end-->
+  	
   	
   	<insert id="ninsertMember"> 
 	 	insert into member(member_num, member_nid, member_name, member_phone, member_email)

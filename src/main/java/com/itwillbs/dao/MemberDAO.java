@@ -118,6 +118,12 @@ public class MemberDAO {
 		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
+	
+	
+	 
+	
+	
+	// end sungha
 
 	//리뷰용도 - 막내
 	public void insertReview(MemberDTO memberDTO) {
