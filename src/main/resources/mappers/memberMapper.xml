@@ -62,6 +62,21 @@
 	</update>
   	
   	
+  	<!-- 
+  	<select id="searchItems" resultMap="itemResultMap">
+  SELECT * FROM item
+  <if test="keyword != null and keyword != ''">
+    WHERE item_name LIKE #{keyword}
+  </if>
+</select>
+  	 -->
+  	
+  	
+  	
+  	
+  	
+  	<!-- sungha end-->
+  	
   	
   	<insert id="ninsertMember"> 
 	 	insert into member(member_num, member_nid, member_name, member_phone, member_email)
@@ -212,5 +227,17 @@ WHERE member_num = #{member_num};
   <select id="getAverageReviewStarByItemNum" resultType="double">
         SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
   </select>
+  
+  
+  <!-- 서영 저의 위시리스트는 집가기입니다 찜기능 구현중입니다 -->
+  <select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
+	  SELECT * FROM like_farm
+	  WHERE member_num = #{member_num} AND item_num = #{item_num}
+  </select>	
+  
+  <insert id="insertWishlistItem">
+	  INSERT INTO like_farm (member_num, item_num, like_farm_day)
+	  VALUES (#{member_num}, #{item_num}, now())
+  </insert>
   
 </mapper>

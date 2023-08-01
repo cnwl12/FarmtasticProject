@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.WishlistDTO;
 
 @Repository
 public class MemberDAO {
@@ -117,6 +118,12 @@ public class MemberDAO {
 		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
+	
+	
+	 
+	
+	
+	// end sungha
 
 	//리뷰용도 - 막내
 	public void insertReview(MemberDTO memberDTO) {
@@ -176,7 +183,14 @@ public class MemberDAO {
 	public List<MemberDTO> getItemMyReview(int member_num) {
 		return sqlSession.selectList(namespace+".getItemMyReview", member_num);
 	}
-		
+	public void insertWishlistItem(WishlistDTO wishlistDTO) {
+		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
+		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
+	}
+	
+	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
+		return sqlSession.selectOne(namespace + ".selectWishlist", wishlistDTO);
+	}	
 	
 		 
 }

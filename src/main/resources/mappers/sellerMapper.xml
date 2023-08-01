@@ -77,6 +77,36 @@
   	where seller_num = #{seller_num}
     </update>
     
+   <!-- 선진) 판매자 요일별 총 매출액 -->
+   <!-- order_mmdd(주문 년월일), order_mmdd_totalSales(주문 년월일의 총매출) 반환 -->
+   <!-- 여기서 해당 월의 요일들 총 매출액만 가져오면됨 -->
+   <select id="getDailySales" resultType="map">
+	SELECT	distinct SUBSTRING(od.order_num, 1, 8) AS order_mmdd,
+			SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 8)) AS order_mmdd_totalSales
+	FROM	order_detail od		JOIN	item it 
+	ON		od.item_num = it.item_num
+	WHERE	od.item_num IN (select	item_num
+							from	item
+<!-- 						where	seller_num = #{seller_num} -->
+							where	seller_num = 'CR0001') <!-- 일단 seller_num은 하드코딩 -->
+	ORDER BY	order_mmdd;
+   </select>
+    
+   <!-- 선진) 판매자 월별 총 매출액 -->
+   <!-- order_mm(주문 년월), order_mm_totalSales(주문 년월의 총매출)반환 -->
+   <!-- 여기서 해당 월의 총 매출액만 가져오면됨 -->
+   <select id="getMonthlySales" resultType="map">    
+    SELECT	distinct SUBSTRING(od.order_num, 1, 6) AS order_mm,
+	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS order_mm_totalSales
+	FROM	order_detail od		JOIN	item it 
+	ON		od.item_num = it.item_num
+	WHERE	od.item_num IN (select	item_num
+							from	item
+<!-- 						where	seller_num = #{seller_num} -->
+							where	seller_num = 'CR0001') <!-- 일단 seller_num은 하드코딩 -->
+	ORDER BY	order_mm;
+   </select>
+    
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller
@@ -228,24 +258,7 @@
                FROM DUAL
         ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
     </insert>   
-   
-   <!-- 선진) 판매자 월별 매출액, 수수료, 정산액 -->
-   <!-- seller_num, seller_id, seller_name, order_month, monthlySalesAmount, monthlyFee, monthlySettlementAmount만 반환 -->
-   <select id="getMonthlySales" resultType="map">
-   	SELECT s.seller_num, s.seller_id, s.seller_name,
-	  DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
-	  FORMAT(SUM(o.order_pay), 0) AS monthlySalesAmount,
-	  FORMAT(floor(sum(o.order_pay) * 0.05), 0) as monthlyFee,
-	  FORMAT(SUM(o.order_pay) - floor(sum(o.order_pay) * 0.05), 0) as monthlySettlementAmount
-	FROM seller s
-	LEFT JOIN item i ON s.seller_num = i.seller_num
-	LEFT JOIN orders o ON i.item_num = o.item_num
-	LEFT JOIN settlement st ON s.seller_num = st.seller_num
-	WHERE s.seller_num != 'admin'
-	AND s.seller_num = 'CR0001'
-	GROUP BY s.seller_num, s.seller_id, s.seller_name, order_month
-	ORDER BY order_month;
-   </select>
+
 
    
 </mapper>

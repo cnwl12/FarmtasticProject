@@ -2939,6 +2939,13 @@ rotate(
 	content: "\f2e0"
 }
 
+.fa-heart {
+  color: black;
+}
+.fa-heart-o {
+	color: red;
+}
+
 .sr-only {
 	position: absolute;
 	width: 1px;

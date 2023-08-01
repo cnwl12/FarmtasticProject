@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
+import com.itwillbs.domain.WishlistDTO;
 import com.itwillbs.naverController.NaverController;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -322,7 +325,43 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	    return "/member/mypage";
 	}
+	
+	
+	/* 택배구현중 */
+	@GetMapping
+	@RequestMapping(value = "/parcel", method = RequestMethod.GET)
+	public String parcel(Locale locale, Model model) {
 
+		System.out.println("parcel 매핑확인여부");
+
+		return "/member/parcel";
+	}
+	/* 검색기능구현중 ha*/
+	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
+	public String search(Locale locale, Model model) {
+
+		System.out.println("searchd 매핑확인여부");
+
+		return "/member/searchd";
+	}
+	
+	/* 검색기능구현중 ha*/	
+//	 @GetMapping("/search") // GET 방식으로 /search 요청이 왔을 때
+//	  public String search(@RequestParam(defaultValue = "") String query, Model model) {
+//	    List<MemberDTO> searchResults = null;
+//	    try {
+//	      searchResults = memberService.searchItems(query); // 검색 결과 조회
+//	      model.addAttribute("searchResults", searchResults); // 검색 결과를 View에서 출력하기 위해 Model에 저장
+//	    } catch (Exception e) {
+//	      e.printStackTrace();
+//	    }
+//	    return "search";
+//	  }
+	
+	
+	
+
+	
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(MemberDTO memberDTO) {
 //		System.out.println("MemberController updatePro()");
@@ -397,14 +436,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    }
 	}
 
-
-
-
-
-
-
-	
-	    
 	    
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
@@ -725,13 +756,21 @@ public class FarmController { // 소비자 (컨트롤러)
         return "/member/success";
     } 
     
-    
-//    @RequestMapping("/FarmStoreDetail")
-//    public String oneBoard2(@RequestParam("item_num") int item_num, Model model) {
-//        List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
-//        System.out.println(oneBoardList+"가나다"); 
-//        model.addAttribute("oneBoardList", oneBoardList);
-//        return "/member/farmStoreDetail"; // 페이지 이름
-//    }
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("찜기능하는중입니다");
+        WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
+        System.out.println(existingWishlistDTO);
+        if(existingWishlistDTO != null) {
+            modelAndView.addObject("message", "찜 목록에 상품이 없습니다.");
+        } else {
+            memberService.insertWishlist(wishlistDTO);
+            modelAndView.addObject("message", "찜 목록에 상품이 추가되었습니다.");
+        }
+        modelAndView.setViewName("ajaxView");
+        return modelAndView;
+    }
+
 	
 }

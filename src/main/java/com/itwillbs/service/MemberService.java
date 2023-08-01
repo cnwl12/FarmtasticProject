@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.WishlistDTO;
 
 @Service
 public class MemberService {
@@ -77,6 +78,10 @@ public class MemberService {
 		return memberDAO.getMember1(member_num);
 	}
 	
+	/* 검색기능 구현중 ha*/
+
+	
+	
 	// 카트 조지는중 ... 
 	public void insertCart(HashMap<String, Object> cart) {
 		// 카트 조회했을 때 제품이 있는지 없는지 조회
@@ -102,9 +107,7 @@ public class MemberService {
 		
 		memberDAO.updateMember(memberDTO);
 	}
-	
-	
-	 
+		 
 	// 리뷰작성 - 막내
     public void insertReview(MemberDTO memberDTO) {
         System.out.println("service 리뷰작성");
@@ -173,6 +176,20 @@ public class MemberService {
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
 	}
+	
+	public void insertWishlist(WishlistDTO wishlistDTO) {
+	    memberDAO.insertWishlistItem(wishlistDTO);
+	  }
+	
+
+	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
+		return memberDAO.selectWishlist(wishlistDTO);
+	}
+	    
+//	  public int removeFromWishlist(int item_num) {
+//	    return memberDAO.deleteWishlistItem(item_num);
+//	  }
+
 	
 	
 	

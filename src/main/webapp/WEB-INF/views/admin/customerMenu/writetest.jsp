@@ -25,11 +25,6 @@
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<!-- include libraries(jQuery, bootstrap) -->
-<!--   	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
-	 <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
 
 
 </head>
@@ -37,7 +32,7 @@
 <body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+<div id="wrapper">
 		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
 
         <!-- Content Wrapper -->
@@ -56,52 +51,45 @@
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
-
-                    <!-- DataTales Example -->
-                    
-                    <div class="card shadow mb-4">
-                      <!-- 글쓰기 -->
-                   		 <form action="${pageContext.request.contextPath }/writePro" method="post" enctype="multipart/form-data" >
-                    		<div class="card-header py-3">
-                    			<div class="row">
-                         			<input type="hidden" name="admin_id" value=" ${admin.admin_id}" /> 
-                             		<h6 class="m-0 font-weight-bold text-primary">공지사항 글쓰기</h6> 
-                            		<button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
-                            	</div>
-                             <label>작성자: </label><input type="text" name="writer" style="width: 20%; border: none; background-color: white; "value=" ${admin.admin_id}" readonly="readonly"/><br>	
-                             <label>제목: </label><input type="text" name="title" style="width: 40%; border: none; background-color: white;"/>
+					
+					 <!-- DataTales Example -->
+                 <div class="card shadow mb-4">
+                    <!--글쓰기  -->
+                    <form action="writePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                        <div class="card-header py-3">
+                           <div class="row">
+                            <input type="hidden" name="admin_id" value=" ${admin.admin_id}" />
+                            <h6 class="m-0 font-weight-bold text-primary">공지사항글쓰기</h6>
+                          	 <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
+                          </div>
+                         	<label>작성자: </label><input type="text" name="admin_id" style="width: 20%; border: none; background-color: white; "value=" ${admin.admin_id}" readonly="readonly"/><br>	
+                             <label>제목: </label><input type="text" name="admin_csnotice_sub" style="width: 40%; border: none; background-color: white;"/> <br>
+                        	<label>첨부파일: </label><input type="file" name="file" style="width: 40%; border: none; background-color: white;"/>
+                        </div>   
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                         			<tr>
+                         				
+                         				<td><textarea name="admin_cs_view" rows="25" cols="60" value="" style="border-color:  #e3e6f0;"></textarea></td>
+                         			
+                         			</tr>
+                         		</table>
                             </div>
-                			<div style="width: 80%; margin: auto;">
-								<br><br> 
-								    <textarea id="summernote" name="content"></textarea>
-								<!-- 	<input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
-							</div>
-						</form>
-					</div>	         
-                         
-                       
-                         
-                    <%--  	 <form action="${pageContext.request.contextPath }/writePro" method="post" > 
-                     		 <div class="card-header py-3">
-                         		<div class="row"> 
-                          		<input type="hidden" name="admin_id" value=" ${admin.admin_id}" />
-                          		 <h6 class="m-0 font-weight-bold text-primary">공지사항 글쓰기</h6>
-                           		 <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
-                            	</div>
-                         <label>title</label><input type="text">
-                           	  </div>
-                 
-                        	<div class="card shadow mb-4" id="summernote"></div>
-                      </form>	 --%>
-                	
-                
-                
-                    </div>
-
+                          </div>
+                        </form>
+                      </div>
+                <!-- DataTales Example End -->
+                      
                 </div>
+				 <!-- Begin Page Content End -->
+					</div>
+					<!-- Main Content End -->	         
+                 </div>
+
+               
                 <!-- /.container-fluid -->
 
-            </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -117,7 +105,8 @@
         </div>
         <!-- End of Content Wrapper -->
 
-    </div>
+  
+    
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
@@ -142,65 +131,13 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	
-	<!-- include libraries(jQuery, bootstrap) -->
-	<!--jquery중복안됨  -->
-<!--   	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
-    <!-- include summernote css/js-->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
 	
-//썸머노트 실행 함수
-function notesummer(){
-    //썸머노트 실행
-    $('#summernote').summernote({
-    lang:"ko-KR",
-    placeholder: '내용을 입력해주세요',
-    tabsize: 2,
-    width : 1200,
-    height: 600,
-    toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']]
-    ],
-    callbacks : { 
-        //onImageUpload = 이미지 업로드시 작동하는 콜백함수
-        onImageUpload : function(files, editor, welEditable) {
-    // 파일 업로드(다중업로드를 위해 반복문 사용)
-        for (var i = files.length - 1; i >= 0; i--) {
-                uploadSummernoteImageFile(files[i],
-                this);
-                }
-        }
-    }//end callbacks 
-    });
-    // 이미지 업로드시 ajax로 파일 업로드를 하고 성공 후 파일 경로를 return받음
-    function uploadSummernoteImageFile(file, editor) {
-    data = new FormData();
-    data.append("file", file);
-    $.ajax({
-        url : "summernoteImage",
-        data : data,
-        type : "POST",
-        dataType : 'JSON',
-        contentType : false,
-        processData : false,
-        success : function(data) {
-            //항상 업로드된 파일의 url이 있어야 한다.
-            $(editor).summernote('insertImage', contextPath+data.url);
-        }
-    });
-    } 
-}
+
 </script>
+
 
 </body>
 
