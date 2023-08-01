@@ -152,6 +152,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
+	
 	$(document).ready(function() {
 		  $('#summernote').summernote({
 	 	    	placeholder: '게시글을 작성해주세요.',
@@ -169,6 +170,7 @@
 	              ["view", ["fullscreen", "codeview"]],
 	              ['highlight', ['highlight']]
 	            ],
+	            /*
 	            callbacks : {
 	        		onImageUpload : function(files, editor, welEditable) {     
 	        			for (var i = 0; i < files.length; i++) {
@@ -176,6 +178,7 @@
 	        			}
 	        		}
 	        	}
+		  	*/
 		  });
 	});
 
@@ -185,7 +188,7 @@
 		$.ajax({
 			data : form_data,
 			type : "POST",
-			url : '/resources/summerimages',
+			url : '${pageContext.request.contextPath }/resources/summerimages',
 			cache : false,
 			contentType : false,
 			enctype : 'multipart/form-data',
