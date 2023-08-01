@@ -3,14 +3,19 @@ package com.itwillbs.farmtastic;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.itwillbs.domain.AdminDTO;
 import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
@@ -301,6 +307,53 @@ public class AdminController {
 		 System.out.println(resultList);
 		return "/admin/customerMenu/cnotice";
 	}
+//	공지사항글쓰기
+	@RequestMapping(value = "/writePro", method = RequestMethod.POST)
+	public String insertNoticeList(@RequestParam HashMap<String, String> noticeList,
+	                              @RequestParam("file") List<MultipartFile> files,
+	                             HttpSession session)throws Exception {
+		
+		// 첨부파일 올라갈 물리적 경로 
+		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+		
+//		System.out.println(uploadPath);
+		
+		for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+
+                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+
+                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+
+                String filePath = uploadPath + "/" + storedFileName;
+                
+                System.out.println("filePath : " + filePath);
+                
+                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+
+                // 임시경로에서 filePath로 파일이동 
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                
+                // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
+                // 사진 정보의 경로를 저장
+                noticeList.put("admin_cs_file", saveFileName);
+
+                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
+        	}
+        }
+		
+		
+		adminService.insertNotice(noticeList,files, session);
+	    return "redirect:/cnotice";
+	}
+	
+	/*
 	
 	@PostMapping("/writePro")
 	 public String writePro(@RequestParam("writer") String writer, @RequestParam("title") String title, @RequestParam("content") String content) {
@@ -308,7 +361,8 @@ public class AdminController {
 	    adminService.insertBoard(writer, title, content);
 	    return "redirect:/cnotice";
 	 }
-	
+	 */
+	/*
 	@RequestMapping(value="/summerimages", method=RequestMethod.POST)
 	public ResponseEntity<?> summerimage(@RequestParam("file") MultipartFile img, HttpServletRequest request) throws IOException {
 		String path = request.getRealPath("/summerimages");
@@ -323,9 +377,9 @@ public class AdminController {
 		return ResponseEntity.ok().body("/resources/summerimages/"+fileName);
 
 	}
-/*
+	*/
 	//썸머노트 이미지처리 ajax
-		@PostMapping("summernoteImage")
+		@PostMapping("/summerimages")
 		//썸머노트 이미지 처리
 		public String insertFormData2(
 				@RequestParam(value="file", required=false) MultipartFile file,HttpSession session
@@ -333,7 +387,7 @@ public class AdminController {
 			Gson gson = new Gson();
 			Map<String, String> map = new HashMap<String, String>();
 			// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
-			String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
+			String WebPath = "/resources/summernoteImages/"; //DB에 저장되는 경로
 			String serverPath = session.getServletContext().getRealPath(WebPath);
 			String originalFileName=file.getOriginalFilename();
 			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -352,7 +406,7 @@ public class AdminController {
 			}
 			return gson.toJson(map);
 		}
-	*/
+	
 	
 
 
