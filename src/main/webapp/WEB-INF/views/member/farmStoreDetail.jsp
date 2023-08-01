@@ -319,6 +319,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			        		<a class="custom-link" href="#" onclick="checkLogin()">문의하기</a>
 						        <input type="hidden" id="member_num" value="${sessionScope.member_num}">
 						        <input type="hidden" name="item_num" value="${item_num}">
+						        <input type="hidden" name="seller_num" value="${seller_num}">
 						        <div>
 						            <table class="table">
 						                <thead>
@@ -343,7 +344,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 								                    
 								                    <c:choose>
 													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-       <tr class="boardContent" id="question${row.one_board_num}" style="display:none;">
+       <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
     <td colspan="5">
                 비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
                 <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
@@ -529,24 +530,28 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	</script>
 	
 	<script>
-	
-		  // 이거 우선 실행해보고 안되면 document부분 수정할거 다시 생각해보기/ 토글
-		  function checkPassword(correctPassword, oneBoardNum, passwordInputId) {
-		    // const inputPassword = document.getElementById(passwordInputId).value;
-		    const inputPassword = document.getElementById(passwordInputId).value;
+	function checkPassword(savedPassword, oneBoardNum, inputElementId) {
+		  var inputPassword = document.getElementById(inputElementId).value;
 
-		    if (correctPassword === inputPassword) {
-		      alert("비밀번호가 일치합니다");
-		      // 올바른 비밀번호가 입력되면 질문(Q)과 답변(A) 영역을 표시합니다.
-		      document.getElementById(`${oneBoardNum}`).style.display = "table-row";
+		  if (savedPassword === inputPassword) {
+		    // 비밀번호 입력 창 숨기기
+		    var passwordRow = $("#password_row" + oneBoardNum);
+		    passwordRow.hide();
 
-		      // document.getElementById(`answer${oneBoardNum}`).style.display = 'table-row';
-		    } else {
-		      if (inputPassword) {
-		        alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
-		      }
-		    }
+		    // 질문과 답변 표시
+// 		    var questionRow = $("#question" + "${row.one_board_num}");
+		    var answerRow = $("#answer" + oneBoardNum);
+		    $("#question" + "${row.one_board_num}").show();
+		    answerRow.show();
+		    var answerSelector = "#answer" + oneBoardNum;
+		    var answerRow = $(answerSelector);
+		  } else {
+		    alert("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
 		  }
+		}
+
+
+
 
 
 
