@@ -143,7 +143,8 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	
 	<!-- include libraries(jQuery, bootstrap) -->
-  	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!--jquery중복안됨  -->
+<!--   	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
   	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
@@ -168,45 +169,35 @@
 	              ["view", ["fullscreen", "codeview"]],
 	              ['highlight', ['highlight']]
 	            ],
-	            callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-					onImageUpload : function(files) {
-						uploadSummernoteImageFile(files[0],this);
-					}
-				}
+	            callbacks : {
+	        		onImageUpload : function(files, editor, welEditable) {     
+	        			for (var i = 0; i < files.length; i++) {
+	        				sendFile(files[i], this);
+	        			}
+	        		}
+	        	}
 		  });
 	});
 
-	
-	function uploadSummernoteImageFile(file, editor) {
-		var data = new FormData();
-		data.append("file", file);
-		
+	function sendFile(file, editor) {
+		var form_data = new FormData();
+		form_data.append('file', file);
 		$.ajax({
-			data : data,
+			data : form_data,
 			type : "POST",
-			url : "/uploadSummernoteImageFile",
+			url : '/resources/summerimages',
+			cache : false,
 			contentType : false,
+			enctype : 'multipart/form-data',
 			processData : false,
-			success : function(data) {
-            	            //항상 업로드된 파일의 url이 있어야 한다.
-            	// @param {String} url
-            	// @param {String|Function} filename - optional
-            	$('#summernote').summernote('insertImage', url, filename);
-            	          
-            	                alert("Success");
-			 }
-			,error:function(request,status,error, data){
-            	            alert("Error");
-         	}
+			success : function(url) {
+				$(editor).summernote('insertImage', url, function($image) {
+					$image.css('width', "25%");
+				});
+			}
 		});
-	
 	}
-	$(function() { 
-		$("#commentForm").validate();
-		$.extend( $.validator.messages, { 
-			required: "필수항목입니다."
-		} ); 
-	});
+
 </script>
 
 <!-- 
@@ -323,6 +314,36 @@
                 )},
         })
     };
+    	function uploadSummernoteImageFile(file, editor) {
+		var data = new FormData();
+		data.append("file", file);
+		
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadSummernoteImageFile",
+			contentType : false,
+			processData : false,
+			success : function(data) {
+            	            //항상 업로드된 파일의 url이 있어야 한다.
+            	// @param {String} url
+            	// @param {String|Function} filename - optional
+            	$('#summernote').summernote('insertImage', url, filename);
+            	          
+            	                alert("Success");
+			 }
+			,error:function(request,status,error, data){
+            	            alert("Error");
+         	}
+		});
+	
+	}
+	$(function() { 
+		$("#commentForm").validate();
+		$.extend( $.validator.messages, { 
+			required: "필수항목입니다."
+		} ); 
+	});
 </script>
  -->
 </body>
