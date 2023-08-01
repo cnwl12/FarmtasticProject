@@ -41,6 +41,10 @@ public class AdminDAO {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeList);
 		
 	}
+
+	public List<Map<String, Object>> getNotice(String admin_cs_num) {
+		return sqlSession.selectOne(NAMESPACE + "getNotice",admin_cs_num);
+	}
 }
 	
 	
