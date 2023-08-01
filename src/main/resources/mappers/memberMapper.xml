@@ -155,6 +155,14 @@
     SELECT * FROM review WHERE item_num = #{item_num}
   </select>
   
+  <!-- 마이페이지 용 -->
+  <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
+    select r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
+from review r left join item i
+on r.item_num = i.item_num
+WHERE member_num = #{member_num}; 
+  </select>
+  
   <!--  1대1문의 -->
   <insert id="insertOneBoard">
     INSERT INTO one_board (one_board_type, one_board_title, one_board_content, one_board_file, one_board_pass, one_board_day, one_board_repYn, item_num, member_num, one_board_private, seller_num)

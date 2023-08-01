@@ -37,6 +37,8 @@
 	href="${pageContext.request.contextPath }/resources/css/myg.css"
 	type="text/css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 
 <body>
@@ -234,14 +236,55 @@
 			
 			<div id="menu2_cont">
 			<h4>배송</h4>
+			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			</div>
 			
 			<div id="menu3_cont">
-			<h4>리뷰</h4>
+			<h4>나의 리뷰</h4>
+				<div class="reviews-list">
+				<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+				<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
+    			<table class="table" id="getItemMyReview" >
+        		<thead>
+            	<tr>
+            	<th>번호</th>
+            	<th>별점</th>
+            	<th>상품명</th>
+            	<th>제목</th>
+           		<th>내용</th>
+           		<th>작성일</th>
+<!--  			<th>이미지</th> -->
+           		</tr>
+        		</thead>
+        		<tbody>
+            	<%-- <c:set var="total" value="${fn:length(reviews)}" />
+            	<c:if test="${total eq 0}">
+            	<tr>
+            	<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
+            	</tr>
+            	</c:if>
+            	<c:set var="count" value="0" />
+            	<c:forEach items="${reviews}" var="review" varStatus="status">
+            	<c:set var="reversedCount" value="${total - status.index}" />
+            	<c:set var="count" value="${count + 1}" />
+            	<tr>
+            	<td>${count}</td>
+            	<td class="review-star"><c:out value="${review.review_star}"/></td>
+            	<td>${review.member_num}</td>
+            	<td class="review-date"><c:out value="${review.review_day}"/></td>
+            	<td>${review.review_title}</td>
+            	<td>${review.review_content}</td>
+            	<td>${review.review_img}</td>
+           	 	</tr>
+            	</c:forEach> --%>
+        		</tbody>
+    			</table>
+				</div>
 			</div>
 			
 			<div id="menu4_cont">
 			<h4>1:1문의</h4>
+			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			</div>
 		  	
 		  	
@@ -337,8 +380,10 @@
                 }).open();
         }
     </script>
+
     
 <script>
+
 $(document).ready(function() {
     // 마이페이지 전환 초기 설정
     $("#menu2_cont").hide();
@@ -378,6 +423,83 @@ $(document).ready(function() {
   });
  });  
 </script>
+<script>    
+
+    function getItemMyReview() {
+    	var member_num =  '<%= request.getSession().getAttribute("member_num") %>';
+        
+    	if(member_num) {
+    		
+    	
+    	$.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/getItemMyReview",
+            data: { member_num: member_num },
+            dataType: "json",
+            success: function(myreview) {
+                if (myreview.length === 0) {
+                    $("#getItemMyReview tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
+                } else {
+                    var rows = "";
+                    for (var i = 0; i < myreview.length; i++) {
+                        var review = myreview[i];
+                        rows += "<tr>" +
+                            "<td>" + (i + 1) + "</td>" +
+                            "<td class='review-star'>" + review.review_star + "</td>" +
+                            "<td>" + review.item_name + "</td>" +
+                            "<td>" + review.review_title + "</td>" +
+                            "<td>" + review.review_content + "</td>" +
+                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
+//                             "<td>" + review.review_img + "</td>" +
+                        "</tr>";
+                    }
+                    $("#getItemMyReview tbody").html(rows);
+
+                    // 별점을 ★로 변경
+                    let reviewStars = document.querySelectorAll('.review-star');
+                    reviewStars.forEach(function(starElement){
+                        let starCount = parseInt(starElement.textContent, 10);
+                        let stars = '';
+                        for (let i = 1; i <= starCount; i++) {
+                            stars += '★';
+                        }
+                        starElement.textContent = stars;
+                    });
+
+                    // 작성일을 YYYY-MM-DD 형식으로 변경
+                    let reviewDates = document.querySelectorAll('.review-date');
+                    reviewDates.forEach(function (dateElement) {
+                        let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
+
+                        // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+                        if (isNaN(timestamp)) {
+                            console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
+                            return;
+                        }
+
+                        let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
+
+                        // 포맷된 날짜를 표시합니다.
+                        dateElement.textContent = date;
+                    });
+                }
+            },
+            error: function () {
+                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+            }
+        });
+    	} else {
+    		('로그인이 필요합니다.');	
+    	}
+    }
+    
+    $(document).ready(function () {
+    	getItemMyReview();
+	});
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     
 </body>
 </html>

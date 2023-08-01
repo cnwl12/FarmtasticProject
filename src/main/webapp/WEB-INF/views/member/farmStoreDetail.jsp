@@ -564,6 +564,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	}
 </script>
 
+
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
@@ -609,9 +610,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
         });
 	
 	//------------------------------------------------------------
-	
 
-	// -----------------------------------------------------------------------------
 	$(document).ready(function () {
     getItemReviews();
     function getItemReviews() {

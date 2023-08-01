@@ -700,6 +700,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	
+	//마이페이지 - 리뷰관리 -> 리뷰목록 작업중
+	@RequestMapping(value = "/getItemMyReview", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MemberDTO> getItemMyReview(@RequestParam("member_num") Integer member_num) {
+		 List<MemberDTO> myreview = memberService.getItemMyReview(member_num);
+		 return myreview;
+	}
+	
+	
 	
 	// 서영 작업중
     @RequestMapping(value = "/oneboard", method = RequestMethod.GET)

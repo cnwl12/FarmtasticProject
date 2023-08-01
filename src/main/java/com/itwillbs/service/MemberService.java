@@ -164,7 +164,12 @@ public class MemberService {
 		  return averageReviewStar == null ? 0.0 : averageReviewStar;
 	 }
 
-
+	 // 마이페이지 리뷰 -막내
+	 public List<MemberDTO> getItemMyReview(int member_num) {
+	        return memberDAO.getItemMyReview(member_num);
+	    }
+	 
+	 
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
 	}

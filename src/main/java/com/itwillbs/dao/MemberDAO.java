@@ -168,8 +168,15 @@ public class MemberDAO {
 		}
 
 
-		public void updateInCart(HashMap<String, Object> cart) {
-			sqlSession.update(namespace+".updateInCart", cart);
-		}
+	public void updateInCart(HashMap<String, Object> cart) {
+		sqlSession.update(namespace+".updateInCart", cart);
+	}
+
+	//막내 마이페이지 리뷰관리
+	public List<MemberDTO> getItemMyReview(int member_num) {
+		return sqlSession.selectList(namespace+".getItemMyReview", member_num);
+	}
+		
+	
 		 
 }
