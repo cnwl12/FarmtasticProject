@@ -348,37 +348,55 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String updatePro(HttpSession session,
 	                        @RequestParam(value = "member_id", required = false) String member_id,
 	                        @RequestParam(value = "member_pass", required = false) String member_pass,
-	                        @RequestParam(value = "new_member_pass", required = false) String new_member_pass) throws Exception {
+	                        @RequestParam(value = "new_member_pass", required = false) String new_member_pass,
+	                        @RequestParam(value = "member_name", required = false) String member_name,
+	                        @RequestParam(value = "member_phone", required = false) String member_phone,
+	                        @RequestParam(value = "member_email", required = false) String member_email,
+							@RequestParam(value = "member_post", required = false) String member_post,		
+							@RequestParam(value = "member_addMain", required = false) String member_addMain,
+							@RequestParam(value = "member_addSub", required = false) String member_addSub) throws Exception {
 
 	    Integer member_num = (Integer) session.getAttribute("member_num");
 
 	    // 입력된 값들도 세션에 저장합니다.
 	    session.setAttribute("member_id", member_id);
 	    session.setAttribute("member_pass", member_pass);
-	    session.setAttribute("new_member_pass", new_member_pass);
-	    System.out.println("FarmController-->updatePro");
-	    System.out.println(member_num + "-" + member_id + "-" + member_pass + "-" + new_member_pass );
-	    
+	    session.setAttribute("member_name", member_name);
+	    session.setAttribute("member_phone", member_phone);
+	    session.setAttribute("member_email", member_email);
+	    session.setAttribute("member_post", member_post);
+	    session.setAttribute("member_addMain", member_addMain);
+	    session.setAttribute("member_addSub", member_addSub);
+
 	    MemberDTO memberDTO = new MemberDTO();
 	    memberDTO.setMember_num(member_num);
 	    memberDTO.setMember_id(member_id);
 	    memberDTO.setMember_pass(member_pass);
-	    memberDTO.setNew_member_pass(new_member_pass);
-	    
+	   
+
 	    MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
 
 	    if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
 	        // memberDTO 객체에 입력된 값들을 설정합니다.
 	        memberDTO.setMember_id(member_id);
 	        memberDTO.setMember_pass(new_member_pass);
-
+	        memberDTO.setMember_name(member_name);
+		    memberDTO.setMember_phone(member_phone);
+		    memberDTO.setMember_email(member_email);
+		    memberDTO.setMember_post(member_post);
+		    memberDTO.setMember_addMain(member_addMain);
+		    memberDTO.setMember_addSub(member_addSub);
+		   
+		    
+	        
 	        memberService.updateMember(memberDTO);
 	        return "/index";
 	    } else {
 	        System.out.println("비밀번호 오류");
-	        return "/member/mypage";
+	        return "/index";
 	    }
 	}
+
 
 
 

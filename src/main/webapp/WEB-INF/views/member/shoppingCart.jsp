@@ -65,6 +65,11 @@
 	    $('.pro-qty').click(function () {
 	        var cart_cnt = $(this).find('.cart_cnt').val();
 	        var item_num = $(this).closest('tr').data('item_num');
+	        var item_price = $(this).closest('tr').find('.item_price').text();
+            var cart_cnt_int = parseInt(cart_cnt);
+            var total = item_price * cart_cnt_int;
+            $(this).closest('tr').find('.item_total').text(total.toFixed()) 
+            
 	        console.log(cart_cnt);
 	        console.log(item_num);
 
@@ -73,22 +78,14 @@
 	            data: { 'cart_cnt': cart_cnt },
 	            success: function (response) {
                 console.log('장바구니 수량 업데이트 성공:', response);
-                // 수량이 업데이트되면 가격과 총 가격 업데이트
-				var item_price_str = $(this).closest('tr').find('.item_price').text();
-                var item_price = parseFloat(item_price_str);
-                var cart_cnt_int = parseInt(cart_cnt);
-                var total = item_price * cart_cnt_int;
                
-                console.log(item_price_str); // 올바른 가격 값이 출력되어야 함
-                console.log(item_price); // 올바른 가격 값이 출력되어야 함
-                console.log(cart_cnt_int); // 올바른 수량 값이 출력되어야 함
-                console.log(total);  // 올바른 총 가격 값이 출력되어야 함
-                
-                $(`tr[data-item_num="${item_num}"] .item_total`).text(total.toFixed(2)); // 총 가격 업데이트
-                $(`tr[data-item_num="${item_num}"] .shoping__cart__price`).text(item_price_str); // 가격 업데이트
-	                   },
-	                   error: function (error) {
-	                       console.error('장바구니 수량 업데이트 실패:', error);
+           //     console.log(item_price); // 올바른 가격 값이 출력되어야 함
+           //     console.log(cart_cnt_int); // 올바른 수량 값이 출력되어야 함
+           //     console.log(total);  // 올바른 총 가격 값이 출력되어야 함
+           
+                },
+                error: function (error) {
+                console.error('장바구니 수량 업데이트 실패:', error);
 	            }
 	        });
 	    });
@@ -179,9 +176,7 @@
                                         <h5>${item.item_name}</h5>
                                     </a>
                                 </td>
-                               <td class="shoping__cart__price item_price">
-                                    ${item.item_price}
-                                </td>
+                               <td class="shoping__cart__price item_price">${item.item_price} </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">							<!-- name="item_num=${item.item_num},cart_cnt"  -->
