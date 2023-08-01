@@ -109,7 +109,7 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-<<<<<<< HEAD
+
 	
 	
 	// 선진)  getDailySales 요일별 매출 가져오는 차트
@@ -128,9 +128,9 @@ public class SellerController {
 	
 	
 	
-=======
+
 	 
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
@@ -138,46 +138,11 @@ public class SellerController {
 		
 		return "/seller/memberMng";
 	}
-<<<<<<< HEAD
 
-=======
 	
-	// 선진) 차트
-	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
-	public String salesMng(Locale locale, Model model) {
-		System.out.println("SellerController의 salesMng 매핑완");
-		
-        // 현재 날짜 구하기
-        Date currentDate = new Date();
-        
-        // 6개월 전 날짜 구하기
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.MONTH, -6);
-        Date sixMonthsAgo = calendar.getTime();
-        
-        // 날짜 형식 변환
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-        String currentDateStr = dateFormat.format(currentDate);
-        String sixMonthsAgoStr = dateFormat.format(sixMonthsAgo);
-        
-        // 쿼리 파라미터로 사용할 값 설정
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("seller_num", seller_num);
-        params.put("currentDate", currentDateStr);
-        params.put("sixMonthsAgo", sixMonthsAgoStr);
-        
-	    List<Map<String, Object>> sellerMonthlyRevenues = sellerService.getMonthlySales(seller_num);
-	    model.addAttribute("sellerMonthlyRevenues", sellerMonthlyRevenues);
-	    
-	    
-	    System.out.println("sellerMonthlyRevenues가 머냐" + sellerMonthlyRevenues);
-	    
-	    
-		return "/seller/salesMng";
-	}
 	
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+	
+
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
 		
