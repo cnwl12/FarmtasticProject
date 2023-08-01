@@ -235,7 +235,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                         nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
                                 </div>
                             </div>
-                            <!-- 리뷰칸 -->
+                            <!-- 리뷰칸 그러나 이미지 작업이 없는.. -->
                             <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 구매내역 데이터가 없으니까.. 일단 임시방편으로 로그인만 작업해둠 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
@@ -260,7 +260,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									<br>
     								<label for="review_title"></label>
     								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
-<!--  	여긴 이미지.. 넣는거 어려워서 잠시 주석	<label for="file"></label> -->
+<!--  									<label for="file"></label> -->
 <!--         							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;"> -->
     								<br><br>
     								<label for="review_content"></label>
@@ -284,6 +284,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                 					<th>작성일</th>
                 					<th>제목</th>
                 					<th>내용</th>
+<!--                 					<th>이미지</th> -->
            							</tr>
         							</thead>
         							<tbody>
@@ -304,6 +305,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     				<td class="review-date"><c:out value="${review.review_day}"/></td>
                     				<td>${review.review_title}</td>
                     				<td>${review.review_content}</td>
+<%--                     				<td>${review.review_img}</td> --%>
                 					</tr>
             						</c:forEach>
         							</tbody>
@@ -628,6 +630,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             "<td class='review-date'>" + review.review_day + "</td>" +
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
+//                             "<td>" + review.review_img + "</td>" +
                         "</tr>";
                     }
                     $("#getItemReviews tbody").html(rows);
