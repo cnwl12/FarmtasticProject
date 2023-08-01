@@ -499,6 +499,25 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/shoppingCart";
 	}
+	
+	
+	@RequestMapping(value = "/cartInUpdate", method = RequestMethod.GET)
+	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+
+		// 나중에 변경할거임...
+		// String member_num = (String)session.getAttribute("member_num");
+		int member_num = 777; // <- 로그인 됐을 때 지울거임
+		System.out.println(member_num + ", "+ cart);
+		
+		cart.put("member_num", member_num);
+
+		// System.out.println("insertCart 오는지");
+
+		memberService.updateInCart(cart);
+
+		return "redirect:/shoppingCart";
+	}
+	
 
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
@@ -510,7 +529,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
-		
+		 
 		
 		return "/member/checkout";
 		

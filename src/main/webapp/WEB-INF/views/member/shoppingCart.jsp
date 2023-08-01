@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
-
+ 	
 	<!-- 주문상세 테이블에 추가함수  -->
 	<script type="text/javascript">
 	function insertOrderDetail(){
@@ -57,27 +57,73 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		// console.log("확인");
-		
-		$('.pro-qty').click(function(){
-			$(document).on('change', '.cart_cnt', function(){
-				var cart_cnt = $(this).val();
-				console.log(cart_cnt);
+	$(window).on('load', function () {
+	    $('input[type=text]').change(function () {
+	        console.log($(this));
+	    });
 
-				$.ajax({
-					url: 'cartInUpdate',
-					data: { 'cart_cnt': cart_cnt },
-					success: function(response) {
-						console.log('장바구니 수량 업데이트 성공:', response);
-					},
-					error: function(error) {
-						console.error('장바구니 수량 업데이트 실패:', error);
-					}
-				});
-			});
-		});	
+	    $('.pro-qty').click(function () {
+	        var cart_cnt = $(this).find('.cart_cnt').val();
+	        var item_num = $(this).closest('tr').data('item_num');
+	        console.log(cart_cnt);
+	        console.log(item_num);
+
+	        $.ajax({
+	            url: 'cartInUpdate?item_num=' + item_num,
+	            data: { 'cart_cnt': cart_cnt },
+	            success: function (response) {
+                console.log('장바구니 수량 업데이트 성공:', response);
+                // 수량이 업데이트되면 가격과 총 가격 업데이트
+				var item_price_str = $(this).closest('tr').find('.item_price').text();
+                var item_price = parseFloat(item_price_str);
+                var cart_cnt_int = parseInt(cart_cnt);
+                var total = item_price * cart_cnt_int;
+               
+                console.log(item_price_str); // 올바른 가격 값이 출력되어야 함
+                console.log(item_price); // 올바른 가격 값이 출력되어야 함
+                console.log(cart_cnt_int); // 올바른 수량 값이 출력되어야 함
+                console.log(total);  // 올바른 총 가격 값이 출력되어야 함
+                
+                $(`tr[data-item_num="${item_num}"] .item_total`).text(total.toFixed(2)); // 총 가격 업데이트
+                $(`tr[data-item_num="${item_num}"] .shoping__cart__price`).text(item_price_str); // 가격 업데이트
+	                   },
+	                   error: function (error) {
+	                       console.error('장바구니 수량 업데이트 실패:', error);
+	            }
+	        });
+	    });
+	});
+
+
 	</script>
+	
+	 
+	                
+    
+<!--         $(window).on('load', function () {
+        // console.log("확인");
+
+        $('input[type=text]').change(function(){
+            console.log($(this));
+        })
+        $('.pro-qty').click(function(){
+                var cart_cnt = $(this).find('.cart_cnt').val();
+                var item_num = $(this).closest('tr').data('item_num');
+                console.log(cart_cnt);
+                console.log(item_num);
+
+                $.ajax({
+                    url: 'cartInUpdate?item_num=' + item_num,
+                    data: { 'cart_cnt': cart_cnt },
+                    success: function(response) {
+                        console.log('장바구니 수량 업데이트 성공:', response);
+                    },
+                    error: function(error) {
+                        console.error('장바구니 수량 업데이트 실패:', error);
+                    }
+                });
+            });
+        }); -->
 	
 	
 
@@ -122,18 +168,18 @@
             </thead>
             <tbody>
                 <!-- 장바구니에 상품 있을 때 -->
-            <%--     <c:choose>
-                    <c:when test="${not empty itemList}"> --%>
+               <c:choose>
+                    <c:when test="${not empty itemList}"> 
                         <c:forEach var="item" items="${itemList}">
                             <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
-                            <tr>
+                             <tr data-item_num="${item.item_num}">
                                 <td class="shoping__cart__item">
                                     <a href="farmStoreDetail?item_num=${item.item_num}">
                                         <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                         <h5>${item.item_name}</h5>
                                     </a>
                                 </td>
-                                <td class="shoping__cart__price">
+                               <td class="shoping__cart__price item_price">
                                     ${item.item_price}
                                 </td>
                                 <td class="shoping__cart__quantity">
@@ -143,7 +189,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="shoping__cart__total">
+                               <td class="shoping__cart__total item_total">
                                     ${item.item_price * item.cart_cnt}
                                 </td>
                                 <td class="shoping__cart__item__close">
@@ -151,18 +197,18 @@
                                 </td>
                             </tr>
                         </c:forEach>
-                 <%--    </c:when> --%>
-                   <%--  <c:otherwise>
+                    </c:when> 
+                     <c:otherwise>
                         <tr>
                             <td colspan="5">
                                 <div class="empty-cart-message" id="emptyCartMessage">
-                                    <i class="fas fa-shopping-cart"></i> 
+                                    <i class="fa fa-shopping-bag"></i>
                                     <p>장바구니가 비어있습니다</p> 
                                 </div>
                             </td>
                         </tr>
-                    </c:otherwise> --%>
-             <%--    </c:choose> --%>
+                    </c:otherwise> 
+                </c:choose> 
             </tbody>
         </table>
     </div>
@@ -204,8 +250,8 @@
     
     <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
-
-    <!-- Js Plugins -->
+	
+	<!-- Js Plugins -->
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
@@ -214,8 +260,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    
-    
 
 </body>
 
