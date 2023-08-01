@@ -37,22 +37,25 @@
   	  and member_pass = #{member_pass}
   	  </if>
   	</select>
-  	
-  	<select id="userCheck1" resultType="com.itwillbs.domain.MemberDTO">
-  	SELECT * FROM member
-  	WHERE member_num = #{member_num}
-  	AND member_id = #{member_id}
-  	 <if test="member_pass != null">
-  	  and member_pass = #{member_pass}
-  	  </if>
-	</select>
+
+<select id="userCheck1"
+	resultType="com.itwillbs.domain.MemberDTO">
+	SELECT * FROM member
+	WHERE member_num = #{member_num}
+	AND member_id = #{member_id}
+	<if test="member_pass != null"> AND member_pass = #{member_pass}</if>
 	
+</select>
+
   	
  	<update id="updateMember">
  	 UPDATE member
   	SET member_name = #{member_name},
       member_phone = #{member_phone},
       member_email = #{member_email},
+      member_post = #{member_post},
+      member_addMain = #{member_addMain},
+      member_addSub = #{member_addSub},
       member_pass  = #{new_member_pass},
       <if test="member_pass != null">member_pass = #{member_pass}</if>
   	WHERE member_id = #{member_id}
