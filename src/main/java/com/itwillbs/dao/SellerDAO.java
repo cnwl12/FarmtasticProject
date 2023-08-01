@@ -53,10 +53,10 @@ public class SellerDAO {
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 		
-        // 선진)차트
-		public List<Map<String, Object>> getMonthlySales(String seller_num) {
-			System.out.println("SellerDAO의 getMonthlySales 매핑완");
-			return sqlSession.selectList(namespace+".getMonthlySales", seller_num);
+        // 선진) getDailySales 요일별 매출 가져오는 차트
+		public List<Map<String, Object>> getDailySales(String seller_num) {
+			System.out.println("SellerDAO의 getDailySales 매핑완");
+			return sqlSession.selectList(namespace+".getDailySales", seller_num);
 		}
 		
 		

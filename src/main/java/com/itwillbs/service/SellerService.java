@@ -57,10 +57,10 @@ public class SellerService {
 			sellerDAO.updateSeller(sellerInfo);
 		}
 		
-		// 선진)차트
-		public List<Map<String, Object>> getMonthlySales(String seller_num) {
-			System.out.println("SellerService의 getMonthlySales 매핑완");
-			return sellerDAO.getMonthlySales(seller_num);
+		// 선진) getDailySales 요일별 매출 가져오는 차트
+		public List<Map<String, Object>> getDailySales(String seller_num) {
+			System.out.println("SellerService의 getDailySales 매핑완");
+			return sellerDAO.getDailySales(seller_num);
 		}   
 
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
