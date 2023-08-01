@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,7 +109,6 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-	
 	 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
@@ -156,9 +153,6 @@ public class SellerController {
 		return "/seller/salesMng";
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
 		
@@ -166,13 +160,7 @@ public class SellerController {
 		
 		return "/seller/itemMng";
 	}
-	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
-	public String itemRegister(Locale locale, Model model) {
-		
-		System.out.println("itemRegister 매핑확인여부");
-		
-		return "/seller/itemRegister";
-	}
+
 	@RequestMapping(value = "/itemDelMng", method = RequestMethod.GET)
 	public String itemDelMng(Locale locale, Model model) {
 		
@@ -211,7 +199,7 @@ public class SellerController {
 	}
 	
 	// 상품등록 - 테스트 페이지 
-	@RequestMapping(value = "/itemInsert", method = RequestMethod.GET)
+	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
 	public String itemInsert(Model model, HttpSession session) {
 		
 		// 삭제예정 
@@ -219,19 +207,51 @@ public class SellerController {
 		
 		System.out.println("셀러고유번호 확인 : "+seller_num);
 		
-		System.out.println("itemInsert 매핑확인여부");
+		System.out.println("itemRegister 매핑확인여부");
 		
-		return "/seller/itemInsert";
+		return "/seller/itemRegister";
 	}
 	
 	
 	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
 	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
 	                             @RequestParam("file") List<MultipartFile> files,
-	                             HttpSession session) {
+	                             HttpSession session)throws Exception {
 		
-		//System.out.println(itemList);
-		//System.out.println(files);
+		// 첨부파일 올라갈 물리적 경로 
+		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+		
+//		System.out.println(uploadPath);
+		
+		for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+
+                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+
+                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+
+                String filePath = uploadPath + "/" + storedFileName;
+                
+                System.out.println("filePath : " + filePath);
+                
+                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+
+                // 임시경로에서 filePath로 파일이동 
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                
+                // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
+                // 사진 정보의 경로를 저장
+                itemList.put("item_mainImg", saveFileName);
+
+                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
+        	}
+        }
 		
 		// 삭제예정 
 		String seller_num = "TA002";
@@ -278,7 +298,36 @@ public class SellerController {
 								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 		
 			System.out.println("updatePro 오는지");
-            
+			
+			/* 사진등록 여기부터 서비스 메서드 전까지 들고가면됨! */
+			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+			
+			for (int i = 0; i < files.size(); i++) {
+                MultipartFile file = files.get(i);
+                if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+                    String fileName = file.getOriginalFilename(); // 파일 원래 이름
+                    String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+
+                    String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+
+                    String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+
+                    String filePath = uploadPath + "/" + storedFileName;
+                    
+                    // System.out.println("filePath : " + filePath);
+                    
+                    // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+                    // 임시경로에서 filePath로 파일이동 
+                    File dest = new File(filePath);
+                    file.transferTo(dest);
+                    
+                    // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
+                    // 사진 정보의 경로를 저장
+                    itemList.put("item_mainImg", saveFileName);
+                }
+			}
             // 삭제예정 
             String seller_num = "TA002";
 			itemList.put("seller_num", seller_num);
@@ -306,23 +355,3 @@ public class SellerController {
 	}
 	
 }
-
-
-//
-//// 개별 항목 넘어오는지 확인용 (나중에 지워도 됨)
-//@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
-//public String itemInsertList(@RequestParam("category_num") Integer categoryNum,
-//                             @RequestParam("item_name") String itemName,
-//                             @RequestParam("item_price") String itemPrice,
-//                             @RequestParam("item_mainImg") MultipartFile itemMainImg,
-//                             @RequestParam("item_detail") String itemDetail) {
-//    
-//	System.out.println("itemInsertPro 매핑확인여부");
-//    System.out.println("카테고리 번호: " + categoryNum);
-//    System.out.println("상품명: " + itemName);
-//    System.out.println("가격: " + itemPrice);
-//    System.out.println("상품 이미지: " + itemMainImg.getOriginalFilename());
-//    System.out.println("상품 설명: " + itemDetail);
-//
-//    return "/seller/questionMng";
-//}
