@@ -40,11 +40,9 @@
    <!-- src/main/webapp/resources/upload 폴더 만들기 -->
 	<!-- 업로드 경로 지정 src/main/webapp/resources/upload 물리적경로 -->
 	<!-- D:\\workspace-sts\\SpringProject\\src\\main\\webapp\\resources\\upload -->
-	<beans:bean id="uploadPath" class="java.lang.String">
+	<!-- <beans:bean id="uploadPath" class="java.lang.String">
 	   <beans:constructor-arg value="http://c2d2303t2.itwillbs.com/FarmProject/resources/upload"></beans:constructor-arg>
-	</beans:bean>  
-	
-   
+	</beans:bean>   -->
    
    
    <!-- 1) com.itwillbs.myweb 패키지 자동으로 스캔 (@어노테이션 찾기) com.itwillbs.controller 패키지 자동으로 스캔 추가  자바폴더(패키지)만들 때 마다 경로 추가 !-->

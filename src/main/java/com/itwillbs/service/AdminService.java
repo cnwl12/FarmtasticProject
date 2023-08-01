@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.AdminDAO;
 import com.itwillbs.domain.AdminDTO;
@@ -27,13 +30,18 @@ public class AdminService {
 		System.out.println("서비스 Cnotice() 확인!");
         return adminDAO.getCnotice();
 	}
-
+	/*
 	 public void insertBoard(String writer, String title, String content) {
 	     Map<String, Object> params = new HashMap<String, Object>();
 	     params.put("writer", writer);
 	     params.put("title", title);
 	     params.put("content", content);
 	     adminDAO.insertNotice(params);
+	}	
+	 */
+	public void insertNotice(HashMap<String, String> noticeList, List<MultipartFile> files,HttpSession session) {
+		System.out.println("insertBoard 확인!!!");
+        adminDAO.insertNotice(noticeList); // DB저장 코드 
 	}
 
 }
