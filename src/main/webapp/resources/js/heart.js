@@ -1,9 +1,9 @@
 /**
  * 
  */
+ 
 
   function add(event, member_num, item_num) {
-    event.preventDefault(); // 링크의 기본 동작을 취소합니다.
 
     // 함수 본문 작성
     if (member_num == null || member_num == "") {
@@ -27,6 +27,7 @@
         },
         error: function (request, status, error) {
           // 요청 실패 시 실행할 코드
+          consol.log(error);
           alert("위시리스트 추가에 실패하였습니다. 다시 시도해주세요.");
         },
       });
