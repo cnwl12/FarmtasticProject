@@ -33,8 +33,6 @@
 
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
-
-
       <section class="blog spad" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
