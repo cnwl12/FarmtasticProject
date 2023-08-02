@@ -235,21 +235,21 @@ public class SellerController {
 	    return "redirect:/itemInsertList";
 	}
 	
-	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
-	public String itemMng(Model model, HttpSession session) {
-	    // 삭제예정 
-	    String seller_num = "TA002";
-	    
-	    session.setAttribute("seller_num", seller_num);
-	    System.out.println("itemInsertList 매핑확인여부");
-	    
-	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
-	    
-	    model.addAttribute("itemList", itemList);
-	    System.out.println(seller_num);
-	    
-	    return "/seller/itemMng";
-	}
+//	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
+//	public String itemMng(Model model, HttpSession session) {
+//	    // 삭제예정 
+//	    String seller_num = "TA002";
+//	    
+//	    session.setAttribute("seller_num", seller_num);
+//	    System.out.println("itemInsertList 매핑확인여부");
+//	    
+//	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
+//	    
+//	    model.addAttribute("itemList", itemList);
+//	    System.out.println(seller_num);
+//	    
+//	    return "/seller/itemMng";
+//	}
 	
 	
 	@RequestMapping(value = "/itemSold", method = RequestMethod.GET)
