@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -133,7 +134,15 @@ public class AdminController {
 	    
 	    return "/admin/customerMenu/contenttest";
 	}
-
+	@RequestMapping(value = "/updateContent", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
+	  // 업데이트 처리를 수행합니다. (DB를 이용하여 내용을 수정하세요.)
+	  boolean success = adminService.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
+	  System.out.println("업데이트 컨트롤러");
+	  // 응답 결과를 반환합니다.
+	  return "{\"success\":" + success + "}";
+	}
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {
 		

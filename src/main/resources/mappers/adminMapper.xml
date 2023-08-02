@@ -40,6 +40,10 @@
     	  #{admin_cs_file}
   		  )
   	</insert>
-   
+   	<update id="updateContent" parameterType="Map">
+    UPDATE admin_csnotice
+    SET admin_csnotice_sub=#{admin_csnotice_sub}, admin_cs_view=#{admin_cs_view}
+    WHERE admin_cs_num=#{admin_cs_num}
+  </update>
 	 
 </mapper>

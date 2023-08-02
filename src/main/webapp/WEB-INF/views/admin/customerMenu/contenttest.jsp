@@ -58,7 +58,7 @@
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-                            <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정">수정</button>
+                            <button type="button"  id="editBtn"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정">수정</button>
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
            					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
@@ -137,6 +137,56 @@
 
 
 <script>
+$(document).ready(function() {
+	  $("#editBtn").on("click", function() {
+	    toggleEditMode(true);
+	  });
+	});
+
+	function toggleEditMode(enable) {
+	  $("input[readonly], textarea[readonly]").prop("readonly", !enable); // 읽기 전용을 enable 값에 따라 토글합니다.
+	  $("#editBtn").prop("disabled", enable); // 수정 버튼을 enable 값에 따라 비활성화합니다.
+	  
+	  if (enable) {
+	    // 저장 버튼을 생성하고 이벤트를 추가합니다.
+	    const saveBtn = $('<button type="button" id="saveBtn" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">저장</button>');
+	    saveBtn.on("click", function() {
+	      saveData(); // 추후 구현 예정
+	      toggleEditMode(false);
+	    });
+	    $("#editBtn").after(saveBtn);
+	  } else {
+	    // 저장 버튼을 제거합니다.
+	    $("#saveBtn").remove();
+	  }
+	}
+	function saveData() {
+		  const admin_cs_num = $("input[name='admin_cs_num']").val();
+		  const admin_csnotice_sub = $("input[name='admin_csnotice_sub']").val();
+		  const admin_cs_view = $("input[name='admin_cs_view']").val();
+
+		  // 필요한 데이터를 서버에 POST 요청으로 전달합니다.
+		  $.ajax({
+		    type: "POST",
+		    url: "/updateContent",
+		    data: {
+		      "admin_cs_num": admin_cs_num,
+		      "admin_csnotice_sub": admin_csnotice_sub,
+		      "admin_cs_view": admin_cs_view
+		    },
+		    dataType: "json",
+		    success: function(response) {
+		      if (response.success) { // 반환 값에서 success 필드를 확인
+		        alert("데이터가 성공적으로 업데이트되었습니다.");
+		      } else {
+		        alert("데이터 업데이트 중 오류가 발생했습니다.");
+		      }
+		    },
+		    error: function() {
+		      alert("데이터 업데이트 중 오류가 발생했습니다.");
+		    }
+		  });
+		}	
 	
 
 </script>

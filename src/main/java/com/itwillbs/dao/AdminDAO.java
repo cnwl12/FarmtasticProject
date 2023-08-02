@@ -45,6 +45,16 @@ public class AdminDAO {
 	public Map<String, Object> getNotice(String admin_cs_num) {
 	    return sqlSession.selectOne(NAMESPACE + "getNotice", admin_cs_num);
 	}
+	public boolean updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("admin_cs_num", admin_cs_num);
+	        paramMap.put("admin_csnotice_sub", admin_csnotice_sub);
+	        paramMap.put("admin_cs_view", admin_cs_view);
+	        
+	        int updatedRows = sqlSession.update(NAMESPACE+"updateContent", paramMap);
+	        System.out.println("dao:"+paramMap);
+	        return updatedRows > 0;
+	}
 }
 	
 	
