@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -332,19 +334,43 @@
                             <!-- Illustrations -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">미승인 업체목록</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="${pageContext.request.contextPath}/resources/bootstrap/img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="reject-check-all"/></th>
+                                            <th>번호</th>
+                                            <th>업체명</th>
+                                            <th>대표자</th>
+                                            <th>사업장 번호</th>
+                                            <th>상태</th>
+                                            <th>가입일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
+    								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
+    								<c:forEach items="${sellers}" var="seller" varStatus="status">
+        							<c:if test="${seller.seller_recoYn != 'Y'}">
+            						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
+            						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
+            						<tr>
+                						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
+                						<td>${count}</td> <!-- 순차 카운터 표시 -->
+                						<td>${seller.seller_storeName}</td>
+                						<td>${seller.seller_name}</td>
+                						<td>${seller.seller_licenseNum}</td>
+                						<td>${seller.seller_recoYn}</td>
+                						<td>${seller.seller_joinDay}</td>
+            						</tr>
+        							</c:if>
+    								</c:forEach>
+									</tbody>
+                                </table>
+                            </div>
                                 </div>
                             </div>
 

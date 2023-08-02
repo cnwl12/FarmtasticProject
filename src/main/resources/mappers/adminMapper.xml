@@ -12,27 +12,33 @@
     </select>
     <!--공지사항 글목록 -->
     <select id="getCnotice" resultType="map">
-    	select * from admin_csnotice;  
+    	select * 
+    	from admin_csnotice
+    	ORDER BY admin_cs_num DESC;  
     </select>
    
     <select id="getNotice" resultType="map">
-    SELECT * FROM admin_csnotice WHERE admin_cs_num = #{admin_cs_num}
+    SELECT * 
+    FROM admin_csnotice 
+    WHERE admin_cs_num = #{admin_cs_num};
 	</select>
      
     <!--공지사항 글쓰기(에디터없이)-->
     <insert id="insertNotice" parameterType="String">
-    	INSERT INTO admin_csnotice (
-    	admin_id, 
-    	admin_csnotice_sub,
-    	admin_cs_view,
-    	admin_cs_file
-    	)
-    	VALUES (
-    	#{admin_id}, 
-    	#{admin_csnotice_sub}, 
-    	#{admin_cs_view},
-    	#{admin_cs_file}
-    	)
+    	  INSERT INTO admin_csnotice (
+    	  admin_id, 
+    	  admin_csnotice_sub,
+          admin_cs_day,
+      	  admin_cs_view,
+    	  admin_cs_file
+  		  )
+  		  VALUES (
+    	  #{admin_id}, 
+    	  #{admin_csnotice_sub},
+    	  #{admin_cs_day}, 
+    	  #{admin_cs_view},
+    	  #{admin_cs_file}
+  		  )
   	</insert>
    
 	 

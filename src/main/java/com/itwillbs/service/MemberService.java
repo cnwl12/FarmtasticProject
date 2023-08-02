@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -192,12 +193,30 @@ public class MemberService {
 	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}
+
+//	public MemberDTO updateReview(String id, MemberDTO reviewDetails, HttpServletRequest request) {
+//	        MemberDTO updateReview = memberDAO.getMember1(id);
+//	        if (updateReview == null) {
+//	            return null;
+//	        }
+//	        updateReview.setReview_title(reviewDetails.getReview_title());
+//	        updateReview.setReview_star(reviewDetails.getReview_star());
+//	        updateReview.setReview_content(reviewDetails.getReview_content());
+//
+//	        if (memberDAO.updateMember(updateReview) != 0) {
+//	            return updateReview;
+//	        } else {
+//	            return null;
+//	        }
+//	    }
 	    
 //	  public int removeFromWishlist(int item_num) {
 //	    return memberDAO.deleteWishlistItem(item_num);
 //	  }
 
-	
+	public void deleteWishlist(WishlistDTO wishlistDTO) {
+		memberDAO.deleteWishlist(wishlistDTO);
+	}
 	
 	
 	

@@ -58,6 +58,7 @@
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+                            <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정">수정</button>
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
            					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
@@ -69,10 +70,13 @@
                          			<tr>
                          				
                          				<td>
-                         				<img src="${content.admin_cs_file}" style="width: 30px; height : 20px"><br>
-                         				<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
-                         				</td>
-                         			
+    										<c:choose>
+        										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
+            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
+        										</c:when>
+    										</c:choose>
+    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
+										</td>
                          			</tr>
                          		</table>
                             </div>

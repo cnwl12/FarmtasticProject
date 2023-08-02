@@ -160,7 +160,10 @@
   </insert>
   
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
-    SELECT * FROM review WHERE item_num = #{item_num}
+    select m.member_name, r.member_num, r.review_star, r.review_title,r.review_content, r.review_day
+from review r left join member m
+on r.member_num = m.member_num 
+WHERE item_num = #{item_num}
   </select>
   
   <!-- 마이페이지 용 -->
@@ -232,5 +235,12 @@ WHERE member_num = #{member_num};
 	  INSERT INTO like_farm (member_num, item_num, like_farm_day)
 	  VALUES (#{member_num}, #{item_num}, now())
   </insert>
+  
+  <delete id="deleteWishlist">
+  	DELETE 
+  	FROM like_farm
+  	WHERE item_num = #{item_num} 
+  	AND member_num = #{member_num}
+  </delete>
   
 </mapper>
