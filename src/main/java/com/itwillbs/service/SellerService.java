@@ -40,7 +40,7 @@ public class SellerService {
 		 * sellerDAO.sellerCheck(sellerInfoList); }
 		 */
 		
-		public SellerDTO sellerCheck(String seller_id) {
+		public Map<String, Object> sellerCheck(String seller_id) {
          System.out.println("SellerService sellerCheck()");
          
          return sellerDAO.sellerCheck(seller_id);

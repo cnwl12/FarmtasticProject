@@ -4,16 +4,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="adminMapper"> <!-- 파일이름x / 예명  -->
-
+	<!--관리자 로그인-->
 	 <select id="adminCheck" parameterType="String" resultType="com.itwillbs.domain.AdminDTO">
         SELECT admin_id, admin_pass
         FROM admin
         WHERE admin_id = #{admin_id}
     </select>
-    	<select id="getCnotice" resultType="map">
+    <!--공지사항 글목록 -->
+    <select id="getCnotice" resultType="map">
     	select * from admin_csnotice;  
-   </select>
-     <insert id="insertNotice" parameterType="String">
+    </select>
+   
+    <select id="getNotice" resultType="map">
+    SELECT * FROM admin_csnotice WHERE admin_cs_num = #{admin_cs_num}
+	</select>
+     
+    <!--공지사항 글쓰기(에디터없이)-->
+    <insert id="insertNotice" parameterType="String">
     	INSERT INTO admin_csnotice (
     	admin_id, 
     	admin_csnotice_sub,

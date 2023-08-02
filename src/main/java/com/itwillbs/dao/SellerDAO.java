@@ -31,7 +31,7 @@ public class SellerDAO {
 		}
 		
 		// 판매자 ID 중복체크
-		public SellerDTO sellerCheck(String seller_id) {
+		public Map<String, Object> sellerCheck(String seller_id) {
 			System.out.println("SellerDAO sellerCheck");
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
 		}
