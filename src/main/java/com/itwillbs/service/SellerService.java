@@ -56,12 +56,18 @@ public class SellerService {
 			System.out.println("SellerService의 updateSeller 매핑완");
 			sellerDAO.updateSeller(sellerInfo);
 		}
-		
-		// 선진) getDailySales 요일별 매출 가져오는 차트
-		public List<Map<String, Object>> getDailySales(String seller_num) {
+
+		// 선진) 한달간 매일 총 매출 가져오는 차트	
+		public List<Map<String,Object>> getDailySales() {
 			System.out.println("SellerService의 getDailySales 매핑완");
-			return sellerDAO.getDailySales(seller_num);
-		}   
+			return sellerDAO.getDailySales();
+		}
+
+		
+		
+		
+		
+		
 
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
@@ -132,6 +138,8 @@ public class SellerService {
 			System.out.println("업데이트 서비스 오는지");
 			sellerDAO.itemUpdate(itemList);
 		}
+
+
 
 
 

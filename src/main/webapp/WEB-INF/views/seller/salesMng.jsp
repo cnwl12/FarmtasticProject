@@ -67,7 +67,7 @@
 							<div class="text-center">
 								<div data-toggle="buttons" class="btn-group btn-group-customize">
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay">
-										<input type="radio">이번달 요일별 매출
+										<input type="radio">이번달 일자별 매출
 									</label>
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer">
 										<input type="radio">최근 6개월매출
@@ -77,7 +77,8 @@
 									</label>
 								</div>
 							</div>
-
+						</div>
+					</div>
 					<!-- 매출통계그래프 -->
 					
 					<!-- 월별 매출 테이블 시작 -->
@@ -87,52 +88,8 @@
 					<div>
 					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
 					</div>
+					
 					<script>
-					const ctx = document.getElementById('getDailySalesChart');
-
-				    // 현재 월의 첫째 날과 마지막 날을 가져오는 함수
-				    function getCurrentMonthRange() {
-				      const today = new Date();
-				      const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-				      const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-				      return { startDate, endDate };
-				    }
-
-				    // 현재 월의 날짜를 한국어로 가져오는 함수
-				    function getDaysInCurrentMonth() {
-				      const { startDate, endDate } = getCurrentMonthRange();
-				      const days = [];
-				      for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-				        const day = currentDate.getDate(); // 일자를 가져옴
-				        days.push(`${currentDate.getMonth() + 1}월 ${day}일`);
-				      }
-				      return days;
-				    }
-
-				    // 일별 매출액 데이터
-				    const dailySalesData = []; 
-
-				    const days = getDaysInCurrentMonth();
-
-				    new Chart(ctx, {
-				      type: 'line',
-				      data: {
-				        // X축에 현재 월의 날짜를 한국어로, Y축에 판매액 데이터를 설정
-				        labels: days,
-				        datasets: [{
-				          label: '요일별 매출액', 
-				          data: dailySalesData,
-				          borderWidth: 1
-				        }]
-				      },
-				      options: {
-				        scales: {
-				          y: {
-				            beginAtZero: true
-				          }
-				        }
-				      }
-				    });
 					</script>
 					<!-- 월별 매출 테이블 끝 -->
 					

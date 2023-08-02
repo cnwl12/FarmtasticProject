@@ -69,10 +69,13 @@
                          			<tr>
                          				
                          				<td>
-                         				<img src="${content.admin_cs_file}" style="width: 30px; height : 20px"><br>
-                         				<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
-                         				</td>
-                         			
+    										<c:choose>
+        										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
+            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
+        										</c:when>
+    										</c:choose>
+    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
+										</td>
                          			</tr>
                          		</table>
                             </div>

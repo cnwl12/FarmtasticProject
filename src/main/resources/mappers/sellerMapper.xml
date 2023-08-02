@@ -75,36 +75,29 @@
   	where seller_num = #{seller_num}
     </update>
     
-   <!-- 선진) 판매자 요일별 총 매출액 -->
-   <!-- order_mmdd(주문 년월일), order_mmdd_totalSales(주문 년월일의 총매출) 반환 -->
-   <!-- 여기서 해당 월의 요일들 총 매출액만 가져오면됨 -->
+   <!-- 선진) 차트1 -->
    <select id="getDailySales" resultType="map">
-	SELECT	distinct SUBSTRING(od.order_num, 1, 8) AS order_mmdd,
-			SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 8)) AS order_mmdd_totalSales
-	FROM	order_detail od		JOIN	item it 
-	ON		od.item_num = it.item_num
-	WHERE	od.item_num IN (select	item_num
-							from	item
-<!-- 						where	seller_num = #{seller_num} -->
-							where	seller_num = 'CR0001') <!-- 일단 seller_num은 하드코딩 -->
-	ORDER BY	order_mmdd;
+   <![CDATA[
+	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
+	FROM(SELECT DATE_FORMAT(day_range, '%Y-%m-%d') AS order_mmdd
+		 FROM (SELECT DATE_ADD(DATE_FORMAT(LAST_DAY(CURRENT_DATE), '%Y-%m-01'), INTERVAL d DAY) AS day_range
+			   FROM (SELECT a.digit * 100 + b.digit * 10 + c.digit AS d
+			   		 FROM (SELECT 0 AS digit UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) a,
+				          (SELECT 0 AS digit UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) b,
+						  (SELECT 0 AS digit UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) c
+	                 WHERE a.digit * 100 + b.digit * 10 + c.digit <= DAY(LAST_DAY(CURRENT_DATE))) days) day_range 
+			   WHERE day_range <= LAST_DAY(CURRENT_DATE)) date_range
+	LEFT JOIN (SELECT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m-%d') AS order_mmdd, SUM(it.item_price * od.item_cnt) AS order_mmdd_totalSales
+			   FROM order_detail od
+			   JOIN item it ON od.item_num = it.item_num
+			   WHERE od.item_num IN (SELECT item_num FROM item WHERE seller_num = 'CR0001')
+			   GROUP BY order_mmdd) order_totals ON date_range.order_mmdd = order_totals.order_mmdd
+	ORDER BY date_range.order_mmdd;
+	]]>
    </select>
-    
-   <!-- 선진) 판매자 월별 총 매출액 -->
-   <!-- order_mm(주문 년월), order_mm_totalSales(주문 년월의 총매출)반환 -->
-   <!-- 여기서 해당 월의 총 매출액만 가져오면됨 -->
-   <select id="getMonthlySales" resultType="map">    
-    SELECT	distinct SUBSTRING(od.order_num, 1, 6) AS order_mm,
-	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS order_mm_totalSales
-	FROM	order_detail od		JOIN	item it 
-	ON		od.item_num = it.item_num
-	WHERE	od.item_num IN (select	item_num
-							from	item
-<!-- 						where	seller_num = #{seller_num} -->
-							where	seller_num = 'CR0001') <!-- 일단 seller_num은 하드코딩 -->
-	ORDER BY	order_mm;
-   </select>
-    
+   
+  
+
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller

@@ -214,7 +214,9 @@ public class MemberService {
 //	    return memberDAO.deleteWishlistItem(item_num);
 //	  }
 
-	
+	public void deleteWishlist(WishlistDTO wishlistDTO) {
+		memberDAO.deleteWishlist(wishlistDTO);
+	}
 	
 	
 	

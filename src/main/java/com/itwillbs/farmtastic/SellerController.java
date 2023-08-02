@@ -110,15 +110,16 @@ public class SellerController {
 		}
 	}
 	
-	// 선진)  getDailySales 요일별 매출 가져오는 차트
+	// 선진) 매출관리 페이지 - 차트 만들곳
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, Model model) {
 		System.out.println("SellerController의 salesMng 매핑완");
 		
-		 List<Map<String, Object>> dailySales = sellerService.getDailySales(seller_num);
-		System.out.println("가져온 dailySales : " + dailySales);
-		
-		model.addAttribute("dailySales", dailySales);
+		List<Map<String,Object>> DailySales = sellerService.getDailySales();
+	    
+	    System.out.println("제대로 가져왔나요?!!! DailySales : " + DailySales);
+	    
+	    model.addAttribute("DailySales", DailySales);
 		
 		return "/seller/salesMng";
 	}

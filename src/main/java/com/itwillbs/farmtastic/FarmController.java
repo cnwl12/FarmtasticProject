@@ -154,7 +154,8 @@ public class FarmController { // 소비자 (컨트롤러)
 			MemberDTO existingMember = memberService.nuserCheck(memberDTO);
 			if (existingMember != null) {
 				System.out.println("로그인");
-				session.setAttribute("member_nid", memberDTO.getMember_nid());
+				session.setAttribute("member_num", existingMember.getMember_num());
+
 				return "redirect:/index";
 			} else {
 				memberService.ninsertMember(memberDTO);
@@ -165,7 +166,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "errorPage"; // 오류가 발생한 경우 에러 페이지로 이동
-		} // 정상적으로 처리된 경우 authResult 페이지로 이동
+		} 
 	}
 
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
@@ -772,20 +773,24 @@ public class FarmController { // 소비자 (컨트롤러)
     } 
     
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println("찜기능하는중입니다");
-        WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
-        System.out.println(existingWishlistDTO);
-        if(existingWishlistDTO != null) {
-            modelAndView.addObject("message", "찜 목록에 상품이 없습니다.");
-        } else {
-            memberService.insertWishlist(wishlistDTO);
-            modelAndView.addObject("message", "찜 목록에 상품이 추가되었습니다.");
-        }
-        modelAndView.setViewName("ajaxView");
-        return modelAndView;
+    @ResponseBody
+    public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
+      Map<String, String> response = new HashMap<>();
+      System.out.println("찜기능하는중입니다");
+
+      WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
+      System.out.println(existingWishlistDTO);
+      if (existingWishlistDTO == null) {
+        memberService.insertWishlist(wishlistDTO);
+        response.put("message", "찜 목록에 상품이 추가되었습니다.");
+      } else {
+    	memberService.deleteWishlist(wishlistDTO);
+        response.put("message", "찜 목록에 상품을 삭제하였습니다.");
+      }
+
+      return response;
     }
+
 
 	
 }

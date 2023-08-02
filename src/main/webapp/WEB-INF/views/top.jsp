@@ -74,9 +74,7 @@
                                 </ul> -->
                           </div>      
                     </div>
-              <div class="canvas__open">
-                        <i class="fa fa-bars"></i>
-              </div>
+           
         </div>
     </header>
     <!-- Header Section End -->
@@ -114,8 +112,8 @@
                                     모든 카테고리
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <section class="search">
-                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
+                                <section class="search">											<!-- autocomplete="off" -->
+                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" >
                                   <div class="autocomplete"></div>
                                 </section>
                                 <button type="submit" class="site-btn">검색</button>
@@ -127,9 +125,9 @@
         </div>
     </section>
     <!-- Hero Section End -->
-
+<%-- 
     <c:if test="${not empty itemList}">
-    <%-- Search Result Section Begin --%>
+    Search Result Section Begin
         <section class="product spad">
             <div class="container">
                 <div class="row">
@@ -154,12 +152,12 @@
                                                     </div> -->
                             <div class="col-lg-4 text-right">
                                 <div class="dropdown">
-                                    <%-- 검색 조건 드롭다운 --%>
+                                    검색 조건 드롭다운
                                     <button class="btn btn-secondary dropdown-toggle full-width-btn" type="button" id="filter_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         검색 조건
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="filter_dropdown">
-                                        <%-- 제품명 검색 --%>
+                                        제품명 검색
                                         <form class="form-inline my-2 my-lg-0" action="./search" method="get">
                                             <input class="form-control mr-sm-2" name="query" type="text" placeholder="제품명 검색" aria-label="Search" value="${query}">
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
@@ -171,16 +169,16 @@
 												<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">전체 카테고리</button>
 											</form>
 										</c:if>
-                                        <%-- 카테고리 검색 --%>
+                                        카테고리 검색
                                         <form class="form-inline my-2 my-lg-0" action="./search" method="get">
                                             <input class="form-control mr-sm-2" name="query" type="hidden" value="${query}">
                                             <div class="form-group">
                                                 <select class="form-control" name="category">
-                                                    <%-- 전체 카테고리 --%>
+                                                    전체 카테고리
                                                     <option value="">
                                                         모든 카테고리
                                                     </option>
-                                                    <%-- DB에서 조회한 카테고리 목록 --%>
+                                                    DB에서 조회한 카테고리 목록
                                                     <c:forEach items="${categories}" var="category">
                                                         <option value="${category}">${category}</option>
                                                     </c:forEach>
@@ -207,7 +205,7 @@
                     </div>
                 </div>
                 <div class="row property__gallery">
-                    <%-- DB에서 조회한 상품 목록 출력 --%>
+                    DB에서 조회한 상품 목록 출력
                     <c:forEach items="${itemList}" var="item">
                         <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                             <div class="product__item">
@@ -221,9 +219,9 @@
                                 <div class="product__item__text">
                                     <h6><a href="${pageContext.request.contextPath}/shop-details?item_num=${item.item_num}">${item.item_name }</a></h6>
                                     <div class="rating">
-                                        <%-- 별점 --%>
-                                        <%-- 50점당 별 1개 --%>
-                                        <%-- 예) 4.7 => ★★★★★★☆☆☆ --%>
+                                        별점
+                                        50점당 별 1개
+                                        예) 4.7 => ★★★★★★☆☆☆
                                         <c:set var="rating" value="${item.review_avg_score div 10 }" />
                                         <c:forEach begin="1" end="5" var="i">
                                             <c:if test="${i le rating }">
@@ -234,7 +232,7 @@
                                             </c:if>
                                         </c:forEach>
                                     </div>
-                                    <%-- 가격 --%>
+                                    가격
                                     <div class="product__price">${item.item_price }원</div>
                                 </div>
                             </div>
@@ -243,8 +241,8 @@
                 </div>
             </div>
         </section>
-    <%-- Search Result Section End --%>
-    </c:if>
+    Search Result Section End
+    </c:if> --%>
     
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
@@ -256,17 +254,18 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
+   <%-- 
     <script>
     function goToSearchdPage() {
         location.href = "${pageContext.request.contextPath}/member/searchd";
     }
     
     $(document).ready(function() {
-        <%-- 자동완성을 위한 ajax 요청 --%>
+        자동완성을 위한 ajax 요청
         $("#searchQuery").keyup(function() {
-            <%-- 현재 입력된 검색어 --%>
+            현재 입력된 검색어
             var query = $(this).val();
-            <%-- ajax 요청 --%>
+            ajax 요청
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/autocomplete",
@@ -281,6 +280,6 @@
         });
     });
     </script>
-    
+  --%>   
 </body>
 </html>

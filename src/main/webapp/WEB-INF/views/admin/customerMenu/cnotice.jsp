@@ -63,17 +63,19 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>작성번호</th>
+                                            <th class="sorting sorting_desc">작성번호</th>
                                             <th>작성자</th>
                                             <th>제목</th>
+                                            <th>작성날짜</th>
                                         
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                           <th>작성번호</th>
+                                           <th class="sorting sorting_desc">작성번호</th>
                                             <th>작성자</th>
                                             <th>제목</th>
+                                            <th>작성날짜</th>
                                             
                                         </tr>
                                     </tfoot>
@@ -83,6 +85,7 @@
                                         	<td>${list.admin_cs_num}</td>
                                             <td>${list.admin_id}</td>
                                             <td><a href="${pageContext.request.contextPath}/contenttest?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
+                                        	<td>${list.admin_cs_day}</td>
                                         </tr>
                                      </c:forEach>   
                                     </tbody>
