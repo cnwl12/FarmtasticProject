@@ -146,11 +146,12 @@ public class SellerService {
 			sellerDAO.itemSold(itemList);
 		}
 
-
-
-
-
-
 		
+		/* 판매자 로그인 sungha*/
+		public SellerDTO sellerCheck1(SellerDTO sellerDTO) {
+		    System.out.println("SellerService sellerCheck1()");
+		    
+		    return sellerDAO.sellerCheck1(sellerDTO);
+	    }	        
 		
 }

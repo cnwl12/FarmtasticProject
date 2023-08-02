@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.service.SellerService;
 
 @Controller
@@ -347,19 +348,16 @@ public class SellerController {
 	
 	/* sungha 사업자로그인.... */
 
-	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
-	public String sellerloginPro(HttpServletRequest request, HttpSession session) {
+
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.POST)
+	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session) {
 	    System.out.println("SellerController sellerloginPro()");
-	    String seller_id = request.getParameter("seller_id");
-
-	    Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
-
-	    if (sellerDTO != null) {
-	        session.setAttribute("seller_id", seller_id);
-	        return "redirect:/sellerMain";
-	    } else {
-	    	
-	        return "redirect:/login";
-	    }
+	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
+		if (sellerDTO2 != null) {
+			session.setAttribute("seller_id", sellerDTO2.getSeller_id());
+			return "redirect:/sellerMain";
+		} else {
+			return "redirect:/login";
+		}
 	}
 }

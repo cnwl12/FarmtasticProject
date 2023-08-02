@@ -264,7 +264,16 @@
         	 ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, 
         	 #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
     </insert>   
-
+	
+	<!-- 판매자 로그인체크 성하 -->
+    <select id="sellerCheck1" resultType="com.itwillbs.domain.SellerDTO">
+    select * from seller 
+    where seller_id = #{seller_id}
+    <if test="seller_pass != null">
+  	  and seller_pass = #{seller_pass}
+  	  </if>
+  	</select>
+	
 
    
 </mapper>

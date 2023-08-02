@@ -140,4 +140,11 @@ public class SellerDAO {
 			sqlSession.update(namespace+".itemSold", itemList);
 		}
 
+		// 판매자 ID 로그인-성하
+		public SellerDTO sellerCheck1(SellerDTO sellerDTO) {
+			System.out.println("SellerDAO sellerCheck1()");
+			return sqlSession.selectOne(namespace+".sellerCheck1", sellerDTO);
+		}
+
+
 }

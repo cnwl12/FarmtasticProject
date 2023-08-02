@@ -81,7 +81,7 @@ public class MemberService {
 		return memberDAO.getMember1(member_num);
 	}
 	
-	/* 검색기능 구현중 ha*/
+	/* 검색기능 ha*/
 
 	
 

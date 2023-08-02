@@ -118,7 +118,7 @@
 						<!-- login2-wrap -->
 						<div id="business-login-wrap" class="login-wrap PC tab-phone" style="display: none;">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerloginPro" id="login2" name="login2" method="GET">
+							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerloginPro" id="login2" name="login2" method="POST">
 							<div class="join-info2">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>
@@ -127,7 +127,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="loginId2" id="loginId2" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="seller_id" id="loginId2" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
 												<div id="invalid_id1" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -138,7 +138,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="pwd2" id="pwd2" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="seller_pass" id="pwd2" value="">
 												<div id="invalid_pass1" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
