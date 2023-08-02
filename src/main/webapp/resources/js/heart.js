@@ -1,14 +1,27 @@
 /**
  * 
  */
+ document.addEventListener("DOMContentLoaded", function () {
+  // 페이지 로드 완료 시 모든 위시리스트 버튼 참조
+  var wishlistBtns = document.querySelectorAll(".wishlist-btn");
+
+  // 각 버튼에 대한 이벤트 리스너 추가
+  Array.prototype.forEach.call(wishlistBtns, function (btn) {
+    btn.addEventListener("click", function (event) {
+      var member_num = event.target.parentElement.getAttribute("data-member-num");
+      var item_num = event.target.parentElement.getAttribute("data-item-num");
+
+      add(event, member_num, item_num);
+    });
+  });
+});
  
 
   function add(event, member_num, item_num) {
   // 함수 본문 작성
-  if (member_num == null || member_num == "") {
-    alert(member_num);
+ 	if (member_num == null || member_num == "") {
     alert("로그인이 필요한 서비스입니다.");
-    window.location.href = "login.jsp";
+    window.location.href = "login";
   } else {
     $.ajax({
       url: "add?item_num=" + item_num,
