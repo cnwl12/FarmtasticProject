@@ -118,7 +118,7 @@
 						<!-- login2-wrap -->
 						<div id="business-login-wrap" class="login-wrap PC tab-phone" style="display: none;">
 							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
-							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerMain" id="login2" name="login2" method="post">
+							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerloginPro" id="login2" name="login2" method="GET">
 							<div class="join-info2">
 								<fieldset>
 									<legend>로그인 정보 입력</legend>

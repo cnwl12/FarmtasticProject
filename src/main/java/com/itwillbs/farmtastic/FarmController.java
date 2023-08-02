@@ -180,8 +180,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	
-	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) public
-	   String kakaocallback(Locale locale, Model model) {
+	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) 
+	   public String kakaocallback(Locale locale, Model model) {
 	   
 	   System.out.println("kakaocallback 매핑확인여부");
 	  
@@ -343,7 +343,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/parcel";
 	}
-	/* 검색기능구현중 ha*/
+	/* 검색기능*/
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
 	public String searchd(Locale locale, Model model) {
 
@@ -517,7 +517,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 777; // <- 로그인 됐을 때 지울거임
+		int member_num = 7; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -537,7 +537,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 777; // <- 로그인 됐을 때 지울거임
+		int member_num = 7; // <- 로그인 됐을 때 지울거임
 
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -552,7 +552,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 777; // <- 로그인 됐을 때 지울거임
+		int member_num = 7; // <- 로그인 됐을 때 지울거임
 		System.out.println(member_num + ", "+ cart);
 		
 		cart.put("member_num", member_num);
@@ -571,11 +571,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		System.out.println("checkout 매핑확인여부");
 		
-		int member_num = 777;
+		int member_num = 7;
+		
+		memberService.getMember1(member_num);
 		
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
-		 
+		MemberDTO memberDTO = memberService.getMember1(member_num);
+		model.addAttribute("memberDTO", memberDTO);
+		
 		
 		return "/member/checkout";
 		
@@ -590,7 +594,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 		
-		int member_num = 777; // <- 로그인 됐을 때 지울거임
+		int member_num = 7; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 		
 //		orderDetail.put("member_num", member_num);
@@ -606,7 +610,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
 	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session){
 		
-		int member_num = 777;
+		int member_num = 7;
 		cart.put("member_num", member_num);
 		
 		System.out.println("deleteCart 컨트롤러 오는지");

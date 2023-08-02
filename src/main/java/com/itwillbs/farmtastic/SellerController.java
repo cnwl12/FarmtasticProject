@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
@@ -36,7 +37,7 @@ public class SellerController {
 	
 	// 로그인 기능이 없어서 일단 판매자 정보 페이지에 접속하면 이 판매자가 뜨게 하드코딩함
 	// 로그인해서 세션으로 값 가져오면 삭제할 코드
-	String seller_num = "CT0001"; 
+	 String seller_num = "TA002"; 
 	
 
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
@@ -126,6 +127,7 @@ public class SellerController {
 		System.out.println("memberMng 매핑확인여부");
 		return "/seller/memberMng";
 	}
+
 
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
@@ -233,15 +235,31 @@ public class SellerController {
 	    return "redirect:/itemInsertList";
 	}
 	
-	@RequestMapping(value = "/itemInsertList", method = RequestMethod.GET)
-	public String itemInsertList(Locale locale, Model model) {
-		
-		System.out.println("itemInsertList 매핑확인여부");
-		
-		 List<Map<String, Object>> itemList = sellerService.getItems();
-		 model.addAttribute("itemList", itemList);
+	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
+	public String itemMng(Model model, HttpSession session) {
+	    // 삭제예정 
+	    String seller_num = "TA002";
 	    
-	    return "/seller/itemInsertList";
+	    session.setAttribute("seller_num", seller_num);
+	    System.out.println("itemInsertList 매핑확인여부");
+	    
+	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
+	    
+	    model.addAttribute("itemList", itemList);
+	    System.out.println(seller_num);
+	    
+	    return "/seller/itemMng";
+	}
+	
+	
+	@RequestMapping(value = "/itemSold", method = RequestMethod.GET)
+	public String itemSold(@RequestParam HashMap<String, String> itemList, HttpServletRequest session){
+		
+		String seller_num = "TA002";
+		
+		sellerService.itemSold(itemList);
+	  
+	    return "redirect:/seller/itemMng";
 	}
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
@@ -257,13 +275,15 @@ public class SellerController {
 		 
 		 Map<String, Object> item = sellerService.getItem(item_num);
 		
+		 model.addAttribute("item_num", item_num);
 		 model.addAttribute("item", item);
 	    
 	    return "/seller/itemUpdate";
 	}
 	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
-	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
+	public String itemUpdatePro(@RequestParam("item_num") int item_num,
+								@RequestParam HashMap<String, String> itemList,
 								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 		
 			System.out.println("updatePro 오는지");
@@ -303,7 +323,7 @@ public class SellerController {
             
 			sellerService.itemUpdate(itemList, files, session);
 	
-			return "redirect:/itemInsertList";
+			return "redirect:/itemMng";
 	}
 	
 	@RequestMapping("/ch_test")
@@ -324,4 +344,22 @@ public class SellerController {
 		return model;
 	}
 	
+	
+	/* sungha 사업자로그인.... */
+
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+	public String sellerloginPro(HttpServletRequest request, HttpSession session) {
+	    System.out.println("SellerController sellerloginPro()");
+	    String seller_id = request.getParameter("seller_id");
+
+	    Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
+
+	    if (sellerDTO != null) {
+	        session.setAttribute("seller_id", seller_id);
+	        return "redirect:/sellerMain";
+	    } else {
+	    	
+	        return "redirect:/login";
+	    }
+	}
 }

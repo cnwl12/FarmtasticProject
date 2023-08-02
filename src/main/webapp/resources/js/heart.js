@@ -1,6 +1,22 @@
 /**
  * 
  */
+ 
+$(document).ready(function() {
+  $(".wishlist-btn").on("click", function (event) {
+    event.preventDefault();
+    var heartIconSpan = $(this).find("span");
+
+    // 조건문을 원래의 반대로 변경합니다.
+    if (!heartIconSpan.hasClass("icon_heart_red")) {
+      heartIconSpan.removeClass("icon_heart_alt").addClass("icon_heart_red");
+    } else {
+      heartIconSpan.removeClass("icon_heart_red").addClass("icon_heart_alt");
+    }
+  });
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // 페이지 로드 완료 시 모든 위시리스트 버튼 참조
   var wishlistBtns = document.querySelectorAll(".wishlist-btn");

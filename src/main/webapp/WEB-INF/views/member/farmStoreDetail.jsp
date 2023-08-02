@@ -176,7 +176,12 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                         </div>  
                         <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a href="#" class="heart-icon wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+  <span class="${wishlist.contains(item.item_num) ? 'icon_heart_red' : 'icon_heart_alt'}"></span>
+</a>
+
+
+                        
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -486,6 +491,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 	 <!-- Js Plugins -->
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
@@ -679,6 +685,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 	
 </body>
 
