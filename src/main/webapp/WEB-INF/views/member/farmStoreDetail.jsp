@@ -441,7 +441,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
-                        <div class="product__item__text">
+                        <div class="product__item__text"> 
                             <h6><a href="#">Crab Pool Security</a></h6>
                             <h5>$30.00</h5>
                         </div>
