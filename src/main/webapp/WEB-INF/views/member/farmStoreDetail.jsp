@@ -279,11 +279,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
         							<thead>
             						<tr>
                 					<th>번호</th>
-                					<th>별점</th>
                 					<th>작성자</th>
-                					<th>작성일</th>
+                					<th>별점</th>
                 					<th>제목</th>
                 					<th>내용</th>
+                					<th>작성일</th>
 <!--                 					<th>이미지</th> -->
            							</tr>
         							</thead>
@@ -625,15 +625,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     $("#getItemReviews tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
                     var rows = "";
-                    for (var i = 0; i < reviews.length; i++) {
+                    for (var i = reviews.length - 1; i >= 0; i--) {
                         var review = reviews[i];
                         rows += "<tr>" +
                             "<td>" + (i + 1) + "</td>" +
+                            "<td>" + review.member_name + "</td>" +
                             "<td class='review-star'>" + review.review_star + "</td>" +
-                            "<td>" + review.member_num + "</td>" +
-                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
+                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
 //                             "<td>" + review.review_img + "</td>" +
                         "</tr>";
                     }

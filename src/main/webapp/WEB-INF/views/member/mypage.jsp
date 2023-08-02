@@ -39,6 +39,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+<style>
+.star {
+	color : lightgray;
+	cursor : pointer;
+}
+.review-star {
+	color : orange;
+}
+
+.star.selected {
+  color: orange;
+}
+</style>
+
 </head>
 
 <body>
@@ -241,13 +255,40 @@
 			
 			<div id="menu3_cont">
 			<h4>나의 리뷰</h4>
+			<button class="site-btn" id="edit-review-button" type="">수정</button>			
+			<button class="site-btn" id="delete-review-button" type="">삭제</button>
+				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
+				transform: translate(-50%, -50%);  width: 500px; height: 300px; border: 1px solid #ccc;
+				 padding: 20px; background-color: white;">
+		        <h5>리뷰 수정</h5>
+        		<p>수정할 리뷰의 정보를 입력하세요:</p>
+        		<form id="edit-review-form">
+            	<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
+            	<div class="form-group">
+            	<div class="rating">
+  				<span class="star" data-value="1">★</span>
+  				<span class="star" data-value="2">★</span>
+  				<span class="star" data-value="3">★</span>
+ 				<span class="star" data-value="4">★</span>
+  				<span class="star" data-value="5">★</span>
+  				<input type="hidden" id="review_star" name="review_star" value="">
+				</div>
+				</div>
+            	<br>
+           	 	<input type="text" id="review-title"><br>
+            	<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
+            	<button type="submit" class="site-btn">저장</button>
+            	<button type="button" class="site-btn" id="close-edit-popup">취소</button>
+        		</form>
+    			</div>
+			
 				<div class="reviews-list">
 				<input type="hidden" name="member_num" value="${sessionScope.member_num}">
 				<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
     			<table class="table" id="getItemMyReview" >
         		<thead>
             	<tr>
-            	<th>번호</th>
+            	<th>리뷰</th>
             	<th>별점</th>
             	<th>상품명</th>
             	<th>제목</th>
@@ -257,23 +298,7 @@
            		</tr>
         		</thead>
         		<tbody>
-            	<%-- <c:set var="total" value="${fn:length(reviews)}" />
-            	<c:if test="${total eq 0}">
-            	<tr>
-            	<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
-            	</tr>
-            	</c:if>
-            	<c:set var="count" value="0" />
-            	<c:forEach items="${reviews}" var="review" varStatus="status">
-            	<c:set var="reversedCount" value="${total - status.index}" />
-            	<c:set var="count" value="${count + 1}" />
-            	<tr>
-            	<td>${count}</td>
-            	<td class="review-star"><c:out value="${review.review_star}"/></td>
-            	<td>${review.member_num}</td>
-            	<td class="review-date"><c:out value="${review.review_day}"/></td>
-            	<td>${review.review_title}</td>
-            	<td>${review.review_content}</td>
+            	<%-- 
             	<td>${review.review_img}</td>
            	 	</tr>
             	</c:forEach> --%>
@@ -441,10 +466,10 @@ $(document).ready(function() {
                     $("#getItemMyReview tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
                     var rows = "";
-                    for (var i = 0; i < myreview.length; i++) {
+                    for (var i = myreview.length - 1; i >= 0; i--) {
                         var review = myreview[i];
                         rows += "<tr>" +
-                            "<td>" + (i + 1) + "</td>" +
+                        "<td><input type='checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
                             "<td class='review-star'>" + review.review_star + "</td>" +
                             "<td>" + review.item_name + "</td>" +
                             "<td>" + review.review_title + "</td>" +
@@ -499,7 +524,162 @@ $(document).ready(function() {
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+	  const stars = document.querySelectorAll(".star");
 
+	  stars.forEach(function (star) {
+	    // 각 별 요소에 클릭 이벤트 핸들러를 추가
+	    star.addEventListener("click", function () {
+	      const clickedStarValue = parseInt(this.getAttribute("data-value"));
+
+	      // 별에 selected 클래스를 초기화
+	      stars.forEach((star) => star.classList.remove("selected"));
+
+	      // 클릭한 별 이전의 별들에 'selected' 클래스 추가
+	      for (let i = 0; i < clickedStarValue; i++) {
+	        stars[i].classList.add("selected");
+	      }
+
+	      // hidden input 요소의 값을 클릭한 별의 data-value로 변경
+	      document.querySelector("#review_star").value = clickedStarValue;
+	    });
+	  });
+	});
+</script>
+
+<script type="text/javascript">
+//리뷰 수정 버튼 클릭 시 리뷰 수정 팝업 열기
+$(".edit-review-btn").on("click", function () {
+  let checkedReview = $('input[name="review"]:checked');
+  if (checkedReview.length === 0) {
+    alert("선택된 리뷰가 없습니다.");
+    return;
+  } else if (checkedReview.length > 1) {
+    alert("하나의 리뷰만 선택해주세요.");
+    return;
+  }
+
+  // 체크된 리뷰 id 가져오기
+  let id = checkedReview.val();
+
+  // 선택한 리뷰 데이터 가져오기
+  let reviewData = reviews.find(function (review) {
+    return review.id === Number.parseInt(id);
+  });
+
+  // 수정 완료 버튼 클릭 시 서버에 전송하도록 이벤트 등록
+  $("#submit-edit-review-btn").off("click").on("click", function () {
+    reviewData.title = $("#edit-review-popup input#review-title").val();
+    reviewData.star = $("input[name='review_star']:checked").val();
+    reviewData.content = $("#edit-review-popup textarea#review_content").val();
+
+    $.ajax({
+      type: "PUT",
+      url: "/api/reviews/" + id,
+      data: JSON.stringify(reviewData),
+      contentType: "application/json",
+      success: function (result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function (error) {
+        console.error("리뷰 수정 실패", error);
+        alert("리뷰 수정에 실패하였습니다. 다시 시도해주세요.");
+      }
+    });
+  });
+
+  // 수정 폼 노출하기
+  $("#edit-review-popup input#review-title").val(reviewData.title);
+  $("#edit-review-popup input[name='review_star'][value='" + reviewData.star + "']").prop("checked", true);
+  $("#edit-review-popup textarea#review_content").val(reviewData.content);
+  $("#edit-review-popup").show();
+});
+
+// 서버에서 리뷰 목록을 조회할 때, DB에서 갱신된 데이터를 가져오도록 설정 (예시)
+app.get('/api/reviews', function(req, res) {
+  Review.find({}, function(error, reviews) {
+    if (error) {
+      console.error("리뷰 목록 조회 실패", error);
+      res.json({ success: false, message: '리뷰 목록 조회 실패' });
+    } else {
+      res.json({ success: true, message: '리뷰 목록 조회 완료', data: reviews });
+    }
+  });
+});
+
+// DB에서 리뷰 데이터를 업데이트하는 코드 (예시)
+app.put('/api/reviews/:id', function(req, res) {
+  let id = req.params.id;
+  let data = req.body;
+
+  Review.findByIdAndUpdate(id, { $set: data }, { new: true }, function (error, updatedReview) {
+    if (error) {
+      console.error("리뷰 수정 실패", error);
+      res.json({ success: false, message: '리뷰 수정 실패' });
+    } else {
+      res.json({ success: true, message: '리뷰 수정 완료', data: updatedReview });
+    }
+  });
+});
+// $(document).ready(function () {
+// 	  // 리뷰 수정 버튼 클릭 이벤트
+// 	  $("#edit-review-button").on("click", function () {
+// 	    // 체크한 리뷰들 가져오기
+// 	    let selectedReviews = $("input[name^='review_']:checked");
+
+// 	    if (selectedReviews.length === 0) {
+// 	        alert("수정할 리뷰를 선택하세요.");
+// 	        return;
+// 	    }
+
+// 	    if (selectedReviews.length !== 1) {
+// 	        alert("한 번에 하나의 리뷰만 수정할 수 있습니다.");
+// 	        return;
+// 	    }
+
+// 	    // 선택한 리뷰의 데이터를 가져와 팝업에서 보여주거나 수정 가능한 input으로 만듭니다.
+// 	    let selectedTitle = $(selectedReviews[0]).closest("tr").find("td:nth-child(4)").text();
+// 	    let selectedStar = $(selectedReviews[0]).closest("tr").find("td:nth-child(1)").text();  
+// 	    let selectedContent = $(selectedReviews[0]).closest("tr").find("td:nth-child(5)").text();
+// 	    // 선택한 리뷰의 제목을 팝업의 input으로 채우기
+// 	    $("#edit-review-popup input#review-title").val(selectedTitle);
+// 	    // 선택한 리뷰의 별점을 팝업의 별에 채우기
+// 	    $(".star[data-value='" + selectedStar + "']").trigger('click'); // ★ 버튼의 data-value 값을 찾아서 클릭 이벤트 발생
+// 	    // 선택한 리뷰의 내용을 팝업의 textarea에 채우기
+// 	    $("#edit-review-popup textarea#review_content").val(selectedContent);
+	    
+// 	    // 팝업 열기
+// 	    $("#edit-review-popup").show();
+// 	  });
+
+// 	  // 팝업 닫기 이벤트 (취소 버튼 누를 때)
+// 	  $("#close-edit-popup").on("click", function () {
+// 	    $("#edit-review-popup").hide();
+// 	  });
+
+// 	  // 팝업의 form submit 이벤트
+// 	  $("#edit-review-form").on("submit", function (event) {
+// 	    // 이벤트 기본 동작(페이지 새로고침) 중단
+// 	    event.preventDefault();
+
+// 	    // 팝업에서 사용자가 입력한 수정 내용 가져오기
+// 	    let updatedReviewTitle = $("#edit-review-popup input#review-title").val();
+// 	    let updatedReviewStar = $("#edit-review-popup input#review_star").val();
+// 	    let updatedReviewContent = $("#edit-review-popup textarea#review_content").val();
+
+// 	    // 페이지의 테이블에 있는 해당 리뷰 항목에 수정된 내용 적용
+// 	    let selectedReviews = $("input[name^='review_']:checked");
+// 	    $(selectedReviews[0]).closest("tr").find("td:nth-child(4)").text(updatedReviewTitle);
+// 	    $(selectedReviews[0]).closest("tr").find("td:nth-child(1)").text(updatedReviewStar);
+// 	    $(selectedReviews[0]).closest("tr").find("td:nth-child(5)").text(updatedReviewContent);
+
+// 	    // 팝업 창 닫기
+// 	    $("#edit-review-popup").hide();
+// 	  });
+// 	});
+</script>
     
 </body>
 </html>

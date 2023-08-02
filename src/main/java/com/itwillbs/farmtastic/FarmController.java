@@ -22,11 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -729,7 +732,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	
-	//마이페이지 - 리뷰관리 -> 리뷰목록 작업중
+	//마이페이지 - 리뷰관리 -> 리뷰목록 
 	@RequestMapping(value = "/getItemMyReview", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemMyReview(@RequestParam("member_num") Integer member_num) {
@@ -737,6 +740,20 @@ public class FarmController { // 소비자 (컨트롤러)
 		 return myreview;
 	}
 	
+//	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중
+//	@RequestMapping(value = "/api/reviews/{id}", method = RequestMethod.PUT)
+//    @ResponseBody
+//    public ResponseEntity<MemberDTO> updateReview(
+//            @PathVariable String id,
+//            @Validated @RequestBody MemberDTO reviewDetails,
+//            HttpServletRequest request) {
+//        MemberDTO updateReview = memberService.updateReview(id, reviewDetails, request);
+//        if (updateReview == null) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return new ResponseEntity<>(updateReview, HttpStatus.OK);
+//    }
+
 	
 	
 	// 서영 작업중

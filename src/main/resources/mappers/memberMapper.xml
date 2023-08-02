@@ -160,7 +160,10 @@
   </insert>
   
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
-    SELECT * FROM review WHERE item_num = #{item_num}
+    select m.member_name, r.member_num, r.review_star, r.review_title,r.review_content, r.review_day
+from review r left join member m
+on r.member_num = m.member_num 
+WHERE item_num = #{item_num}
   </select>
   
   <!-- 마이페이지 용 -->
