@@ -88,7 +88,6 @@
 					<div>
 					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
 					</div>
-					
 					<script>
 					</script>
 					<!-- 월별 매출 테이블 끝 -->
