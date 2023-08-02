@@ -28,6 +28,7 @@ public class MemberDTO {
 	private int review_num;
 	private int order_num;
 	private int item_num;
+	private String item_name;
 	
 	private int review_star;
 	private String review_title;
@@ -214,6 +215,14 @@ public class MemberDTO {
 	}
 	public void setReview_day(Date review_day) {
 		this.review_day = review_day;
+	}
+
+	public String getItem_name() {
+		return item_name;
+	}
+
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
 	
 	
