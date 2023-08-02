@@ -87,52 +87,104 @@
 					<div>
 					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
 					</div>
+					
 					<script>
-					const ctx = document.getElementById('getDailySalesChart');
+					const config = {
+							  type: 'line',
+							  data: {},
+							  options: {
+							    responsive: true,
+							    plugins: {
+							      legend: {
+							        position: 'top',
+							      },
+							      title: {
+							        display: true,
+							        text: '요일별 판매량 차트'
+							      }
+							    }
+							  },
+							};
+					
+					// DAO에서 데이터를 가져오는 함수
+					function fetchChartData() {
+					  
+					  const daysArray = sellerDAO.getDaysArray();
+					  const dailySalesArray = sellerDAO.getDailySalesArray();
 
-				    // 현재 월의 첫째 날과 마지막 날을 가져오는 함수
-				    function getCurrentMonthRange() {
-				      const today = new Date();
-				      const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-				      const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-				      return { startDate, endDate };
-				    }
+					  config.data = {
+					    labels: daysArray, // daysArray에는 레이블 (날짜) 데이터가 들어있다고 가정합니다.
+					    datasets: [
+					      {
+					        label: '일일 매출',
+					        data: dailySalesArray, // dailySalesArray에는 해당 날짜의 매출 데이터가 들어있다고 가정합니다.
+					        borderColor: Utils.CHART_COLORS.red,
+					        backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+					      },
+					    ],
+					  };
+					}
+					
+					const actions = [
+						  {
+						    name: 'Randomize',
+						    handler(chart) {
+						      chart.data.datasets.forEach(dataset => {
+						        dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
+						      });
+						      chart.update();
+						    }
+						  },
+						  {
+						    name: 'Add Dataset',
+						    handler(chart) {
+						      const data = chart.data;
+						      const dsColor = Utils.namedColor(chart.data.datasets.length);
+						      const newDataset = {
+						        label: 'Dataset ' + (data.datasets.length + 1),
+						        backgroundColor: Utils.transparentize(dsColor, 0.5),
+						        borderColor: dsColor,
+						        data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
+						      };
+						      chart.data.datasets.push(newDataset);
+						      chart.update();
+						    }
+						  },
+						  {
+						    name: 'Add Data',
+						    handler(chart) {
+						      const data = chart.data;
+						      if (data.datasets.length > 0) {
+						        data.labels = Utils.months({count: data.labels.length + 1});
 
-				    // 현재 월의 날짜를 한국어로 가져오는 함수
-				    function getDaysInCurrentMonth() {
-				      const { startDate, endDate } = getCurrentMonthRange();
-				      const days = [];
-				      for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-				        const day = currentDate.getDate(); // 일자를 가져옴
-				        days.push(`${currentDate.getMonth() + 1}월 ${day}일`);
-				      }
-				      return days;
-				    }
+						        for (let index = 0; index < data.datasets.length; ++index) {
+						          data.datasets[index].data.push(Utils.rand(-100, 100));
+						        }
 
-				    // 일별 매출액 데이터
-				    const dailySalesData = []; 
+						        chart.update();
+						      }
+						    }
+						  },
+						  {
+						    name: 'Remove Dataset',
+						    handler(chart) {
+						      chart.data.datasets.pop();
+						      chart.update();
+						    }
+						  },
+						  {
+						    name: 'Remove Data',
+						    handler(chart) {
+						      chart.data.labels.splice(-1, 1); // remove the label first
 
-				    const days = getDaysInCurrentMonth();
+						      chart.data.datasets.forEach(dataset => {
+						        dataset.data.pop();
+						      });
 
-				    new Chart(ctx, {
-				      type: 'line',
-				      data: {
-				        // X축에 현재 월의 날짜를 한국어로, Y축에 판매액 데이터를 설정
-				        labels: days,
-				        datasets: [{
-				          label: '요일별 매출액', 
-				          data: dailySalesData,
-				          borderWidth: 1
-				        }]
-				      },
-				      options: {
-				        scales: {
-				          y: {
-				            beginAtZero: true
-				          }
-				        }
-				      }
-				    });
+						      chart.update();
+						    }
+						  }
+						];
 					</script>
 					<!-- 월별 매출 테이블 끝 -->
 					
