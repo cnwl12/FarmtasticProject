@@ -70,6 +70,12 @@ public class SellerDAO {
 			System.out.println("List 오나요");
 			return sqlSession.selectList(namespace + ".getItems");
 		}
+		
+		public List<Map<String, Object>> getItemSeller(String seller_num) {
+			System.out.println("getItemSeller 확인");
+			return sqlSession.selectList(namespace + ".getItemSeller",seller_num);
+		}
+		
 		// 정산용 매출내역
 		public List<Map<String, Object>> getSales() {
 			System.out.println("getSales 오나요");
@@ -122,7 +128,12 @@ public class SellerDAO {
 
 
 		public void itemUpdate(HashMap<String, String> itemList) {
-			System.out.println("맵까지 오는지");
 			sqlSession.update(namespace+".itemUpdate", itemList);
+		}
+
+
+		public void itemSold(HashMap<String, String> itemList) {
+			System.out.println("디에오");
+			sqlSession.update(namespace+".itemSold", itemList);
 		}
 }

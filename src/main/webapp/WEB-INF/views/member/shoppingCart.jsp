@@ -29,9 +29,7 @@
 	<!-- 주문상세 테이블에 추가함수  -->
 	<script type="text/javascript">
 	function insertOrderDetail(){
-		
 		location.href="insertOrderDetail";  
-		
 	}
 	</script>
 	

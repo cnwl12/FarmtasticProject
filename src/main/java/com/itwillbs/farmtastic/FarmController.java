@@ -174,8 +174,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	
-	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) public
-	   String kakaocallback(Locale locale, Model model) {
+	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) 
+	   public String kakaocallback(Locale locale, Model model) {
 	   
 	   System.out.println("kakaocallback 매핑확인여부");
 	  
