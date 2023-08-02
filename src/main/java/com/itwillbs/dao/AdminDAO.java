@@ -42,8 +42,8 @@ public class AdminDAO {
 		
 	}
 
-	public List<Map<String, Object>> getNotice(String admin_cs_num) {
-		return sqlSession.selectOne(NAMESPACE + "getNotice",admin_cs_num);
+	public Map<String, Object> getNotice(String admin_cs_num) {
+	    return sqlSession.selectOne(NAMESPACE + "getNotice", admin_cs_num);
 	}
 }
 	

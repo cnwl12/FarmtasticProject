@@ -693,7 +693,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		String seller_id = request.getParameter("seller_id");
 		
-		SellerDTO sellerDTO = sellerService.sellerCheck(seller_id);
+		Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
 		String result = "";
 		if (sellerDTO != null) {
 			// 아이디 있음 => 아이디 중복
