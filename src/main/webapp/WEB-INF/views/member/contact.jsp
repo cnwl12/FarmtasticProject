@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>  
 <!DOCTYPE html>
 <html>
 
@@ -42,11 +44,37 @@
                             <h4>고객센터</h4>
                             <ul>  
                                 <li><a href="contact">공지사항</a></li>
-                                <li><a href="#">1:1 문의</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="oneboard">1:1 문의</a></li>
                             </ul>
                         </div>
                      </div>
                 </div>
+                <div>
+    <h4>공지사항</h4>
+    <table class="table table-bordered" id="noticeTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>작성번호</th>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성날짜</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${notice}" var="list">
+                <tr>
+                    <td>${list.admin_cs_num}</td>
+                    <td>${list.admin_id}</td>
+                    <td><a href="${pageContext.request.contextPath}/contenttest?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
+                    <td>${list.admin_cs_day}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+                
+                
             </div>
        </div>
      </section>

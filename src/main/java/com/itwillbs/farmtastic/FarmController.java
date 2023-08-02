@@ -39,6 +39,7 @@ import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.domain.WishlistDTO;
 import com.itwillbs.naverController.NaverController;
+import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
@@ -51,7 +52,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@Autowired
 	private SellerService sellerService;
-
+	@Autowired
+    private AdminService adminService;
 	@Autowired
 	private NaverController naverController;
 
@@ -433,13 +435,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	        return "/index";
 	    }
 	}
-
+	
 	    
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
 		System.out.println("contact 매핑확인여부");
-
+		List<Map<String, Object>> resultList = adminService.getCnotice();
+	    model.addAttribute("notice", resultList);
+	    System.out.println(resultList);
 		return "/member/contact";
 	}
 
