@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.SellerDTO;
 
 @Service
@@ -40,9 +41,10 @@ public class SellerService {
 		 * sellerDAO.sellerCheck(sellerInfoList); }
 		 */
 		
+				
 		public Map<String, Object> sellerCheck(String seller_id) {
          System.out.println("SellerService sellerCheck()");
-         
+       
          return sellerDAO.sellerCheck(seller_id);
 		}
 		
@@ -63,12 +65,6 @@ public class SellerService {
 			return sellerDAO.getDailySales();
 		}
 
-		
-		
-		
-		
-		
-
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 
@@ -78,6 +74,11 @@ public class SellerService {
 		public List<Map<String, Object>> getItems() {
 			
 			return sellerDAO.getItems();
+		}
+		
+		public List<Map<String, Object>> getItemSeller(String seller_num) {
+			
+			return sellerDAO.getItemSeller(seller_num);
 		}
 		
 		//정산 위한 판매자별 월별 매출리스트
@@ -137,6 +138,12 @@ public class SellerService {
 			
 			System.out.println("업데이트 서비스 오는지");
 			sellerDAO.itemUpdate(itemList);
+		}
+
+		public void itemSold(HashMap<String, String> itemList) {
+			
+			System.out.println("섭이스 오는지");
+			sellerDAO.itemSold(itemList);
 		}
 
 

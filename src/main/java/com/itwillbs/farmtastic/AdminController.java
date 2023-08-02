@@ -103,7 +103,8 @@ public class AdminController {
 	 
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
+		 List<Map<String, Object>> resultList = sellerService.getSeller();
+		 model.addAttribute("sellers", resultList);
 		System.out.println("adminMain 매핑확인여부");
 		
 		return "/admin/adminMain";

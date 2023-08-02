@@ -76,9 +76,7 @@
 										<input type="radio">미정
 									</label>
 								</div>
-							</div>
-						</div>
-					</div>
+
 					<!-- 매출통계그래프 -->
 					
 					<!-- 월별 매출 테이블 시작 -->
@@ -88,8 +86,76 @@
 					<div>
 					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
 					</div>
+
+					
+					<!-- 매출 그래프를 표시할 캔버스 요소 -->
+					<div>
+					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
+					</div>
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 					<script>
+					  // 차트를 그리기 위한 함수
+					  function drawDailySalesChart(data) {
+					    const labels = data.map(item => item.order_mmdd);
+					    const sales = data.map(item => item.order_mmdd_totalSales);
+					
+					    const ctx = document.getElementById('getDailySalesChart').getContext('2d');
+					    const myChart = new Chart(ctx, {
+					      type: 'line',
+					      data: {
+					        labels: labels,
+					        datasets: [{
+					          label: '매출',
+					          data: sales,
+					          borderColor: 'rgba(75, 192, 192, 1)',
+					          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					          borderWidth: 1
+					        }]
+					      },
+					      options: {
+					        scales: {
+					          x: {
+					            title: {
+					              display: true,
+					              text: '날짜'
+					            }
+					          },
+					          y: { beginAtZero: true, title: { display: true, text: '매출' },
+					            gridLines:{
+									color: 'rgba(166, 201, 226, 1)',
+									lineWidth:3
+								}
+					          }
+					        }
+					      }
+					    });
+					  }
+					
+					  // 페이지 로딩 시 매출 데이터 가져와서 차트 그리기
+					  $(document).ready(function() { 
+					    ajaxDailySales();
+					  });
+					
+					  // 매출 데이터를 가져오는 함수
+					  function ajaxDailySales() {
+					    $.ajax({
+					      url: '${pageContext.request.contextPath}/chartDailySales',
+					      type: 'get',
+					      dataType: 'json',
+					      success: function(result) {
+					        console.log(result);
+					        drawDailySalesChart(result);
+					      },
+					      error: function() {
+					        alert('매출 데이터를 가져오는데 실패했습니다.');
+					      }
+					    });
+					  }
 					</script>
+							</div>
+						</div>
+					</div>				
 					<!-- 월별 매출 테이블 끝 -->
 					
 					

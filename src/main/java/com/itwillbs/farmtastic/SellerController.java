@@ -12,9 +12,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.SellerService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class SellerController {
 	
@@ -36,15 +37,13 @@ public class SellerController {
 	
 	// 로그인 기능이 없어서 일단 판매자 정보 페이지에 접속하면 이 판매자가 뜨게 하드코딩함
 	// 로그인해서 세션으로 값 가져오면 삭제할 코드
-	String seller_num = "CT0001"; 
+	 String seller_num = "TA002"; 
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("sellerMain 매핑확인여부");
 		
+		System.out.println("sellerMain 매핑확인여부");
 		return "/seller/sellerMain";
 	}
 	
@@ -52,18 +51,15 @@ public class SellerController {
 	public String tables(Locale locale, Model model) {
 		
 		System.out.println("tables 매핑확인여부");
-		
 		return "/seller/tables";
 	}
 	
 	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨
 	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
 	public String sellerMemb(Locale locale, Model model) {
+		
 		System.out.println("SellerController의 sellerMemb 매핑완");
-		
 		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-//		System.out.println("가져온 sellerInfo : " + sellerInfo);
-		
 		model.addAttribute("seller", sellerInfo);
 		return "/seller/sellerMemb";
 	}
@@ -91,44 +87,44 @@ public class SellerController {
 	// 선진) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
-		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 		
+		System.out.println("SellerController의 sellerUpdatePro 매핑완");
 //		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfo);
 //		System.out.println(sellerInfoList2);
-		
-		System.out.println("!@#!@#");
-		System.out.println(sellerInfo);
-		
 		if(sellerInfo != null) {
 			System.out.println("null 아님");
 			sellerService.updateSeller(sellerInfo);
 			return "redirect:/sellerMain";
-			
 		} else {
 			System.out.println("null임");
 			return "/seller/mgs";
 		}
 	}
 	
-	// 선진) 매출관리 페이지 - 차트 만들곳
+	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, Model model) {
+		
 		System.out.println("SellerController의 salesMng 매핑완");
-		
 		List<Map<String,Object>> DailySales = sellerService.getDailySales();
-	    
-	    System.out.println("제대로 가져왔나요?!!! DailySales : " + DailySales);
-	    
 	    model.addAttribute("DailySales", DailySales);
-		
 		return "/seller/salesMng";
 	}
-
+	
+	// 선진) 제이슨데이터로 변환
+	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)
+	public ResponseEntity<List<Map<String,Object>>> chartDailySales(){
+		
+		List<Map<String,Object>> jsonDailySales = sellerService.getDailySales();
+		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<List<Map<String,Object>>> entityDailySales = new ResponseEntity<List<Map<String,Object>>>(jsonDailySales, HttpStatus.OK);
+		return entityDailySales;
+	}
+	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
 		
 		System.out.println("memberMng 매핑확인여부");
-		
 		return "/seller/memberMng";
 	}
 
@@ -137,7 +133,6 @@ public class SellerController {
 	public String itemMng(Locale locale, Model model) {
 		
 		System.out.println("itemMng 매핑확인여부");
-		
 		return "/seller/itemMng";
 	}
 
@@ -145,37 +140,35 @@ public class SellerController {
 	public String itemDelMng(Locale locale, Model model) {
 		
 		System.out.println("itemDelMng 매핑확인여부");
-		
 		return "/seller/itemDelMng";
 	}
+	
 	@RequestMapping(value = "/itemRetExcMng", method = RequestMethod.GET)
 	public String itemRetExcMng(Locale locale, Model model) {
 		
 		System.out.println("itemRetExcMng 매핑확인여부");
-		
 		return "/seller/itemRetExcMng";
 	}
+	
 	@RequestMapping(value = "/reviewMng", method = RequestMethod.GET)
 	public String reviewAdmin(Locale locale, Model model) {
 		
 		System.out.println("reviewMng 매핑확인여부");
-		
 		return "/seller/reviewMng";
 	}
+	
 	@RequestMapping(value = "/settlementList", method = RequestMethod.GET)
 	public String settlementList(Locale locale, Model model) {
 		
 		System.out.println("settlementList 매핑확인여부");
-		
 		return "/seller/settlementList";
 	}
+	
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
 	public String questionMng(Locale locale, Model model) {
 		
 		System.out.println("questionMng 매핑확인여부");
-		
 		return "/seller/questionMng";
-	
 	}
 	
 	// 상품등록 - 테스트 페이지 
@@ -191,7 +184,6 @@ public class SellerController {
 		
 		return "/seller/itemRegister";
 	}
-	
 	
 	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
 	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
@@ -243,15 +235,31 @@ public class SellerController {
 	    return "redirect:/itemInsertList";
 	}
 	
-	@RequestMapping(value = "/itemInsertList", method = RequestMethod.GET)
-	public String itemInsertList(Locale locale, Model model) {
-		
-		System.out.println("itemInsertList 매핑확인여부");
-		
-		 List<Map<String, Object>> itemList = sellerService.getItems();
-		 model.addAttribute("itemList", itemList);
+	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
+	public String itemMng(Model model, HttpSession session) {
+	    // 삭제예정 
+	    String seller_num = "TA002";
 	    
-	    return "/seller/itemInsertList";
+	    session.setAttribute("seller_num", seller_num);
+	    System.out.println("itemInsertList 매핑확인여부");
+	    
+	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
+	    
+	    model.addAttribute("itemList", itemList);
+	    System.out.println(seller_num);
+	    
+	    return "/seller/itemMng";
+	}
+	
+	
+	@RequestMapping(value = "/itemSold", method = RequestMethod.GET)
+	public String itemSold(@RequestParam HashMap<String, String> itemList, HttpServletRequest session){
+		
+		String seller_num = "TA002";
+		
+		sellerService.itemSold(itemList);
+	  
+	    return "redirect:/seller/itemMng";
 	}
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
@@ -267,14 +275,15 @@ public class SellerController {
 		 
 		 Map<String, Object> item = sellerService.getItem(item_num);
 		
+		 model.addAttribute("item_num", item_num);
 		 model.addAttribute("item", item);
 	    
 	    return "/seller/itemUpdate";
 	}
 	
-	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
-	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
+	public String itemUpdatePro(@RequestParam("item_num") int item_num,
+								@RequestParam HashMap<String, String> itemList,
 								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 		
 			System.out.println("updatePro 오는지");
@@ -314,12 +323,13 @@ public class SellerController {
             
 			sellerService.itemUpdate(itemList, files, session);
 	
-			return "redirect:/itemInsertList";
+			return "redirect:/itemMng";
 	}
 	
 	@RequestMapping("/ch_test")
 	@ResponseBody
 	public Map<String, Object> ch_test() throws Exception{
+		
 		System.out.println("test 들어가냐");
 		Map<String, Object> model = new HashMap<String, Object>();
 		
@@ -334,4 +344,22 @@ public class SellerController {
 		return model;
 	}
 	
+	
+	/* sungha 사업자로그인.... */
+
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+	public String sellerloginPro(HttpServletRequest request, HttpSession session) {
+	    System.out.println("SellerController sellerloginPro()");
+	    String seller_id = request.getParameter("seller_id");
+
+	    Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
+
+	    if (sellerDTO != null) {
+	        session.setAttribute("seller_id", seller_id);
+	        return "redirect:/sellerMain";
+	    } else {
+	    	
+	        return "redirect:/login";
+	    }
+	}
 }

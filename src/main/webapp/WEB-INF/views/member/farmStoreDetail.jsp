@@ -176,7 +176,12 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                         </div>  
                         <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a href="#" class="heart-icon wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+  <span class="${wishlist.contains(item.item_num) ? 'icon_heart_red' : 'icon_heart_alt'}"></span>
+</a>
+
+
+                        
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -279,11 +284,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
         							<thead>
             						<tr>
                 					<th>번호</th>
-                					<th>별점</th>
                 					<th>작성자</th>
-                					<th>작성일</th>
+                					<th>별점</th>
                 					<th>제목</th>
                 					<th>내용</th>
+                					<th>작성일</th>
 <!--                 					<th>이미지</th> -->
            							</tr>
         							</thead>
@@ -486,6 +491,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 	 <!-- Js Plugins -->
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
@@ -625,15 +631,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     $("#getItemReviews tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
                     var rows = "";
-                    for (var i = 0; i < reviews.length; i++) {
+                    for (var i = reviews.length - 1; i >= 0; i--) {
                         var review = reviews[i];
                         rows += "<tr>" +
                             "<td>" + (i + 1) + "</td>" +
+                            "<td>" + review.member_name + "</td>" +
                             "<td class='review-star'>" + review.review_star + "</td>" +
-                            "<td>" + review.member_num + "</td>" +
-                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
+                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
 //                             "<td>" + review.review_img + "</td>" +
                         "</tr>";
                     }
@@ -679,6 +685,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 	
 </body>
 

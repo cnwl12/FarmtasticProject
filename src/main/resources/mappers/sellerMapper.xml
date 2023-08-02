@@ -51,6 +51,9 @@
     <select id="sellerCheck" resultType="map">
     select * from seller
     where seller_id = #{seller_id}
+     <if test="seller_pass != null">
+  	  and seller_pass = #{seller_pass}
+  	  </if>
   	</select> 
   	
   	<!-- 선진) 판매자 정보 가져옴 -->
@@ -95,8 +98,6 @@
 	ORDER BY date_range.order_mmdd;
 	]]>
    </select>
-   
-  
 
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
@@ -128,6 +129,7 @@
            item_left,
            item_detail,
            seller_num,
+           item_salesStatus,
            item_register
        )
        VALUES (
@@ -139,6 +141,7 @@
            #{item_left},
            #{item_detail},
            #{seller_num},
+           item_salesStatus,
            now()
        )
    </insert>
@@ -151,7 +154,8 @@
    		item_price = #{item_price},
    		item_mainImg = #{item_mainImg},
    		item_detail = #{item_detail},
-   		item_left = #{item_left}
+   		item_left = #{item_left},
+   		item_salesStatus = #{item_salesStatus}
    
    WHERE item_num = #{item_num} AND seller_num = #{seller_num}
    </update>
@@ -163,6 +167,15 @@
        FROM item
        ORDER BY item_num desc
     </select>
+    
+     <!-- 상품전체 가져오기 (본인제품)  -->
+    <select id="getItemSeller" resultType="map">
+       SELECT *
+       FROM item
+       WHERE seller_num = #{seller_num}
+       ORDER BY item_num desc
+    </select>
+    
 
    <!-- 개별상품 가져오기  -->
    <select id="getItem" resultType="map">
