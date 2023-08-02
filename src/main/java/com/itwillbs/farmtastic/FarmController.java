@@ -450,6 +450,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	    System.out.println(resultList);
 		return "/member/contact";
 	}
+	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
+	public String contactContent(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+		System.out.println("contactContent 매핑확인여부");
+		Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+		model.addAttribute("content", resultMap);
+		model.addAttribute("admin_cs_num", admin_cs_num);
+		System.out.println("controller" + resultMap);
+		return "/member/contactContent";
+	}
 
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
