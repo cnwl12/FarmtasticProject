@@ -17,6 +17,7 @@ public class SellerDAO {
 	
 	//mapper파일 이름 => 변수 정의
 	private static final String namespace = "SellerMapper";
+	
 	@Autowired
 	   private SqlSession sqlSession;
 
@@ -24,7 +25,6 @@ public class SellerDAO {
 	        return sqlSession.selectList(namespace + ".getSellers");
 	    }
 
-	    
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList(namespace+".getSeller");
@@ -42,28 +42,28 @@ public class SellerDAO {
 		 * System.out.println("SellerDAO sellerCheck 확인"); return
 		 * sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList); }
 		 */
+		
 		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
+			
 			System.out.println("SellerDAO getSellerInfo 매핑완");
 			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
 		}
+		
 		// 선진) 판매자 정보 수정
 		public void updateSeller(Map<String, Object> sellerInfo) {
+			
 			System.out.println("SellerDAO의 updateSeller 매핑완");
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 
 		// 선진) 한달간 매일 총 매출 가져오는 차트	
 		public List<Map<String,Object>> getDailySales() {
+			
 			System.out.println("SellerDAO의 getDailySales 매핑완");
 			return sqlSession.selectList(namespace + ".getDailySales");
 		}
 
-		
-		
-		
-		
-		
 		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			

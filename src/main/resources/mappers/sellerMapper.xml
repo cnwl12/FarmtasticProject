@@ -95,8 +95,6 @@
 	ORDER BY date_range.order_mmdd;
 	]]>
    </select>
-   
-  
 
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
