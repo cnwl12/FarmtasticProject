@@ -63,8 +63,9 @@
                           	 <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
                           </div>
                          	<label>작성자: </label><input type="text" name="admin_id" style="width: 20%; border: none; background-color: white; "value=" ${admin.admin_id}" readonly="readonly"/><br>	
-                             <label>제목: </label><input type="text" name="admin_csnotice_sub" style="width: 40%; border: none; background-color: white;"/> <br>
-                        	<label>첨부파일: </label><input type="file" name="file" style="width: 40%; border: none; background-color: white;"/>
+							<label>제목: </label><input type="text" name="admin_csnotice_sub" style="width: 40%; border: none; background-color: white;"/> <br>
+							<label>작성 시간: </label><input type="hidden" name="admin_cs_day" style="width: 40%; border: none; background-color: white;"/> <br>
+							<label>첨부파일: </label><input type="file" name="file" style="width: 40%; border: none; background-color: white;"/>
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
@@ -134,10 +135,13 @@
 
 
 <script>
-	
-
+function setCurrentDate() {
+  var dateInput = document.querySelector('input[name="admin_cs_day"]');
+  var currentDate = new Date().toISOString().slice(0, 10);
+  dateInput.value = currentDate;
+}
+setCurrentDate();
 </script>
-
 
 </body>
 
