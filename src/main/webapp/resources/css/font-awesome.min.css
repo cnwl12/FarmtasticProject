@@ -2942,8 +2942,8 @@ rotate(
 .fa-heart {
   color: black;
 }
-.fa-heart-o {
-	color: red;
+.fa-heart.red {
+  color: red;
 }
 
 .sr-only {
