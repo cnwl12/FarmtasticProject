@@ -124,14 +124,13 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/contenttest", method = RequestMethod.GET)
 	public String contenttest(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
-		List<Map<String, Object>> resultList = adminService.getNotice(admin_cs_num);
-		model.addAttribute("notice", resultList);
-		model.addAttribute("admin_cs_num", admin_cs_num);
-		System.out.println("controller" + resultList);
-		System.out.println("contenttest 매핑확인여부");
-	
-		
-		return "/admin/customerMenu/contenttest";
+	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+	    model.addAttribute("content", resultMap);
+	    model.addAttribute("admin_cs_num", admin_cs_num);
+	    System.out.println("controller" + resultMap);
+	    System.out.println("contenttest 매핑확인여부");
+	    
+	    return "/admin/customerMenu/contenttest";
 	}
 
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
