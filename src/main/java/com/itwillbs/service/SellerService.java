@@ -80,6 +80,11 @@ public class SellerService {
 			return sellerDAO.getItems();
 		}
 		
+		public List<Map<String, Object>> getItemSeller(String seller_num) {
+			
+			return sellerDAO.getItemSeller(seller_num);
+		}
+		
 		//정산 위한 판매자별 월별 매출리스트
 		public List<Map<String, Object>> getSales() {
 			System.out.println("service:getSales()");
@@ -137,6 +142,12 @@ public class SellerService {
 			
 			System.out.println("업데이트 서비스 오는지");
 			sellerDAO.itemUpdate(itemList);
+		}
+
+		public void itemSold(HashMap<String, String> itemList) {
+			
+			System.out.println("섭이스 오는지");
+			sellerDAO.itemSold(itemList);
 		}
 
 

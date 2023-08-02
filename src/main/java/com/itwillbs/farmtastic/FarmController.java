@@ -22,11 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +42,7 @@ import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.domain.WishlistDTO;
 import com.itwillbs.naverController.NaverController;
+import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
 
@@ -51,7 +55,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@Autowired
 	private SellerService sellerService;
-
+	@Autowired
+    private AdminService adminService;
 	@Autowired
 	private NaverController naverController;
 
@@ -151,7 +156,8 @@ public class FarmController { // 소비자 (컨트롤러)
 			MemberDTO existingMember = memberService.nuserCheck(memberDTO);
 			if (existingMember != null) {
 				System.out.println("로그인");
-				session.setAttribute("member_num", memberDTO.getMember_num());
+				session.setAttribute("member_num", existingMember.getMember_num());
+
 				return "redirect:/index";
 			} else {
 				memberService.ninsertMember(memberDTO);
@@ -162,7 +168,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "errorPage"; // 오류가 발생한 경우 에러 페이지로 이동
-		} // 정상적으로 처리된 경우 authResult 페이지로 이동
+		} 
 	}
 
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
@@ -174,8 +180,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	
-	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) public
-	   String kakaocallback(Locale locale, Model model) {
+	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) 
+	   public String kakaocallback(Locale locale, Model model) {
 	   
 	   System.out.println("kakaocallback 매핑확인여부");
 	  
@@ -433,14 +439,25 @@ public class FarmController { // 소비자 (컨트롤러)
 	        return "/index";
 	    }
 	}
-
+	
 	    
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
 		System.out.println("contact 매핑확인여부");
-
+		List<Map<String, Object>> resultList = adminService.getCnotice();
+	    model.addAttribute("notice", resultList);
+	    System.out.println(resultList);
 		return "/member/contact";
+	}
+	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
+	public String contactContent(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+		System.out.println("contactContent 매핑확인여부");
+		Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+		model.addAttribute("content", resultMap);
+		model.addAttribute("admin_cs_num", admin_cs_num);
+		System.out.println("controller" + resultMap);
+		return "/member/contactContent";
 	}
 
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임
@@ -733,7 +750,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	
-	//마이페이지 - 리뷰관리 -> 리뷰목록 작업중
+	//마이페이지 - 리뷰관리 -> 리뷰목록 
 	@RequestMapping(value = "/getItemMyReview", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemMyReview(@RequestParam("member_num") Integer member_num) {
@@ -741,6 +758,20 @@ public class FarmController { // 소비자 (컨트롤러)
 		 return myreview;
 	}
 	
+//	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중   
+//	@RequestMapping(value = "/api/reviews/{id}", method = RequestMethod.PUT)
+//    @ResponseBody
+//    public ResponseEntity<MemberDTO> updateReview(
+//            @PathVariable String id,
+//            @Validated @RequestBody MemberDTO reviewDetails,
+//            HttpServletRequest request) {
+//        MemberDTO updateReview = memberService.updateReview(id, reviewDetails, request);
+//        if (updateReview == null) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return new ResponseEntity<>(updateReview, HttpStatus.OK);
+//    }
+
 	
 	
 	// 서영 작업중
@@ -759,20 +790,24 @@ public class FarmController { // 소비자 (컨트롤러)
     } 
     
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println("찜기능하는중입니다");
-        WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
-        System.out.println(existingWishlistDTO);
-        if(existingWishlistDTO != null) {
-            modelAndView.addObject("message", "찜 목록에 상품이 없습니다.");
-        } else {
-            memberService.insertWishlist(wishlistDTO);
-            modelAndView.addObject("message", "찜 목록에 상품이 추가되었습니다.");
-        }
-        modelAndView.setViewName("ajaxView");
-        return modelAndView;
+    @ResponseBody
+    public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
+      Map<String, String> response = new HashMap<>();
+      System.out.println("찜기능하는중입니다");
+
+      WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
+      System.out.println(existingWishlistDTO);
+      if (existingWishlistDTO == null) {
+        memberService.insertWishlist(wishlistDTO);
+        response.put("message", "찜 목록에 상품이 추가되었습니다.");
+      } else {
+    	memberService.deleteWishlist(wishlistDTO);
+        response.put("message", "찜 목록에 상품을 삭제하였습니다.");
+      }
+
+      return response;
     }
+
 
 	
 }

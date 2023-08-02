@@ -203,8 +203,10 @@
                         <div class="featured__item__pic set-bg">
                           <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                             <ul class="featured__item__pic__hover">
-                                <li class="wishlist">
-									<a href="#" onclick="add(event, ${sessionScope.member_num}, ${item.item_num});"><i class="fa fa-heart"></i></a>
+                               <li>
+	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+									<i class="fa fa-heart"></i>
+								</a>
 								</li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
