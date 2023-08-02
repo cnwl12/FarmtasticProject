@@ -343,7 +343,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/parcel";
 	}
-	/* 검색기능구현중 ha*/
+	/* 검색기능*/
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
 	public String searchd(Locale locale, Model model) {
 

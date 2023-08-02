@@ -12,9 +12,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.SellerService;
 
 /**
@@ -334,4 +338,22 @@ public class SellerController {
 		return model;
 	}
 	
+	
+	/* sungha 사업자로그인.... */
+
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+	public String sellerloginPro(HttpServletRequest request, HttpSession session) {
+	    System.out.println("SellerController sellerloginPro()");
+	    String seller_id = request.getParameter("seller_id");
+
+	    Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
+
+	    if (sellerDTO != null) {
+	        session.setAttribute("seller_id", seller_id);
+	        return "redirect:/sellerMain";
+	    } else {
+	    	
+	        return "redirect:/login";
+	    }
+	}
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.SellerDTO;
 
 @Service
@@ -40,9 +41,10 @@ public class SellerService {
 		 * sellerDAO.sellerCheck(sellerInfoList); }
 		 */
 		
+				
 		public Map<String, Object> sellerCheck(String seller_id) {
          System.out.println("SellerService sellerCheck()");
-         
+       
          return sellerDAO.sellerCheck(seller_id);
 		}
 		
