@@ -109,8 +109,6 @@ public class SellerController {
 			return "/seller/mgs";
 		}
 	}
-
-	
 	
 	// 선진)  getDailySales 요일별 매출 가져오는 차트
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
@@ -124,12 +122,6 @@ public class SellerController {
 		
 		return "/seller/salesMng";
 	}
-	
-	
-	
-	
-
-	 
 
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET)
 	public String memberMng(Locale locale, Model model) {
@@ -139,9 +131,6 @@ public class SellerController {
 		return "/seller/memberMng";
 	}
 
-	
-	
-	
 
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -120,7 +121,13 @@ public class MemberDAO {
 	}
 	
 	
-	 
+	
+	public List<Map<String, Object>> getItemsearch(String query) {
+		System.out.println("MemberDAO getItemsearch()");
+
+        return sqlSession.selectList(namespace+".getItemsearch", query);
+    }
+
 	
 	
 	// end sungha

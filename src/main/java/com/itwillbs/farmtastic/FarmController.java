@@ -46,6 +46,7 @@ import com.itwillbs.service.SellerService;
 public class FarmController { // 소비자 (컨트롤러)
 
 	@Inject
+	
 	private MemberService memberService;
 
 	@Autowired
@@ -338,26 +339,23 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	/* 검색기능구현중 ha*/
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
-	public String search(Locale locale, Model model) {
+	public String searchd(Locale locale, Model model) {
 
 		System.out.println("searchd 매핑확인여부");
 
 		return "/member/searchd";
 	}
 	
-	/* 검색기능구현중 ha*/	
-//	 @GetMapping("/search") // GET 방식으로 /search 요청이 왔을 때
-//	  public String search(@RequestParam(defaultValue = "") String query, Model model) {
-//	    List<MemberDTO> searchResults = null;
-//	    try {
-//	      searchResults = memberService.searchItems(query); // 검색 결과 조회
-//	      model.addAttribute("searchResults", searchResults); // 검색 결과를 View에서 출력하기 위해 Model에 저장
-//	    } catch (Exception e) {
-//	      e.printStackTrace();
-//	    }
-//	    return "search";
-//	  }
 	
+	
+	@GetMapping("/search")
+	public String search(@RequestParam("query") String query, Model model) {
+		System.out.println("FarmController /search");
+	    List<Map<String, Object>> itemList = memberService.getItemsearch(query);
+		model.addAttribute("itemList", itemList);
+	    return "/member/searchd"; 
+	}
+
 	
 	
 
