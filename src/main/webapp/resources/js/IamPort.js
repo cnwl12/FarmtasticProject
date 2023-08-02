@@ -1,5 +1,7 @@
   var IMP = window.IMP;
   IMP.init("imp24125441");
+  
+  
 
 function requestPay() {
   
@@ -28,14 +30,17 @@ function requestPay() {
 
     const buyerPostcodeElement = document.getElementById("member_addSub");
     const buyerPostcode = buyerPostcodeElement.innerText;
+    
+    const totalSumElement = document.getElementById("total_sum_value");
+	const totalSum = parseInt(totalSumElement.innerText.replace("원",""));
 
     IMP.request_pay(  
       {
-        pg: "kcp.{store-2ff01f8f-c184-4ee8-8f10-deed85d4ac53}",
+        pg: "kcp.{T0000}",
         pay_method: "card",
-        merchant_uid: "57008833-33006",
-        name: member_name,
-        amount: 3000,
+        merchant_uid: merchantUid,
+        name: itemName + " 등",
+        amount: totalSum,
         buyer_email: buyerEmail,
         buyer_name: buyerName,
         buyer_tel: buyerTel,
@@ -45,6 +50,7 @@ function requestPay() {
       function (rsp) {
         if (rsp.success) {
         	// 결제 성공 시 실행할 코드
+        	
         	alert("결제가 완료되었습니다.");
     	} else {
         // 실패할 경우 실행할 코드

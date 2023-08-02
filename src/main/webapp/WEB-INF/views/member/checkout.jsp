@@ -79,7 +79,7 @@
 								  <tr>
 								    <td class="shoping__cart__item">
 								      <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
-								      <h5>${item.item_name}</h5>
+								      <h5 id="item_name">${item.item_name}</h5>
 								    </td> 
 								    <td class="shoping__cart__price">
 								      ${item.item_price}
@@ -126,7 +126,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>주문자정보<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" id="member_name" value="${memberDTO.member_name}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -138,9 +138,9 @@
                             </div>
                             <div class="checkout__input">
                                 <p>주소<span>*</span></p>
-                                <input type="text" placeholder="우편번호" class="checkout__input__add">
-                                <input type="text" placeholder="메인주소" class="checkout__input__add">
-                                <input type="text" placeholder="상세주소">
+                                <input type="text" placeholder="우편번호" class="checkout__input__add" value="${memberDTO.member_post}">
+                                <input type="text" placeholder="메인주소" class="checkout__input__add" value="${memberDTO.member_addMain}">
+                                <input type="text" placeholder="상세주소" value="${memberDTO.member_addSub}">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
@@ -158,13 +158,13 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>연락처<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" value="${memberDTO.member_phone}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" value="${memberDTO.member_email}">
                                     </div>
                                 </div>  
                             </div>
@@ -204,7 +204,7 @@
                                     <li>Organic Bananas <span>$53.99</span></li>
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>${totalSum}원</span></div>
+                                <div class="checkout__order__total" id="total_sum">Total <span id="total_sum_value">${totalSum}원</span></div>
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?
@@ -237,7 +237,7 @@
 	                            <div id="member_phone">${member_phone}</div>
 	                            <div id="member_addMain">${member_addMain}</div>
 	                            <div id="member_addSub">${member_addSub}</div>
-	                            <button type="submit" class="site-btn" onclick="requestPay()">결제하기</button> 
+	                            <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
                             </div>
                         </div>
                     </div>
