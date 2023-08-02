@@ -110,16 +110,16 @@ public class SellerController {
 		}
 	}
 	
-	// 선진) 차트
+	// 선진) 매출관리 페이지 - 차트 만들곳
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, Model model) {
 		System.out.println("SellerController의 salesMng 매핑완");
 		
-		List<Map<String,Object>> daysArray = sellerService.getDaysArray();
+		List<Map<String,Object>> DailySales = sellerService.getDailySales();
 	    
-	    System.out.println("제대로 가져왔나요## daysArray : " + daysArray);
+	    System.out.println("제대로 가져왔나요?!!! DailySales : " + DailySales);
 	    
-	    model.addAttribute("daysArray", daysArray);
+	    model.addAttribute("DailySales", DailySales);
 		
 		return "/seller/salesMng";
 	}

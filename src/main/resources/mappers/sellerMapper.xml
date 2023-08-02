@@ -76,7 +76,7 @@
     </update>
     
    <!-- 선진) 차트1 -->
-   <select id="getDaysArray" resultType="map">
+   <select id="getDailySales" resultType="map">
    <![CDATA[
 	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
 	FROM(SELECT DATE_FORMAT(day_range, '%Y-%m-%d') AS order_mmdd

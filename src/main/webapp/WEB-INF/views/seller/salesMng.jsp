@@ -67,7 +67,7 @@
 							<div class="text-center">
 								<div data-toggle="buttons" class="btn-group btn-group-customize">
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay">
-										<input type="radio">이번달 요일별 매출
+										<input type="radio">이번달 일자별 매출
 									</label>
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer">
 										<input type="radio">최근 6개월매출
@@ -77,7 +77,8 @@
 									</label>
 								</div>
 							</div>
-
+						</div>
+					</div>
 					<!-- 매출통계그래프 -->
 					
 					<!-- 월별 매출 테이블 시작 -->
@@ -89,102 +90,6 @@
 					</div>
 					
 					<script>
-					const config = {
-							  type: 'line',
-							  data: {},
-							  options: {
-							    responsive: true,
-							    plugins: {
-							      legend: {
-							        position: 'top',
-							      },
-							      title: {
-							        display: true,
-							        text: '요일별 판매량 차트'
-							      }
-							    }
-							  },
-							};
-					
-					// DAO에서 데이터를 가져오는 함수
-					function fetchChartData() {
-					  
-					  const daysArray = sellerDAO.getDaysArray();
-					  const dailySalesArray = sellerDAO.getDailySalesArray();
-
-					  config.data = {
-					    labels: daysArray, // daysArray에는 레이블 (날짜) 데이터가 들어있다고 가정합니다.
-					    datasets: [
-					      {
-					        label: '일일 매출',
-					        data: dailySalesArray, // dailySalesArray에는 해당 날짜의 매출 데이터가 들어있다고 가정합니다.
-					        borderColor: Utils.CHART_COLORS.red,
-					        backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-					      },
-					    ],
-					  };
-					}
-					
-					const actions = [
-						  {
-						    name: 'Randomize',
-						    handler(chart) {
-						      chart.data.datasets.forEach(dataset => {
-						        dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
-						      });
-						      chart.update();
-						    }
-						  },
-						  {
-						    name: 'Add Dataset',
-						    handler(chart) {
-						      const data = chart.data;
-						      const dsColor = Utils.namedColor(chart.data.datasets.length);
-						      const newDataset = {
-						        label: 'Dataset ' + (data.datasets.length + 1),
-						        backgroundColor: Utils.transparentize(dsColor, 0.5),
-						        borderColor: dsColor,
-						        data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
-						      };
-						      chart.data.datasets.push(newDataset);
-						      chart.update();
-						    }
-						  },
-						  {
-						    name: 'Add Data',
-						    handler(chart) {
-						      const data = chart.data;
-						      if (data.datasets.length > 0) {
-						        data.labels = Utils.months({count: data.labels.length + 1});
-
-						        for (let index = 0; index < data.datasets.length; ++index) {
-						          data.datasets[index].data.push(Utils.rand(-100, 100));
-						        }
-
-						        chart.update();
-						      }
-						    }
-						  },
-						  {
-						    name: 'Remove Dataset',
-						    handler(chart) {
-						      chart.data.datasets.pop();
-						      chart.update();
-						    }
-						  },
-						  {
-						    name: 'Remove Data',
-						    handler(chart) {
-						      chart.data.labels.splice(-1, 1); // remove the label first
-
-						      chart.data.datasets.forEach(dataset => {
-						        dataset.data.pop();
-						      });
-
-						      chart.update();
-						    }
-						  }
-						];
 					</script>
 					<!-- 월별 매출 테이블 끝 -->
 					
