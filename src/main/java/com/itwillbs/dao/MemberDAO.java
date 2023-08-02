@@ -199,5 +199,8 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + ".selectWishlist", wishlistDTO);
 	}	
 	
+	public void deleteWishlist(WishlistDTO wishlistDTO) {
+		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
+	}	
 		 
 }

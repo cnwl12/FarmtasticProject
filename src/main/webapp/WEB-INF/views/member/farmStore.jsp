@@ -379,7 +379,7 @@
                                     <ul class="product__item__pic__hover">
                                         <li class="wishlist">
                                         	
-										  <a href="#" onclick="add(event, ${sessionScope.member_num}, ${item.item_num});"><i class="fa fa-heart"></i></a>
+										  <a href="#" onclick="add(event, ${sessionScope.member_num}, ${item.item_num})"><i class="fa fa-heart"></i></a>
 										</li>	
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -413,6 +413,7 @@
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
     <!-- Js Plugins -->
+    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
@@ -421,8 +422,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-  <%--   <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
-    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
     
 
 </body>
