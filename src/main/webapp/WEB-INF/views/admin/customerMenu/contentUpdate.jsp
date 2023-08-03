@@ -49,19 +49,20 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">공지사항글쓰기</h1>
+                    <h1 class="h3 mb-2 text-gray-800">공지사항글수정</h1>
 					 <!-- DataTales Example -->
                  <div class="card shadow mb-4">
                     <!--글쓰기  -->
+                    <form action="updatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="card-header py-3">
                            <div class="row">
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
+                            <button type="submit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="저장">저장</button>
                           </div>
-                             <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
-           					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
+                             <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" /><br>    
+           					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;"/><br>
            					 <label>첨부파일: </label><input type="text" name="file" value="${content.admin_cs_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/>
                         </div>   
                         <div class="card-body">
@@ -75,23 +76,25 @@
             									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
         										</c:when>
     										</c:choose>
-    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
+    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" />
 										</td>
                          			</tr>
                          		</table>
                             </div>
                           </div>
+                      	</form>
+                      	<!-- DataTales Example End -->
                       </div>
-                <!-- DataTales Example End -->
+                 <!-- Begin Page Content End -->
                       
                 </div>
-				 <!-- Begin Page Content End -->
-					</div>
-					<!-- Main Content End -->	         
-                 </div>
+				<!-- Main Content End -->
+			</div>
+		<!-- /.container-fluid -->	         
+            </div>
 
                
-                <!-- /.container-fluid -->
+                
 
             <!-- End of Main Content -->
 
@@ -133,11 +136,7 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-	<script>
-  		function updateContent(admin_cs_num) {
-    		window.location.href = "${pageContext.request.contextPath}/contentUpdate?admin_cs_num=" + admin_cs_num;
- 		}
-	</script>
+	
 
 
 

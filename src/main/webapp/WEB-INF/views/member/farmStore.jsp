@@ -377,7 +377,7 @@
                                   <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
                                   </a>
                                     <ul class="product__item__pic__hover">
-	                                    <li>
+	                                    	<li>
 				                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
 												<i class="fa fa-heart"></i>
 											</a>
@@ -413,6 +413,8 @@
   	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
+
+	<!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 index에선 반대 -->
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>

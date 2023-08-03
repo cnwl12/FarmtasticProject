@@ -19,6 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,15 +135,61 @@ public class AdminController {
 	    
 	    return "/admin/customerMenu/contenttest";
 	}
-	@RequestMapping(value = "/updateContent", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
-	  // 업데이트 처리를 수행합니다. (DB를 이용하여 내용을 수정하세요.)
-	  boolean success = adminService.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
-	  System.out.println("업데이트 컨트롤러");
-	  // 응답 결과를 반환합니다.
-	  return "{\"success\":" + success + "}";
+	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
+	public String contentUpdate(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	    System.out.println("contentUpdate 매핑확인여부");
+	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+	    model.addAttribute("content", resultMap);
+	    model.addAttribute("admin_cs_num", admin_cs_num);
+	    System.out.println("controller" + resultMap);
+	    return "/admin/customerMenu/contentUpdate";
 	}
+	
+	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
+	public String updatePro(@RequestParam HashMap<String, String> noticeList,
+	                              @RequestParam("file") List<MultipartFile> files,
+	                             HttpSession session)throws Exception {
+		
+		// 첨부파일 올라갈 물리적 경로 
+		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+		
+//		System.out.println(uploadPath);
+		
+		for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+
+                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+
+                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+
+                String filePath = uploadPath + "/" + storedFileName;
+                
+                System.out.println("filePath : " + filePath);
+                
+                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+
+                // 임시경로에서 filePath로 파일이동 
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                
+                // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
+                // 사진 정보의 경로를 저장
+                noticeList.put("admin_cs_file", saveFileName);
+
+                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
+        	}
+        }
+		
+		
+		adminService.insertNotice(noticeList,files, session);
+	    return "redirect:/cnotice";
+	}
+
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {
 		
