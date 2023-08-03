@@ -351,13 +351,39 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 								                    
 								                    <c:choose>
 													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-													       <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
-													    <td colspan="5">
-													                비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-													                <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-													            </td>
-													        </tr>
-													  </c:when>
+														    <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+														        <td colspan="5">
+														            비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+														            <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+														        </td>
+														    </tr>
+														    <!-- 비밀번호 확인 후 나타납니다. -->
+														    <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+														        <!-- 여기에 공개 글일 때 나오는 질문 파트 -->
+														        <td colspan="5">
+															      <div class="image">
+															        <strong>Q:</strong>
+															        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+															          <img src="${row.one_board_file}" />
+															        </c:if>
+															        <div class="content">
+															          ${row.one_board_content}
+															        </div>
+															      </div>
+															    </td>
+														    </tr>
+														    <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+														        <!-- 여기에 공개 글일 때 나오는 답변 파트 -->
+														        <td colspan="5">
+															      <div class="content">
+															        <strong>A:</strong>
+															        <c:if test="${row.one_board_reply != null}">
+															         	${row.one_board_reply}
+															        </c:if>
+															      </div>
+															    </td>
+														    </tr>
+														</c:when>
 													    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
 													        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
 													            <td colspan="5">
@@ -542,17 +568,13 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		  var inputPassword = document.getElementById(inputElementId).value;
 
 		  if (savedPassword === inputPassword) {
-		    // 비밀번호 입력 창 숨기기
-		    var passwordRow = $("#password_row" + oneBoardNum);
-		    passwordRow.hide();
+		    // 비밀번호가 일치하는 경우 question과 answer 요소를 표시합니다.
+		    var questionElement = document.querySelector('#question' + oneBoardNum);
+		    var answerElement = document.querySelector('#answer' + oneBoardNum);
+		    questionElement.style.display = "table-row";
+		    answerElement.style.display = "table-row";
 
-		    // 질문과 답변 표시
-// 		    var questionRow = $("#question" + "${row.one_board_num}");
-		    var answerRow = $("#answer" + oneBoardNum);
-		    $("#question" + "${row.one_board_num}").show();
-		    answerRow.show();
-		    var answerSelector = "#answer" + oneBoardNum;
-		    var answerRow = $(answerSelector);
+		    document.getElementById("password_row" + oneBoardNum).style.display = "none";
 		  } else {
 		    alert("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
 		  }
@@ -561,13 +583,9 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
 
 
-
-
-
-
-	function handleBoardClick(one_board_num) {
-	    sessionStorage.setItem('selectedBoardNum', one_board_num); // 선택한 문의의 one_board_num 값을 웹 브라우저의 sessionStorage에 저장
-	}
+// 	function handleBoardClick(one_board_num) {
+// 	    sessionStorage.setItem('selectedBoardNum', one_board_num); // 선택한 문의의 one_board_num 값을 웹 브라우저의 sessionStorage에 저장
+// 	}
 </script>
 
 
