@@ -549,37 +549,45 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	</script>
 	
 	<script>
-    $(document).ready(function() {
-        $(".boardTitle").click(function() {
-            // 질문을 토글합니다.
-            $(this).next(".boardContent").toggle();
-            
-            // 답변이 있는 경우에만, 답변을 토글합니다.
-            const answerRow = $(this).next().next(".boardContent");
-            if (answerRow.find(".content").text().trim().length > 3) {
-                answerRow.toggle();
-            }
-        });
-    });
-	</script>
-	
-	<script>
+	$(document).ready(function() {
+	    $(".boardTitle").click(function() {
+	        const pwRow = $(this).next(".passwordRow");
+	        if (pwRow.length) {
+	            // 비밀번호 입력 화면 토글
+	            if (pwRow.css('display') === 'none') {
+	                pwRow.show();
+	            } else {
+	                pwRow.hide();
+	            }
+	        } else {
+	            // 비밀번호가 없는 경우 현재 질문 및 답변 토글
+	            toggleBoardContent($(this));
+	        }
+	    });
+	});
+
+	function toggleBoardContent(titleElement) {
+	    titleElement.nextAll(".boardContent").first().toggle();
+	    
+	    const answerRow = titleElement.nextAll(".boardContent").eq(1);
+	    if (answerRow.find(".content").text().trim().length > 3) {
+	        answerRow.toggle();
+	    }
+	}
+
 	function checkPassword(savedPassword, oneBoardNum, inputElementId) {
-		  var inputPassword = document.getElementById(inputElementId).value;
+	    var inputPassword = document.getElementById(inputElementId).value;
 
-		  if (savedPassword === inputPassword) {
-		    // 비밀번호가 일치하는 경우 question과 answer 요소를 표시합니다.
-		    var questionElement = document.querySelector('#question' + oneBoardNum);
-		    var answerElement = document.querySelector('#answer' + oneBoardNum);
-		    questionElement.style.display = "table-row";
-		    answerElement.style.display = "table-row";
+	    if (savedPassword === inputPassword) {
+	        // 비밀번호가 일치하는 경우 question과 answer 요소를 표시합니다.
+	        var titleElement = document.querySelector('#title' + oneBoardNum);
+	        toggleBoardContent($(titleElement));
 
-		    document.getElementById("password_row" + oneBoardNum).style.display = "none";
-		  } else {
-		    alert("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
-		  }
-		}
-
+	        document.getElementById("password_row" + oneBoardNum).style.display = "none";
+	    } else {
+	        alert("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
+	    }
+	}
 
 
 
