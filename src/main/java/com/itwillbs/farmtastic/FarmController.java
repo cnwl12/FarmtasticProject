@@ -808,6 +808,11 @@ public class FarmController { // 소비자 (컨트롤러)
       return response;
     }
 
-
+    @RequestMapping(value = "/like_farm", method = RequestMethod.GET)
+    public String likeFarm(Model model) {
+    	System.out.println("WLarkqhwkdk");
+        return "/member/oneboard";
+    }
+    
 	
 }

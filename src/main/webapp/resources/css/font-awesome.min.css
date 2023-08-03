@@ -2947,6 +2947,10 @@ rotate(
   color: red;
 }
 
+i.fa-heart.red {
+  color: red;
+}
+
 .sr-only {
 	position: absolute;
 	width: 1px;
