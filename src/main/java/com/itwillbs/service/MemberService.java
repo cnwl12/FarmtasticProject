@@ -180,7 +180,7 @@ public class MemberService {
 	        return memberDAO.getItemMyReview(member_num);
 	    }
 	 
-	 // 마이페이지 리뷰 수정 기능 
+	 // 마이페이지 리뷰 수정 기능   
 	 public MemberDTO updateReview(int member_num, MemberDTO update, HttpServletRequest request) {
 	     MemberDTO updateReview = memberDAO.getMember1(member_num);
 	     if (updateReview == null) {
