@@ -172,7 +172,7 @@ public class SellerController {
 		return "/seller/questionMng";
 	}
 	
-	// 상품등록 
+	// 상품등록 - 테스트 페이지 
 	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
 	public String itemInsert(Model model, HttpSession session) {
 		
@@ -186,7 +186,6 @@ public class SellerController {
 		return "/seller/itemRegister";
 	}
 	
-	// 상품등록 처리과정 페이지 
 	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
 	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
 	                             @RequestParam("file") List<MultipartFile> files,
@@ -234,10 +233,9 @@ public class SellerController {
 		
 		sellerService.itemInsert(itemList, files, session);
 	    
-	    return "redirect:/itemMng";
+	    return "redirect:/itemInsertList";
 	}
 	
-	// 상품관리 전체목록
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Model model, HttpSession session) {
 	    // 삭제예정 
@@ -254,7 +252,7 @@ public class SellerController {
 	    return "/seller/itemMng";
 	}
 	
-	// 판매중지/판매 변경 버튼 
+	
 	@RequestMapping(value = "/itemSold", method = RequestMethod.GET)
 	public String itemSold(@RequestParam HashMap<String, String> itemList, HttpServletRequest session){
 		
@@ -262,7 +260,7 @@ public class SellerController {
 		
 		sellerService.itemSold(itemList);
 	  
-	    return "/seller/itemMng";
+	    return "redirect:/seller/itemMng";
 	}
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
@@ -285,7 +283,8 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
-	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
+	public String itemUpdatePro(@RequestParam("item_num") int item_num,
+								@RequestParam HashMap<String, String> itemList,
 								@RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 		
 			System.out.println("updatePro 오는지");
@@ -322,7 +321,6 @@ public class SellerController {
             // 삭제예정 
             String seller_num = "TA002";
 			itemList.put("seller_num", seller_num);
-			//itemList.put("item_num", item_num);
             
 			sellerService.itemUpdate(itemList, files, session);
 	
@@ -341,7 +339,7 @@ public class SellerController {
 		map.put("name", "서울");
 		map.put("data", new Double[] {-0.3, 1.0, 2.3, -1.3, 5.0});
 		
-		list.add(map);
+		list.add(map);    
 		model.put("ch", list);
 		
 		return model;
@@ -356,22 +354,23 @@ public class SellerController {
 	    System.out.println("SellerController sellerloginPro()");
 	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
 		if (sellerDTO2 != null) {
-			session.setAttribute("seller_id", sellerDTO2.getSeller_id());
+			session.setAttribute("seller_num", sellerDTO2.getSeller_num());
 			return "redirect:/sellerMain";
 		} else {
 			return "redirect:/login";
 		}
 	}
+
 	
 	/* sungha 판매자->회원관리....조회..*/
 	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
 	public String memberMngPro(Locale locale, Model model) {
-		System.out.println("memberMng 매핑확인여부");
+		
+		System.out.println("SellerController MemberMngPro()");
 		List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin();
 	    model.addAttribute("MemberMngjoin", MemberMngjoin);
-	    return "/seller/memberMng";
+		return "/seller/salesMng";
 	}
-	
 	
 	
 	
