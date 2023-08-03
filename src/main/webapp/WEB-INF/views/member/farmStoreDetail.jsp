@@ -583,7 +583,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
 
 
-// 	function handleBoardClick(one_board_num) {
+// 	function handleBoardClick(one_board_num) { 
 // 	    sessionStorage.setItem('selectedBoardNum', one_board_num); // 선택한 문의의 one_board_num 값을 웹 브라우저의 sessionStorage에 저장
 // 	}
 </script>
