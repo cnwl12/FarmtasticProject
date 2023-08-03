@@ -161,19 +161,18 @@
    </update>
    
    
-   <!-- 상품 판매상태 수정  itemSold -->
-    <update id="itemUpdateY">
-	UPDATE item
-	SET item_salesStatus = 'Y'
-    WHERE item_num = #{item_num}
+   <!-- 판매상태 생성 조회 후 업데이트  -->
+	<update id="updateStatus">
+    UPDATE item
+    SET item_salesStatus = 
+        CASE
+            WHEN item_salesStatus = 'Y' THEN 'N'
+            ELSE 'Y'
+        END
+    WHERE item_num = #{item_num} AND seller_num = #{seller_num};
 	</update>
 	
-	<update id="itemUpdateN">
-	UPDATE item
-	SET item_salesStatus = 'N'
-    WHERE item_num = #{item_num}
-	</update>
-	
+		
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT *

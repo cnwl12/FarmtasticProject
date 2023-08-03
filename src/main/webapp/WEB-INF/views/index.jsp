@@ -125,13 +125,14 @@
                         </div>
                     </div> 
                     
-                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/banner.jpg" style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
+                    <div class="hero__item set-bg">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br>100% Organic</h2>
                             <p>Free Pickup and Delivery Available</p>
                             <a href="farmStore" class="primary-btn">SHOP NOW</a>
                         </div>
+                       <img src="${pageContext.request.contextPath}/resources/img/4.png" alt=""  style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
                     </div>
                 </div>
             </div>
@@ -142,7 +143,7 @@
  
 
     <!-- Categories Section Begin : 메인 이미지  : 상이 -->
-    <section class="categories">
+   <%--  <section class="categories">
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
@@ -174,7 +175,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --%>
     <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
@@ -218,51 +219,16 @@
                         </div>
                     </div>
                 </div>
-                <!-- 중복 지워줄 예정 -->
-                <%-- <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/featured/feature-2.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div> --%>
                </c:forEach>
             </div>
         </div>
     </section>
     <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
-    <div class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="${pageContext.request.contextPath}/resources/img/banner/banner-1.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="${pageContext.request.contextPath}/resources/img/banner/banner-2.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner End -->
-
-    <!-- Latest Product Section Begin -->
+  <%--   <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
         <div class="container">
-            <div class="row">
+            <div class="row"> 
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
                         <h4>Latest Products</h4>
@@ -461,10 +427,10 @@
             </div>
         </div>
     </section>
-    <!-- Latest Product Section End -->
+    <!-- Latest Product Section End --> --%>
 
     <!-- Blog Section Begin -->
-    <section class="from-blog spad">
+    <%-- <section class="from-blog spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -521,7 +487,7 @@
                 </div>
             </div> 
         </div>
-    </section>
+    </section> --%>
     <!-- Blog Section End -->
 
 
@@ -540,7 +506,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
-    
     
 
 

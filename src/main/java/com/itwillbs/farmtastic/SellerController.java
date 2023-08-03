@@ -254,15 +254,18 @@ public class SellerController {
 	    return "/seller/itemMng";
 	}
 	
-	// 판매중지/판매 변경 버튼 
-	@RequestMapping(value = "/itemSold", method = RequestMethod.GET)
-	public String itemSold(@RequestParam HashMap<String, String> itemList, HttpServletRequest session){
+	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
+	@RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
+	public String updateStatus(@RequestParam HashMap<String, String> status, HttpSession session){
 		
 		String seller_num = "TA002";
 		
-		sellerService.itemSold(itemList);
-	  
-	    return "/seller/itemMng";
+		status.put("seller_num", seller_num);
+		System.out.println("updateStatus까지 오는지"+ seller_num);
+		sellerService.updateStatus(status);
+		
+		
+	    return "redirect:/itemMng";
 	}
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
