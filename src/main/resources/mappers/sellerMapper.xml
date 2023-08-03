@@ -279,19 +279,21 @@
 	
 	<!-- 판매자 로그인체크 성하 -->
     <select id="sellerCheck1" resultType="com.itwillbs.domain.SellerDTO">
-    select * from seller 
+     select * from seller 
     where seller_id = #{seller_id}
     <if test="seller_pass != null">
-  	  and seller_pass = #{seller_pass}
+  	  and seller_pass = #{seller_pass} 
   	  </if>
+  	   <!--  select * from seller 
+ 	   where seller_num = #{seller_num}
+  	  	AND seller_id = #{seller_id}
+	<if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if> -->
   	</select>
   	
 	<select id="MemberMngjoin" resultType="map">
-	
-	
-	
-	
-	
+	SELECT o.member_num, o.item_num, o.order_amount, o.order_pay, o.order_day
+	FROM orders o JOIN item i ON o.item_num = i.item_num
+	WHERE i.seller_num = #{seller_num};	
 	</select>
 
    

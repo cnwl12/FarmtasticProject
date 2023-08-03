@@ -46,5 +46,10 @@
     	admin_cs_view=#{admin_cs_view}
     WHERE admin_cs_num=#{admin_cs_num}
   	</update>
+  	
+  	<delete id="deleteContent" parameterType="int">
+  	DELETE FROM admin_csnotice WHERE admin_cs_num = #{admin_cs_num}
+	</delete>
+  		
 	 
 </mapper>

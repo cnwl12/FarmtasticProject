@@ -216,7 +216,7 @@
 								</div>
 							</div>
 							<div class="panel-footer">
-								<div class="seller-btn-area btn-group-lg">
+								<div class="seller-btn-area btn-group-lg" href="${pageContext.request.contextPath}/memberMngPro">
 									<button type="submit" class="btn btn-primary">검색</button>
 									<button type="button" class="btn btn-default"
 										ng-click="vm.func.reset()">초기화</button>
@@ -226,8 +226,30 @@
 					</div>
 					<!-- 검색바 끝 -->
 					
-					<!-- 주문회원 목록 시작 -->
-					<!-- 주문회원 목록 끝 -->
+				  <!-- 주문회원 목록 시작 -->
+<table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>회원번호</th>
+            <th>상품번호</th>
+            <th>주문금액</th>
+            <th>결제금액</th>
+            <th>주문일</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="member" items="${MemberMngjoin}">
+            <tr>
+                <td>${member.member_num}</td>
+                <td>${member.item_num}</td>
+                <td>${member.order_amount}</td>
+                <td>${member.order_pay}</td>
+                <td>${member.order_day}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+<!-- 주문회원 목록 끝 -->
 
 				</div>
 				<!-- 페이지 컨텐츠 끝 -->
@@ -255,7 +277,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+	
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -275,6 +297,13 @@
             </div>
         </div>
     </div>
+    
+  
+    
+    
+    
+    
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>

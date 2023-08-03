@@ -70,7 +70,6 @@
                                             <th>회원번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
-                                            <th>등급</th>
                                             <th>상태</th>
                                             <th>정보조회</th> 
                                             
@@ -82,7 +81,6 @@
                                              <th>회원번호</th>
                                             <th>아이디</th>
                                             <th>이름</th>
-                                            <th>등급</th>
                                             <th>상태</th>
                                             <th>정보조회</th>
                                         </tr>
@@ -95,7 +93,6 @@
                                             <td>${member.member_num}</td>
                                             <td>${member.member_id}</td>
                                             <td>${member.member_name}</td>
-                                            <td>27</td>
                                             <td>${member.member_delYn}</td>
                                             <td>$112,000</td>
                                         </tr>

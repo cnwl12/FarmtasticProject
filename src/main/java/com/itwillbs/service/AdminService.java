@@ -48,6 +48,15 @@ public class AdminService {
 	    System.out.println("서비스 getNoticeNum() 확인!");
 	    return adminDAO.getNotice(admin_cs_num);
 	}
+
+    public void updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
+        adminDAO.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
+    }
+
+    public void deleteContent(int admin_cs_num) {
+        adminDAO.deleteContent(admin_cs_num);
+    }
+	
   
 
 }
