@@ -44,7 +44,7 @@ public class AdminService {
         adminDAO.insertNotice(noticeList); // DB저장 코드 
 	}
 
-	public Map<String, Object> getNotice(String admin_cs_num) {
+	public Map<String, Object> getNotice(int admin_cs_num) {
 	    System.out.println("서비스 getNoticeNum() 확인!");
 	    return adminDAO.getNotice(admin_cs_num);
 	}
@@ -56,7 +56,7 @@ public class AdminService {
     public void deleteContent(int admin_cs_num) {
         adminDAO.deleteContent(admin_cs_num);
     }
-	
+ 
   
 
 }

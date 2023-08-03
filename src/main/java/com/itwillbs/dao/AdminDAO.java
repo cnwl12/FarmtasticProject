@@ -44,7 +44,7 @@ public class AdminDAO {
 		
 	}
 //  글 목록
-	public Map<String, Object> getNotice(String admin_cs_num) {
+	public Map<String, Object> getNotice(int admin_cs_num) {
 	    return sqlSession.selectOne(NAMESPACE + "getNotice", admin_cs_num);
 	}
 //	글 수정
@@ -60,7 +60,7 @@ public class AdminDAO {
 	 public void deleteContent(int admin_cs_num) {
 		    sqlSession.delete(NAMESPACE+"deleteContent", admin_cs_num);
 	 }
-
+	 
 }
 	
 	

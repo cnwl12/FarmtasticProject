@@ -126,7 +126,7 @@ public class AdminController {
 		return "/admin/customerMenu/writeCnote";
 	}
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
-	public String content(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	public String content(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
 	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 	    model.addAttribute("content", resultMap);
 	    model.addAttribute("admin_cs_num", admin_cs_num);
@@ -137,7 +137,7 @@ public class AdminController {
 	}
 //	글 수정화면
 	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
-	public String contentUpdate(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	public String contentUpdate(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
 	    System.out.println("contentUpdate 매핑확인여부");
 	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 	    model.addAttribute("content", resultMap);
@@ -157,12 +157,20 @@ public class AdminController {
 	        return "redirect:/content?admin_cs_num=" + admin_cs_num;
 	
 	}
-	
-	  @RequestMapping(value = "/deleteContent", method = RequestMethod.GET)
-	  public String deleteContent(@RequestParam("admin_cs_num") int admin_cs_num) {
-		  	adminService.deleteContent(admin_cs_num);
-		  	return "redirect:/cnotice";
-	  }
+	@RequestMapping(value = "/deleteContent", method = RequestMethod.GET)
+	public String deleteContent(@RequestParam("admin_cs_num") int admin_cs_num, HttpSession session) {
+	    String currentUserId = (String) session.getAttribute("userId");
+
+	    Map<String, Object> notice = adminService.getNotice(admin_cs_num); // 게시글 정보
+	    String writerId = (String) notice.get("admin_id");  // 게시글 작성자
+
+	    if (writerId == null || !writerId.equals(currentUserId)) {
+	        return "redirect:/cnotice";
+	    }
+
+	    adminService.deleteContent(admin_cs_num);
+	    return "redirect:/cnotice";
+	}
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(@RequestParam HashMap<String, String> noticeList,
 //	                              @RequestParam("file") List<MultipartFile> files,

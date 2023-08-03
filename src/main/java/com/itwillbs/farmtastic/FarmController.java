@@ -451,7 +451,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/contact";
 	}
 	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
-	public String contactContent(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	public String contactContent(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
 		System.out.println("contactContent 매핑확인여부");
 		Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 		model.addAttribute("content", resultMap);
