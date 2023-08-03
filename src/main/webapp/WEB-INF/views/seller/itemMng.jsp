@@ -38,10 +38,10 @@
 		location.href="itemUpdate?item_num="+item_num;
 	}
 	
-	function itemSold(item_num){
+	function updateStatus(item_num){
 		
 		if(confirm("판매중지하시겠습니까?")){
-			location.href="itemSold?item_num="+item_num;
+			location.href="updateStatus?item_num="+item_num;
 		}
 	}
 	</script>
@@ -90,8 +90,7 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable2" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 									<thead>
 										<tr>
 											<th>상품 타입</th>
@@ -101,7 +100,6 @@
 											<th>상품 설명</th>
 											<th>재고</th>
 											<th>판매</th>
-											<th>수정</th>
 											<th>상태변경</th>
 										</tr>
 									</thead>
@@ -109,17 +107,24 @@
 										<c:forEach var="item" items="${itemList}">
 											<tr>
 												<td>${item.seller_type}</td>
-												<td>${item.item_name}</td>
+												<td>  					
+												<a href="itemUpdate?item_num=${item.item_num}">${item.item_name}</a></td> 
 												<td>${item.item_price}</td>
 												<td><img src="${item.item_mainImg}"
-													style="width: 30px; height: 20px"></td>
+													style="width: 200px; height: 100px"></td>
 												<td>${item.item_detail}</td>
 												<td>${item.item_left}</td>
 												<td>${item.item_salesStatus}</td>
-												<td><input type="button"
-													onclick="itemUpdate(${item.item_num})" value="수정"></td>
-												<td><input type="button"
-													onclick="itemSold(${item.item_num})" value="판매중지"></td>
+												<td>
+													<c:choose>
+														<c:when test="${item.item_salesStatus eq 'Y'}">
+															<button onclick="updateStatus(${item.item_num})">판매중지</button>
+														</c:when>
+														<c:otherwise>
+															<button onclick="updateStatus(${item.item_num})">판매</button>
+														</c:otherwise>
+													</c:choose> 
+									     	    </td>
 											</tr>
 										</c:forEach>
 									</tbody>

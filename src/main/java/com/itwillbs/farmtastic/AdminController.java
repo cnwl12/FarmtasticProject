@@ -118,23 +118,24 @@ public class AdminController {
 		
 		return "/admin/customerMenu/notetest";
 	}
-	@RequestMapping(value = "/writetest", method = RequestMethod.GET)
-	public String writetest(Locale locale, Model model) {
+	@RequestMapping(value = "/writeCnote", method = RequestMethod.GET)
+	public String writeCnote(Locale locale, Model model) {
 		
-		System.out.println("writetest 매핑확인여부");
+		System.out.println("writeCnote 매핑확인여부");
 		
-		return "/admin/customerMenu/writetest";
+		return "/admin/customerMenu/writeCnote";
 	}
-	@RequestMapping(value = "/contenttest", method = RequestMethod.GET)
-	public String contenttest(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	@RequestMapping(value = "/content", method = RequestMethod.GET)
+	public String content(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
 	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 	    model.addAttribute("content", resultMap);
 	    model.addAttribute("admin_cs_num", admin_cs_num);
 	    System.out.println("controller" + resultMap);
-	    System.out.println("contenttest 매핑확인여부");
+	    System.out.println("content 매핑확인여부");
 	    
-	    return "/admin/customerMenu/contenttest";
+	    return "/admin/customerMenu/content";
 	}
+//	글 수정화면
 	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
 	public String contentUpdate(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
 	    System.out.println("contentUpdate 매핑확인여부");
@@ -144,7 +145,24 @@ public class AdminController {
 	    System.out.println("controller" + resultMap);
 	    return "/admin/customerMenu/contentUpdate";
 	}
+// 글 수정 기능	
+	@PostMapping("/contUpdate")
+	    public String updateContent(HttpServletRequest request) {
+	        int admin_cs_num = Integer.parseInt(request.getParameter("admin_cs_num"));
+	        String admin_csnotice_sub = request.getParameter("admin_csnotice_sub");
+	        String admin_cs_view = request.getParameter("admin_cs_view");
+
+	        adminService.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
+
+	        return "redirect:/content?admin_cs_num=" + admin_cs_num;
 	
+	}
+	
+	  @RequestMapping(value = "/deleteContent", method = RequestMethod.GET)
+	  public String deleteContent(@RequestParam("admin_cs_num") int admin_cs_num) {
+		  	adminService.deleteContent(admin_cs_num);
+		  	return "redirect:/cnotice";
+	  }
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(@RequestParam HashMap<String, String> noticeList,
 //	                              @RequestParam("file") List<MultipartFile> files,

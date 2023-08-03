@@ -51,7 +51,8 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">공지사항글쓰기</h1>
 					 <!-- DataTales Example -->
-                 <div class="card shadow mb-4">
+                 <div class="card shadow mb-4"  style="width: 1400px; height: 800px; overflow-y: auto;">
+               
                     <!--글쓰기  -->
                         <div class="card-header py-3">
                            <div class="row">
@@ -59,6 +60,9 @@
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="삭제" onclick="deleteContent('${content.admin_cs_num}')">삭제</button>
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
+                     
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
            					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
@@ -66,22 +70,35 @@
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                
+                               		 <c:choose>
+        								<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
+            									<img src="${content.admin_cs_file}" style="width: 300px; height: 300px;"><br>
+        								</c:when>
+    								</c:choose>
+    								<textarea name="admin_cs_view" style="width: 450px; height: 300px; border: none; background-color: white;" readonly>${content.admin_cs_view}</textarea>
+                                		
+                            
+                               <!--
+                                <table class="table table-bordered" id="dataTable">
                          			<tr>
                          				
-                         				<td>
+                         				<td >
     										<c:choose>
         										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
             									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
         										</c:when>
     										</c:choose>
-    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
+    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style=" border: none; background-color: white; " readonly="readonly"/>
 										</td>
                          			</tr>
                          		</table>
+                            	  -->
+                            
                             </div>
                           </div>
                       </div>
+                
                 <!-- DataTales Example End -->
                       
                 </div>
@@ -96,13 +113,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+           
             <!-- End of Footer -->
 
         </div>
@@ -138,6 +149,19 @@
     		window.location.href = "${pageContext.request.contextPath}/contentUpdate?admin_cs_num=" + admin_cs_num;
  		}
 	</script>
+	<script>
+  		function deleteContent(admin_cs_num) {
+    		if (confirm("정말로 이 글을 삭제하시겠습니까?")) {
+     		 window.location.href = "${pageContext.request.contextPath}/deleteContent?admin_cs_num=" + admin_cs_num;
+   			 }
+  		}
+	</script>
+	<script>
+  		function cnotice(){
+    		window.location.href = "${pageContext.request.contextPath}/cnotice";
+ 		}
+	</script>
+
 
 
 

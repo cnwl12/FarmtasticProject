@@ -25,10 +25,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css" type="text/css">
-    
+
 </head>
 
 <body>
+
+
 
 <jsp:include page="../top.jsp"></jsp:include>
 
@@ -71,7 +73,7 @@
                                 <li><a href="#">Oatmeal</a></li>
                             </ul>
                         </div>
-                        <div class="sidebar__item">
+                       <!--  <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
@@ -153,8 +155,8 @@
                                     <input type="radio" id="tiny">
                                 </label>
                             </div>
-                        </div>
-                        <div class="sidebar__item">
+                        </div> -->
+                        <%-- < div class="sidebar__item">
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
@@ -218,11 +220,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --%>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
+               <div class="col-lg-9 col-md-7">
+               <%--      <div class="product__discount">
                         <div class="section-title product__discount__title">
                             <h2>Sale Off</h2>
                         </div>
@@ -338,7 +340,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                     
                     
                     
@@ -369,13 +371,21 @@
                     
                     <!-- 여기부터 ul 반복 -->
                     <div class="row">
-                    <c:forEach var="item" items="${itemList}">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                <a href="farmStoreDetail?item_num=${item.item_num}">
-                                  <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
-                                  </a>
+	              <c:forEach var="item" items="${itemList}">
+				    <div class="col-lg-4 col-md-6 col-sm-6">
+				        <div class="product__item">
+				            <div class="product__item__pic set-bg">
+				                <a href="farmStoreDetail?item_num=${item.item_num}">
+				                    <div class="image-container">
+				                        <div class="product-image"
+				                             style="background-image: url('${item.item_mainImg}');"></div>
+				                        <c:choose>
+				                            <c:when test="${item.item_left < 3}">
+				                                <div class="overlay sold-out">Sold Out</div>
+				                            </c:when>
+				                        </c:choose>
+				                    </div>
+				                </a>
                                     <ul class="product__item__pic__hover">
 	                                    	<li>
 				                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
@@ -407,8 +417,6 @@
         </div>
     </section>
     <!-- Product Section End -->
-
-
   
   	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>

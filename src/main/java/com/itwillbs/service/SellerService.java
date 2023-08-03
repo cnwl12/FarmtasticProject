@@ -157,6 +157,12 @@ public class SellerService {
 		public List<Map<String, Object>> MemberMngjoin() {
 			System.out.println("SellerService의 MemberMngjoin()");
 			return sellerDAO.MemberMngjoin();
+		}
+
+		public void updateStatus(HashMap<String, String> status) {
+			
+			System.out.println("updateStatus서비스");
+			sellerDAO.updateStatus(status);
 		}	        
 		
 }

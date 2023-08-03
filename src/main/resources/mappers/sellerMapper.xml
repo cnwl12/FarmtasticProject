@@ -161,19 +161,18 @@
    </update>
    
    
-   <!-- 상품 판매상태 수정  itemSold -->
-    <update id="itemUpdateY">
-	UPDATE item
-	SET item_salesStatus = 'Y'
-    WHERE item_num = #{item_num}
+   <!-- 판매상태 생성 조회 후 업데이트  -->
+	<update id="updateStatus">
+    UPDATE item
+    SET item_salesStatus = 
+        CASE
+            WHEN item_salesStatus = 'Y' THEN 'N'
+            ELSE 'Y'
+        END
+    WHERE item_num = #{item_num} AND seller_num = #{seller_num};
 	</update>
 	
-	<update id="itemUpdateN">
-	UPDATE item
-	SET item_salesStatus = 'N'
-    WHERE item_num = #{item_num}
-	</update>
-	
+		
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT *
@@ -280,19 +279,21 @@
 	
 	<!-- 판매자 로그인체크 성하 -->
     <select id="sellerCheck1" resultType="com.itwillbs.domain.SellerDTO">
-    select * from seller 
+     select * from seller 
     where seller_id = #{seller_id}
     <if test="seller_pass != null">
-  	  and seller_pass = #{seller_pass}
+  	  and seller_pass = #{seller_pass} 
   	  </if>
+  	   <!--  select * from seller 
+ 	   where seller_num = #{seller_num}
+  	  	AND seller_id = #{seller_id}
+	<if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if> -->
   	</select>
   	
 	<select id="MemberMngjoin" resultType="map">
-	
-	
-	
-	
-	
+	SELECT o.member_num, o.item_num, o.order_amount, o.order_pay, o.order_day
+	FROM orders o JOIN item i ON o.item_num = i.item_num
+	WHERE i.seller_num = #{seller_num};	
 	</select>
 
    

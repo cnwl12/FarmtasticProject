@@ -51,9 +51,9 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">공지사항글수정</h1>
 					 <!-- DataTales Example -->
-                 <div class="card shadow mb-4">
+                 <div class="card shadow mb-4"  style="width: 1400px; height: 800px; overflow-y: auto;">
                     <!--글쓰기  -->
-                    <form action="updatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="contUpdate" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="card-header py-3">
                            <div class="row">
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
@@ -67,19 +67,12 @@
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                         			<tr>
-                         				
-                         				<td>
-    										<c:choose>
-        										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
-            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
-        										</c:when>
-    										</c:choose>
-    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" />
-										</td>
-                         			</tr>
-                         		</table>
+                                 <c:choose>
+        								<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
+            									<img src="${content.admin_cs_file}" style="width: 300px; height: 300px;"><br>
+        								</c:when>
+    								</c:choose>
+    								<textarea name="admin_cs_view" style="width: 450px; height: 300px; border: none; background-color: white;" >${content.admin_cs_view}</textarea>
                             </div>
                           </div>
                       	</form>
@@ -98,15 +91,7 @@
 
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+    
 
         </div>
         <!-- End of Content Wrapper -->

@@ -119,7 +119,7 @@
             <!-- 주문내역 정보 확인 -->
             <div class="checkout__form">
                 <h4>주문정보</h4>
-                <form action="#">
+                <form action="insertOrders">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
@@ -231,11 +231,11 @@
                                 <!-- ??????? 이거는 왜????????  -->
                                 <div id="order_num">${order_num}</div>
                                 <div id="member_email">${memberDTO.member_email}</div>
-	                            <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
-                            </div>
-                        </div>
-                    </div>
-                </form>
+							</form>
+                            <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
+                         </div>
+                     </div>
+                 </div>
             </div>
         </div>
     </section>
