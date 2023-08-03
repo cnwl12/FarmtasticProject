@@ -186,7 +186,7 @@ WHERE member_num = #{member_num};
   <update id="updateReview">
   update review 
   set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}
-  where member_num = #{member_num};
+  where review_num = #{review_num};
   </update>
   
   <!--  1대1문의 -->

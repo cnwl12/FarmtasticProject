@@ -181,22 +181,10 @@ public class MemberService {
 	    }
 	 
 	 // 마이페이지 리뷰 수정 기능   
-	 public MemberDTO updateReview(int member_num, MemberDTO update, HttpServletRequest request) {
-	     MemberDTO updateReview = memberDAO.getMember1(member_num);
-	     if (updateReview == null) {
-	         return null;
-	     }
-	     updateReview.setReview_title(update.getReview_title());
-	     updateReview.setReview_star(update.getReview_star());
-	     updateReview.setReview_content(update.getReview_content());
-
-	     int updatedRecords = memberDAO.updateReview(updateReview);
-	     if (updatedRecords == 0) {
-	         return null;
-	     } else {
-	         return updateReview;
-	     }
-	 }
+	 public void updateReview(int review_num, int review_star, String review_title, String review_content) {
+		 memberDAO.updateReview(review_num, review_star, review_title, review_content);
+	}
+		
 	 
 	 
 	public void updateInCart(HashMap<String, Object> cart) {
@@ -221,6 +209,7 @@ public class MemberService {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
+
 	
 	
 	

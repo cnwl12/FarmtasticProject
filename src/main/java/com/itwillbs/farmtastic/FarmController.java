@@ -759,20 +759,21 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중   
-	@RequestMapping(value = "/api/reviews/{member_num}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<MemberDTO> updateReview(
-	        @PathVariable("member_num") int member_num,
-	        @Validated @RequestBody MemberDTO update,
-	        HttpServletRequest request) {
-	    MemberDTO updateReview = memberService.updateReview(member_num, update, request);
-	    if (updateReview == null) {
-	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<String> updateReviewPost(@RequestParam("review_num") int review_num,
+									@RequestParam("review_star") int review_star,
+	                                @RequestParam("review_title") String review_title,
+	                                @RequestParam("review_content") String review_content) {
+	    try {
+	        memberService.updateReview(review_num, review_star,review_title, review_content);
+	        return ResponseEntity.status(HttpStatus.OK).body("리뷰가 성공적으로 업데이트되었습니다.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
 	    }
-	    return new ResponseEntity<>(updateReview, HttpStatus.OK);
-	}
 
-	
+	}
 	
 	// 서영 작업중
     @RequestMapping(value = "/oneboard", method = RequestMethod.GET)

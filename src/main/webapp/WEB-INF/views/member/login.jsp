@@ -356,12 +356,7 @@ $(document).ready(function() {
     validateForm();
 
     if (validId && validPwd) {
-      // 관리자 여부를 체크한 후 페이지 이동
-      if ($("#loginId1").val() === "admin") {
-        location.href = 'adminMain'; // 관리자 메인 페이지로 이동
-      } else {
-        document.login.submit(); // 비관리자인 경우 폼 제출
-      }
+      document.login.submit(); 
     } else {
       alert("올바른 정보를 입력해주세요");
     }
@@ -371,16 +366,11 @@ $(document).ready(function() {
     validateForm2();
 
     if (validId2 && validPwd2) {
-        // 관리자 여부를 체크한 후 페이지 이동
-        if ($("#loginId2").val() === "admin") {
-          location.href = 'adminMain'; // 관리자 메인 페이지로 이동
-        } else {
-          document.login2.submit(); // 비관리자인 경우 폼 제출
-        }
-      } else {
-        alert("올바른 정보를 입력해주세요");
-      }
+      document.login2.submit(); 
+    } else {
+      alert("올바른 정보를 입력해주세요");
     }
+  }
 });
 </script>
 

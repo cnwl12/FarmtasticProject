@@ -169,11 +169,15 @@ public class MemberDAO {
 			return sqlSession.selectList(namespace+".getItemMyReview", member_num);
 		}
 
-		public int updateReview(MemberDTO updateReview) {
-	        int updatedRowCount = sqlSession.update(namespace+".updateReview", updateReview);
-	        sqlSession.commit();
-	        return updatedRowCount;
-	    }
+		public void updateReview(int review_num, int review_star, String review_title, String review_content) {
+			Map<String, Object> params = new HashMap<>();
+	        params.put("review_num", review_num);
+	        params.put("review_star", review_star);
+	        params.put("review_title", review_title);
+	        params.put("review_content", review_content);
+			
+			sqlSession.update(namespace+".updateReview", params);
+		}
 	
 	
 	//서영 작업 1대1문의
@@ -206,6 +210,9 @@ public class MemberDAO {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
 	}
+
+
+	
 
 
 	
