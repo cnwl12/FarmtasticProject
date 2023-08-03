@@ -70,6 +70,7 @@ body {
 					<!-- 페이지 상단 끝 -->
 
 					<form action="itemUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+					<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
 						<!-- 카테고리 선택 시작-->
 						<div class="form-section">
 							<div class="title-line">
