@@ -10,9 +10,9 @@
 	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name}, #{member_phone}, #{member_email}, now(), #{member_post}, #{member_addMain}, #{member_addSub})
 	</insert>
 	
-	<insert id="insertOrders">
-		insert into orders(order_num, member_num, item_num, order_pay, order_post, order_addMain, order_addSub, order_phone, order_msg, order_name, order_day)
-		values(CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(o.id, 8, '0')), #{member_num}, #{item_num}, #{order_pay}, #{order_post}, #{order_addMain}, #{order_addSub}, #{order_phone}, #{order_msg}, #{order_name}, #{order_day});
+	<insert id="insertPay">
+		insert into pay(pay_num, order_num, pay_day, pay_yn, pay_pay)
+		values(#{pay_num}, #{order_num}, NOW(), #{pay_yn}, #{pay_pay})
 	</insert>  
 	
 	<select id="nuserCheck" 
