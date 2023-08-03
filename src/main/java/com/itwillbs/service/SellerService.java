@@ -152,6 +152,11 @@ public class SellerService {
 		    System.out.println("SellerService sellerCheck1()");
 		    
 		    return sellerDAO.sellerCheck1(sellerDTO);
-	    }	        
+	    }
+
+		public List<Map<String, Object>> MemberMngjoin() {
+			System.out.println("SellerService의 MemberMngjoin()");
+			return sellerDAO.MemberMngjoin();
+		}	        
 		
 }

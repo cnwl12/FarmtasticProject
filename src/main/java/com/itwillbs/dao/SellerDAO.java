@@ -146,5 +146,10 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".sellerCheck1", sellerDTO);
 		}
 
+		public List<Map<String, Object>> MemberMngjoin() {
+			System.out.println("SellerDAO MemberMngjoin()");
+			return sqlSession.selectList(namespace + ".MemberMngjoin");
+		}
+
 
 }

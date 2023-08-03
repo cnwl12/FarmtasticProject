@@ -273,7 +273,14 @@
   	  and seller_pass = #{seller_pass}
   	  </if>
   	</select>
+  	
+	<select id="MemberMngjoin" resultType="map">
 	
+	
+	
+	
+	
+	</select>
 
    
 </mapper>

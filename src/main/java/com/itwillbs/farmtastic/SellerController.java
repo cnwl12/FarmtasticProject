@@ -129,6 +129,7 @@ public class SellerController {
 		return "/seller/memberMng";
 	}
 
+
 	/*
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Locale locale, Model model) {
@@ -360,4 +361,19 @@ public class SellerController {
 			return "redirect:/login";
 		}
 	}
+	
+	/* sungha 판매자->회원관리....조회..*/
+	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
+	public String memberMngPro(Locale locale, Model model) {
+		System.out.println("memberMng 매핑확인여부");
+		List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin();
+	    model.addAttribute("MemberMngjoin", MemberMngjoin);
+	    return "/seller/memberMng";
+	}
+	
+	
+	
+	
+	
+	
 }
