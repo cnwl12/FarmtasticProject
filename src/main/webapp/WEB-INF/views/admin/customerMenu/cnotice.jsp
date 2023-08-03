@@ -56,7 +56,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
-                     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/notetest'">글쓰기</button>
+                     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/writeCnote'">글쓰기</button>
                      </div>   
                         <div class="card-body">
                             <div class="table-responsive">
@@ -84,7 +84,7 @@
                                         <tr>
                                         	<td>${list.admin_cs_num}</td>
                                             <td>${list.admin_id}</td>
-                                            <td><a href="${pageContext.request.contextPath}/contenttest?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/content?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
                                         	<td>${list.admin_cs_day}</td>
                                         </tr>
                                      </c:forEach>   

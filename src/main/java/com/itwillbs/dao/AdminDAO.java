@@ -38,13 +38,23 @@ public class AdminDAO {
 	     sqlSession.insert(NAMESPACE + "insertNotice", params);
 	}
 	 */
+//	글 작성
 	public void insertNotice(HashMap<String, String> noticeList) {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeList);
 		
 	}
-
+//  글 목록
 	public Map<String, Object> getNotice(String admin_cs_num) {
 	    return sqlSession.selectOne(NAMESPACE + "getNotice", admin_cs_num);
+	}
+//	글 수정
+	public void updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
+	        HashMap<String, Object> params = new HashMap<>();
+	        params.put("admin_cs_num", admin_cs_num);
+	        params.put("admin_csnotice_sub", admin_csnotice_sub);
+	        params.put("admin_cs_view", admin_cs_view);
+
+	        sqlSession.update(NAMESPACE+"updateContent", params);
 	}
 
 }
