@@ -134,10 +134,10 @@ public class SellerDAO {
 			sqlSession.update(namespace+".itemUpdate", itemList);
 		}
 
-
+		// 판매상태 변경
 		public void itemSold(HashMap<String, String> itemList) {
 			System.out.println("디에오");
-			sqlSession.update(namespace+".itemSold", itemList);
+			sqlSession.update(namespace+".itemUpdateY", itemList);
 		}
 
 		// 판매자 ID 로그인-성하

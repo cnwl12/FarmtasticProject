@@ -61,71 +61,75 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- 메인 컨텐츠 시작 -->
-            <div id="content">
+			<div id="content">
 
-                 <jsp:include page="./inc/top.jsp"></jsp:include>
+				<jsp:include page="./inc/top.jsp"></jsp:include>
 
-                <!-- 페이지 컨텐츠 시작 -->
-                <div class="container-fluid">
+				<!-- 페이지 컨텐츠 시작 -->
+				<div class="container-fluid">
 
-                    <!-- 페이지 상단 시작 -->
-                    <h1 class="h3 mb-2 text-gray-800">상품처리</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net"> official DataTables documentation</a>.</p>
-                    <!-- 페이지 상단 끝 -->   
-                    
-                    <div>
-					<p>
-					검색바 내 상품 검색... 
+					<!-- 페이지 상단 시작 -->
+					<h1 class="h3 mb-2 text-gray-800">상품처리</h1>
+					<p class="mb-4">
+						DataTables is a third party plugin that is used to generate the
+						demo table below. For more information about DataTables, please
+						visit the <a target="_blank" href="https://datatables.net">
+							official DataTables documentation</a>.
 					</p>
+					<!-- 페이지 상단 끝 -->
+
+					<div>
+						<p>검색바 내 상품 검색...</p>
 					</div>
-					
+
 					<!-- 상품목록 시작 -->
-					<ui-view name="list">
-						<div class="panel panel-seller">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h3 class="panel-title">
-										상품목록 (총 <span class="text-primary">0</span>개)
-									</h3>
-								</div>
-							</div>
-							
-								<table border="1" id="tableList">
-						<tr>
-							<th>상품 타입</th>
-							<th>상품명</th>
-							<th>가격</th>
-							<th>상품 이미지</th>
-							<th>상품 설명</th>
-							<th>재고</th>
-							<th>판매상태</th>
-							<th>수정</th>
-							<th>변경</th>
-						</tr>
-						<c:forEach var="item" items="${itemList}">
-							<tr>
-								<td>${item.seller_type}</td>
-								<td>${item.item_name}</td>
-								<td>${item.item_price}</td>
-								<td><img src="${item.item_mainImg}" style="width: 30px; height : 20px"></td>
-								<td>${item.item_detail}</td>
-								<td>${item.item_left}</td>
-								<td>${item.item_salesStatus}</td>
-								<td><input type="button" onclick="itemUpdate(${item.item_num})" value="수정"></td>
-								<td><input type="button" onclick="itemSold(${item.item_num})" value="판매중지"></td>
-							</tr>
-						</c:forEach>
-					</table>
-							
-							<!-- <div class="panel-footer">
-								<div class="seller-btn-area">
-									<button type="button" class="btn btn-primary btn-lg">수정 항목 저장</button>
-								</div>
-							</div> -->
+					<!-- DataTales Example -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">상품관리</h6>
 						</div>
-					</ui-view>
-					<!-- 상품목록 끝 -->
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable2" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>상품 타입</th>
+											<th>상품명</th>
+											<th>가격</th>
+											<th>상품 이미지</th>
+											<th>상품 설명</th>
+											<th>재고</th>
+											<th>판매</th>
+											<th>수정</th>
+											<th>상태변경</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="item" items="${itemList}">
+											<tr>
+												<td>${item.seller_type}</td>
+												<td>${item.item_name}</td>
+												<td>${item.item_price}</td>
+												<td><img src="${item.item_mainImg}"
+													style="width: 30px; height: 20px"></td>
+												<td>${item.item_detail}</td>
+												<td>${item.item_left}</td>
+												<td>${item.item_salesStatus}</td>
+												<td><input type="button"
+													onclick="itemUpdate(${item.item_num})" value="수정"></td>
+												<td><input type="button"
+													onclick="itemSold(${item.item_num})" value="판매중지"></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 상품목록 끝 -->
                     
 				</div>
 				<!-- 페이지 컨텐츠 끝 -->

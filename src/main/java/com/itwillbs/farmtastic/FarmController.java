@@ -758,19 +758,19 @@ public class FarmController { // 소비자 (컨트롤러)
 		 return myreview;
 	}
 	
-//	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중   
-//	@RequestMapping(value = "/api/reviews/{id}", method = RequestMethod.PUT)
-//    @ResponseBody
-//    public ResponseEntity<MemberDTO> updateReview(
-//            @PathVariable String id,
-//            @Validated @RequestBody MemberDTO reviewDetails,
-//            HttpServletRequest request) {
-//        MemberDTO updateReview = memberService.updateReview(id, reviewDetails, request);
-//        if (updateReview == null) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//        return new ResponseEntity<>(updateReview, HttpStatus.OK);
-//    }
+	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중   
+	@RequestMapping(value = "/api/reviews/{member_num}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<MemberDTO> updateReview(
+	        @PathVariable("member_num") int member_num,
+	        @Validated @RequestBody MemberDTO update,
+	        HttpServletRequest request) {
+	    MemberDTO updateReview = memberService.updateReview(member_num, update, request);
+	    if (updateReview == null) {
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<>(updateReview, HttpStatus.OK);
+	}
 
 	
 	

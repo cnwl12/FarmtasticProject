@@ -18,7 +18,7 @@
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
-                            </div>
+                            </div> 
                         </div>
                     </form>
 

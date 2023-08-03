@@ -142,7 +142,38 @@ public class MemberDAO {
 	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
 	}
 	
-	
+	// 막냉이 리뷰별점 갯수 기능
+		public int getReviewCountByItemNum(int item_num) {
+			return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
+		 }
+
+			
+		public double getAverageReviewStarByItemNum(int item_num) { 
+			Double averageReviewStar = null; 
+			 try { averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
+			} catch (NullPointerException e) {
+				 
+			} catch (EmptyResultDataAccessException e) {
+			 
+			}
+			return averageReviewStar == null ? 0.0 : averageReviewStar; 
+			}
+
+
+		public void updateInCart(HashMap<String, Object> cart) {
+			sqlSession.update(namespace+".updateInCart", cart);
+		}
+
+		//막내 마이페이지 리뷰관리
+		public List<MemberDTO> getItemMyReview(int member_num) {
+			return sqlSession.selectList(namespace+".getItemMyReview", member_num);
+		}
+
+		public int updateReview(MemberDTO updateReview) {
+	        int updatedRowCount = sqlSession.update(namespace+".updateReview", updateReview);
+	        sqlSession.commit();
+	        return updatedRowCount;
+	    }
 	
 	
 	//서영 작업 1대1문의
@@ -163,33 +194,6 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 
-	
-	// 막냉이 리뷰별점 갯수 기능
-	public int getReviewCountByItemNum(int item_num) {
-		return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
-	 }
-
-		
-	public double getAverageReviewStarByItemNum(int item_num) { 
-		Double averageReviewStar = null; 
-		 try { averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
-		} catch (NullPointerException e) {
-			 
-		} catch (EmptyResultDataAccessException e) {
-		 
-		}
-		return averageReviewStar == null ? 0.0 : averageReviewStar; 
-		}
-
-
-	public void updateInCart(HashMap<String, Object> cart) {
-		sqlSession.update(namespace+".updateInCart", cart);
-	}
-
-	//막내 마이페이지 리뷰관리
-	public List<MemberDTO> getItemMyReview(int member_num) {
-		return sqlSession.selectList(namespace+".getItemMyReview", member_num);
-	}
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
 		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
@@ -201,6 +205,9 @@ public class MemberDAO {
 	
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
-	}	
+	}
+
+
+	
 		 
 }

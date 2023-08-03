@@ -160,7 +160,20 @@
    WHERE item_num = #{item_num} AND seller_num = #{seller_num}
    </update>
    
-
+   
+   <!-- 상품 판매상태 수정  itemSold -->
+    <update id="itemUpdateY">
+	UPDATE item
+	SET item_salesStatus = 'Y'
+    WHERE item_num = #{item_num}
+	</update>
+	
+	<update id="itemUpdateN">
+	UPDATE item
+	SET item_salesStatus = 'N'
+    WHERE item_num = #{item_num}
+	</update>
+	
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT *

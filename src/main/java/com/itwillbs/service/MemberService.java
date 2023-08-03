@@ -180,6 +180,24 @@ public class MemberService {
 	        return memberDAO.getItemMyReview(member_num);
 	    }
 	 
+	 // 마이페이지 리뷰 수정 기능   
+	 public MemberDTO updateReview(int member_num, MemberDTO update, HttpServletRequest request) {
+	     MemberDTO updateReview = memberDAO.getMember1(member_num);
+	     if (updateReview == null) {
+	         return null;
+	     }
+	     updateReview.setReview_title(update.getReview_title());
+	     updateReview.setReview_star(update.getReview_star());
+	     updateReview.setReview_content(update.getReview_content());
+
+	     int updatedRecords = memberDAO.updateReview(updateReview);
+	     if (updatedRecords == 0) {
+	         return null;
+	     } else {
+	         return updateReview;
+	     }
+	 }
+	 
 	 
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
@@ -194,21 +212,7 @@ public class MemberService {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}
 
-//	public MemberDTO updateReview(String id, MemberDTO reviewDetails, HttpServletRequest request) {
-//	        MemberDTO updateReview = memberDAO.getMember1(id);
-//	        if (updateReview == null) {
-//	            return null;
-//	        }
-//	        updateReview.setReview_title(reviewDetails.getReview_title());
-//	        updateReview.setReview_star(reviewDetails.getReview_star());
-//	        updateReview.setReview_content(reviewDetails.getReview_content());
-//
-//	        if (memberDAO.updateMember(updateReview) != 0) {
-//	            return updateReview;
-//	        } else {
-//	            return null;
-//	        }
-//	    }
+	
 	    
 //	  public int removeFromWishlist(int item_num) {
 //	    return memberDAO.deleteWishlistItem(item_num);
