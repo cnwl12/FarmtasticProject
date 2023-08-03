@@ -166,6 +166,15 @@ on r.member_num = m.member_num
 WHERE item_num = #{item_num}
   </select>
   
+  <!-- 리뷰모시기 막내 -->
+  <select id="getReviewCountByItemNum" resultType="int">
+        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
+  </select>
+
+  <select id="getAverageReviewStarByItemNum" resultType="double">
+        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
+  </select>
+  
   <!-- 마이페이지 용 -->
   <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
     select r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
@@ -173,6 +182,12 @@ from review r left join item i
 on r.item_num = i.item_num
 WHERE member_num = #{member_num}; 
   </select>
+  
+  <update id="updateReview">
+  update review 
+  set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}
+  where member_num = #{member_num};
+  </update>
   
   <!--  1대1문의 -->
   <insert id="insertOneBoard">
@@ -214,16 +229,6 @@ WHERE member_num = #{member_num};
 	WHERE ob.item_num = #{item_num}
 
 </select>
-  
-  <!-- 리뷰모시기 막내 -->
-  <select id="getReviewCountByItemNum" resultType="int">
-        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
-  </select>
-
-  <select id="getAverageReviewStarByItemNum" resultType="double">
-        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
-  </select>
-  
   
   <!-- 서영 저의 위시리스트는 집가기입니다 찜기능 구현중입니다 -->
   <select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
