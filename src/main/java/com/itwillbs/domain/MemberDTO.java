@@ -16,7 +16,8 @@ public class MemberDTO {
 	private String member_addMain;
 	private String member_addSub;
 	private Date member_joinDay;
-
+	private String member_delYn;
+	
 	private int one_board_num;
 	private String one_board_type;
 	private String one_board_title;
@@ -88,7 +89,15 @@ public class MemberDTO {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
-	
+
+	public String getMember_delYn() {
+		return member_delYn;
+	}
+
+	public void setMember_delYn(String member_delYn) {
+		this.member_delYn = member_delYn;
+	}
+
 	public String getMember_nid() {
 		return member_nid;
 	}

@@ -60,7 +60,8 @@
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
-                          <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="삭제" onclick="deleteContent('${content.admin_cs_num}')">삭제</button>
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
                      
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
@@ -147,6 +148,13 @@
   		function updateContent(admin_cs_num) {
     		window.location.href = "${pageContext.request.contextPath}/contentUpdate?admin_cs_num=" + admin_cs_num;
  		}
+	</script>
+	<script>
+  		function deleteContent(admin_cs_num) {
+    		if (confirm("정말로 이 글을 삭제하시겠습니까?")) {
+     		 window.location.href = "${pageContext.request.contextPath}/deleteContent?admin_cs_num=" + admin_cs_num;
+   			 }
+  		}
 	</script>
 	<script>
   		function cnotice(){

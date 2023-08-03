@@ -56,6 +56,10 @@ public class AdminDAO {
 
 	        sqlSession.update(NAMESPACE+"updateContent", params);
 	}
+//	글 삭제
+	 public void deleteContent(int admin_cs_num) {
+		    sqlSession.delete(NAMESPACE+"deleteContent", admin_cs_num);
+	 }
 
 }
 	

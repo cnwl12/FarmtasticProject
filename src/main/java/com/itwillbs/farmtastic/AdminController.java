@@ -135,6 +135,7 @@ public class AdminController {
 	    
 	    return "/admin/customerMenu/content";
 	}
+//	글 수정화면
 	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
 	public String contentUpdate(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
 	    System.out.println("contentUpdate 매핑확인여부");
@@ -144,6 +145,7 @@ public class AdminController {
 	    System.out.println("controller" + resultMap);
 	    return "/admin/customerMenu/contentUpdate";
 	}
+// 글 수정 기능	
 	@PostMapping("/contUpdate")
 	    public String updateContent(HttpServletRequest request) {
 	        int admin_cs_num = Integer.parseInt(request.getParameter("admin_cs_num"));
@@ -153,8 +155,14 @@ public class AdminController {
 	        adminService.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
 
 	        return "redirect:/content?admin_cs_num=" + admin_cs_num;
+	
 	}
 	
+	  @RequestMapping(value = "/deleteContent", method = RequestMethod.GET)
+	  public String deleteContent(@RequestParam("admin_cs_num") int admin_cs_num) {
+		  	adminService.deleteContent(admin_cs_num);
+		  	return "redirect:/cnotice";
+	  }
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(@RequestParam HashMap<String, String> noticeList,
 //	                              @RequestParam("file") List<MultipartFile> files,
