@@ -453,7 +453,7 @@ $(document).ready(function() {
   });
  });  
 </script>
-<script>    
+<script>     
 
     function getItemMyReview() {
     	var member_num =  '<%= request.getSession().getAttribute("member_num") %>';
