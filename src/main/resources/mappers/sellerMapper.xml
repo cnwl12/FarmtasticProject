@@ -284,11 +284,12 @@
     <if test="seller_pass != null">
   	  and seller_pass = #{seller_pass} 
   	  </if>
-  	   <!--  select * from seller 
- 	   where seller_num = #{seller_num}
-  	  	AND seller_id = #{seller_id}
-	<if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if> -->
   	</select>
+  	
+  	<select id="idCheck" resultType="String">
+    SELECT seller_id FROM seller WHERE seller_num = #{seller_num}
+     
+  	</select> 
   	
 	<select id="MemberMngjoin" resultType="map">
 	SELECT o.member_num, o.item_num, o.order_amount, o.order_pay, o.order_day

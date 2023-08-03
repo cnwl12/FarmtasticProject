@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,15 +39,27 @@ public class SellerController {
 	
 	// 로그인 기능이 없어서 일단 판매자 정보 페이지에 접속하면 이 판매자가 뜨게 하드코딩함
 	// 로그인해서 세션으로 값 가져오면 삭제할 코드
-	 String seller_num = "TA002"; 
+	 //String seller_num = "TA002"; ->주석해둠-성하
 	
+//	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
+//	public String home(Locale locale, Model model) {
+//		
+//		System.out.println("sellerMain 매핑확인여부");
+//		return "/seller/sellerMain";
+//	}
 
-	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		System.out.println("sellerMain 매핑확인여부");
-		return "/seller/sellerMain";
+	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET) //수정성하
+	public String home(Locale locale, Model model, HttpSession session) {
+
+	   System.out.println("sellerMain 매핑확인여부");
+	    
+	   	String seller_num = (String) session.getAttribute("seller_num");
+	    String seller_id = sellerService.idCheck(seller_num);
+
+	    model.addAttribute("seller_id", seller_id);
+	    return "seller/sellerMain";
 	}
+
 	
 	@RequestMapping(value = "/tables", method = RequestMethod.GET)
 	public String tables(Locale locale, Model model) {
@@ -55,15 +68,46 @@ public class SellerController {
 		return "/seller/tables";
 	}
 	
-	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨
-	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
-	public String sellerMemb(Locale locale, Model model) {
+//	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨
+//		@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
+//		public String sellerMemb(Locale locale, Model model) {
+//			
+//			System.out.println("SellerController의 sellerMemb 매핑완");
+//			Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+//			model.addAttribute("seller", sellerInfo);
+//			return "/seller/sellerMemb";
+//		}
+	
+	
 		
-		System.out.println("SellerController의 sellerMemb 매핑완");
-		Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-		model.addAttribute("seller", sellerInfo);
-		return "/seller/sellerMemb";
-	}
+	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨->수정조금했습니다 성하
+		@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
+		public String sellerMemb(Locale locale, Model model, HttpSession session) {
+
+		    System.out.println("SellerController의 sellerMemb 매핑완");
+
+		    // HttpSession 객체가 null인 경우 예외를 방지하기 위한 null 체크
+		    if (session == null) {
+		        // 예외 처리 코드
+		        return "redirect:/login";
+		    }
+
+		    String seller_num = (String) session.getAttribute("seller_num");
+
+		    // seller_num이 null인 경우 예외 처리 코드
+		    if (seller_num == null) {
+		        // 예외 처리 코드
+		        return "redirect:/login";
+		    }
+
+		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
+		    model.addAttribute("seller", sellerInfo);
+
+		    return "/seller/sellerMemb";
+		}
+	
+	
+	
 	
 	/*
 	 * // 선진) 판매자 정보 수정, 안쓰는 코드라 삭제 예정
@@ -354,16 +398,23 @@ public class SellerController {
 	/* sungha 사업자로그인.... */
 
 
-	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
 	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session) {
 	    System.out.println("SellerController sellerloginPro()");
 	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
 		if (sellerDTO2 != null) {
-			session.setAttribute("seller_id", sellerDTO2.getSeller_id());
+			session.setAttribute("seller_num", sellerDTO2.getSeller_num());
 			return "redirect:/sellerMain";
 		} else {
 			return "redirect:/login";
 		}
+	}
+	
+	/* 로그아웃 사업자*/
+	@RequestMapping(value = "/sellerlogout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "/member/login";
 	}
 	
 	/* sungha 판매자->회원관리....조회..*/

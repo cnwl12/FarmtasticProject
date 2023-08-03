@@ -145,7 +145,13 @@ public class SellerDAO {
 			System.out.println("SellerDAO sellerCheck1()");
 			return sqlSession.selectOne(namespace+".sellerCheck1", sellerDTO);
 		}
-
+		
+		// 판매자 ID 중복체크
+		public String idCheck(String seller_id) {
+			System.out.println("SellerDAO idCheck");
+			return sqlSession.selectOne(namespace+".idCheck", seller_id);
+		}
+		
 		public List<Map<String, Object>> MemberMngjoin() {
 			System.out.println("SellerDAO MemberMngjoin()");
 			return sqlSession.selectList(namespace + ".MemberMngjoin");

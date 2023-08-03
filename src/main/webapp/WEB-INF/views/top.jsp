@@ -62,6 +62,7 @@
                             <c:otherwise>
                                 <a href="mypage"><i class="fa fa-user"></i>Mypage</a>
                                 <a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
+                                 
                             </c:otherwise>
                         </c:choose>
                     </div>
