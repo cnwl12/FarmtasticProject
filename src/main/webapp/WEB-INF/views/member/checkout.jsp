@@ -138,8 +138,8 @@
                             </div>
                             <div class="checkout__input">
                                 <p>주소<span>*</span></p>
-                                <input type="text" placeholder="우편번호" class="checkout__input__add" value="${memberDTO.member_post}">
-                                <input type="text" placeholder="메인주소" class="checkout__input__add" value="${memberDTO.member_addMain}">
+                                <input type="text" placeholder="우편번호" id="member_post" class="checkout__input__add" value="${memberDTO.member_post}">
+                                <input type="text" placeholder="메인주소" id="member_addMain" class="checkout__input__add" value="${memberDTO.member_addMain}">
                                 <input type="text" placeholder="상세주소" value="${memberDTO.member_addSub}">
                             </div>
                             <div class="checkout__input">
@@ -158,7 +158,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>연락처<span>*</span></p>
-                                        <input type="text" value="${memberDTO.member_phone}">
+                                        <input type="text" id="member_phone" value="${memberDTO.member_phone}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -230,13 +230,7 @@
                                 </div>
                                 <!-- ??????? 이거는 왜????????  -->
                                 <div id="order_num">${order_num}</div>
-                                <div id="member_email">${member_email}</div>
-                                <div id="item_name">${item_name}</div>
-                                <div id="item_price">${item_price}</div>
-	                            <div id="member_name">${member_name}</div>
-	                            <div id="member_phone">${member_phone}</div>
-	                            <div id="member_addMain">${member_addMain}</div>
-	                            <div id="member_addSub">${member_addSub}</div>
+                                <div id="member_email">${memberDTO.member_email}</div>
 	                            <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
                             </div>
                         </div>

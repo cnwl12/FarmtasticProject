@@ -1,10 +1,8 @@
-  var IMP = window.IMP;
-  IMP.init("imp24125441");
-  
-  
-
 function requestPay() {
-  
+	
+	var IMP = window.IMP;
+	IMP.init("imp24125441");
+	
     // item_name, item_price, buyer_name, buyer_tel, buyer_addr,
     // buyer_postcode 값을 HTML에서 가져옵니다.
 	const merchantUidElement = document.getElementById("order_num");
@@ -13,9 +11,6 @@ function requestPay() {
     const itemNameElement = document.getElementById("item_name");  
     const itemName = itemNameElement.innerText;
 
-    const itemPriceElement = document.getElementById("item_price");
-    const itemPrice = parseInt(itemPriceElement.innerText);
-    
     const buyerEmailElement = document.getElementById("member_email");
     const buyerEmail = buyerEmailElement.innerText;
 
@@ -28,7 +23,7 @@ function requestPay() {
     const buyerAddrElement = document.getElementById("member_addMain");
     const buyerAddr = buyerAddrElement.innerText;
 
-    const buyerPostcodeElement = document.getElementById("member_addSub");
+    const buyerPostcodeElement = document.getElementById("member_post");
     const buyerPostcode = buyerPostcodeElement.innerText;
     
     const totalSumElement = document.getElementById("total_sum_value");
