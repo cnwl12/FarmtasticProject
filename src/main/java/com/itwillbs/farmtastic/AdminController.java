@@ -19,6 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,15 +135,16 @@ public class AdminController {
 	    
 	    return "/admin/customerMenu/contenttest";
 	}
-	@RequestMapping(value = "/updateContent", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
-	  // 업데이트 처리를 수행합니다. (DB를 이용하여 내용을 수정하세요.)
-	  boolean success = adminService.updateContent(admin_cs_num, admin_csnotice_sub, admin_cs_view);
-	  System.out.println("업데이트 컨트롤러");
-	  // 응답 결과를 반환합니다.
-	  return "{\"success\":" + success + "}";
+	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
+	public String contentUpdate(@RequestParam("admin_cs_num") String admin_cs_num, Locale locale, Model model) {
+	    System.out.println("contentUpdate 매핑확인여부");
+	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+	    model.addAttribute("content", resultMap);
+	    model.addAttribute("admin_cs_num", admin_cs_num);
+	    System.out.println("controller" + resultMap);
+	    return "/admin/customerMenu/contentUpdate";
 	}
+
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model) {
 		
