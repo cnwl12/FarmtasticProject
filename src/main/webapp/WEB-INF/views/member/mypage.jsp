@@ -529,29 +529,7 @@ $(document).ready(function() {
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--  <script type="text/javascript">  -->
-<!--  document.addEventListener("DOMContentLoaded", function () {  -->
-<!--  	const stars = document.querySelectorAll(".star");  -->
 
-<!--   	 stars.forEach(function (star) {  -->
-<!--    // 각 별 요소에 클릭 이벤트 핸들러를 추가  -->
-<!--    star.addEventListener("click", function () {  -->
-<!--      const clickedStarValue = parseInt(this.getAttribute("data-value"));  -->
-
-<!--      // 별에 selected 클래스를 초기화 --> -->
-<!--      stars.forEach((star) => star.classList.remove("selected"));  -->
-
-<!--       // 클릭한 별 이전의 별들에 'selected' 클래스 추가  -->
-<!--        for (let i = 0; i < clickedStarValue; i++) {  -->
-<!--  	        stars[i].classList.add("selected");  -->
-<!--  	      }  -->
-
-<!--  	      // hidden input 요소의 값을 클릭한 별의 data-value로 변경  -->
-<!--  	      document.querySelector("#review_star").value = clickedStarValue;  -->
-<!--  	    });  -->
-<!--  	});  -->
-<!--  }); -->
-<!--  </script> -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () { 
 	const stars = document.querySelectorAll(".star"); 
@@ -593,34 +571,34 @@ $(document).ready(function () {
 	    }
 	  });
 
-  // 수정 팝업 '저장' 버튼 클릭
-  $('#submit-edit-review-btn').on('click', function(e) {
-    e.preventDefault();
-    var review_star = $('#edit-review-form #review_star').val();
-    var review_title = $('#edit-review-form #review-title').val();
-    var review_content = $('#edit-review-form #review_content').val();
+// 수정 팝업 '저장' 버튼 클릭
+$('#submit-edit-review-btn').on('click', function(e) {
+  e.preventDefault();
+  var review_star = $('#edit-review-form #review_star').val();
+  var review_title = $('#edit-review-form #review-title').val();
+  var review_content = $('#edit-review-form #review_content').val();
 
-    updateReview(selectedReview, review_star, review_title, review_content);
-  });
+  updateReview(selectedReview, review_star, review_title, review_content);
+});
 
-  // 수정 팝업 '취소' 버튼 클릭
-  $('#close-edit-popup').on('click', function(e) {
-    e.preventDefault();
-    $('#edit-review-popup').hide();
-  });
+// 수정 팝업 '취소' 버튼 클릭
+$('#close-edit-popup').on('click', function(e) {
+  e.preventDefault();
+  $('#edit-review-popup').hide();
+});
 
-  // 별점 선택 시 발생하는 이벤트
-  $('.rating .star').on('click', function() {
-    var starValue = $(this).data('value');
-    $('#review_star').val(starValue);
+// 별점 선택 시 발생하는 이벤트
+$('.rating .star').on('click', function() {
+  var starValue = $(this).data('value');
+  $('#review_star').val(starValue);
 
-    // 선택된 별까지 모든 별에 클래스를 추가한다.
-    $(this).prevAll().addBack().addClass('active');
-    $(this).nextAll().removeClass('active');
-  });
+  // 선택된 별까지 모든 별에 클래스를 추가한다.
+  $(this).prevAll().addBack().addClass('active');
+  $(this).nextAll().removeClass('active');
+});
 
-  // 리뷰 정보를 업데이트 하는 함수
-  function updateReview(selectedReview, review_star, review_title, review_content) {
+// 리뷰 정보를 업데이트 하는 함수
+function updateReview(selectedReview, review_star, review_title, review_content) {
 	  $.ajax({
 		  type: "POST",
 		  url: "updateReview",
@@ -637,7 +615,6 @@ $(document).ready(function () {
 			    alert("리뷰가 성공적으로 수정되었습니다.");
 			    $("#edit-review-popup").hide(); // 팝업창을 닫습니다.
 			    location.reload(); // 페이지를 새로고침합니다.
-			    
 			  } else {
 			    alert("리뷰 수정에 실패했습니다. 다시 시도해 주세요.");
 			  }
@@ -646,7 +623,7 @@ $(document).ready(function () {
 		    alert("리뷰 업데이트에 실패했습니다. 다시 시도해 주세요.");
 		  }
 		});
-  }
+}
 });
 </script>
 <script type="text/javascript">

@@ -737,15 +737,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,
-			@RequestParam("review_star") int review_star, @RequestParam("review_title") String review_title,
-			@RequestParam("review_content") String review_content) {
-		try {
-			memberService.updateReview(review_num, review_star, review_title, review_content);
-			return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
-		}
+									@RequestParam("review_star") int review_star,
+	                                @RequestParam("review_title") String review_title,
+	                                @RequestParam("review_content") String review_content) {
+	    try {
+	        memberService.updateReview(review_num, review_star,review_title, review_content);
+	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+	    }
 
 	}
 
