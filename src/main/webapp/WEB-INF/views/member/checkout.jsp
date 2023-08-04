@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css"></head>
 
+	<script type="text/javascript">
+		sessionStorage.setItem('pageContext', '${pageContext.request.contextPath}');
+	</script>
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 
@@ -151,8 +154,8 @@
                                 <input type="text">
                             </div>
                             <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
+                                <p>요청 메시지<span>*</span></p>
+                                <input type="text" id="order_msg">
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">

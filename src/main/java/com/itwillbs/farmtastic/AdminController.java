@@ -227,6 +227,14 @@ public class AdminController {
 		 model.addAttribute("members", resultList);
 		return "/admin/customerMenu/customerAdmin";
 	}
+//	회원관리 상세정보 팝업
+	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
+	public String memberDetail(@RequestParam("member_num")int member_num, Locale locale, Model model) {
+		
+		System.out.println("memberDetail 매핑확인여부");
+		
+		return "/admin/customerMenu/memberDetail";
+	}
 	
 	@PostMapping("/changeMemberStatus")
 	public String changeMemberStatus(@RequestParam(value = "result", required = false) List<String> memberNums, RedirectAttributes redirectAttributes) {

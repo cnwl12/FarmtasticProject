@@ -1,3 +1,15 @@
+function generateOrderNum() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  const randomNum = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+
+  return year + month + day + randomNum;
+}
+
+
 function requestPay() {
 	
 	var IMP = window.IMP;
@@ -5,8 +17,7 @@ function requestPay() {
 	
     // item_name, item_price, buyer_name, buyer_tel, buyer_addr,
     // buyer_postcode 값을 HTML에서 가져옵니다.
-	const merchantUidElement = document.getElementById("order_num");
-    const merchantUid = merchantUidElement.innerText;
+    const merchantUid = generateOrderNum();
     
     const itemNameElement = document.getElementById("item_name");  
     const itemName = itemNameElement.innerText;
@@ -15,19 +26,23 @@ function requestPay() {
     const buyerEmail = buyerEmailElement.innerText;
 
     const buyerNameElement = document.getElementById("member_name");
-    const buyerName = buyerNameElement.innerText;
+    const buyerName = buyerNameElement.value;
 
     const buyerTelElement = document.getElementById("member_phone");
-    const buyerTel = buyerTelElement.innerText;
+    const buyerTel = buyerTelElement.value;
 
     const buyerAddrElement = document.getElementById("member_addMain");
-    const buyerAddr = buyerAddrElement.innerText;
+    const buyerAddr = buyerAddrElement.value;
 
     const buyerPostcodeElement = document.getElementById("member_post");
-    const buyerPostcode = buyerPostcodeElement.innerText;
+    const buyerPostcode = buyerPostcodeElement.value;
     
     const totalSumElement = document.getElementById("total_sum_value");
 	const totalSum = parseInt(totalSumElement.innerText.replace("원",""));
+	
+	const orderMsgElement = document.getElementById("order_msg");
+	const orderMsg = orderMsgElement.value;
+
 
     IMP.request_pay(  
       {
@@ -45,7 +60,15 @@ function requestPay() {
       function (rsp) {
         if (rsp.success) {
         	// 결제 성공 시 실행할 코드
+        	var param = sessionStorage.getItem('pageContext') + '/paySuccess';
+        	param += "?order_num=" + merchantUid;
+        	param += "&order_pay=" + totalSum;
+        	param += "&order_name=" + buyerName;
+        	param += "&order_addMain=" + buyerAddr;
+        	param += "&order_addSub=" + buyerPostcode;
+        	param += "&order_msg=" + orderMsg;
         	
+        	location.href = param;
         	alert("결제가 완료되었습니다.");
     	} else {
         // 실패할 경우 실행할 코드

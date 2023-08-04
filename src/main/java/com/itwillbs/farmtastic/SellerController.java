@@ -441,19 +441,6 @@ public class SellerController {
     }
 	
 	
-
-//	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
-//	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session) {
-//	    System.out.println("SellerController sellerloginPro()");
-//	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
-//		if (sellerDTO2 != null) {
-//			session.setAttribute("seller_num", sellerDTO2.getSeller_num());
-//			return "redirect:/sellerMain";
-//		} else {
-//			return "redirect:/login";
-//		}
-//	}
-	
 	/* 로그아웃 사업자*/
 	@RequestMapping(value = "/sellerlogout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
