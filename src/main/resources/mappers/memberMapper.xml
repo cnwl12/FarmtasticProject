@@ -33,6 +33,7 @@
   	select * from member
 	where member_num = #{member_num}
   	</select>
+
   	
   	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
   		 	

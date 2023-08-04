@@ -315,12 +315,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
 		System.out.println("mypage 매핑확인여부");
-		MemberDAO memberDAO = new MemberDAO();
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		MemberDTO memberDTO = memberService.getMember1(member_num);
-
 		model.addAttribute("memberDTO", memberDTO);
-
 		return "/member/mypage";
 	}
 
