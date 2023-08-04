@@ -215,9 +215,9 @@ public class MemberService {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
 	
-	public void insertPay(PayDTO payDTO) {
-		memberDAO.insertPay(payDTO);
-	}
+//	public void insertPay(PayDTO payDTO) {
+//		memberDAO.insertPay(payDTO);
+//	}
 
 
 	
