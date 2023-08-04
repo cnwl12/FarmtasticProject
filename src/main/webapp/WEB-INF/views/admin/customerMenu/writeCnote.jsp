@@ -55,14 +55,14 @@
 					 <!-- DataTales Example -->
                  <div class="card shadow mb-4">
                     <!--글쓰기  -->
-                    <form action="writePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="writePro"  id="insertForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="card-header py-3">
                            <div class="row">
-                            <input type="hidden" name="admin_id" value=" ${admin.admin_id}" />
+                            <input type="hidden" name="admin_id" value="${admin.admin_id}" /> />
                             <h6 class="m-0 font-weight-bold text-primary">공지사항글쓰기</h6>
-                          	 <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록">등록</button>
+                          	 <button type="submit" onclick="submitForm()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">등록</button>
                           </div>
-                         	<label>작성자: </label><input type="text" name="admin_id" style="width: 20%; border: none; background-color: white; "value=" ${admin.admin_id}" readonly="readonly"/><br>	
+                         	<label>작성자: </label><input type="text" id="adminId" name="admin_id" style="width: 20%; border: none; background-color: white;" value="${admin.admin_id}" readonly="readonly"/><br>
 							<label>제목: </label><input type="text" name="admin_csnotice_sub" style="width: 40%; border: none; background-color: white;"/> <br>
 							<label>작성 시간: </label><input type="hidden" name="admin_cs_day" style="width: 40%; border: none; background-color: white;"/> <br>
 							<label>첨부파일: </label><input type="file" name="file" style="width: 40%; border: none; background-color: white;"/>
@@ -142,7 +142,20 @@ function setCurrentDate() {
 }
 setCurrentDate();
 </script>
+<script>
+function submitForm() {
+    const adminId = document.getElementById("adminId");
 
+    // 입력값에서 앞뒤 공백 제거
+    const adminIdTrimmed = adminId.value.trim();
+
+    adminId.value = adminIdTrimmed;
+
+    // 폼 제출
+    document.getElementById("insertForm").submit();
+}
+
+</script>
 </body>
 
 </html>

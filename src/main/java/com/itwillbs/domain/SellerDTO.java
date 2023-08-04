@@ -23,11 +23,20 @@ public class SellerDTO {
 	private String seller_addMain;
 	private String seller_addSub;
 	private Date seller_joinDay;
+	private String seller_recoYn;
 	
+	
+	public String getSeller_recoYn() {
+		return seller_recoYn;
+	}
+	public void setSeller_recoYn(String seller_recoYn) {
+		this.seller_recoYn = seller_recoYn;
+	}
 	
 	public String getSeller_num() {
 		return seller_num;
 	}
+	
 	public void setSeller_num(String seller_num) {
 		this.seller_num = seller_num;
 	}

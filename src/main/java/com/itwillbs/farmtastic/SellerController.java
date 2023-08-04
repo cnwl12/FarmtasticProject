@@ -1,6 +1,8 @@
 package com.itwillbs.farmtastic;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
@@ -397,18 +400,59 @@ public class SellerController {
 	
 	/* sungha 사업자로그인.... */
 
+	
+	
+	// 판매자 로그인 처리
+	
+    @RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+    public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, HttpServletResponse response) {
+        System.out.println("SellerController sellerloginPro()");
 
-	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
-	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session) {
-	    System.out.println("SellerController sellerloginPro()");
-	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
-		if (sellerDTO2 != null) {
-			session.setAttribute("seller_num", sellerDTO2.getSeller_num());
-			return "redirect:/sellerMain";
-		} else {
-			return "redirect:/login";
-		}
-	}
+        SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
+        
+        if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
+            // 승인된 사용자
+            session.setAttribute("seller_num", sellerDTO2.getSeller_num());
+            return "redirect:/sellerMain";
+        } else if (sellerDTO2 != null && !"Y".equals(sellerDTO2.getSeller_recoYn())) {
+        	// 승인되지 않은 사용자
+            sendResponse(response, "승인되지 않은 사용자입니다.");
+            return "member/login";
+        } else { 
+        	// 아이디 또는 비밀번호가 틀린 경우 또는 예외 상황
+            sendResponse(response, "아이디 또는 비밀번호가 틀립니다.");
+            return "member/login";
+        }
+    }
+        
+    // 응답메시지 전송
+    private void sendResponse(HttpServletResponse response, String message) {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('" + message + "');");
+            out.println("history.back();");
+            out.println("</script>");
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+
+//	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+//	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session) {
+//	    System.out.println("SellerController sellerloginPro()");
+//	    SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
+//		if (sellerDTO2 != null) {
+//			session.setAttribute("seller_num", sellerDTO2.getSeller_num());
+//			return "redirect:/sellerMain";
+//		} else {
+//			return "redirect:/login";
+//		}
+//	}
 	
 	/* 로그아웃 사업자*/
 	@RequestMapping(value = "/sellerlogout", method = RequestMethod.GET)

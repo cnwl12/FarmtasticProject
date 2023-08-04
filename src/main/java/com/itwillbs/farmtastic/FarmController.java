@@ -1,10 +1,10 @@
 package com.itwillbs.farmtastic;
 
+import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -12,21 +12,29 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
@@ -42,16 +50,14 @@ import com.itwillbs.service.SellerService;
 public class FarmController { // 소비자 (컨트롤러)
 
 	@Inject
-	
 	private MemberService memberService;
 
 	@Autowired
 	private SellerService sellerService;
 	@Autowired
-    private AdminService adminService;
+	private AdminService adminService;
 	@Autowired
 	private NaverController naverController;
-
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -160,7 +166,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "errorPage"; // 오류가 발생한 경우 에러 페이지로 이동
-		} 
+		}
 	}
 
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
@@ -171,41 +177,39 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/kakaologin";
 	}
 
-	
-	   @RequestMapping(value = "/kakaocallback", method = RequestMethod.GET) 
-	   public String kakaocallback(Locale locale, Model model) {
-	   
-	   System.out.println("kakaocallback 매핑확인여부");
-	  
-	   return "/member/kakaocallback"; 
-	   
-	   }
-	  
-	   
+	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
+	public String kakaocallback(Locale locale, Model model) {
+
+		System.out.println("kakaocallback 매핑확인여부");
+
+		return "/member/kakaocallback";
+
+	}
+
 	@RequestMapping(value = "/kakaojoin", method = RequestMethod.GET)
 	public String kakaojoin(HttpServletRequest request, Model model) {
 
 		System.out.println("kakaojoin 매핑확인여부");
-		
+
 		HttpSession session = request.getSession();
 		String access_token = request.getParameter("access_token");
 		String apiUrl = "https://kapi.kakao.com/v2/user/me";
-		
-		JSONObject jsonObject = null; 
+
+		JSONObject jsonObject = null;
 		try {
 			URL url = new URL(apiUrl);
 			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:"+access_token);
-			
+			System.out.println("토큰값컨트롤러확인:" + access_token);
+
 			// Header에 Access Token 추가
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Authorization", "Bearer " + access_token);
-		
+
 			/// 응답 받기
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode:"+responseCode);
-			
+			System.out.println("responseCode:" + responseCode);
+
 			if (responseCode == 200) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {
@@ -217,77 +221,72 @@ public class FarmController { // 소비자 (컨트롤러)
 				response.append(inputLine);
 			}
 			br.close();
-			
-		 jsonObject = new JSONObject(response.toString());
-			 
+
+			jsonObject = new JSONObject(response.toString());
+
 		} catch (Exception e) {
-	        // 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
-	        e.printStackTrace();
-	        return "errorPage"; 
-	    }
-		
+			// 카카오 API 호출 과정에서 예외 발생 시 에러 페이지로 이동
+			e.printStackTrace();
+			return "errorPage";
+		}
+
 		System.out.println("jsonObject -->>>>>" + jsonObject.toString());
-		
-	 	JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
-	 	
-	 	String member_id = jsonObject.optString("id");
-	 	String member_name = userProfile.getString("name");
-	 	String member_email = userProfile.getString("email");
+
+		JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
+
+		String member_id = jsonObject.optString("id");
+		String member_name = userProfile.getString("name");
+		String member_email = userProfile.getString("email");
 		/*
 		 * String member_phone = userProfile.getString("phone_number").replace("+82 10",
 		 * "010"); // repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
 		 * System.out.println("member_phone -->>>>>" + member_phone);
 		 */
-	 	
-	 	String member_phone = userProfile.getString("phone_number");
 
-	 // 국제 전화번호일 경우 국가 코드를 "00"으로 변경
-	 if (member_phone.startsWith("+")) {
-		 member_phone = member_phone.replace("+", "00");
-	 }
+		String member_phone = userProfile.getString("phone_number");
 
-	 // 국내 전화번호일 경우 번호의 길이에 따라 처리
-	 if (member_phone.startsWith("02")) {
-	     if (member_phone.length() == 9) {
-	    	 member_phone = member_phone.replaceFirst("02", "02-");
-	     } else if (member_phone.length() == 10) {
-	    	 member_phone = member_phone.replaceFirst("02", "02-");
-	     }
-	 } else { // 국내 지역번호가 아니면서 "01"로 시작하는 경우
-	     if (member_phone.length() == 10) {
-	    	 member_phone = "010-" + member_phone.substring(2, 6) + "-" + member_phone.substring(6);
-	     }
-	 }
+		// 국제 전화번호일 경우 국가 코드를 "00"으로 변경
+		if (member_phone.startsWith("+")) {
+			member_phone = member_phone.replace("+", "00");
+		}
 
-	 System.out.println(member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
-	 	
-	 	
-	 	// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
-	 	MemberDTO memberDTO = new MemberDTO();
-	 	memberDTO.setMember_id(member_id);
-	 	memberDTO.setMember_name(member_name);
-	 	memberDTO.setMember_email(member_email);
-	 	memberDTO.setMember_phone(member_phone);
-		
-			System.out.println(memberDTO.getMember_name());
-			MemberDAO memberDAO = new MemberDAO();
-			MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-			if (memberDTO2 != null) {
-				System.out.println("로그인");
-				session.setAttribute("member_num", memberDTO2.getMember_num());
-				return "redirect:/index";
-			} else {
-				memberService.insertMember(memberDTO);
-				System.out.println("회원가입");
-				return "redirect:/index";
+		// 국내 전화번호일 경우 번호의 길이에 따라 처리
+		if (member_phone.startsWith("02")) {
+			if (member_phone.length() == 9) {
+				member_phone = member_phone.replaceFirst("02", "02-");
+			} else if (member_phone.length() == 10) {
+				member_phone = member_phone.replaceFirst("02", "02-");
 			}
-			
+		} else { // 국내 지역번호가 아니면서 "01"로 시작하는 경우
+			if (member_phone.length() == 10) {
+				member_phone = "010-" + member_phone.substring(2, 6) + "-" + member_phone.substring(6);
+			}
+		}
+
+		System.out.println(member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
+
+		// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMember_id(member_id);
+		memberDTO.setMember_name(member_name);
+		memberDTO.setMember_email(member_email);
+		memberDTO.setMember_phone(member_phone);
+
+		System.out.println(memberDTO.getMember_name());
+		MemberDAO memberDAO = new MemberDAO();
+		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+		if (memberDTO2 != null) {
+			System.out.println("로그인");
+			session.setAttribute("member_num", memberDTO2.getMember_num());
+			return "redirect:/index";
+		} else {
+			memberService.insertMember(memberDTO);
+			System.out.println("회원가입");
+			return "redirect:/index";
+		}
+
 	}
 
-	
-		
-	
-	
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
 	public String kakaoLogout(Locale locale, Model model) {
 
@@ -303,7 +302,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/join";
 	}
-	
+
 	@RequestMapping(value = "/join2", method = RequestMethod.GET)
 	public String join2(Locale locale, Model model) {
 
@@ -312,20 +311,19 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/join2";
 	}
 
-	/* sungha 07.29마이페이지*/
+	/* sungha 07.29마이페이지 */
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
-	    System.out.println("mypage 매핑확인여부");
-	    MemberDAO memberDAO = new MemberDAO();
-	    Integer member_num = (Integer) session.getAttribute("member_num");
-	    MemberDTO memberDTO = memberService.getMember1(member_num);
+		System.out.println("mypage 매핑확인여부");
+		MemberDAO memberDAO = new MemberDAO();
+		Integer member_num = (Integer) session.getAttribute("member_num");
+		MemberDTO memberDTO = memberService.getMember1(member_num);
 
-	    model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("memberDTO", memberDTO);
 
-	    return "/member/mypage";
+		return "/member/mypage";
 	}
-	
-	
+
 	/* 택배구현중 */
 	@GetMapping
 	@RequestMapping(value = "/parcel", method = RequestMethod.GET)
@@ -335,7 +333,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/parcel";
 	}
-	/* 검색기능*/
+
+	/* 검색기능 */
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
 	public String searchd(Locale locale, Model model) {
 
@@ -343,21 +342,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/searchd";
 	}
-	
-	
-	
+
 	@GetMapping("/search")
 	public String search(@RequestParam("query") String query, Model model) {
 		System.out.println("FarmController /search");
-	    List<Map<String, Object>> itemList = memberService.getItemsearch(query);
+		List<Map<String, Object>> itemList = memberService.getItemsearch(query);
 		model.addAttribute("itemList", itemList);
-	    return "/member/searchd"; 
+		return "/member/searchd";
 	}
 
-	
-	
-
-	
 //	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 //	public String updatePro(MemberDTO memberDTO) {
 //		System.out.println("MemberController updatePro()");
@@ -377,71 +370,65 @@ public class FarmController { // 소비자 (컨트롤러)
 //
 //	
 
-	
-
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(HttpSession session,
-	                        @RequestParam(value = "member_id", required = false) String member_id,
-	                        @RequestParam(value = "member_pass", required = false) String member_pass,
-	                        @RequestParam(value = "new_member_pass", required = false) String new_member_pass,
-	                        @RequestParam(value = "member_name", required = false) String member_name,
-	                        @RequestParam(value = "member_phone", required = false) String member_phone,
-	                        @RequestParam(value = "member_email", required = false) String member_email,
-							@RequestParam(value = "member_post", required = false) String member_post,		
-							@RequestParam(value = "member_addMain", required = false) String member_addMain,
-							@RequestParam(value = "member_addSub", required = false) String member_addSub) throws Exception {
+	public String updatePro(HttpSession session, @RequestParam(value = "member_id", required = false) String member_id,
+			@RequestParam(value = "member_pass", required = false) String member_pass,
+			@RequestParam(value = "new_member_pass", required = false) String new_member_pass,
+			@RequestParam(value = "member_name", required = false) String member_name,
+			@RequestParam(value = "member_phone", required = false) String member_phone,
+			@RequestParam(value = "member_email", required = false) String member_email,
+			@RequestParam(value = "member_post", required = false) String member_post,
+			@RequestParam(value = "member_addMain", required = false) String member_addMain,
+			@RequestParam(value = "member_addSub", required = false) String member_addSub) throws Exception {
 
-	    Integer member_num = (Integer) session.getAttribute("member_num");
+		Integer member_num = (Integer) session.getAttribute("member_num");
 
-	    // 입력된 값들도 세션에 저장합니다.
-	    session.setAttribute("member_id", member_id);
-	    session.setAttribute("member_pass", member_pass);
-	    session.setAttribute("member_name", member_name);
-	    session.setAttribute("member_phone", member_phone);
-	    session.setAttribute("member_email", member_email);
-	    session.setAttribute("member_post", member_post);
-	    session.setAttribute("member_addMain", member_addMain);
-	    session.setAttribute("member_addSub", member_addSub);
+		// 입력된 값들도 세션에 저장합니다.
+		session.setAttribute("member_id", member_id);
+		session.setAttribute("member_pass", member_pass);
+		session.setAttribute("member_name", member_name);
+		session.setAttribute("member_phone", member_phone);
+		session.setAttribute("member_email", member_email);
+		session.setAttribute("member_post", member_post);
+		session.setAttribute("member_addMain", member_addMain);
+		session.setAttribute("member_addSub", member_addSub);
 
-	    MemberDTO memberDTO = new MemberDTO();
-	    memberDTO.setMember_num(member_num);
-	    memberDTO.setMember_id(member_id);
-	    memberDTO.setMember_pass(member_pass);
-	   
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMember_num(member_num);
+		memberDTO.setMember_id(member_id);
+		memberDTO.setMember_pass(member_pass);
 
-	    MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
+		MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
 
-	    if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
-	        // memberDTO 객체에 입력된 값들을 설정합니다.
-	        memberDTO.setMember_id(member_id);
-	        memberDTO.setMember_pass(new_member_pass);
-	        memberDTO.setMember_name(member_name);
-		    memberDTO.setMember_phone(member_phone);
-		    memberDTO.setMember_email(member_email);
-		    memberDTO.setMember_post(member_post);
-		    memberDTO.setMember_addMain(member_addMain);
-		    memberDTO.setMember_addSub(member_addSub);
-		   
-		    
-	        
-	        memberService.updateMember(memberDTO);
-	        return "/index";
-	    } else {
-	        System.out.println("비밀번호 오류");
-	        return "/index";
-	    }
+		if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
+			// memberDTO 객체에 입력된 값들을 설정합니다.
+			memberDTO.setMember_id(member_id);
+			memberDTO.setMember_pass(new_member_pass);
+			memberDTO.setMember_name(member_name);
+			memberDTO.setMember_phone(member_phone);
+			memberDTO.setMember_email(member_email);
+			memberDTO.setMember_post(member_post);
+			memberDTO.setMember_addMain(member_addMain);
+			memberDTO.setMember_addSub(member_addSub);
+
+			memberService.updateMember(memberDTO);
+			return "/index";
+		} else {
+			System.out.println("비밀번호 오류");
+			return "/index";
+		}
 	}
-	
-	    
+
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
 		System.out.println("contact 매핑확인여부");
 		List<Map<String, Object>> resultList = adminService.getCnotice();
-	    model.addAttribute("notice", resultList);
-	    System.out.println(resultList);
+		model.addAttribute("notice", resultList);
+		System.out.println(resultList);
 		return "/member/contact";
 	}
+
 	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
 	public String contactContent(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
 		System.out.println("contactContent 매핑확인여부");
@@ -473,23 +460,22 @@ public class FarmController { // 소비자 (컨트롤러)
 		Map<String, Object> item = sellerService.getItem(item_num);
 
 		model.addAttribute("item", item);
-		
-		int reviewCount = memberService.getReviewCountByItemNum(item_num);
-        double averageStarRating = memberService.getAverageReviewStarByItemNum(item_num);
 
-        model.addAttribute("reviewCount", reviewCount);
-        model.addAttribute("averageStarRating", averageStarRating);
-		
+		int reviewCount = memberService.getReviewCountByItemNum(item_num);
+		double averageStarRating = memberService.getAverageReviewStarByItemNum(item_num);
+
+		model.addAttribute("reviewCount", reviewCount);
+		model.addAttribute("averageStarRating", averageStarRating);
+
 		/* System.out.println(item); */
 		System.out.println("farmStoreDetail 매핑확인여부");
-		
+
 		List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
-        System.out.println(oneBoardList+"가나다"); 
-        model.addAttribute("oneBoardList", oneBoardList);
+		System.out.println(oneBoardList + "가나다");
+		model.addAttribute("oneBoardList", oneBoardList);
 
 		return "/member/farmStoreDetail";
 	}
-
 
 	// 디비 연동 확인용
 
@@ -524,15 +510,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/shoppingCart";
 	}
-	
-	// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
+
+	// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
 	public String shopingCart(Model model, HttpServletRequest session) {
 
 		System.out.println("shoppingCart 매핑확인여부");
 
 		// 나중에 변경할거임...
-		//int member_num = (int) session.getAttribute("member_num");
+		// int member_num = (int) session.getAttribute("member_num");
 		 int member_num = 16; // <- 로그인 됐을 때 지울거임
 
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
@@ -541,8 +527,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/shoppingCart";
 	}
-	
-	
+
 	@RequestMapping(value = "/cartInUpdate", method = RequestMethod.GET)
 	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
 
@@ -559,62 +544,59 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/shoppingCart";
 	}
-	
 
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(Model model, HttpServletRequest session) {
 
 		System.out.println("checkout 매핑확인여부");
-		
+
 		int member_num = 16;
-		
+
 		memberService.getMember1(member_num);
-		
+
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
 		MemberDTO memberDTO = memberService.getMember1(member_num);
 		model.addAttribute("memberDTO", memberDTO);
-		
-		
+
 		return "/member/checkout";
-		
+
 	}
 
-	
-	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert) 진행
-	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가 
+	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert)
+	// 진행
+	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
-	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail
-									,HttpServletRequest session){
-		
+	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpServletRequest session) {
+
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
-		
+
 		int member_num = 16; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
-		
+
 //		orderDetail.put("member_num", member_num);
-				
+
 		memberService.insertOrderDetail(orderDetail);
 		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
-	
-		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정 
+
+		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		return "redirect:/checkout";
-	} 
-	
+	}
+
 	// 카트안 아이템 삭제
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
-	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session){
-		
+	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+
 		int member_num = 16;
 		cart.put("member_num", member_num);
-		
+
 		System.out.println("deleteCart 컨트롤러 오는지");
 		memberService.deleteCart(cart);
 
 		return "redirect:/shoppingCart";
 	}
-	
+
 	// -------------------------------------------------------
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
@@ -634,10 +616,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/login";
 	}
-	
+
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
-	public String insertPro2(SellerDTO sellerDTO ) {
-		
+	public String insertPro2(SellerDTO sellerDTO) {
+
 		System.out.println(sellerDTO.getSeller_id());
 		System.out.println(sellerDTO.getSeller_pass());
 		System.out.println(sellerDTO.getSeller_name());
@@ -693,7 +675,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return entity;
 	}// idCheck 끝
-	
+
 //	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
 //	    public String oneBoard(Model model) {
 //	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
@@ -701,16 +683,14 @@ public class FarmController { // 소비자 (컨트롤러)
 //
 //	        return "/member/oneboard";
 //	    }
-	
-	
-	
+
 	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
-	
+
 	@ResponseBody
 	public ResponseEntity<String> idCheck2(HttpServletRequest request) {
-		
+
 		String seller_id = request.getParameter("seller_id");
-		
+
 		Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
 		String result = "";
 		if (sellerDTO != null) {
@@ -722,95 +702,102 @@ public class FarmController { // 소비자 (컨트롤러)
 		}
 		// ResponseEntity에 출력 결과를 담아서 리턴
 		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-		
+
 		return entity;
 	}// idCheck2 끝
 
-
-	//Review 기능! - 막내
+	// Review 기능! - 막내
 	// 리뷰작성 -> 데이터저장
 	@PostMapping(value = "/insertReview")
 	@ResponseBody
 	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
-	    System.out.println("controller 리뷰작성");
-	    memberService.insertReview(memberDTO);
+		System.out.println("controller 리뷰작성");
+		memberService.insertReview(memberDTO);
 
-	    return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
+		return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
 	}
-	
+
 	// 리뷰목록이 불러오고싶다
 	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
-		 List<MemberDTO> reviews = memberService.getItemReviews(item_num);
-		 return reviews;
+		List<MemberDTO> reviews = memberService.getItemReviews(item_num);
+		return reviews;
 	}
-	
-	
-	//마이페이지 - 리뷰관리 -> 리뷰목록 
+
+	// 마이페이지 - 리뷰관리 -> 리뷰목록
 	@RequestMapping(value = "/getItemMyReview", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemMyReview(@RequestParam("member_num") Integer member_num) {
-		 List<MemberDTO> myreview = memberService.getItemMyReview(member_num);
-		 return myreview;
+		List<MemberDTO> myreview = memberService.getItemMyReview(member_num);
+		return myreview;
 	}
-	
-	//마이페이지 - 리뷰관리 => 리뷰 수정 작업중   
+
+	// 마이페이지 - 리뷰관리 => 리뷰 수정
 	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> updateReviewPost(@RequestParam("review_num") int review_num,
-									@RequestParam("review_star") int review_star,
-	                                @RequestParam("review_title") String review_title,
-	                                @RequestParam("review_content") String review_content) {
-	    try {
-	        memberService.updateReview(review_num, review_star,review_title, review_content);
-	        return ResponseEntity.status(HttpStatus.OK).body("리뷰가 성공적으로 업데이트되었습니다.");
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
-	    }
+	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,
+			@RequestParam("review_star") int review_star, @RequestParam("review_title") String review_title,
+			@RequestParam("review_content") String review_content) {
+		try {
+			memberService.updateReview(review_num, review_star, review_title, review_content);
+			return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+		}
 
 	}
-	
+
+	@RequestMapping(value = "/deleteReview", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteReview(@RequestParam("review_num") int review_num, @RequestParam("member_num") int member_num) {
+		try {
+			memberService.deleteReview(review_num, member_num);
+			return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully deleted.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+		}
+	}
+
 	// 서영 작업중
-    @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-    public String oneBoard(Model model) {
-    	System.out.println("FarmController oneboard()!");
-        return "/member/oneboard";
-    }
+	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
+	public String oneBoard(Model model) {
+		System.out.println("FarmController oneboard()!");
+		return "/member/oneboard";
+	}
 
-    @RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-    public String oneBoardForm(OneBoardDTO oneboardDTO) {
-    	System.out.println("oneboardForm() 로드");
-        memberService.insertOneBoard(oneboardDTO);
+	@RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
+	public String oneBoardForm(OneBoardDTO oneboardDTO) {
+		System.out.println("oneboardForm() 로드");
+		memberService.insertOneBoard(oneboardDTO);
 
-        return "/member/success";
-    } 
-    
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
-      Map<String, String> response = new HashMap<>();
-      System.out.println("찜기능하는중입니다");
+		return "/member/success";
+	}
 
-      WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
-      System.out.println(existingWishlistDTO);
-      if (existingWishlistDTO == null) {
-        memberService.insertWishlist(wishlistDTO);
-        response.put("message", "찜 목록에 상품이 추가되었습니다.");
-      } else {
-    	memberService.deleteWishlist(wishlistDTO);
-        response.put("message", "찜 목록에 상품을 삭제하였습니다.");
-      }
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
+		Map<String, String> response = new HashMap<>();
+		System.out.println("찜기능하는중입니다");
 
-      return response;
-    }
+		WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
+		System.out.println(existingWishlistDTO);
+		if (existingWishlistDTO == null) {
+			memberService.insertWishlist(wishlistDTO);
+			response.put("message", "찜 목록에 상품이 추가되었습니다.");
+		} else {
+			memberService.deleteWishlist(wishlistDTO);
+			response.put("message", "찜 목록에 상품을 삭제하였습니다.");
+		}
 
-    @RequestMapping(value = "/like_farm", method = RequestMethod.GET)
-    public String likeFarm(Model model) {
-    	System.out.println("WLarkqhwkdk");
-        return "/member/oneboard";
-    }
-    
-	
+		return response;
+	}
+
+	@RequestMapping(value = "/like_farm", method = RequestMethod.GET)
+	public String likeFarm(Model model) {
+		System.out.println("WLarkqhwkdk");
+		return "/member/oneboard";
+	}
+
 }

@@ -184,8 +184,12 @@ public class MemberService {
 	 public void updateReview(int review_num, int review_star, String review_title, String review_content) {
 		 memberDAO.updateReview(review_num, review_star, review_title, review_content);
 	}
-		
-	 
+	
+	 // 마이페이지 리뷰 삭제 기능 
+	 public boolean deleteReview(int review_num, int member_num) {
+		 return memberDAO.deleteReview(review_num, member_num) > 0;
+	 }
+	
 	 
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
@@ -210,6 +214,8 @@ public class MemberService {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
 
+
+	
 
 	
 	
