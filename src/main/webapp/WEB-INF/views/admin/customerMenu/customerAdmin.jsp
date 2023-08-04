@@ -57,7 +57,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="memberAdmin">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeMemberStatus" method="post"> 
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="deletemember" type="submit">회원탈퇴</button>
@@ -72,7 +72,6 @@
                                             <th>아이디</th>
                                             <th>이름</th>
                                             <th>상태</th>
-                                            <th>정보조회</th> 
                                             
                                         </tr>
                                     </thead>
@@ -83,7 +82,6 @@
                                             <th>아이디</th>
                                             <th>이름</th>
                                             <th>상태</th>
-                                            <th>정보조회</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -95,7 +93,6 @@
                                             <td><a href="javascript:void(0);" onclick="showDetail(${member.member_num})">${member.member_id}</a></td>
                                             <td>${member.member_name}</td>
                                             <td>${member.member_delYn}</td>
-                                            <td>$112,000</td>
                                         </tr>
                                      </c:forEach>   
                                     </tbody>

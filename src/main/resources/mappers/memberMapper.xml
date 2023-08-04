@@ -287,5 +287,8 @@ WHERE member_num = #{member_num};
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
   </delete>
+  <select id="memberDetail" parameterType="map" resultType="map">
+        SELECT * FROM member WHERE member_num = #{member_num}
+    </select>
   
 </mapper>

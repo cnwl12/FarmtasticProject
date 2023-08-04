@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
-import com.itwillbs.domain.PayDTO;
 import com.itwillbs.domain.WishlistDTO;
 
 @Repository
@@ -218,9 +217,9 @@ public class MemberDAO {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
 	}
-	
-	public void insertPay(PayDTO payDTO) {
-		sqlSession.insert(namespace + ".insertPay", payDTO);
+	public Map<String, Object> getMemberDetails(int memberNum) {
+		System.out.println("다오:"+memberNum);
+	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
 
 

@@ -444,6 +444,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
 
+		System.out.println("팜팜마켓 매핑확인여부");
+
 		return "/member/farmStore";
 	}
 
