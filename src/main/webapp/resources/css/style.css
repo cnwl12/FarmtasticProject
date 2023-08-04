@@ -778,9 +778,12 @@ farm store 재고 이미지
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 18px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s;
+    animation: pulse 2s infinite alternate; /* 반복되는 애니메이션 */
 }
 
 .sold-out.overlay {

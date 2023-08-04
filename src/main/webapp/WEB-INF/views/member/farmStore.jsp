@@ -381,11 +381,11 @@
 				                             style="background-image: url('${item.item_mainImg}');"></div>
 				                        <c:choose>
 				                            <c:when test="${item.item_left < 3}">
-				                                <div class="overlay sold-out">Sold Out</div>
+				                                <div class="overlay sold-out">마감 임박</div>
 				                            </c:when>
 				                        </c:choose>
 				                    </div>
-				                </a>
+				                </a> 
                                     <ul class="product__item__pic__hover">
 	                                    	<li>
 				                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
