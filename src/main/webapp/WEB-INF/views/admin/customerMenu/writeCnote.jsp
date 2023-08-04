@@ -58,7 +58,7 @@
                     <form action="writePro"  id="insertForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="card-header py-3">
                            <div class="row">
-                            <input type="hidden" name="admin_id" value="${admin.admin_id}" /> />
+                            <input type="hidden" name="admin_id" value="${admin.admin_id}" />
                             <h6 class="m-0 font-weight-bold text-primary">공지사항글쓰기</h6>
                           	 <button type="submit" onclick="submitForm()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">등록</button>
                           </div>
