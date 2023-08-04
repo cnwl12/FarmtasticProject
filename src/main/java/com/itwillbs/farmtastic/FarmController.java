@@ -155,7 +155,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			MemberDTO existingMember = memberService.nuserCheck(memberDTO);
 			if (existingMember != null) {
 				System.out.println("로그인");
-				session.setAttribute("member_num", existingMember.getMember_num());
+				session.setAttribute("member_num", existingMember.getMember_num()); 
 
 				return "redirect:/index";
 			} else {
