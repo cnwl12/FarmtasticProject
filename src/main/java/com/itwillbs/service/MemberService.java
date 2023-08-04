@@ -216,7 +216,11 @@ public class MemberService {
 
 
 	
-
+    public Map<String, Object> getMemberDetails(int memberNum) {
+    	System.out.println("서비스");
+		System.out.println("서비스"+memberNum);
+        return memberDAO.getMemberDetails(memberNum);
+    }
 	
 	
 	

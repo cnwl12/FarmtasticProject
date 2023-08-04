@@ -217,6 +217,10 @@ public class MemberDAO {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
 	}
+	public Map<String, Object> getMemberDetails(int memberNum) {
+		System.out.println("다오:"+memberNum);
+	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
+	}
 
 
 
