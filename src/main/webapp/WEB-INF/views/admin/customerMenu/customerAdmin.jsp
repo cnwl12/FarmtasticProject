@@ -57,11 +57,12 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="memberAdmin">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeMemberStatus" method="post"> 
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="deletemember" type="submit">회원탈퇴</button>
                         <div class="card-body">
+                        <input type="hidden" name="member_num" value="${member_num}">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -71,7 +72,6 @@
                                             <th>아이디</th>
                                             <th>이름</th>
                                             <th>상태</th>
-                                            <th>정보조회</th> 
                                             
                                         </tr>
                                     </thead>
@@ -82,7 +82,6 @@
                                             <th>아이디</th>
                                             <th>이름</th>
                                             <th>상태</th>
-                                            <th>정보조회</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -91,10 +90,9 @@
                                         <tr>
                                         	<td><input type="checkbox" class="memberCheckbox" name="result" value="${member.member_num}" /></td>
                                             <td>${member.member_num}</td>
-                                            <td>${member.member_id}</td>
+                                            <td><a href="javascript:void(0);" onclick="showDetail(${member.member_num})">${member.member_id}</a></td>
                                             <td>${member.member_name}</td>
                                             <td>${member.member_delYn}</td>
-                                            <td>$112,000</td>
                                         </tr>
                                      </c:forEach>   
                                     </tbody>
@@ -168,7 +166,15 @@ checkAll.forEach(checkAll => {
         toggleCheckboxes(memberCheckbox, event.target.checked);
     });
 });
+function showDetail(memberNum) {
+    // 회원 정보 조회 API URL
+	  const url = '${pageContext.request.contextPath}/memberDetail?member_num=' + memberNum;
+    // 팝업 창 열기
+    window.open(url, 'memberInfoPopup', 'width=800,height=600');
 
+    // 팝업 창에서 메인 창으로 포커스 이동
+    opener.focus();
+}
 </script>
 </body>
 

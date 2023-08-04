@@ -179,6 +179,13 @@ public class MemberDAO {
 			sqlSession.update(namespace+".updateReview", params);
 		}
 	
+		public int deleteReview(int review_num, int member_num) {
+	        Map<String, Integer> params = new HashMap<>();
+	        params.put("review_num", review_num);
+	        params.put("member_num", member_num);
+	        return sqlSession.delete(namespace + ".deleteReview", params);
+	    }
+
 	
 	//서영 작업 1대1문의
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
@@ -210,7 +217,15 @@ public class MemberDAO {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
 	}
+	public Map<String, Object> getMemberDetails(int memberNum) {
+		System.out.println("다오:"+memberNum);
+	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
+	}
 
+
+
+
+	
 
 	
 

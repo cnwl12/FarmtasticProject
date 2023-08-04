@@ -48,8 +48,19 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span> 3 </span></a></li>
-                        </ul>
+							<li><a href="shoppingCart"> <c:choose>
+										<c:when test="${empty sessionScope.member_num}">
+											<!-- 장바구니가 비었을 경우 -->
+											<i class="fa fa-shopping-bag"></i>
+										</c:when>
+										<c:otherwise>
+											<!-- 로그인된 경우 -->
+											<i class="fa fa-shopping-bag"></i>
+											<span>${sessionScope.member_num}</span>
+										</c:otherwise>
+									</c:choose>
+							</a></li>
+						</ul>
                         
                     <!--  7.29성하 로그인시 마이페이지 로그아웃버튼생성 -->
                     <div class="header__top__right__auth">

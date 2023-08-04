@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.PayDTO;
 import com.itwillbs.domain.WishlistDTO;
 
 @Service
@@ -185,8 +186,12 @@ public class MemberService {
 	 public void updateReview(int review_num, int review_star, String review_title, String review_content) {
 		 memberDAO.updateReview(review_num, review_star, review_title, review_content);
 	}
-		
-	 
+	
+	 // 마이페이지 리뷰 삭제 기능 
+	 public boolean deleteReview(int review_num, int member_num) {
+		 return memberDAO.deleteReview(review_num, member_num) > 0;
+	 }
+	
 	 
 	public void updateInCart(HashMap<String, Object> cart) {
 		memberDAO.updateInCart(cart);
@@ -210,7 +215,18 @@ public class MemberService {
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
+	
+	public void insertPay(PayDTO payDTO) {
+		memberDAO.insertPay(payDTO);
+	}
 
+
+	
+    public Map<String, Object> getMemberDetails(int memberNum) {
+    	System.out.println("서비스");
+		System.out.println("서비스"+memberNum);
+        return memberDAO.getMemberDetails(memberNum);
+    }
 	
 	
 	
