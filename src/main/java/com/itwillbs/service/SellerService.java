@@ -158,7 +158,7 @@ public class SellerService {
 	         System.out.println("SellerService idCheck()");
 	       
 	         return sellerDAO.idCheck(seller_num);
-			}
+		}
 
 		public List<Map<String, Object>> MemberMngjoin() {
 			System.out.println("SellerService의 MemberMngjoin()");
