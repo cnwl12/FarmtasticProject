@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.PayDTO;
 import com.itwillbs.domain.WishlistDTO;
 
 @Service
@@ -212,6 +213,10 @@ public class MemberService {
 
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		memberDAO.deleteWishlist(wishlistDTO);
+	}
+	
+	public void insertPay(PayDTO payDTO) {
+		memberDAO.insertPay(payDTO);
 	}
 
 

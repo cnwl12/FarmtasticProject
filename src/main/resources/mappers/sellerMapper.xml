@@ -295,9 +295,13 @@
   	</select> 
   	
 	<select id="MemberMngjoin" resultType="map">
-	SELECT o.member_num, o.item_num, o.order_amount, o.order_pay, o.order_day
-	FROM orders o JOIN item i ON o.item_num = i.item_num
-	WHERE i.seller_num = #{seller_num};	
+SELECT o.order_num, o.item_num, o.order_day, i.item_name, i.seller_num, s.seller_name
+FROM orders o
+INNER JOIN item i ON o.item_num = i.item_num
+INNER JOIN seller s ON i.seller_num = s.seller_num
+WHERE o.item_num = #{itemNum} AND i.seller_num = #{sellerNum} AND o.order_day = #{orderDay};
+
+
 	</select>
 
    

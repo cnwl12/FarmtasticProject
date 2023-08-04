@@ -22,12 +22,16 @@
                 }
             });
         }
+
+        window.onload = function() {
+            loginWithKakao();
+            
+        }
     </script>
 </head>
 <body>
-<a id="custom-login-btn" href="#" onclick="loginWithKakao()">
+  <a id="custom-login-btn" href="#">
     <img src="resources/img/login_img/kakao.png">
-</a>
-
+  </a>
 </body>
 </html>

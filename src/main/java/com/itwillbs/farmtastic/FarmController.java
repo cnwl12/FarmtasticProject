@@ -39,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.PayDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.domain.WishlistDTO;
 import com.itwillbs.naverController.NaverController;
@@ -491,10 +492,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
 
 		// 나중에 변경할거임...
-		// String member_num = (String)session.getAttribute("member_num");
-		 int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		 // int member_num = 16; // <- 로그인 됐을 때 지울거임
 		// System.out.println(member_num + ", "+ cart);
 		
+		 session.setAttribute("member_num", member_num);
 		// session.setAttribute("member_num", memberDTO2.getMember_num());
 		
 		cart.put("member_num", member_num);
@@ -515,10 +517,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("shoppingCart 매핑확인여부");
 
 		// 나중에 변경할거임...
-		// int member_num = (int) session.getAttribute("member_num");
-		 int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		// String member_num = (String)session.getAttribute("member_num");
+		// int member_num = 16; // <- 로그인 됐을 때 지울거임
+		session.setAttribute("member_num", member_num);
+		 
+		System.out.println(member_num);
 
-		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
+ 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
 		// System.out.println(itemList);
 
@@ -526,14 +532,14 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/cartInUpdate", method = RequestMethod.GET)
-	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
 		// 나중에 변경할거임...
-		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 16; // <- 로그인 됐을 때 지울거임
+		// int member_num = 16; // <- 로그인 됐을 때 지울거임
 		//System.out.println(member_num + ", "+ cart);
-		
-		// cart.put("member_num", member_num);
+		 int member_num = (int)session.getAttribute("member_num");
+		 
+		 cart.put("member_num", member_num);
 
 		// System.out.println("insertCart 오는지");
 		
@@ -544,11 +550,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(Model model, HttpServletRequest session) {
+	public String checkout(Model model, HttpSession session) {
 
 		System.out.println("checkout 매핑확인여부");
 
-		int member_num = 16;
+		int member_num = (int)session.getAttribute("member_num");
 
 		memberService.getMember1(member_num);
 
@@ -560,19 +566,43 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/checkout";
 
 	}
+	
+	// 결제 성공 페이지로 이동하는 컨트롤러 메소드
+		@RequestMapping(value = "/paySuccess", method = RequestMethod.GET)
+		public String paySuccess(Model model, PayDTO payDTO) {
+		    // HashMap 객체 생성 및 결제 정보 추가
+		    HashMap<String, Object> payInfo = new HashMap<String, Object>();
+		    payInfo.put("order_num", payDTO.getOrder_num());
+		    payInfo.put("member_num", payDTO.getMember_num());
+		    payInfo.put("order_pay", payDTO.getOrder_pay());
+		    payInfo.put("order_post", payDTO.getOrder_post());
+		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
+		    payInfo.put("order_addSub", payDTO.getOrder_addSub());
+		    payInfo.put("order_phone", payDTO.getOrder_phone());
+		    payInfo.put("order_msg", payDTO.getOrder_msg());
+		    payInfo.put("order_name", payDTO.getOrder_name());
+		    payInfo.put("order_day", payDTO.getOrder_day());
+		    System.out.println("payinfo:" + payInfo);
+		    // 모델 객체에 HashMap 추가
+		    model.addAttribute("payInfo", payInfo);
+
+		    // paySuccess.jsp 페이지로 리다이렉트
+		    return "/member/paySuccess";
+		}
 
 	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert)
 	// 진행
 	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
-	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpServletRequest session) {
+	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
 
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 
-		int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		//int member_num = 16; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 
-//		orderDetail.put("member_num", member_num);
+		orderDetail.put("member_num", member_num);
 
 		memberService.insertOrderDetail(orderDetail);
 		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
@@ -583,9 +613,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 카트안 아이템 삭제
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
-	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
-		int member_num = 16;
+	//	int member_num = 16;
+		int member_num = (int)session.getAttribute("member_num");
 		cart.put("member_num", member_num);
 
 		System.out.println("deleteCart 컨트롤러 오는지");
@@ -734,15 +765,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,
-			@RequestParam("review_star") int review_star, @RequestParam("review_title") String review_title,
-			@RequestParam("review_content") String review_content) {
-		try {
-			memberService.updateReview(review_num, review_star, review_title, review_content);
-			return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
-		}
+									@RequestParam("review_star") int review_star,
+	                                @RequestParam("review_title") String review_title,
+	                                @RequestParam("review_content") String review_content) {
+	    try {
+	        memberService.updateReview(review_num, review_star,review_title, review_content);
+	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+	    }
 
 	}
 
