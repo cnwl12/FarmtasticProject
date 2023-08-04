@@ -62,8 +62,9 @@
     <p>수령인: ${payInfo.order_name}</p>
     <p>주소: ${payInfo.order_addMain}</p>
     <p>상세 주소: ${payInfo.order_addSub}</p>
+    <p>우편 번호: ${payInfo.order_post}<p>
+    <p>전화 번호: ${payInfo.order_phone}</p>
     <p>요청 메시지: ${payInfo.order_msg}</p>
-
 
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>

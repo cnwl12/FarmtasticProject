@@ -562,6 +562,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	}
 	
+	// 인호 결제 확인중!!!!!! 
+	
 	// 결제 성공 페이지로 이동하는 컨트롤러 메소드
 		@RequestMapping(value = "/paySuccess", method = RequestMethod.GET)
 		public String paySuccess(Model model, PayDTO payDTO) {
@@ -580,10 +582,36 @@ public class FarmController { // 소비자 (컨트롤러)
 		    System.out.println("payinfo:" + payInfo);
 		    // 모델 객체에 HashMap 추가
 		    model.addAttribute("payInfo", payInfo);
-
+		    
+		    memberService.insertOrders(payInfo);
+		    System.out.println(payInfo);
+		    
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "/member/paySuccess";
+		    //return "/member/paySuccess";
 		}
+		
+		@RequestMapping(value = "/insertOrders", method = RequestMethod.GET)
+		public String insertOrders(PayDTO payDTO) {
+			
+//			System.out.println(payDTO.getMember_num());
+//			System.out.println(payDTO.getOrder_pay());
+//			System.out.println(payDTO.getOrder_name());
+//			System.out.println(payDTO.getOrder_addMain());
+//			System.out.println(payDTO.getOrder_addSub());
+//			System.out.println(payDTO.getOrder_post());
+//			System.out.println(payDTO.getOrder_phone());
+//			System.out.println(payDTO.getOrder_msg());
+//			System.out.println(payDTO.getOrder_day());
+//			// insertMember() 메서드 호출
+//			memberService.insertOrders(payDTO);
+//			System.out.println("FarmController insertOrders");
+
+			return "redirect:/index";
+		}	
+		
+		
+		
 
 	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert)
 	// 진행
@@ -655,6 +683,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/login";
 	}
+	
+	
 
 	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {

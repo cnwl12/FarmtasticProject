@@ -219,9 +219,12 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
 	}
 	
-	public void insertPay(PayDTO payDTO) {
-		sqlSession.insert(namespace + ".insertPay", payDTO);
+	public void insertOrders(HashMap<String, Object> payInfo) {
+		sqlSession.insert(namespace + ".insertOrders", payInfo);
+		System.out.println("MemberDAO insertOrders");
 	}
+
+
 
 
 

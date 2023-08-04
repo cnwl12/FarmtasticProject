@@ -143,7 +143,7 @@
                                 <p>주소<span>*</span></p>
                                 <input type="text" placeholder="우편번호" id="member_post" class="checkout__input__add" value="${memberDTO.member_post}">
                                 <input type="text" placeholder="메인주소" id="member_addMain" class="checkout__input__add" value="${memberDTO.member_addMain}">
-                                <input type="text" placeholder="상세주소" value="${memberDTO.member_addSub}">
+                                <input type="text" placeholder="상세주소" id="member_addSub" value="${memberDTO.member_addSub}">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>

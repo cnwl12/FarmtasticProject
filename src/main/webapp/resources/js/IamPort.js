@@ -11,7 +11,7 @@ function generateOrderNum() {
 
 
 function requestPay() {
-	
+
 	var IMP = window.IMP;
 	IMP.init("imp24125441");
 	
@@ -33,6 +33,9 @@ function requestPay() {
 
     const buyerAddrElement = document.getElementById("member_addMain");
     const buyerAddr = buyerAddrElement.value;
+    
+    const buyerAddrsubElement = document.getElementById("member_addSub");
+    const buyerAddrsub = buyerAddrsubElement.value;
 
     const buyerPostcodeElement = document.getElementById("member_post");
     const buyerPostcode = buyerPostcodeElement.value;
@@ -42,8 +45,7 @@ function requestPay() {
 	
 	const orderMsgElement = document.getElementById("order_msg");
 	const orderMsg = orderMsgElement.value;
-
-
+	
     IMP.request_pay(  
       {
         pg: "kcp.{T0000}",
@@ -66,8 +68,9 @@ function requestPay() {
         	param += "&order_name=" + buyerName;
         	param += "&order_addMain=" + buyerAddr;
         	param += "&order_addSub=" + buyerPostcode;
+        	param += "&order_post=" + buyerAddrsub;
+        	param += "&order_phone=" + buyerTel;
         	param += "&order_msg=" + orderMsg;
-        	
         	location.href = param;
         	alert("결제가 완료되었습니다.");
     	} else {
