@@ -182,7 +182,7 @@ WHERE item_num = #{item_num}
   
   <!-- 마이페이지 용 -->
   <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
-    select r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
+    select r.review_num, r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
 from review r left join item i
 on r.item_num = i.item_num
 WHERE member_num = #{member_num}; 
@@ -193,6 +193,12 @@ WHERE member_num = #{member_num};
   set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}
   where review_num = #{review_num};
   </update>
+  
+  <delete id="deleteReview">
+  delete from review
+  where review_num = #{review_num}
+  and member_num = #{member_num};
+  </delete>
   
   <!--  1대1문의 -->
   <insert id="insertOneBoard">
