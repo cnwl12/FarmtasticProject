@@ -28,7 +28,7 @@ public class AdminDAO {
     	System.out.println("dao");
         return sqlSession.selectOne(NAMESPACE + "adminCheck", admin_id);
     }
-
+// 글 목록
 	public List<Map<String, Object>> getCnotice() {
 		System.out.println("dao");
 		return sqlSession.selectList(NAMESPACE+"getCnotice");
@@ -43,7 +43,7 @@ public class AdminDAO {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeList);
 		
 	}
-//  글 목록
+//  글 내용
 	public Map<String, Object> getNotice(int admin_cs_num) {
 	    return sqlSession.selectOne(NAMESPACE + "getNotice", admin_cs_num);
 	}

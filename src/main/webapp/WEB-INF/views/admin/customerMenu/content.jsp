@@ -56,13 +56,20 @@
                     <!--글쓰기  -->
                         <div class="card-header py-3">
                            <div class="row">
+                           
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
+                            
+                            
                             <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="삭제" onclick="deleteContent('${content.admin_cs_num}')">삭제</button>
+                            
+                               <c:if test="${content.admin_id eq sessionScope.admin.admin_id}">
+        						<button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
+        						<button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="삭제" onclick="deleteContent('${content.admin_cs_num}')">삭제</button>
+    						   </c:if>
+    						   
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
-                     
+                     		
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
            					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
@@ -77,24 +84,6 @@
         								</c:when>
     								</c:choose>
     								<textarea name="admin_cs_view" style="width: 450px; height: 300px; border: none; background-color: white;" readonly>${content.admin_cs_view}</textarea>
-                                		
-                            
-                               <!--
-                                <table class="table table-bordered" id="dataTable">
-                         			<tr>
-                         				
-                         				<td >
-    										<c:choose>
-        										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
-            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
-        										</c:when>
-    										</c:choose>
-    											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style=" border: none; background-color: white; " readonly="readonly"/>
-										</td>
-                         			</tr>
-                         		</table>
-                            	  -->
-                            
                             </div>
                           </div>
                       </div>
@@ -144,6 +133,32 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+   <!--
+	<script>
+  function showButtons(admin_id, content_admin_id, content_admin_cs_num) {
+    if (admin_id === content_admin_id) {
+      const updateButton = document.createElement('button');
+      updateButton.type = 'button';
+      updateButton.classList.add('d-none', 'd-sm-inline-block', 'btn', 'btn-sm', 'btn-primary', 'shadow-sm');
+      updateButton.value = '수정';
+      updateButton.onclick = function() { updateContent(content_admin_cs_num); };
+      updateButton.textContent = '수정';
+
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.classList.add('d-none', 'd-sm-inline-block', 'btn', 'btn-sm', 'btn-primary', 'shadow-sm');
+      deleteButton.value = '삭제';
+      deleteButton.onclick = function() { deleteContent(content_admin_cs_num); };
+      deleteButton.textContent = '삭제';
+
+      document.querySelector('.button-container').appendChild(updateButton);
+      document.querySelector('.button-container').appendChild(deleteButton);
+    }
+  }
+</script>
+
+	  -->
+	
 	<script>
   		function updateContent(admin_cs_num) {
     		window.location.href = "${pageContext.request.contextPath}/contentUpdate?admin_cs_num=" + admin_cs_num;
