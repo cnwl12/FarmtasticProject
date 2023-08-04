@@ -32,20 +32,7 @@
 
 	<insert id="insertOrders">
 		insert into orders(order_num,　item_num,　order_pay,　order_post,　order_addMain,　order_addSub,　order_phone,　order_msg,　order_name,　order_day)
-
-	<insert id="insertPay">
-		insert into pay
-				  ( pay_num
-				  , order_num
-				  , pay_day
-				  , pay_yn
-				  , pay_pay)
-			values(#{pay_num}
-			    , #{order_num}
-				, NOW()
-				, #{pay_yn}
-				, #{pay_pay})
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+		values(#{order_num},　#{item_num},　#{order_pay},　#{order_post},　#{order_addMain},　#{order_addSub},　#{order_phone},　#{order_msg},　#{order_name},　NOW())
 	</insert>  
 	
 	<select id="nuserCheck" 
