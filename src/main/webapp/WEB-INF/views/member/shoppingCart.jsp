@@ -91,36 +91,6 @@
 
 
 	</script>
-	
-	 
-	                
-    
-<!--         $(window).on('load', function () {
-        // console.log("확인");
-
-        $('input[type=text]').change(function(){
-            console.log($(this));
-        })
-        $('.pro-qty').click(function(){
-                var cart_cnt = $(this).find('.cart_cnt').val();
-                var item_num = $(this).closest('tr').data('item_num');
-                console.log(cart_cnt);
-                console.log(item_num);
-
-                $.ajax({
-                    url: 'cartInUpdate?item_num=' + item_num,
-                    data: { 'cart_cnt': cart_cnt },
-                    success: function(response) {
-                        console.log('장바구니 수량 업데이트 성공:', response);
-                    },
-                    error: function(error) {
-                        console.error('장바구니 수량 업데이트 실패:', error);
-                    }
-                });
-            });
-        }); -->
-	
-	
 
 </head>
 
@@ -216,21 +186,9 @@
                     </div>
     	          </div>
                 <div class="col-lg-6">
-                    <div class="shoping__continue">
-                        <div class="shoping__discount">
-                            <h5>Discount Codes</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
-                                <button type="submit" class="site-btn">APPLY COUPON</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
                             <li>Total	 <span>${totalSum}원</span></li>
                         </ul>
                     </div>

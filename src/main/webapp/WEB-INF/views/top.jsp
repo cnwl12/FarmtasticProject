@@ -48,7 +48,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span> 3 </span></a></li>
+                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span>${sessionScope.member_num}</span></a></li>
                         </ul>
                         
                     <!--  7.29성하 로그인시 마이페이지 로그아웃버튼생성 -->

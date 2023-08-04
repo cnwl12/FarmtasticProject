@@ -1,10 +1,10 @@
 package com.itwillbs.farmtastic;
 
-import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -12,29 +12,21 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
@@ -517,14 +509,18 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 7; // <- 로그인 됐을 때 지울거임
-		System.out.println(member_num + ", "+ cart);
+		 int member_num = 16; // <- 로그인 됐을 때 지울거임
+		// System.out.println(member_num + ", "+ cart);
+		
+		// session.setAttribute("member_num", memberDTO2.getMember_num());
 		
 		cart.put("member_num", member_num);
 
-		// System.out.println("insertCart 오는지");
-
 		memberService.insertCart(cart);
+		
+		
+		// 수량을 조회하는 메서드 따로 필요
+		// session.setAttribute("cart_num", cart_num);
 
 		return "redirect:/shoppingCart";
 	}
@@ -537,7 +533,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		//int member_num = (int) session.getAttribute("member_num");
-		int member_num = 7; // <- 로그인 됐을 때 지울거임
+		 int member_num = 16; // <- 로그인 됐을 때 지울거임
 
 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -552,13 +548,13 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 7; // <- 로그인 됐을 때 지울거임
-		System.out.println(member_num + ", "+ cart);
+		int member_num = 16; // <- 로그인 됐을 때 지울거임
+		//System.out.println(member_num + ", "+ cart);
 		
-		cart.put("member_num", member_num);
+		// cart.put("member_num", member_num);
 
 		// System.out.println("insertCart 오는지");
-
+		
 		memberService.updateInCart(cart);
 
 		return "redirect:/shoppingCart";
@@ -571,7 +567,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		System.out.println("checkout 매핑확인여부");
 		
-		int member_num = 7;
+		int member_num = 16;
 		
 		memberService.getMember1(member_num);
 		
@@ -594,7 +590,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 		
-		int member_num = 7; // <- 로그인 됐을 때 지울거임
+		int member_num = 16; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 		
 //		orderDetail.put("member_num", member_num);
@@ -610,7 +606,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
 	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session){
 		
-		int member_num = 7;
+		int member_num = 16;
 		cart.put("member_num", member_num);
 		
 		System.out.println("deleteCart 컨트롤러 오는지");
@@ -663,6 +659,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 		if (memberDTO2 != null) {
 			session.setAttribute("member_num", memberDTO2.getMember_num());
+			
 			return "redirect:/index";
 		} else {
 			return "redirect:/login";
