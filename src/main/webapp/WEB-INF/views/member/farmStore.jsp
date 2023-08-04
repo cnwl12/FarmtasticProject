@@ -406,12 +406,39 @@
                     </div>
                     
                     <!-- 하단 페이징  -->
-                    <div class="product__pagination">
+					<!-- <div class="col-sm-12 col-md-7">
+						<div class="dataTables_paginate paging_simple_numbers"
+							id="dataTable_paginate">
+							<ul class="pagination">
+								<li class="paginate_button page-item previous disabled"
+									id="dataTable_previous"><a href="#"
+									aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+									class="page-link">Previous</a></li>
+								<li class="paginate_button page-item active"><a href="#"
+									aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+									class="page-link">1</a></li>
+								<li class="paginate_button page-item "><a href="#"
+									aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+									class="page-link">2</a></li>
+								<li class="paginate_button page-item "><a href="#"
+									aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+									class="page-link">3</a></li>
+								<li class="paginate_button page-item next" id="dataTable_next">
+									<a href="#" aria-controls="dataTable" data-dt-idx="4"
+									tabindex="0" class="page-link">Next</a>
+								</li>
+							</ul>
+						</div>
+					</div> -->
+
+
+<!-- 
+					 <div class="product__pagination">
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
                         <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
+                    </div>  -->
                 </div>
             </div>
         </div>

@@ -446,8 +446,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
 
-		System.out.println("팜팜마켓 매핑확인여부");
-
 		return "/member/farmStore";
 	}
 
@@ -494,10 +492,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
 
 		// 나중에 변경할거임...
-		// String member_num = (String)session.getAttribute("member_num");
-		 int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		 // int member_num = 16; // <- 로그인 됐을 때 지울거임
 		// System.out.println(member_num + ", "+ cart);
 		
+		 session.setAttribute("member_num", member_num);
 		// session.setAttribute("member_num", memberDTO2.getMember_num());
 		
 		cart.put("member_num", member_num);
@@ -518,10 +517,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("shoppingCart 매핑확인여부");
 
 		// 나중에 변경할거임...
-		// int member_num = (int) session.getAttribute("member_num");
-		 int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		// String member_num = (String)session.getAttribute("member_num");
+		// int member_num = 16; // <- 로그인 됐을 때 지울거임
+		session.setAttribute("member_num", member_num);
+		 
+		System.out.println(member_num);
 
-		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
+ 		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
 		// System.out.println(itemList);
 
@@ -529,14 +532,14 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/cartInUpdate", method = RequestMethod.GET)
-	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
 		// 나중에 변경할거임...
-		// String member_num = (String)session.getAttribute("member_num");
-		int member_num = 16; // <- 로그인 됐을 때 지울거임
+		// int member_num = 16; // <- 로그인 됐을 때 지울거임
 		//System.out.println(member_num + ", "+ cart);
-		
-		// cart.put("member_num", member_num);
+		 int member_num = (int)session.getAttribute("member_num");
+		 
+		 cart.put("member_num", member_num);
 
 		// System.out.println("insertCart 오는지");
 		
@@ -547,11 +550,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(Model model, HttpServletRequest session) {
+	public String checkout(Model model, HttpSession session) {
 
 		System.out.println("checkout 매핑확인여부");
 
-		int member_num = 16;
+		int member_num = (int)session.getAttribute("member_num");
 
 		memberService.getMember1(member_num);
 
@@ -568,14 +571,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 진행
 	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
-	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpServletRequest session) {
+	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
 
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 
-		int member_num = 16; // <- 로그인 됐을 때 지울거임
+		int member_num = (int)session.getAttribute("member_num");
+		//int member_num = 16; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
 
-//		orderDetail.put("member_num", member_num);
+		orderDetail.put("member_num", member_num);
 
 		memberService.insertOrderDetail(orderDetail);
 		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
@@ -586,9 +590,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 카트안 아이템 삭제
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
-	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
-		int member_num = 16;
+	//	int member_num = 16;
+		int member_num = (int)session.getAttribute("member_num");
 		cart.put("member_num", member_num);
 
 		System.out.println("deleteCart 컨트롤러 오는지");
