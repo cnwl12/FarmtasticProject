@@ -39,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.PayDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.domain.WishlistDTO;
 import com.itwillbs.naverController.NaverController;
@@ -584,6 +585,29 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/checkout";
 		
 	}
+	
+	// 결제 성공 페이지로 이동하는 컨트롤러 메소드
+		@RequestMapping(value = "/paySuccess", method = RequestMethod.GET)
+		public String paySuccess(Model model, PayDTO payDTO) {
+		    // HashMap 객체 생성 및 결제 정보 추가
+		    HashMap<String, Object> payInfo = new HashMap<String, Object>();
+		    payInfo.put("order_num", payDTO.getOrder_num());
+		    payInfo.put("member_num", payDTO.getMember_num());
+		    payInfo.put("order_pay", payDTO.getOrder_pay());
+		    payInfo.put("order_post", payDTO.getOrder_post());
+		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
+		    payInfo.put("order_addSub", payDTO.getOrder_addSub());
+		    payInfo.put("order_phone", payDTO.getOrder_phone());
+		    payInfo.put("order_msg", payDTO.getOrder_msg());
+		    payInfo.put("order_name", payDTO.getOrder_name());
+		    payInfo.put("order_day", payDTO.getOrder_day());
+		    System.out.println("payinfo:" + payInfo);
+		    // 모델 객체에 HashMap 추가
+		    model.addAttribute("payInfo", payInfo);
+
+		    // paySuccess.jsp 페이지로 리다이렉트
+		    return "/member/paySuccess";
+		}
 
 	
 	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert) 진행

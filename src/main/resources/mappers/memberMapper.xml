@@ -10,9 +10,9 @@
 	 	values(#{member_num}, #{member_id},#{member_pass}, #{member_name}, #{member_phone}, #{member_email}, now(), #{member_post}, #{member_addMain}, #{member_addSub})
 	</insert>
 	
-	<insert id="insertPay">
-		insert into pay(pay_num, order_num, pay_day, pay_yn, pay_pay)
-		values(#{pay_num}, #{order_num}, NOW(), #{pay_yn}, #{pay_pay})
+	<insert id="insertOrders">
+		insert into orders(order_num,　item_num,　order_pay,　order_post,　order_addMain,　order_addSub,　order_phone,　order_msg,　order_name,　order_day)
+		values(#{order_num},　#{item_num},　#{order_pay},　#{order_post},　#{order_addMain},　#{order_addSub},　#{order_phone},　#{order_msg},　#{order_name},　NOW())
 	</insert>  
 	
 	<select id="nuserCheck" 
