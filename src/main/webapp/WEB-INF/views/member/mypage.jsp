@@ -474,7 +474,7 @@ $(document).ready(function() {
                     for (var i = myreview.length - 1; i >= 0; i--) {
                         var review = myreview[i];
                         rows += "<tr>" +
-                        "<td><input type='checkbox' data-review_num='" + review.review_num + "'class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
+                        "<td><input type='checkbox' data-member_num='" + review.member_num + "'data-review_num='"+ review.review_num +"' class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
                             "<td class='review-star'>" + review.review_star + "</td>" +
                             "<td>" + review.item_name + "</td>" +
                             "<td>" + review.review_title + "</td>" +
@@ -576,30 +576,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-$(document).ready(function() {
-  var selectedReview;
+$(document).ready(function () {
+	  var selectedReview;
 
-//수정 버튼 클릭 이벤트
-  $(document).on('click', '#edit-review-button', function() {
-    var checkedReviews = $('input[type="checkbox"]:checked');
-    if (checkedReviews.length === 1) {
-      selectedReview = checkedReviews.first().data("review_num"); 
-      console.log("Selected review number:", selectedReview);
-      
-      $('#edit-review-popup').show();
-    } else {
-      alert('한 개의 리뷰만 선택해 주세요.');
-    }
-  });
+	  // 수정 버튼 클릭 이벤트
+	  $(document).on("click", "#edit-review-button", function () {
+	    var checkedReviews = $("input[type='checkbox']:checked");
+	    if (checkedReviews.length === 1) {
+	      // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
+	      selectedReview = checkedReviews.first().data("review_num");
+	      console.log("Selected review number:", selectedReview);
+
+	      $("#edit-review-popup").show();
+	    } else {
+	      alert("한 개의 리뷰만 선택해 주세요.");
+	    }
+	  });
 
   // 수정 팝업 '저장' 버튼 클릭
   $('#submit-edit-review-btn').on('click', function(e) {
     e.preventDefault();
-    var reviewStar = $('#edit-review-form #review_star').val();
-    var reviewTitle = $('#edit-review-form #review-title').val();
-    var reviewContent = $('#edit-review-form #review_content').val();
+    var review_star = $('#edit-review-form #review_star').val();
+    var review_title = $('#edit-review-form #review-title').val();
+    var review_content = $('#edit-review-form #review_content').val();
 
-    updateReview(selectedReview, reviewStar, reviewTitle, reviewContent);
+    updateReview(selectedReview, review_star, review_title, review_content);
   });
 
   // 수정 팝업 '취소' 버튼 클릭
@@ -619,33 +620,80 @@ $(document).ready(function() {
   });
 
   // 리뷰 정보를 업데이트 하는 함수
-  function updateReview(reviewNumber, reviewStar, reviewTitle, reviewContent) {
+  function updateReview(selectedReview, review_star, review_title, review_content) {
+	  $.ajax({
+		  type: "POST",
+		  url: "updateReview",
+		  data: {
+		    review_num: selectedReview,
+		    review_star: review_star,
+		    review_title: review_title,
+		    review_content: review_content
+		  },
+		  dataType: "text",
+		  success: function(responseText) {
+			  console.log(responseText);
+			  if (responseText === "The review has been successfully updated.") {
+			    alert("리뷰가 성공적으로 수정되었습니다.");
+			    $("#edit-review-popup").hide(); // 팝업창을 닫습니다.
+			    location.reload(); // 페이지를 새로고침합니다.
+			    
+			  } else {
+			    alert("리뷰 수정에 실패했습니다. 다시 시도해 주세요.");
+			  }
+			},
+		  error: function () {
+		    alert("리뷰 업데이트에 실패했습니다. 다시 시도해 주세요.");
+		  }
+		});
+  }
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+  var selectedReview;
+  var selectedMember;
+
+  // 삭제 버튼 클릭 이벤트
+  $(document).on('click', '#delete-review-button', function () {
+    var checkedReviews = $('input[type=checkbox]:checked');
+    if (checkedReviews.length === 1) {
+      // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
+      selectedReview = checkedReviews.first().data("review_num");
+      selectedMember = checkedReviews.first().data("member_num");
+      console.log('Selected review number:', selectedReview);
+
+      deleteReview(selectedReview, selectedMember);
+    } else {
+      alert('한 개의 리뷰만 선택해 주세요.');
+    }
+  });
+
+  // 리뷰를 삭제하는 함수
+  function deleteReview(selectedReview, selectedMember) {
     $.ajax({
-      type: "POST",
-      url: "updateReview",
+      type: 'POST',
+      url: 'deleteReview',
       data: {
-        review_num: reviewNumber,
-        review_star: reviewStar,
-        review_title: reviewTitle,
-        review_content: reviewContent
+        review_num: selectedReview,
+        member_num: selectedMember // 쉼표로 구분하세요.
       },
-      dataType: "json",
-      success: function(response) {
-        if (response.result === "success") {
-          alert('리뷰가 성공적으로 수정되었습니다.');
-          $('#edit-review-popup').hide();
-          location.reload();
+      dataType: 'text',
+      success: function (responseText) {
+        console.log(responseText);
+        if (responseText === 'The review has been successfully deleted.') {
+          alert('리뷰가 성공적으로 삭제되었습니다.');
+          location.reload(); // 페이지를 새로고침합니다.
         } else {
-          alert('리뷰 수정에 실패했습니다. 다시 시도해 주세요.');
+          alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
         }
       },
-      error: function() {
-        alert('리뷰 수정에 실패했습니다. 다시 시도해 주세요.');
-      }
+      error: function () {
+        alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
+      },
     });
   }
 });
 </script>
-
 </body>
 </html>

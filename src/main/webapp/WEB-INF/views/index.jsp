@@ -132,7 +132,7 @@
                             <p>Free Pickup and Delivery Available</p>
                             <a href="farmStore" class="primary-btn">SHOP NOW</a>
                         </div>
-                       <img src="${pageContext.request.contextPath}/resources/img/4.png" alt=""  style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
+                       <img src="${pageContext.request.contextPath}/resources/img/yangpa.png" alt=""  style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
                     </div>
                 </div>
             </div>

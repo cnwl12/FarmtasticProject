@@ -95,11 +95,10 @@
 										<tr>
 											<th>상품 타입</th>
 											<th>상품명</th>
-											<th>가격</th>
+											<th>가격</th> 
 											<th>상품 이미지</th>
 											<th>상품 설명</th>
 											<th>재고</th>
-											<th>판매</th>
 											<th>상태변경</th>
 										</tr>
 									</thead>
@@ -114,7 +113,6 @@
 													style="width: 200px; height: 100px"></td>
 												<td>${item.item_detail}</td>
 												<td>${item.item_left}</td>
-												<td>${item.item_salesStatus}</td>
 												<td>
 													<c:choose>
 														<c:when test="${item.item_salesStatus eq 'Y'}">

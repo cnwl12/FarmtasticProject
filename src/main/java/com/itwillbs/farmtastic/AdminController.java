@@ -130,6 +130,8 @@ public class AdminController {
 	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 	    model.addAttribute("content", resultMap);
 	    model.addAttribute("admin_cs_num", admin_cs_num);
+	    String adminId = resultMap.get("admin_id").toString();
+	    model.addAttribute("admin_id", resultMap.get("admin_id").toString());
 	    System.out.println("controller" + resultMap);
 	    System.out.println("content 매핑확인여부");
 	    
@@ -159,12 +161,13 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/deleteContent", method = RequestMethod.GET)
 	public String deleteContent(@RequestParam("admin_cs_num") int admin_cs_num, HttpSession session) {
-	    String currentUserId = (String) session.getAttribute("userId");
+	    AdminDTO currentAdmin = (AdminDTO) session.getAttribute("admin"); // 현재 로그인한 사용자 정보
+	    String currentUserId = currentAdmin.getAdmin_id(); // 현재 로그인한 사용자 ID
 
 	    Map<String, Object> notice = adminService.getNotice(admin_cs_num); // 게시글 정보
 	    String writerId = (String) notice.get("admin_id");  // 게시글 작성자
 
-	    if (writerId == null || !writerId.equals(currentUserId)) {
+	    if (writerId == null || !writerId.equals(currentUserId)) { // 작성자와 로그인한 사용자가 일치하지 않으면 삭제 불가능
 	        return "redirect:/cnotice";
 	    }
 
@@ -223,6 +226,14 @@ public class AdminController {
 		 List<Map<String, Object>> resultList = memberService.getMembers();
 		 model.addAttribute("members", resultList);
 		return "/admin/customerMenu/customerAdmin";
+	}
+//	회원관리 상세정보 팝업
+	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
+	public String memberDetail(@RequestParam("member_num")int member_num, Locale locale, Model model) {
+		
+		System.out.println("memberDetail 매핑확인여부");
+		
+		return "/admin/customerMenu/memberDetail";
 	}
 	
 	@PostMapping("/changeMemberStatus")
