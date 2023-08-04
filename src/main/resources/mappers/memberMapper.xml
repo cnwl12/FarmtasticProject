@@ -29,11 +29,10 @@
 	 	    	  , #{member_addSub})
 	</insert>
 	
-<<<<<<< HEAD
+
 	<insert id="insertOrders">
 		insert into orders(order_num,　item_num,　order_pay,　order_post,　order_addMain,　order_addSub,　order_phone,　order_msg,　order_name,　order_day)
-		values(#{order_num},　#{item_num},　#{order_pay},　#{order_post},　#{order_addMain},　#{order_addSub},　#{order_phone},　#{order_msg},　#{order_name},　NOW())
-=======
+
 	<insert id="insertPay">
 		insert into pay
 				  ( pay_num
