@@ -57,11 +57,12 @@
     <!-- Breadcrumb Section End -->
 	
 	<h1>결제 성공!</h1>
-    <p>결제 ID: ${payInfo.payNum}</p>
-    <p>주문 번호: ${payInfo.orderNum}</p>
-    <p>결제 방식: ${payInfo.payDay}</p>
-    <p>결제 금액: ${payInfo.payYn}</p>
-    <p>결제 일자: ${payInfo.payPay}</p>
+    <p>주문 번호: ${payInfo.order_num}</p>
+    <p>결제 금액: ${payInfo.order_pay}</p>
+    <p>수령인: ${payInfo.order_name}</p>
+    <p>주소: ${payInfo.order_addMain}</p>
+    <p>상세 주소: ${payInfo.order_addSub}</p>
+    <p>요청 메시지: ${payInfo.order_msg}</p>
 
 
 	<!-- bottom.jsp로 분리  -->
