@@ -49,7 +49,7 @@ public class AdminDAO {
 	}
 //	글 수정
 	public void updateContent(int admin_cs_num, String admin_csnotice_sub, String admin_cs_view) {
-	        HashMap<String, Object> params = new HashMap<>();
+	        HashMap<String, Object> params = new HashMap<String, Object>();
 	        params.put("admin_cs_num", admin_cs_num);
 	        params.put("admin_csnotice_sub", admin_csnotice_sub);
 	        params.put("admin_cs_view", admin_cs_view);
