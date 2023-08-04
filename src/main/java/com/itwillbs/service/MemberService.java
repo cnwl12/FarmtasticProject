@@ -159,6 +159,7 @@ public class MemberService {
 //        return memberDAO.getOneBoardList();
 //    }
 	
+	
 	  public List<OneBoardDTO> findByItemNum(int item_num) {
 		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByItemNum(item_num);

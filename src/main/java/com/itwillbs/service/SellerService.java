@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
 @Service
@@ -169,6 +170,11 @@ public class SellerService {
 			
 			System.out.println("updateStatus서비스");
 			sellerDAO.updateStatus(status);
-		}	        
+		}	
+		
+		// 판매자 문의글 관리
+	    public List<OneBoardDTO> getBySellerque(String seller_num) {
+	        return sellerDAO.selectByque(seller_num);
+	    }
 		
 }
