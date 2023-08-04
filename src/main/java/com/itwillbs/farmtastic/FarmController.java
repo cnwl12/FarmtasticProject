@@ -489,7 +489,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	// if(담는건 맞고, 페이지 유지 or 이동할것)
 
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
-	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpServletRequest session) {
+	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
 		// 나중에 변경할거임...
 		int member_num = (int)session.getAttribute("member_num");
@@ -503,7 +503,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		memberService.insertCart(cart);
 		
-		
 		// 수량을 조회하는 메서드 따로 필요
 		// session.setAttribute("cart_num", cart_num);
 
@@ -512,7 +511,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
-	public String shopingCart(Model model, HttpServletRequest session) {
+	public String shopingCart(Model model, HttpSession session) {
 
 		System.out.println("shoppingCart 매핑확인여부");
 
