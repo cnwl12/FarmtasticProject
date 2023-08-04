@@ -228,14 +228,17 @@ public class AdminController {
 		return "/admin/customerMenu/customerAdmin";
 	}
 //	회원관리 상세정보 팝업
-	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
-	public String memberDetail(@RequestParam("member_num")int member_num, Locale locale, Model model) {
-		
-		System.out.println("memberDetail 매핑확인여부");
-		
-		return "/admin/customerMenu/memberDetail";
-	}
 	
+	
+	  @RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
+	    public String memberDetail(@RequestParam("member_num") int member_num, Locale locale, Model model) {
+	        System.out.println("memberDetail 매핑 확인 여부");
+	        Map<String, Object> resultList = memberService.getMemberDetails(member_num);
+	        model.addAttribute("memberDetail", resultList);
+	        System.out.println("controller"+resultList);
+	        return "/admin/customerMenu/memberDetail";
+	    }
+
 	@PostMapping("/changeMemberStatus")
 	public String changeMemberStatus(@RequestParam(value = "result", required = false) List<String> memberNums, RedirectAttributes redirectAttributes) {
 	if (memberNums == null || memberNums.isEmpty()) {

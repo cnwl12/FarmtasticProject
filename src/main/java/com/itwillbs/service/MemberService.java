@@ -160,6 +160,7 @@ public class MemberService {
 //        return memberDAO.getOneBoardList();
 //    }
 	
+	
 	  public List<OneBoardDTO> findByItemNum(int item_num) {
 		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByItemNum(item_num);
@@ -221,6 +222,14 @@ public class MemberService {
 
 	}
 
+
+
+	
+    public Map<String, Object> getMemberDetails(int memberNum) {
+    	System.out.println("서비스");
+		System.out.println("서비스"+memberNum);
+        return memberDAO.getMemberDetails(memberNum);
+    }
 	
 	
 	

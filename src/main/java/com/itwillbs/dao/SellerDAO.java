@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
 
@@ -162,6 +163,12 @@ public class SellerDAO {
 			System.out.println("updateStatus dao");
 			sqlSession.update(namespace+".updateStatus", status);
 		}
+		
+		// 판매자 문의 관리
+		public List<OneBoardDTO> selectByque(String seller_num) {
+			return sqlSession.selectList(namespace+".selectByque", seller_num);
+	    }
+
 
 
 

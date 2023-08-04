@@ -303,6 +303,23 @@ WHERE o.item_num = #{itemNum} AND i.seller_num = #{sellerNum} AND o.order_day = 
 
 
 	</select>
+	
+	<!-- 서영 문의글관리 -->
+	 <!-- 서영 판매자 문의관리 -->
+  
+  <select id="selectByque" resultType="com.itwillbs.domain.OneBoardDTO">
+   SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title, ob.one_board_day,
+  m.member_name, ob.one_board_content, ob.one_board_file, ob.member_num, ob.one_board_pass,
+  ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num,   i.item_name,
+  s.seller_name
+FROM one_board ob
+JOIN item i ON ob.item_num = i.item_num
+JOIN member m ON ob.member_num = m.member_num
+JOIN seller s ON i.seller_num = s.seller_num
+WHERE i.seller_num = #{seller_num}
+
+  </select>
+ 
 
    
 </mapper>
