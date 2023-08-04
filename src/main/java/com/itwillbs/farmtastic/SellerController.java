@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.service.SellerService;
 
@@ -211,12 +212,22 @@ public class SellerController {
 		System.out.println("settlementList 매핑확인여부");
 		return "/seller/settlementList";
 	}
-	
+	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
-	public String questionMng(Locale locale, Model model) {
+	public String questionMng(Locale locale, Model model, HttpServletRequest request) {
 		
 		System.out.println("questionMng 매핑확인여부");
+		 String seller_num = (String) request.getSession().getAttribute("seller_num");
+	        List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
+
+	        model.addAttribute("oneboard", oneboard);
 		return "/seller/questionMng";
+	}
+	
+	@GetMapping("/getDetails")
+	public ResponseEntity<?> getDetails(@RequestParam("seller_num") String seller_num) {
+	    List<OneBoardDTO> oneBoardDetails = sellerService.getBySellerque(seller_num);
+	    return ResponseEntity.ok().body(oneBoardDetails);
 	}
 	
 	// 상품등록 
