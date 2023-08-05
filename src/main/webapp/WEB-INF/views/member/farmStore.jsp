@@ -25,6 +25,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css" type="text/css">
+	
+	
+	<!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 index에선 반대 -->
+    <!-- Js Plugins -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
+	
+	<jsp:include page="../top.jsp"></jsp:include>
 
 </head>
 
@@ -32,7 +48,6 @@
 
 
 
-<jsp:include page="../top.jsp"></jsp:include>
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
@@ -449,18 +464,6 @@
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
 
-	<!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 index에선 반대 -->
-    <!-- Js Plugins -->
-    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
     
 
 </body>
