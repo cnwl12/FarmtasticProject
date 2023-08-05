@@ -2,7 +2,9 @@ package com.itwillbs.farmtastic;
 
 import java.util.HashMap;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -693,18 +695,40 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 
 	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
-	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+	public String loginPro(MemberDTO memberDTO, HttpSession session, HttpServletResponse response) {
 		System.out.println("MemberController loginPro()");
-		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-		if (memberDTO2 != null) {
+		
+		MemberDTO memberDTO2 = memberService.userCheck0(memberDTO);
+
+		if (memberDTO2 != null && !"N".equals(memberDTO2.getMember_delYn())) {
 			session.setAttribute("member_num", memberDTO2.getMember_num());
-			
 			return "redirect:/index";
-		} else {
-			return "redirect:/login";
-		}
+		} else if (memberDTO2 != null && "N".equals(memberDTO2.getMember_delYn())){
+			// 승인되지 않은 사용자
+            sendResponse(response, "탈퇴한 회원입니다.");
+            return "redirect:/login";
+        } else { 
+        	// 아이디 또는 비밀번호가 틀린 경우 또는 예외 상황
+            sendResponse(response, "아이디 또는 비밀번호가 틀립니다.");
+            return "redirect:/login";
+        }
 
 	}
+	
+	// 응답메시지 전송
+    private void sendResponse(HttpServletResponse response, String message) {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('" + message + "');");
+            out.println("history.back();");
+            out.println("</script>");
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@RequestMapping(value = "/farm/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -790,7 +814,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return myreview;
 	}
 
-	// 마이페이지 - 리뷰관리 => 리뷰 수정
+	// 마이페이지 - 리뷰관리 => 리뷰 수정 (개편 하려했으나 선생님 버전이 어려워서 일단 보류)
 	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,

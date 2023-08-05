@@ -53,10 +53,10 @@
   	select * from member
 	where member_num = #{member_num}
   	</select>
-
+	
+  	
   	
   	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
-  		 	
   	select * 
   	 from member
   	where member_id = #{member_id}
@@ -74,6 +74,13 @@
 	
 </select>
 
+  	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
+    select * from member
+    where member_id = #{member_id}
+    and member_pass = #{member_pass}
+    and (member_delYn = 'N' or member_delYn is null)
+</select>
+  	
   	
  	<update id="updateMember">
  	 UPDATE member

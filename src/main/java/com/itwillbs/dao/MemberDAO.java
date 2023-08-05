@@ -62,7 +62,13 @@ public class MemberDAO {
 		
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
 	}
-
+	
+	public MemberDTO userCheck0(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck0()");
+		
+		return sqlSession.selectOne(namespace+".userCheck0", memberDTO);
+	}
+	
 	public MemberDTO getMember(String member_id) {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
