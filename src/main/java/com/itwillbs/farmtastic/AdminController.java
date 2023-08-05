@@ -4,6 +4,8 @@ package com.itwillbs.farmtastic;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -390,7 +392,9 @@ public class AdminController {
 		
 		 List<Map<String, Object>> resultList = sellerService.getSellers();
 		 model.addAttribute("sellers", resultList);
-		
+		 LocalDate currentDate = LocalDate.now();
+		 String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		 model.addAttribute("currentMonth", currentMonth);
 		return "/admin/sellerMenu/sales";
 	}
 

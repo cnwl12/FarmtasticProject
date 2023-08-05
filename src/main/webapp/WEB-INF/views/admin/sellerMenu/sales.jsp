@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
     
 <!DOCTYPE html>
@@ -16,7 +17,8 @@
     <meta name="author" content="">
 
     <title>Admin</title>
-
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -58,6 +60,11 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <div>
+    						<button id="prev_month">이전 월</button>
+    						<label for="current_month">${fn:substring(currentMonth, 5, 7)}월</label>
+   			 				<button id="next_month">다음 월</button>
+							</div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -65,13 +72,13 @@
                                  
                                     <thead>
                                         <tr id="avg" style="background-color: #4167d5; color: #f8f9fc;">
-                                            <th colspan="2">총 정산액</th>
+                                            <th colspan="3">총 정산액</th>
                                             <th colspan="2">총 수수료</th>
                                             <th colspan="2">총 매출</th>
                                         </tr>
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr>
-        									<td colspan="2">${seller.grand_settlement_amount}</td>
+        									<td colspan="3">${seller.grand_settlement_amount}</td>
         									<td colspan="2">${seller.grand_fee}</td>
         									<td colspan="2" style="color: black; font-weight: bold;" >${seller.grand_total_revenue}</td>
     									</tr>
@@ -80,6 +87,7 @@
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
+                                            <th>매출일</th>
                                             <th>매출액(업체)</th>
                                             <th>수수료</th>
                                             <th>정산액</th>
@@ -90,22 +98,27 @@
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
+                                            <th>매출일</th>
                                             <th>매출액(업체)</th>
                                             <th>수수료</th>
                                             <th>정산액</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                       <c:forEach items="${sellers}" var="seller">
-                                        <tr>
-                                            <td>${seller.seller_num}</td>
-                                            <td>${seller.seller_storeName}</td>
-                                            <td>${seller.seller_name}</td>
-                                            <td>${seller.total_revenue}</td>
-                                            <td>${seller.fee}</td>
-                                            <td>${seller.settlement_amount}</td>
-                                        </tr>
-                                       </c:forEach>
+                                     <c:forEach items="${sellers}" var="seller">
+    									<c:set var="sellerMonth" value="${fn:substring(seller.pay_day, 0, 7)}" />
+   										<c:if test="${sellerMonth == currentMonth}">
+        									<tr>
+            									<td>${seller.seller_num}</td>
+            									<td>${seller.seller_storeName}</td>
+            									<td>${seller.seller_name}</td>
+            									<td>${seller.pay_day}</td>
+            									<td>${seller.total_revenue}</td>
+            									<td>${seller.fee}</td>
+            									<td>${seller.settlement_amount}</td>
+        									</tr>
+    									</c:if>
+									</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
