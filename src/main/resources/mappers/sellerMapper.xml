@@ -334,7 +334,7 @@ WHERE o.item_num = #{itemNum} AND i.seller_num = #{sellerNum} AND o.order_day = 
   <select id="selectByque" resultType="com.itwillbs.domain.OneBoardDTO">
    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title, ob.one_board_day,
   m.member_name, ob.one_board_content, ob.one_board_file, ob.member_num, ob.one_board_pass,
-  ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num,   i.item_name,
+  ob.one_board_private, ob.one_board_num, one_board_repYn, ob.one_board_reply, i.seller_num,   i.item_name,
   s.seller_name
 FROM one_board ob
 JOIN item i ON ob.item_num = i.item_num
@@ -344,6 +344,14 @@ WHERE i.seller_num = #{seller_num}
 
   </select>
  
-
+<update id="updateReply" parameterType="com.itwillbs.domain.OneBoardDTO">
+    UPDATE one_board
+    SET
+      one_board_reply = #{one_board_reply},
+      one_board_repYn = '답변완료',
+      one_board_repDay = now()
+    WHERE
+      one_board_num = #{one_board_num}
+</update>
    
 </mapper>

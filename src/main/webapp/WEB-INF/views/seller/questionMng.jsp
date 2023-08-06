@@ -231,7 +231,7 @@
 															</colgroup>
 															<tbody>
 															  <c:forEach var="row" items="${oneboard}">
-															    <tr class="data-row" data-one-board-content="${row.one_board_content}">
+															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" >
 															      <td>${row.one_board_day}</td>
 															      <td>${row.one_board_repYn}</td>
 															      <td>${row.one_board_type}</td>
@@ -303,6 +303,7 @@
 														<tr>
 															<th scope="row">문의내용</th>
 															<td id="one_board_content" colspan="3" class="line_h18">&nbsp;</td>
+															
 														</tr>
 													</tbody>
 												</table>
@@ -312,58 +313,43 @@
 										<div class="ct_box fr">
 											<div class="hd_wrap">
 												<h3 class="hd3 fl">판매자 답변 처리</h3>
-												<div class="btn_a_fr">
-													<a href="#" class="btn_a" id="templetePopup"
-														onclick="return false;"><span>템플릿 관리</span></a>
-												</div>
+												
 											</div>
 											<div class="tbl_type">
-												<form id="answerForm" method="POST">
-													<input name="id.inquiryNo" type="hidden"> <input
-														name="id.inquiryCommentNo" type="hidden"> <input
-														name="alarmType" type="hidden">
-													<table cellspacing="0" border="1">
-														<caption>판매자 답변 처리</caption>
-														<colgroup>
-															<col width="25%">
-															<col>
-														</colgroup>
-														<tbody>
-															<tr>
-																<th scope="row"><label for="inquiryAnswerTempleteType">문의유형</label></th>
-																<td><select id="inquiryAnswerTempleteType"
-																	name="inquiryAnswerTempleteType" setdisplaycount="10"
-																	width:100형%;="" overflow-y:scroll;"="">
-																		<option value="NONE">선택해주세요.</option>
-																		<option value="PRODUCT">상품</option>
-																		<option value="DELIVERY">배송</option>
-																		<option value="RETURN">반품</option>
-																		<option value="EXCHANGE">교환</option>
-																		<option value="REFUND">환불</option>
-																		<option value="ETC">기타</option>
-																		<option value="NONE_SELECTED">선택안함</option>
-																</select></td>
-															</tr>
-															<tr>
-																<th scope="row">답변내용</th>
-																<td><textarea cols="30" rows="5" id="commentContent"
-																		name="content" onfocus="this.className='ta scrl ta_on';"
-																		onblur="this.className='ta scrl';" class="ta scrl"
-																		style="width: 100%; height: 250px"></textarea>
-																	<div class="space_h">
-																		<span class="num_meta2 fr"><em><span
-																				class="blind">입력된 글자수 : </span><span
-																				id="_char_count_span">0</span></em>/<strong><span
-																				class="blind">최대 입력 글자 : </span>1,000</strong></span> <a href="#"
-																			style="display: none;" onclick="return false;"
-																			id="regComment" class="btn_d"><span>답변하기</span></a> <a
-																			href="#" style="display: none;" onclick="return false;"
-																			id="editComment" class="btn_d"><span>답변수정</span></a>
-																	</div></td>
-															</tr>
-														</tbody>
-													</table>
-												</form>
+												<form id="answerForm" action="updateReply" method="POST">
+  <input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+  <input type="hidden" id="one_board_num" name="one_board_num">
+  
+  <table>
+    <caption>판매자 답변 처리</caption>
+    <colgroup>
+      <col width="25%">
+      <col>
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row">답변내용</th>
+        <td>
+          <textarea cols="30" rows="5" id="one_board_reply"
+            name="one_board_reply" onfocus="this.className='ta scrl ta_on';"
+            onblur="this.className='ta scrl';" class="ta scrl"
+            style="width: 100%; height: 250px"></textarea>
+          <div class="space_h">
+            <span class="num_meta2 fr"><em><span
+              class="blind">입력된 글자수 : </span><span
+              id="_char_count_span">0</span></em>/<strong><span
+              class="blind">최대 입력 글자 : </span>1,000</strong></span>
+           <button type="submit" class="btn_d"><span>답변하기</span></button>
+
+            <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+
 											</div>
 										</div>
 									</div>
@@ -1193,7 +1179,6 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 	<!-- 서영: 1대1문의를 위한 js -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 	$(document).ready(function () {
 		  // 기존 코드
@@ -1215,6 +1200,7 @@
 		    var member_name = $(this).find("td:eq(5)").text();
 		    var one_board_repDay = $(this).find("td:eq(6)").text();
 		    var one_board_content = $(this).data("one-board-content");
+		    var one_board_num = $(this).data("one-board-num");
 
 		 // 이 정보를 사용하여 필요한 곳에 데이터를 채웁니다.
 		    $('#one_board_day').html(one_board_day || '&nbsp;');
@@ -1224,6 +1210,7 @@
 		    $('#one_board_type').html(one_board_type || '&nbsp;');
 		    $('#one_board_title').html(one_board_title || '&nbsp;');
 		    $('#one_board_content').html(one_board_content || '&nbsp;');
+		    $('#one_board_num').val(one_board_num);
 		  });
 		});
 
@@ -1243,12 +1230,93 @@
 	      $('#one_board_type').html(response.one_board_type || '&nbsp;');
 	      $('#one_board_title').html(response.one_board_title || '&nbsp;');
 	      $('#one_board_content').html(response.one_board_content || '&nbsp;');
+	      $('#one_board_num').html(response.one_board_num || '&nbsp;');
 	    },
 	    error: function(error){
 	      console.error("Error fetching detail data:", error);
 	    }
 	  });
 	}
+	
+// 	function handleClickOneBoardTitle(event) {
+// 	    const targetRow = event.target.closest('tr');
+// 	    const one_board_num = targetRow.getAttribute('data-one-board-num'); // 속성을 변경했습니다.
+// 	    const one_board_repYn = targetRow.querySelector('td:nth-child(2)').textContent;
+
+// 	    if (one_board_num) {
+// 	        const currentForm = document.getElementById('answerForm');
+
+// 	        const regCommentButton = document.getElementById('regComment');
+// 	        const editCommentButton = document.getElementById('editComment');
+
+// 	        if (one_board_repYn === '미답변') {
+// 	            regCommentButton.style.display = 'inline';
+// 	            editCommentButton.style.display = 'none';
+// 	        } else if (one_board_repYn === '답변완료') {
+// 	            regCommentButton.style.display = 'none';
+// 	            editCommentButton.style.display = 'inline';
+// 	        }
+
+// 	        const existingHiddenInput = document.querySelector('input[name="one_board_num"]');
+// 	    }
+// 	}
+
+	document.getElementById("processComment").addEventListener("click", sendFormData);
+
+function sendFormData() {
+    const answerForm = document.getElementById("answerForm");
+    const formData = new FormData(answerForm);
+
+    // action 변수를 "update"로 설정
+    const action = "update";
+    formData.append("action", action);
+    for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+
+    $.ajax({
+        url: "/updateReply",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // 업데이트 성공시 처리
+            // getDetail 함수 호출 시 적절한 seller_num 값을 전달해야 합니다.
+            getDetail(formData.get("seller_num"));
+        },
+        error: function (error) {
+            console.error("Error sending form data:", error);
+        }
+    });
+}
+
+// 선택한 행의 데이터를 answerForm에 설정하는 함수
+function setAnswerFormData(selectedRow) {
+  const oneBoardNum = selectedRow.getAttribute("data-one-board-num");
+
+  document.getElementById("one_board_num").value = oneBoardNum;
+}
+
+function handleClick(event) {
+  let clickedElement = event.target;
+
+  // 클릭 된 요소에서 상위 요소로 이동하면서 data-row 클래스를 가진 요소를 찾습니다.
+  while (clickedElement) {
+    if (clickedElement.classList.contains("data-row")) {
+      setAnswerFormData(clickedElement);
+      break;
+    }
+    clickedElement = clickedElement.parentElement;
+  }
+}
+
+document.addEventListener("click", handleClick);
+
+
+
+
+
 
 </script>
 

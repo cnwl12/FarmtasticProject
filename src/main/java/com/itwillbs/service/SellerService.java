@@ -176,5 +176,10 @@ public class SellerService {
 	    public List<OneBoardDTO> getBySellerque(String seller_num) {
 	        return sellerDAO.selectByque(seller_num);
 	    }
+	    
+	    public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
+	    	System.out.println("문의글 서비스왔니?");
+	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
+	    }
 		
 }
