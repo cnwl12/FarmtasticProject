@@ -30,6 +30,9 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/uio_calendar.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/grid.css">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 						
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
@@ -106,61 +109,21 @@
 												</colgroup>
 												<tbody>
 													<tr>
-														<th scope="row" class="vline_m">문의 접수일</th>
-														<td colspan="3">
-															<div style="display: inline-block;"
-																class="_displayArea _dateRangePickerArea">
-																<!--  이부분에 선택하는 버튼을 넣던지 달력을 넣자 지금 아무것도 안뜸 -->
-<!-- 																<ul id="period_selector" class="day_link_ct _quickArea"> -->
-<!-- 																	<li class="_quick_today"><a href="#" class="per"><span -->
-<!-- 																			class="blind">오늘</span></a></li> -->
-<!-- 																	<li class="_quick_day_3"><a href="#" class="per7"><span -->
-<!-- 																			class="blind">3일</span></a></li> -->
-<!-- 																	<li class="_quick_week"><a href="#" class="per2"><span -->
-<!-- 																			class="blind">1주일</span></a></li> -->
-<!-- 																	<li class="_quick_month"><a href="#" class="per3"><span -->
-<!-- 																			class="blind">1개월</span></a></li> -->
-<!-- 																	<li class="_quick_month_3 on"><a href="#" class="per4"><span -->
-<!-- 																			class="blind">3개월</span></a></li> -->
-<!-- 																</ul> -->
-<!-- 																<span class="h_bar">|</span> <span class="ipt_date"> <span -->
-<!-- 																	id="start_date"> <input name="fromDate" type="text" -->
-<!-- 																		title="시작날짜" style="width: 81px;" readonly=""> <a -->
-<!-- 																		href="#" class="_btn calendar"><span class="blind">달력</span></a> -->
-<!-- 																</span> <span id="end_date"> <input name="toDate" type="text" -->
-<!-- 																		title="시작날짜" style="width: 81px;" readonly=""> <a -->
-<!-- 																		href="#" class="_btn calendar"><span class="blind">달력</span></a> -->
-<!-- 																</span> <input type="hidden" name="searchStartYmdt" -->
-<!-- 																	id="searchStartYmdt" value="2023-04-20 00:00:00"> <input -->
-<!-- 																	type="hidden" name="searchEndYmdt" id="searchEndYmdt" -->
-<!-- 																	value="2023-07-20 23:59:59"> -->
-<!-- 																</span> -->
-															</div>
-														</td>
-<!-- 														<th scope="row" class="vline_m">만족도</th> -->
-<!-- 														<td><select name="satisfaction"> -->
-<!-- 																<option value="">전체</option> -->
-<!-- 																<option value="both">만족+불만족</option> -->
-<!-- 																<option value="satisfied">만족</option> -->
-<!-- 																<option value="disSatisfied">불만족</option> -->
-<!-- 														</select></td> -->
-													</tr>
-													<tr>
 														<th scope="row" class="vline_m"><label for="sel_choice">처리상태</label></th>
 														<td><select id="sel_choice" name="treatmentStatus"
 															style="width: 85px">
 																<option value="">전체</option>
-																<option value="Y">답변완료</option>
-																<option value="N">미답변</option>
+																<option value="답변완료">답변완료</option>
+																<option value="미답변">미답변</option>
 														</select></td>
 														<th scope="row" class="vline_m"><label for="sel_choice2">문의유형</label></th>
 														<td><select id="sel_choice2" name="inquiryType"
 															style="width: 85px">
 																<option value="">전체</option>
-																<option value="60001">상품</option>
-																<option value="60002">배송</option>
-																<option value="60006">환불</option>
-																<option value="60007">기타</option>
+																<option value="상품">상품</option>
+																<option value="배송">배송</option>
+																<option value="환불">환불</option>
+																<option value="기타">기타</option>
 														</select></td>
 														<th scope="row" class="vline_m"><label for="sel_choice3">상세검색</label></th>
 														<td><select id="sel_choice3" name="searchType"
@@ -182,7 +145,7 @@
 									</div>
 					
 									<div class="btn_wrap" style="margin-top: 20px">
-										<a href="#" class="btn_b" id="search_bt" onclick="return false;"><span>검색</span></a>
+										 <button id="search-btn" type="button">검색</button>
 									</div>
 					
 									<div style="height: 378px;">
@@ -317,37 +280,37 @@
 											</div>
 											<div class="tbl_type">
 												<form id="answerForm" action="updateReply" method="POST">
-  <input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-  <input type="hidden" id="one_board_num" name="one_board_num">
-  
-  <table>
-    <caption>판매자 답변 처리</caption>
-    <colgroup>
-      <col width="25%">
-      <col>
-    </colgroup>
-    <tbody>
-      <tr>
-        <th scope="row">답변내용</th>
-        <td>
-          <textarea cols="30" rows="5" id="one_board_reply"
-            name="one_board_reply" onfocus="this.className='ta scrl ta_on';"
-            onblur="this.className='ta scrl';" class="ta scrl"
-            style="width: 100%; height: 250px"></textarea>
-          <div class="space_h">
-            <span class="num_meta2 fr"><em><span
-              class="blind">입력된 글자수 : </span><span
-              id="_char_count_span">0</span></em>/<strong><span
-              class="blind">최대 입력 글자 : </span>1,000</strong></span>
-           <button type="submit" class="btn_d"><span>답변하기</span></button>
-
-            <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</form>
+												  <input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+												  <input type="hidden" id="one_board_num" name="one_board_num">
+												  
+												  <table>
+												    <caption>판매자 답변 처리</caption>
+												    <colgroup>
+												      <col width="25%">
+												      <col>
+												    </colgroup>
+												    <tbody>
+												      <tr>
+												        <th scope="row">답변내용</th>
+												        <td>
+												          <textarea cols="30" rows="5" id="one_board_reply"
+												            name="one_board_reply" onfocus="this.className='ta scrl ta_on';"
+												            onblur="this.className='ta scrl';" class="ta scrl"
+												            style="width: 100%; height: 250px"></textarea>
+												          <div class="space_h">
+												            <span class="num_meta2 fr"><em><span
+												              class="blind">입력된 글자수 : </span><span
+												              id="_char_count_span">0</span></em>/<strong><span
+												              class="blind">최대 입력 글자 : </span>1,000</strong></span>
+												           <button type="submit" class="btn_d"><span>답변하기</span></button>
+												
+												            <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+												          </div>
+												        </td>
+												      </tr>
+												    </tbody>
+												  </table>
+												</form>
 
 
 											</div>
@@ -382,134 +345,6 @@
 												setGridByPaging(oCustomEvent.nPage);
 											}
 										});
-					
-// 										var _gridInstance = new nmp.component.ExtendGrid(
-// 												{
-// 													"sGridName" : "qna_grid",
-// 													"sRootElementSelector" : "._qna_list_container",
-// 													"nHeaderHeight" : 45,
-// 													"nRowHeight" : 37,
-// 													"bUseAutoNumbering" : false,
-// 													"bUseColumnResizing" : false,
-// 													"bUseRowCopy" : true,
-// 													"sKeyColumnName" : "productOrderNo",
-// 													"sNoRowMessage" : "데이터가 존재하지 않습니다.",
-// 													"aColumnModel" : [
-// 															{
-// 																"sTitle" : "접수일",
-// 																"nWidth" : 120,
-// 																"sAlign" : "center",
-// 																"sColumnName" : "regDate",
-// 																"htSort" : {
-// 																	"sDirection" : "DESC",
-// 																	"sRequestName" : "regDate",
-// 																	"bDefault" : true
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "처리상태",
-// 																"nWidth" : 60,
-// 																"sColumnName" : "answerYn",
-// 																"sAlign" : "center"
-// 															},
-// 															{
-// 																"sTitle" : "문의유형",
-// 																"nWidth" : 60,
-// 																"sColumnName" : "inquiryCategory",
-// 																"sAlign" : "center"
-// 															},
-// 															{
-// 																"sTitle" : "주문번호",
-// 																"sColumnName" : "orderNo",
-// 																"nWidth" : 130,
-// 																"sAlign" : "center",
-// 																"fFormater" : function(vValue,
-// 																		htRow) {
-// 																	var sValue = String(vValue);
-// 																	return sValue ? "<a href='#' onClick='openOrderPopup("
-// 																			+ htRow.orderNo
-// 																			+ ");return false;'> "
-// 																			+ sValue + "</a>"
-// 																			: "";
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "문의제목",
-// 																"sColumnName" : "title",
-// 																"nWidth" : 320,
-// 																"fFormater" : function(vValue,
-// 																		htRow) {
-// 																	var sValue = String(vValue);
-// 																	return sValue ? "<a href='#' onClick='viewDetail("
-// 																			+ htRow.id
-// 																			+ ");return false;'> "
-// 																			+ sValue + "</a>"
-// 																			: "";
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "상품번호",
-// 																"nWidth" : 100,
-// 																"sColumnName" : "productNo",
-// 																"sAlign" : "center",
-// 																"htSort" : {
-// 																	"sDirection" : "DESC",
-// 																	"sRequestName" : "productNo",
-// 																	"bDefault" : false
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "상품명",
-// 																"sColumnName" : "productName",
-// 																"nWidth" : 320,
-// 																"htSort" : {
-// 																	"sDirection" : "DESC",
-// 																	"sRequestName" : "productName",
-// 																	"bDefault" : false
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "질문자",
-// 																"nWidth" : 120,
-// 																"sColumnName" : "inquiryMemberName",
-// 																"sAlign" : "center",
-// 																"fFormater" : function(vValue,
-// 																		htRow) {
-// 																	return htRow['inquiryMemberName']
-// 																			+ "("
-// 																			+ htRow['inquiryMemberId']
-// 																			+ ")";
-// 																}
-// 															},
-// 															{
-// 																"sTitle" : "처리일시",
-// 																"nWidth" : 150,
-// 																"sColumnName" : "treatmentDate",
-// 																"sAlign" : "center"
-// 															},
-// 															{
-// 																"sTitle" : "만족도",
-// 																"nWidth" : 80,
-// 																"sColumnName" : "answerSatisfactionYn",
-// 																"sAlign" : "center"
-// 															} ],
-// 													"htDataRequester" : {
-// 														"elForm" : "searchForm"
-// 													}
-// 												})
-// 												.attach({
-// 													"beforeRequest" : function(oCustomEvent) {
-// 														var form = $Form('searchForm');
-// 														if (oCustomEvent.htParameter["page.sort"]
-// 																&& oCustomEvent.htParameter["page.sort.dir"]) {
-// 															_requestParameters["orderBy"] = oCustomEvent.htParameter["page.sort"];
-// 															_requestParameters["orderDir"] = oCustomEvent.htParameter["page.sort.dir"];
-// 															_requestParameters["paging.current"] = 1;
-// 															_gridAjax();
-// 														}
-// 														oCustomEvent.stop(); // 호출시 리퀘스트 전송 되지 않음
-// 													}
-// 												});
 					
 										var test = function() {
 											alert("test");
@@ -1313,12 +1148,66 @@ function handleClick(event) {
 
 document.addEventListener("click", handleClick);
 
+function filterTable() {
+	var treatmentStatus = $('#sel_choice').val();
+	var inquiryType = $('#sel_choice2').val();
 
+	$('tbody tr.data-row').each(function() {
+		var statusMatch = treatmentStatus === "" || $(this).find('td:eq(1)').text().trim() === treatmentStatus;
+		var typeMatch = inquiryType === "" || $(this).find('td:eq(2)').text().trim() === inquiryType;
 
+		if (statusMatch && typeMatch) {
+			$(this).show();
+		} else {
+			$(this).hide();
+		}
+	});
+}
 
+function filterTable() {
+	  var treatmentStatus = $('#sel_choice').val();
+	  var inquiryType = $('#sel_choice2').val();
 
+	  $('tbody tr.data-row').each(function() {
+	    var statusMatch =
+	      treatmentStatus === '' ||
+	      (treatmentStatus === '답변완료' &&
+	        $(this)
+	          .find('td:eq(1)')
+	          .text()
+	          .trim() === '답변완료') ||
+	      (treatmentStatus === '미답변' &&
+	        $(this)
+	          .find('td:eq(1)')
+	          .text()
+	          .trim() === '미답변');
+
+	    var typeMatch =
+	      inquiryType === '' ||
+	      $(this)
+	        .find('td:eq(2)')
+	        .text()
+	        .trim() === inquiryType;
+
+	    if (statusMatch && typeMatch) {
+	      $(this).show();
+	    } else {
+	      $(this).hide();
+	    }
+	  });
+	}
+
+  // 검색 버튼에 클릭 이벤트를 연결합니다.
+  $(document).ready(function() {
+  $('#search-btn').on('click', function() {
+    filterTable();
+  });
+});
+  
+  
 
 </script>
+
 
 </body>
 
