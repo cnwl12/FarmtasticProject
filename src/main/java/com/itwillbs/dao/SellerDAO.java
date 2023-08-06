@@ -22,8 +22,8 @@ public class SellerDAO {
 	@Autowired
 	   private SqlSession sqlSession;
 
-	    public List<Map<String, Object>> getSellers() {
-	        return sqlSession.selectList(namespace + ".getSellers");
+	    public List<Map<String, Object>> getSellers(String monthly) {
+	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
 
 	    // 가맹점관리
