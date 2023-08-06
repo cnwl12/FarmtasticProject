@@ -290,6 +290,7 @@
            	 	<input type="text" id="review-title"><br>
             	<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
             	<input type="hidden" id="review_num" name="review_num">
+            	<input type="file" id="review_img" name="review_image">
             	<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
             	<button type="button" class="site-btn" id="close-edit-popup">취소</button>
         		</form>
@@ -308,14 +309,11 @@
             	<th>제목</th>
            		<th>내용</th>
            		<th>작성일</th>
-<!--  			<th>이미지</th> -->
+ 				<th>이미지</th>
            		</tr>
         		</thead>
         		<tbody>
-            	<%-- 
-            	<td>${review.review_img}</td>
-           	 	</tr>
-            	</c:forEach> --%>
+            	
         		</tbody>
     			</table>
 				</div>
@@ -492,7 +490,7 @@ $(document).ready(function() {
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
                             "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-//                             "<td>" + review.review_img + "</td>" +
+                            "<td>" + review.review_img + "</td>" +
                         "</tr>";
                     }
                     $("#getItemMyReview tbody").html(rows);

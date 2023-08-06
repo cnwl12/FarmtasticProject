@@ -201,7 +201,7 @@
   </insert>
   
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
-    select m.member_name, r.member_num, r.review_star, r.review_title,r.review_content, r.review_day
+    select m.member_name, r.member_num, r.review_star, r.review_title,r.review_content, r.review_img, r.review_day
 from review r left join member m
 on r.member_num = m.member_num 
 WHERE item_num = #{item_num}

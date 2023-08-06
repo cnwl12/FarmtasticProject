@@ -1,7 +1,9 @@
 package com.itwillbs.farmtastic;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -10,6 +12,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
@@ -18,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
@@ -791,11 +797,69 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 리뷰작성 -> 데이터저장
 	@PostMapping(value = "/insertReview")
 	@ResponseBody
-	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
+	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO, 
+			@RequestParam("review_image") MultipartFile file, HttpSession session) throws Exception {
 		System.out.println("controller 리뷰작성");
-		memberService.insertReview(memberDTO);
+		 System.out.println("item_num: " + memberDTO.getItem_num());
+		    System.out.println("member_num: " + memberDTO.getMember_num());
+		    System.out.println("review_title: " + memberDTO.getReview_title());
+		    System.out.println("review_content: " + memberDTO.getReview_content());
+		    System.out.println("File: " + file.getOriginalFilename());
+		
+		// 첨부파일 올라갈 물리적 경로 
+				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+				
+//				System.out.println(uploadPath);
+				
+//				for (int i = 0; i < files.size(); i++) {
+//		            MultipartFile file = files.get(i);
+//		            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+//		                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+//		                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 
-		return ResponseEntity.ok().body("{\"status\": \"success\", \"message\": \"리뷰가 성공적으로 저장되었습니다.\"}");
+				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+				        String fileName = file.getOriginalFilename(); // 파일 원래 이름
+				        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+				
+				
+				     // 허용되는 파일 확장자 리스트
+				        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+
+				        if (allowedExtensions.contains(fileExtension.toLowerCase())) {
+
+				            String uuid = UUID.randomUUID().toString();
+				            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+
+				            String filePath = uploadPath + "/" + storedFileName;
+
+				            System.out.println("filePath : " + filePath);
+
+				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+				            System.out.println("Received file: " + file.getOriginalFilename());
+
+				            // 서버에 파일 저장
+				            File dest = new File(filePath);
+				            try {
+				                file.transferTo(dest);
+				            } catch (IOException e) {
+				                // 여기서 예외를 처리하세요.
+				                e.printStackTrace();
+				                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				                        .body("{\"status\": \"failure\", \"message\": \"파일 저장 중 문제가 발생했습니다.\"}");
+				            }
+
+				            memberDTO.setReview_img(saveFileName);
+				        } else {
+				            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				                    .body("{\"status\": \"failure\", \"message\": \"지원하지 않는 이미지 형식입니다.\"}");
+				        }
+				    }
+
+					memberService.insertReview(memberDTO);
+				    return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+				            .body("{\"status\": \"success\", \"message\": \"리뷰가 등록되었습니다.\"}");
+				    
 	}
 
 	// 리뷰목록이 불러오고싶다
