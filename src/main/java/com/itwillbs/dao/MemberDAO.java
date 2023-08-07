@@ -225,6 +225,7 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 
+	// 서영 찜하기
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
 		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
@@ -236,6 +237,11 @@ public class MemberDAO {
 	
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
+	}
+	
+	public List<WishlistDTO> selectWishlistget (int member_num) {
+		System.out.println("찜하기 리스트좀 가져갑니다");
+		return sqlSession.selectList(namespace+".selectWishlistget", member_num);
 	}
 	
 	public void insertOrders(HashMap<String, Object> payInfo) {

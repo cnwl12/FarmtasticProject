@@ -223,6 +223,7 @@ public class MemberService {
 		memberDAO.updateInCart(cart);
 	}
 	
+	// 서영 : 찜하기
 	public void insertWishlist(WishlistDTO wishlistDTO) {
 	    memberDAO.insertWishlistItem(wishlistDTO);
 	  }
@@ -232,6 +233,9 @@ public class MemberService {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}
 
+	public List<WishlistDTO> selectWishlistget(int member_num) {
+		return memberDAO.selectWishlistget(member_num);
+	}
 	
 	    
 //	  public int removeFromWishlist(int item_num) {

@@ -308,7 +308,7 @@ WHERE member_num = #{member_num};
 	WHERE ob.item_num = #{item_num}
 </select>
 
-<select id="findByItemNum2" resultMap="oneBoardResultMap">
+<select id="findByItemNum2" resultMap="oneBoardResultMap"> 
 	SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
        ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
        ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
@@ -335,6 +335,17 @@ WHERE member_num = #{member_num};
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
   </delete>
+  
+  <resultMap id="wishlist" type="com.itwillbs.domain.WishlistDTO">
+    <id property="member_num" column="member_num" />
+    <result property="item_num" column="item_num" />
+</resultMap>
+  
+  <select id="selectWishlistget" resultMap="wishlist">
+  	 SELECT * FROM like_farm
+  	 WHERE member_num = #{member_num}
+  </select>
+  
   <select id="memberDetail" parameterType="map" resultType="map">
         SELECT * FROM member WHERE member_num = #{member_num}
     </select>

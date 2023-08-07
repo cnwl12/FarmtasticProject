@@ -61,9 +61,12 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                             <div>
+                            
     						<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
-    						<label for="current_month">${fn:substring(currentMonth, 5, 7)}월</label>
+    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 5, 7)}월</label>
+   			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
    			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
+							
 							</div>
                         </div>
                         <div class="card-body">
@@ -173,7 +176,42 @@
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	  <script>
+	  function pad(str) {
+		    return String(str).padStart(2, "0");
+		}
 
+		function incrementMonth(date, increment) {
+		    var year = parseInt(date.substr(0, 4));
+		    var month = parseInt(date.substr(5, 2)) + increment;
+		    if (month < 1) {
+		        year -= 1;
+		        month = 12 + month;
+		    } else if (month > 12) {
+		        year += 1;
+		        month = month - 12;
+		    }
+		    return year + "-" + pad(month);
+		}
+
+		function updateTable(delta) {
+		    var currentMonth = document.getElementById("hidden_month").value;
+		    var currentMonthDate = incrementMonth(currentMonth, delta);
+
+		    document.getElementById("current_month_label").innerText = parseInt(currentMonthDate.substr(5, 2)) + "월";
+		    document.getElementById("hidden_month").value = currentMonthDate;
+			
+			// 이곳에 AJAX를 사용하여 플랫폼에서 데이터를 가져오고 변경해야 하는 로직을 구현하십시오
+		}
+
+		$("#prev_month").click(function() {
+		    updateTable(-1);
+		});
+
+		$("#next_month").click(function() {
+		    updateTable(1);
+		});
+    </script>
     <!-- Core plugin JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -186,7 +224,7 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-
+	
 </body>
 
 </html>
