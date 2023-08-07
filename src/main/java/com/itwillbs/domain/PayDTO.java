@@ -6,6 +6,7 @@ public class PayDTO {
 	
 	private String order_num;
 	private int member_num;
+	private int item_num;
 	private String order_pay;
 	private String order_post;
 	private String order_addMain;
@@ -26,6 +27,12 @@ public class PayDTO {
 	}
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
+	}
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
 	}
 	public String getOrder_pay() {
 		return order_pay;
