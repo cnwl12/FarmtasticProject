@@ -318,105 +318,104 @@
     			</table>
 				</div>
 			</div>
-			
 			<div id="menu4_cont">
 			<h4>1:1문의</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
-			</div>
+			
 			<table class="table">
-						                <thead>
-						                    <tr>
-						                        <th>답변상태</th>
-						                        <th>문의유형</th>
-						                        <th>제목</th>
-						                        <th>작성자</th>
-						                        <th>작성일</th>
-						                    </tr>
-						                 </thead>
-						                 <tbody id="inquiryList">
-						                    <!-- 여기에 문의 내용이 추가됩니다. -->
-						                    <c:forEach var="row" items="${oneBoardList}">
-								                    <tr class="boardTitle">
-								                        <td>${row.one_board_repYn}</td>
-								                        <td>${row.one_board_type}</td>
-								                        <td>${row.one_board_title}</td>
-								                        <td>${row.member_name}</td>
-								                        <td>${row.one_board_day}</td>
-								                    </tr>
+				<thead>
+					<tr>
+						<th>상품명</th>
+						<th>답변상태</th>
+						<th>문의유형</th>
+						<th>제목</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody id="inquiryList">
+				<!-- 여기에 문의 내용이 추가됩니다. -->
+					<c:forEach var="row" items="${oneBoardList2}">
+						<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
+							<td>${row.item_name}</td>
+							<td>${row.one_board_repYn}</td>
+							<td>${row.one_board_type}</td>
+							<td>${row.one_board_title}</td>
+							<td>${row.one_board_day}</td>
+						</tr>
 								                    
-								                    <c:choose>
-													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-														    <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
-														        <td colspan="5">
-														            비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-														            <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-														        </td>
-														    </tr>
-														    <!-- 비밀번호 확인 후 나타납니다. -->
-														    <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-														        <!-- 여기에 공개 글일 때 나오는 질문 파트 -->
-														        <td colspan="5">
-															      <div class="image">
-															        <strong>Q:</strong>
-															        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-															          <img src="${row.one_board_file}" />
-															        </c:if>
-															        <div class="content">
-															          ${row.one_board_content}
-															        </div>
-															      </div>
-															    </td>
-														    </tr>
-														    <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-														        <!-- 여기에 공개 글일 때 나오는 답변 파트 -->
-														        <td colspan="5">
-															      <div class="content">
-															        <strong>A:</strong>
-															        <c:if test="${row.one_board_reply != null}">
-															         	${row.one_board_reply}
-															        </c:if>
-															      </div>
-															    </td>
-														    </tr>
-														</c:when>
-													    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
-													        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-													            <td colspan="5">
-													                비공개된 게시글입니다.
-													            </td>
-													        </tr>
-													    </c:when>
-													<c:otherwise>
-													  <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-													    <td colspan="5">
-													      <div class="image">
-													        <strong>Q:</strong>
-													        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-													          <img src="${row.one_board_file}" />
-													        </c:if>
-													        <div class="content">
-													          ${row.one_board_content}
-													        </div>
-													      </div>
-													    </td>
-													  </tr>
-													  <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-													    <td colspan="5">
-													      <div class="content">
-													        <strong>A:</strong>
-													        <c:if test="${row.one_board_reply != null}">
-													         	${row.one_board_reply}
-													        </c:if>
-													      </div>
-													    </td>
-													  </tr>
-													</c:otherwise>
-					                    </c:choose>
-								</c:forEach>
+						<c:choose>
+							 <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
+								<tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+									<td colspan="5">
+										비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+										<button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+									</td>
+								</tr>
+								<!-- 비밀번호 확인 후 나타납니다. -->
+								<tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+								<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
+									<td colspan="5">
+										 <div class="image">
+											<strong>Q:</strong>
+											<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+												<img src="${row.one_board_file}" />
+											</c:if>
+											<div class="content">
+												${row.one_board_content}
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+									<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
+									<td colspan="5">
+										<div class="content">
+											<strong>A:</strong>
+											<c:if test="${row.one_board_reply != null}">
+												${row.one_board_reply}
+											</c:if>
+										</div>
+									</td>
+								</tr>
+							</c:when>
+							<c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+									<td colspan="5">
+										비공개된 게시글입니다.
+									</td>
+								 </tr>
+							</c:when>
+						<c:otherwise>
+							 <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+								<td colspan="5">
+									<div class="image">
+										<strong>Q:</strong>
+										<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+											<img src="${row.one_board_file}" />
+										</c:if>
+										<div class="content">
+											${row.one_board_content}
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+								<td colspan="5">
+									<div class="content">
+										<strong>A:</strong>
+										<c:if test="${row.one_board_reply != null}">
+											${row.one_board_reply}
+										</c:if>
+									</div>
+								</td>
+							</tr>
+						</c:otherwise>
+					 </c:choose>
+				</c:forEach>
 
-			                 </tbody>
-			            	 </table>
+			</tbody>
+		</table>
 		  	
 		  	
 		  </div>	
@@ -774,6 +773,73 @@ $(document).ready(function () {
     });
   }
 });
+
+function handleRowClick(isPrivate, oneBoardNum, oneBoardPass, boardPasswordInputId) {
+	  var questionElement = document.getElementById("question" + oneBoardNum);
+	  var answerElement = document.getElementById("answer" + oneBoardNum);
+	  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
+	  
+	  // 내용이 열려있는 것이 숨김 처리되는 경우
+	  if (
+	    (questionElement.style.display !== "none" && isPrivate) ||
+	    (!isPrivate && questionElement.style.display !== "none")
+	  ) {
+	    questionElement.style.display = "none";
+	    answerElement.style.display = "none";
+	    passwordRowElement.style.display = "none";
+	  } else {
+	    if (isPrivate) {
+	      passwordRowElement.style.display = "";
+	    } else {
+	      questionElement.style.display = "";
+	      answerElement.style.display = "";
+	    }
+	  }
+	}
+
+	function showQuestionAndAnswer(oneBoardNum) {
+	  // 질문과 답변 element를 가져옵니다.
+	  var questionElement = document.getElementById("question" + oneBoardNum);
+	  var answerElement = document.getElementById("answer" + oneBoardNum);
+
+	  // 질문과 답변 element의 display 상태를 전환합니다.
+	  questionElement.style.display = questionElement.style.display === "table-row" ? "none" : "table-row";
+	  answerElement.style.display = answerElement.style.display === "table-row" ? "none" : "table-row";
+	}
+
+function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
+	  var inputPassword = document.getElementById(inputPasswordId).value;
+
+	  if (savedPassword === inputPassword) {
+	    // 비밀번호가 일치할 경우 비밀번호 입력창을 숨기고 질문과 답변을 표시합니다.
+	    showQuestionAndAnswerAndHidePasswordInput(oneBoardNum, inputPasswordId);
+	  } else {
+	    // 일치하지 않는 경우 경고 메시지를 표시합니다.
+	    alert("비밀번호가 일치하지 않습니다.");
+	  }
+	}
+
+	function showQuestionAndAnswerAndHidePasswordInput(oneBoardNum, inputPasswordId) {
+	  var questionElement = document.getElementById("question" + oneBoardNum);
+	  var answerElement = document.getElementById("answer" + oneBoardNum);
+	  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
+
+	  // 질문과 답변 창을 표시합니다.
+	  questionElement.style.display = "table-row";
+	  answerElement.style.display = "table-row";
+
+	  // 비밀번호 입력창을 숨깁니다.
+	  passwordRowElement.style.display = "none";
+	}
+
+	function togglePasswordInput(oneBoardNum) {
+	  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
+
+	  // 비밀번호 입력창의 display 상태를 전환합니다.
+	  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
+	}
+
+
 </script>
 </body>
 </html>
