@@ -227,15 +227,14 @@ public class MemberDAO {
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
-<<<<<<< HEAD
 	}
-=======
-	}	
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
 		System.out.println("다오:"+memberNum);
 	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
-		 
+
+	public int countCart(int member_num) {
+	    return sqlSession.selectOne(namespace + ".countCart", member_num);
+	}
 }

@@ -228,16 +228,16 @@ public class MemberService {
 		System.out.println("MemberService insertOrders");
 
 	}
-
-
-
 	
     public Map<String, Object> getMemberDetails(int memberNum) {
     	System.out.println("서비스");
 		System.out.println("서비스"+memberNum);
         return memberDAO.getMemberDetails(memberNum);
     }
-	
-	
+    
+    // 카트 안 수량조회 
+    public int countCart(int member_num) {
+        return memberDAO.countCart(member_num);
+    }
 	
 }
