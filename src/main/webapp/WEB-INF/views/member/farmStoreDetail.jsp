@@ -220,7 +220,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
-                                    aria-selected="false">1:1 문의 <span>(1)</span></a>
+                                    aria-selected="false">1:1 문의 <span>(${fn:length(oneBoardList)})</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -230,8 +230,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                     <p>${item.item_detail}</p>
                                 </div>
                             </div>
-                            <!-- 리뷰칸 그러나 이미지 작업이 없는.. -->
-                            <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 구매내역 데이터가 없으니까.. 일단 임시방편으로 로그인만 작업해둠 -->
+                            <!-- 로그인 후 구매내역이 있는지 없는지를 추가로 넣으면 될 듯 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                 	<div>
@@ -310,8 +309,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 						                    </tr>
 						                 </thead>
 						                 <tbody id="inquiryList">
+						                   <c:set var="inquiryCount" value="0" />
 						                    <!-- 여기에 문의 내용이 추가됩니다. -->
 						                    <c:forEach var="row" items="${oneBoardList}">
+						                   		<c:set var="inquiryCount" value="${inquiryCount + 1}" />
 								                    <tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
 								                        <td>${row.one_board_repYn}</td>
 								                        <td>${row.one_board_type}</td>
@@ -609,21 +610,34 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	// ----------------------------------------------------------------------
 	
-	 $("#insertReview").submit(function (e) {
-            e.preventDefault();
-            var formData = new FormData($("#insertReview")[0]);
-            console.log("Form element: ", $("#insertReview")[0]);
-            console.log("Form data entries:");
-            formData.forEach((value, key) => {
-                console.log("Key: " + key + ", Value: " + value);
-                if (value instanceof File) {
-                    let fileReader = new FileReader();
-                    fileReader.onload = function (event) {
-                        console.log("File content: ", event.target.result);
-                    };
-                    fileReader.readAsDataURL(value);
-                }
-            });
+	$("#insertReview").submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData($("#insertReview")[0]);
+
+    // member_num과 item_num 값을 가져옵니다.
+    var member_num = $("#insertReview input[name=member_num]").val();
+    var item_num = $("#insertReview input[name=item_num]").val();
+
+    // getItemOrder 엔드포인트에서 여러 order_num 값을 가져옵니다.
+    $.get("${pageContext.request.contextPath}/getItemOrder", {
+        member_num: member_num,
+        item_num: item_num
+    }, function (data) {
+        var selectedOrder = null;
+      
+        data.forEach(memberDTO => {
+            var order_num = memberDTO.order_num;
+          
+            if (!selectedOrder || order_num > selectedOrder) {
+                selectedOrder = order_num;
+            }
+        });
+
+        // order_num이 null이 아닌 경우에만 formData에 추가합니다.
+        if (selectedOrder !== null) {
+            formData.append("order_num", selectedOrder);
+
+            // 원래의 AJAX 코드를 새로운 order_num 값을 포함하여 실시합니다.
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/insertReview",
@@ -635,12 +649,17 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     alert("리뷰가 등록되었습니다.");
                     location.reload();
                 },
-                error: function(xhr, textStatus, errorThrown) { // 수정된 부분: 매개변수 변경
-                    console.log("Error response: ", xhr.responseText); // 수정된 부분: xhr.responseText 로 변경
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log("Error response: ", xhr.responseText);
                     alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
                 }
             });
-        });
+        } else {
+            // order_num이 null인 경우 사용자에게 알려줍니다.
+            alert("order_num을 찾을 수 없습니다. 다시 시도해주세요.");
+        }
+    });
+});
 	
 	//------------------------------------------------------------
 

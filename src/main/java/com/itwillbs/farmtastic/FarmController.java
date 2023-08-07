@@ -332,6 +332,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("oneBoardList2", oneBoardList2);
 		return "/member/mypage";
 	}
+	
+	@RequestMapping(value="/searchId", method = RequestMethod.GET)
+	public String searchId(Locale locale, Model model) {
+		
+		System.out.println("searchId 매핑확인여부");
+		
+		return "/member/searchId";
+	}
 
 	/* 택배구현중 */
 	@GetMapping
@@ -775,23 +783,38 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck2 끝
 
 	// Review 기능! - 막내
-	// 리뷰작성 -> 데이터저장
+	// 리뷰작성 -> 데이터저장 / 사진은 1개만 가능
 	@PostMapping(value = "/insertReview")
 	@ResponseBody
 	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO, 
 			@RequestParam("review_image") MultipartFile file, HttpSession session) throws Exception {
-		System.out.println("controller 리뷰작성");
-		 System.out.println("item_num: " + memberDTO.getItem_num());
+			System.out.println("controller 리뷰작성");
+		 	System.out.println("item_num: " + memberDTO.getItem_num());
 		    System.out.println("member_num: " + memberDTO.getMember_num());
 		    System.out.println("review_title: " + memberDTO.getReview_title());
 		    System.out.println("review_content: " + memberDTO.getReview_content());
 		    System.out.println("File: " + file.getOriginalFilename());
 		
+		    // 세션에서 회원 번호를 가져옵니다.
+		    int member_num = (int) session.getAttribute("member_num");
+
+		    // 상품 번호는 memberDTO에서 가져올 수 있습니다.
+		    int item_num = memberDTO.getItem_num();
+
+		    // getItemOrder를 호출하여 order_num을 가져옵니다.
+		    List<MemberDTO> order_num = memberService.getItemOrder(member_num, item_num);
+
+		 // 구매 기록이 없는 경우 리뷰 작성을 허용하지 않습니다.
+		    if (order_num == null || order_num.isEmpty()) {
+		        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		                .body("{\"status\": \"failure\", \"message\": \"구매 이력이 존재하지 않아 리뷰를 작성할 수 없습니다.\"}");
+		    }
+		    
 		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				
 //				System.out.println(uploadPath);
-				
+				// 이건 여러개 (map 쓸때 사용할 수도 있어서 남겨둠)
 //				for (int i = 0; i < files.size(); i++) {
 //		            MultipartFile file = files.get(i);
 //		            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -842,8 +865,19 @@ public class FarmController { // 소비자 (컨트롤러)
 				            .body("{\"status\": \"success\", \"message\": \"리뷰가 등록되었습니다.\"}");
 				    
 	}
+	
+	
+	// order_num 가져오고싶은 나 제법... 간절해요
+	@GetMapping("/getItemOrder")
+	@ResponseBody
+	public List<MemberDTO> getItemOrder(@RequestParam("member_num") int member_num,
+	                         @RequestParam("item_num") int item_num) {
+	    return memberService.getItemOrder(member_num, item_num);
+	}
 
-	// 리뷰목록이 불러오고싶다
+	
+	
+	// 한 상품에 대한 리뷰목록
 	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
@@ -865,9 +899,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,
 									@RequestParam("review_star") int review_star,
 	                                @RequestParam("review_title") String review_title,
-	                                @RequestParam("review_content") String review_content) {
+	                                @RequestParam("review_content") String review_content,
+	                                @RequestParam("review_img") String review_img) {
 	    try {
-	        memberService.updateReview(review_num, review_star,review_title, review_content);
+	        memberService.updateReview(review_num, review_star,review_title, review_content, review_img);
 	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -902,6 +937,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/success";
 	}
 
+	// 서영 :  찜하기용입니다
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
@@ -920,6 +956,19 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return response;
 	}
+	
+	@RequestMapping(value = "/fetchWishlist", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<WishlistDTO>> fetchWishlist(WishlistDTO wishlistDTO, @RequestParam("member_num") Integer member_num) {
+	    Map<String, List<WishlistDTO>> response = new HashMap<>();
+	    
+	    List<WishlistDTO> wishList = memberService.selectWishlistget(member_num);
+	    
+	    response.put("wishList", wishList);
+	    
+	    return response;
+	}
+
 
 	@RequestMapping(value = "/like_farm", method = RequestMethod.GET)
 	public String likeFarm(Model model) {

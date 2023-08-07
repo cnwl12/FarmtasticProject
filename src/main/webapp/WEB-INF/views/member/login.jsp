@@ -78,7 +78,7 @@
 								<legend>체크 옵션</legend>
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
-										<li><a href="javascript:fn_searchId();" class="fs-13">아이디찾기</a></li>
+										<li><a href="searchId" class="fs-13">아이디찾기</a></li>
 										<li><a href="javascript:fn_searchPwd();" class="fs-13">비밀번호찾기</a></li>
 									</ul>
 								</div>

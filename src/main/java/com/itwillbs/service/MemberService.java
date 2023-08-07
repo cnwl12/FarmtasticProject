@@ -194,9 +194,23 @@ public class MemberService {
 	        return memberDAO.getItemMyReview(member_num);
 	    }
 	 
+	 // 구매내역 불러오기  
+	 public List<MemberDTO> getItemOrder(int member_num, int item_num) {
+		    // MemberDTO 객체를 포함하는 원래의 리스트
+		    return memberDAO.getItemOrder(member_num, item_num);
+
+//		    // MemberDTO 객체를 문자열로 변환하여 새 리스트에 추가
+//		    List<String> stringList = new ArrayList<>();
+//		    for (MemberDTO dto : originalList) {
+//		        stringList.add(dto.toString());
+//		    }
+//
+//		    return stringList;
+		}  
+	 
 	 // 마이페이지 리뷰 수정 기능   
-	 public void updateReview(int review_num, int review_star, String review_title, String review_content) {
-		 memberDAO.updateReview(review_num, review_star, review_title, review_content);
+	 public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
+		 memberDAO.updateReview(review_num, review_star, review_title, review_content, review_img);
 	}
 	
 	 // 마이페이지 리뷰 삭제 기능 
@@ -209,6 +223,7 @@ public class MemberService {
 		memberDAO.updateInCart(cart);
 	}
 	
+	// 서영 : 찜하기
 	public void insertWishlist(WishlistDTO wishlistDTO) {
 	    memberDAO.insertWishlistItem(wishlistDTO);
 	  }
@@ -218,6 +233,9 @@ public class MemberService {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}
 
+	public List<WishlistDTO> selectWishlistget(int member_num) {
+		return memberDAO.selectWishlistget(member_num);
+	}
 	
 	    
 //	  public int removeFromWishlist(int item_num) {

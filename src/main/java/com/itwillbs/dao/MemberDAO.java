@@ -143,7 +143,16 @@ public class MemberDAO {
         System.out.println("DAO 리뷰작성");
         sqlSession.insert(namespace+".insertReview", memberDTO);
     }
-
+	
+	//구매내역 불러오기
+	public List<MemberDTO> getItemOrder(int member_num, int item_num) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("member_num", member_num);
+	    params.put("item_num", item_num);
+	    return sqlSession.selectList(namespace + ".getItemOrder", params);
+	}
+	
+	//리뷰 목록
 	public List<MemberDTO> getItemReviews(int item_num) {
 	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
 	}
@@ -175,13 +184,13 @@ public class MemberDAO {
 			return sqlSession.selectList(namespace+".getItemMyReview", member_num);
 		}
 
-		public void updateReview(int review_num, int review_star, String review_title, String review_content) {
+		public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
 			Map<String, Object> params = new HashMap<>();
 	        params.put("review_num", review_num);
 	        params.put("review_star", review_star);
 	        params.put("review_title", review_title);
 	        params.put("review_content", review_content);
-			
+			params.put("review_img", review_img);
 			sqlSession.update(namespace+".updateReview", params);
 		}
 	
@@ -216,6 +225,7 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 
+	// 서영 찜하기
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
 		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
@@ -227,6 +237,11 @@ public class MemberDAO {
 	
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		sqlSession.delete(namespace + ".deleteWishlist", wishlistDTO);
+	}
+	
+	public List<WishlistDTO> selectWishlistget (int member_num) {
+		System.out.println("찜하기 리스트좀 가져갑니다");
+		return sqlSession.selectList(namespace+".selectWishlistget", member_num);
 	}
 	
 	public void insertOrders(HashMap<String, Object> payInfo) {

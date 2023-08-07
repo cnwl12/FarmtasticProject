@@ -233,9 +233,18 @@
   	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
     values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
   </insert>
+    
+
+  <!-- 구매내역 불러오기 -->
+  <select id="getItemOrder" resultType="com.itwillbs.domain.MemberDTO">
+    SELECT order_num
+  FROM order_detail
+  WHERE member_num = #{member_num} AND item_num = #{item_num}
+  </select>
   
+  <!-- 리뷰 목록 -->
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
-    select m.member_name, r.member_num, r.review_star, r.review_title,r.review_content, r.review_img, r.review_day
+    select m.member_name, r.member_num, r.review_star, r.review_title, r.review_content, r.review_img, r.review_day
 from review r left join member m
 on r.member_num = m.member_num 
 WHERE item_num = #{item_num}
@@ -252,7 +261,7 @@ WHERE item_num = #{item_num}
   
   <!-- 마이페이지 용 -->
   <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
-    select r.review_num, r. member_num, r.review_star, r.review_title,r.review_content, r.review_day, i.item_name
+    select r.review_num, r. member_num, r.review_star, r.review_title,r.review_content, r.review_img, r.review_day, i.item_name
 from review r left join item i
 on r.item_num = i.item_num
 WHERE member_num = #{member_num}; 
@@ -260,7 +269,7 @@ WHERE member_num = #{member_num};
   
   <update id="updateReview">
   update review 
-  set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}
+  set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}, review_img = #{review_img}
   where review_num = #{review_num};
   </update>
   
@@ -317,7 +326,7 @@ WHERE member_num = #{member_num};
 	WHERE ob.item_num = #{item_num}
 </select>
 
-<select id="findByItemNum2" resultMap="oneBoardResultMap">
+<select id="findByItemNum2" resultMap="oneBoardResultMap"> 
 	SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
        ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
        ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
@@ -344,6 +353,17 @@ WHERE member_num = #{member_num};
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
   </delete>
+  
+  <resultMap id="wishlist" type="com.itwillbs.domain.WishlistDTO">
+    <id property="member_num" column="member_num" />
+    <result property="item_num" column="item_num" />
+</resultMap>
+  
+  <select id="selectWishlistget" resultMap="wishlist">
+  	 SELECT * FROM like_farm
+  	 WHERE member_num = #{member_num}
+  </select>
+  
   <select id="memberDetail" parameterType="map" resultType="map">
         SELECT * FROM member WHERE member_num = #{member_num}
     </select>
