@@ -4,7 +4,7 @@ function generateOrderNum() {
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
   const day = String(currentDate.getDate()).padStart(2, '0');
 
-  const randomNum = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+  const randomNum = String(Math.floor(Math.random() * 100000000)).padStart(4, '0');
 
   return year + month + day + randomNum;
 }

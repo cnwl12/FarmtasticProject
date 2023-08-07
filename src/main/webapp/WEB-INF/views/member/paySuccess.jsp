@@ -58,6 +58,8 @@
 	
 	<h1>결제 성공!</h1>
     <p>주문 번호: ${payInfo.order_num}</p>
+    <p>멤버 번호: ${payInfo.member_num}</p>
+    <p>아이템 번호: ${payInfo.item_num}</p>
     <p>결제 금액: ${payInfo.order_pay}</p>
     <p>수령인: ${payInfo.order_name}</p>
     <p>주소: ${payInfo.order_addMain}</p>
@@ -65,6 +67,8 @@
     <p>우편 번호: ${payInfo.order_post}<p>
     <p>전화 번호: ${payInfo.order_phone}</p>
     <p>요청 메시지: ${payInfo.order_msg}</p>
+    <p>멤버넘:</p>
+    <p>
 
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>

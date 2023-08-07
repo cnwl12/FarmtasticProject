@@ -221,6 +221,7 @@ public class MemberDAO {
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
+	}
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
 		System.out.println("다오:"+memberNum);
