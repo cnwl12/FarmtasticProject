@@ -194,7 +194,7 @@ public class MemberService {
 	        return memberDAO.getItemMyReview(member_num);
 	    }
 	 
-	 // 구매내역 불러오기
+	 // 구매내역 불러오기  
 	 public List<String> getItemOrder(int member_num, int item_num) {
 		    return memberDAO.getItemOrder(member_num, item_num);
 		}
