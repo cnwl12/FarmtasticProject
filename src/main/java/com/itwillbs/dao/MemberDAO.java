@@ -215,6 +215,11 @@ public class MemberDAO {
 //	        return sqlSession.selectList(namespace + ".getOneBoardList");
 //	    }
 
+	 // 서영 마이페이지에서 1대1문의 확인하기 (member_num) 기준
+	 public List<OneBoardDTO> findByItemNum2(int member_num) {
+		    System.out.println("1대1문의 마이페이지");
+			return sqlSession.selectList(namespace+".findByItemNum2", member_num);
+	    }
 
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
@@ -236,11 +241,28 @@ public class MemberDAO {
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
-	}	
+
+
+	}
+	
+	public void insertPay(HashMap<String, Object> payInfo) {
+		sqlSession.insert(namespace + ".insertPay", payInfo);
+		System.out.println("MemberDAO insertPay");
+
+	}
+
+
+
+
+		
+		
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
 		System.out.println("다오:"+memberNum);
 	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
-		 
+
+	public int countCart(int member_num) {
+	    return sqlSession.selectOne(namespace + ".countCart", member_num);
+	}
 }

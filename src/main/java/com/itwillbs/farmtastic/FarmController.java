@@ -327,6 +327,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		MemberDTO memberDTO = memberService.getMember1(member_num);
 		model.addAttribute("memberDTO", memberDTO);
+		List<OneBoardDTO> oneBoardList2 = memberService.findByItemNum2(member_num);
+		System.out.println(oneBoardList2 + "가나다");
+		model.addAttribute("oneBoardList2", oneBoardList2);
 		return "/member/mypage";
 	}
 
@@ -501,18 +504,17 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		int member_num = (int)session.getAttribute("member_num");
-		 // int member_num = 16; // <- 로그인 됐을 때 지울거임
-		// System.out.println(member_num + ", "+ cart);
 		
 		 session.setAttribute("member_num", member_num);
-		// session.setAttribute("member_num", memberDTO2.getMember_num());
 		
 		cart.put("member_num", member_num);
 
 		memberService.insertCart(cart);
 		
 		// 수량을 조회하는 메서드 따로 필요
-		// session.setAttribute("cart_num", cart_num);
+		System.out.println("countCart 컨트롤러 시작");
+		
+		// session.setAttribute("item_count", item_count);
 
 		return "redirect:/shoppingCart";
 	}
@@ -533,8 +535,12 @@ public class FarmController { // 소비자 (컨트롤러)
 
  		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
+		// session.setAttribute("item_count", item_count);
 		// System.out.println(itemList);
-
+		int item_count = memberService.countCart(member_num);
+		session.setAttribute("item_count", item_count);
+		// System.out.println("item_count : " + item_count );
+		
 		return "/member/shoppingCart";
 	}
 
@@ -603,6 +609,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    //return "/member/paySuccess";
 		}
 		
+		
 		@RequestMapping(value = "/insertOrders", method = RequestMethod.GET)
 		public String insertOrders(PayDTO payDTO) {
 			
@@ -664,16 +671,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
-
-		System.out.println(memberDTO.getMember_id());
-		System.out.println(memberDTO.getMember_pass());
-		System.out.println(memberDTO.getMember_name());
-		System.out.println(memberDTO.getMember_phone());
-		System.out.println(memberDTO.getMember_email());
-		System.out.println(memberDTO.getMember_joinDay());
-		System.out.println(memberDTO.getMember_post());
-		System.out.println(memberDTO.getMember_addMain());
-		System.out.println(memberDTO.getMember_addSub());
+		
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
@@ -683,15 +681,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
 	public String insertPro2(SellerDTO sellerDTO) {
 
-		System.out.println(sellerDTO.getSeller_id());
-		System.out.println(sellerDTO.getSeller_pass());
-		System.out.println(sellerDTO.getSeller_name());
-		System.out.println(sellerDTO.getSeller_phone());
-		System.out.println(sellerDTO.getSeller_email());
-		System.out.println(sellerDTO.getSeller_joinDay());
-		System.out.println(sellerDTO.getSeller_post());
-		System.out.println(sellerDTO.getSeller_addMain());
-		System.out.println(sellerDTO.getSeller_addSub());
 		// insertSeller() 메서드 호출
 		sellerService.insertSeller(sellerDTO);
 
@@ -764,7 +753,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck 끝
 
 //	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-//	    public String oneBoard(Model model) {
+//	    public String oneBoardmypage(HttpServletRequest request) {
 //	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
 //	        model.addAttribute("oneBoardList", oneBoardList);
 //

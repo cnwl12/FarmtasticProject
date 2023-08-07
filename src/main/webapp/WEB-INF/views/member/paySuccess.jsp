@@ -57,7 +57,7 @@
     <!-- Breadcrumb Section End -->
 	
 	<h1>결제 성공!</h1>
-    <p>주문 번호: ${payInfo.order_num}</p>
+    <p>멤버 번호: ${payInfo.member_num}</p>
     <p>결제 금액: ${payInfo.order_pay}</p>
     <p>수령인: ${payInfo.order_name}</p>
     <p>주소: ${payInfo.order_addMain}</p>

@@ -1,15 +1,15 @@
 window.onload = function(){
-	const dataList = ["상추", "시금치", "가지", "오이", "당근", "콜리플라워", "브로콜리", "양배추", "파프리카",
+	const dataList = ["상추", "시금치", "가지", "오이", "당근", "양상추", "브로콜리", "양배추", "파프리카",
 					  "토마토", "무", "순무", "케일", "호박", "미나리", "콩나물", "샬롯", "양파", "무청"];
 
-	const $search = document.querySelector("#search");
+	const $searchQuery = document.querySelector("#searchQuery");
 	const $autoComplete = document.querySelector(".autocomplete");
 
 	let nowIndex = 0;
 
-	$search.onkeyup = (event) => {
+	$searchQuery.onkeyup = (event) => {
 	  // 검색어
-	  const value = $search.value.trim();
+	  const value = $searchQuery.value.trim();
 
 	  // 자동완성 필터링
 	  const matchDataList = value
@@ -29,7 +29,7 @@ window.onload = function(){
 
 	    // ENTER KEY
 	    case 13:
-	      document.querySelector("#search").value = matchDataList[nowIndex] || "";
+	      document.querySelector("#searchQuery").value = matchDataList[nowIndex] || "";
 
 	      // 초기화
 	      nowIndex = 0;

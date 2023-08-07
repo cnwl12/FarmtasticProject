@@ -15,7 +15,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
     
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+    ></script> 
+    <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
         <!-- Js Plugins -->
     <%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
@@ -58,15 +64,16 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="shoppingCart"> <c:choose>
-										<c:when test="${empty sessionScope.member_num}">
+							<li><a href="shoppingCart">
+								 <c:choose>
+										<c:when test="${empty sessionScope.item_count}">
 											<!-- 장바구니가 비었을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
 										</c:when>
 										<c:otherwise>
-											<!-- 로그인된 경우 -->
+											<!-- 장바구니에 있을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
-											<span>${sessionScope.member_num}</span>
+											<span>${sessionScope.item_count}</span>
 										</c:otherwise>
 									</c:choose>
 							</a></li>
@@ -122,7 +129,6 @@
                             <li><a href="#">옥수수</a></li>
                             <li><a href="#">버섯</a></li>
                             <li><a href="#">호박</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
                         </ul>
                     </div>
                 </div>
@@ -135,7 +141,7 @@
                                     <span class="arrow_carrot-down"></span>
                                 </div>
                                 <section class="search">											<!-- autocomplete="off" -->
-                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" >
+                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
                                   <div class="autocomplete"></div>
                                 </section>
                                 <button type="submit" class="site-btn">검색</button>

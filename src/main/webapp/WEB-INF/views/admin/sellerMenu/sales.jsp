@@ -91,7 +91,7 @@
     									<tr>
         									<td colspan="2">${seller.month_settlement}</td>
         									<td colspan="2">${seller.month_fee}</td>
-        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.month_revenue}</td>
+        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.month_sales}</td>
     									</tr>
 									  </c:forEach>
                             	
@@ -130,9 +130,9 @@
             									<td>${seller.seller_storeName}</td>
             									<td>${seller.seller_name}</td>
             									<td>${seller.pay_day}</td>
-            									<td>${seller.settlement_amount}</td>
-            									<td>${seller.fee}</td>
-            									<td>${seller.total_revenue}</td>
+            									<td>${seller.daily_settlement}</td>
+            									<td>${seller.daily_fee}</td>
+            									<td>${seller.daily_sales}</td>
         									</tr>
     									</c:if>
 									</c:forEach>

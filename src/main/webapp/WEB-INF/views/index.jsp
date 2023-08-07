@@ -64,7 +64,20 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="mypage"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="shoppingCart">
+                       			 <c:choose>
+										<c:when test="${empty sessionScope.item_count}">
+											<!-- 장바구니가 비었을 경우 -->
+											<i class="fa fa-shopping-bag"></i>
+										</c:when>
+										<c:otherwise>
+											<!-- 로그인된 경우 -->
+											<i class="fa fa-shopping-bag"></i>
+											<span>${sessionScope.item_count}</span>
+										</c:otherwise>
+									</c:choose>
+								</a>
+							</li>
                         </ul>
                      <div class="header__top__right__auth">
   						<c:choose>

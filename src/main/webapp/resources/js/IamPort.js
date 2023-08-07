@@ -4,7 +4,7 @@ function generateOrderNum() {
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
   const day = String(currentDate.getDate()).padStart(2, '0');
 
-  const randomNum = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+  const randomNum = String(Math.floor(Math.random() * 100000000)).padStart(4, '0');
 
   return year + month + day + randomNum;
 }
@@ -67,8 +67,8 @@ function requestPay() {
         	param += "&order_pay=" + totalSum;
         	param += "&order_name=" + buyerName;
         	param += "&order_addMain=" + buyerAddr;
-        	param += "&order_addSub=" + buyerPostcode;
-        	param += "&order_post=" + buyerAddrsub;
+        	param += "&order_addSub=" + buyerAddrsub;
+        	param += "&order_post=" + buyerPostcode;
         	param += "&order_phone=" + buyerTel;
         	param += "&order_msg=" + orderMsg;
         	location.href = param;
