@@ -131,9 +131,9 @@
 				cart_cnt
 	)
 	VALUES (
-	#{member_num},
-	#{item_num},
-	#{cart_cnt}
+			#{member_num},
+			#{item_num},
+			#{cart_cnt}
 	)
   </insert>
   

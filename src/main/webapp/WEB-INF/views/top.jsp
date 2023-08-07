@@ -65,7 +65,7 @@
 											<i class="fa fa-shopping-bag"></i>
 										</c:when>
 										<c:otherwise>
-											<!-- 로그인된 경우 -->
+											<!-- 장바구니에 있을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
 											<span>${sessionScope.item_count}</span>
 										</c:otherwise>
