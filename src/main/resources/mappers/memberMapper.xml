@@ -304,6 +304,17 @@ WHERE member_num = #{member_num};
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
   </delete>
+  
+  <resultMap id="wishlist" type="com.itwillbs.domain.WishlistDTO">
+    <id property="member_num" column="member_num" />
+    <result property="item_num" column="item_num" />
+</resultMap>
+  
+  <select id="selectWishlistget" resultMap="wishlist">
+  	 SELECT * FROM like_farm
+  	 WHERE member_num = #{member_num}
+  </select>
+  
   <select id="memberDetail" parameterType="map" resultType="map">
         SELECT * FROM member WHERE member_num = #{member_num}
     </select>

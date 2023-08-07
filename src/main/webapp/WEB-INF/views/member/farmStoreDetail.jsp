@@ -220,7 +220,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
-                                    aria-selected="false">1:1 문의 <span>(1)</span></a>
+                                    aria-selected="false">1:1 문의 <span>(${fn:length(oneBoardList)})</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -310,8 +310,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 						                    </tr>
 						                 </thead>
 						                 <tbody id="inquiryList">
+						                   <c:set var="inquiryCount" value="0" />
 						                    <!-- 여기에 문의 내용이 추가됩니다. -->
 						                    <c:forEach var="row" items="${oneBoardList}">
+						                   		<c:set var="inquiryCount" value="${inquiryCount + 1}" />
 								                    <tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
 								                        <td>${row.one_board_repYn}</td>
 								                        <td>${row.one_board_type}</td>
