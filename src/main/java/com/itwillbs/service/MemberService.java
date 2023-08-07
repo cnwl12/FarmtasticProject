@@ -194,9 +194,14 @@ public class MemberService {
 	        return memberDAO.getItemMyReview(member_num);
 	    }
 	 
+	 // 구매내역 불러오기  
+	 public List<String> getItemOrder(int member_num, int item_num) {
+		    return memberDAO.getItemOrder(member_num, item_num);
+		}
+	 
 	 // 마이페이지 리뷰 수정 기능   
-	 public void updateReview(int review_num, int review_star, String review_title, String review_content) {
-		 memberDAO.updateReview(review_num, review_star, review_title, review_content);
+	 public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
+		 memberDAO.updateReview(review_num, review_star, review_title, review_content, review_img);
 	}
 	
 	 // 마이페이지 리뷰 삭제 기능 
@@ -239,14 +244,16 @@ public class MemberService {
 	}
 
 
-
 	
     public Map<String, Object> getMemberDetails(int memberNum) {
     	System.out.println("서비스");
 		System.out.println("서비스"+memberNum);
         return memberDAO.getMemberDetails(memberNum);
     }
-	
-	
+    
+    // 카트 안 수량조회 
+    public int countCart(int member_num) {
+        return memberDAO.countCart(member_num);
+    }
 	
 }

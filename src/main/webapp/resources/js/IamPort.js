@@ -67,8 +67,8 @@ function requestPay() {
         	param += "&order_pay=" + totalSum;
         	param += "&order_name=" + buyerName;
         	param += "&order_addMain=" + buyerAddr;
-        	param += "&order_addSub=" + buyerPostcode;
-        	param += "&order_post=" + buyerAddrsub;
+        	param += "&order_addSub=" + buyerAddrsub;
+        	param += "&order_post=" + buyerPostcode;
         	param += "&order_phone=" + buyerTel;
         	param += "&order_msg=" + orderMsg;
         	location.href = param;

@@ -504,18 +504,17 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		// 나중에 변경할거임...
 		int member_num = (int)session.getAttribute("member_num");
-		 // int member_num = 16; // <- 로그인 됐을 때 지울거임
-		// System.out.println(member_num + ", "+ cart);
 		
 		 session.setAttribute("member_num", member_num);
-		// session.setAttribute("member_num", memberDTO2.getMember_num());
 		
 		cart.put("member_num", member_num);
 
 		memberService.insertCart(cart);
 		
 		// 수량을 조회하는 메서드 따로 필요
-		// session.setAttribute("cart_num", cart_num);
+		System.out.println("countCart 컨트롤러 시작");
+		
+		// session.setAttribute("item_count", item_count);
 
 		return "redirect:/shoppingCart";
 	}
@@ -536,8 +535,12 @@ public class FarmController { // 소비자 (컨트롤러)
 
  		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
+		// session.setAttribute("item_count", item_count);
 		// System.out.println(itemList);
-
+		int item_count = memberService.countCart(member_num);
+		session.setAttribute("item_count", item_count);
+		// System.out.println("item_count : " + item_count );
+		
 		return "/member/shoppingCart";
 	}
 
@@ -586,7 +589,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    HashMap<String, Object> payInfo = new HashMap<String, Object>();
 		    payInfo.put("order_num", payDTO.getOrder_num());
 		    payInfo.put("member_num", payDTO.getMember_num());
-		    payInfo.put("item_num", payDTO.getItem_num());
 		    payInfo.put("order_pay", payDTO.getOrder_pay());
 		    payInfo.put("order_post", payDTO.getOrder_post());
 		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
@@ -606,6 +608,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    return "/member/paySuccess";
 		    //return "/member/paySuccess";
 		}
+		
 		
 		@RequestMapping(value = "/insertOrders", method = RequestMethod.GET)
 		public String insertOrders(PayDTO payDTO) {
@@ -668,16 +671,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
-
-		System.out.println(memberDTO.getMember_id());
-		System.out.println(memberDTO.getMember_pass());
-		System.out.println(memberDTO.getMember_name());
-		System.out.println(memberDTO.getMember_phone());
-		System.out.println(memberDTO.getMember_email());
-		System.out.println(memberDTO.getMember_joinDay());
-		System.out.println(memberDTO.getMember_post());
-		System.out.println(memberDTO.getMember_addMain());
-		System.out.println(memberDTO.getMember_addSub());
+		
 		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
@@ -687,15 +681,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
 	public String insertPro2(SellerDTO sellerDTO) {
 
-		System.out.println(sellerDTO.getSeller_id());
-		System.out.println(sellerDTO.getSeller_pass());
-		System.out.println(sellerDTO.getSeller_name());
-		System.out.println(sellerDTO.getSeller_phone());
-		System.out.println(sellerDTO.getSeller_email());
-		System.out.println(sellerDTO.getSeller_joinDay());
-		System.out.println(sellerDTO.getSeller_post());
-		System.out.println(sellerDTO.getSeller_addMain());
-		System.out.println(sellerDTO.getSeller_addSub());
 		// insertSeller() 메서드 호출
 		sellerService.insertSeller(sellerDTO);
 
@@ -798,23 +783,38 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck2 끝
 
 	// Review 기능! - 막내
-	// 리뷰작성 -> 데이터저장
+	// 리뷰작성 -> 데이터저장 / 사진은 1개만 가능
 	@PostMapping(value = "/insertReview")
 	@ResponseBody
 	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO, 
 			@RequestParam("review_image") MultipartFile file, HttpSession session) throws Exception {
-		System.out.println("controller 리뷰작성");
-		 System.out.println("item_num: " + memberDTO.getItem_num());
+			System.out.println("controller 리뷰작성");
+		 	System.out.println("item_num: " + memberDTO.getItem_num());
 		    System.out.println("member_num: " + memberDTO.getMember_num());
 		    System.out.println("review_title: " + memberDTO.getReview_title());
 		    System.out.println("review_content: " + memberDTO.getReview_content());
 		    System.out.println("File: " + file.getOriginalFilename());
 		
+		    // 세션에서 회원 번호를 가져옵니다.
+		    int member_num = (int) session.getAttribute("member_num");
+
+		    // 상품 번호는 memberDTO에서 가져올 수 있습니다.
+		    int item_num = memberDTO.getItem_num();
+
+		    // getItemOrder를 호출하여 order_num을 가져옵니다.
+		    List<String> order_num = memberService.getItemOrder(member_num, item_num);
+
+		 // 구매 기록이 없는 경우 리뷰 작성을 허용하지 않습니다.
+		    if (order_num == null || order_num.isEmpty()) {
+		        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		                .body("{\"status\": \"failure\", \"message\": \"구매 이력이 존재하지 않아 리뷰를 작성할 수 없습니다.\"}");
+		    }
+		    
 		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				
 //				System.out.println(uploadPath);
-				
+				// 이건 여러개 (map 쓸때 사용할 수도 있어서 남겨둠)
 //				for (int i = 0; i < files.size(); i++) {
 //		            MultipartFile file = files.get(i);
 //		            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -865,8 +865,19 @@ public class FarmController { // 소비자 (컨트롤러)
 				            .body("{\"status\": \"success\", \"message\": \"리뷰가 등록되었습니다.\"}");
 				    
 	}
+	
+	
+	// order_num 가져오고싶은 나 제법... 간절해요
+	@GetMapping("/getItemOrder")
+	@ResponseBody
+	public List<String> getItemOrder(@RequestParam("member_num") int member_num,
+	                         @RequestParam("item_num") int item_num) {
+	    return memberService.getItemOrder(member_num, item_num);
+	}
 
-	// 리뷰목록이 불러오고싶다
+	
+	
+	// 한 상품에 대한 리뷰목록
 	@RequestMapping(value = "/getItemReviews", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MemberDTO> getItemReviews(@RequestParam("item_num") Integer item_num) {
@@ -888,9 +899,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,
 									@RequestParam("review_star") int review_star,
 	                                @RequestParam("review_title") String review_title,
-	                                @RequestParam("review_content") String review_content) {
+	                                @RequestParam("review_content") String review_content,
+	                                @RequestParam("review_img") String review_img) {
 	    try {
-	        memberService.updateReview(review_num, review_star,review_title, review_content);
+	        memberService.updateReview(review_num, review_star,review_title, review_content, review_img);
 	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
 	    } catch (Exception e) {
 	        e.printStackTrace();

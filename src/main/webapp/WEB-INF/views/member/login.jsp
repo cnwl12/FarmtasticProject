@@ -74,26 +74,15 @@
 							</div>
 							</form>
 
-							<!-- 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
 							<fieldset> 
 								<legend>체크 옵션</legend>
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
-										<li class="fL">
-											<span class="checkbox-5 auto-login-check on" id="rememIdSpan">
-												<input type="checkbox" name="rememId" id="rememId">
-											</span>
-											<label for="ui-chk-auto-login">아이디 저장</label>
-										</li>
 										<li><a href="javascript:fn_searchId();" class="fs-13">아이디찾기</a></li>
 										<li><a href="javascript:fn_searchPwd();" class="fs-13">비밀번호찾기</a></li>
 									</ul>
-									<span class="id-s active">
-										<span>개인정보 보호를 위해 <em>개인용 PC에서만 사용해 주세요.</em></span>
-									</span>
 								</div>
 							</fieldset>
-							<!-- // 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
 							
 																			<!-- 로그인 넘어가는 페이지 설정  -->
 							<div class="btn-login"><button type="button" onclick="validateAndSubmitPersonal()">로그인</button></div>
@@ -117,7 +106,6 @@
 						
 						<!-- login2-wrap -->
 						<div id="business-login-wrap" class="login-wrap PC tab-phone" style="display: none;">
-							<!-- <p class="login-top-txt">휴대폰  로그인은 마이 홈플러스 회원만 이용 가능합니다.</p> -->
 							<form class="validation-form" novalidate action="${pageContext.request.contextPath }/sellerloginPro" id="login2" name="login2" method="GET">
 							<div class="join-info2">
 								<fieldset>
@@ -150,27 +138,15 @@
 							</div>
 							</form>
 
-							<!-- 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
 							<fieldset> 
 								<legend>체크 옵션</legend>
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
-										<li class="fL">
-											<span class="checkbox-5 auto-login-check on" id="rememIdSpan">
-												<input type="checkbox" name="rememId" id="rememId">
-											</span>
-											<label for="ui-chk-auto-login">아이디 저장</label>
-										</li>
 										<li><a href="javascript:fn_searchId();" class="fs-13">아이디찾기</a></li>
 										<li><a href="javascript:fn_searchPwd();" class="fs-13">비밀번호찾기</a></li>
 									</ul>
-									<span class="id-s active">
-										<span>개인정보 보호를 위해 <em>개인용 PC에서만 사용해 주세요.</em></span>
-									</span>
 								</div>
 							</fieldset>
-							<!-- // 20230125 아이디 저장, 자동 로그인 퍼블 요청 -->
-							
 																			<!-- 로그인 넘어가는 페이지 설정  -->
 							<div class="btn-login"><button type="button" onclick="validateAndSubmitBusiness()">로그인</button></div>
 							<!-- 간편로그인 -->
