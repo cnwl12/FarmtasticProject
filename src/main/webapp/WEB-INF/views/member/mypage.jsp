@@ -334,7 +334,7 @@
 					</tr>
 				</thead>
 				<tbody id="inquiryList">
-				<!-- 여기에 문의 내용이 추가됩니다. -->
+				<!-- 여기에 문의 내용이 추가됩니다. --> 
 					<c:forEach var="row" items="${oneBoardList2}">
 						<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
 							<td>${row.item_name}</td>
