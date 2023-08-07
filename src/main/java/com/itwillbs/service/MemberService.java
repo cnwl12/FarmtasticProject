@@ -233,6 +233,8 @@ public class MemberService {
 		System.out.println("MemberService insertOrders");
 
 	}
+
+
 	
     public Map<String, Object> getMemberDetails(int memberNum) {
     	System.out.println("서비스");

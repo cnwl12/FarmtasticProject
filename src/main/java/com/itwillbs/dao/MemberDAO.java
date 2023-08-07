@@ -235,6 +235,12 @@ public class MemberDAO {
 
 
 	}
+	
+	public void insertPay(HashMap<String, Object> payInfo) {
+		sqlSession.insert(namespace + ".insertPay", payInfo);
+		System.out.println("MemberDAO insertPay");
+
+	}
 
 
 

@@ -4,9 +4,9 @@
 }
 
 .autocomplete {	
-	position: absolute;
+/* 	position: absolute; */
 	z-index: 2;
-	width: 100%;
+	/* width: 100%; */
 	background-color: #ffffff;
 	border: 1px solid #dbdbdb;
 	border-radius: 5px;
@@ -20,9 +20,11 @@
 	color: #000000;
 	font-weight: bold;
 	border-radius: 5px;
+	display: inline-block;
 }
 
 .autocomplete > div {
+	display: inline-block;
 	background: #ffffff; 
 	padding: .2rem .6rem;
 	color: #333333;

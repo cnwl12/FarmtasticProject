@@ -31,9 +31,26 @@
 	
 
 	<insert id="insertOrders">
-		insert into orders(order_num,member_num,item_num,order_pay,order_post,order_addMain,order_addSub,order_phone,order_msg,order_name,order_day)
-		values(#{order_num},#{member_num},#{item_num},#{order_pay},#{order_post},#{order_addMain},#{order_addSub},#{order_phone},#{order_msg},#{order_name},NOW())
-	</insert>  
+		insert into orders(order_num
+						   ,member_num
+						   ,order_pay
+						   ,order_post
+						   ,order_addMain
+						   ,order_addSub
+						   ,order_phone
+						   ,order_msg
+						   ,order_name
+						   ,order_day)
+					 values(#{member_num}
+						   ,#{member_num}
+						   ,#{order_pay}
+						   ,#{order_post}
+						   ,#{order_addMain}
+						   ,#{order_addSub}
+						   ,#{order_phone}
+						   ,#{order_msg}
+						   ,#{order_name},NOW())
+	</insert>
 	
 	<select id="nuserCheck" 
                   resultType="com.itwillbs.domain.MemberDTO">
