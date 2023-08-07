@@ -586,7 +586,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    HashMap<String, Object> payInfo = new HashMap<String, Object>();
 		    payInfo.put("order_num", payDTO.getOrder_num());
 		    payInfo.put("member_num", payDTO.getMember_num());
-		    payInfo.put("item_num", payDTO.getItem_num());
 		    payInfo.put("order_pay", payDTO.getOrder_pay());
 		    payInfo.put("order_post", payDTO.getOrder_post());
 		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
@@ -606,6 +605,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    return "/member/paySuccess";
 		    //return "/member/paySuccess";
 		}
+		
 		
 		@RequestMapping(value = "/insertOrders", method = RequestMethod.GET)
 		public String insertOrders(PayDTO payDTO) {

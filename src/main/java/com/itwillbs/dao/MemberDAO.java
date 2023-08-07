@@ -234,6 +234,12 @@ public class MemberDAO {
 		System.out.println("MemberDAO insertOrders");
 
 	}
+	
+	public void insertPay(HashMap<String, Object> payInfo) {
+		sqlSession.insert(namespace + ".insertPay", payInfo);
+		System.out.println("MemberDAO insertPay");
+
+	}
 
 
 

@@ -15,7 +15,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
     
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+    ></script> 
+    <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
         <!-- Js Plugins -->
     <%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
@@ -135,7 +141,7 @@
                                     <span class="arrow_carrot-down"></span>
                                 </div>
                                 <section class="search">											<!-- autocomplete="off" -->
-                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" >
+                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
                                   <div class="autocomplete"></div>
                                 </section>
                                 <button type="submit" class="site-btn">검색</button>
