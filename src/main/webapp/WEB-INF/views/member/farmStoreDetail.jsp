@@ -242,7 +242,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                     <h6>리뷰 쓰기</h6>
                                     <form action="${pageContext.request.contextPath}/insertReview" method="post" name="insertReview" id="insertReview" enctype="multipart/form-data">
     								<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
-    								<input type="hidden" id="order_num"name="order_num" value="${memberDTO.order_num}">
     								<input type="hidden" name="member_num" value="${sessionScope.member_num}">
    									<div class="rating">
   									<span class="star" data-value="1">★</span>
@@ -609,7 +608,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	// ----------------------------------------------------------------------
 	
-	 $("#insertReview").submit(function (e) {
+	$("#insertReview").submit(function (e) {
     e.preventDefault();
     var formData = new FormData($("#insertReview")[0]);
 
@@ -617,31 +616,46 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     var member_num = $("#insertReview input[name=member_num]").val();
     var item_num = $("#insertReview input[name=item_num]").val();
 
-    // getItemOrder 엔드포인트에서 order_num 값을 가져옵니다.
+    // getItemOrder 엔드포인트에서 여러 order_num 값을 가져옵니다.
     $.get("${pageContext.request.contextPath}/getItemOrder", {
         member_num: member_num,
         item_num: item_num
     }, function (data) {
-        // formData에 order_num을 추가합니다.
-        formData.append("order_num", data);
-
-        // 원래의 AJAX 코드를 새로운 order_num 값을 포함하여 실시합니다.
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/insertReview",
-            data: formData,
-            enctype: "multipart/form-data",
-            contentType: false,
-            processData: false,
-            success: function () {
-                alert("리뷰가 등록되었습니다.");
-                location.reload();
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.log("Error response: ", xhr.responseText);
-                alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+        var selectedOrder = null;
+      
+        data.forEach(memberDTO => {
+            var order_num = memberDTO.order_num;
+          
+            if (!selectedOrder || order_num > selectedOrder) {
+                selectedOrder = order_num;
             }
         });
+
+        // order_num이 null이 아닌 경우에만 formData에 추가합니다.
+        if (selectedOrder !== null) {
+            formData.append("order_num", selectedOrder);
+
+            // 원래의 AJAX 코드를 새로운 order_num 값을 포함하여 실시합니다.
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/insertReview",
+                data: formData,
+                enctype: "multipart/form-data",
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert("리뷰가 등록되었습니다.");
+                    location.reload();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log("Error response: ", xhr.responseText);
+                    alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        } else {
+            // order_num이 null인 경우 사용자에게 알려줍니다.
+            alert("order_num을 찾을 수 없습니다. 다시 시도해주세요.");
+        }
     });
 });
 	

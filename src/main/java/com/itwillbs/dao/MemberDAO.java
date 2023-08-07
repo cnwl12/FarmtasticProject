@@ -145,7 +145,7 @@ public class MemberDAO {
     }
 	
 	//구매내역 불러오기
-	public List<String> getItemOrder(int member_num, int item_num) {
+	public List<MemberDTO> getItemOrder(int member_num, int item_num) {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("member_num", member_num);
 	    params.put("item_num", item_num);
