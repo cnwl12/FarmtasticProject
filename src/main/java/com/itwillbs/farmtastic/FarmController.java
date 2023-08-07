@@ -568,6 +568,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("checkout 매핑확인여부");
 
 		int member_num = (int)session.getAttribute("member_num");
+		session.setAttribute("member_num", member_num);
 
 		memberService.getMember1(member_num);
 
@@ -582,55 +583,44 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	// 인호 결제 확인중!!!!!! 
 	
-	// 결제 성공 페이지로 이동하는 컨트롤러 메소드
+	// 결제 성공 페이지로 이동하는 컨트롤러 확인하는 페이지
 		@RequestMapping(value = "/paySuccess", method = RequestMethod.GET)
-		public String paySuccess(Model model, PayDTO payDTO) {
+		public String paySuccess(@RequestParam  HashMap<String, Object> payInfo
+								 ,Model model
+								 ,HttpSession session) {
 		    // HashMap 객체 생성 및 결제 정보 추가
-		    HashMap<String, Object> payInfo = new HashMap<String, Object>();
-		    payInfo.put("order_num", payDTO.getOrder_num());
-		    payInfo.put("member_num", payDTO.getMember_num());
-		    payInfo.put("order_pay", payDTO.getOrder_pay());
-		    payInfo.put("order_post", payDTO.getOrder_post());
-		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
-		    payInfo.put("order_addSub", payDTO.getOrder_addSub());
-		    payInfo.put("order_phone", payDTO.getOrder_phone());
-		    payInfo.put("order_msg", payDTO.getOrder_msg());
-		    payInfo.put("order_name", payDTO.getOrder_name());
-		    payInfo.put("order_day", payDTO.getOrder_day());
+		    // HashMap<String, Object> payInfo = new HashMap<String, Object>();
+//		    payInfo.put("order_num", payDTO.getOrder_num());
+//		    payInfo.put("member_num", payDTO.getMember_num());
+//		    payInfo.put("order_pay", payDTO.getOrder_pay());
+//		    payInfo.put("order_post", payDTO.getOrder_post());
+//		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
+//		    payInfo.put("order_addSub", payDTO.getOrder_addSub());
+//		    payInfo.put("order_phone", payDTO.getOrder_phone());
+//		    payInfo.put("order_msg", payDTO.getOrder_msg());
+//		    payInfo.put("order_name", payDTO.getOrder_name());
+//		    payInfo.put("order_day", payDTO.getOrder_day());
 		    System.out.println("payinfo:" + payInfo);
 		    // 모델 객체에 HashMap 추가
+		    int member_num = (int)session.getAttribute("member_num");
 		    model.addAttribute("payInfo", payInfo);
+		    payInfo.put("member_num", member_num);
 		    
+		    // paySuccess 넘어오는 애들 자체가 pay가 완료해서 넘어오는거임
+		    // pay 먼저 insert ! (pay가 먼저 insert되어야지,  order-detail-cartdelete실행 
+			
+		    // 없어도 될거 같음 일단은 남겨둠 (지원)
+		    // memberService.insertPay(payInfo);
+		    // System.out.println("페이 테이블 넣자고");
+		    
+		    // orders 테이블에 DB인서트 작업 
 		    memberService.insertOrders(payInfo);
-		    System.out.println(payInfo);
+		    System.out.println(payInfo + " member_num : " + member_num);
 		    
 		    // paySuccess.jsp 페이지로 리다이렉트
-		    return "/member/paySuccess";
+		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
 		    //return "/member/paySuccess";
 		}
-		
-		
-		@RequestMapping(value = "/insertOrders", method = RequestMethod.GET)
-		public String insertOrders(PayDTO payDTO) {
-			
-//			System.out.println(payDTO.getMember_num());
-//			System.out.println(payDTO.getOrder_pay());
-//			System.out.println(payDTO.getOrder_name());
-//			System.out.println(payDTO.getOrder_addMain());
-//			System.out.println(payDTO.getOrder_addSub());
-//			System.out.println(payDTO.getOrder_post());
-//			System.out.println(payDTO.getOrder_phone());
-//			System.out.println(payDTO.getOrder_msg());
-//			System.out.println(payDTO.getOrder_day());
-//			// insertMember() 메서드 호출
-//			memberService.insertOrders(payDTO);
-//			System.out.println("FarmController insertOrders");
-
-			return "redirect:/index";
-		}	
-		
-		
-		
 
 	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert)
 	// 진행
@@ -647,10 +637,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		orderDetail.put("member_num", member_num);
 
 		memberService.insertOrderDetail(orderDetail);
-		// System.out.println("컨-서 다녀왔을 때" + orderDetail);
-
+		System.out.println("인서트 다녀왔음!");
+		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
-		return "redirect:/checkout";
+		memberService.deleteCart(orderDetail);
+		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
+		return "redirect:/farmStore";
 	}
 
 	// 카트안 아이템 삭제
@@ -662,7 +654,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		cart.put("member_num", member_num);
 
 		System.out.println("deleteCart 컨트롤러 오는지");
-		memberService.deleteCart(cart);
+		memberService.deleteAllCart(cart);
 
 		return "redirect:/shoppingCart";
 	}

@@ -40,6 +40,8 @@
 	<script type="text/javascript">
 		sessionStorage.setItem('pageContext', '${pageContext.request.contextPath}');
 	</script>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 
@@ -193,9 +195,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <!-- ??????? 이거는 왜????????  -->
-                                <div id="order_num">${order_num}</div>
-                                <div id="member_email">${memberDTO.member_email}</div>
+                                <div id="member_email" style="hidden;">${memberDTO.member_email}</div>
 							</form>
                             <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
                          </div>
@@ -218,7 +218,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
+ 
 
  
 

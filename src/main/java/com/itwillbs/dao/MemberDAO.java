@@ -232,21 +232,13 @@ public class MemberDAO {
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
-
-
 	}
 	
+	// 없어도 될거 같음 일단은 남겨둠 (지원)
 	public void insertPay(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertPay", payInfo);
 		System.out.println("MemberDAO insertPay");
-
 	}
-
-
-
-
-		
-		
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
 		System.out.println("다오:"+memberNum);
@@ -255,5 +247,10 @@ public class MemberDAO {
 
 	public int countCart(int member_num) {
 	    return sqlSession.selectOne(namespace + ".countCart", member_num);
+	}
+
+
+	public void deleteAllCart(HashMap<String, Object> cart) {
+		sqlSession.delete(namespace+".deleteAllCart", cart);
 	}
 }

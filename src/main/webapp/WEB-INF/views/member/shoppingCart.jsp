@@ -27,12 +27,12 @@
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
  	
 	<!-- 주문상세 테이블에 추가함수  -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	function insertOrderDetail(){
 		location.href="insertOrderDetail";  
 	}
 	</script>
-	
+	 -->
 	<script type="text/javascript">
 	function history(){
 		confirm("계속 쇼핑하시겠습니까?");
@@ -192,7 +192,9 @@
                             <li>Total	 <span>${totalSum}원</span></li>
                         </ul>
                     </div>
-                         <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT">
+      <!--                    <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT"> -->
+                        <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a>	
+                       <!--   <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT"> -->
                 </div>
              </div>
         </div>

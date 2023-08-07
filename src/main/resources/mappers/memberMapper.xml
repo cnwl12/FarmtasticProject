@@ -41,7 +41,7 @@
 						   ,order_msg
 						   ,order_name
 						   ,order_day)
-					 values(#{member_num}
+					 values(#{order_num}
 						   ,#{member_num}
 						   ,#{order_pay}
 						   ,#{order_post}
@@ -51,6 +51,29 @@
 						   ,#{order_msg}
 						   ,#{order_name},NOW())
 	</insert>
+	
+	<!--  위치 여기로 옮겼음 (지원 -->
+	<!-- 주문상세 목록 추가 insert : 주문번호 랜덤 생성 -->
+  	<insert id="insertOrderDetail">
+		INSERT INTO order_detail (member_num
+								 ,order_num
+								 ,item_num
+								 ,item_cnt)
+			SELECT
+			    c.member_num AS member_num,
+	       		o.order_num AS order_num,
+	        	c.item_num AS item_num,
+	        	c.cart_cnt AS item_cnt
+		FROM cart c
+		JOIN orders o 
+		ON c.member_num = o.member_num
+		WHERE c.member_num = #{member_num};
+	</insert>	
+	
+	<!-- pay테이블 DB작업  -->
+	<!-- <insert id="insertPay">
+	</insert> -->
+		
 	
 	<select id="nuserCheck" 
                   resultType="com.itwillbs.domain.MemberDTO">
@@ -202,18 +225,7 @@
   </update>
   
 
-  <!-- 주문상세 목록 추가 insert : 주문번호 랜덤 생성 -->
-  <insert id="insertOrderDetail">
-	INSERT INTO order_detail (member_num, order_num, item_num, item_cnt)
-	SELECT
-	     c.member_num AS member_num,
-	     CONCAT(DATE_FORMAT(NOW(), '%Y%m%d'), LPAD(o.id, 4, '0')) AS order_num,
-	     c.item_num AS item_num,
-	     c.cart_cnt AS item_cnt
-	FROM cart c
-	CROSS JOIN (SELECT FLOOR(RAND() * 1000) + 1 AS id) AS o
-	WHERE c.member_num = #{member_num};
-  </insert>		
+ 
 
   
   <!-- 리뷰작성 - 막내 -->
@@ -271,6 +283,12 @@ WHERE member_num = #{member_num};
   	FROM cart
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
+  </delete>
+  
+  <delete id="deleteAllCart">
+  	DELETE
+  	FROM cart
+	member_num = #{member_num};  
   </delete>
   
    <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
