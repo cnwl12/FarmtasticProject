@@ -27,7 +27,7 @@ public class MemberDTO {
 	private Date one_board_day;
 	private String one_board_repYn;
 	private int review_num;
-	private int order_num;
+	private String order_num;
 	private int item_num;
 	private String item_name;
 	
@@ -183,10 +183,12 @@ public class MemberDTO {
 	public void setReview_num(int review_num) {
 		this.review_num = review_num;
 	}
-	public int getOrder_num() {
+	
+	public String getOrder_num() {
 		return order_num;
 	}
-	public void setOrder_num(int order_num) {
+
+	public void setOrder_num(String order_num) {
 		this.order_num = order_num;
 	}
 	public int getItem_num() {

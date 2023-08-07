@@ -230,8 +230,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                     <p>${item.item_detail}</p>
                                 </div>
                             </div>
-                            <!-- 리뷰칸 그러나 이미지 작업이 없는.. -->
-                            <!-- 원래는 구매자만 작성이 필요하다고 수정해야하는데 구매내역 데이터가 없으니까.. 일단 임시방편으로 로그인만 작업해둠 -->
+                            <!-- 로그인 후 구매내역이 있는지 없는지를 추가로 넣으면 될 듯 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                 	<div>
@@ -243,6 +242,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                     <h6>리뷰 쓰기</h6>
                                     <form action="${pageContext.request.contextPath}/insertReview" method="post" name="insertReview" id="insertReview" enctype="multipart/form-data">
     								<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
+    								<input type="hidden" id="order_num"name="order_num" value="${memberDTO.order_num}">
     								<input type="hidden" name="member_num" value="${sessionScope.member_num}">
    									<div class="rating">
   									<span class="star" data-value="1">★</span>
@@ -585,37 +585,40 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	// ----------------------------------------------------------------------
 	
 	 $("#insertReview").submit(function (e) {
-            e.preventDefault();
-            var formData = new FormData($("#insertReview")[0]);
-            console.log("Form element: ", $("#insertReview")[0]);
-            console.log("Form data entries:");
-            formData.forEach((value, key) => {
-                console.log("Key: " + key + ", Value: " + value);
-                if (value instanceof File) {
-                    let fileReader = new FileReader();
-                    fileReader.onload = function (event) {
-                        console.log("File content: ", event.target.result);
-                    };
-                    fileReader.readAsDataURL(value);
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/insertReview",
-                data: formData,
-                enctype: "multipart/form-data",
-                contentType: false,
-                processData: false,
-                success: function () {
-                    alert("리뷰가 등록되었습니다.");
-                    location.reload();
-                },
-                error: function(xhr, textStatus, errorThrown) { // 수정된 부분: 매개변수 변경
-                    console.log("Error response: ", xhr.responseText); // 수정된 부분: xhr.responseText 로 변경
-                    alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
-                }
-            });
+    e.preventDefault();
+    var formData = new FormData($("#insertReview")[0]);
+
+    // member_num과 item_num 값을 가져옵니다.
+    var member_num = $("#insertReview input[name=member_num]").val();
+    var item_num = $("#insertReview input[name=item_num]").val();
+
+    // getItemOrder 엔드포인트에서 order_num 값을 가져옵니다.
+    $.get("${pageContext.request.contextPath}/getItemOrder", {
+        member_num: member_num,
+        item_num: item_num
+    }, function (data) {
+        // formData에 order_num을 추가합니다.
+        formData.append("order_num", data);
+
+        // 원래의 AJAX 코드를 새로운 order_num 값을 포함하여 실시합니다.
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/insertReview",
+            data: formData,
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("리뷰가 등록되었습니다.");
+                location.reload();
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("Error response: ", xhr.responseText);
+                alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+            }
         });
+    });
+});
 	
 	//------------------------------------------------------------
 
