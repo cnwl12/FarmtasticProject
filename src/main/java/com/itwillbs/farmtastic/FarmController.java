@@ -327,6 +327,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		MemberDTO memberDTO = memberService.getMember1(member_num);
 		model.addAttribute("memberDTO", memberDTO);
+		List<OneBoardDTO> oneBoardList2 = memberService.findByItemNum2(member_num);
+		System.out.println(oneBoardList2 + "가나다");
+		model.addAttribute("oneBoardList2", oneBoardList2);
 		return "/member/mypage";
 	}
 
@@ -750,7 +753,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck 끝
 
 //	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-//	    public String oneBoard(Model model) {
+//	    public String oneBoardmypage(HttpServletRequest request) {
 //	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
 //	        model.addAttribute("oneBoardList", oneBoardList);
 //

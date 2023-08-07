@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper 
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
@@ -269,16 +269,27 @@ WHERE member_num = #{member_num};
         <result column="one_board_private" property="one_board_private"/>
         <result column="one_board_num" property="one_board_num"/>
         <result column="seller_num" property="seller_num"/>
+        <result column="item_name" property="item_name"/>
     </resultMap>
 
 <select id="findByItemNum" resultMap="oneBoardResultMap">
     SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
        ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
-       ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num
+       ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
 	FROM one_board ob
 	JOIN member m ON ob.member_num = m.member_num
 	JOIN item i ON ob.item_num = i.item_num
 	WHERE ob.item_num = #{item_num}
+</select>
+
+<select id="findByItemNum2" resultMap="oneBoardResultMap">
+	SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
+       ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
+       ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
+	FROM one_board ob
+	JOIN member m ON ob.member_num = m.member_num
+	JOIN item i ON ob.item_num = i.item_num
+	WHERE ob.member_num = #{member_num}
 </select>
   
   <!-- 서영 저의 위시리스트는 집가기입니다 찜기능 구현중입니다 -->

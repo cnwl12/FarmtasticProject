@@ -173,6 +173,11 @@ public class MemberService {
 	       return memberDAO.findByItemNum(item_num);
 	  }
  
+	  // 서영 :  마이페이지에서 1대1문의 표시하기(member_num) 기준이라서 상품디테일이랑 불러오는게 좀다름
+	  public List<OneBoardDTO> findByItemNum2(int member_num) {
+		  System.out.println("1대1문의 노출");
+	       return memberDAO.findByItemNum2(member_num);
+	  }
 	
 	// 막내 리뷰별점 갯수기능
 	 public int getReviewCountByItemNum(int item_num) {
