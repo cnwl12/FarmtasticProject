@@ -206,7 +206,7 @@ public class MemberService {
 //		    }
 //
 //		    return stringList;
-		}
+		}  
 	 
 	 // 마이페이지 리뷰 수정 기능   
 	 public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
