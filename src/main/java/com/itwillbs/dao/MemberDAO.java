@@ -233,6 +233,7 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
 
+
 	}
 	
 	public void insertPay(HashMap<String, Object> payInfo) {
@@ -243,6 +244,7 @@ public class MemberDAO {
 
 
 
+
 		
 		
 		
@@ -250,5 +252,8 @@ public class MemberDAO {
 		System.out.println("다오:"+memberNum);
 	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
-		 
+
+	public int countCart(int member_num) {
+	    return sqlSession.selectOne(namespace + ".countCart", member_num);
+	}
 }

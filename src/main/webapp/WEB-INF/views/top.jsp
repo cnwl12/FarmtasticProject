@@ -64,15 +64,16 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="shoppingCart"> <c:choose>
-										<c:when test="${empty sessionScope.member_num}">
+							<li><a href="shoppingCart">
+								 <c:choose>
+										<c:when test="${empty sessionScope.item_count}">
 											<!-- 장바구니가 비었을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
 										</c:when>
 										<c:otherwise>
 											<!-- 로그인된 경우 -->
 											<i class="fa fa-shopping-bag"></i>
-											<span>${sessionScope.member_num}</span>
+											<span>${sessionScope.item_count}</span>
 										</c:otherwise>
 									</c:choose>
 							</a></li>
@@ -128,7 +129,6 @@
                             <li><a href="#">옥수수</a></li>
                             <li><a href="#">버섯</a></li>
                             <li><a href="#">호박</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
                         </ul>
                     </div>
                 </div>
