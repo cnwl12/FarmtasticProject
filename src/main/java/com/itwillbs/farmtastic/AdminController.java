@@ -4,6 +4,8 @@ package com.itwillbs.farmtastic;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -384,14 +386,23 @@ public class AdminController {
 	
 	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
-	public String sales(Locale locale, Model model) {
-		
-		System.out.println("sales 매핑확인여부");
-		
-		 List<Map<String, Object>> resultList = sellerService.getSellers();
-		 model.addAttribute("sellers", resultList);
-		
-		return "/admin/sellerMenu/sales";
+	public String sales(@RequestParam(value = "monthly", required = false) String monthly, Locale locale, Model model) {
+	    System.out.println("sales 매핑확인여부");
+
+	    if (monthly == null || monthly.isEmpty()) {
+	        LocalDate currentDate = LocalDate.now();
+	        monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    }
+
+	    List<Map<String, Object>> resultList = sellerService.getSellers(monthly);
+	    model.addAttribute("sellers", resultList);
+	    model.addAttribute("monthly", monthly);
+
+	    LocalDate currentDate = LocalDate.now();
+	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    model.addAttribute("currentMonth", currentMonth);
+
+	    return "/admin/sellerMenu/sales";
 	}
 
 	

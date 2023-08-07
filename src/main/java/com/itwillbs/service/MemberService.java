@@ -74,6 +74,13 @@ public class MemberService {
 		return memberDAO.getMember(member_id);
 	}
 	
+	public MemberDTO userCheck0(MemberDTO memberDTO) {
+		 System.out.println("MemberService userCheck0()");
+		 
+		 return memberDAO.userCheck0(memberDTO);
+	 }
+	
+	
 	/* sungha 07.29 마이페이지*/
 	public MemberDTO getMember1(Integer member_num) {
 		

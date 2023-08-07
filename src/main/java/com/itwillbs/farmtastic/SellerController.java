@@ -24,6 +24,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -223,6 +225,24 @@ public class SellerController {
 	        model.addAttribute("oneboard", oneboard);
 		return "/seller/questionMng";
 	}
+	
+	@RequestMapping("/updateReply")
+	public String updateReply(Locale locale, Model model, HttpServletRequest request){
+	    System.out.println("문의글 답변달자");
+	    String seller_num = (String) request.getSession().getAttribute("seller_num");
+	    String oneboardnum = (String) request.getParameter("one_board_num");
+	    String one_board_reply = request.getParameter("one_board_reply");
+	    int one_board_num = Integer.parseInt(oneboardnum);
+
+	    System.out.println(one_board_num);
+	    sellerService.updateReply(seller_num, one_board_num, one_board_reply);
+	    // 필요한 서비스 또는 리포지토리를 사용하여 해당 게시물의 답변을 업데이트하는 코드를 작성합니다.
+
+	    return "redirect:/questionMng"; // 이 부분은 작성한 코드에 맞게 수정해야 합니다. 업데이트가 완료된 후 원래 페이지로 돌아갑니다.
+	}
+
+
+
 	
 	@GetMapping("/getDetails")
 	public ResponseEntity<?> getDetails(@RequestParam("seller_num") String seller_num) {

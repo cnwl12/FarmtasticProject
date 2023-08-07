@@ -22,8 +22,8 @@ public class SellerDAO {
 	@Autowired
 	   private SqlSession sqlSession;
 
-	    public List<Map<String, Object>> getSellers() {
-	        return sqlSession.selectList(namespace + ".getSellers");
+	    public List<Map<String, Object>> getSellers(String monthly) {
+	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
 
 	    // 가맹점관리
@@ -168,6 +168,18 @@ public class SellerDAO {
 		public List<OneBoardDTO> selectByque(String seller_num) {
 			return sqlSession.selectList(namespace+".selectByque", seller_num);
 	    }
+		
+		public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
+		    System.out.println("문의글 업데이트 DAO");
+
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("seller_num", seller_num);
+		    params.put("one_board_num", one_board_num);
+		    params.put("one_board_reply", one_board_reply);
+
+		    sqlSession.update(namespace + ".updateReply", params);
+		}
+
 
 
 

@@ -32,7 +32,7 @@
 	href="${pageContext.request.contextPath }/resources/css/style.css"
 	type="text/css">
 
-<!-- 지마켓  -->
+<!-- 지마켓  -->  
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/myg.css"
 	type="text/css">
@@ -40,7 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <style>
-.star {
+.star {  
 	color : lightgray;
 	cursor : pointer;
 }
@@ -60,10 +60,16 @@
 
 <body>
 	<jsp:include page="../top.jsp"></jsp:include>
-
-	<div id="contentswrap">
-		<div id="contents">
-			<div id="main_menu">
+  <section class="blog spad" style="padding-top: 10px;">
+    <div class="container">
+<!-- 	<div id="contentswrap"> -->
+	 <div class="row">
+	  <div class="col-lg-4 col-md-5">
+                   <div class="blog__sidebar">
+                <div class="blog__sidebar__item">      
+		<!-- <div id="contents">  -->
+			<!-- <div id="main_menu"> -->
+			<h4>마이페이지</h4>
 				<ul class="menu_list">
 					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
 					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문배송</a></li>
@@ -71,6 +77,9 @@
 					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
 				</ul>
 			</div>
+			 </div>
+                </div>
+                <div>
 
 			<div id="main_cont">
 			<div id="menu1_cont">
@@ -281,6 +290,7 @@
            	 	<input type="text" id="review-title"><br>
             	<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
             	<input type="hidden" id="review_num" name="review_num">
+            	<input type="file" id="review_img" name="review_image">
             	<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
             	<button type="button" class="site-btn" id="close-edit-popup">취소</button>
         		</form>
@@ -299,14 +309,11 @@
             	<th>제목</th>
            		<th>내용</th>
            		<th>작성일</th>
-<!--  			<th>이미지</th> -->
+ 				<th>이미지</th>
            		</tr>
         		</thead>
         		<tbody>
-            	<%-- 
-            	<td>${review.review_img}</td>
-           	 	</tr>
-            	</c:forEach> --%>
+            	
         		</tbody>
     			</table>
 				</div>
@@ -323,7 +330,10 @@
 
 	</div>
 
-
+       
+            </div>
+       </div>
+     </section>
 
 
 	<jsp:include page="../bottom.jsp"></jsp:include>
@@ -480,7 +490,7 @@ $(document).ready(function() {
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
                             "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-//                             "<td>" + review.review_img + "</td>" +
+                            "<td>" + review.review_img + "</td>" +
                         "</tr>";
                     }
                     $("#getItemMyReview tbody").html(rows);

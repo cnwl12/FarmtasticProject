@@ -30,7 +30,15 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
-	
+  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <style>
  
 .fa-star-half-o:before {
@@ -247,8 +255,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 									<br>
     								<label for="review_title"></label>
     								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
-<!--  									<label for="file"></label> -->
-<!--         							<input type="file" id="review_img" name="review_img" style="padding-left: 73px;"> -->
+ 									<label for="file"></label>
+        							<input type="file" id="review_img" name="review_image"  style="padding-left: 73px;">
     								<br><br>
     								<label for="review_content"></label>
     								<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요" required></textarea>
@@ -271,30 +279,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                 					<th>제목</th>
                 					<th>내용</th>
                 					<th>작성일</th>
-<!--                 					<th>이미지</th> -->
+                					<th>이미지</th>
            							</tr>
         							</thead>
         							<tbody>
-            						<%-- <c:set var="total" value="${fn:length(reviews)}" />
-            						<c:if test="${total eq 0}">
-                					<tr>
-                    				<td colspan="6" style="text-align:center;">리뷰가 없습니다.</td>
-                					</tr>
-            						</c:if>
-            						<c:set var="count" value="0" />
-            						<c:forEach items="${reviews}" var="review" varStatus="status">
-                					<c:set var="reversedCount" value="${total - status.index}" />
-                					<c:set var="count" value="${count + 1}" />
-                					<tr>
-                    				<td>${count}</td>
-                    				<td class="review-star"><c:out value="${review.review_star}"/></td>
-                    				<td>${review.member_num}</td>
-                    				<td class="review-date"><c:out value="${review.review_day}"/></td>
-                    				<td>${review.review_title}</td>
-                    				<td>${review.review_content}</td>
-                    				<td>${review.review_img}</td>
-                					</tr>
-            						</c:forEach> --%>
+            						
         							</tbody>
     								</table>
 									</div>
@@ -499,15 +488,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 	 <!-- Js Plugins -->
-	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 	<script>
 	function openPopup() {
 	  window.open(
@@ -606,18 +587,31 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	 $("#insertReview").submit(function (e) {
             e.preventDefault();
             var formData = new FormData($("#insertReview")[0]);
-
+            console.log("Form element: ", $("#insertReview")[0]);
+            console.log("Form data entries:");
+            formData.forEach((value, key) => {
+                console.log("Key: " + key + ", Value: " + value);
+                if (value instanceof File) {
+                    let fileReader = new FileReader();
+                    fileReader.onload = function (event) {
+                        console.log("File content: ", event.target.result);
+                    };
+                    fileReader.readAsDataURL(value);
+                }
+            });
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/insertReview",
                 data: formData,
+                enctype: "multipart/form-data",
                 contentType: false,
                 processData: false,
                 success: function () {
                     alert("리뷰가 등록되었습니다.");
                     location.reload();
                 },
-                error: function () {
+                error: function(xhr, textStatus, errorThrown) { // 수정된 부분: 매개변수 변경
+                    console.log("Error response: ", xhr.responseText); // 수정된 부분: xhr.responseText 로 변경
                     alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
                 }
             });
@@ -648,7 +642,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             "<td>" + review.review_title + "</td>" +
                             "<td>" + review.review_content + "</td>" +
                             "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-//                             "<td>" + review.review_img + "</td>" +
+                            "<td><img src='" + review.review_img + "' alt='Review image' width='100'></td>" +
                         "</tr>";
                     }
                     $("#getItemReviews tbody").html(rows);

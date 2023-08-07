@@ -62,7 +62,13 @@ public class MemberDAO {
 		
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
 	}
-
+	
+	public MemberDTO userCheck0(MemberDTO memberDTO) {
+		System.out.println("MemberDAO userCheck0()");
+		
+		return sqlSession.selectOne(namespace+".userCheck0", memberDTO);
+	}
+	
 	public MemberDTO getMember(String member_id) {
 		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
@@ -221,23 +227,15 @@ public class MemberDAO {
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
+<<<<<<< HEAD
 	}
+=======
+	}	
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
 		System.out.println("다오:"+memberNum);
 	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
-
-
-
-
-
-
-	
-
-	
-
-
-	
 		 
 }

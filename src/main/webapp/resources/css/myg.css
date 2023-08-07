@@ -20,7 +20,7 @@
 .menu_list {
     width: 148px; 
     /* float: left;    */
-      text-align: center;
+      text-align: left;
     width: 230px;
 
 }
@@ -99,7 +99,6 @@ table.myg_tab td a {
 }
 
 #main_cont {
-	padding-left: 570px;
     width: 1300px;
     min-height: 650px;
 }

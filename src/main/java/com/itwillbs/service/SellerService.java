@@ -25,8 +25,9 @@ public class SellerService {
 	 @Autowired
 	    private SellerDAO sellerDAO;
 	 	//매출관리에 판매자별 총매출 불러오기 위한 구문
-	    public List<Map<String, Object>> getSellers() {
-	        return sellerDAO.getSellers();
+	    public List<Map<String, Object>> getSellers(String monthly) {
+	    	System.out.println("SellerService의 getSellers 매핑완");
+	        return sellerDAO.getSellers(monthly);
 	    }
 	    
 	    // 가맹점관리 혜원
@@ -175,6 +176,11 @@ public class SellerService {
 		// 판매자 문의글 관리
 	    public List<OneBoardDTO> getBySellerque(String seller_num) {
 	        return sellerDAO.selectByque(seller_num);
+	    }
+	    
+	    public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
+	    	System.out.println("문의글 서비스왔니??");
+	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
 	    }
 		
 }
