@@ -810,7 +810,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    int item_num = memberDTO.getItem_num();
 
 		    // getItemOrder를 호출하여 order_num을 가져옵니다.
-		    List<String> order_num = memberService.getItemOrder(member_num, item_num);
+		    List<MemberDTO> order_num = memberService.getItemOrder(member_num, item_num);
 
 		 // 구매 기록이 없는 경우 리뷰 작성을 허용하지 않습니다.
 		    if (order_num == null || order_num.isEmpty()) {
@@ -878,7 +878,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	// order_num 가져오고싶은 나 제법... 간절해요
 	@GetMapping("/getItemOrder")
 	@ResponseBody
-	public List<String> getItemOrder(@RequestParam("member_num") int member_num,
+	public List<MemberDTO> getItemOrder(@RequestParam("member_num") int member_num,
 	                         @RequestParam("item_num") int item_num) {
 	    return memberService.getItemOrder(member_num, item_num);
 	}

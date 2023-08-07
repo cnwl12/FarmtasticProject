@@ -195,9 +195,18 @@ public class MemberService {
 	    }
 	 
 	 // 구매내역 불러오기  
-	 public List<String> getItemOrder(int member_num, int item_num) {
+	 public List<MemberDTO> getItemOrder(int member_num, int item_num) {
+		    // MemberDTO 객체를 포함하는 원래의 리스트
 		    return memberDAO.getItemOrder(member_num, item_num);
-		}
+
+//		    // MemberDTO 객체를 문자열로 변환하여 새 리스트에 추가
+//		    List<String> stringList = new ArrayList<>();
+//		    for (MemberDTO dto : originalList) {
+//		        stringList.add(dto.toString());
+//		    }
+//
+//		    return stringList;
+		}  
 	 
 	 // 마이페이지 리뷰 수정 기능   
 	 public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
