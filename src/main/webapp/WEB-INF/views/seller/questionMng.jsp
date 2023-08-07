@@ -92,8 +92,7 @@
 									</div>
 					
 									<div class="tbl_type">
-										<form id="searchForm" name="searchForm"
-											onsubmit="return searchFormSubmit();">
+										<form id="searchForm" name="searchForm">
 											<input type="submit"
 												style="position: absolute; left: -5000px; top: -5000px"
 												value="검색">
@@ -112,14 +111,14 @@
 														<th scope="row" class="vline_m"><label for="sel_choice">처리상태</label></th>
 														<td><select id="sel_choice" name="treatmentStatus"
 															style="width: 85px">
-																<option value="">전체</option>
+																<option value="all">전체</option>
 																<option value="답변완료">답변완료</option>
 																<option value="미답변">미답변</option>
 														</select></td>
 														<th scope="row" class="vline_m"><label for="sel_choice2">문의유형</label></th>
 														<td><select id="sel_choice2" name="inquiryType"
 															style="width: 85px">
-																<option value="">전체</option>
+																<option value="all">전체</option>
 																<option value="상품">상품</option>
 																<option value="배송">배송</option>
 																<option value="환불">환불</option>
@@ -145,7 +144,7 @@
 									</div>
 					
 									<div class="btn_wrap" style="margin-top: 20px">
-										 <button id="search-btn" type="button">검색</button>
+										<button type="button" id="search-btn" onclick="searchFormSubmit(event)">검색</button>
 									</div>
 					
 									<div style="height: 378px;">
@@ -328,613 +327,7 @@
 										var templates = {};
 									</script>
 					
-									<script type="text/javascript">
-										var oDateRange = {};
-					
-										var ghtRowList = [];
-					
-										var _requestParameters = "";
-					
-										var oPagination = new jindo.Pagination("paginate", {
-											nItem : 1,
-											nItemPerPage : 1,
-											nPagePerPageList : 10,
-											nPage : 1
-										}).attach({
-											move : function(oCustomEvent) {
-												setGridByPaging(oCustomEvent.nPage);
-											}
-										});
-					
-										var test = function() {
-											alert("test");
-										}
-					
-										var initializeGrid = function() {
-											if (treatmentStatus) {
-												setGridNewInquiries();
-											} else {
-												setGridBySearchForm();
-											}
-										}
-					
-										var initSorting = function() {
-											var form = $Form('searchForm');
-											form.value("orderBy", "");
-											form.value("orderDir", "");
-											_gridInstance.resetSortHeader();
-										}
-					
-										var _gridAjax = function(currentPage, itemCount) {
-											_gridInstance.showLoadingLayer();
-											var ajax = $Ajax("/u/customerInquiry/list", {
-												onload : function(res) {
-													var result = res.json();
-													// 성공시 처리
-													if (result.bSuccess) {
-														_gridInstance
-																.setRowList(result.htReturnValue);
-														if (currentPage == undefined
-																&& itemCount == undefined) {
-															setPaginate(result);
-														} else {
-															//페이지가 지정되어있으면
-															oPagination.setItemCount(itemCount);
-															oPagination.reset();
-															oPagination._paginate(currentPage);
-														}
-													}
-												},
-												onerror : function(res) {
-													alert("문의 리스트를 불러오는 중에 오류가 발생했습니다.");
-													_gridInstance.setRowList([]);
-												}
-											});
-											ajax.header("Accept", "application/json");
-											ajax.request(_requestParameters);
-					
-										}
-					
-										var setGridBySearchForm = function() {
-											var form = $Form('searchForm');
-											var htDateInfo = oDateRange.getValue();
-											if (DateCoreAPI._getSolarDistance(
-													htDateInfo.htStartDate, htDateInfo.htEndDate) > 184) {
-												alert("검색기간은 6개월 미만이어야 합니다.");
-												return false;
-											}
-											form.value("searchStartYmdt", form.value("fromDate")
-													+ " 00:00:00");
-											form.value("searchEndYmdt", form.value("toDate")
-													+ " 23:59:59");
-											_requestParameters = $S(form.serialize()).parseString();
-											_gridAjax();
-										}
-					
-										var setGridNewInquiries = function() {
-											var form = $Form('searchForm');
-											form.value("treatmentStatus", "N");
-											_requestParameters = $S(form.serialize()).parseString();
-											_gridAjax();
-										}
-					
-										var setGridByPaging = function(nowPage) {
-											_requestParameters["paging.current"] = nowPage;
-											_gridAjax();
-										}
-					
-										var setPaginate = function(paging) {
-											oPagination.setItemCount(Math.ceil(paging.totalCount
-													/ paging.rowsPerPage));
-											oPagination.reset();
-											oPagination._paginate(paging.currentPage);
-											oPagination._nCurrentPage = paging.currentPage;
-										}
-					
-										var gridRefresh = function() {
-											_gridAjax(oPagination.getCurrentPage(), oPagination
-													.getItemCount());
-					
-										}
-					
-										var viewDetail = function(id) {
-											var ajax = $Ajax("/u/customerInquiry/inquiryComment/"
-													+ id, {
-												onload : function(res) {
-													var result = res.json();
-													// 성공시 처리
-													if (result.bSuccess) {
-														setInquiryComment(result.htReturnValue);
-													}
-												},
-												onerror : function(res) {
-													alert("상세 문의 내역을 불러오는 중에 오류가 발생했습니다.");
-												}
-											});
-											ajax.header("Accept", "application/json");
-											ajax.request();
-										}
-					
-										var commentAction = function(el) {
-											if ($Form("answerForm").value(
-													"inquiryAnswerTempleteType") == 'NONE') {
-												alert('문의유형을 선택해 주세요.');
-												return false;
-											}
-											if ($Form("answerForm")
-													.value("inquiryAnswerTempleteNo") == '') {
-												alert('제목을 선택해 주세요.');
-												return false;
-											}
-											if ($Form("answerForm").value("content") == '') {
-												alert('답변내용을 입력해 주세요.');
-												return false;
-											}
-											if ($Form("answerForm").value("content").length > 1000) {
-												alert('답변내용 항목은 최대 1000자 이하로 입력해 주세요.');
-												return false;
-											}
-											$Element(el).hide();
-											var ajax = $Ajax(
-													"/u/customerInquiry/commentAction",
-													{
-														onload : function(res) {
-															var result = res.json();
-															if (result.htReturnValue != null
-																	&& result.htReturnValue.message != undefined
-																	&& result.htReturnValue.message != "") { //메시지 출력
-																alert(result.htReturnValue.message);
-															}
-															// 성공시 처리
-															if (result.bSuccess) {
-																gridRefresh();
-																viewDetail($Form("answerForm")
-																		.value("id.inquiryNo"));
-															}
-														},
-														onerror : function(res) {
-															alert("답변 처리 중에 오류가 발생했습니다.");
-															$(el).style.display = '';
-														}
-													});
-											ajax.header("Accept", "application/json");
-											ajax.request($S($Form("answerForm").serialize())
-													.parseString());
-										}
-					
-										var printTemplateOptions = function(templateOptions) {
-											var form = $Form('answerForm');
-											var templateNo = form.value('inquiryAnswerTempleteNo');
-											$Element('inquiryAnswerTempleteNo').html(
-													"<option value=\'\'>템플릿을 선택해 주세요</option>"
-															+ templateOptions);
-											if (templateNo != "") {
-												if (templates[templateNo] != undefined) {
-													form.value('inquiryAnswerTempleteNo',
-															templateNo);
-													form.value('content', templates[templateNo]);
-												} else {
-													form.value('inquiryAnswerTempleteNo', '');
-												}
-											}
-										}
-					
-										//템플릿 리프레쉬
-										var templateRefresh = function() {
-											var ajax = $Ajax(
-													"/u/templateRefresh",
-													{
-														onload : function(res) {
-															var result = res.json();
-															// 성공시 처리
-															if (result.bSuccess
-																	&& result.htReturnValue) {
-																templates = result.htReturnValue.templates;
-																printTemplateOptions(result.htReturnValue.templateOptions);
-															}
-														}
-													});
-											ajax.header("Accept", "application/json");
-											ajax
-													.request({
-														'questionType' : $('inquiryAnswerTempleteType').value
-													});
-										}
-					
-										var notOrderInquiryTemplateTypeList = [ '상품', '배송', '기타',
-												'선택안함' ];
-										var setInquiryComment = function(htValue) {
-											$Element('regComment').hide();
-											$Element('editComment').hide();
-											$('regDate').innerHTML = htValue.modifyDate;
-											$('treatDate').innerHTML = (htValue.treatmentDate == undefined) ? '&nbsp'
-													: htValue.treatmentDate + '&nbsp';
-											$('purchaser').innerHTML = htValue.inquiryMemberName;
-											$('purchaserId').innerHTML = htValue.inquiryMemberId;
-											$('orderNo').innerHTML = htValue.orderNo;
-											$('prodName').innerHTML = htValue.productName;
-											$('prodOption').innerHTML = htValue.prodOrderNoLinkString;
-											if (htValue.orderContractNo !== undefined
-													&& htValue.orderContractNo !== "") {
-												$('orderContractNo').innerHTML = "<a href='#' class='link_com' onClick='openOrderContractPopup(\""
-														+ htValue.orderContractNo
-														+ "\");return false;'> "
-														+ htValue.orderContractNo + "</a>"
-											} else {
-												$('orderContractNo').innerHTML = ""
-											}
-											$('_title').innerHTML = "[" + htValue.inquiryCategory
-													+ "] " + htValue.title;
-											$('inquiryContent').innerHTML = htValue.inquiryContent;
-											$Form('answerForm').value('id.inquiryNo', htValue.id);
-											$Form('answerForm').value('alarmType',
-													htValue.alarmType);
-					
-											if (htValue.commentContent == undefined
-													|| htValue.commentContent == "") {
-												$Form('answerForm')
-														.value('id.inquiryCommentNo', '');
-												$Form('answerForm').value('content', '');
-												$Form('answerForm').value(
-														'inquiryAnswerTempleteType', "NONE");
-												$Element('inquiryAnswerTempleteNo').empty();
-												$Element('inquiryAnswerTempleteNo').appendHTML(
-														'<option value=\'\'>템플릿을 선택해 주세요</option>');
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', true);
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', false);
-												$('regComment').style.display = '';
-											} else {
-												$Form('answerForm').value('id.inquiryCommentNo',
-														htValue.commentId);
-												$Form('answerForm').value('content',
-														htValue.commentContent);
-												if (htValue.answerTempleteTypeCode == undefined
-														|| htValue.answerTempleteTypeCode == "") {
-													$Form('answerForm').value(
-															'inquiryAnswerTempleteType',
-															"NONE_SELECTED");
-													$Element('inquiryAnswerTempleteNo').empty();
-													$Element('inquiryAnswerTempleteNo')
-															.appendHTML(
-																	'<option value="NONE_SELECTED">답변직접입력(제목없음)</option>');
-													$Element("inquiryAnswerTempleteNo").attr(
-															'disabled', true);
-													$Element("inquiryAnswerTempleteNo").attr(
-															'disabled', false);
-												} else {
-													searchTemplateSelected(
-															htValue.answerTempleteTypeCode,
-															htValue.commentTemplete);
-													$Form('answerForm').value(
-															'inquiryAnswerTempleteType',
-															htValue.answerTempleteTypeCode);
-													$('inquiryAnswerTempleteType').value = htValue.answerTempleteTypeCode;
-												}
-												$('editComment').style.display = '';
-											}
-											var templateTypeList = $$("#inquiryAnswerTempleteType > option");
-											$A(templateTypeList)
-													.forEach(
-															function(o) {
-																var el = $Element(o);
-																if (htValue.orderYn) {
-																	el.show();
-																} else {
-																	if (-1 == $A(
-																			notOrderInquiryTemplateTypeList)
-																			.indexOf(el.html())) {
-																		el.hide();
-																	}
-																}
-															});
-										}
-					
-										function searchFormSubmit() {
-											var form = $Form('searchForm');
-											if (form.value("queryText") != ""
-													&& form.value("searchType") == "") {
-												alert("상세검색할 항목을 선택 후 검색하세요.");
-												form.element("searchType").focus();
-												return false;
-											}
-											if (form.value("queryText") != ""
-													&& form.value("searchType") == "productNo") {
-												if (!inNum(form.value("queryText"))) {
-													alert("상품번호는 숫자만 가능합니다.");
-													form.element("queryText").focus();
-													return false;
-												}
-											}
-											treatmentStatus = false; //검색을 시도하면 url을 통해 넘어온 조건 초기화
-											initSorting(); //정렬조건 초기화
-											setGridBySearchForm();
-										}
-					
-										function inNum(sStr) {
-											var NumberPattern = /\D/;
-											if (NumberPattern.test(sStr))
-												return false;
-											return true;
-										}
-					
-										function searchTemplate(questionType) {
-											if (questionType == "NONE") {
-												$Form('answerForm').value('content', '');
-												$Element('inquiryAnswerTempleteNo').empty();
-												$Element('inquiryAnswerTempleteNo').appendHTML(
-														'<option value=\'\'>템플릿을 선택해 주세요</option>');
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', true);
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', false);
-											} else if (questionType == "NONE_SELECTED") {
-												$Form('answerForm').value('content', '');
-												$Element('inquiryAnswerTempleteNo').empty();
-												$Element('inquiryAnswerTempleteNo')
-														.appendHTML(
-																'<option value="NONE_SELECTED">답변직접입력(제목없음)</option>');
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', true);
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', false);
-											} else {
-												// ajax 생성
-												var ajax = $Ajax('/u/customerInquiry/templeteList',
-														{
-															type : 'xhr',
-															method : 'post',
-															onload : function(res) {
-																var param = res.json();
-																fillTemplateSelectBox(param);
-															}
-														});
-												// 요청
-												ajax.header("Accept", "application/json");
-												ajax.request({
-													'questionType' : questionType
-												});
-											}
-										}
-					
-										function fillTemplateSelectBox(json) {
-											$Element('inquiryAnswerTempleteNo').empty();
-					
-											$Element('inquiryAnswerTempleteNo').appendHTML(
-													'<option value=\'\'>템플릿을 선택해 주세요</option>')
-											$A(json.htReturnValue.templates).forEach(
-													function(v, k) {
-														$Element('inquiryAnswerTempleteNo')
-																.appendHTML(
-																		'<option value=\'' + v.id + '\'>'
-																				+ v.subject
-																				+ '</option>');
-													});
-											$Element("inquiryAnswerTempleteNo").attr('disabled',
-													true);
-											$Element("inquiryAnswerTempleteNo").attr('disabled',
-													false);
-										}
-					
-										function searchTemplateSelected(questionType, templeteNo) {
-											if (questionType == "NONE") {
-												$Form('answerForm').value('content', '');
-												$Element('inquiryAnswerTempleteNo').empty();
-												$Element('inquiryAnswerTempleteNo').appendHTML(
-														'<option value=\'\'>템플릿을 선택해 주세요</option>');
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', true);
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', false);
-											} else if (questionType == "NONE_SELECTED") {
-												$Form('answerForm').value('content', '');
-												$Element('inquiryAnswerTempleteNo').empty();
-												$Element('inquiryAnswerTempleteNo')
-														.appendHTML(
-																'<option value="NONE_SELECTED">답변직접입력(제목없음)</option>');
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', true);
-												$Element("inquiryAnswerTempleteNo").attr(
-														'disabled', false);
-											} else {
-												// ajax 생성
-												var ajax = $Ajax('/u/customerInquiry/templeteList',
-														{
-															type : 'xhr',
-															method : 'post',
-															onload : function(res) {
-																var param = res.json();
-																fillTemplateSelectBoxSelected(
-																		param, templeteNo);
-															}
-														});
-												// 요청
-												ajax.header("Accept", "application/json");
-												ajax.request({
-													'questionType' : questionType
-												});
-											}
-										}
-					
-										function fillTemplateSelectBoxSelected(json, templeteNo) {
-											$Element('inquiryAnswerTempleteNo').empty();
-											$Element("inquiryAnswerTempleteNo").attr('disabled',
-													true);
-											$Element("inquiryAnswerTempleteNo").attr('disabled',
-													false);
-											var htmlOption = '<option value=\'\'>템플릿을 선택해 주세요</option>';
-											$A(json.htReturnValue.templates)
-													.forEach(
-															function(v, k) {
-																if (v.id == templeteNo) {
-																	htmlOption = htmlOption
-																			+ '<option value=\'' + v.id + '\' selected>'
-																			+ v.subject
-																			+ '</option>';
-																} else {
-																	htmlOption = htmlOption
-																			+ '<option value=\'' + v.id + '\' >'
-																			+ v.subject
-																			+ '</option>';
-																}
-															});
-											$Element('inquiryAnswerTempleteNo').html(htmlOption);
-										}
-					
-										function openOrderPopup(seq) {
-											window
-													.open(
-															'/u/orderPopup?orderNo=' + seq,
-															'order',
-															'toolbar=no, channelmode=no, location=no, directories=no, menubar=no, scrollbars=yes, resizable=yes, width=720, height=640');
-										}
-					
-										function openProductOrderPopup(seq) {
-											window
-													.open(
-															'https://sell.smartstore.naver.com/o/v3/manage/order/popup/'
-																	+ seq + '/productOrderDetail',
-															'productOrder',
-															'toolbar=no, channelmode=no, location=no, directories=no, menubar=no, scrollbars=yes, resizable=yes, width=802, height=800');
-										}
-					
-										function openOrderContractPopup(seq) {
-											window
-													.open(
-															'/rntl/v3/contract/popup/' + seq
-																	+ '/contractInfo',
-															'orderContract',
-															'toolbar=no, channelmode=no, location=no, directories=no, menubar=no, scrollbars=yes, resizable=yes, width=1000, height=800');
-										}
-					
-										var searchTypes = {
-											'CMA4BAND' : [ '', 'productNo', 'productOrderNo' ]
-										}
-					
-										$Fn(
-												function() {
-					
-													oDateRange = new jindo.DateRangePicker({
-														"sDateFormat" : "yyyy-mm-dd",
-														"elQuick" : $("period_selector"),
-														"elStartDate" : $("start_date"),
-														"elEndDate" : $("end_date"),
-														"vStartDate" : fromDate,
-														"vEndDate" : toDate,
-														"vToday" : $Date(nmp.getDate(true)).format(
-																"Y-m-d"),
-														"bUseTime" : false,
-														"sCalendarText" : ""
-													});
-					
-													initializeGrid();
-					
-													if (viewInquiryId != "" && viewInquiryId != "0") {
-														viewDetail(viewInquiryId);
-														document.location.href = "#viewInquiry";
-													}
-					
-													$Fn(function(e) {
-														e.stop($Event.CANCEL_DEFAULT);
-														commentAction('regComment');
-													}).attach($('regComment'), 'click');
-													$Fn(function(e) {
-														e.stop($Event.CANCEL_DEFAULT);
-														commentAction('editComment');
-													}).attach($('editComment'), 'click');
-													$Fn(function(e) {
-														e.stop($Event.CANCEL_DEFAULT);
-														searchFormSubmit();
-													}).attach($('search_bt'), 'click');
-													$Fn(
-															function(e) {
-																e.stop($Event.CANCEL_DEFAULT);
-																window
-																		.open(
-																				wtfProductUrl
-																						+ "/template/qna/popup?callbackName=templateRefresh",
-																				'templetePopup',
-																				'scrollbars=yes, width=800,height=600');
-															}).attach($('templetePopup'), 'click');
-													$Fn(
-															function(e) {
-																e.stop($Event.CANCEL_DEFAULT);
-																searchTemplate($('inquiryAnswerTempleteType').value);
-																$Form('answerForm').value(
-																		'content', '');
-																refreshCharCount(e);
-															}).attach(
-															$('inquiryAnswerTempleteType'),
-															'change');
-													$Fn(
-															function(e) {
-																e.stop($Event.CANCEL_DEFAULT);
-																var templateNo = $Form('answerForm')
-																		.value(
-																				'inquiryAnswerTempleteNo');
-																if (templates[templateNo] != undefined) {
-																	$Form('answerForm').value(
-																			'content',
-																			templates[templateNo]);
-																	refreshCharCount(e);
-																}
-															}).attach($('inquiryAnswerTempleteNo'),
-															'change');
-													$Fn(
-															function(e) {
-																$Form('answerForm')
-																		.value(
-																				'inquiryAnswerTempleteType',
-																				'NONE_SELECTED');
-																$Element('inquiryAnswerTempleteNo')
-																		.empty();
-																$Element('inquiryAnswerTempleteNo')
-																		.appendHTML(
-																				'<option value="NONE_SELECTED">답변직접입력(제목없음)</option>');
-																$Element("inquiryAnswerTempleteNo")
-																		.attr('disabled', true);
-																$Element("inquiryAnswerTempleteNo")
-																		.attr('disabled', false);
-																refreshCharCount(e);
-															}).attach($('commentContent'),
-															'keydown');
-													$Fn(
-															function(e) {
-																$Form('answerForm')
-																		.value(
-																				'inquiryAnswerTempleteType',
-																				'NONE_SELECTED');
-																$Element('inquiryAnswerTempleteNo')
-																		.empty();
-																$Element('inquiryAnswerTempleteNo')
-																		.appendHTML(
-																				'<option value="NONE_SELECTED">답변직접입력(제목없음)</option>');
-																$Element("inquiryAnswerTempleteNo")
-																		.attr('disabled', true);
-																$Element("inquiryAnswerTempleteNo")
-																		.attr('disabled', false);
-																refreshCharCount(e);
-															}).attach($('commentContent'), 'keyup');
-					
-												}).attach(window, 'load');
-					
-										function refreshCharCount(el) {
-											var result = true;
-					
-											var message = $('commentContent').value;
-											if (message.length > 1000) {
-												$('commentContent').value = message.substring(0,
-														1000);
-												alert('답변내용은 최대 1,000자 이하로 입력해 주세요.');
-												result = false;
-											}
-											$Element('_char_count_span').text(
-													$('commentContent').value.length);
-					
-											return result;
-										}
-									</script>
+<!-- 									
 					
 					
 								</div>
@@ -1133,78 +526,57 @@ function setAnswerFormData(selectedRow) {
   document.getElementById("one_board_num").value = oneBoardNum;
 }
 
-function handleClick(event) {
-  let clickedElement = event.target;
-
-  // 클릭 된 요소에서 상위 요소로 이동하면서 data-row 클래스를 가진 요소를 찾습니다.
-  while (clickedElement) {
-    if (clickedElement.classList.contains("data-row")) {
-      setAnswerFormData(clickedElement);
-      break;
-    }
-    clickedElement = clickedElement.parentElement;
-  }
-}
-
-document.addEventListener("click", handleClick);
-
-function filterTable() {
-	var treatmentStatus = $('#sel_choice').val();
-	var inquiryType = $('#sel_choice2').val();
-
-	$('tbody tr.data-row').each(function() {
-		var statusMatch = treatmentStatus === "" || $(this).find('td:eq(1)').text().trim() === treatmentStatus;
-		var typeMatch = inquiryType === "" || $(this).find('td:eq(2)').text().trim() === inquiryType;
-
-		if (statusMatch && typeMatch) {
-			$(this).show();
-		} else {
-			$(this).hide();
-		}
+$(document).ready(function () {
+	  searchFormSubmit();
+	  $('#search-btn').on('click', searchFormSubmit); // 검색 버튼의 ID가 'search-btn'인 경우
 	});
-}
 
-function filterTable() {
-	  var treatmentStatus = $('#sel_choice').val();
-	  var inquiryType = $('#sel_choice2').val();
 
-	  $('tbody tr.data-row').each(function() {
-	    var statusMatch =
-	      treatmentStatus === '' ||
-	      (treatmentStatus === '답변완료' &&
-	        $(this)
-	          .find('td:eq(1)')
-	          .text()
-	          .trim() === '답변완료') ||
-	      (treatmentStatus === '미답변' &&
-	        $(this)
-	          .find('td:eq(1)')
-	          .text()
-	          .trim() === '미답변');
+	  
 
-	    var typeMatch =
-	      inquiryType === '' ||
-	      $(this)
-	        .find('td:eq(2)')
-	        .text()
-	        .trim() === inquiryType;
+function searchFormSubmit(event) {
+	  if (event) {
+	    event.preventDefault();
+	  }
 
-	    if (statusMatch && typeMatch) {
-	      $(this).show();
+	  // 폼 데이터를 가져옵니다.
+	  var treatmentStatus = document.querySelector("#sel_choice").value;
+	  var inquiryType = document.querySelector("#sel_choice2").value;
+	  var searchType = document.querySelector("#sel_choice3").value;
+	  var queryText = document.querySelector("input[name='queryText']").value;
+
+	  // 콘솔에 결과를 출력합니다.
+	  console.log("처리상태:", treatmentStatus);
+	  console.log("문의유형:", inquiryType);
+	  console.log("상세검색:", searchType);
+	  console.log("검색어:", queryText);
+
+	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
+	  $("tbody tr.data-row").each(function () {
+	    var $row = $(this);
+	    var one_board_repYn = $row.find("td").eq(1).text();
+
+	    // 필요한 경우 다른 칼럼에 대한 변수를 추가합니다.
+	    var one_board_inquiryType = $row.find("td").eq(2).text(); // 아래 추가된 if 조건에 맞게 수정
+	    
+	    var match_treatmentStatus = treatmentStatus === one_board_repYn || treatmentStatus === "all";
+	    var match_inquiryType = inquiryType === one_board_inquiryType || inquiryType === "all";
+	    // 필요한 경우 다른 조건을 추가합니다.
+
+	    if (
+	      match_treatmentStatus &&
+	      match_inquiryType // &&
+	      // 필요한 경우 다른 조건을 추가합니다.
+	    ) {
+	      $row.show();
 	    } else {
-	      $(this).hide();
+	      $row.hide();
 	    }
 	  });
 	}
 
-  // 검색 버튼에 클릭 이벤트를 연결합니다.
-  $(document).ready(function() {
-  $('#search-btn').on('click', function() {
-    filterTable();
-  });
-});
-  
-  
+//실제 데이터 처리 및 필터링 코드를 작성합니다.
+
 
 </script>
 

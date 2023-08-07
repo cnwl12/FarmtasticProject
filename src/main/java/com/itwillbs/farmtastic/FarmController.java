@@ -764,7 +764,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}// idCheck 끝
 
 //	 @RequestMapping(value = "/oneboard", method = RequestMethod.GET)
-//	    public String oneBoard(Model model) {
+//	    public String oneBoardmypage(HttpServletRequest request) {
 //	        List<MemberDTO> oneBoardList = memberService.getOneBoardList();
 //	        model.addAttribute("oneBoardList", oneBoardList);
 //

@@ -322,7 +322,101 @@
 			<div id="menu4_cont">
 			<h4>1:1문의</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
+			 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
 			</div>
+			<table class="table">
+						                <thead>
+						                    <tr>
+						                        <th>답변상태</th>
+						                        <th>문의유형</th>
+						                        <th>제목</th>
+						                        <th>작성자</th>
+						                        <th>작성일</th>
+						                    </tr>
+						                 </thead>
+						                 <tbody id="inquiryList">
+						                    <!-- 여기에 문의 내용이 추가됩니다. -->
+						                    <c:forEach var="row" items="${oneBoardList}">
+								                    <tr class="boardTitle">
+								                        <td>${row.one_board_repYn}</td>
+								                        <td>${row.one_board_type}</td>
+								                        <td>${row.one_board_title}</td>
+								                        <td>${row.member_name}</td>
+								                        <td>${row.one_board_day}</td>
+								                    </tr>
+								                    
+								                    <c:choose>
+													   <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
+														    <tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+														        <td colspan="5">
+														            비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+														            <button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+														        </td>
+														    </tr>
+														    <!-- 비밀번호 확인 후 나타납니다. -->
+														    <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+														        <!-- 여기에 공개 글일 때 나오는 질문 파트 -->
+														        <td colspan="5">
+															      <div class="image">
+															        <strong>Q:</strong>
+															        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+															          <img src="${row.one_board_file}" />
+															        </c:if>
+															        <div class="content">
+															          ${row.one_board_content}
+															        </div>
+															      </div>
+															    </td>
+														    </tr>
+														    <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+														        <!-- 여기에 공개 글일 때 나오는 답변 파트 -->
+														        <td colspan="5">
+															      <div class="content">
+															        <strong>A:</strong>
+															        <c:if test="${row.one_board_reply != null}">
+															         	${row.one_board_reply}
+															        </c:if>
+															      </div>
+															    </td>
+														    </tr>
+														</c:when>
+													    <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+													        <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+													            <td colspan="5">
+													                비공개된 게시글입니다.
+													            </td>
+													        </tr>
+													    </c:when>
+													<c:otherwise>
+													  <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+													    <td colspan="5">
+													      <div class="image">
+													        <strong>Q:</strong>
+													        <c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+													          <img src="${row.one_board_file}" />
+													        </c:if>
+													        <div class="content">
+													          ${row.one_board_content}
+													        </div>
+													      </div>
+													    </td>
+													  </tr>
+													  <tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+													    <td colspan="5">
+													      <div class="content">
+													        <strong>A:</strong>
+													        <c:if test="${row.one_board_reply != null}">
+													         	${row.one_board_reply}
+													        </c:if>
+													      </div>
+													    </td>
+													  </tr>
+													</c:otherwise>
+					                    </c:choose>
+								</c:forEach>
+
+			                 </tbody>
+			            	 </table>
 		  	
 		  	
 		  </div>	
@@ -332,7 +426,6 @@
 
        
             </div>
-       </div>
      </section>
 
 
