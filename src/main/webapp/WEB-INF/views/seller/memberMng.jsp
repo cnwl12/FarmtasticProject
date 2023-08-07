@@ -11,7 +11,11 @@
     <meta name="author" content="">
 
     <title>seller/memberMng</title>
-
+	
+	<!-- 달력 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+   
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -81,49 +85,26 @@
                                                             <div class="btn-group"
                                                                 ng-class="::{'fix-width-col-4' : vm.dateMarkupOption.buttonFixWidth}"
                                                                 ng-attr-data-nclicks-code="{{::vm.nclicksCodeRangeButton}}">
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">오늘</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">1주일</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">1개월</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">3개월</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">6개월</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2 active"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">1년</button>
-                                                                <!---->
-                                                                <button type="button" class="btn btn-primary2"
-                                                                    ng-repeat="option in vm.dateRangeOption.periods"
-                                                                    ng-click="vm.onClickRangeButton($index)"
-                                                                    ng-disabled="vm.dateDisabled"
-                                                                    ng-class="{ active: option.active }">전체</button>
-                                                                <!---->
-                                                            </div>
+																<div class="form-group" ng-if="vm.dateRangeUsable">
+																	<div class="btn-toolbar">
+																		<div class="btn-group">
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setToday()">오늘</button>
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setLastNDays(7)">1주일</button>
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setLastMonth()">1개월</button>
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setLastMonths(3)">3개월</button>
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setLastMonths(6)">6개월</button>
+																			<button type="button" class="btn btn-primary2"
+																				ng-click="vm.setLastYear()">1년</button>
+																		</div>
+																	</div>
+																</div>
+
+															</div>
                                                         </div>
                                                     </div>
                                                     <!---->

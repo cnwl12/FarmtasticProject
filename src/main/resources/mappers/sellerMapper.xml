@@ -357,15 +357,25 @@
      
   	</select> 
   	
-	<select id="MemberMngjoin" resultType="map">
-SELECT o.order_num, o.item_num, o.order_day, i.item_name, i.seller_num, s.seller_name
-FROM orders o
-INNER JOIN item i ON o.item_num = i.item_num
-INNER JOIN seller s ON i.seller_num = s.seller_num
-WHERE o.item_num = #{itemNum} AND i.seller_num = #{sellerNum} AND o.order_day = #{orderDay};
+<select id="MemberMngjoin" resultType="Map">
+	SELECT
+		m.member_id AS member_id,
+		i.seller_num AS seller_num,
+		o.order_pay AS order_pay,
+		o.order_day AS order_day,
+		o.item_cnt AS item_cnt,
+		p.pay_pay AS pay_pay,
+		p.pay_day AS pay_day
+	FROM order_detail o
+		INNER JOIN item i ON o.item_num = i.item_num
+		INNER JOIN member m ON o.member_num = m.member_num
+		INNER JOIN pay p ON o.order_num = p.order_num
+	WHERE
+		o.order_day BETWEEN #{start_date} AND #{end_date}
+</select>
 
 
-	</select>
+
 	
 	<!-- 서영 문의글관리 -->
 	 <!-- 서영 판매자 문의관리 -->
