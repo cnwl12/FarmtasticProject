@@ -332,6 +332,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("oneBoardList2", oneBoardList2);
 		return "/member/mypage";
 	}
+	
+	@RequestMapping(value="/searchId", method = RequestMethod.GET)
+	public String searchId(Locale locale, Model model) {
+		
+		System.out.println("searchId 매핑확인여부");
+		
+		return "/member/searchId";
+	}
 
 	/* 택배구현중 */
 	@GetMapping
