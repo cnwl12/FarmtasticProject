@@ -297,7 +297,7 @@ WHERE member_num = #{member_num};
   <delete id="deleteAllCart">
   	DELETE
   	FROM cart
-	member_num = #{member_num};  
+	WHERE member_num = #{member_num};  
   </delete>
   
    <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">

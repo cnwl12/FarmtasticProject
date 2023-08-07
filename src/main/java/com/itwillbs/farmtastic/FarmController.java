@@ -532,12 +532,18 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String shopingCart(Model model, HttpSession session) {
 
 		System.out.println("shoppingCart 매핑확인여부");
-
+		
 		// 나중에 변경할거임...
-		int member_num = (int)session.getAttribute("member_num");
+		// int member_num = (int)session.getAttribute("member_num");
+		Integer member_num = (Integer) session.getAttribute("member_num");
 		// String member_num = (String)session.getAttribute("member_num");
 		// int member_num = 16; // <- 로그인 됐을 때 지울거임
 		session.setAttribute("member_num", member_num);
+		
+		if(member_num ==null) {
+			model.addAttribute("msg", "로그인 이후 사용가능합니다.");
+			return "redirect:/login";
+		}
 		 
 		System.out.println(member_num);
 
@@ -641,14 +647,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		int member_num = (int)session.getAttribute("member_num");
 		//int member_num = 16; // <- 로그인 됐을 때 지울거임
 //		System.out.println(member_num + ", "+ orderDetail);
-
+		//session.setAttribute("member_num", member_num);
 		orderDetail.put("member_num", member_num);
 
 		memberService.insertOrderDetail(orderDetail);
 		System.out.println("인서트 다녀왔음!");
 		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
-		memberService.deleteCart(orderDetail);
+		memberService.deleteAllCart(orderDetail);
 		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
 		return "redirect:/farmStore";
 	}
@@ -662,7 +668,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		cart.put("member_num", member_num);
 
 		System.out.println("deleteCart 컨트롤러 오는지");
-		memberService.deleteAllCart(cart);
+		memberService.deleteCart(cart);
 
 		return "redirect:/shoppingCart";
 	}

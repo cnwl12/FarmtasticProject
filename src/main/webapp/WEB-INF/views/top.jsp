@@ -66,7 +66,7 @@
                             <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
 							<li><a href="shoppingCart">
 								 <c:choose>
-										<c:when test="${empty sessionScope.item_count}">
+											<c:when test="${empty sessionScope.item_count} && ${empty sessionScope.member_num}">
 											<!-- 장바구니가 비었을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
 										</c:when>
@@ -74,7 +74,7 @@
 											<!-- 장바구니에 있을 경우 -->
 											<i class="fa fa-shopping-bag"></i>
 											<span>${sessionScope.item_count}</span>
-										</c:otherwise>
+										</c:otherwise>	
 									</c:choose>
 							</a></li>
 						</ul>

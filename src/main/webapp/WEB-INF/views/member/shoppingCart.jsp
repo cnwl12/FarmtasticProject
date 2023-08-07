@@ -193,7 +193,7 @@
                         </ul>
                     </div>
       <!--                    <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT"> -->
-                        <a href="checkout" class="primary-btn">PROCEED TO CHECKOUT</a>	
+                        <a href="checkout" class="primary-btn">주문하기</a>	
                        <!--   <input type="button" onclick="insertOrderDetail()" class="primary-btn" value="PROCEED TO CHECKOUT"> -->
                 </div>
              </div>
