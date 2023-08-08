@@ -299,8 +299,8 @@
                  class="parcel-img"/>
             <div class="info-parcel-text-active">배송완료</div>
         </div>
-    </div>
- --%>
+    </div> --%>
+
 
     <div class="title-content">
         <div class="title-notice">운송장 번호</div>

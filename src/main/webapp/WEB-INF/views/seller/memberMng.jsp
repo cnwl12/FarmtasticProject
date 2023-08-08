@@ -11,7 +11,11 @@
     <meta name="author" content="">
 
     <title>seller/memberMng</title>
-
+	
+	
+	
+	
+	
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -67,35 +71,9 @@
                                         <div class="input-content">
                                                 <div class="form-inline narrow-area"
                                                     ng-class="{'has-error-msg': (vm.searchForm.fromDate.$invalid || vm.searchForm.toDate.$invalid)}">
-                                                    <!--달력들어가는곳start-->
-                                                    <div class="form-group">
-                                                        <label>From Date:</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control datepicker" name="fromDate" id="fromDate" autocomplete="off">
-                                                            <div class="input-group-addon datepicker-icon">
-                                                                <i class="fas fa-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>To Date:</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control datepicker" name="toDate" id="toDate" autocomplete="off">
-                                                            <div class="input-group-addon datepicker-icon">
-                                                                <i class="fas fa-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <script>
-                                                        $(document).ready(function() {
-                                                            $('.datepicker').datepicker({
-                                                                format: 'yyyy-mm-dd',
-                                                                autoclose: true,
-                                                                todayHighlight: true
-                                                            });
-                                                        });
-                                                    </script>
-                                                    <!--달력들어가는곳end-->
+													<!--달력들어가는곳start-->
+												
+													<!--달력들어가는곳end-->
                                                 </div>
                                             </div></li>
                                     </ul>
