@@ -193,7 +193,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
                         
                         <ul>
-                            <li><b>Seller</b> <span>${item. }</span></li>
+                            <%-- <li><b>Seller</b> <span>${item.seller_type}</span></li> --%>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Weight</b> <span>0.5 kg</span></li>
