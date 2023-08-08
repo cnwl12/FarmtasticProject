@@ -30,15 +30,8 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+  
+   
 <style>
  
 .fa-star-half-o:before {
@@ -731,6 +724,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	
 </body>

@@ -3,10 +3,7 @@ package com.itwillbs.farmtastic;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -24,15 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.service.SellerService;
@@ -254,12 +248,15 @@ public class SellerController {
 	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
 	public String itemInsert(Model model, HttpSession session) {
 		
+		String seller_num = (String) session.getAttribute("seller_num");
+		session.setAttribute("seller_num", seller_num);
+		
 		// 삭제예정 
-		String seller_num = "TA002";
+		//String seller_num = "TA002";
 		
-		System.out.println("셀러고유번호 확인 : "+seller_num);
+		// System.out.println("셀러고유번호 확인 : "+seller_num);
 		
-		System.out.println("itemRegister 매핑확인여부");
+		//System.out.println("itemRegister 매핑확인여부");
 		
 		return "/seller/itemRegister";
 	}
@@ -306,7 +303,10 @@ public class SellerController {
         }
 		
 		// 삭제예정 
-		String seller_num = "TA002";
+		String seller_num = (String) session.getAttribute("seller_num");
+		session.setAttribute("seller_num", seller_num);
+		
+		//String seller_num = "TA002";
 		
 		itemList.put("seller_num", seller_num);
 		
@@ -319,9 +319,11 @@ public class SellerController {
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 	public String itemMng(Model model, HttpSession session) {
 	    // 삭제예정 
-	    String seller_num = "TA002";
+	    // String seller_num = "TA002";
+		String seller_num = (String) session.getAttribute("seller_num");
+		session.setAttribute("seller_num", seller_num);
 	    
-	    session.setAttribute("seller_num", seller_num);
+	    // session.setAttribute("seller_num", seller_num);
 	    System.out.println("itemInsertList 매핑확인여부");
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
@@ -336,10 +338,11 @@ public class SellerController {
 	@RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
 	public String updateStatus(@RequestParam HashMap<String, String> status, HttpSession session){
 		
-		String seller_num = "TA002";
-		
+		// String seller_num = "TA002";
+		String seller_num = (String) session.getAttribute("seller_num");
+		session.setAttribute("seller_num", seller_num);
 		status.put("seller_num", seller_num);
-		System.out.println("updateStatus까지 오는지"+ seller_num);
+		// System.out.println("updateStatus까지 오는지"+ seller_num);
 		sellerService.updateStatus(status);
 		
 		
@@ -348,12 +351,14 @@ public class SellerController {
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
-	public String itemUpdate(@RequestParam("item_num") int item_num, Model model) {
+	public String itemUpdate(@RequestParam("item_num") int item_num, Model model, HttpSession session) {
 		
 		 System.out.println("itemUpdate 매핑확인여부");
 		
 		 // 삭제예정 
-		 String seller_num = "TA002";
+		 // String seller_num = "TA002";
+		String seller_num = (String) session.getAttribute("seller_num");
+		session.setAttribute("seller_num", seller_num);
 		 
 		 // item.put("seller_num", seller_num);
 		 
@@ -401,8 +406,10 @@ public class SellerController {
                 }
 			}
             // 삭제예정 
-            String seller_num = "TA002";
-			itemList.put("seller_num", seller_num);
+           // String seller_num = "TA002";
+			String seller_num = (String) session.getAttribute("seller_num");
+			session.setAttribute("seller_num", seller_num);
+		 	itemList.put("seller_num", seller_num);
 			//itemList.put("item_num", item_num);
             
 			sellerService.itemUpdate(itemList, files, session);

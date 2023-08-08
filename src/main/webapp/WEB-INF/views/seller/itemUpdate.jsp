@@ -4,14 +4,26 @@
 <html>
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 
 <title>seller/itemRegister</title>
+
+		<!-- Bootstrap core JavaScript-->
+		<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Core plugin JavaScript-->
+		<script	src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script	src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
+
+		<!-- Page level plugins -->
+		<script	src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+		<script	src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+		<!-- Page level custom scripts -->
+		<script	src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+
 
 <!-- Custom fonts for this template -->
 <link
@@ -45,6 +57,33 @@ body {
 	font-size: 1rem !important;
 }
 </style>
+
+<script>
+    window.onload = function() {
+        // 이전에 선택된 값을 가져오기
+        var previousSellerType = "${item.seller_type}";
+        var previoussalesStatus = "${item.item_salesStatus}";
+        // select 요소 가져오기
+        var selectElement = document.getElementById("seller_type");
+        var selectElementS = document.getElementById("item_salesStatus");
+        
+        // 셀러타입(셀렉트박스)
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value === previousSellerType) {
+                selectElement.options[i].selected = true;
+                break;
+            }
+        }
+        // 판매상태(셀렉트박스)
+        for (var i = 0; i < selectElementS.options.length; i++) {
+            if (selectElementS.options[i].value === previoussalesStatus) {
+            	selectElementS.options[i].selected = true;
+                break;
+            }
+        }
+    };
+</script>
+
 
 </head>
 
@@ -86,7 +125,6 @@ body {
 										<div class="input-content">
 											<!-- 셀렉트박스로 바꿀 예정 -->
 											<select name="seller_type" id="seller_type">
-												<option value="">${item.seller_type}</option>
 												<option value="">카테고리를 선택해주세요</option>
 												<option value="FR">사과</option>
 												<option value="PE">배</option>
@@ -315,37 +353,6 @@ body {
 				</div>
 			</div>
 		</footer>
-		<!-- End of Footer -->
-
-		<!-- End of Content Wrapper -->
-
-		<!-- End of Page Wrapper -->
-
-
-
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-		<!-- Core plugin JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-		<!-- Custom scripts for all pages-->
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
-
-		<!-- Page level plugins -->
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-		<!-- Page level custom scripts -->
-		<script
-			src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>
