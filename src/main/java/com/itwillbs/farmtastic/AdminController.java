@@ -421,6 +421,16 @@ public class AdminController {
 
 	    return result;
 	}
+	@RequestMapping(value = "/totalSales", method = RequestMethod.GET)
+	public String totalSales(Locale locale, Model model) {
+	    System.out.println("totalSales 매핑확인여부");
+
+	    List<Map<String, Object>> resultList = sellerService.totalSales();
+	    model.addAttribute("sellers", resultList);
+
+
+	    return "/admin/sellerMenu/totalSales";
+	}
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");

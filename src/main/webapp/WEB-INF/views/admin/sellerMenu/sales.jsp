@@ -108,7 +108,7 @@
                                  
                                     <thead>
                                         
-                                        <tr style="background-color: #edf1f5;">
+                                        <tr style="background-color: #edf1f5;" >
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
