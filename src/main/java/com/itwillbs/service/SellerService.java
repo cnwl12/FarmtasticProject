@@ -72,6 +72,13 @@ public class SellerService {
 			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
+		// 선진) 매출관리 - 일자별 매출 리스트
+		public List<Map<String,Object>> getDailySalesList(String seller_num) {
+			System.out.println("SellerService의 getDailySalesList 매핑완");
+			return sellerDAO.getDailySalesList(seller_num);
+		}
+		
+		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 

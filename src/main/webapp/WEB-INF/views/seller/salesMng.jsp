@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -309,8 +311,44 @@
 					</div>
 					<!-- 검색바 끝 -->
 					
-					<!-- 발생한 매출 목록 시작 -->
-					<!-- 발생한 매출 목록 끝 -->
+					<!-- 일별 매출 목록 시작 -->
+					<div class="table-responsive">
+					
+						<table class="table table-bordered" id="dataTable2">
+							<thead>
+								<tr style="background-color: #edf1f5;" >
+									<th>주문번호</th>
+									<th>상품번호</th>
+									<th>상품타입</th>
+									<th>상품명</th>
+									<th>주문수량</th>
+									<th>상품가격</th>
+									<th>매출액</th>
+									<th>수수료</th>
+									<th>정산액</th>
+									<th>주문일자</th>
+								</tr>
+							</thead>
+							<tbody id="getDailySalesList">
+								<c:forEach items="${DailySalesList}" var="list">
+								<input type="hidden" name="seller_num" value="${seller_num}">
+										<tr>
+										<td>${list.order_num}</td>
+										<td>${list.item_num}</td>
+										<td>${list.seller_type}</td>
+										<td>${list.item_name}</td>
+										<td>${list.item_cnt}</td>
+										<td>${list.item_price}</td>
+										<td><fmt:formatNumber value="${list.dailySales}" pattern="0"/></td>
+										<td><fmt:formatNumber value="${list.dailyFee}" pattern="0"/></td>
+										<td><fmt:formatNumber value="${list.dailySettlement}" pattern="0"/></td>
+										<td>${list.order_day}</td>
+										</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<!-- 일별 매출 목록 끝 -->
 
 				</div>
 				<!-- 페이지 컨텐츠 끝 -->

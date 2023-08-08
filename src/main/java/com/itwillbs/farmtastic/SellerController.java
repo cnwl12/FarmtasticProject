@@ -168,9 +168,9 @@ public class SellerController {
 	
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
-
 	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
-		 
+		System.out.println("SellerController의 salesMng 매핑완");
+		
 	    if (session.getAttribute("seller_num") == null) {
 	        
 	    	model.addAttribute("error", "접근위반 로그인하고와라.");
@@ -181,12 +181,20 @@ public class SellerController {
 	    String seller_num = (String) session.getAttribute("seller_num");
 		String seller_id = sellerService.idCheck(seller_num);
 		model.addAttribute("seller_id", seller_id);	
-		System.out.println("SellerController의 salesMng 매핑완");
+
 		List<Map<String,Object>> DailySales = sellerService.getDailySales(seller_num);
 		List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales(seller_num);
 		
 	    model.addAttribute("DailySales", DailySales);
 	    model.addAttribute("MonthlySales", MonthlySales);
+	    
+	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
+	    model.addAttribute("DailySalesList", DailySalesList);
+	    
+	    
+	    
+	    
+	    
 		return "/seller/salesMng";
 	    }
 	}
