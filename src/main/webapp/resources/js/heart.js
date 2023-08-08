@@ -32,7 +32,7 @@ $(function() {
         console.log("Request: ", request);
         console.log("찜 목록 가져오기에 실패했습니다.");
       },
-    });
+    }); 
   }
 });
 
