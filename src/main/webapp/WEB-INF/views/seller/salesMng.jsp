@@ -70,30 +70,31 @@
 										<input type="radio">이번달 일자별 매출
 									</label>
 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer">
-										<input type="radio">최근 6개월매출
+										<input type="radio">최근 12개월 매출
 									</label> 
 									<label class="btn btn-default active" ng-class="{active: vm.currentChartIndex === 2}" ng-click="vm.showChart(2)" data-nclicks-code="sales.price">
 										<input type="radio">미정
 									</label>
 								</div>
-
-					<!-- 매출통계그래프 -->
+							</div>
+						</div>
+					</div>	
 					
-					<!-- 월별 매출 테이블 시작 -->
 				    <!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
-					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-					
-					<div>
-					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
-					</div>
-
-					
-					<!-- 매출 그래프를 표시할 캔버스 요소 -->
-					<div>
-					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
-					</div>
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+					
+					<!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->					
+					<div>
+					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
+					</div>
+					
+					<div>
+					  <canvas id="getMonthlySalesChart" width="1000" height="200"></canvas>
+					</div>
+					
+					<!-- 선진) 해당 월의 일자별 매출 차트 -->
+					<div>
 					<script>
 					  // 차트를 그리기 위한 함수
 					  function drawDailySalesChart(data) {
@@ -153,10 +154,70 @@
 					    });
 					  }
 					</script>
-							</div>
-						</div>
-					</div>				
-					<!-- 월별 매출 테이블 끝 -->
+					</div>
+					<!-- 선진) 최근 12개월의 월별 매출 차트 -->
+					<div>
+					<script>
+					  // 차트를 그리기 위한 함수
+					  function drawMonthlySalesChart(data) {
+					    const labels = data.map(item => item.order_mm);
+					    const sales = data.map(item => item.order_mm_totalSales);
+					
+					    const ctx = document.getElementById('getMonthlySalesChart').getContext('2d');
+					    const myChart = new Chart(ctx, {
+					      type: 'line',
+					      data: {
+					        labels: labels,
+					        datasets: [{
+					          label: '매출',
+					          data: sales,
+					          borderColor: 'rgba(75, 192, 192, 1)',
+					          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					          borderWidth: 1
+					        }]
+					      },
+					      options: {
+					        scales: {
+					          x: {
+					            title: {
+					              display: true,
+					              text: '날짜'
+					            }
+					          },
+					          y: { beginAtZero: true, title: { display: true, text: '매출' },
+					            gridLines:{
+									color: 'rgba(166, 201, 226, 1)',
+									lineWidth:3
+								}
+					          }
+					        }
+					      }
+					    });
+					  }
+					
+					  // 페이지 로딩 시 매출 데이터 가져와서 차트 그리기
+					  $(document).ready(function() { 
+					    ajaxMonthlySales();
+					  });
+					
+					  // 매출 데이터를 가져오는 함수
+					  function ajaxDailySales() {
+					    $.ajax({
+					      url: '${pageContext.request.contextPath}/chartMonthlySales',
+					      type: 'get',
+					      dataType: 'json',
+					      success: function(result) {
+					        console.log(result);
+					        drawMonthlySalesChart(result);
+					      },
+					      error: function() {
+					        alert('매출 데이터를 가져오는데 실패했습니다.');
+					      }
+					    });
+					  }
+					</script>
+					</div>			
+					<!-- 매출통계그래프 끝 -->
 					
 					
 					

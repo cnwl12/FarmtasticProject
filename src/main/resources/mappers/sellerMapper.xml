@@ -139,7 +139,7 @@
   	where seller_num = #{seller_num}
     </update>
     
-   <!-- 선진) 차트1 -->
+   <!-- 선진) 해당 월의 일자별 매출 차트 -->
    <select id="getDailySales" resultType="map">
    <![CDATA[
 	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
@@ -159,6 +159,31 @@
 	ORDER BY date_range.order_mmdd;
 	]]>
    </select>
+
+   <!-- 선진) 최근 12개월의 월별 매출 차트 -->
+   <select id="getMonthlySales" resultType="map">
+	SELECT q1.order_mm, COALESCE(q2.order_mm_totalSales, 0) AS order_mm_totalSales
+	FROM(SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 11 MONTH), '%Y-%m') AS order_mm
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 10 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 9 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 8 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 7 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 6 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 5 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 4 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 3 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 2 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 1 MONTH), '%Y-%m')
+		UNION ALL SELECT DATE_FORMAT(NOW(), '%Y-%m')) q1 LEFT JOIN (SELECT DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS order_mm,
+																			SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS order_mm_totalSales
+																	FROM order_detail od
+																	JOIN item it ON od.item_num = it.item_num
+																	WHERE od.item_num IN (SELECT item_num
+																							FROM item
+																							WHERE seller_num = 'CR0001')) q2 ON q1.order_mm = q2.order_mm
+	ORDER BY q1.order_mm; 
+   </select>
+
 
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">

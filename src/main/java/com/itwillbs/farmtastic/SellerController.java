@@ -181,12 +181,15 @@ public class SellerController {
 		model.addAttribute("seller_id", seller_id);	
 		System.out.println("SellerController의 salesMng 매핑완");
 		List<Map<String,Object>> DailySales = sellerService.getDailySales();
+		List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales();
+		
 	    model.addAttribute("DailySales", DailySales);
+	    model.addAttribute("MonthlySales", MonthlySales);
 		return "/seller/salesMng";
 	    }
 	}
-
-	// 선진) 제이슨데이터로 변환
+	
+	// 선진) 일자별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)
 	public ResponseEntity<List<Map<String,Object>>> chartDailySales(){
 		
@@ -195,6 +198,18 @@ public class SellerController {
 		ResponseEntity<List<Map<String,Object>>> entityDailySales = new ResponseEntity<List<Map<String,Object>>>(jsonDailySales, HttpStatus.OK);
 		return entityDailySales;
 	}
+	
+	// 선진) 월별 매출 제이슨데이터로 변환
+	@RequestMapping(value = "/chartMonthlySales", method = RequestMethod.GET)
+	public ResponseEntity<List<Map<String,Object>>> chartMonthlySales(){
+		
+		List<Map<String,Object>> jsonMonthlySales = sellerService.getMonthlySales();
+		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<List<Map<String,Object>>> entityMonthlySales = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlySales, HttpStatus.OK);
+		return entityMonthlySales;
+	}
+	
+	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
