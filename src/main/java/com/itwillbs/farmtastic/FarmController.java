@@ -1008,6 +1008,18 @@ public class FarmController { // 소비자 (컨트롤러)
 	    
 	    return response;
 	}
+	
+	@RequestMapping(value = "/selectWishlistget2", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<WishlistDTO>> fetchWishlist2(WishlistDTO wishlistDTO, @RequestParam("member_num") Integer member_num) {
+	    Map<String, List<WishlistDTO>> response = new HashMap<>();
+	    
+	    List<WishlistDTO> wishList = memberService.selectWishlistget(member_num);
+	    
+	    response.put("wishList", wishList);
+	    
+	    return response;
+	}
 
 
 	@RequestMapping(value = "/like_farm", method = RequestMethod.GET)
@@ -1015,5 +1027,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("WLarkqhwkdk");
 		return "/member/oneboard";
 	}
+	
 
 }
