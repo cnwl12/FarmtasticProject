@@ -266,11 +266,13 @@ public class SellerController {
 	}
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
-	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
+	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
 		if (session.getAttribute("seller_num") == null) {
-	        // 세션에 로그인 정보가 없는 경우
-	        return "redirect:/login"; // 로그인 페이지로 이동
+			
+			// 세션에 로그인 정보가 없는 경우
+			sendResponse(response, "접근위반 로그인하고와라.");
+			return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
 		System.out.println("questionMng 매핑확인여부");
@@ -278,8 +280,7 @@ public class SellerController {
 	        List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
 
 	        model.addAttribute("oneboard", oneboard);
-	        
-		    String seller_id = sellerService.idCheck(seller_num);
+	        String seller_id = sellerService.idCheck(seller_num);
 		    model.addAttribute("seller_id", seller_id);
 		return "/seller/questionMng";
 	    }
@@ -315,20 +316,16 @@ public class SellerController {
 	
 	// 상품등록 
 	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
-	public String itemInsert(Model model, HttpSession session) {
+	public String itemInsert(Model model, HttpSession session, HttpServletResponse response) {
 		
-<<<<<<< HEAD
-=======
-		String seller_num = (String) session.getAttribute("seller_num");
-		session.setAttribute("seller_num", seller_num);
+
 		
 		// 삭제예정 
 		//String seller_num = "TA002";
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
-		
-<<<<<<< HEAD
+
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
+			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
@@ -337,9 +334,9 @@ public class SellerController {
 	    model.addAttribute("seller_id", seller_id);
 	    
 		System.out.println("셀러고유번호 확인 : "+seller_num);
-=======
+
 		// System.out.println("셀러고유번호 확인 : "+seller_num);
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 		
 		//System.out.println("itemRegister 매핑확인여부");
 		
@@ -351,10 +348,6 @@ public class SellerController {
 	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
 			@RequestParam("file") List<MultipartFile> files,
 			HttpSession session)throws Exception {
-
-		
-		
-		
 
 			// 첨부파일 올라갈 물리적 경로 
 			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
@@ -383,7 +376,7 @@ public class SellerController {
 					File dest = new File(filePath);
 					file.transferTo(dest);
 
-<<<<<<< HEAD
+
 					// 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
 					// 사진 정보의 경로를 저장
 					itemList.put("item_mainImg", saveFileName);
@@ -402,28 +395,17 @@ public class SellerController {
 			return "redirect:/itemMng";
 		}
 	
-=======
+
                 // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
-        	}
-        }
+        
 		
-		// 삭제예정 
-		String seller_num = (String) session.getAttribute("seller_num");
-		session.setAttribute("seller_num", seller_num);
 		
-		//String seller_num = "TA002";
 		
-		itemList.put("seller_num", seller_num);
-		
-		sellerService.itemInsert(itemList, files, session);
-	    
-	    return "redirect:/itemMng";
-	}
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 	
 	// 상품관리 전체목록
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
-<<<<<<< HEAD
+
 	public String itemMng(Model model, HttpSession session, HttpServletResponse response) {
 	   
 		if (session.getAttribute("seller_num") == null) {
@@ -436,15 +418,13 @@ public class SellerController {
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    session.setAttribute("seller_num", seller_num);
-=======
-	public String itemMng(Model model, HttpSession session) {
+
 	    // 삭제예정 
 	    // String seller_num = "TA002";
-		String seller_num = (String) session.getAttribute("seller_num");
-		session.setAttribute("seller_num", seller_num);
+	   session.setAttribute("seller_num", seller_num);
 	    
 	    // session.setAttribute("seller_num", seller_num);
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 	    System.out.println("itemInsertList 매핑확인여부");
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
@@ -458,7 +438,7 @@ public class SellerController {
 	
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 	@RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
-<<<<<<< HEAD
+
 	public String updateStatus(@RequestParam HashMap<String, String> status, Model model,HttpServletResponse response
 			, HttpSession session){
 		if (session.getAttribute("seller_num") == null) {
@@ -467,51 +447,39 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		String seller_num = (String) session.getAttribute("seller_num");
-	
+		session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
-=======
-	public String updateStatus(@RequestParam HashMap<String, String> status, HttpSession session){
-		
+
 		// String seller_num = "TA002";
-		String seller_num = (String) session.getAttribute("seller_num");
-		session.setAttribute("seller_num", seller_num);
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+		
 		status.put("seller_num", seller_num);
 		// System.out.println("updateStatus까지 오는지"+ seller_num);
 		sellerService.updateStatus(status);
 		
-		
-	    return "redirect:/itemMng";
+		return "redirect:/itemMng";
 	    }
 	}
 	
 	// 판매 품목 수정 - 해쉬맵으로 수정할예정
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
-<<<<<<< HEAD
+
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
 			sendResponse(response, "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-=======
-	public String itemUpdate(@RequestParam("item_num") int item_num, Model model, HttpSession session) {
+
+	    System.out.println("itemUpdate 매핑확인여부");
 		
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
-		 System.out.println("itemUpdate 매핑확인여부");
-		
-<<<<<<< HEAD
+
 		 String seller_num = (String) session.getAttribute("seller_num");
 		 String seller_id = sellerService.idCheck(seller_num);
 		 model.addAttribute("seller_id", seller_id);
-=======
-		 // 삭제예정 
-		 // String seller_num = "TA002";
-		String seller_num = (String) session.getAttribute("seller_num");
-		session.setAttribute("seller_num", seller_num);
+         session.setAttribute("seller_num", seller_num);
 		 
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 		 // item.put("seller_num", seller_num);
 		 
 		 Map<String, Object> item = sellerService.getItem(item_num);
@@ -520,8 +488,8 @@ public class SellerController {
 		 model.addAttribute("item", item);
 	    
 	    return "/seller/itemUpdate";
-	   }
-	}
+	 }
+}
 	
 	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
@@ -559,17 +527,17 @@ public class SellerController {
                     itemList.put("item_mainImg", saveFileName);
                 }
 			}
-<<<<<<< HEAD
+
             
 			String seller_num = (String) session.getAttribute("seller_num");
 			itemList.put("seller_num", seller_num);
-=======
+
             // 삭제예정 
            // String seller_num = "TA002";
-			String seller_num = (String) session.getAttribute("seller_num");
+			
 			session.setAttribute("seller_num", seller_num);
 		 	itemList.put("seller_num", seller_num);
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
+
 			//itemList.put("item_num", item_num);
             
 			sellerService.itemUpdate(itemList, files, session);
