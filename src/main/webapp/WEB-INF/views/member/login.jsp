@@ -30,6 +30,15 @@
 <body>  
 <jsp:include page="../top.jsp"></jsp:include>
 
+
+<script>
+    let error = '<%=request.getParameter("error")%>';
+    if (error !== 'null' && error !== null && error !== undefined) {
+        alert(error);
+    }
+</script>
+
+
 <div id="ui-wrap"> 	 
 			<!-- ui-container -->
 			<div id="ui-container">

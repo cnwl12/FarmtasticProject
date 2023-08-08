@@ -48,14 +48,31 @@ public class SellerController {
 //		return "/seller/sellerMain";
 //	}
 
+	
+	
+//  // 응답메시지 전송
+//  private void sendResponse(HttpServletResponse response, String message) {
+//      try {
+//          response.setContentType("text/html;charset=UTF-8");
+//          PrintWriter out = response.getWriter();
+//          out.println("<script>");
+//          out.println("alert('" + message + "');");
+//          out.println("history.back();");
+//          out.println("</script>");
+//          out.close();
+//      } catch (IOException e) {
+//          e.printStackTrace();
+//      }
+//  }
+	
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String home(Locale locale, Model model, HttpSession session) throws IOException {
 
 	    System.out.println("sellerMain 매핑확인여부");
 	    	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-	    	sendResponse(response, "접근위반 로그인하고와라.");
+	    	model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -85,12 +102,12 @@ public class SellerController {
 		
 	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨->수정조금했습니다 성하->08.08추가
 	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
-	public String sellerMemb(Locale locale, Model model, HttpSession session, HttpServletResponse response) throws IOException {
+	public String sellerMemb(Locale locale, Model model, HttpSession session) throws IOException {
 
 	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-	    	sendResponse(response, "접근위반 로그인하고와라.");	
+	    	model.addAttribute("error", "접근위반 로그인하고와라.");	
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -150,13 +167,15 @@ public class SellerController {
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	
         
-	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
+	public String salesMng(Locale locale, HttpSession session,Model model) {
 		 
 	    if (session.getAttribute("seller_num") == null) {
 	        
-	    	sendResponse(response, "접근위반 로그인하고와라.");
+	    	model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
+	        
 	    } else {
+	    	
 	    String seller_num = (String) session.getAttribute("seller_num");
 		String seller_id = sellerService.idCheck(seller_num);
 		model.addAttribute("seller_id", seller_id);	
@@ -178,12 +197,12 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
-	public String memberMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
+	public String memberMng(Locale locale, HttpSession session, Model model) {
 	    
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -203,11 +222,11 @@ public class SellerController {
 	}
 	*/
 	@RequestMapping(value = "/itemDelMng", method = RequestMethod.GET)
-	public String itemDelMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
+	public String itemDelMng(Locale locale, HttpSession session, Model model) {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("itemDelMng 매핑확인여부");
@@ -224,6 +243,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("itemRetExcMng 매핑확인여부");
@@ -239,6 +259,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("reviewMng 매핑확인여부");
@@ -250,11 +271,12 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/settlementList", method = RequestMethod.GET)
-	public String settlementList(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
+	public String settlementList(Locale locale, HttpSession session, Model model) {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
+			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("settlementList 매핑확인여부");
@@ -266,12 +288,12 @@ public class SellerController {
 	}
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
-	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
 		
 		if (session.getAttribute("seller_num") == null) {
 			
 			// 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 			return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
@@ -316,7 +338,7 @@ public class SellerController {
 	
 	// 상품등록 
 	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
-	public String itemInsert(Model model, HttpSession session, HttpServletResponse response) {
+	public String itemInsert(Model model, HttpSession session) {
 		
 
 		
@@ -325,7 +347,7 @@ public class SellerController {
 
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
@@ -406,11 +428,11 @@ public class SellerController {
 	// 상품관리 전체목록
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 
-	public String itemMng(Model model, HttpSession session, HttpServletResponse response) {
+	public String itemMng(Model model, HttpSession session) {
 	   
 		if (session.getAttribute("seller_num") == null) {
 			// 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -439,11 +461,10 @@ public class SellerController {
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 	@RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
 
-	public String updateStatus(@RequestParam HashMap<String, String> status, Model model,HttpServletResponse response
-			, HttpSession session){
+	public String updateStatus(@RequestParam HashMap<String, String> status, Model model, HttpSession session){
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -467,10 +488,10 @@ public class SellerController {
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-
+   
 	    System.out.println("itemUpdate 매핑확인여부");
 		
 
@@ -573,50 +594,39 @@ public class SellerController {
 	// 판매자 로그인 처리
 	
     @RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
-    public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, HttpServletResponse response) {
+    public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, Model model) {
     	
     	
     	System.out.println("SellerController sellerloginPro()");
 
         SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
         
-        if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
+      
+		if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
             // 승인된 사용자
             session.setAttribute("seller_num", sellerDTO2.getSeller_num());
             return "redirect:/sellerMain";
         } else if (sellerDTO2 != null && !"Y".equals(sellerDTO2.getSeller_recoYn())) {
         	// 승인되지 않은 사용자
-            sendResponse(response, "승인되지 않은 사용자입니다.");
+        	model.addAttribute("error", "접근위반 로그인하고와라.");
             return "member/login";
         } else { 
         	// 아이디 또는 비밀번호가 틀린 경우 또는 예외 상황
-            sendResponse(response, "아이디 또는 비밀번호가 틀립니다.");
+        	model.addAttribute("error", "접근위반 로그인하고와라.");
             return "member/login";
         }
     }
        
-    // 응답메시지 전송
-    private void sendResponse(HttpServletResponse response, String message) {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>");
-            out.println("alert('" + message + "');");
-            out.println("history.back();");
-            out.println("</script>");
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 	
 	
 	/* 로그아웃 사업자*/
 	@RequestMapping(value = "/sellerlogout", method = RequestMethod.GET)
-	public String logout(HttpSession session,HttpServletResponse response) {
+	public String logout(HttpSession session,Model model) {
 		if (session.getAttribute("seller_num") == null) {
-	        // 세션에 로그인 정보가 없는 경우
-			sendResponse(response, "접근위반 로그인하고와라.");
+	        
+			// 세션에 로그인 정보가 없는 경우
+			model.addAttribute("error", "접근위반 로그인하고와라.");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		session.invalidate();
