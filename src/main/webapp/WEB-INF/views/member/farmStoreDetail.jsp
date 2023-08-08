@@ -30,15 +30,8 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+  
+   
 <style>
   .special-page .wishlist-btn {
     display: inline-block;
@@ -200,6 +193,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
                         
                         <ul>
+                            <li><b>Seller</b> <span>${item. }</span></li>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Weight</b> <span>0.5 kg</span></li>
@@ -665,7 +659,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
             });
         } else {
             // order_num이 null인 경우 사용자에게 알려줍니다.
-            alert("order_num을 찾을 수 없습니다. 다시 시도해주세요.");
+            alert("구매내역을 찾을 수 없습니다. 다시 시도해주세요.");
         }
     });
 });
@@ -740,6 +734,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	
 </body>

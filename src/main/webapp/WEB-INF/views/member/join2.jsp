@@ -324,18 +324,27 @@ button#submitBtn {
 								<li>
 									<label for="seller_type">사업자 분류</label>
 									<select name="seller_type" id="seller_type">
+										<option value="">카테고리를 선택해주세요</option>
 										<option value="FR">사과</option>
 										<option value="PE">배</option>
 										<option value="TA">감귤</option>
+										<option value="BA">바나나</option>
+										<option value="GR">포도</option>
+										<option value="PO">감자</option>
+										<option value="SW">고구마</option>
+										<option value="ON">양파</option>
+										<option value="CA">당근</option>
+										<option value="CB">양배추</option>
+										<option value="MU">버섯</option>
   									</select>
 								</li>
 							</ul>
 							
 								
 							
-							<div class="btn_zone">
-							<button type="button" id="goMain" class="bg_area btn_bg l2" style="color: #fff;" >처음으로</button>
-							<button type="button" id="submitBtn" class="bg_area btn_bg l1 md" style="color: #fff;">확인</button>
+							<div class="btn_zone"> 
+							<button type="button" id="goMain" class="site-btn">처음으로</button>
+							<button type="button" id="submitBtn" class="site-btn">가입</button>
 							</div>
  							
 							
