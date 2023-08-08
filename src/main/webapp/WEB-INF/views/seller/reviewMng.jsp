@@ -34,8 +34,6 @@
 	</style>
 
 	
-
-	
 </head>
 
 <body id="page-top">
@@ -65,8 +63,8 @@
 
 					<!-- 검색바(작성일, 타입, 카테고리, 조건, 상세검색) 시작 -->
 					<div class="seller-sub-content">
-					<div ui-view="search">
-						<form name="vm.searchForm" ng-submit="vm.func.search()" novalidate=""
+					<div id="search" >
+  						<form name="searchForm" onsubmit="event.preventDefault(); vm.func.search()" novalidate
 							class="ng-pristine ng-valid-date-time-input ng-invalid ng-invalid-required ng-valid-pattern ng-valid-max-size-by-split">
 							<div class="panel panel-seller">
 								<div class="panel-body">
@@ -75,184 +73,89 @@
 											<li><label class="control-label">리뷰작성일</label>
 													<div class="form-inline narrow-area">
 														 <div id="datepicker">
-        <div class="input-content">
-            <input type="button" value="오늘" onclick="setDateRange(0);">
-            <input type="button" value="1주" onclick="setDateRange(7);">
-            <input type="button" value="1개월" onclick="setDateRange(30);">
-            <input type="button" value="3개월" onclick="setDateRange(90);">
-            <input type="button" value="6개월" onclick="setDateRange(180);">
-            <input type="button" value="1년" onclick="setDateRange(365);">
-            <br>
-            <div class="input-group">
-                <input type="text" class="form-control" id="start-date" readonly>
-                <span class="input-group-addon">
-                  <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                </span>
-            </div>
-            <div class="input-group">
-                <input type="text" class="form-control" id="end-date" readonly>
-                <span class="input-group-addon">
-                  <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                </span>
-            </div>
-        </div>
-    </div>
+        												<div class="input-content">
+            												<input type="button" value="오늘" onclick="setDateRange(0);">
+            												<input type="button" value="1주" onclick="setDateRange(7);">
+            												<input type="button" value="1개월" onclick="setDateRange(30);">
+            												<input type="button" value="3개월" onclick="setDateRange(90);">
+            												<input type="button" value="6개월" onclick="setDateRange(180);">
+            												<input type="button" value="1년" onclick="setDateRange(365);">
+            												<br>
+            												<div class="input-group">
+                												<input type="text" class="form-control" id="start-date" readonly>
+                												<span class="input-group-addon">
+                  													<i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                												</span>
+           			 										</div>
+            												<div class="input-group">
+                											<input type="text" class="form-control" id="end-date" readonly>
+                											<span class="input-group-addon">
+                  												<i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                											</span>
+            												</div>
+        												</div>
+    												  </div>
 													</div>
 												</li>
 
-											<li><label class="control-label">구매자평점</label>
-											<div class="input-content">
-													<div class="form-inline">
-														<div class="pc-inline-block">
-															<div class="form-group">
-																<div class="seller-input">
-																	<label><input data-checklist-value="''"
-																		name="reviewScores"
-																		ng-checked="vm.func.isAllCheckedBySearchCondition(vm.searchFormData.viewData, 'reviewScores')"
-																		ng-click="vm.func.checkAllBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores', checked)"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		checked="checked">전체<span></span></label>
-																	<!---->
-																	<!---->
-																	<label ng-if="type.name != ''"
-																		ng-repeat="type in vm.viewData.reviewScores"><input
-																		data-checklist-value="type.name" name="reviewScores"
-																		ng-disabled="vm.func.checkDisabledBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores')"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		disabled="disabled">1점<span></span></label>
-																	<!---->
-																	<!---->
-																	<!---->
-																	<label ng-if="type.name != ''"
-																		ng-repeat="type in vm.viewData.reviewScores"><input
-																		data-checklist-value="type.name" name="reviewScores"
-																		ng-disabled="vm.func.checkDisabledBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores')"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		disabled="disabled">2점<span></span></label>
-																	<!---->
-																	<!---->
-																	<!---->
-																	<label ng-if="type.name != ''"
-																		ng-repeat="type in vm.viewData.reviewScores"><input
-																		data-checklist-value="type.name" name="reviewScores"
-																		ng-disabled="vm.func.checkDisabledBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores')"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		disabled="disabled">3점<span></span></label>
-																	<!---->
-																	<!---->
-																	<!---->
-																	<label ng-if="type.name != ''"
-																		ng-repeat="type in vm.viewData.reviewScores"><input
-																		data-checklist-value="type.name" name="reviewScores"
-																		ng-disabled="vm.func.checkDisabledBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores')"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		disabled="disabled">4점<span></span></label>
-																	<!---->
-																	<!---->
-																	<!---->
-																	<label ng-if="type.name != ''"
-																		ng-repeat="type in vm.viewData.reviewScores"><input
-																		data-checklist-value="type.name" name="reviewScores"
-																		ng-disabled="vm.func.checkDisabledBySearchCondition(vm.searchFormData.viewData, vm.config, 'reviewScores')"
-																		type="checkbox" ng-model="checked"
-																		class="ng-pristine ng-untouched ng-valid ng-not-empty"
-																		data-checklist-model="vm.searchFormData.viewData.reviewScores"
-																		disabled="disabled">5점<span></span></label>
-																	<!---->
-																	<!---->
-																</div>
-															</div>
-															<div class="form-group form-group-bar"></div>
-														</div>
-													</div>
-												</div></li>
+												<li>
+  												<label class="control-label">구매자평점</label>
+  												<div class="input-content">
+    												<div class="form-inline">
+      													<div class="pc-inline-block">
+        													<div class="seller-input form-group">
+          														<select id="reviewScoresSelect" class="form-control" onchange="handleReviewScoreChange(event)">
+            														<option value="">전체</option>
+            														<option value="1">1점</option>
+            														<option value="2">2점</option>
+            														<option value="3">3점</option>
+            														<option value="4">4점</option>
+            														<option value="5">5점</option>
+          														</select>
+        													</div>
+        													<div class="form-group form-group-bar"></div>
+      													</div>
+    												</div>
+  												</div>
+												</li>
 											<!---->
 											<!---->
 											<!---->
-											<li><label class="control-label">상세검색</label>
-											<div class="input-content">
-													<div class="form-inline has-error-msg">
-														<div class="form-group">
-															<div
-																class="selectize-control ng-pristine ng-untouched ng-valid single">
-																<div
-																	class="selectize-input items ng-valid ng-pristine full has-options has-items">
-																	<div data-value="IDS" class="item">리뷰글번호</div>
-																	<input type="text" autocomplete="off" tabindex="0"
-																		readonly=""
-																		style="width: 4px; opacity: 0; position: absolute; left: -10000px;">
-																</div>
-																<div
-																	class="selectize-dropdown single ng-pristine ng-untouched ng-valid"
-																	style="display: none; width: 206px; top: 34px; left: 0px;">
-																	<div class="selectize-dropdown-content">
-																		<div data-value="PRODUCT_NO" data-selectable=""
-																			class="option">상품번호</div>
-																		<div data-value="IDS" data-selectable=""
-																			class="option selected active">리뷰글번호</div>
-																		<div data-value="PRODUCT_ORDER_NO" data-selectable=""
-																			class="option">상품주문번호</div>
-																	</div>
-																</div>
-															</div>
-															<input config="vm.config.searchKeywordTypesSelectize"
-																ng-click="vm.func.changeSearchKeywordType()"
-																ng-model="vm.searchFormData.viewData.searchKeywordType"
-																options="::vm.config.searchKeywordTypes" placeholder="리뷰글번호"
-																selectize=""
-																class="ng-pristine ng-untouched ng-valid selectized ng-valid-required ng-not-empty"
-																tabindex="-1" value="IDS"
-																style="width: 4px; opacity: 0; position: absolute; left: -10000px;">
-														</div>
-														<!---->
-														<!---->
-														<div class="form-group"
-															ng-if="vm.searchFormData.viewData.searchKeywordType === 'IDS' || vm.searchFormData.viewData.searchKeywordType === 'EVENT_SEQ'">
-															<div class="seller-input-wrap">
-																<textarea
-																	class="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-pattern ng-valid-max-size-by-split"
-																	ncp-max-size-by-split=""
-																	ncp-max-size-by-split-params="{&quot;maxSize&quot;: 100, &quot;splitPatternCode&quot;: &quot;CommaEnter&quot;}"
-																	ncp-shortcut-submit="vm.func.search()"
-																	ng-model="vm.searchFormData.viewData.searchKeyword"
-																	ng-pattern="^[0-9,]+"
-																	ng-pattern-err-type="numberCommaEnter"
-																	placeholder="" rows="1"
-																	title="검색어 입력"></textarea>
-															</div>
-														</div>
-														<!---->
-													</div>
-													<!---->
-													<!---->
-													<!---->
-												</div></li>
-										</ul>
+												<li>
+  												<label class="control-label">상세검색</label>
+  												<div class="input-content">
+    												<div class="form-inline has-error-msg">
+      													<div class="form-group">
+        													<select id="searchKeywordTypeSelect" class="form-control">
+          														<option value="IDS" selected>리뷰글번호</option>
+          														<option value="PRODUCT_NAME">상품명</option>
+          														<option value="PRODUCT_ORDER_NAME">작성자명</option>
+        													</select>
+      													</div>
+      													<div class="form-group" id="searchKeywordInputWrapper">
+        													<div class="seller-input-wrap">
+          														<textarea
+            														id="searchKeywordInput"
+            														placeholder="입력해주세요."
+            														class="form-control"
+            														rows="1"
+            														style="height: 37px; max-height: 37px; min-height: 20px;"
+            														title="검색어 입력">
+          														</textarea>
+        													</div>
+      													</div>
+    												</div>
+  												</div>
+												</li>
+											</ul>
+										</div>
 									</div>
-								</div>
 								<!--  -->								
 								<!--  -->
 								<div class="panel-footer">
 									<div class="seller-btn-area btn-group-lg">
-										<button
-											class="btn btn-primary progress-button progress-button-dir-horizontal progress-button-style-top-line"
-											pb-style="top-line" progress-button="vm.func.search()"
-											type="button">
-											<span class="content" ng-transclude="">검색</span>
-									
-										</button>
-										<button class="btn btn-primary" ng-click="vm.func.reset()"
-											type="button">초기화</button>
+										<button class="btn btn-primary" type="button" onclick="search()">검색</button>
+										<button class="btn btn-primary" type="button" onclick="reset()">초기화</button>
 									</div>
 								</div>
 							</div>
@@ -261,62 +164,35 @@
 					<!-- 검색바(작성일, 타입, 카테고리, 조건, 상세검색) 끝 -->
 					
 					<!-- 리뷰 목록 시작 -->
-					<div ui-view="list">
-					<div class="panel panel-seller"><div class="panel-heading"><div class="pc-pull-left">
-					<h3 class="panel-title">리뷰목록 (총 <span class="text-primary">0</span>개)</h3>
+					<div class="list">
+					<div class="panel panel-seller">
+					<div class="panel-heading">
+  						<div class="pc-pull-left">
+    						<h3 class="panel-title">리뷰목록 (총 <span class="text-primary">0</span>개)</h3>
+  						</div>
+  						<div class="pc-pull-right">
+    						<div class="narrow-area">
+      							<div class="form-group form-group-sm">
+        							<select id="reviewSortType" onchange="onSortTypeChange(event)">
+          								<option value="REVIEW_CREATE_DATE_DESC">리뷰등록일순</option>
+          								<option value="PRODUCT_NAME">상품명순</option>
+          								<option value="REVIEW_SCORE_DESC">평점높은순</option>
+        							</select>
+        							<select id="pageSize" onchange="onPageSizeChange(event)">
+          								<option value="10">10개씩</option>
+          								<option value="50">50개씩</option>
+          								<option value="100">100개씩</option>
+          								<option value="300">300개씩</option>
+        							</select>
+      							</div>
+   	 						</div>
+  						</div>
 					</div>
-					<div class="pc-pull-right">
-					<div class="narrow-area">
-					<div class="form-group form-group-sm">
-					<div class="selectize-control ng-pristine ng-untouched ng-valid single" style="width: 150px;">
-					<div class="selectize-input items not-full ng-valid ng-pristine has-options">
-					<input type="text" autocomplete="off" tabindex="0" placeholder="리뷰등록일순" readonly="" style="width: 71.6875px;"></div>
-					<div class="selectize-dropdown single ng-pristine ng-untouched ng-valid" style="display: none; width: 150px; top: 30px; left: 0px;">
-					<div class="selectize-dropdown-content">
-					<div data-value="REVIEW_CREATE_DATE_DESC" data-selectable="" class="option active">리뷰등록일순</div>
-					<div data-value="PRODUCT_NAME" data-selectable="" class="option">상품명순</div>
-					<div data-value="REVIEW_SCORE_DESC" data-selectable="" class="option">평점높은순</div>
-					<div data-value="REVIEW_RANKING" data-selectable="" class="option">리뷰랭킹순</div>
-					</div>
-					</div>
-					</div>
-					<input config="vm.config.reviewSearchSortTypesSelectize" ng-model="vm.searchFormData.reviewSearchSortType" options="::vm.config.reviewSearchSortTypes" placeholder="리뷰등록일순" selectize="" style="width: 4px; opacity: 0; position: absolute; left: -10000px;" class="ng-pristine ng-untouched ng-valid selectized ng-valid-required ng-empty" tabindex="-1" value=""> 
-					<div class="selectize-control ng-pristine ng-untouched ng-valid single">
-					<div class="selectize-input items ng-valid ng-pristine has-options full has-items">
-					<div data-value="10" class="item">10개씩</div>
-					<input type="text" autocomplete="off" tabindex="0" readonly="" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
-					<div class="selectize-dropdown single ng-pristine ng-untouched ng-valid" style="display: none; width: 85.7188px; top: 30px; left: 0px;">
-					<div class="selectize-dropdown-content">
-					<div data-value="10" data-selectable="" class="option selected">10개씩</div>
-					<div data-value="50" data-selectable="" class="option">50개씩</div>
-					<div data-value="100" data-selectable="" class="option">100개씩</div>
-					<div data-value="300" data-selectable="" class="option">300개씩</div>
-					</div>
-					</div>
-					</div>
-					<input config="vm.config.pageSizeSelectize" ng-model="vm.searchFormData.viewData.pageSize" options="::vm.config.pageSize" placeholder="500개씩" selectize="" class="ng-pristine ng-untouched ng-valid selectized ng-valid-required ng-not-empty" tabindex="-1" value="500" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"> 
-					<!---->
-					<button class="btn btn-default hidden-xs progress-button progress-button-dir-horizontal progress-button-style-top-line" ng-if="::!vm.isMobile" pb-style="top-line" progress-button="vm.func.downloadExcel()" type="button">
-					<span class="progress">
-					<span class="progress-inner notransition" ng-style="progressStyles" ng-class="{ notransition: !allowProgressTransition }">
-					</span>
-					</span>
-					</button>
-					<!---->
-					</div>
-					</div>
-					</div>
-					</div>
-					<div class="panel-body"><!---->
-					<p class="sub-text text-primary mg-top-reset mg-bottom" ng-if="vm.app === 'CENTER'">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p><!----><!---->
-<!-- 					<div class="seller-btn-group" ng-if="vm.app === 'CENTER'"> -->
-<!-- 					<div class="seller-btn-left"><div class="form-inline narrow-area"> -->
-<!-- 					<div class="form-group"><button class="btn btn-primary btn-sm" ng-click="vm.func.openBestReviewBenefitModal()" type="button">베스트리뷰선정 · 혜택지급</button> -->
-<!-- 					 <button class="btn btn-default btn-sm" ng-click="vm.func.openBulkUpdateCommentModal()" type="button">답글작성</button> -->
-<!-- 					 </div> -->
-<!-- 					 </div> -->
-<!-- 					 </div> -->
-<!-- 					 </div> -->
+					
+					<div class="panel-body">
+					<p class="sub-text text-primary mg-top-reset mg-bottom" ng-if="vm.app === 'CENTER'">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p>
+					<!----><!---->
+					
 					 <!----><!---->
 					 <div class="seller-grid-area">
 					 <div ag-grid="vm.grid.options" class="ag-theme-fresh" style="width:100%; height: 500px;">
@@ -619,7 +495,12 @@
 					    </div>
 					            </div>
 					            <!--AG-PAGINATION--><nav class="seller-pagination">   <span class="ag-paging-row-summary-panel _sell_pageRowSummaryPanel" style="display:none;">       <span ref="lbFirstRowOnPage" class="_sell_firstRowOnPage">0</span>[[TO]]       <span ref="lbLastRowOnPage" class="_sell_lastRowOnPage">0</span>[[OF]]       <span ref="lbRecordCount" class="_sell_recordCount">0</span>       <span ref="lbCurrent" class="_sell_current">0</span>       <span ref="lbTotal" class="_sell_total">0</span>   </span>   <div class="visible-xs">       <div class="_mobile_pagination"></div>   </div>   <div class="hidden-xs">      <ul class="pagination _pc_pagination"></ul>   </div></nav>
-					        </div></div></div></div></div></div>
+					        </div>
+					       </div>
+					      </div>
+					     </div>
+					   </div>
+					 </div>
 					</div>
 					<!-- 리뷰 목록 끝 -->
 
@@ -728,6 +609,63 @@
         setDateRange(0);
     });
     </script>
+<script >
+// 별점 연동하는거 script 넣어야함!!
+</script>
+
+<script>
+  function getSelectedSearchKeywordType() {
+    const searchKeywordTypeSelect = document.getElementById("searchKeywordTypeSelect");
+    return searchKeywordTypeSelect.value;
+  }
+
+  function getSearchKeyword() {
+    const searchKeywordInput = document.getElementById("searchKeywordInput");
+    return searchKeywordInput.value;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchKeywordTypeSelect = document.getElementById("searchKeywordTypeSelect");
+    const searchKeywordInput = document.getElementById("searchKeywordInput");
+
+    searchKeywordTypeSelect.addEventListener("change", function (event) {
+      const selectedSearchKeywordType = getSelectedSearchKeywordType();
+      console.log("Selected search keyword type:", selectedSearchKeywordType);
+    });
+
+    searchKeywordInput.addEventListener("input", function (event) {
+      const searchKeyword = getSearchKeyword();
+      console.log("Current search keyword:", searchKeyword);
+    });
+  });
+</script>
+
+<script> 
+// 검색 / 초기화 기능 추후 수정
+//   function search() {
+//     // 검색 관련 기능을 정의해 주세요.
+//     console.log("검색 버튼 클릭");
+//   }
+
+//   function reset() {
+//     // 초기화 관련 기능을 정의해 주세요.
+//     console.log("초기화 버튼 클릭");
+//   }
+</script>
+
+<script>
+//   function onSortTypeChange(event) {
+//     // 정렬 유형 변경에 대한 처리를 구현하세요.
+//     console.log("Selected sort type:", event.target.value);
+//   }
+
+//   function onPageSizeChange(event) {
+//     // 페이지 크기 변경에 대한 처리를 구현하세요.
+//     console.log("Selected page size:", event.target.value);
+//   }
+
+
+</script>
 
 </body>
 
