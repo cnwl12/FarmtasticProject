@@ -274,7 +274,7 @@
 				 padding: 20px; background-color: white;">
 		        <h5>리뷰 수정</h5>
         		<p>수정할 리뷰의 정보를 입력하세요:</p>
-        		<form id="edit-review-form">
+        		<form id="edit-review-form"  method="post" enctype="multipart/form-data">
             	<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
             	<div class="form-group">
             	<div class="rating">
@@ -663,7 +663,6 @@ $(document).ready(function () {
 	  $(document).on("click", "#edit-review-button", function () {
 	    var checkedReviews = $("input[type='checkbox']:checked");
 	    if (checkedReviews.length === 1) {
-	      // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
 	      selectedReview = checkedReviews.first().data("review_num");
 	      console.log("Selected review number:", selectedReview);
 
@@ -673,15 +672,16 @@ $(document).ready(function () {
 	    }
 	  });
 
-// 수정 팝업 '저장' 버튼 클릭
-$('#submit-edit-review-btn').on('click', function(e) {
-  e.preventDefault();
-  var review_star = $('#edit-review-form #review_star').val();
-  var review_title = $('#edit-review-form #review-title').val();
-  var review_content = $('#edit-review-form #review_content').val();
+	// 수정 팝업 '저장' 버튼 클릭
+	  $('#submit-edit-review-btn').on('click', function(e) {
+	    e.preventDefault();
+	    var review_star = $('#edit-review-form #review_star').val();
+	    var review_title = $('#edit-review-form #review-title').val();
+	    var review_content = $('#edit-review-form #review_content').val();
+	    var review_img = $('#edit-review-form input[type="file"]').prop("files")[0];
 
-  updateReview(selectedReview, review_star, review_title, review_content);
-});
+	    updateReview(selectedReview, review_star, review_title, review_content, review_img);
+	  });
 
 // 수정 팝업 '취소' 버튼 클릭
 $('#close-edit-popup').on('click', function(e) {
@@ -699,33 +699,40 @@ $('.rating .star').on('click', function() {
   $(this).nextAll().removeClass('active');
 });
 
-// 리뷰 정보를 업데이트 하는 함수
-function updateReview(selectedReview, review_star, review_title, review_content) {
-	  $.ajax({
-		  type: "POST",
-		  url: "updateReview",
-		  data: {
-		    review_num: selectedReview,
-		    review_star: review_star,
-		    review_title: review_title,
-		    review_content: review_content
-		  },
-		  dataType: "text",
-		  success: function(responseText) {
-			  console.log(responseText);
-			  if (responseText === "The review has been successfully updated.") {
-			    alert("리뷰가 성공적으로 수정되었습니다.");
-			    $("#edit-review-popup").hide(); // 팝업창을 닫습니다.
-			    location.reload(); // 페이지를 새로고침합니다.
-			  } else {
-			    alert("리뷰 수정에 실패했습니다. 다시 시도해 주세요.");
-			  }
-			},
-		  error: function () {
-		    alert("리뷰 업데이트에 실패했습니다. 다시 시도해 주세요.");
-		  }
-		});
-}
+// 리뷰 정보를 업데이트 하는 함수  
+function updateReview(selectedReview, review_star, review_title, review_content, review_img) {
+    var formData = new FormData();
+    formData.append("review_num", selectedReview);
+    formData.append("review_star", review_star);
+    formData.append("review_title", review_title);
+    formData.append("review_content", review_content);
+
+    if (review_img) {
+      formData.append("review_image", review_img);
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "updateReview",
+      data: formData,
+      enctype: "multipart/form-data",
+      processData: false,
+      contentType: false,
+      success: function(responseText) {
+        console.log(responseText);
+        if (responseText === "The review has been successfully updated.") {
+          alert("리뷰가 성공적으로 수정되었습니다.");
+          $("#edit-review-popup").hide();
+          location.reload();
+        } else {
+          alert("리뷰 수정에 실패했습니다. 다시 시도해 주세요.");
+        }
+      },
+      error: function () {
+        alert("리뷰 업데이트에 실패했습니다. 다시 시도해 주세요.");
+      }
+    });
+  }
 });
 </script>
 <script type="text/javascript">

@@ -198,14 +198,6 @@ public class MemberService {
 	 public List<MemberDTO> getItemOrder(int member_num, int item_num) {
 		    // MemberDTO 객체를 포함하는 원래의 리스트
 		    return memberDAO.getItemOrder(member_num, item_num);
-
-//		    // MemberDTO 객체를 문자열로 변환하여 새 리스트에 추가
-//		    List<String> stringList = new ArrayList<>();
-//		    for (MemberDTO dto : originalList) {
-//		        stringList.add(dto.toString());
-//		    }
-//
-//		    return stringList;
 		}  
 	 
 	 // 마이페이지 리뷰 수정 기능   

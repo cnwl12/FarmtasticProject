@@ -906,16 +906,50 @@ public class FarmController { // 소비자 (컨트롤러)
 									@RequestParam("review_star") int review_star,
 	                                @RequestParam("review_title") String review_title,
 	                                @RequestParam("review_content") String review_content,
-	                                @RequestParam("review_img") String review_img) {
-	    try {
-	        memberService.updateReview(review_num, review_star,review_title, review_content, review_img);
-	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+	                                @RequestParam("review_image") MultipartFile file,
+	                                 HttpSession session) {
+		// 파일을 저장할 폴더 경로
+	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+
+	    if (!file.isEmpty() && file.getSize() > 0) {
+	        String fileName = file.getOriginalFilename();
+	        String fileExtension = FilenameUtils.getExtension(fileName);
+
+	        // 허용되는 확장자 리스트
+	        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+
+	        if (allowedExtensions.contains(fileExtension.toLowerCase())) {
+
+	            String uuid = UUID.randomUUID().toString();
+	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+
+	            String filePath = uploadPath + "/" + storedFileName;
+	            String saveFileName = "http://your_website_url/resources/upload/" + storedFileName;
+
+	            // 서버에 파일 저장
+	            File dest = new File(filePath);
+	            try {
+	                file.transferTo(dest);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                        .body("파일 저장 중 문제가 발생했습니다.");
+	            }
+
+	            // 리뷰 업데이트 작업 진행
+	            memberService.updateReview(review_num, review_star, review_title, review_content, saveFileName);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                    .body("지원하지 않는 이미지 형식입니다.");
+	        }
+	    } else {
+	        // 이미지 업데이트를 진행하지 않음 (기존 이미지 사용)
+	        memberService.updateReview(review_num, review_star, review_title, review_content, null);
 	    }
 
+	    return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");
 	}
+
 
 	@RequestMapping(value = "/deleteReview", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteReview(@RequestParam("review_num") int review_num, @RequestParam("member_num") int member_num) {
