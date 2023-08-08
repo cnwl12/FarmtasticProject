@@ -25,6 +25,10 @@ public class SellerService {
 	    	System.out.println("SellerService의 getSellers 매핑완");
 	        return sellerDAO.getSellers(monthly);
 	    }
+	    public List<Map<String, Object>> totalSales() {
+	    	System.out.println("SellerService의 totalSales 매핑완");
+	        return sellerDAO.totalSales();
+	    }
 	    
 	    // 가맹점관리 혜원
 		public List<Map<String, Object>> getSeller() {

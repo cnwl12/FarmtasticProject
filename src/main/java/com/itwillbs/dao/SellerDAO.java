@@ -25,7 +25,10 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers(String monthly) {
 	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
-
+	    public List<Map<String, Object>> totalSales() {
+			// TODO Auto-generated method stub
+			return sqlSession.selectList(namespace + ".totalSales");
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList(namespace+".getSeller");
@@ -186,6 +189,8 @@ public class SellerDAO {
 
 		    sqlSession.update(namespace + ".updateReply", params);
 		}
+
+		
 
 
 

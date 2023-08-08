@@ -229,6 +229,10 @@ public class MemberService {
 		return memberDAO.selectWishlistget(member_num);
 	}
 	
+	public List<WishlistDTO> selectWishlistget2(int member_num) {
+		return memberDAO.selectWishlistget2(member_num);
+	}
+	
 	    
 //	  public int removeFromWishlist(int item_num) {
 //	    return memberDAO.deleteWishlistItem(item_num);

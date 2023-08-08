@@ -244,6 +244,11 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace+".selectWishlistget", member_num);
 	}
 	
+	public List<WishlistDTO> selectWishlistget2 (int member_num) {
+		System.out.println("찜하기 리스트좀 가져갑니다2222");
+		return sqlSession.selectList(namespace+".selectWishlistget2", member_num);
+	}
+	
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");

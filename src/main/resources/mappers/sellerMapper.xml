@@ -77,7 +77,7 @@
 		WHERE DATE_FORMAT(p.pay_day, '%Y-%m') = #{monthly}
 		GROUP BY s.seller_num, s.seller_storeName, s.seller_name, p.pay_day, monthly;
         -->
-       
+        
 		WITH monthly_seller_data AS (
     		SELECT s.seller_num,s.seller_storeName,s.seller_name,
 	 	           SUM(o.sales) AS daily_sales_raw,
@@ -103,6 +103,28 @@
        FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
 	   FROM monthly_seller_data
 	   ORDER BY pay_day;
+		
+</select>
+
+<select id="totalSales" resultType="map">
+
+	SELECT
+   (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt),0) 
+      FROM order_detail o2 
+      LEFT JOIN item i2 
+      ON i2.item_num = o2.item_num) AS total_sales,
+	(SELECT format(FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05),0)
+        FROM order_detail o2
+        LEFT JOIN item i2 ON i2.item_num = o2.item_num
+    ) AS total_fee,
+    (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt) - FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05), 0)
+        FROM order_detail o2
+        LEFT JOIN item i2 ON i2.item_num = o2.item_num
+    ) AS total_settlement
+	FROM
+    order_detail o
+    LEFT JOIN item i ON i.item_num = o.item_num
+    LEFT JOIN seller s ON s.seller_num = i.seller_num;
 </select>
  
     

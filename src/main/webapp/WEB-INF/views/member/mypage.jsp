@@ -72,6 +72,7 @@
 			<h4>마이페이지</h4>
 				<ul class="menu_list">
 					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
+					<li id="menu5"><a href="#" class="toggle-mypage" data-target="myzzim">찜한상품</a></li>
 					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문배송</a></li>
 					<li id="menu3"><a href="#" class="toggle-mypage" data-target="myreview">리뷰관리</a></li>
 					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
@@ -258,8 +259,26 @@
 				</form>
 			</div>
 			
+			<!-- 서영 찜페이지 만드는중 -->
+<!-- 			<div id="menu5_cont"> -->
+<!-- 			<h4>찜한상품</h4> -->
+<!-- 				<label> -->
+<!-- 				<input type="checkbox"></label> -->
+<!-- 			<div><a href="#">이미지</a> -->
+<!-- 			</div> -->
+<!-- 			<a href="#">상품명 -->
+<!-- 			</a> -->
+<!-- 			<div><span><strong>금액</strong>원</span> -->
+<!-- 			</div> -->
+<!-- 			<div><a href="#">스토어명</a> -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 			<button><span class="blind">X삭제</span></button></div> -->
+
+<!-- 			</div> -->
+			<!--  서영 찜페이지 끝 -->
 			
-			
+						
 			<div id="menu2_cont">
 			<h4>배송</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
