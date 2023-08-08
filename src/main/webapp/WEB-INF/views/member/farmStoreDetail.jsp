@@ -30,17 +30,18 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
-  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+  
+   
 <style>
- 
+  .special-page .wishlist-btn {
+    display: inline-block;
+    vertical-align: top;
+  }
+ .special-page .wishlist-btn i {
+      font-size: 40px;
+      margin-top : 5px;
+      margin-left: 5px;
+    }
 .fa-star-half-o:before {
     content: "\f130";
     color: #EDBB0E !important;
@@ -109,7 +110,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
 </head>
 
-<body>
+<!--  서영 하트 키우는것때문에 바디에 스페셜페이지 클래스 추가한거에요 -->
+<body class="special-page">
 <jsp:include page="../top.jsp"></jsp:include>
 
     <!-- Breadcrumb Section Begin -->
@@ -184,9 +186,9 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             </div>
                         </div>  
                         <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
-                        <a href="#" class="heart-icon wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-  <span class="${wishlist.contains(item.item_num) ? 'icon_heart_red' : 'icon_heart_alt'}"></span>
-</a>
+                        <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+							</a>
 
 
                         
@@ -731,6 +733,15 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	
 </body>

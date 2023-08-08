@@ -2950,6 +2950,10 @@ rotate(
 i.fa-heart.red {
   color: red;
 }
+.big-heart .wishlist-btn i {
+  /*아이콘 크기를 조절합니다. 원하는 크기로 변경할 수 있습니다.*/
+  font-size: 50px;
+}
 
 .sr-only {
 	position: absolute;

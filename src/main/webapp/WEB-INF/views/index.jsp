@@ -68,16 +68,14 @@
                             <li><a href="mypage"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="shoppingCart">
                        			 <c:choose>
-										<c:when test="${empty sessionScope.item_count} && ${sessionScope.item_count <1}">
-											<!-- 장바구니에 있을 경우 -->
-											<i class="fa fa-shopping-bag"></i>
-										</c:when>
-										<c:otherwise>
-											<!-- 장바구니가 비었을 경우 -->
-											<i class="fa fa-shopping-bag"></i>
-											<span>${sessionScope.item_count}</span>
-										</c:otherwise>
-									</c:choose>
+						            <c:when test="${not empty sessionScope.item_count && not empty sessionScope.member_num}">
+						                <!-- 장바구니가 비어있지 않고, 로그인한 회원인 경우 -->
+						                <span>${sessionScope.item_count}</span>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- 다른 경우 (장바구니가 비어있거나 로그인하지 않은 경우) -->
+						            </c:otherwise>
+						        </c:choose>
 								</a>
 							</li>
                         </ul>
@@ -221,8 +219,8 @@
                             <ul class="featured__item__pic__hover">
                                <li>
 	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
-							</a>
+								  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+								</a>
 
 								</li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>

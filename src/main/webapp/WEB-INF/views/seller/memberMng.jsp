@@ -11,11 +11,7 @@
     <meta name="author" content="">
 
     <title>seller/memberMng</title>
-	
-	<!-- 달력 -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-   
+
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -71,125 +67,35 @@
                                         <div class="input-content">
                                                 <div class="form-inline narrow-area"
                                                     ng-class="{'has-error-msg': (vm.searchForm.fromDate.$invalid || vm.searchForm.toDate.$invalid)}">
-                                                    <ncp-datetime-range-picker2
-                                                        start-date-model="vm.searchFormData.fromDate"
-                                                        start-date-name="fromDate"
-                                                        end-date-model="vm.searchFormData.toDate"
-                                                        end-date-name="toDate" date-max="'TODAY'"
-                                                        datetime-picker-format-name="DATE" date-required="true"
-                                                        date-range-usable="true"
-                                                        date-range-option="vm.config.SearchDateRangePickerPeriodOptions"
-                                                        date-markup-option="{onlyDate:true, disabledDateDimmed:true}"><!---->
-                                                    <div class="form-group" ng-if="vm.dateRangeUsable">
-                                                        <div class="btn-toolbar">
-                                                            <div class="btn-group"
-                                                                ng-class="::{'fix-width-col-4' : vm.dateMarkupOption.buttonFixWidth}"
-                                                                ng-attr-data-nclicks-code="{{::vm.nclicksCodeRangeButton}}">
-																<div class="form-group" ng-if="vm.dateRangeUsable">
-																	<div class="btn-toolbar">
-																		<div class="btn-group">
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setToday()">오늘</button>
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setLastNDays(7)">1주일</button>
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setLastMonth()">1개월</button>
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setLastMonths(3)">3개월</button>
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setLastMonths(6)">6개월</button>
-																			<button type="button" class="btn btn-primary2"
-																				ng-click="vm.setLastYear()">1년</button>
-																		</div>
-																	</div>
-																</div>
-
-															</div>
-                                                        </div>
-                                                    </div>
-                                                    <!---->
-                                                    <div class="form-group only-date disabled-date-dimmed"
-                                                        ng-class="::{'only-date' : vm.dateMarkupOption.onlyDate, 'disabled-date-dimmed' : vm.dateMarkupOption.disabledDateDimmed }">
-                                                        <div class="seller-calendar">
-                                                            <div class="input-daterange date form-inline">
-                                                                <div
-                                                                    class="form-group _startDate_dropdown seller-datetime-picker _error_start_date_3978005840 dropdown"
-                                                                    ng-class="{dropdown : !vm.datetimePickerDropUp, dropup : vm.datetimePickerDropUp}">
-                                                                    <div
-                                                                        class="input-group dropdown-toggle dropdown_1693764282"
-                                                                        data-toggle="dropdown"
-                                                                        ng-click="vm.isStartDateShow = !vm.dateDisabled &amp;&amp; true"
-                                                                        ng-attr-data-nclicks-code="{{::vm.nclicksCode}}">
-                                                                        <input type="text"
-                                                                            class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required ng-valid-date-time-input"
-                                                                            name="fromDate" title="날짜 입력"
-                                                                            ng-readonly="::vm.dateInputReadonly"
-                                                                            ng-required="vm.dateRequired &amp;&amp; !vm.ignoreStartDateRequired"
-                                                                            ng-disabled="vm.dateDisabled || vm.dateDisabledByPeriodType"
-                                                                            ncp-disabled="!vm.dateDisabledByPeriodType"
-                                                                            ng-model="vm.startDateModel"
-                                                                            model-type="YYYY-MM-DDTHH:mm:ss.SSSZ"
-                                                                            date-time-input="YYYY.MM.DD."
-                                                                            data-date-formats="::vm.inputModelFormats"
-                                                                            ncp-message-container="._error_start_date_3978005840"
-                                                                            ng-required-err-type="required.daterangepicker.startDate"
-                                                                            ncp-validate-change-trigger="" required="required"
-                                                                            readonly="readOnly">
-                                                                        <!---->
-                                                                        <span class="input-group-addon"
-                                                                            ng-if="!vm.dateDisabled &amp;&amp; !vm.dateDisabledByPeriodType &amp;&amp; !vm.startDatetimePickerDisabled"><a
-                                                                            role="button" href=""><i class="fn fn-calendar1"
-                                                                                aria-hidden="true"></i><span class="sr-only">달력보기</span></a>
-                                                                        </span>
-                                                                        <!---->
-                                                                        <!---->
-                                                                    </div>
-                                                                    <!---->
-                                                                </div>
-                                                                <div class="form-group dash">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-addon">~</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="form-group _endDate_dropdown seller-datetime-picker _error_end_date_6583036381 dropdown"
-                                                                    ng-class="::{dropdown : !vm.datetimePickerDropUp, dropup : vm.datetimePickerDropUp}">
-                                                                    <div
-                                                                        class="input-group dropdown-toggle dropdown_8625679209"
-                                                                        data-toggle="dropdown"
-                                                                        ng-click="vm.isEndDateShow = !vm.dateDisabled &amp;&amp; true"
-                                                                        ng-attr-data-nclicks-code="{{::vm.nclicksCode}}">
-                                                                        <input type="text"
-                                                                            class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required ng-valid-date-time-input"
-                                                                            name="toDate" title="날짜 입력"
-                                                                            ng-readonly="::vm.dateInputReadonly"
-                                                                            ng-required="vm.dateRequired &amp;&amp; !vm.ignoreEndDateRequired"
-                                                                            ng-disabled="vm.dateDisabled || vm.dateDisabledByPeriodType"
-                                                                            ncp-disabled="!vm.dateDisabledByPeriodType"
-                                                                            ng-model="vm.endDateModel"
-                                                                            model-type="YYYY-MM-DDTHH:mm:ss.SSSZ"
-                                                                            date-time-input="YYYY.MM.DD."
-                                                                            data-date-formats="::vm.inputModelFormats"
-                                                                            ncp-message-container="._error_end_date_6583036381"
-                                                                            ng-required-err-type="required.daterangepicker.endDate"
-                                                                            ncp-validate-change-trigger="" required="required"
-                                                                            readonly="readOnly">
-                                                                        <!---->
-                                                                        <span class="input-group-addon"
-                                                                            ng-if="!vm.dateDisabled &amp;&amp; !vm.dateDisabledByPeriodType &amp;&amp; !vm.endDatetimePickerDisabled"><a
-                                                                            role="button" href=""><i class="fn fn-calendar1"
-                                                                                aria-hidden="true"></i><span class="sr-only">달력보기</span></a>
-                                                                        </span>
-                                                                        <!---->
-                                                                        <!---->
-                                                                    </div>
-                                                                    <!---->
-                                                                </div>
+                                                    <!--달력들어가는곳start-->
+                                                    <div class="form-group">
+                                                        <label>From Date:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control datepicker" name="fromDate" id="fromDate" autocomplete="off">
+                                                            <div class="input-group-addon datepicker-icon">
+                                                                <i class="fas fa-calendar"></i>
                                                             </div>
                                                         </div>
-                                                        <!---->
                                                     </div>
-                                                    </ncp-datetime-range-picker2>
+                                                    <div class="form-group">
+                                                        <label>To Date:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control datepicker" name="toDate" id="toDate" autocomplete="off">
+                                                            <div class="input-group-addon datepicker-icon">
+                                                                <i class="fas fa-calendar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            $('.datepicker').datepicker({
+                                                                format: 'yyyy-mm-dd',
+                                                                autoclose: true,
+                                                                todayHighlight: true
+                                                            });
+                                                        });
+                                                    </script>
+                                                    <!--달력들어가는곳end-->
                                                 </div>
                                             </div></li>
                                     </ul>
