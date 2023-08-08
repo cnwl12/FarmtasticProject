@@ -404,8 +404,23 @@ public class AdminController {
 
 	    return "/admin/sellerMenu/sales";
 	}
+	@RequestMapping(value = "/sales_ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map<String, Object>> salesAjax(@RequestParam(value = "monthly", required = true) String monthly) {
+	    System.out.println("sales_ajax 매핑 확인");
 
-	
+	    if (monthly == null || monthly.isEmpty()) {
+	        LocalDate currentDate = LocalDate.now();
+	        monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    }
+
+	    System.out.println("Monthly: " + monthly); // 로깅 추가
+
+	    List<Map<String, Object>> result = sellerService.getSellers(monthly);
+	    System.out.println("Result: " + result); // 로깅 추가
+
+	    return result;
+	}
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");
