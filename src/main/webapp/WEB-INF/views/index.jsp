@@ -221,8 +221,9 @@
                             <ul class="featured__item__pic__hover">
                                <li>
 	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-									<i class="fa fa-heart"></i>
-								</a>
+							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+							</a>
+
 								</li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -512,17 +513,23 @@
 	<!--  서영 - 찜기능때문에 hquery가 위이고 heart 아래임 farmStore에선 반대 -->
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script>
+    window.addEventListener("DOMContentLoaded", () => {
+    	  initialize_favorite_items();
+    	});
+
+    </script>
+    
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
-    
-
 
 
 </body>

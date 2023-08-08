@@ -944,7 +944,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	// 서영 :  찜하기용입니다
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/toggle_favorite", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
 		Map<String, String> response = new HashMap<>();
@@ -957,13 +957,13 @@ public class FarmController { // 소비자 (컨트롤러)
 			response.put("message", "찜 목록에 상품이 추가되었습니다.");
 		} else {
 			memberService.deleteWishlist(wishlistDTO);
-			response.put("message", "찜 목록에 상품을 삭제하였습니다.");
+			response.put("message", "찜 목록에서 상품이 삭제되었습니다.");
 		}
 
 		return response;
 	}
 	
-	@RequestMapping(value = "/fetchWishlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectWishlistget", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<WishlistDTO>> fetchWishlist(WishlistDTO wishlistDTO, @RequestParam("member_num") Integer member_num) {
 	    Map<String, List<WishlistDTO>> response = new HashMap<>();
