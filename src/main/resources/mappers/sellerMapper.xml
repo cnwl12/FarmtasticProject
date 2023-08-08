@@ -101,7 +101,8 @@
 	   FORMAT(SUM(daily_sales_raw) OVER (PARTITION BY monthly), 0) as month_sales,  
 	   FORMAT(SUM(FLOOR(daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_fee,
        FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
-	   FROM monthly_seller_data;
+	   FROM monthly_seller_data
+	   ORDER BY pay_day;
 </select>
  
     

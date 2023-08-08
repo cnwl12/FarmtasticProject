@@ -59,11 +59,11 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">월별매출</h6>
                             <div>
                             
     						<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
-    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 5, 7)}월</label>
+    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 6, 7)}월</label>
    			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
    			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
 							
@@ -71,9 +71,9 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<table class="table table-bordered" id="dataTable">
+                            	<table class="table table-bordered" id="dataTable2">
                             		
-                            		 <tr id="avg" style="background-color: #4167d5; color: #f8f9fc;">
+                            	<%-- 	 <tr id="totalavg" style="background-color: #4167d5; color: #f8f9fc;">
                                             <th colspan="2">총 정산액</th>
                                             <th colspan="2">총 수수료</th>
                                             <th colspan="2">총 매출</th>
@@ -84,12 +84,15 @@
         									<td colspan="2">${seller.grand_fee}</td>
         									<td colspan="2" style="color: black; font-weight: bold;" >${seller.grand_total_revenue}</td>
     									</tr>
-									  </c:forEach>
+									  </c:forEach> --%>
+									   <thead>
 									   <tr id="avg" style="background-color: #4167d5; color: #f8f9fc;">
                                             <th colspan="2">월 정산액</th>
                                             <th colspan="2">월 수수료</th>
                                             <th colspan="2">월 매출</th>
                                         </tr>
+                                        </thead>
+                                        <tbody id="avgContent">
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr>
         									<td colspan="2">${seller.month_settlement}</td>
@@ -97,9 +100,11 @@
         									<td colspan="2" style="color: black; font-weight: bold;" >${seller.month_sales}</td>
     									</tr>
 									  </c:forEach>
-                            	
+                            			</tbody>
                             	</table>
-                                <table class="table table-bordered" id="dataTable">
+                            	</div>
+                            	<div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2">
                                  
                                     <thead>
                                         
@@ -124,7 +129,7 @@
                                             <th>매출액(업체)</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
+                                    <tbody id="monthlysales">
                                      <c:forEach items="${sellers}" var="seller">
     									<c:set var="sellerMonth" value="${seller.monthly}" />
    										<c:if test="${sellerMonth == currentMonth}">
@@ -175,43 +180,84 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    function pad(str) {
+        return String(str).padStart(2, "0");
+    }
+
+    function incrementMonth(date, increment) {
+        var year = parseInt(date.substr(0, 4));
+        var month = parseInt(date.substr(5, 2)) + increment;
+        if (month < 1) {
+            year -= 1;
+            month = 12 + month;
+        } else if (month > 12) {
+            year += 1;
+            month = month - 12;
+        }
+        return year + "-" + pad(month);
+    }
+
+    function updateSalesTableByMonth(monthly) {
+        var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
+
+        // 월별 데이터 가져오기
+        $.get(apiUrl + "?monthly=" + monthly, function (data) {
+            var tableBody = $("#monthlysales");
+            tableBody.empty(); // 기존 데이터 삭제
+
+            // 데이터를 업데이트하는 부분
+            $.each(data, function (index, item) {
+                var newRow = $("<tr></tr>");
+                newRow.append($("<td></td>").text(item.seller_num));
+                newRow.append($("<td></td>").text(item.seller_storeName));
+                newRow.append($("<td></td>").text(item.seller_name));
+                newRow.append($("<td></td>").text(item.pay_day));
+                newRow.append($("<td></td>").text(item.daily_settlement));
+                newRow.append($("<td></td>").text(item.daily_fee));
+                newRow.append($("<td></td>").text(item.daily_sales));
+                tableBody.append(newRow);
+            });
+
+            $("#hidden_month").val(monthly);
+            var updatedMonth = parseInt(monthly.substr(5, 2));
+            $("#current_month_label").text(updatedMonth + "월");
+        });
+
+        // dataTable2에 대한 업데이트
+        $.get(apiUrl + "?monthly=" + monthly, function (data) {
+            var tableBody2 = $("#avgContent");
+            tableBody2.empty(); // 기존 데이터 삭제
+
+            // 데이터를 업데이트하는 부분
+            $.each(data, function (index, item) {
+                if (index === 0) { // 첫 번째 요소만 추가
+                    var newRow = $("<tr></tr>");
+                    newRow.append($("<td colspan='2'></td>").text(item.month_settlement));
+                    newRow.append($("<td colspan='2'></td>").text(item.month_fee));
+                    newRow.append($("<td colspan='2' style='color: black; font-weight: bold;'></td>").text(item.month_sales));
+                    tableBody2.append(newRow);
+                }
+            });
+        });
+    }
+
+    $("#prev_month").click(function () {
+        var currentMonth = $("#hidden_month").val();
+        var updatedMonth = incrementMonth(currentMonth, -1);
+        updateSalesTableByMonth(updatedMonth);
+    });
+
+    $("#next_month").click(function () {
+        var currentMonth = $("#hidden_month").val();
+        var updatedMonth = incrementMonth(currentMonth, +1);
+        updateSalesTableByMonth(updatedMonth);
+    });
+});
+</script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	  <script>
-	  function pad(str) {
-		    return String(str).padStart(2, "0");
-		}
-
-		function incrementMonth(date, increment) {
-		    var year = parseInt(date.substr(0, 4));
-		    var month = parseInt(date.substr(5, 2)) + increment;
-		    if (month < 1) {
-		        year -= 1;
-		        month = 12 + month;
-		    } else if (month > 12) {
-		        year += 1;
-		        month = month - 12;
-		    }
-		    return year + "-" + pad(month);
-		}
-
-		function updateTable(delta) {
-		    var currentMonth = document.getElementById("hidden_month").value;
-		    var currentMonthDate = incrementMonth(currentMonth, delta);
-
-		    document.getElementById("current_month_label").innerText = parseInt(currentMonthDate.substr(5, 2)) + "월";
-		    document.getElementById("hidden_month").value = currentMonthDate;
-			
-			// 이곳에 AJAX를 사용하여 플랫폼에서 데이터를 가져오고 변경해야 하는 로직을 구현하십시오
-		}
-
-		$("#prev_month").click(function() {
-		    updateTable(-1);
-		});
-
-		$("#next_month").click(function() {
-		    updateTable(1);
-		});
-    </script>
+	
     <!-- Core plugin JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
