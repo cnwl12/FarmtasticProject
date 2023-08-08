@@ -470,10 +470,8 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 상품 개별 페이지로 이동 + 막내 리뷰기능 용도 추가함
 	@RequestMapping(value = "/farmStoreDetail", method = RequestMethod.GET)
-	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model) {
-
-		/* System.out.println("item_num : ??? "+item_num); */
-
+	public String farmStoreDetail(@RequestParam("item_num") int item_num, Model model,HttpSession session) {
+		
 		Map<String, Object> item = sellerService.getItem(item_num);
 
 		model.addAttribute("item", item);
@@ -508,13 +506,19 @@ public class FarmController { // 소비자 (컨트롤러)
 	// if(담는건 맞고, 페이지 유지 or 이동할것)
 
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
-	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpSession session) {
+	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpSession session, Model model) {
 
 		// 나중에 변경할거임...
-		int member_num = (int)session.getAttribute("member_num");
+		Integer member_num = (Integer) session.getAttribute("member_num");
 		
 		 session.setAttribute("member_num", member_num);
 		
+		 // 바꿀것임!!! 
+		 if(member_num ==null) {
+				model.addAttribute("msg", "로그인 이후 사용가능합니다.");
+				return "redirect:/login";
+		}
+		 
 		cart.put("member_num", member_num);
 
 		memberService.insertCart(cart);
@@ -703,6 +707,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		if (memberDTO2 != null && !"N".equals(memberDTO2.getMember_delYn())) {
 			session.setAttribute("member_num", memberDTO2.getMember_num());
+			
+			// 장바구니 수량 세션 가져오기
+			int item_count = memberService.countCart((int) session.getAttribute("member_num"));
+			session.setAttribute("item_count", item_count);
+			
 			return "redirect:/index";
 		} else if (memberDTO2 != null && "N".equals(memberDTO2.getMember_delYn())){
 			// 승인되지 않은 사용자
