@@ -334,7 +334,7 @@ button#submitBtn {
 										<option value="SW">고구마</option>
 										<option value="ON">양파</option>
 										<option value="CA">당근</option>
-										<option value="CA">양배추</option>
+										<option value="CB">양배추</option>
 										<option value="MU">버섯</option>
   									</select>
 								</li>
