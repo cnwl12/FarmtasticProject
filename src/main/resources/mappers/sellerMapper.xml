@@ -113,11 +113,8 @@
 	
 	<!-- 판매자 체크 -->
     <select id="sellerCheck" resultType="map">
-    select * from seller
-    where seller_id = #{seller_id}
-     <if test="seller_pass != null">
-  	  and seller_pass = #{seller_pass}
-  	  </if>
+    	select * from seller
+	    where seller_id = #{seller_id}
   	</select> 
   	
   	<!-- 선진) 판매자 정보 가져옴 -->

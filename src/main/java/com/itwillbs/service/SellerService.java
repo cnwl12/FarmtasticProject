@@ -41,9 +41,8 @@ public class SellerService {
 		
 				
 		public Map<String, Object> sellerCheck(String seller_id) {
-         System.out.println("SellerService sellerCheck()");
-       
-         return sellerDAO.sellerCheck(seller_id);
+			System.out.println("SellerService sellerCheck()");
+			return sellerDAO.sellerCheck(seller_id);
 		}
 		
 		// 선진) 판매자의 모든 정보 가져옴
