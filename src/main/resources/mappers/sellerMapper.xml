@@ -154,7 +154,7 @@
 	LEFT JOIN (SELECT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m-%d') AS order_mmdd, SUM(it.item_price * od.item_cnt) AS order_mmdd_totalSales
 			   FROM order_detail od
 			   JOIN item it ON od.item_num = it.item_num
-			   WHERE od.item_num IN (SELECT item_num FROM item WHERE seller_num = 'CR0001')
+			   WHERE od.item_num IN (SELECT item_num FROM item WHERE seller_num = #{seller_num})
 			   GROUP BY order_mmdd) order_totals ON date_range.order_mmdd = order_totals.order_mmdd
 	ORDER BY date_range.order_mmdd;
 	]]>
@@ -180,7 +180,7 @@
 																	JOIN item it ON od.item_num = it.item_num
 																	WHERE od.item_num IN (SELECT item_num
 																							FROM item
-																							WHERE seller_num = 'CR0001')) q2 ON q1.order_mm = q2.order_mm
+																							WHERE seller_num = #{seller_num})) q2 ON q1.order_mm = q2.order_mm
 	ORDER BY q1.order_mm; 
    </select>
 

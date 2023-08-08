@@ -34,6 +34,7 @@ import com.itwillbs.service.SellerService;
 @Controller
 public class SellerController {
 	
+	private static final String seller_num = null;
 	@Inject
 	private SellerService sellerService;
 	
@@ -148,8 +149,6 @@ public class SellerController {
 	
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
-	
-        
 	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
 		 
 	    if (session.getAttribute("seller_num") == null) {
@@ -161,8 +160,8 @@ public class SellerController {
 		String seller_id = sellerService.idCheck(seller_num);
 		model.addAttribute("seller_id", seller_id);	
 		System.out.println("SellerController의 salesMng 매핑완");
-		List<Map<String,Object>> DailySales = sellerService.getDailySales();
-		List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales();
+		List<Map<String,Object>> DailySales = sellerService.getDailySales(seller_num);
+		List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales(seller_num);
 		
 	    model.addAttribute("DailySales", DailySales);
 	    model.addAttribute("MonthlySales", MonthlySales);
@@ -172,9 +171,9 @@ public class SellerController {
 	
 	// 선진) 일자별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)
-	public ResponseEntity<List<Map<String,Object>>> chartDailySales(){
-		
-		List<Map<String,Object>> jsonDailySales = sellerService.getDailySales();
+	public ResponseEntity<List<Map<String,Object>>> chartDailySales(HttpSession session){
+		String seller_num = (String) session.getAttribute("seller_num");
+		List<Map<String,Object>> jsonDailySales = sellerService.getDailySales(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
 		ResponseEntity<List<Map<String,Object>>> entityDailySales = new ResponseEntity<List<Map<String,Object>>>(jsonDailySales, HttpStatus.OK);
 		return entityDailySales;
@@ -182,9 +181,9 @@ public class SellerController {
 	
 	// 선진) 월별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartMonthlySales", method = RequestMethod.GET)
-	public ResponseEntity<List<Map<String,Object>>> chartMonthlySales(){
-		
-		List<Map<String,Object>> jsonMonthlySales = sellerService.getMonthlySales();
+	public ResponseEntity<List<Map<String,Object>>> chartMonthlySales(HttpSession session){
+		String seller_num = (String) session.getAttribute("seller_num");
+		List<Map<String,Object>> jsonMonthlySales = sellerService.getMonthlySales(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
 		ResponseEntity<List<Map<String,Object>>> entityMonthlySales = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlySales, HttpStatus.OK);
 		return entityMonthlySales;

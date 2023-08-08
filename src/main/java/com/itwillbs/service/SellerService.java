@@ -57,15 +57,15 @@ public class SellerService {
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
-		public List<Map<String,Object>> getDailySales() {
+		public List<Map<String,Object>> getDailySales(String seller_num) {
 			System.out.println("SellerService의 getDailySales 매핑완");
-			return sellerDAO.getDailySales();
+			return sellerDAO.getDailySales(seller_num);
 		}
 		
 		// 선진) 최근 12개월의 월별 매출 차트
-		public List<Map<String,Object>> getMonthlySales() {
+		public List<Map<String,Object>> getMonthlySales(String seller_num) {
 			System.out.println("SellerService의 getMonthlySales 매핑완");
-			return sellerDAO.getMonthlySales();
+			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
