@@ -34,6 +34,7 @@ import com.itwillbs.service.SellerService;
 @Controller
 public class SellerController {
 	
+	
 	@Inject
 	private SellerService sellerService;
 	
