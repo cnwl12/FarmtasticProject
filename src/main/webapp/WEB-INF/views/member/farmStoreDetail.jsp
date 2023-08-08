@@ -659,7 +659,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
             });
         } else {
             // order_num이 null인 경우 사용자에게 알려줍니다.
-            alert("order_num을 찾을 수 없습니다. 다시 시도해주세요.");
+            alert("구매내역을 찾을 수 없습니다. 다시 시도해주세요.");
         }
     });
 });

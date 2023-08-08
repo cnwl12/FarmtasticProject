@@ -41,9 +41,8 @@ public class SellerService {
 		
 				
 		public Map<String, Object> sellerCheck(String seller_id) {
-         System.out.println("SellerService sellerCheck()");
-       
-         return sellerDAO.sellerCheck(seller_id);
+			System.out.println("SellerService sellerCheck()");
+			return sellerDAO.sellerCheck(seller_id);
 		}
 		
 		// 선진) 판매자의 모든 정보 가져옴
@@ -57,12 +56,18 @@ public class SellerService {
 			sellerDAO.updateSeller(sellerInfo);
 		}
 
-		// 선진) 한달간 매일 총 매출 가져오는 차트	
+		// 선진) 해당 월의 일자별 매출 차트
 		public List<Map<String,Object>> getDailySales() {
 			System.out.println("SellerService의 getDailySales 매핑완");
 			return sellerDAO.getDailySales();
 		}
-
+		
+		// 선진) 최근 12개월의 월별 매출 차트
+		public List<Map<String,Object>> getMonthlySales() {
+			System.out.println("SellerService의 getMonthlySales 매핑완");
+			return sellerDAO.getMonthlySales();
+		}
+		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 

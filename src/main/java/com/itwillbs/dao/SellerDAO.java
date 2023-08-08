@@ -58,13 +58,20 @@ public class SellerDAO {
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 
-		// 선진) 한달간 매일 총 매출 가져오는 차트	
+		// 선진) 해당 월의 일자별 매출 차트
 		public List<Map<String,Object>> getDailySales() {
 			
 			System.out.println("SellerDAO의 getDailySales 매핑완");
 			return sqlSession.selectList(namespace + ".getDailySales");
 		}
-
+		
+		// 선진) 최근 12개월의 월별 매출 차트
+		public List<Map<String,Object>> getMonthlySales() {
+			
+			System.out.println("SellerDAO의 getMonthlySales 매핑완");
+			return sqlSession.selectList(namespace + ".getMonthlySales");
+		}
+		
 		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			
