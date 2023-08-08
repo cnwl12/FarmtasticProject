@@ -78,6 +78,11 @@ public class SellerService {
 			return sellerDAO.getDailySalesList(seller_num);
 		}
 		
+		// 선진) 정산관리
+		public List<Map<String,Object>> getSettlementList(String seller_num) {
+			System.out.println("SellerService의 getSettlementList 매핑완");
+			return sellerDAO.getSettlementList(seller_num);
+		}
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");

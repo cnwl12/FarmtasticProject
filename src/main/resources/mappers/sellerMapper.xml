@@ -223,6 +223,20 @@
 	ORDER BY os.order_day;
    </select>
 
+   <!-- 선진) 정산관리 -->
+   <select id="getSettlementList" resultType="map">
+	SELECT	DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
+	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS totalSales,
+	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05, 0) AS totalFee,
+	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalSettlement
+	FROM	order_detail od		JOIN	item it 
+	ON		od.item_num = it.item_num
+	WHERE	od.item_num IN (select	item_num
+							from	item
+							where	seller_num = #{seller_num})
+	ORDER BY	settlementMonth;
+   </select>
+   
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller

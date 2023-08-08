@@ -191,10 +191,7 @@ public class SellerController {
 	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
 	    model.addAttribute("DailySalesList", DailySalesList);
 	    
-	    
-	    
-	    
-	    
+
 		return "/seller/salesMng";
 	    }
 	}
@@ -218,8 +215,6 @@ public class SellerController {
 		ResponseEntity<List<Map<String,Object>>> entityMonthlySales = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlySales, HttpStatus.OK);
 		return entityMonthlySales;
 	}
-	
-	
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
@@ -295,8 +290,10 @@ public class SellerController {
 	    }
 	}
 	
+	// 선진) 정산관리	
 	@RequestMapping(value = "/settlementList", method = RequestMethod.GET)
 	public String settlementList(Locale locale, HttpSession session, Model model) {
+		System.out.println("SellerController의 settlementList 매핑완");
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -304,10 +301,14 @@ public class SellerController {
 			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		System.out.println("settlementList 매핑확인여부");
+
 		String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
+	    
+	    List<Map<String,Object>> MonthSettlementList = sellerService.getSettlementList(seller_num);
+	    model.addAttribute("MonthSettlementList", MonthSettlementList);
+	    
 		return "/seller/settlementList";
 	    }
 	}
