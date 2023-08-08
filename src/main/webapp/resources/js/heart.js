@@ -25,7 +25,7 @@ $(function() {
 		      }
 		    }
 		  }
-		},
+		}, 
       error: function (request, status, error) {
         console.log("Error: ", error);
         console.log("Status: ", status);
