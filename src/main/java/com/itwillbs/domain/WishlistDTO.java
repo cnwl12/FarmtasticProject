@@ -10,6 +10,13 @@ public class WishlistDTO {
 	private String item_name;
 	private String item_mainImg;
 	private String item_price;
+	private String seller_num;
+	public String getSeller_num() {
+		return seller_num;
+	}
+	public void setSeller_num(String seller_num) {
+		this.seller_num = seller_num;
+	}
 	private String seller_storeName;
 	
 	

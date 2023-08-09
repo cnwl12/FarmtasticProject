@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -330,6 +331,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<OneBoardDTO> oneBoardList2 = memberService.findByItemNum2(member_num);
 		System.out.println(oneBoardList2 + "가나다");
 		model.addAttribute("oneBoardList2", oneBoardList2);
+		List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
+		System.out.println(zzimlist + "가나다");
+		model.addAttribute("zzimlist", zzimlist);
 		return "/member/mypage";
 	}
 	
@@ -1018,16 +1022,13 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return response;
 	}
 	
-	@RequestMapping(value = "/selectWishlistget2", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, List<WishlistDTO>> fetchWishlist2(WishlistDTO wishlistDTO, @RequestParam("member_num") Integer member_num) {
-	    Map<String, List<WishlistDTO>> response = new HashMap<>();
-	    
-	    List<WishlistDTO> wishList = memberService.selectWishlistget(member_num);
-	    
-	    response.put("wishList", wishList);
-	    
-	    return response;
+	@GetMapping("/favorites")
+	public ModelAndView showFavorites(WishlistDTO wishlistDTO, @SessionAttribute("member_num") Integer member_num) {
+	    ModelAndView modelAndView = new ModelAndView("favorites");
+	    System.out.println("찜을불러오자");
+	    List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
+	    modelAndView.addObject("zzimlist", zzimlist);
+	    return modelAndView;
 	}
 
 

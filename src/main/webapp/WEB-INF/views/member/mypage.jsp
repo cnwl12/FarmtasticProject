@@ -31,6 +31,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/style.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/zzim.css"
+	type="text/css">
 
 <!-- 지마켓  -->  
 <link rel="stylesheet"
@@ -260,22 +263,26 @@
 			</div>
 			
 			<!-- 서영 찜페이지 만드는중 -->
-<!-- 			<div id="menu5_cont"> -->
-<!-- 			<h4>찜한상품</h4> -->
-<!-- 				<label> -->
-<!-- 				<input type="checkbox"></label> -->
-<!-- 			<div><a href="#">이미지</a> -->
-<!-- 			</div> -->
-<!-- 			<a href="#">상품명 -->
-<!-- 			</a> -->
-<!-- 			<div><span><strong>금액</strong>원</span> -->
-<!-- 			</div> -->
-<!-- 			<div><a href="#">스토어명</a> -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 			<button><span class="blind">X삭제</span></button></div> -->
-
-<!-- 			</div> -->
+			<div id="menu5_cont">
+    <div class="container">
+        <h4>내 찜 목록</h4><br>
+        <ul class="favorite-list">
+            <c:forEach var="item" items="${zzimlist}">
+                <li class="favorite-item">
+                    <input type="checkbox" class="checkbox">
+                    <img src="${item.item_mainImg}" alt="제품 이미지">
+                    <div class="product-info">
+                        <h2 class="product-name">${item.item_name}</h2>
+                        <span class="product-price">₩${item.item_price}</span>
+                        <br>
+                        <span class="store-name">${item.seller_storeName}</span>
+                    </div>
+                    <button class="remove-button">X</button>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+</div>
 			<!--  서영 찜페이지 끝 -->
 			
 						
@@ -540,6 +547,7 @@ $(document).ready(function() {
     $("#menu2_cont").hide();
     $("#menu3_cont").hide();
     $("#menu4_cont").hide();
+    $("#menu5_cont").hide();
 
     // 마이페이지 전환 함수
     function toggleMypage(target) {
@@ -551,6 +559,8 @@ $(document).ready(function() {
         $("#menu3").removeClass("on");
         $("#menu4_cont").hide();
         $("#menu4").removeClass("on");
+        $("#menu5_cont").hide();
+        $("#menu5").removeClass("on");
       
       if (target === "mypage") {
           $("#menu1_cont").show();
@@ -564,6 +574,9 @@ $(document).ready(function() {
       } else if (target === "myoneboard") {
           $("#menu4_cont").show();
           $("#menu4").addClass("on");
+      } else if (target === "myzzim") {
+          $("#menu5_cont").show();
+          $("#menu5").addClass("on");
       }
     }
   // 메뉴 클릭 이벤트 핸들러

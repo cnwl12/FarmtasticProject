@@ -363,6 +363,23 @@ WHERE member_num = #{member_num};
   	 SELECT * FROM like_farm
   	 WHERE member_num = #{member_num}
   </select>
+ 
+ 	<resultMap id="zzimlistResultMap" type="com.itwillbs.domain.WishlistDTO">
+        <result column="item_num" property="item_num"/>
+        <result column="item_name" property="item_name"/>
+        <result column="item_price" property="item_price"/>
+        <result column="seller_num" property="seller_num"/>
+        <result column="seller_storeName" property="seller_storeName"/>
+    </resultMap>
+    
+    <select id="getzzimlist" resultMap="zzimlistResultMap">
+    	SELECT item.item_num, item.item_name, item.item_price, item.seller_num, seller.seller_storeName
+		FROM item
+		JOIN seller ON item.seller_num = seller.seller_num
+		JOIN like_farm ON item.item_num = like_farm.item_num
+		WHERE like_farm.member_num = #{member_num}
+
+    </select>
   
   <select id="memberDetail" parameterType="map" resultType="map">
         SELECT * FROM member WHERE member_num = #{member_num}
