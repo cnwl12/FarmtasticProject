@@ -63,14 +63,11 @@
                 </div>
                 <div>
 
-			<div id="main_cont">
-			<div id="menu1_cont">
-				<form novalidate
-					action="${pageContext.request.contextPath }/updatePro"
-					method="post">
-					<div class="myoption">
+			<div id="menu1_cont" style="width: 780px; margin-left: -80px;">
+				<form novalidate 
+					action="${pageContext.request.contextPath }/updatePro" method="post">
+					<div class="myoption" style="float: right;  margin-bottom: 10px; width: 780px;">
 						<h4>나의 정보</h4>
-						<!-- <h5 class="list1">회원정보 설정</h5>     -->
 						<table class="myg_tab">
 							<tbody>
 								<tr>
@@ -230,18 +227,16 @@
 							</table>
 						</div>
 					</div>
+				</form> 
 					<div class="btn_center">
-
-						<button type="submit" class="btn_blue_style2" id="img_submit"
-							disabled="true">
+						<button type="submit" class="btn_blue_style2" id="img_submit" disabled="true">
 							<span style="color: #fff; text-align: center;">수정하기</span>
 						</button>
 					</div>
-				</form>
 			</div>
 			
 			<!-- 서영 찜페이지 만드는중 -->
-			<div id="menu5_cont">
+			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
     <div class="container">
         <h4>내 찜 목록</h4><br>
         <ul class="favorite-list">
@@ -264,7 +259,7 @@
 			<!--  서영 찜페이지 끝 -->
 			
 						
-			<div id="menu2_cont">
+			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
 			<h4>주문관리</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			<table class="table">
@@ -309,7 +304,7 @@
 			</table>
 		</div> <!-- 토글 끝  -->
 			
-			<div id="menu3_cont">
+			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
 			<h4>나의 리뷰</h4>
 			<button class="site-btn" id="edit-review-button" >수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>
@@ -362,7 +357,7 @@
     			</table>
 				</div>
 			</div>
-			<div id="menu4_cont">
+			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
 			<h4>1:1문의</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
@@ -463,7 +458,6 @@
 		  	
 		  	
 		  </div>	
-		</div>
 
 	</div>
 
