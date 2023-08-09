@@ -43,7 +43,6 @@
 	<jsp:include page="../top.jsp"></jsp:include>
   <section class="blog spad" style="padding-top: 10px;">
     <div class="container">
-<!-- 	<div id="contentswrap"> -->
 	 <div class="row">
 	  <div class="col-lg-4 col-md-5">
                    <div class="blog__sidebar">
@@ -227,12 +226,12 @@
 							</table>
 						</div>
 					</div>
-				</form> 
 					<div class="btn_center">
-						<button type="submit" class="btn_blue_style2" id="img_submit" disabled="true">
+						<button type="submit" class="btn_blue_style2" id="img_submit">
 							<span style="color: #fff; text-align: center;">수정하기</span>
 						</button>
 					</div>
+				</form> 
 			</div>
 			
 			<!-- 서영 찜페이지 만드는중 -->
@@ -261,7 +260,6 @@
 						
 			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
 			<h4>주문관리</h4>
-			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			<table class="table">
 				<thead>
 					<tr>
@@ -270,39 +268,40 @@
 						<th>수량</th>
 						<th>가격</th>
 						<th>주문상태</th>
+						<th>배송조회</th>
 					</tr>
 				</thead>
-				<tbody id="inquiryList">
-
-					<c:forEach var="order" items="${orderList}">
-						<tr class="boardTitle">
-							<td><a href="javascript:void(0);" class="orderLink"
-								data-order-num="${order.order_num}">${order.order_num}</a></td>
-							<td>${order.item_name}</td>
-							<td>${order.item_cnt}</td>
-							<td>${order.price}원</td>
-						</tr>
-						<tr class="orderItemsRow">
-							<td colspan="4">
-								<div class="orderItemsDropdown" style="display: none;">
-									<c:choose>
-										<c:when test="${order.order_num eq selectedOrder}">
-											<c:forEach var="item" items="${order.orderItems}">
-												<div>
-													<span>${item.item_name}</span> <span>${item.item_cnt}</span>
-													<span>${item.price}원</span>
-												</div>
-											</c:forEach>
-										</c:when>
-									</c:choose>
-								</div>
-							</td>
-						</tr>
-					</c:forEach>
-
-				</tbody>
-			</table>
-		</div> <!-- 토글 끝  -->
+		   <tbody id="inquiryList">
+            <c:forEach var="order" items="${orderList}">
+                <tr class="boardTitle">
+                    <td><a href="javascript:void(0);" class="orderLink" data-order-num="${order.order_num}">${order.order_num}</a></td>
+                    <td>${order.item_name}</td>
+                    <td>${order.item_cnt}</td>
+                    <td>\ ${order.price}원</td>
+                    <td>결제완료</td>
+                    <td><input type="button" value="배송조회"></td>
+                </tr>
+                <tr class="orderItemsRow">
+                    <td colspan="6">
+                        <div class="orderItemsDropdown" style="display: none;">
+                            <c:choose>
+                                <c:when test="${order.order_num eq selectedOrder}">
+                                    <c:forEach var="item" items="${order.orderItems}">
+                                        <div>
+                                            <span>${item.item_name}</span> <span>${item.item_cnt}</span>
+                                            <span>${item.price}원</span>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+		 <!-- 주문관리 토글 끝  -->	
 			
 			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
 			<h4>나의 리뷰</h4>
@@ -462,6 +461,7 @@
 	</div>
 
        
+            </div>
             </div>
      </section>
 
@@ -675,6 +675,30 @@ $(document).ready(function() {
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 주문목록  -->
+<script>
+    $(document).ready(function() {
+        var firstOrderNum = $(".orderLink").first().data("order-num");
+        var selectedOrder = firstOrderNum;
+
+        $(".orderLink").click(function() {
+            var orderNum = $(this).data("order-num");
+            var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
+
+            if (orderNum === selectedOrder) {
+                selectedOrder = null;
+            } else {
+                selectedOrder = orderNum;
+            }
+
+            $(".orderItemsDropdown").hide();
+            dropdown.toggle();
+        });
+    });
+</script>
+
+
 
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () { 
@@ -891,37 +915,11 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	}
 
 
-</script>
+</script> 
 
 
-<!-- 주문목록  -->
-<script>
-    var selectedOrder = null;
 
-    $(document).ready(function() {
-        $(".orderLink").click(function() {
-            var orderNum = $(this).data("order-num");
-            $(".orderItemsDropdown").hide();
-            
-            if (orderNum !== selectedOrder) {
-                selectedOrder = orderNum;
-                var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
-                
-                $.ajax({
-                    url: "/getOrderItems", 
-                    type: "GET",
-                    data: { orderNum: orderNum },
-                    success: function(response) {
-                        dropdown.html(response);
-                        dropdown.show();
-                    }
-                });
-            } else {
-                selectedOrder = null;
-            }
-        });
-    });
-</script>
+
 
 
 

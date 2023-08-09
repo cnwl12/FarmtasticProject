@@ -65,7 +65,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="zzimpage"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="mypage"><i class="fa fa-user"></i></a></li>
                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
 								 <c:choose>
 						            <c:when test="${not empty sessionScope.item_count && not empty sessionScope.member_num}">
@@ -81,7 +81,7 @@
                      <div class="header__top__right__auth">
   						<c:choose>
       					<c:when test="${empty sessionScope.member_num}">
-         				 <a href="login"><i class="fa fa-user"></i>Login</a>
+         				 <a href="login">Login</a>
       					</c:when>
       					<c:otherwise>
          				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
