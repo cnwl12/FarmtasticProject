@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
     
@@ -59,34 +60,65 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">총매출</h6>
-                       
+                            <h6 class="m-0 font-weight-bold text-primary">일별매출</h6>
+                            <div>
+                       		<input type="hidden" name="seller_num" value="${seller_num}">
+                       		<input type="hidden" name="pay_day" value="${pay_day}">
+							
+							</div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                            	<table class="table table-bordered" id="dataTable2">
-                            		<thead>
-                            		 	<tr id="totalavg" style="background-color: #4167d5; color: #f8f9fc;">
-                                            <th colspan="2">총 정산액</th>
-                                            <th colspan="2">총 수수료</th>
-                                            <th colspan="2">총 매출</th>
+                            	<div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2">
+                                 
+                                    <thead>
+                                        
+                                        <tr style="background-color: #edf1f5;" >
+                                            <th>코드</th>
+                                            <th>업체명</th>
+                                            <th>대표자</th>
+											<th>주문번호</th>
+                                            <th>상품번호</th>
+                                            <th>정산액</th>
+                                            <th>수수료</th>
+                                            <th>매출액(일)</th>
+                                            <th>매출일</th>
                                         </tr>
-                                      </thead>
-                                      <tbody>  
-                                      <c:forEach items="${sellers}" var="seller" begin="0" end="0">
-    									<tr>
-        									<td colspan="2">${seller.total_settlement}</td>
-        									<td colspan="2">${seller.total_fee}</td>
-        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.total_sales}</td>
-    									</tr>
-									  </c:forEach>
-                            		</tbody>
-                            	</table>
+                                    </thead>
+                                    <tfoot>
+                                        <tr style="background-color: #edf1f5;">
+                                            <th>코드</th>
+                                            <th>업체명</th>
+                                            <th>대표자</th>
+											<th>주문번호</th>
+                                            <th>상품번호</th>
+                                            <th>정산액</th>
+                                            <th>수수료</th>
+                                            <th>매출액(일)</th>
+                                            <th>매출일</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                     <c:forEach items="${DailySalesList}" var="list">
+    									<input type="hidden" value="${list.seller_num}">
+    									<input type="hidden" name="pay_day" value="${pay_day}">
+    									<c:if test="${list.orderday eq pay_day}">
+        									<tr>
+            									<td>${list.seller_num}</td>
+            									<td>${list.seller_storeName}</td>
+            									<td>${list.seller_name}</td>
+            									<td>${list.order_num}</td>
+            									<td>${list.item_num}</td>
+            									<td>${list.dailySettlement}</td>
+            									<td>${list.dailyFee}</td>
+            									<td>${list.dailySales}</td>
+            									<td>${list.orderday}</td>
+        									</tr>
+    								</c:if>
+									</c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="card-body">
-                        
-                        여기에 차트넣기
                         </div>
                     </div>
 
@@ -120,6 +152,7 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
     <!-- Core plugin JavaScript-->

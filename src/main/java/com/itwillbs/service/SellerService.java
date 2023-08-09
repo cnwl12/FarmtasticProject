@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,7 +180,7 @@ public class SellerService {
 	         return sellerDAO.idCheck(seller_num);
 		}
 
-		public List<Map<String, Object>> MemberMngjoin() {
+		public List<Map<String, Object>> MemberMngjoin(Date startDate, Date endDate) {
 			System.out.println("SellerService의 MemberMngjoin()");
 			return sellerDAO.MemberMngjoin();
 		}
