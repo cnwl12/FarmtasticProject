@@ -70,7 +70,7 @@
 							</div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                        
                             	<table class="table table-bordered" id="dataTable2">
                             		
                             	<%-- 	 <tr id="totalavg" style="background-color: #4167d5; color: #f8f9fc;">
@@ -102,7 +102,6 @@
 									  </c:forEach>
                             			</tbody>
                             	</table>
-                            	</div>
                             	<div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable2">
                                  
@@ -134,7 +133,7 @@
     									<c:set var="sellerMonth" value="${seller.monthly}" />
    										<c:if test="${sellerMonth == currentMonth}">
         									<tr>
-            									<td>${seller.seller_num}</td>
+        										 <td><a href="${pageContext.request.contextPath}/detailSales?seller_num=${seller.seller_num}&order_month=${seller.pay_day}">${seller.seller_num}</a></td>
             									<td>${seller.seller_storeName}</td>
             									<td>${seller.seller_name}</td>
             									<td>${seller.pay_day}</td>

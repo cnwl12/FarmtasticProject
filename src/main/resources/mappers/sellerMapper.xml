@@ -208,18 +208,29 @@
    
    <!-- 선진) 매출관리 일별 매출 리스트 -->
    <select id="getDailySalesList" resultType="map">
-	SELECT	od.order_num, od.item_num, it.seller_type, it.item_name, od.item_cnt, it.item_price, 
-			(it.item_price * od.item_cnt) AS dailySales,
-	        TRUNCATE((it.item_price * od.item_cnt) * 0.05, 0) AS dailyFee,
-	        (it.item_price * od.item_cnt) - TRUNCATE((it.item_price * od.item_cnt) * 0.05, 0) AS dailySettlement,
+     SELECT	od.order_num,
+     		s.seller_num, 
+     		s.seller_storeName,
+     		s.seller_name,
+     		od.item_num, 
+     		it.seller_type, 
+     		it.item_name, 
+     		od.item_cnt, 
+     		it.item_price, 
+			FORMAT((it.item_price * od.item_cnt),0) as dailySales,
+            FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
+            FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
 	        os.order_day
-	FROM	order_detail od		JOIN	item it 
-	ON		od.item_num = it.item_num
-								LEFT JOIN	orders os
-	ON		od.order_num = os.order_num
+	FROM	order_detail od		
+    LEFT JOIN item it 
+    ON od.item_num = it.item_num
+    LEFT JOIN seller s
+    ON it.seller_num = s.seller_num
+	LEFT JOIN orders os 
+	ON od.order_num = os.order_num
 	WHERE	od.item_num IN (select	item_num
-					from	item
-					where	seller_num = #{seller_num})
+							from	item
+							where	seller_num = #{seller_num})
 	ORDER BY os.order_day;
    </select>
 
