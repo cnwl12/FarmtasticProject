@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -661,13 +664,28 @@ public class SellerController {
 	}
 	/* sungha 판매자->회원관리....조회..*/
 	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
-	public String memberMngPro(Locale locale, Model model, HttpSession session,HttpServletResponse response) {
-		
-		System.out.println("memberMng 매핑확인여부");
-		List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin();
-	    model.addAttribute("MemberMngjoin", MemberMngjoin);
-	    return "/seller/memberMng";
+	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDateStr,
+	                            @RequestParam(name = "endDate", required = false) String endDateStr,
+	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
+		System.out.println("memberMngPro sellerController()");
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    Date startDate = null, endDate = null;
+
+	    if(startDateStr != null && endDateStr != null) {
+	        try {
+	            startDate = dateFormat.parse(startDateStr);
+	            endDate = dateFormat.parse(endDateStr);
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
 	    }
+
+	    List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin(startDate, endDate);
+	    model.addAttribute("MemberMngjoin", MemberMngjoin);
+
+	    return "/seller/memberMng";
+		}
 	}
+
 
 

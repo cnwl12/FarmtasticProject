@@ -182,6 +182,7 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".MemberMngjoin");
 		}
 		
+		
 		// 상태 조회 후 변경 
 		public void updateStatus(HashMap<String, String> status) {
 			System.out.println("updateStatus dao");
