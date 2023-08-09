@@ -233,14 +233,6 @@ public class SellerController {
 	    }
 	}
 
-	/*
-	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
-	public String itemMng(Locale locale, Model model) {
-		
-		System.out.println("itemMng 매핑확인여부");
-		return "/seller/itemMng";
-	}
-	*/
 	@RequestMapping(value = "/itemDelMng", method = RequestMethod.GET)
 	public String itemDelMng(Locale locale, HttpSession session, Model model) {
 		

@@ -334,6 +334,11 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
 		System.out.println(zzimlist + "가나다");
 		model.addAttribute("zzimlist", zzimlist);
+		
+		// 주문관리 - 지원
+		List<Map<String, Object>> orderList = memberService.getOrderList(member_num);
+		model.addAttribute("orderList", orderList);
+		
 		return "/member/mypage";
 	}
 	
@@ -372,24 +377,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/searchd";
 	}
 
-//	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-//	public String updatePro(MemberDTO memberDTO) {
-//		System.out.println("MemberController updatePro()");
-//		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-//		if (memberDTO2 != null) {
-//			// 아이디 비밀번호 일치 => 수정작업 => /member/index 이동
-//			
-//			memberService.updateMember(memberDTO);
-//			System.out.println(memberDTO);
-//			return "redirect:/member/index";
-//			
-//		} else {
-//			// 아이디 비밀번호 틀림 => member/msg.jsp 이동
-//			return "member/msg";
-//		}
-//	}
-//
-//	
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 	public String updatePro(HttpSession session, @RequestParam(value = "member_id", required = false) String member_id,
@@ -496,19 +483,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/farmStoreDetail";
 	}
 
-	// 디비 연동 확인용
-
-//	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-//	public String insert() {
-//
-//		System.out.println("insert 매핑확인여부");
-//		return "/member/insert";
-//	}
-//
-
-	// ---------------카트 조지는 중임 --------------------------
-	// if(담는건 맞고, 페이지 유지 or 이동할것)
-
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
 	public String insertCart(@RequestParam HashMap<String, Object> cart, HttpSession session, Model model) {
 
@@ -518,7 +492,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		 session.setAttribute("member_num", member_num);
 		
 		 // 바꿀것임!!! 
-		 if(member_num ==null) {
+		 if(session.getAttribute("member_num") == null) {
 				model.addAttribute("msg", "로그인 이후 사용가능합니다.");
 				return "redirect:/login";
 		}
@@ -529,39 +503,30 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		// 수량을 조회하는 메서드 따로 필요
 		System.out.println("countCart 컨트롤러 시작");
-		
-		// session.setAttribute("item_count", item_count);
 
 		return "redirect:/shoppingCart";
 	}
 
-	// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
 	public String shopingCart(Model model, HttpSession session) {
 
 		System.out.println("shoppingCart 매핑확인여부");
 		
-		// 나중에 변경할거임...
-		// int member_num = (int)session.getAttribute("member_num");
 		Integer member_num = (Integer) session.getAttribute("member_num");
-		// String member_num = (String)session.getAttribute("member_num");
-		// int member_num = 16; // <- 로그인 됐을 때 지울거임
 		session.setAttribute("member_num", member_num);
 		
-		if(member_num ==null) {
-			model.addAttribute("msg", "로그인 이후 사용가능합니다.");
-			return "redirect:/login";
-		}
+		System.out.println(member_num);
+		
+		 if (member_num == null) {
+		        return "redirect:/login";
+		 }
 		 
 		System.out.println(member_num);
 
  		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
-		// session.setAttribute("item_count", item_count);
-		// System.out.println(itemList);
 		int item_count = memberService.countCart(member_num);
 		session.setAttribute("item_count", item_count);
-		// System.out.println("item_count : " + item_count );
 		
 		return "/member/shoppingCart";
 	}
@@ -569,14 +534,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/cartInUpdate", method = RequestMethod.GET)
 	public String cartInUpdate(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
-		// 나중에 변경할거임...
-		// int member_num = 16; // <- 로그인 됐을 때 지울거임
-		//System.out.println(member_num + ", "+ cart);
 		 int member_num = (int)session.getAttribute("member_num");
 		 
 		 cart.put("member_num", member_num);
-
-		// System.out.println("insertCart 오는지");
 		
 		memberService.updateInCart(cart);
 
@@ -603,27 +563,12 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	}
 	
-	// 인호 결제 확인중!!!!!! 
 	
 	// 결제 성공 페이지로 이동하는 컨트롤러 확인하는 페이지
 		@RequestMapping(value = "/paySuccess", method = RequestMethod.GET)
 		public String paySuccess(@RequestParam  HashMap<String, Object> payInfo
 								 ,Model model
 								 ,HttpSession session) {
-		    // HashMap 객체 생성 및 결제 정보 추가
-		    // HashMap<String, Object> payInfo = new HashMap<String, Object>();
-//		    payInfo.put("order_num", payDTO.getOrder_num());
-//		    payInfo.put("member_num", payDTO.getMember_num());
-//		    payInfo.put("order_pay", payDTO.getOrder_pay());
-//		    payInfo.put("order_post", payDTO.getOrder_post());
-//		    payInfo.put("order_addMain", payDTO.getOrder_addMain());
-//		    payInfo.put("order_addSub", payDTO.getOrder_addSub());
-//		    payInfo.put("order_phone", payDTO.getOrder_phone());
-//		    payInfo.put("order_msg", payDTO.getOrder_msg());
-//		    payInfo.put("order_name", payDTO.getOrder_name());
-//		    payInfo.put("order_day", payDTO.getOrder_day());
-		    System.out.println("payinfo:" + payInfo);
-		    // 모델 객체에 HashMap 추가
 		    int member_num = (int)session.getAttribute("member_num");
 		    model.addAttribute("payInfo", payInfo);
 		    payInfo.put("member_num", member_num);
@@ -633,7 +578,6 @@ public class FarmController { // 소비자 (컨트롤러)
 			
 		    // 없어도 될거 같음 일단은 남겨둠 (지원)
 		    // memberService.insertPay(payInfo);
-		    // System.out.println("페이 테이블 넣자고");
 		    
 		    // orders 테이블에 DB인서트 작업 
 		    memberService.insertOrders(payInfo);
@@ -641,7 +585,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
-		    //return "/member/paySuccess";
 		}
 
 	// 주문창으로 넘어갔을때 임의로 주문상세테이블에 insert를 시키고, 결제가 y가 되면 (1. update 2. delete, insert)
@@ -653,9 +596,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
 
 		int member_num = (int)session.getAttribute("member_num");
-		//int member_num = 16; // <- 로그인 됐을 때 지울거임
-//		System.out.println(member_num + ", "+ orderDetail);
-		//session.setAttribute("member_num", member_num);
 		orderDetail.put("member_num", member_num);
 
 		memberService.insertOrderDetail(orderDetail);
@@ -686,7 +626,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
 		
-		// insertMember() 메서드 호출
 		memberService.insertMember(memberDTO);
 
 		return "redirect:/login";
@@ -695,7 +634,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
 	public String insertPro2(SellerDTO sellerDTO) {
 
-		// insertSeller() 메서드 호출
 		sellerService.insertSeller(sellerDTO);
 
 		return "redirect:/login";

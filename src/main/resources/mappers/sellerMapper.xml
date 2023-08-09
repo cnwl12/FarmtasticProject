@@ -313,14 +313,25 @@
 		
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
-       SELECT *
+       SELECT item_num
+       		 ,seller_type
+       		 ,item_name
+       		 ,item_price
+       		 ,item_mainImg
+       		 ,item_detail
+       		 ,item_left
        FROM item
        ORDER BY item_num desc
     </select>
     
      <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">
-       SELECT *
+       SELECT item_num
+       		 ,item_name
+       		 ,item_price
+       		 ,item_mainImg
+       		 ,item_detail
+       		 ,item_left
        FROM item
        WHERE seller_num = #{seller_num}
        ORDER BY item_num desc

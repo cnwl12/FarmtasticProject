@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,38 +6,17 @@
 <meta charset="UTF-8">
 <title>Farmtastic_Mypage</title>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/zzim.css"
-	type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css">
 <!-- 지마켓  -->  
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/myg.css"
-	type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
@@ -76,7 +54,7 @@
 				<ul class="menu_list">
 					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
 					<li id="menu5"><a href="#" class="toggle-mypage" data-target="myzzim">찜한상품</a></li>
-					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문배송</a></li>
+					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문관리</a></li>
 					<li id="menu3"><a href="#" class="toggle-mypage" data-target="myreview">리뷰관리</a></li>
 					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
 				</ul>
@@ -287,9 +265,49 @@
 			
 						
 			<div id="menu2_cont">
-			<h4>배송</h4>
+			<h4>주문관리</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
-			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>주문번호</th>
+						<th>상품명</th>
+						<th>수량</th>
+						<th>가격</th>
+						<th>주문상태</th>
+					</tr>
+				</thead>
+				<tbody id="inquiryList">
+
+					<c:forEach var="order" items="${orderList}">
+						<tr class="boardTitle">
+							<td><a href="javascript:void(0);" class="orderLink"
+								data-order-num="${order.order_num}">${order.order_num}</a></td>
+							<td>${order.item_name}</td>
+							<td>${order.item_cnt}</td>
+							<td>${order.price}원</td>
+						</tr>
+						<tr class="orderItemsRow">
+							<td colspan="4">
+								<div class="orderItemsDropdown" style="display: none;">
+									<c:choose>
+										<c:when test="${order.order_num eq selectedOrder}">
+											<c:forEach var="item" items="${order.orderItems}">
+												<div>
+													<span>${item.item_name}</span> <span>${item.item_cnt}</span>
+													<span>${item.price}원</span>
+												</div>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+		</div> <!-- 토글 끝  -->
 			
 			<div id="menu3_cont">
 			<h4>나의 리뷰</h4>
@@ -880,5 +898,38 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 
 
 </script>
+
+
+<!-- 주문목록  -->
+<script>
+    var selectedOrder = null;
+
+    $(document).ready(function() {
+        $(".orderLink").click(function() {
+            var orderNum = $(this).data("order-num");
+            $(".orderItemsDropdown").hide();
+            
+            if (orderNum !== selectedOrder) {
+                selectedOrder = orderNum;
+                var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
+                
+                $.ajax({
+                    url: "/getOrderItems", 
+                    type: "GET",
+                    data: { orderNum: orderNum },
+                    success: function(response) {
+                        dropdown.html(response);
+                        dropdown.show();
+                    }
+                });
+            } else {
+                selectedOrder = null;
+            }
+        });
+    });
+</script>
+
+
+
 </body>
 </html>
