@@ -422,13 +422,13 @@ public class AdminController {
 	    return result;
 	}
 	@RequestMapping(value = "/detailSales", method = RequestMethod.GET)
-	public String detaillSales(@RequestParam("seller_num")String seller_num,Locale locale, Model model) {
+	public String detaillSales(@RequestParam("seller_num")String seller_num,@RequestParam("pay_day") String pay_day,Locale locale, Model model) {
 	    System.out.println("detailSales 매핑확인여부");
 
 
 	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
 	    model.addAttribute("seller_num", seller_num);
-	    
+	    model.addAttribute("pay_day", pay_day);
 	    model.addAttribute("DailySalesList", DailySalesList);
 	    System.out.println(seller_num+ DailySalesList);
 	    return "/admin/sellerMenu/detailSales";
