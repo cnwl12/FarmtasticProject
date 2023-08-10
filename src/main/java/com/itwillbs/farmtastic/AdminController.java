@@ -72,6 +72,7 @@ public class AdminController {
 	            if (adminInfo != null && adminInfo.getAdmin_pass().equals(admin_pass)) {
 	            	System.out.println("로그인성공!: "+admin_id);
 	                session.setAttribute("admin", adminInfo);
+	                session.setAttribute("admin_id", admin_id);    // 세션에 admin_id 추가
 	                return "redirect:/adminMain";
 	            } else {
 	                rttr.addFlashAttribute("msg", "로그인 실패");
@@ -105,49 +106,97 @@ public class AdminController {
 	     return "redirect:/adminLogin";
 	 } 
 	 
-	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		 List<Map<String, Object>> resultList = sellerService.getSeller();
-		 model.addAttribute("sellers", resultList);
-		System.out.println("adminMain 매핑확인여부");
-		
-		return "/admin/adminMain";
-	}
+	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
+	    public String home(Locale locale, Model model, HttpSession session) throws IOException {
+	        System.out.println("adminMain 매핑확인여부");
+	        
+	        if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	            model.addAttribute("sellers", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/adminMain";
+	        }
+	    }
 	@RequestMapping(value = "/notetest", method = RequestMethod.GET)
-	public String notetest(Locale locale, Model model) {
+	public String notetest(Locale locale, Model model,HttpSession session) {
 		
 		System.out.println("notetest 매핑확인여부");
 		
 		return "/admin/customerMenu/notetest";
 	}
 	@RequestMapping(value = "/writeCnote", method = RequestMethod.GET)
-	public String writeCnote(Locale locale, Model model) {
+	public String writeCnote(Locale locale, Model model,HttpSession session) {
 		
 		System.out.println("writeCnote 매핑확인여부");
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/customerMenu/writeCnote";
+	        }
 		
-		return "/admin/customerMenu/writeCnote";
 	}
+	
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
-	public String content(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
-	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
-	    model.addAttribute("content", resultMap);
-	    model.addAttribute("admin_cs_num", admin_cs_num);
-	    String adminId = resultMap.get("admin_id").toString();
-	    model.addAttribute("admin_id", resultMap.get("admin_id").toString());
-	    System.out.println("controller" + resultMap);
-	    System.out.println("content 매핑확인여부");
+	public String content(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model,HttpSession session) {
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+	    	    model.addAttribute("content", resultMap);
+	    	    model.addAttribute("admin_cs_num", admin_cs_num);
+	    	    String adminId = resultMap.get("admin_id").toString();
+	    	    model.addAttribute("admin_id", resultMap.get("admin_id").toString());
+	    	    System.out.println("content 매핑확인여부");
+	    	    
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/customerMenu/content";
+	        }
+		
+		
 	    
-	    return "/admin/customerMenu/content";
 	}
 //	글 수정화면
 	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
-	public String contentUpdate(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
+	public String contentUpdate(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model,HttpSession session) {
 	    System.out.println("contentUpdate 매핑확인여부");
-	    Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
-	    model.addAttribute("content", resultMap);
-	    model.addAttribute("admin_cs_num", admin_cs_num);
-	    System.out.println("controller" + resultMap);
-	    return "/admin/customerMenu/contentUpdate";
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
+    	    model.addAttribute("content", resultMap);
+    	    model.addAttribute("admin_cs_num", admin_cs_num);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/customerMenu/contentUpdate";
+        }
+	   
 	}
 // 글 수정 기능	
 	@PostMapping("/contUpdate")
@@ -222,23 +271,47 @@ public class AdminController {
 //	}
 
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
-	public String customerAdmin(Locale locale, Model model) {
+	public String customerAdmin(Locale locale, Model model,HttpSession session) {
 		
 		System.out.println("customerAdmin 매핑확인여부");
-		 List<Map<String, Object>> resultList = memberService.getMembers();
-		 model.addAttribute("members", resultList);
-		return "/admin/customerMenu/customerAdmin";
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> resultList = memberService.getMembers();
+	   		 	model.addAttribute("members", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/customerMenu/customerAdmin";
+	        }
 	}
 //	회원관리 상세정보 팝업
 	
 	
 	  @RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
-	    public String memberDetail(@RequestParam("member_num") int member_num, Locale locale, Model model) {
+	    public String memberDetail(@RequestParam("member_num") int member_num, Locale locale, Model model,HttpSession session) {
 	        System.out.println("memberDetail 매핑 확인 여부");
-	        Map<String, Object> resultList = memberService.getMemberDetails(member_num);
-	        model.addAttribute("memberDetail", resultList);
-	        System.out.println("controller"+resultList);
-	        return "/admin/customerMenu/memberDetail";
+	        if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> result = memberService.getMembers();
+	            Map<String, Object> resultList = memberService.getMemberDetails(member_num);
+		        model.addAttribute("memberDetail", resultList);
+	   		 	model.addAttribute("members", result);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/customerMenu/memberDetail";
+	        }
+	        
 	    }
 
 	@PostMapping("/changeMemberStatus")
@@ -252,58 +325,27 @@ public class AdminController {
 	}
 	return "redirect:/customerAdmin";
 	}
-	
-	@RequestMapping(value = "/customerLev", method = RequestMethod.GET)
-	public String customerLev(Locale locale, Model model) {
-		
-		System.out.println("customerLev 매핑확인여부");
-		
-		return "/admin/customerMenu/customerLev";
-	}
-	@RequestMapping(value = "/report", method = RequestMethod.GET)
-	public String report(Locale locale, Model model) {
-		
-		System.out.println("report 매핑확인여부");
-		
-		return "/admin/customerMenu/report";
-	}
-	@RequestMapping(value = "/cupon", method = RequestMethod.GET)
-	public String cupon(Locale locale, Model model) {
-		
-		System.out.println("cupon 매핑확인여부");
-		
-		return "/admin/customerMenu/cupon";
-	}
-	@RequestMapping(value = "/point", method = RequestMethod.GET)
-	public String point(Locale locale, Model model) {
-		
-		System.out.println("point 매핑확인여부");
-		
-		return "/admin/customerMenu/point";
-	}
-	@RequestMapping(value = "/event", method = RequestMethod.GET)
-	public String event(Locale locale, Model model) {
-		
-		System.out.println("event 매핑확인여부");
-		
-		return "/admin/customerMenu/event";
-	}
-	@RequestMapping(value = "/snotice", method = RequestMethod.GET)
-	public String snotice(Locale locale, Model model) {
-		
-		System.out.println("snotice 매핑확인여부");
-		
-		return "/admin/sellerMenu/snotice";
-	}
-	
+
 	//가맹점관리
 	@RequestMapping(value = "/sellerAdmin", method = RequestMethod.GET)
-	public String sellerAdmin(Locale locale, Model model) {
+	public String sellerAdmin(Locale locale, Model model,HttpSession session) {
 			
 		System.out.println("sellerAdmin 매핑확인여부");
-		 List<Map<String, Object>> resultList = sellerService.getSeller();
-		 model.addAttribute("sellers", resultList);
-		return "/admin/sellerMenu/sellerAdmin";
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	   		 	model.addAttribute("sellers", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/sellerMenu/sellerAdmin";
+	        }
+		
 	}
 	
 	
@@ -323,86 +365,108 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
-	public String settlement(Locale locale, Model model) {
+	public String settlement(Locale locale, Model model,HttpSession session) {
 		
 		System.out.println("settlement 매핑확인여부");
-	
-   	 // 날짜 정보 추가
-//   	    Calendar now = Calendar.getInstance();
-//   	    String currentMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-//   	    now.add(Calendar.MONTH, -1);
-//   	    String prevMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-//   	    now.add(Calendar.MONTH, 2);
-//   	    String nextMonth = now.get(Calendar.YEAR) + "-" + String.format("%02d", now.get(Calendar.MONTH) + 1);
-
-   	    List<Map<String, Object>> resultList = sellerService.getSales();
-   	    model.addAttribute("sales", resultList);
-
-   	    // 모델에 날짜 정보 추가
-//   	    model.addAttribute("currentMonth", currentMonth);
-//   	    model.addAttribute("prevMonth", prevMonth);
-//   	    model.addAttribute("nextMonth", nextMonth);
-
-   	    return "/admin/sellerMenu/settlement";
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> resultList = sellerService.getSales();
+	       	    model.addAttribute("sales", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/sellerMenu/settlement";
+	        }
 	}
 
 	
 	
 	
 	@RequestMapping(value = "/settle_day", method = RequestMethod.GET)
-	public String settle_day(@RequestParam("seller_num") String sellerNum, @RequestParam("order_month") String orderMonth, Locale locale, Model model) {
+	public String settle_day(@RequestParam("seller_num") String sellerNum, @RequestParam("order_month") String orderMonth, Locale locale, Model model,HttpSession session) {
 
 	    System.out.println("settle_day 매핑확인여부");
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            // sellerService에서 daySales 메서드를 호출할 때, sellerNum과 orderMonth를 인자로 전달합니다.
+    	    List<Map<String, Object>> resultList = sellerService.daySales(sellerNum, orderMonth);
+    	    // resultList를 모델에 추가
+    	    model.addAttribute("sales", resultList);
+    	    model.addAttribute("seller_num", sellerNum);
+    	    model.addAttribute("orderMonth", orderMonth);
+    	    System.out.println("controller" + resultList);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            // 뷰 이름 반환
+    	    return "/admin/sellerMenu/settle_day";
+        }
 
-	    // sellerService에서 daySales 메서드를 호출할 때, sellerNum과 orderMonth를 인자로 전달합니다.
-	    List<Map<String, Object>> resultList = sellerService.daySales(sellerNum, orderMonth);
-
-	    // resultList를 모델에 추가
-	    model.addAttribute("sales", resultList);
-	    model.addAttribute("seller_num", sellerNum);
-	    model.addAttribute("orderMonth", orderMonth);
-	    System.out.println("controller" + resultList);
-
-	    // 뷰 이름 반환
-	    return "/admin/sellerMenu/settle_day";
 	}
 	
 	
 	@RequestMapping(value = "/settle_year", method = RequestMethod.GET)
-	public String settle_year(@RequestParam("seller_num") String sellerNum,Locale locale, Model model) {
-
+	public String settle_year(@RequestParam("seller_num") String sellerNum,Locale locale, Model model,HttpSession session) {
 	    System.out.println("settle_year 매핑확인여부");
-	    List<Map<String, Object>> resultList = sellerService.yearSales(sellerNum);
-		 model.addAttribute("sales", resultList);
-		 model.addAttribute("seller_num", sellerNum);
-		 System.out.println(resultList+sellerNum);
-	    return "/admin/sellerMenu/settle_year";
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            List<Map<String, Object>> resultList = sellerService.yearSales(sellerNum);
+   		 	model.addAttribute("sales", resultList);
+   		 	model.addAttribute("seller_num", sellerNum);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/sellerMenu/settle_year";
+        }
+	  
 	}
-	
-	
-	
 	
 	//admin에 매출관리 목록 불러오기위한 구문
 	
 	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
-	public String sales(@RequestParam(value = "monthly", required = false) String monthly, Locale locale, Model model) {
+	public String sales(@RequestParam(value = "monthly", required = false) String monthly, Locale locale, Model model,HttpSession session) {
 	    System.out.println("sales 매핑확인여부");
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            
+            if (monthly == null || monthly.isEmpty()) {
+    	        LocalDate currentDate = LocalDate.now();
+    	        monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+    	    }
+            List<Map<String, Object>> resultList = sellerService.getSellers(monthly);
+    	    model.addAttribute("sellers", resultList);
+    	    model.addAttribute("monthly", monthly);
 
-	    if (monthly == null || monthly.isEmpty()) {
-	        LocalDate currentDate = LocalDate.now();
-	        monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-	    }
-
-	    List<Map<String, Object>> resultList = sellerService.getSellers(monthly);
-	    model.addAttribute("sellers", resultList);
-	    model.addAttribute("monthly", monthly);
-
-	    LocalDate currentDate = LocalDate.now();
-	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-	    model.addAttribute("currentMonth", currentMonth);
-
-	    return "/admin/sellerMenu/sales";
+    	    LocalDate currentDate = LocalDate.now();
+    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+    	    model.addAttribute("currentMonth", currentMonth);
+            
+    	    return "/admin/sellerMenu/sales";
+        }
 	}
 	@RequestMapping(value = "/sales_ajax", method = RequestMethod.GET)
 	@ResponseBody
@@ -422,26 +486,44 @@ public class AdminController {
 	    return result;
 	}
 	@RequestMapping(value = "/detailSales", method = RequestMethod.GET)
-	public String detaillSales(@RequestParam("seller_num")String seller_num,Locale locale, Model model) {
+	public String detaillSales(@RequestParam("seller_num")String seller_num,@RequestParam("pay_day") String pay_day,Locale locale, Model model,HttpSession session) {
 	    System.out.println("detailSales 매핑확인여부");
-
-
-	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
-	    model.addAttribute("seller_num", seller_num);
 	    
-	    model.addAttribute("DailySalesList", DailySalesList);
-	    System.out.println(seller_num+ DailySalesList);
-	    return "/admin/sellerMenu/detailSales";
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
+    	    model.addAttribute("seller_num", seller_num);
+    	    model.addAttribute("pay_day", pay_day);
+    	    model.addAttribute("DailySalesList", DailySalesList);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/sellerMenu/detailSales";
+        }
 	}
 	@RequestMapping(value = "/totalSales", method = RequestMethod.GET)
-	public String totalSales(Locale locale, Model model) {
+	public String totalSales(Locale locale, Model model,HttpSession session) {
 	    System.out.println("totalSales 매핑확인여부");
-
-	    List<Map<String, Object>> resultList = sellerService.totalSales();
-	    model.addAttribute("sellers", resultList);
-
-
-	    return "/admin/sellerMenu/totalSales";
+	    
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            List<Map<String, Object>> resultList = sellerService.totalSales();
+    	    model.addAttribute("sellers", resultList);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/sellerMenu/totalSales";
+        }
 	}
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
@@ -455,12 +537,23 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
-	public String cnotice(Locale locale, Model model) {
+	public String cnotice(Locale locale, Model model,HttpSession session) {
 		System.out.println("cnotice 매핑확인여부");
-		 List<Map<String, Object>> resultList = adminService.getCnotice();
-		 model.addAttribute("notice", resultList);
-		 System.out.println(resultList);
-		return "/admin/customerMenu/cnotice";
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> resultList = adminService.getCnotice();
+	   		 	model.addAttribute("notice", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/customerMenu/cnotice";
+	        }
+		
 	}
 //	공지사항글쓰기
 	@RequestMapping(value = "/writePro", method = RequestMethod.POST)
@@ -563,13 +656,4 @@ public class AdminController {
 //			}
 //			return gson.toJson(map);
 //		}
-//	
-//	
-
-
-
-
-
-
-
 }

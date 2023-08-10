@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,38 +6,17 @@
 <meta charset="UTF-8">
 <title>Farmtastic_Mypage</title>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/zzim.css"
-	type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css">
 <!-- 지마켓  -->  
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/myg.css"
-	type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
@@ -65,7 +43,6 @@
 	<jsp:include page="../top.jsp"></jsp:include>
   <section class="blog spad" style="padding-top: 10px;">
     <div class="container">
-<!-- 	<div id="contentswrap"> -->
 	 <div class="row">
 	  <div class="col-lg-4 col-md-5">
                    <div class="blog__sidebar">
@@ -76,7 +53,7 @@
 				<ul class="menu_list">
 					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
 					<li id="menu5"><a href="#" class="toggle-mypage" data-target="myzzim">찜한상품</a></li>
-					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문배송</a></li>
+					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문관리</a></li>
 					<li id="menu3"><a href="#" class="toggle-mypage" data-target="myreview">리뷰관리</a></li>
 					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
 				</ul>
@@ -85,14 +62,11 @@
                 </div>
                 <div>
 
-			<div id="main_cont">
-			<div id="menu1_cont">
-				<form novalidate
-					action="${pageContext.request.contextPath }/updatePro"
-					method="post">
-					<div class="myoption">
+			<div id="menu1_cont" style="width: 780px; margin-left: -80px;">
+				<form novalidate 
+					action="${pageContext.request.contextPath }/updatePro" method="post">
+					<div class="myoption" style="float: right;  margin-bottom: 10px; width: 780px;">
 						<h4>나의 정보</h4>
-						<!-- <h5 class="list1">회원정보 설정</h5>     -->
 						<table class="myg_tab">
 							<tbody>
 								<tr>
@@ -253,17 +227,15 @@
 						</div>
 					</div>
 					<div class="btn_center">
-
-						<button type="submit" class="btn_blue_style2" id="img_submit"
-							disabled="true">
+						<button type="submit" class="btn_blue_style2" id="img_submit">
 							<span style="color: #fff; text-align: center;">수정하기</span>
 						</button>
 					</div>
-				</form>
+				</form> 
 			</div>
 			
 			<!-- 서영 찜페이지 만드는중 -->
-			<div id="menu5_cont">
+			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
     <div class="container">
         <h4>내 찜 목록</h4><br>
         <ul class="favorite-list">
@@ -286,12 +258,52 @@
 			<!--  서영 찜페이지 끝 -->
 			
 						
-			<div id="menu2_cont">
-			<h4>배송</h4>
-			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
-			</div>
+			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+			<h4>주문관리</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>주문번호</th>
+						<th>상품명</th>
+						<th>수량</th>
+						<th>가격</th>
+						<th>주문상태</th>
+						<th>배송조회</th>
+					</tr>
+				</thead>
+		   <tbody id="inquiryList">
+            <c:forEach var="order" items="${orderList}">
+                <tr class="boardTitle">
+                    <td><a href="javascript:void(0);" class="orderLink" data-order-num="${order.order_num}">${order.order_num}</a></td>
+                    <td>${order.item_name}</td>
+                    <td>${order.item_cnt}</td>
+                    <td>\ ${order.price}원</td>
+                    <td>결제완료</td>
+                    <td><input type="button" value="배송조회"></td>
+                </tr>
+                <tr class="orderItemsRow">
+                    <td colspan="6">
+                        <div class="orderItemsDropdown" style="display: none;">
+                            <c:choose>
+                                <c:when test="${order.order_num eq selectedOrder}">
+                                    <c:forEach var="item" items="${order.orderItems}">
+                                        <div>
+                                            <span>${item.item_name}</span> <span>${item.item_cnt}</span>
+                                            <span>${item.price}원</span>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+		 <!-- 주문관리 토글 끝  -->	
 			
-			<div id="menu3_cont">
+			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
 			<h4>나의 리뷰</h4>
 			<button class="site-btn" id="edit-review-button" >수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>
@@ -344,7 +356,7 @@
     			</table>
 				</div>
 			</div>
-			<div id="menu4_cont">
+			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
 			<h4>1:1문의</h4>
 			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
 			 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
@@ -445,11 +457,11 @@
 		  	
 		  	
 		  </div>	
-		</div>
 
 	</div>
 
        
+            </div>
             </div>
      </section>
 
@@ -663,6 +675,30 @@ $(document).ready(function() {
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 주문목록  -->
+<script>
+    $(document).ready(function() {
+        var firstOrderNum = $(".orderLink").first().data("order-num");
+        var selectedOrder = firstOrderNum;
+
+        $(".orderLink").click(function() {
+            var orderNum = $(this).data("order-num");
+            var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
+
+            if (orderNum === selectedOrder) {
+                selectedOrder = null;
+            } else {
+                selectedOrder = orderNum;
+            }
+
+            $(".orderItemsDropdown").hide();
+            dropdown.toggle();
+        });
+    });
+</script>
+
+
 
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () { 
@@ -879,6 +915,13 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	}
 
 
-</script>
+</script> 
+
+
+
+
+
+
+
 </body>
 </html>

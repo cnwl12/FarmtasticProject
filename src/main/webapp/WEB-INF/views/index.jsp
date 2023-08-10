@@ -65,9 +65,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="zzimpage"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shoppingCart">
-                       			 <c:choose>
+                            <li><a href="mypage"><i class="fa fa-user"></i></a></li>
+                           <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
+								 <c:choose>
 						            <c:when test="${not empty sessionScope.item_count && not empty sessionScope.member_num}">
 						                <!-- 장바구니가 비어있지 않고, 로그인한 회원인 경우 -->
 						                <span>${sessionScope.item_count}</span>
@@ -76,13 +76,12 @@
 						                <!-- 다른 경우 (장바구니가 비어있거나 로그인하지 않은 경우) -->
 						            </c:otherwise>
 						        </c:choose>
-								</a>
-							</li>
+							</a></li>
                         </ul>
                      <div class="header__top__right__auth">
   						<c:choose>
       					<c:when test="${empty sessionScope.member_num}">
-         				 <a href="login"><i class="fa fa-user"></i>Login</a>
+         				 <a href="login">Login</a>
       					</c:when>
       					<c:otherwise>
          				<a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>

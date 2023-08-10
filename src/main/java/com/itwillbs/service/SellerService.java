@@ -180,9 +180,9 @@ public class SellerService {
 	         return sellerDAO.idCheck(seller_num);
 		}
 
-		public List<Map<String, Object>> MemberMngjoin(Date startDate, Date endDate) {
-			System.out.println("SellerService의 MemberMngjoin()");
-			return sellerDAO.MemberMngjoin();
+		public List<Map<String, Object>> MemberMngjoin(java.sql.Date startDate, java.sql.Date endDate) {
+		    System.out.println("SellerService의 MemberMngjoin()");
+		    return sellerDAO.MemberMngjoin(startDate, endDate);
 		}
 
 		public void updateStatus(HashMap<String, String> status) {

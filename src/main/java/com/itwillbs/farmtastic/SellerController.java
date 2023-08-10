@@ -236,14 +236,6 @@ public class SellerController {
 	    }
 	}
 
-	/*
-	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
-	public String itemMng(Locale locale, Model model) {
-		
-		System.out.println("itemMng 매핑확인여부");
-		return "/seller/itemMng";
-	}
-	*/
 	@RequestMapping(value = "/itemDelMng", method = RequestMethod.GET)
 	public String itemDelMng(Locale locale, HttpSession session, Model model) {
 		
@@ -662,19 +654,22 @@ public class SellerController {
 		return "/member/login";
 	    }
 	}
+	
+	
 	/* sungha 판매자->회원관리....조회..*/
 	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
 	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDateStr,
 	                            @RequestParam(name = "endDate", required = false) String endDateStr,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
-		System.out.println("memberMngPro sellerController()");
+	    System.out.println("memberMngPro sellerController()");
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    Date startDate = null, endDate = null;
 
-	    if(startDateStr != null && endDateStr != null) {
+	    java.sql.Date startDate = null, endDate = null;
+
+	    if (startDateStr != null && endDateStr != null) {
 	        try {
-	            startDate = dateFormat.parse(startDateStr);
-	            endDate = dateFormat.parse(endDateStr);
+	            startDate = new java.sql.Date(dateFormat.parse(startDateStr).getTime());
+	            endDate = new java.sql.Date(dateFormat.parse(endDateStr).getTime());
 	        } catch (ParseException e) {
 	            e.printStackTrace();
 	        }
@@ -684,8 +679,8 @@ public class SellerController {
 	    model.addAttribute("MemberMngjoin", MemberMngjoin);
 
 	    return "/seller/memberMng";
-		}
 	}
+}
 
 
 

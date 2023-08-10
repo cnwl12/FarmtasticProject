@@ -87,7 +87,8 @@ table.myg_tab td a {
 }
 
 .btn_blue_style2 {
-    background: #7fad39 no-repeat right 0px;
+ /*    background: #7fad39 no-repeat right 0px; */
+ 	background :#7fad39;
     height: 31px;
     padding: 0 20px;
     display: inline-block;
@@ -95,13 +96,8 @@ table.myg_tab td a {
 
 .btn_center {
     text-align: center;
-    margin-top: 10px;
-}
+ }
 
-#main_cont {
-    width: 1300px;
-    min-height: 650px;
-}
 
 div.my_info_setting table th { 
     padding: 4px 0 0 19px;

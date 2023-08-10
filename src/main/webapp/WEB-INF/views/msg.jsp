@@ -9,8 +9,8 @@
 </head>
 <body>
 <script type="text/javascript">
-	alert('<c:out value="${msg}" />');
-	history.back(); // 로그인페이지로 이동 
+	alert('${msg}');
+	return "redirect:/login" // 로그인페이지로 이동 
 </script>
 </body>
 </html>

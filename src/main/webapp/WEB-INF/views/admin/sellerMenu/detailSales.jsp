@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> <%-- JSP에서 EL(Expression Language)을 사용하기 위한 설정입니다. --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
     
@@ -98,21 +99,22 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                     <c:forEach items="${DailySalesList}" var="seller">
-    									<input type="hidden" value="${seller.seller_num}">
-   										
+                                     <c:forEach items="${DailySalesList}" var="list">
+    									<input type="hidden" value="${list.seller_num}">
+    									<input type="hidden" name="pay_day" value="${pay_day}">
+    									<c:if test="${list.orderday eq pay_day}">
         									<tr>
-            									<td>${seller.seller_num}</td>
-            									<td>${seller.seller_storeName}</td>
-            									<td>${seller.seller_name}</td>
-            									<td>${seller.order_num}</td>
-            									<td>${seller.item_num}</td>
-            									<td>${seller.dailySettlement}</td>
-            									<td>${seller.dailyFee}</td>
-            									<td>${seller.dailySales}</td>
-            									<td>${seller.order_day}</td>
+            									<td>${list.seller_num}</td>
+            									<td>${list.seller_storeName}</td>
+            									<td>${list.seller_name}</td>
+            									<td>${list.order_num}</td>
+            									<td>${list.item_num}</td>
+            									<td>${list.dailySettlement}</td>
+            									<td>${list.dailyFee}</td>
+            									<td>${list.dailySales}</td>
+            									<td>${list.orderday}</td>
         									</tr>
-    									
+    								</c:if>
 									</c:forEach>
                                     </tbody>
                                 </table>

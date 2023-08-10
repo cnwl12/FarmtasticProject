@@ -242,7 +242,6 @@ public class MemberService {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
 	
-	// 없어도 될거 같음 일단은 남겨둠 (지원)
 	public void insertOrders(HashMap<String, Object> payInfo) {
 		memberDAO.insertOrders(payInfo);
 		System.out.println("MemberService insertOrders");
@@ -261,14 +260,13 @@ public class MemberService {
         return memberDAO.countCart(member_num);
     }
     
-    // pay y인 테이블에 넣기
-	public void insertPay(HashMap<String, Object> payInfo) {
-		memberDAO.insertPay(payInfo);
-	}
 	
 	// 주문완료 후 카트 다 지우기 
 	public void deleteAllCart(HashMap<String, Object> cart) {
 		memberDAO.deleteAllCart(cart);
 	}
-	
+
+	public List<Map<String, Object>> getOrderList(int member_num) {
+		return memberDAO.getOrderList(member_num);
+	}
 }

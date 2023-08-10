@@ -28,6 +28,13 @@ public class AdminDAO {
     	System.out.println("dao");
         return sqlSession.selectOne(NAMESPACE + "adminCheck", admin_id);
     }
+    //관리자 정보
+	 public Map<String, Object> getAdminInfo(String admin_id) {
+			
+			System.out.println("AdminDAO getAdminInfo 매핑완");
+			return sqlSession.selectOne(NAMESPACE+"getAdminInfo", admin_id);
+		}
+		
 // 글 목록
 	public List<Map<String, Object>> getCnotice() {
 		System.out.println("dao");
@@ -60,6 +67,7 @@ public class AdminDAO {
 	 public void deleteContent(int admin_cs_num) {
 		    sqlSession.delete(NAMESPACE+"deleteContent", admin_cs_num);
 	 }
+	
 	 
 }
 	

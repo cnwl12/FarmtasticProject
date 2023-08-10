@@ -63,7 +63,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="like_farm"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="mypage"><i class="fa fa-user"></i> </a></li>
 							<li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
 								 <c:choose>
 						            <c:when test="${not empty sessionScope.item_count && not empty sessionScope.member_num}">
@@ -82,23 +82,17 @@
                         <c:choose>
                             <%-- 비로그인 상태인 경우 --%>
                             <c:when test="${empty sessionScope.member_num }">
-                                <a href="login"><i class="fa fa-user"></i>Login</a>
+                                <a href="login"></i>Login</a>
                             </c:when>
                             <%-- 로그인 상태인 경우 --%>
                             <c:otherwise>
-                                <a href="mypage"><i class="fa fa-user"></i>Mypage</a>
+                                <!-- <a href="mypage"><i class="fa fa-user"></i>Mypage</a> -->
                                 <a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
                                  
                             </c:otherwise>
                         </c:choose>
                     </div>
                 </div>
-                            <!--  <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul> -->
                           </div>      
                     </div>
            
