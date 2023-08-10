@@ -219,7 +219,7 @@
      		it.item_price, 
 			FORMAT((it.item_price * od.item_cnt),0) as dailySales,
             FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
-            FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
+            FORMAT((it.item_price * od.item_cnt) - floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
 	        os.order_day
 	FROM	order_detail od		
     LEFT JOIN item it 
@@ -237,9 +237,10 @@
    <!-- 선진) 정산관리 -->
    <select id="getSettlementList" resultType="map">
 	SELECT	DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS totalSales,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05, 0) AS totalFee,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalSettlement
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalFee,
+        	FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05)), 0) AS totalSettlement,
+			od.settlement_yn AS settlement_yn
 	FROM	order_detail od		JOIN	item it 
 	ON		od.item_num = it.item_num
 	WHERE	od.item_num IN (select	item_num

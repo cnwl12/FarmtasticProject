@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +61,55 @@
 					<!-- 검색바 끝 -->
                     
                     <!-- 정산 신청 시작 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
+                        </div>
+                        
+                        <form action="${pageContext.request.contextPath}/settlement" method="post" id="settlementRequest">
+                        
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="request" type="submit">정산신청</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="cancel" type="cancel">신청취소</button>
+                   		
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        	<th><input type="checkbox" id="allSetRequestCB"/></th>
+                                            <th>정산월</th>
+                                            <th>매출액</th>
+                                            <th>수수료</th>
+                                            <th>정산액</th>
+                                            <th>정산신청여부</th>
+                                            <th>정산신청일</th>
+                                            <th>정산완료여부</th>
+                                            <th>정산완료일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="getSettlementList">
+                                    <c:forEach items="${MonthSettlementList}" var="slist">
+                                          <tr>
+                                          	<td><input type="checkbox" class="setRequestCB"/></td>
+                                            <td>${slist.settlementMonth}</td>
+                                            <td>${slist.totalSales}</td>
+                                            <td>${slist.totalFee}</td>
+                                            <td>${slist.totalSettlement}</td>
+                                            <td>N</td>
+                                            <td></td>
+                                            <td>${slist.settlement_yn}</td>
+                                            <td></td>
+                                     	   </tr>	
+                                     </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                      </form>
+                 
+                    </div>
+                   
 					<!-- 정산 신청 끝 -->
 
 				</div>
@@ -125,6 +175,112 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+
+	<!-- 정산 신청 스크립트 -->
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    const allSetRequestCB = document.getElementById("allSetRequestCB");
+	    const setRequestCBs = document.querySelectorAll(".setRequestCB");
+	    const settlementForm = document.getElementById("settlementRequest");
+	    const cancelButton = document.getElementById("cancel");
+	    const requestButton = document.getElementById("request");
+	    
+	    // 체크박스 전체선택 시 모든 체크박스 선택
+	    allSetRequestCB.addEventListener("change", function() {
+	        const isChecked = allSetRequestCB.checked;
+	        setRequestCBs.forEach(function(cb) {
+	            cb.checked = isChecked;
+	        });
+	    });
+
+	    settlementForm.addEventListener("submit", function(event) {
+	        event.preventDefault();
+
+	        const checkedRows = [];
+	        const alreadyRequestedRows = [];
+	        setRequestCBs.forEach(function(cb) {
+	            const row = cb.closest("tr");
+	            const statusCell = row.querySelector("td:nth-child(6)");
+
+	            if (cb.checked) {
+	                if (statusCell.textContent === "Y") {
+	                    alreadyRequestedRows.push(row);
+	                } else {
+	                    checkedRows.push(row);
+	                }
+	            }
+	        });
+
+	        if (checkedRows.length === 0) {
+	            alert("선택된 정산건이 없습니다!");
+	            return;
+	        }
+
+	        const currentDate = new Date().toISOString().split("T")[0];
+
+	        checkedRows.forEach(function(row) {
+	            const statusCell = row.querySelector("td:nth-child(6)");
+	            const dateCell = row.querySelector("td:nth-child(7)");
+
+	            statusCell.textContent = "Y";
+	            dateCell.textContent = currentDate;
+	        });
+
+	        if (alreadyRequestedRows.length > 0) {
+	            alert("이미 정산이 신청된 건입니다.");
+	        } else {
+	            alert("정산 신청이 완료되었습니다!");
+	        }
+	    });
+
+	    cancelButton.addEventListener("click", function(event) {
+	        event.preventDefault();
+
+	        const checkedRows = [];
+	        const alreadyCancelledRows = [];
+	        setRequestCBs.forEach(function(cb) {
+	            const row = cb.closest("tr");
+	            const statusCell = row.querySelector("td:nth-child(6)");
+
+	            if (cb.checked) {
+	                if (statusCell.textContent === "N") {
+	                    alreadyCancelledRows.push(row);
+	                } else {
+	                    checkedRows.push(row);
+	                }
+	            }
+	        });
+
+	        if (checkedRows.length === 0) {
+	            alert("선택된 정산건이 없습니다!");
+	            return;
+	        }
+
+	        alert("정산 신청을 취소했습니다.");
+
+	        checkedRows.forEach(function(row) {
+	            const statusCell = row.querySelector("td:nth-child(6)");
+	            const dateCell = row.querySelector("td:nth-child(7)");
+
+	            statusCell.textContent = "N";
+	            dateCell.textContent = "";
+	        });
+
+	        if (alreadyCancelledRows.length > 0) {
+	            alert("신청이 취소된 정산이 없습니다.");
+	        }
+	    });
+	});
+
+	</script>
+
+
+
+
+
+
+
+
 
 </body>
 
