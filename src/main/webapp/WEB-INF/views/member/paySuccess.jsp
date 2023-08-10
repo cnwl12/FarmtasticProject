@@ -11,17 +11,10 @@
     <title>Farmtastic_paySuccess</title>
     
     <!-- jQuery -->
-    <script type="text/javascript"
-      		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
-        <!-- iamport.payment.js -->
-    <script
-      type="text/javascript"
-      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
   
-    
-
     <!-- Google Font --> 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
@@ -54,7 +47,6 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 	
 	<h1>결제 성공!</h1>
     <p>멤버 번호: ${payInfo.member_num}</p>

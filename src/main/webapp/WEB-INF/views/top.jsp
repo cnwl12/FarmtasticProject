@@ -53,7 +53,7 @@
                         <ul>
                             <li><a href="index">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
-                            <li><a href="#">기획전</a> </li>
+                          <!--   <li><a href="#">기획전</a> </li> -->
                             <li><a href="blog">제철팜</a></li>
                             <%-- <li><a href="mypage">마이페이지</a></li> --%>
                             <li class="active"><a href="contact">고객센터</a></li>

@@ -469,16 +469,14 @@
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
 	<!-- Js Plugins -->
-	<script
-		src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/jquery.nice-select.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/jquery-ui.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/js/jquery.slicknav.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery.slicknav.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/mixitup.min.js"></script>
 	<script

@@ -272,4 +272,9 @@ public class MemberDAO {
 	public List<Map<String, Object>> getOrderList(int member_num) {
 		return sqlSession.selectList(namespace+".getOrderList",member_num);
 	}
+
+
+	public List<Map<String, Object>> getOrderPay(int member_num) {
+		return sqlSession.selectList(namespace+".getOrderPay",member_num);
+	}
 }

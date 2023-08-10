@@ -242,6 +242,22 @@
 	  ON i.item_num = os.item_num
 	  WHERE os.member_num = #{member_num};
 	</select>
+	
+	
+	<select id="getOrderPay" resultType="map">
+		SELECT order_num
+		     , order_name
+		     , order_pay
+		     , order_post
+		     , order_addMain
+		     , order_addSub
+		     , order_msg
+		     , order_day
+		FROM orders
+		WHERE member_num = #{member_num}
+		ORDER BY order_day DESC
+		LIMIT 1;
+	</select>
   
   <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
