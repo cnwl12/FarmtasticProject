@@ -216,7 +216,10 @@ public class SellerDAO {
 		    sqlSession.update(namespace + ".updateReply", params);
 		}
 
-		
+		// 판매자 리뷰관리
+		public List<SellerDTO> getReview(String seller_num) {
+			return sqlSession.selectList(namespace+".getReview", seller_num);
+		}
 
 
 

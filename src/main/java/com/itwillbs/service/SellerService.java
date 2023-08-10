@@ -208,4 +208,9 @@ public class SellerService {
 	    }
 
 		
+	    // 판매자 리뷰관리
+	    public List<SellerDTO> getReview(String seller_num) {
+	    	return sellerDAO.getReview(seller_num);
+		}
+	    
 }

@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
@@ -25,7 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.service.SellerService;
@@ -313,6 +309,7 @@ public class SellerController {
 	    }
 	}
 	
+
 	// 선진) 정산신청
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
 	public String settlementRequest(@RequestParam("checkedSettlements") List<Integer> checkedSettlements, HttpSession session, Model model) {
@@ -328,7 +325,7 @@ public class SellerController {
 
 	
 	
-	
+
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
 	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
@@ -702,6 +699,20 @@ public class SellerController {
 
 	    return "/seller/memberMng";
 	}
+
+	//혜원 판매자 리뷰관리
+	@RequestMapping(value = "/getReview", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SellerDTO> getReview(@RequestParam("seller_num") String seller_num) {
+		List<SellerDTO> buyreview = sellerService.getReview(seller_num);
+		return buyreview;
+	}
+	
+	
+	
+	
+
+
 }
 
 

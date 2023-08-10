@@ -125,7 +125,14 @@ public class AdminController {
 	            model.addAttribute("admin_id", admin_id);
 	            return "/admin/adminMain";
 	        }
-	    }
+	}
+	@RequestMapping(value = "/adminProfile", method = RequestMethod.GET)
+		public String adminProfile(Locale locale, Model model) {
+			
+			System.out.println("adminProfile 매핑확인여부");
+			
+			return "/admin/adminProfile";
+	}   
 	@RequestMapping(value = "/notetest", method = RequestMethod.GET)
 	public String notetest(Locale locale, Model model,HttpSession session) {
 		
