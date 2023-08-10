@@ -264,13 +264,17 @@
    
    <!-- 선진) 정산신청 -->
    <update id="updateSettlementRequest">
-	UPDATE order_detail
-	SET settlement_yn = 'N'
-	WHERE settlement_yn IS NULL
-	  AND item_num IN (select	item_num 
-	  				   from		item 
-	  				   where	seller_num = #{seller_num});
-   </update>
+    UPDATE order_detail
+    SET settlement_yn = 'N'
+    WHERE settlement_yn IS NULL
+    AND item_num IN (SELECT item_num 
+                     FROM item 
+                     WHERE seller_num = #{seller_num})
+    AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN
+        <foreach collection="checkedSettlements" item="settlementMonth" open="(" separator="," close=")">
+            #{settlementMonth}
+        </foreach>
+	</update>
    
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">

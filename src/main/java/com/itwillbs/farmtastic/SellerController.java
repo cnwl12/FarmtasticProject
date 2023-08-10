@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -312,17 +313,16 @@ public class SellerController {
 
 	// 선진) 정산신청
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
-	public String settlementRequest(@RequestParam("checkedSettlements") List<Integer> checkedSettlements, HttpSession session, Model model) {
-		System.out.println("SellerController의 settlementRequest 매핑완");
-		System.out.println(checkedSettlements);
-		
-	    if (checkedSettlements != null && !checkedSettlements.isEmpty()) {
+	public String settlementRequest(@RequestParam("checkedSettlements") String[] checkedSettlements, HttpSession session, Model model) {
+	    System.out.println("SellerController의 settlementRequest 매핑완");
+	    System.out.println(Arrays.toString(checkedSettlements)); // 배열 형태로 출력
+	    
+	    if (checkedSettlements != null && checkedSettlements.length > 0) {
 	        // 선택된 정산에 대해 settlement_yn 컬럼을 인서트하는 서비스 메서드 호출
-	        sellerService.updateSettlementRequest(checkedSettlements);
+	        sellerService.updateSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(checkedSettlements));
 	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
-
 	
 	
 

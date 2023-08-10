@@ -91,11 +91,12 @@ public class SellerDAO {
 		}
 		
 		// 선진) 정산신청
-		public void updateSettlementRequest(List<Integer> checkedSettlements) {
+		public void updateSettlementRequest(Map<String, Object> params) {
 			
-			System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
-			sqlSession.update(namespace + ".updateSettlementRequest", checkedSettlements);
+		    System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+		    sqlSession.update(namespace + ".updateSettlementRequest", params);
 		}
+
 		
 		
 		public void itemInsert(Map<String, String> itemList) {

@@ -86,10 +86,15 @@ public class SellerService {
 		}
 		
 		// 선진) 정산신청
-		public void updateSettlementRequest(List<Integer> checkedSettlements) {
-			System.out.println("SellerService의 updateSettlementRequest 매핑완");
-			sellerDAO.updateSettlementRequest(checkedSettlements);
+		public void updateSettlementRequest(String seller_num, List<String> checkedSettlements) {
+		    System.out.println("SellerService의 updateSettlementRequest 매핑완");
+		    
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("seller_num", seller_num);
+		    params.put("checkedSettlements", checkedSettlements);
+		    sellerDAO.updateSettlementRequest(params);
 		}
+
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");

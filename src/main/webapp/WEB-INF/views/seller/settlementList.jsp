@@ -177,29 +177,27 @@
 
 	<!-- 정산 신청 스크립트 -->
 	<script>
-	    const checkedSettlements = [];
-	
+	    const checkedSettlements = new Set(); // 중복을 허용하지 않는 Set 사용
+	    
 	    // 체크박스 변경 이벤트
 	    const onChangeCheckbox = (e, id) => {
 	        if (e.target.checked) {
-	            checkedSettlements.push(id);
+	            checkedSettlements.add(id); // Set에 추가
 	        } else {
-	            const index = checkedSettlements.indexOf(id);
-	            if (index !== -1) {
-	                checkedSettlements.splice(index, 1);
-	            }
+	            checkedSettlements.delete(id); // Set에서 제거
 	        }
 	    };
 	
 	    // 정산신청 버튼 클릭 이벤트
 	    const onRequestButtonClick = (e) => {
-	        e.preventDefault();
-	        
+    			e.preventDefault();
+	
 	        // form 요소 선택
 	        const form = document.getElementById("settlementRequest");
 	
-	        // 배열을 순회하며 체크된 ID값을 hidden input에 추가
-	        checkedSettlements.forEach((id) => {
+	        // Set을 배열로 변환하여 hidden input에 추가
+	        const checkedArray = Array.from(checkedSettlements);
+	        checkedArray.forEach((id) => {
 	            const input = document.createElement("input");
 	            input.type = "hidden";
 	            input.name = "checkedSettlements";
@@ -214,10 +212,6 @@
 	    // 정산신청 버튼 클릭 이벤트 추가
 	    document.getElementById("request").addEventListener("click", onRequestButtonClick);
 	</script>
-
-
-
-
 
 
 
