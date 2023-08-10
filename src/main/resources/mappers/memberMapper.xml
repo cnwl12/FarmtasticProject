@@ -72,7 +72,12 @@
 	</insert>	
   	  	  	
   	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
-  	select * from member
+  	select member_id
+  			, member_name
+  			, member_pass
+  			, member_num
+  			, member_joinDay 
+  	from member
 	where member_id = #{member_id}  	
   	</select>
   	
@@ -102,7 +107,10 @@
 </select>
 
   	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
-    select * from member
+    select member_id
+    		, member_pass
+    		, member_delYn 
+    from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
     and (member_delYn = 'N' or member_delYn is null)
@@ -270,46 +278,83 @@
   
   <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
-  	insert into review (review_num, member_num, order_num, item_num, review_star, review_title, review_content, review_img, review_day) 
-    values (#{review_num}, #{member_num}, #{order_num}, #{item_num}, #{review_star}, #{review_title}, #{review_content}, #{review_img}, NOW())
+  	insert into review (review_num
+  						, member_num
+  						, order_num
+  						, item_num
+  						, review_star
+  						, review_title
+  						, review_content
+  						, review_img
+  						, review_day) 
+   				 values (#{review_num}
+   				 		, #{member_num}
+   				 		, #{order_num}
+   				 		, #{item_num}
+   				 		, #{review_star}
+   				 		, #{review_title}
+   				 		, #{review_content}
+   				 		, #{review_img}
+   				 		, NOW())
   </insert>
     
 
   <!-- 구매내역 불러오기 -->
   <select id="getItemOrder" resultType="com.itwillbs.domain.MemberDTO">
     SELECT order_num
-  FROM order_detail
-  WHERE member_num = #{member_num} AND item_num = #{item_num}
+  	FROM order_detail
+ 	WHERE member_num = #{member_num} 
+ 	AND item_num = #{item_num}
   </select>
   
   <!-- 리뷰 목록 -->
    <select id="getItemReviews" resultType="com.itwillbs.domain.MemberDTO">
-    select m.member_name, r.member_num, r.review_star, r.review_title, r.review_content, r.review_img, r.review_day
-from review r left join member m
-on r.member_num = m.member_num 
-WHERE item_num = #{item_num}
+    select m.member_name
+    		, r.member_num
+    		, r.review_star
+    		, r.review_title
+    		, r.review_content
+    		, r.review_img
+    		, r.review_day
+	from review r left join member m
+	on r.member_num = m.member_num 
+	WHERE item_num = #{item_num}
   </select>
   
   <!-- 리뷰모시기 막내 -->
   <select id="getReviewCountByItemNum" resultType="int">
-        SELECT COUNT(*) FROM review WHERE item_num = #{item_num}
+        SELECT COUNT(*) 
+        FROM review 
+        WHERE item_num = #{item_num}
   </select>
 
   <select id="getAverageReviewStarByItemNum" resultType="double">
-        SELECT AVG(review_star) FROM review WHERE item_num = #{item_num}
+        SELECT AVG(review_star) 
+        FROM review 
+        WHERE item_num = #{item_num}
   </select>
   
   <!-- 마이페이지 용 -->
   <select id="getItemMyReview" resultType="com.itwillbs.domain.MemberDTO">
-    select r.review_num, r. member_num, r.review_star, r.review_title,r.review_content, r.review_img, r.review_day, i.item_name
-from review r left join item i
-on r.item_num = i.item_num
-WHERE member_num = #{member_num}; 
+    select r.review_num
+    		, r. member_num
+    		, r.review_star
+    		, r.review_title
+    		, r.review_content
+    		, r.review_img
+    		, r.review_day
+    		, i.item_name
+	from review r left join item i
+	on r.item_num = i.item_num
+	WHERE member_num = #{member_num}; 
   </select>
   
   <update id="updateReview">
   update review 
-  set review_star = #{review_star}, review_title = #{review_title}, review_content = #{review_content}, review_img = #{review_img}
+  set review_star = #{review_star}
+  	, review_title = #{review_title}
+  	, review_content = #{review_content}
+  	, review_img = #{review_img}
   where review_num = #{review_num};
   </update>
   

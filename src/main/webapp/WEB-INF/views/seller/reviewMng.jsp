@@ -74,7 +74,7 @@
 					<!-- 검색바(작성일, 타입, 카테고리, 조건, 상세검색) 시작 -->
 					<div class="seller-sub-content">
 					<div id="search" >
-  						<form name="searchForm" onsubmit="event.preventDefault(); vm.func.search()" novalidate
+  						<form name="searchForm" onsubmit="event.preventDefault(); applyFilters()" novalidate
 							class="ng-pristine ng-valid-date-time-input ng-invalid ng-invalid-required ng-valid-pattern ng-valid-max-size-by-split">
 							<div class="panel panel-seller">
 								<div class="panel-body">
@@ -162,23 +162,6 @@
   						<div class="pc-pull-left">
     						<h3 class="panel-title">리뷰목록</h3>
   						</div>
-<!--   						<div class="pc-pull-right"> -->
-<!--     						<div class="narrow-area"> -->
-<!--       							<div class="form-group form-group-sm"> -->
-<!--         							<select id="reviewSortType" onchange="onSortTypeChange(event)"> -->
-<!--           								<option value="REVIEW_CREATE_DATE_DESC">리뷰등록일순</option> -->
-<!--           								<option value="PRODUCT_NAME">상품명순</option> -->
-<!--           								<option value="REVIEW_SCORE_DESC">평점높은순</option> -->
-<!--         							</select> -->
-<!--         							<select id="pageSize" onchange="onPageSizeChange(event)"> -->
-<!--           								<option value="10">10개씩</option> -->
-<!--           								<option value="50">50개씩</option> -->
-<!--           								<option value="100">100개씩</option> -->
-<!--           								<option value="300">300개씩</option> -->
-<!--         							</select> -->
-<!--       							</div> -->
-<!--    	 						</div> -->
-<!--   						</div> -->
 					</div>
 					
 					<div class="panel-body">
@@ -270,11 +253,11 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script> --%>
 
     <!-- Page level custom scripts -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script> --%>
+<%--     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script> --%>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
@@ -282,31 +265,69 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
-<script> 
-    function setDateRange(days) { 
-        const now = new Date(); 
-        const startDateInput = document.getElementById('start-date'); 
-        const endDateInput = document.getElementById('end-date'); 
-        const startDate = new Date(now - days * 24 * 60 * 60 * 1000); 
-        startDateInput.valueAsDate = startDate; 
-        endDateInput.valueAsDate = now; 
-    } 
-    // 초기화 버튼 클릭시 검색 조건 초기화 
-    const resetButton = document.querySelector('button[type="reset"]'); 
-    resetButton.addEventListener('click', (event) => { 
-        event.preventDefault(); 
-        document.getElementById('start-date').value = ''; 
-        document.getElementById('end-date').value = ''; 
-    }); 
-    </script>
-<script >
-// 별점 연동하는거 script 넣어야함!!
+<script>
+    
+        function setDateRange(days) {
+            const now = new Date();
+            const startDateInput = document.getElementById('start-date');
+            const endDateInput = document.getElementById('end-date');
+            const startDate = new Date(now - days * 24 * 60 * 60 * 1000);
+            startDateInput.valueAsDate = startDate;
+            endDateInput.valueAsDate = now;
+        }
+		
+        function search() {
+            const startDate = document.getElementById("start-date").value;
+            const endDate = document.getElementById("end-date").value;
+            const reviewScore = document.getElementById("reviewScoresSelect").value;
+            const keywordTypeIndex = document.getElementById("searchKeywordTypeSelect")
+              .selectedIndex;
+            const keyword = document.getElementById("searchKeywordInput").value;
+
+            const table = $("#dataTable").DataTable();
+
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+              const rowDate = moment(data[6], "YYYY-MM-DD");
+              const rowScore = data[1].length;
+              const rowKeyword = data[keywordTypeIndex];
+
+              const isDateInRange =
+                (!startDate || moment(startDate).isSameOrBefore(rowDate)) &&
+                (!endDate || moment(endDate).isSameOrAfter(rowDate));
+              const isScoreMatched = !reviewScore || rowScore >= reviewScore;
+              const isKeywordMatched = !keyword || rowKeyword.includes(keyword);
+
+              return isDateInRange && isScoreMatched && isKeywordMatched;
+            });
+
+            table.draw();
+            $.fn.dataTable.ext.search.pop();
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+        const resetButton = document.querySelector('button[type="reset"]');
+        if (resetButton) {
+            resetButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                document.getElementById('start-date').value = '';
+                document.getElementById('end-date').value = '';
+                setDateRange(30);
+                applyFilters();
+            });
+        }
+
+        function applyFilters() {
+            search();
+        }
+
+        
+    });
 </script>
 
 <script>
     function getReview() {
         var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
-        
+
         if (seller_num) {
             $.ajax({
                 type: "GET",
@@ -316,7 +337,7 @@
                 success: function(buyreview) {
                     var table = $('#dataTable').DataTable();
                     table.clear().draw();
-                    
+
                     if (buyreview.length === 0) {
                         $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                     } else {
@@ -347,16 +368,27 @@
             alert('오류가 발생했습니다.');
         }
     }
-    
+
+    function executeSearch() {
+        $('#dataTable').DataTable().draw();
+    }
+
     $(document).ready(function () {
-        $('#dataTable').DataTable({
-            retrieve: true, // 추가한 옵션
+        const table = $('#dataTable').DataTable({
+            retrieve: true,
             ordering: false,
             searching: false,
             paging: false,
             info: false
         });
         getReview();
+        $('#search').on('click', executeSearch);
+        $(".setDateRange").click(function () {
+            setDateRange(this.dataset.days_range);
+            executeSearch();
+        });
+
+        $.fn.dataTable.ext.search.push(customSearch);
     });
 </script>
 
