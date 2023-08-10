@@ -66,10 +66,9 @@
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
                         
-                        <form action="${pageContext.request.contextPath}/settlement" method="post" id="settlementRequest">
+                        <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
                         
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="request" type="submit">정산신청</button>
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="cancel" type="cancel">신청취소</button>
                    		
                         <div class="card-body">
                             <div class="table-responsive">
@@ -90,12 +89,12 @@
                                     <tbody id="getSettlementList">
                                     <c:forEach items="${MonthSettlementList}" var="slist">
                                           <tr>
-                                          	<td><input type="checkbox" class="setRequestCB"/></td>
+                                          	<td><input type="checkbox" class="setRequestCB" name="checkedSettlements" value="${slist.settlementMonth}" onchange="onChangeCheckbox(event, '${slist.settlementMonth}')"/></td>
                                             <td>${slist.settlementMonth}</td>
                                             <td>${slist.totalSales}</td>
                                             <td>${slist.totalFee}</td>
                                             <td>${slist.totalSettlement}</td>
-                                            <td>N</td>
+                                            <td>${slist.settlement_yn}</td>
                                             <td></td>
                                             <td>${slist.settlement_yn}</td>
                                             <td></td>
@@ -178,101 +177,45 @@
 
 	<!-- 정산 신청 스크립트 -->
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-	    const allSetRequestCB = document.getElementById("allSetRequestCB");
-	    const setRequestCBs = document.querySelectorAll(".setRequestCB");
-	    const settlementForm = document.getElementById("settlementRequest");
-	    const cancelButton = document.getElementById("cancel");
-	    const requestButton = document.getElementById("request");
-	    
-	    // 체크박스 전체선택 시 모든 체크박스 선택
-	    allSetRequestCB.addEventListener("change", function() {
-	        const isChecked = allSetRequestCB.checked;
-	        setRequestCBs.forEach(function(cb) {
-	            cb.checked = isChecked;
-	        });
-	    });
-
-	    settlementForm.addEventListener("submit", function(event) {
-	        event.preventDefault();
-
-	        const checkedRows = [];
-	        const alreadyRequestedRows = [];
-	        setRequestCBs.forEach(function(cb) {
-	            const row = cb.closest("tr");
-	            const statusCell = row.querySelector("td:nth-child(6)");
-
-	            if (cb.checked) {
-	                if (statusCell.textContent === "Y") {
-	                    alreadyRequestedRows.push(row);
-	                } else {
-	                    checkedRows.push(row);
-	                }
-	            }
-	        });
-
-	        if (checkedRows.length === 0) {
-	            alert("선택된 정산건이 없습니다!");
-	            return;
-	        }
-
-	        const currentDate = new Date().toISOString().split("T")[0];
-
-	        checkedRows.forEach(function(row) {
-	            const statusCell = row.querySelector("td:nth-child(6)");
-	            const dateCell = row.querySelector("td:nth-child(7)");
-
-	            statusCell.textContent = "Y";
-	            dateCell.textContent = currentDate;
-	        });
-
-	        if (alreadyRequestedRows.length > 0) {
-	            alert("이미 정산이 신청된 건입니다.");
+	    const checkedSettlements = [];
+	
+	    // 체크박스 변경 이벤트
+	    const onChangeCheckbox = (e, id) => {
+	        if (e.target.checked) {
+	            checkedSettlements.push(id);
 	        } else {
-	            alert("정산 신청이 완료되었습니다!");
-	        }
-	    });
-
-	    cancelButton.addEventListener("click", function(event) {
-	        event.preventDefault();
-
-	        const checkedRows = [];
-	        const alreadyCancelledRows = [];
-	        setRequestCBs.forEach(function(cb) {
-	            const row = cb.closest("tr");
-	            const statusCell = row.querySelector("td:nth-child(6)");
-
-	            if (cb.checked) {
-	                if (statusCell.textContent === "N") {
-	                    alreadyCancelledRows.push(row);
-	                } else {
-	                    checkedRows.push(row);
-	                }
+	            const index = checkedSettlements.indexOf(id);
+	            if (index !== -1) {
+	                checkedSettlements.splice(index, 1);
 	            }
-	        });
-
-	        if (checkedRows.length === 0) {
-	            alert("선택된 정산건이 없습니다!");
-	            return;
 	        }
-
-	        alert("정산 신청을 취소했습니다.");
-
-	        checkedRows.forEach(function(row) {
-	            const statusCell = row.querySelector("td:nth-child(6)");
-	            const dateCell = row.querySelector("td:nth-child(7)");
-
-	            statusCell.textContent = "N";
-	            dateCell.textContent = "";
+	    };
+	
+	    // 정산신청 버튼 클릭 이벤트
+	    const onRequestButtonClick = (e) => {
+	        e.preventDefault();
+	        
+	        // form 요소 선택
+	        const form = document.getElementById("settlementRequest");
+	
+	        // 배열을 순회하며 체크된 ID값을 hidden input에 추가
+	        checkedSettlements.forEach((id) => {
+	            const input = document.createElement("input");
+	            input.type = "hidden";
+	            input.name = "checkedSettlements";
+	            input.value = id;
+	            form.appendChild(input);
 	        });
-
-	        if (alreadyCancelledRows.length > 0) {
-	            alert("신청이 취소된 정산이 없습니다.");
-	        }
-	    });
-	});
-
+	
+	        // 폼 데이터 전송
+	        form.submit();
+	    };
+	
+	    // 정산신청 버튼 클릭 이벤트 추가
+	    document.getElementById("request").addEventListener("click", onRequestButtonClick);
 	</script>
+
+
 
 
 

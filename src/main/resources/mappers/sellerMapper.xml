@@ -262,6 +262,16 @@
 	ORDER BY	settlementMonth;
    </select>
    
+   <!-- 선진) 정산신청 -->
+   <update id="updateSettlementRequest">
+	UPDATE order_detail
+	SET settlement_yn = 'N'
+	WHERE settlement_yn IS NULL
+	  AND item_num IN (select	item_num 
+	  				   from		item 
+	  				   where	seller_num = #{seller_num});
+   </update>
+   
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller

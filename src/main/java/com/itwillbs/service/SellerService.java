@@ -85,6 +85,12 @@ public class SellerService {
 			return sellerDAO.getSettlementList(seller_num);
 		}
 		
+		// 선진) 정산신청
+		public void insertSettlementRequest(List<Integer> checkedSettlements) {
+			System.out.println("SellerService의 insertSettlementRequest 매핑완");
+			sellerDAO.insertSettlementRequest(checkedSettlements);
+		}
+		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 			System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 
@@ -200,5 +206,6 @@ public class SellerService {
 	    	System.out.println("문의글 서비스왔니??");
 	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
 	    }
+
 		
 }
