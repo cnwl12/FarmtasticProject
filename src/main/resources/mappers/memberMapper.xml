@@ -233,14 +233,17 @@
 
 	<!-- 주문내역 불러오기  -->
 	<select id="getOrderList" resultType="map">
-	  SELECT order_num
-	  		, i.item_name
-	  		, os.item_cnt 
-	  		, FORMAT(i.item_price * os.item_cnt, 0) as price
-	  FROM order_detail os
-	  JOIN item i
-	  ON i.item_num = os.item_num
-	  WHERE os.member_num = #{member_num};
+	 SELECT o.order_num
+         , MIN(o.order_pay) AS order_pay
+         , MIN(o.order_day) AS order_day
+         , MIN(i.item_name) AS item_name
+         , FORMAT(SUM(i.item_price * od.item_cnt), 0) AS total_price
+    FROM orders o
+    JOIN order_detail od ON o.order_num = od.order_num
+    JOIN item i ON i.item_num = od.item_num
+    WHERE o.member_num = #{member_num}
+    GROUP BY o.order_num
+    ORDER BY o.order_num;
 	</select>
 	
 	
