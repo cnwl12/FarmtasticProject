@@ -1,5 +1,6 @@
 package com.itwillbs.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,11 +178,13 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".idCheck", seller_id);
 		}
 		
-		public List<Map<String, Object>> MemberMngjoin() {
-			System.out.println("SellerDAO MemberMngjoin()");
-			return sqlSession.selectList(namespace + ".MemberMngjoin");
+		public List<Map<String, Object>> MemberMngjoin(Date startDate, Date endDate) {
+		    System.out.println("SellerDAO MemberMngjoin()");
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("startDate", startDate);
+		    params.put("endDate", endDate);
+		    return sqlSession.selectList(namespace + ".MemberMngjoin", params);
 		}
-		
 		
 		// 상태 조회 후 변경 
 		public void updateStatus(HashMap<String, String> status) {
