@@ -10,6 +10,11 @@
         FROM admin
         WHERE admin_id = #{admin_id}
     </select>
+    <!--관리자 정보-->
+    <select id="getAdminInfo" resultType="map">
+    	select * from admin
+    	where admin_id = #{admin_id}
+    </select>
     <!--공지사항 글목록 -->
     <select id="getCnotice" resultType="map">
     	select * 

@@ -250,9 +250,10 @@
    <!-- 선진) 정산관리 -->
    <select id="getSettlementList" resultType="map">
 	SELECT	DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS totalSales,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05, 0) AS totalFee,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalSettlement
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalFee,
+        	FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05)), 0) AS totalSettlement,
+			od.settlement_yn AS settlement_yn
 	FROM	order_detail od		JOIN	item it 
 	ON		od.item_num = it.item_num
 	WHERE	od.item_num IN (select	item_num
@@ -260,6 +261,16 @@
 							where	seller_num = #{seller_num})
 	ORDER BY	settlementMonth;
    </select>
+   
+   <!-- 선진) 정산신청 -->
+   <update id="updateSettlementRequest">
+	UPDATE order_detail
+	SET settlement_yn = 'N'
+	WHERE settlement_yn IS NULL
+	  AND item_num IN (select	item_num 
+	  				   from		item 
+	  				   where	seller_num = #{seller_num});
+   </update>
    
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
@@ -286,7 +297,6 @@
            seller_type,
            item_name,
            item_price,
-           item_sale,
            item_mainImg,
            item_left,
            item_detail,
@@ -298,7 +308,6 @@
            #{seller_type},
            #{item_name},
            #{item_price},
-           #{item_sale},
            #{item_mainImg},
            #{item_left},
            #{item_detail},
@@ -520,5 +529,17 @@
     WHERE
       one_board_num = #{one_board_num}
 	</update>
+   
+   <!-- 혜원 판매자 리뷰관리 -->
+   <select id="getReview" resultType="com.itwillbs.domain.SellerDTO">
+   SELECT i.seller_num, i.item_name, r.review_star, m.member_name, r.review_title, r.review_content, r.review_img, r.review_day
+FROM review r
+JOIN item i ON i.item_num = r.item_num
+JOIN member m ON r.member_num = m.member_num
+join seller s on i.seller_num = s.seller_num
+WHERE i.seller_num = #{seller_num};
+   
+   </select>
+   
    
 </mapper>

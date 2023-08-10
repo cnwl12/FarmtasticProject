@@ -25,6 +25,13 @@ public class SellerDTO {
 	private Date seller_joinDay;
 	private String seller_recoYn;
 	
+	private String item_name;
+	private	String member_name;
+	private int review_star;
+	private String review_title;
+	private String review_content;
+	private String review_img;
+	private Date review_day;
 	
 	public String getSeller_recoYn() {
 		return seller_recoYn;
@@ -148,6 +155,49 @@ public class SellerDTO {
 	public void setSeller_joinDay(Date seller_joinDay) {
 		this.seller_joinDay = seller_joinDay;
 	}
+	
+	public String getItem_name() {
+		return item_name;
+	}
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+	public int getReview_star() {
+		return review_star;
+	}
+	public void setReview_star(int review_star) {
+		this.review_star = review_star;
+	}
+	public String getReview_title() {
+		return review_title;
+	}
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
+	}
+	public String getReview_content() {
+		return review_content;
+	}
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
+	}
+	public String getReview_img() {
+		return review_img;
+	}
+	public void setReview_img(String review_img) {
+		this.review_img = review_img;
+	}
+	public Date getReview_day() {
+		return review_day;
+	}
+	public void setReview_day(Date review_day) {
+		this.review_day = review_day;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	@Override
 	public String toString() {
 		return "SellerDTO [seller_num=" + seller_num + ", seller_type=" + seller_type + ", seller_licenseNum="
@@ -157,7 +207,11 @@ public class SellerDTO {
 				+ ", seller_accountNum=" + seller_accountNum + ", seller_accountHolder=" + seller_accountHolder
 				+ ", seller_email=" + seller_email + ", seller_file=" + seller_file + ", seller_post=" + seller_post
 				+ ", seller_addMain=" + seller_addMain + ", seller_addSub=" + seller_addSub + ", seller_joinDay="
-				+ seller_joinDay + "]";
+				+ seller_joinDay + ", seller_recoYn=" + seller_recoYn + ", item_name=" + item_name + ", member_name="
+				+ member_name + ", review_star=" + review_star + ", review_title=" + review_title + ", review_content="
+				+ review_content + ", review_img=" + review_img + ", review_day=" + review_day + "]";
 	}
+	
+	
 	
 }

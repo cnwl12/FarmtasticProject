@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 import com.itwillbs.service.SellerService;
@@ -307,6 +308,24 @@ public class SellerController {
 		return "/seller/settlementList";
 	    }
 	}
+	
+
+	// 선진) 정산신청
+	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
+	public String settlementRequest(@RequestParam("checkedSettlements") List<Integer> checkedSettlements, HttpSession session, Model model) {
+		System.out.println("SellerController의 settlementRequest 매핑완");
+		System.out.println(checkedSettlements);
+		
+	    if (checkedSettlements != null && !checkedSettlements.isEmpty()) {
+	        // 선택된 정산에 대해 settlement_yn 컬럼을 인서트하는 서비스 메서드 호출
+	        sellerService.updateSettlementRequest(checkedSettlements);
+	    }
+	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
+	}
+
+	
+	
+
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
 	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
@@ -680,6 +699,20 @@ public class SellerController {
 
 	    return "/seller/memberMng";
 	}
+
+	//혜원 판매자 리뷰관리
+	@RequestMapping(value = "/getReview", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SellerDTO> getReview(@RequestParam("seller_num") String seller_num) {
+		List<SellerDTO> buyreview = sellerService.getReview(seller_num);
+		return buyreview;
+	}
+	
+	
+	
+	
+
+
 }
 
 

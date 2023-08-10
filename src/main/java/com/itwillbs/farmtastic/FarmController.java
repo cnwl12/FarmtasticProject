@@ -604,8 +604,24 @@ public class FarmController { // 소비자 (컨트롤러)
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		memberService.deleteAllCart(orderDetail);
 		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
-		return "redirect:/farmStore";
+		return "redirect:/orderSuccess";
 	}
+	
+	// 주문완료 페이지 정보
+	@RequestMapping(value = "/orderSuccess", method = RequestMethod.GET)
+	public String orderSuccess(Model model, HttpSession session) {
+		
+		int member_num = (int)session.getAttribute("member_num");
+
+	    List<Map<String, Object>> orderPayList = memberService.getOrderPay(member_num);
+	    
+	    if (!orderPayList.isEmpty()) {
+	        Map<String, Object> orderPay = orderPayList.get(0);
+	        model.addAttribute("orderPay", orderPay);
+	    }
+	    return "/member/orderSuccess";
+	}
+	
 
 	// 카트안 아이템 삭제
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)

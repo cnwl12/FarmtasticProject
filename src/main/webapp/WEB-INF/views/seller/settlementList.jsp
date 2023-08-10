@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +61,54 @@
 					<!-- 검색바 끝 -->
                     
                     <!-- 정산 신청 시작 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
+                        </div>
+                        
+                        <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
+                        
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="request" type="submit">정산신청</button>
+                   		
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        	<th><input type="checkbox" id="allSetRequestCB"/></th>
+                                            <th>정산월</th>
+                                            <th>매출액</th>
+                                            <th>수수료</th>
+                                            <th>정산액</th>
+                                            <th>정산신청여부</th>
+                                            <th>정산신청일</th>
+                                            <th>정산완료여부</th>
+                                            <th>정산완료일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="getSettlementList">
+                                    <c:forEach items="${MonthSettlementList}" var="slist">
+                                          <tr>
+                                          	<td><input type="checkbox" class="setRequestCB" name="checkedSettlements" value="${slist.settlementMonth}" onchange="onChangeCheckbox(event, '${slist.settlementMonth}')"/></td>
+                                            <td>${slist.settlementMonth}</td>
+                                            <td>${slist.totalSales}</td>
+                                            <td>${slist.totalFee}</td>
+                                            <td>${slist.totalSettlement}</td>
+                                            <td>${slist.settlement_yn}</td>
+                                            <td></td>
+                                            <td>${slist.settlement_yn}</td>
+                                            <td></td>
+                                     	   </tr>	
+                                     </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                      </form>
+                 
+                    </div>
+                   
 					<!-- 정산 신청 끝 -->
 
 				</div>
@@ -125,6 +174,56 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+
+	<!-- 정산 신청 스크립트 -->
+	<script>
+	    const checkedSettlements = [];
+	
+	    // 체크박스 변경 이벤트
+	    const onChangeCheckbox = (e, id) => {
+	        if (e.target.checked) {
+	            checkedSettlements.push(id);
+	        } else {
+	            const index = checkedSettlements.indexOf(id);
+	            if (index !== -1) {
+	                checkedSettlements.splice(index, 1);
+	            }
+	        }
+	    };
+	
+	    // 정산신청 버튼 클릭 이벤트
+	    const onRequestButtonClick = (e) => {
+	        e.preventDefault();
+	        
+	        // form 요소 선택
+	        const form = document.getElementById("settlementRequest");
+	
+	        // 배열을 순회하며 체크된 ID값을 hidden input에 추가
+	        checkedSettlements.forEach((id) => {
+	            const input = document.createElement("input");
+	            input.type = "hidden";
+	            input.name = "checkedSettlements";
+	            input.value = id;
+	            form.appendChild(input);
+	        });
+	
+	        // 폼 데이터 전송
+	        form.submit();
+	    };
+	
+	    // 정산신청 버튼 클릭 이벤트 추가
+	    document.getElementById("request").addEventListener("click", onRequestButtonClick);
+	</script>
+
+
+
+
+
+
+
+
+
+
 
 </body>
 

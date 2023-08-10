@@ -96,7 +96,12 @@ h3 {
    				 <c:if test="${not empty msg}">
         			<div class="alert alert-danger" role="alert">${msg}</div>
    				 </c:if>
-             
+             <script>
+    let error = '<%=request.getParameter("error")%>';
+    if (error !== 'null' && error !== null && error !== undefined) {
+        alert(error);
+    }
+</script>
            		<form action="${pageContext.request.contextPath}/Login" id="join" method="post">
             		<input type="text" class="input-field" name="admin_id" placeholder="Admin Id" required>
             		<input type="password" class="input-field" name="admin_pass" placeholder="Enter Password" required>

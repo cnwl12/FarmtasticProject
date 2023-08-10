@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -339,9 +338,9 @@
 										<td>${list.item_name}</td>
 										<td>${list.item_cnt}</td>
 										<td>${list.item_price}</td>
-										<td><fmt:formatNumber value="${list.dailySales}" pattern="0"/></td>
-										<td><fmt:formatNumber value="${list.dailyFee}" pattern="0"/></td>
-										<td><fmt:formatNumber value="${list.dailySettlement}" pattern="0"/></td>
+										<td>${list.dailySales}</td>
+										<td>${list.dailyFee}</td>
+										<td>${list.dailySettlement}</td>
 										<td>${list.order_day}</td>
 										</tr>
 								</c:forEach>

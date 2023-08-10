@@ -90,6 +90,14 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getSettlementList", seller_num);
 		}
 		
+		// 선진) 정산신청
+		public void updateSettlementRequest(List<Integer> checkedSettlements) {
+			
+			System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+			sqlSession.update(namespace + ".updateSettlementRequest", checkedSettlements);
+		}
+		
+		
 		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			
@@ -208,7 +216,10 @@ public class SellerDAO {
 		    sqlSession.update(namespace + ".updateReply", params);
 		}
 
-		
+		// 판매자 리뷰관리
+		public List<SellerDTO> getReview(String seller_num) {
+			return sqlSession.selectList(namespace+".getReview", seller_num);
+		}
 
 
 

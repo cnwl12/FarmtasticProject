@@ -269,4 +269,8 @@ public class MemberService {
 	public List<Map<String, Object>> getOrderList(int member_num) {
 		return memberDAO.getOrderList(member_num);
 	}
+
+	public List<Map<String, Object>> getOrderPay(int member_num) {
+		return memberDAO.getOrderPay(member_num);
+	}
 }
