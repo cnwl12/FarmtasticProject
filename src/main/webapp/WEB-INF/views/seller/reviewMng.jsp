@@ -15,6 +15,9 @@
     <!-- Custom fonts for this template-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
@@ -23,6 +26,7 @@
     
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	
 	<!-- Bootstrap Datepicker CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
@@ -31,6 +35,12 @@
 	<style type="text/css">
 	 html {font-size: 1rem !important;}
 	 body {font-size: 1rem !important;}
+	 
+	  .seller-grid-area {
+            width: 100%;
+            height: 800px;
+        }
+	 
 	</style>
 
 	
@@ -72,30 +82,14 @@
 										<ul class="seller-list-border">
 											<li><label class="control-label">리뷰작성일</label>
 													<div class="form-inline narrow-area">
-														 <div id="datepicker">
-        												<div class="input-content">
-            												<input type="button" value="오늘" onclick="setDateRange(0);">
-            												<input type="button" value="1주" onclick="setDateRange(7);">
-            												<input type="button" value="1개월" onclick="setDateRange(30);">
-            												<input type="button" value="3개월" onclick="setDateRange(90);">
-            												<input type="button" value="6개월" onclick="setDateRange(180);">
-            												<input type="button" value="1년" onclick="setDateRange(365);">
-            												<br>
-            												<div class="input-group">
-                												<input type="text" class="form-control" id="start-date" readonly>
-                												<span class="input-group-addon">
-                  													<i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                												</span>
-           			 										</div>
-            												<div class="input-group">
-                											<input type="text" class="form-control" id="end-date" readonly>
-                											<span class="input-group-addon">
-                  												<i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                											</span>
-            												</div>
-        												</div>
-    												  </div>
-													</div>
+													<label for="start-date"></label> <input type="date" id="start-date" name="startDate" class="form-control mx-2">
+													<label for="end-date">~</label> <input type="date" id="end-date" name="endDate" class="form-control mx-2">
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(7)">1주</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(30)">1개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(90)">3개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(180)">6개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(365)">1년</button>
+												</div>
 												</li>
 
 												<li>
@@ -113,7 +107,6 @@
             														<option value="5">5점</option>
           														</select>
         													</div>
-        													<div class="form-group form-group-bar"></div>
       													</div>
     												</div>
   												</div>
@@ -127,8 +120,7 @@
     												<div class="form-inline has-error-msg">
       													<div class="form-group">
         													<select id="searchKeywordTypeSelect" class="form-control">
-          														<option value="IDS" selected>리뷰글번호</option>
-          														<option value="PRODUCT_NAME">상품명</option>
+          														<option value="PRODUCT_NAME" selected>상품명</option>
           														<option value="PRODUCT_ORDER_NAME">작성자명</option>
         													</select>
       													</div>
@@ -168,340 +160,56 @@
 					<div class="panel panel-seller">
 					<div class="panel-heading">
   						<div class="pc-pull-left">
-    						<h3 class="panel-title">리뷰목록 (총 <span class="text-primary">0</span>개)</h3>
+    						<h3 class="panel-title">리뷰목록</h3>
   						</div>
-  						<div class="pc-pull-right">
-    						<div class="narrow-area">
-      							<div class="form-group form-group-sm">
-        							<select id="reviewSortType" onchange="onSortTypeChange(event)">
-          								<option value="REVIEW_CREATE_DATE_DESC">리뷰등록일순</option>
-          								<option value="PRODUCT_NAME">상품명순</option>
-          								<option value="REVIEW_SCORE_DESC">평점높은순</option>
-        							</select>
-        							<select id="pageSize" onchange="onPageSizeChange(event)">
-          								<option value="10">10개씩</option>
-          								<option value="50">50개씩</option>
-          								<option value="100">100개씩</option>
-          								<option value="300">300개씩</option>
-        							</select>
-      							</div>
-   	 						</div>
-  						</div>
+<!--   						<div class="pc-pull-right"> -->
+<!--     						<div class="narrow-area"> -->
+<!--       							<div class="form-group form-group-sm"> -->
+<!--         							<select id="reviewSortType" onchange="onSortTypeChange(event)"> -->
+<!--           								<option value="REVIEW_CREATE_DATE_DESC">리뷰등록일순</option> -->
+<!--           								<option value="PRODUCT_NAME">상품명순</option> -->
+<!--           								<option value="REVIEW_SCORE_DESC">평점높은순</option> -->
+<!--         							</select> -->
+<!--         							<select id="pageSize" onchange="onPageSizeChange(event)"> -->
+<!--           								<option value="10">10개씩</option> -->
+<!--           								<option value="50">50개씩</option> -->
+<!--           								<option value="100">100개씩</option> -->
+<!--           								<option value="300">300개씩</option> -->
+<!--         							</select> -->
+<!--       							</div> -->
+<!--    	 						</div> -->
+<!--   						</div> -->
 					</div>
 					
 					<div class="panel-body">
-					<p class="sub-text text-primary mg-top-reset mg-bottom" ng-if="vm.app === 'CENTER'">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p>
+					<p class="sub-text text-primary mg-top-reset mg-bottom">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p>
 					<!----><!---->
 					
 					 <!----><!---->
-					 <div class="seller-grid-area">
-					 <div ag-grid="vm.grid.options" class="ag-theme-fresh" style="width:100%; height: 500px;">
-					 <div class="ag-root-wrapper ag-layout-normal ag-ltr">
-					            <div class="ag-root-wrapper-body ag-layout-normal" ref="rootWrapperBody">
-					                <!--AG-GRID-COMP-->
-					                <div class="ag-root ag-unselectable ag-layout-normal" role="grid" unselectable="on" ref="gridPanel" aria-rowcount="1">
-					        <!--AG-HEADER-ROOT--><div class="ag-header ag-pivot-off" role="presentation" ref="headerRoot" unselectable="on" style="height: 40px; min-height: 40px;">
-					            <div class="ag-pinned-left-header" ref="ePinnedLeftHeader" role="presentation" style="width: 35px; max-width: 35px; min-width: 35px;"><div class="ag-header-row" role="row" aria-rowindex="1" style="top: 0px; height: 40px; width: 35px;"><div class="ag-header-cell" role="presentation" unselectable="on" col-id="checkbox" style="width: 35px; left: 0px;"><div ref="eResize" class="ag-header-cell-resize" role="presentation"></div><!--AG-CHECKBOX--><div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					           
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div>
-					            <i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i>
-					            </div>
-					          </div>
-					        </div>
-					        <div>
-					        <div class="seller-input ag-header-cell-label">
-					        <label><input type="checkbox" class="ag-selection-checkbox">
-					        <span class="ag-header-cell-text"></span>
-					        </label>
-					        </div>
-					        </div>
-					        </div>
-					        </div>
-					        </div>
-					            <div class="ag-header-viewport" ref="eHeaderViewport" role="presentation">
-					                
-					                <div class="ag-header-container" ref="eHeaderContainer" role="rowgroup" style="width: 2450px;"><div class="ag-header-row" role="row" aria-rowindex="1" style="top: 0px; height: 40px; width: 2450px;">
-					                <div class="ag-header-cell" role="presentation" unselectable="on" col-id="productNo" style="width: 100px; left: 0px;">
-					                <div ref="eResize" class="ag-header-cell-resize" role="presentation">
-					                </div>
-					                <!--AG-CHECKBOX-->
-					                <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					           
-					           
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i>
-					            </div>
-					           </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        	<div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        		<span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">상품번호</span>    
-					        			<span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        				<span class="ag-icon ag-icon-filter" unselectable="on">
-					        			</span>	
-					        		</span>                  
-					        	</div>
-					        	</div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="productName" style="width: 150px; left: 100px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					           
-					           
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">상품명</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="reviewType" style="width: 100px; left: 250px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">리뷰구분</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="reviewScore" style="width: 100px; left: 350px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">구매자평점</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="reviewAttach" style="width: 100px; left: 450px;"><div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">포토</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="reviewContent" style="width: 150px; left: 550px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">리뷰제목</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="helpCount" style="width: 100px; left: 700px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">리뷰내용</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="writerId" style="width: 100px; left: 800px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">등록자</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="createDate" style="width: 150px; left: 900px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on">리뷰등록일</span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>                  
-					        </div>
-					        </div>
-					        </div>
-					        <div class="ag-header-cell" role="presentation" unselectable="on" col-id="modifyDate" style="width: 150px; left: 1050px;">
-					        <div ref="eResize" class="ag-header-cell-resize" role="presentation"></div>
-					        <!--AG-CHECKBOX-->
-					        <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-hidden" role="presentation" ref="cbSelectAll">
-					          
-					          
-					          
-					            <label ref="eLabel" class="ag-hidden"></label>
-					            <div ref="eWrapper" class="ag-wrapper ag-input-wrapper" role="presentation">
-					                <input ref="eInput" type="checkbox" class="ag-hidden">
-					            <div><i class="seller-icon grid-checkbox-unchecked" aria-label="선택안함"></i></div>
-					            </div>
-					        </div>
-					        <div class="ag-cell-label-container" role="presentation">    
-					        <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on">    
-					        <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on"></span>    
-					        <span ref="eFilter" class="ag-header-icon ag-filter-icon ag-hidden" aria-hidden="true">
-					        <span class="ag-icon ag-icon-filter" unselectable="on"></span>
-					        </span>
-					        </div>
-					        </div>
-					        </div>
-					        </div>
-					        </div>
-					    </div>
-					            
-					            
-					            
-					            
-					            <div class="ag-pinned-right-header ag-hidden" ref="ePinnedRightHeader" role="presentation" style="width: 0px; max-width: 0px; min-width: 0px;"><div class="ag-header-row" role="row" aria-rowindex="1" style="top: 0px; height: 40px; width: 0px;"></div></div>
-					        </div>
-					        <div class="ag-floating-top" ref="eTop" role="presentation" unselectable="on" style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;">
-					            <div class="ag-pinned-left-floating-top" ref="eLeftTop" role="presentation" unselectable="on" style="width: 35px; max-width: 35px; min-width: 35px;"></div>
-					            <div class="ag-floating-top-viewport" ref="eTopViewport" role="presentation" unselectable="on">
-					                <div class="ag-floating-top-container" ref="eTopContainer" role="presentation" unselectable="on" style="width: 2450px;"></div>
-					            </div>
-					            <div class="ag-pinned-right-floating-top ag-hidden" ref="eRightTop" role="presentation" unselectable="on"></div>
-					            <div class="ag-floating-top-full-width-container ag-hidden" ref="eTopFullWidthContainer" role="presentation" unselectable="on"></div>
-					        </div>
-					        <div class="ag-body-viewport ag-layout-normal ag-row-no-animation" ref="eBodyViewport" role="presentation" unselectable="on">
-					            <div class="ag-pinned-left-cols-container" ref="eLeftContainer" role="presentation" unselectable="on" style="height: 1px; width: 35px; max-width: 35px; min-width: 35px;"></div>
-					            <div class="ag-center-cols-clipper" ref="eCenterColsClipper" role="presentation" unselectable="on" style="height: 1px;">
-					                <div class="ag-center-cols-viewport" ref="eCenterViewport" role="presentation" unselectable="on" style="height: calc(100% + 23px);">
-					                    <div class="ag-center-cols-container" ref="eCenterContainer" role="rowgroup" unselectable="on" style="width: 2450px; height: 1px;"></div>
-					                </div>
-					            </div>
-					            <div class="ag-pinned-right-cols-container ag-hidden" ref="eRightContainer" role="presentation" unselectable="on" style="height: 1px;"></div>
-					            <div class="ag-full-width-container" ref="eFullWidthContainer" role="presentation" unselectable="on" style="height: 1px;"></div>
-					        </div>
-					        <div class="ag-floating-bottom" ref="eBottom" role="presentation" unselectable="on" style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;">
-					            <div class="ag-pinned-left-floating-bottom" ref="eLeftBottom" role="presentation" unselectable="on" style="width: 35px; max-width: 35px; min-width: 35px;"></div>
-					            <div class="ag-floating-bottom-viewport" ref="eBottomViewport" role="presentation" unselectable="on">
-					                <div class="ag-floating-bottom-container" ref="eBottomContainer" role="presentation" unselectable="on" style="width: 2450px;"></div>
-					            </div>
-					            <div class="ag-pinned-right-floating-bottom ag-hidden" ref="eRightBottom" role="presentation" unselectable="on"></div>
-					            <div class="ag-floating-bottom-full-width-container ag-hidden" ref="eBottomFullWidthContainer" role="presentation" unselectable="on"></div>
-					        </div>
-					        <div class="ag-body-horizontal-scroll" ref="eHorizontalScrollBody" aria-hidden="true" style="height: 23px; max-height: 23px; min-height: 23px;">
-					            <div class="ag-horizontal-left-spacer" ref="eHorizontalLeftSpacer" style="width: 35px; max-width: 35px; min-width: 35px;"></div>
-					            <div class="ag-body-horizontal-scroll-viewport" ref="eBodyHorizontalScrollViewport" style="height: 23px; max-height: 23px; min-height: 23px;">
-					                <div class="ag-body-horizontal-scroll-container" ref="eBodyHorizontalScrollContainer" style="width: 2450px; height: 23px; max-height: 23px; min-height: 23px;"></div>
-					            </div>
-					            <div class="ag-horizontal-right-spacer ag-scroller-corner" ref="eHorizontalRightSpacer" style="width: 0px; max-width: 0px; min-width: 0px;"></div>
-					        </div>
-					        <!--AG-OVERLAY-WRAPPER--><div class="ag-overlay" aria-hidden="true" ref="overlayWrapper">
-					            <div class="ag-overlay-panel">
-					                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-no-rows-wrapper" ref="eOverlayWrapper"><div class="result-info"><i class="fn-shopping fn-65 fn-shopping-caution1 icon-color-big" aria-hidden="true"></i><p class="title">리뷰가 존재하지 않습니다.</p></div></div>
-					            </div>
-					        </div>
-					    </div>
-					            </div>
-					            <!--AG-PAGINATION--><nav class="seller-pagination">   <span class="ag-paging-row-summary-panel _sell_pageRowSummaryPanel" style="display:none;">       <span ref="lbFirstRowOnPage" class="_sell_firstRowOnPage">0</span>[[TO]]       <span ref="lbLastRowOnPage" class="_sell_lastRowOnPage">0</span>[[OF]]       <span ref="lbRecordCount" class="_sell_recordCount">0</span>       <span ref="lbCurrent" class="_sell_current">0</span>       <span ref="lbTotal" class="_sell_total">0</span>   </span>   <div class="visible-xs">       <div class="_mobile_pagination"></div>   </div>   <div class="hidden-xs">      <ul class="pagination _pc_pagination"></ul>   </div></nav>
-					        </div>
-					       </div>
-					      </div>
-					     </div>
-					   </div>
-					 </div>
+        			 <div class="review-list">
+					<input type="hidden" name="seller_num" value="${sessionScope.seller_num}">
+					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
+    				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        			<thead>
+            		<tr>
+            		<th>상품명</th>
+            		<th>별점</th>
+            		<th>작성자</th>
+            		<th>제목</th>
+           			<th>내용</th>
+           			<th>이미지</th>
+ 					<th>작성일</th>
+           			</tr>
+        			</thead>
+        			<tbody id="review">
+            	
+        			</tbody>
+    				</table>
 					</div>
+    			</div>
+    		</div>
+   		 </div>
+   	 </div>
 					<!-- 리뷰 목록 끝 -->
 
 				</div>
@@ -567,104 +275,89 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-	<!-- jQuery -->  
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- Bootstrap JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<!-- Bootstrap Datepicker JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-<script>
-    function setDateRange(days) {
-        const now = new Date();
-
-        if (days === 0) {
-            $('#start-date').datepicker('setDate', now);
-        } else {
-            const start = new Date();
-            start.setDate(now.getDate() - days + 1);
-            $('#start-date').datepicker('setDate', start);
-        }
-        $('#end-date').datepicker('setDate', now);
-    }
-
-    // 버튼을 활성화하고 상태 설정
-    document.addEventListener('DOMContentLoaded', () => {
-        const buttons = document.querySelectorAll('#datepicker input[type="button"]');
-        buttons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
-        });
-
-        // 첫 번째 버튼의 기본 활성화 상태 설정
-        buttons[0].classList.add('active');
-
-        // datePicker 초기화 및 현재 날짜로 설정
-        $('#start-date, #end-date').datepicker();
-        setDateRange(0);
-    });
+<script> 
+    function setDateRange(days) { 
+        const now = new Date(); 
+        const startDateInput = document.getElementById('start-date'); 
+        const endDateInput = document.getElementById('end-date'); 
+        const startDate = new Date(now - days * 24 * 60 * 60 * 1000); 
+        startDateInput.valueAsDate = startDate; 
+        endDateInput.valueAsDate = now; 
+    } 
+    // 초기화 버튼 클릭시 검색 조건 초기화 
+    const resetButton = document.querySelector('button[type="reset"]'); 
+    resetButton.addEventListener('click', (event) => { 
+        event.preventDefault(); 
+        document.getElementById('start-date').value = ''; 
+        document.getElementById('end-date').value = ''; 
+    }); 
     </script>
 <script >
 // 별점 연동하는거 script 넣어야함!!
 </script>
 
 <script>
-  function getSelectedSearchKeywordType() {
-    const searchKeywordTypeSelect = document.getElementById("searchKeywordTypeSelect");
-    return searchKeywordTypeSelect.value;
-  }
+    function getReview() {
+        var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
+        
+        if (seller_num) {
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/getReview",
+                data: { seller_num: seller_num },
+                dataType: "json",
+                success: function(buyreview) {
+                    var table = $('#dataTable').DataTable();
+                    table.clear().draw();
+                    
+                    if (buyreview.length === 0) {
+                        $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
+                    } else {
+                        $.each(buyreview, function(index, seller) {
+                            var review_stars = '';
+                            for (let i = 1; i <= seller.review_star; i++) {
+                                review_stars += '★';
+                            }
+                            var review_date = moment(seller.review_day).format('YYYY-MM-DD');
 
-  function getSearchKeyword() {
-    const searchKeywordInput = document.getElementById("searchKeywordInput");
-    return searchKeywordInput.value;
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const searchKeywordTypeSelect = document.getElementById("searchKeywordTypeSelect");
-    const searchKeywordInput = document.getElementById("searchKeywordInput");
-
-    searchKeywordTypeSelect.addEventListener("change", function (event) {
-      const selectedSearchKeywordType = getSelectedSearchKeywordType();
-      console.log("Selected search keyword type:", selectedSearchKeywordType);
+                            table.row.add([
+                                seller.item_name,
+                                review_stars,
+                                seller.member_name,
+                                seller.review_title,
+                                seller.review_content,
+                                seller.review_img,
+                                review_date
+                            ]).draw();
+                        });
+                    }
+                },
+                error: function () {
+                    alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+                }
+            });
+        } else {
+            alert('오류가 발생했습니다.');
+        }
+    }
+    
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            retrieve: true, // 추가한 옵션
+            ordering: false,
+            searching: false,
+            paging: false,
+            info: false
+        });
+        getReview();
     });
-
-    searchKeywordInput.addEventListener("input", function (event) {
-      const searchKeyword = getSearchKeyword();
-      console.log("Current search keyword:", searchKeyword);
-    });
-  });
-</script>
-
-<script> 
-// 검색 / 초기화 기능 추후 수정
-//   function search() {
-//     // 검색 관련 기능을 정의해 주세요.
-//     console.log("검색 버튼 클릭");
-//   }
-
-//   function reset() {
-//     // 초기화 관련 기능을 정의해 주세요.
-//     console.log("초기화 버튼 클릭");
-//   }
-</script>
-
-<script>
-//   function onSortTypeChange(event) {
-//     // 정렬 유형 변경에 대한 처리를 구현하세요.
-//     console.log("Selected sort type:", event.target.value);
-//   }
-
-//   function onPageSizeChange(event) {
-//     // 페이지 크기 변경에 대한 처리를 구현하세요.
-//     console.log("Selected page size:", event.target.value);
-//   }
-
-
 </script>
 
 </body>

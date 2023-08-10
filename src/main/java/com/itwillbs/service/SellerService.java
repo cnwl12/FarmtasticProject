@@ -201,4 +201,9 @@ public class SellerService {
 	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
 	    }
 		
+	    // 판매자 리뷰관리
+	    public List<SellerDTO> getReview(String seller_num) {
+	    	return sellerDAO.getReview(seller_num);
+		}
+	    
 }

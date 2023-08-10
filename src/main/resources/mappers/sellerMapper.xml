@@ -508,4 +508,16 @@ WHERE i.seller_num = #{seller_num}
       one_board_num = #{one_board_num}
 </update>
    
+   <!-- 혜원 판매자 리뷰관리 -->
+   <select id="getReview" resultType="com.itwillbs.domain.SellerDTO">
+   SELECT i.seller_num, i.item_name, r.review_star, m.member_name, r.review_title, r.review_content, r.review_img, r.review_day
+FROM review r
+JOIN item i ON i.item_num = r.item_num
+JOIN member m ON r.member_num = m.member_num
+join seller s on i.seller_num = s.seller_num
+WHERE i.seller_num = #{seller_num};
+   
+   </select>
+   
+   
 </mapper>
