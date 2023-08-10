@@ -236,25 +236,31 @@
 			
 			<!-- 서영 찜페이지 만드는중 -->
 			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
-    <div class="container">
-        <h4>내 찜 목록</h4><br>
-        <ul class="favorite-list">
-            <c:forEach var="item" items="${zzimlist}">
-                <li class="favorite-item">
-                    <input type="checkbox" class="checkbox">
-                    <img src="${item.item_mainImg}" alt="제품 이미지">
-                    <div class="product-info">
-                        <h2 class="product-name">${item.item_name}</h2>
-                        <span class="product-price">₩${item.item_price}</span>
-                        <br>
-                        <span class="store-name">${item.seller_storeName}</span>
-                    </div>
-                    <button class="remove-button">X</button>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-</div>
+			    <div class="container">
+			        <h4>내 찜 목록</h4><br>
+			        <input type="checkbox" id="selectAllCheckbox">
+				    <label for="selectAllCheckbox"></label>
+				    <button id="deleteSelectedButton">선택 삭제</button>
+				    <button id="deleteAllButton">전체 삭제</button>
+				    <ul class="favorite-list">
+			            <c:forEach var="item" items="${zzimlist}">
+			                <li class="favorite-item" data-item-num="${item.item_num}">
+			                    <input type="checkbox" class="checkbox">
+			                    <a href="farmStoreDetail?item_num=${item.item_num}">
+			                    <img src="${item.item_mainImg}" alt="제품 이미지"></a>
+			                    <div class="product-info">
+			                    <a href="farmStoreDetail?item_num=${item.item_num}">
+			                        <h2 class="product-name">${item.item_name}</h2></a>
+			                        <span class="product-price">₩${item.item_price}</span>
+			                        <br>
+			                        <span class="store-name">${item.seller_storeName}</span>
+			                    </div>
+			                    <button class="remove-button">X</button>
+			                </li>
+			            </c:forEach>
+			        </ul>
+			    </div>
+			</div>
 			<!--  서영 찜페이지 끝 -->
 			
 						
@@ -913,15 +919,73 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	  // 비밀번호 입력창의 display 상태를 전환합니다.
 	  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
 	}
+	
 
 
-</script> 
+	function deleteFromWishlist(member_num, item_num) {
+		  // URLSearchParams를 통해 회원 번호와 아이템 번호를 정수로 보냅니다.
+		  const params = new URLSearchParams({
+		    member_num: parseInt(member_num, 10),
+		    item_num: parseInt(item_num, 10),
+		  });
+
+		  fetch("./deleteWishlist", {
+		    method: "POST",
+		    headers: {
+		      "Content-Type": "application/x-www-form-urlencoded",
+		    },
+		    body: params.toString(),
+		  })
+		    .then((response) => {
+		      if (response.ok) {
+		        console.log("찜 DB 항목 삭제 완료");
+
+		        // 삭제된 찜 아이템을 DOM에서 제거
+		        let listItem = document.querySelector(
+		          `.favorite-item[data-item-num="${item_num}"]`
+		        );
+		        if (listItem) {
+		          listItem.remove();
+		        }
+		      } else {
+		        throw new Error("찜 DB 항목 삭제 오류");
+		      }
+		    })
+		    .catch((error) => {
+		      console.error(error);
+		    });
+		}
 
 
+	// 선택 삭제
+	const deleteSelectedButton = document.getElementById("deleteSelectedButton");
+	const allCheckboxes = document.querySelectorAll(".checkbox");
+	deleteSelectedButton.addEventListener("click", function () {
+	  const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
 
+	  allCheckboxes.forEach((checkbox) => {
+	    if (checkbox.checked) {
+	      const listItem = checkbox.closest(".favorite-item");
+	      const item_num = listItem.getAttribute("data-item-num");
 
+	      deleteFromWishlist(member_num, item_num);
+	    }
+	  });
+	});
 
+	// 전체 삭제
+	const deleteAllButton = document.getElementById("deleteAllButton");
+	deleteAllButton.addEventListener("click", function () {
+	  const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
 
+	  allCheckboxes.forEach((checkbox) => {
+	    const listItem = checkbox.closest(".favorite-item");
+	    const item_num = listItem.getAttribute("data-item-num");
+
+	    deleteFromWishlist(member_num, item_num);
+	  });
+	});
+	</script>
 
 </body>
 </html>

@@ -960,6 +960,18 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return response;
 	}
 	
+	@PostMapping("/deleteWishlist")
+	public ResponseEntity<?> deleteWishlist(@RequestBody WishlistDTO wishlistDTO) {
+	    try {
+	        memberService.deleteWishlist(wishlistDTO);
+
+	        return ResponseEntity.ok().build();
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+
+    
 	@GetMapping("/favorites")
 	public ModelAndView showFavorites(WishlistDTO wishlistDTO, @SessionAttribute("member_num") Integer member_num) {
 	    ModelAndView modelAndView = new ModelAndView("favorites");
@@ -969,12 +981,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return modelAndView;
 	}
 
-
-	@RequestMapping(value = "/like_farm", method = RequestMethod.GET)
-	public String likeFarm(Model model) {
-		System.out.println("WLarkqhwkdk");
-		return "/member/oneboard";
-	}
 	
 
 }

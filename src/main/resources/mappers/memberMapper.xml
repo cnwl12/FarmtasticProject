@@ -70,13 +70,6 @@
 		ON c.member_num = o.member_num
 		WHERE c.member_num = #{member_num};
 	</insert>	
-	
-	<select id="nuserCheck" 
-                  resultType="com.itwillbs.domain.MemberDTO">
-    select * from member       
-    where member_nid = #{member_nid}
-  	</select> 
-  	
   	  	  	
   	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
   	select * from member
@@ -135,13 +128,26 @@
 	WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
 </select>
 
-  	  	
   	<!-- sungha end-->
   	
+  	<select id="nuserCheck" 
+            resultType="com.itwillbs.domain.MemberDTO">
+    	select * 
+    	from member       
+    	where member_nid = #{member_nid}
+  	</select> 
   	
   	<insert id="ninsertMember"> 
-	 	insert into member(member_num, member_nid, member_name, member_phone, member_email)
-	 	values(#{member_num}, #{member_nid},#{member_name}, #{member_phone}, #{member_email})
+	 	insert into member(member_num
+	 						, member_nid
+	 						, member_name
+	 						, member_phone
+	 						, member_email)
+	 				values(#{member_num}
+	 						, #{member_nid}
+	 						, #{member_name}
+	 						, #{member_phone}
+	 						, #{member_email})
 	</insert> 
   	
   	<select id="getMembers" resultType="map">
@@ -294,13 +300,33 @@ WHERE member_num = #{member_num};
   and member_num = #{member_num};
   </delete>
   
-  <!--  1대1문의 -->
-  <insert id="insertOneBoard">
-    INSERT INTO one_board (one_board_type, one_board_title, one_board_content, one_board_file, one_board_pass, one_board_day, one_board_repYn, item_num, member_num, one_board_private, seller_num)
-    SELECT #{one_board_type}, #{one_board_title}, #{one_board_content}, #{one_board_file}, #{one_board_pass}, now(), "미답변", #{item_num}, #{member_num}, #{one_board_private}, i.seller_num
-    FROM item i 
-    WHERE i.item_num = #{item_num}
-</insert>
+ 	 <!--  1대1문의 -->
+  	<insert id="insertOneBoard">
+    INSERT INTO one_board (one_board_type
+    						, one_board_title
+    						, one_board_content
+    						, one_board_file
+    						, one_board_pass
+    						, one_board_day
+    						, one_board_repYn
+    						, item_num
+    						, member_num
+    						, one_board_private
+    						, seller_num)
+    				SELECT #{one_board_type}
+    						, #{one_board_title
+    						}, #{one_board_content}
+    						, #{one_board_file}
+    						, #{one_board_pass}
+    						, now()
+    						, "미답변"
+    						, #{item_num}
+    						, #{member_num}
+    						, #{one_board_private}
+    						, i.seller_num
+    				FROM item i 
+    				WHERE i.item_num = #{item_num}
+	</insert>
   
    <resultMap id="oneBoardResultMap" type="com.itwillbs.domain.OneBoardDTO">
         <result column="one_board_repYn" property="one_board_repYn"/>
@@ -318,53 +344,81 @@ WHERE member_num = #{member_num};
         <result column="item_name" property="item_name"/>
     </resultMap>
 
-<select id="findByItemNum" resultMap="oneBoardResultMap">
-    SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
-       ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
-       ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
+	<select id="findByItemNum" resultMap="oneBoardResultMap">
+    SELECT ob.one_board_repYn
+    		, ob.one_board_type
+    		, ob.one_board_title
+    		, ob.one_board_day
+    		, m.member_name
+    		, ob.one_board_content
+    		, ob.one_board_file
+    		, ob.member_num
+    		, ob.one_board_pass
+    		, ob.one_board_private
+    		, ob.one_board_num
+    		, ob.one_board_reply
+    		, i.seller_num
+    		, i.item_name
 	FROM one_board ob
 	JOIN member m ON ob.member_num = m.member_num
 	JOIN item i ON ob.item_num = i.item_num
 	WHERE ob.item_num = #{item_num}
-</select>
+	</select>
 
-<select id="findByItemNum2" resultMap="oneBoardResultMap"> 
-	SELECT ob.one_board_repYn, ob.one_board_type, ob.one_board_title,
-       ob.one_board_day, m.member_name, ob.one_board_content, ob.one_board_file,
-       ob.member_num, ob.one_board_pass, ob.one_board_private, ob.one_board_num, ob.one_board_reply, i.seller_num, i.item_name
+	<select id="findByItemNum2" resultMap="oneBoardResultMap"> 
+	SELECT ob.one_board_repYn
+			, ob.one_board_type
+			, ob.one_board_title
+			, ob.one_board_day
+			, m.member_name
+			, ob.one_board_content
+			, ob.one_board_file
+			, ob.member_num
+			, ob.one_board_pass
+			, ob.one_board_private
+			, ob.one_board_num
+			, ob.one_board_reply
+			, i.seller_num
+			, i.item_name
 	FROM one_board ob
 	JOIN member m ON ob.member_num = m.member_num
 	JOIN item i ON ob.item_num = i.item_num
 	WHERE ob.member_num = #{member_num}
-</select>
+	</select>
   
-  <!-- 서영 저의 위시리스트는 집가기입니다 찜기능 구현중입니다 -->
-  <select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
+  <!-- 찜기능 불러오기 -->
+  	<select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
 	  SELECT * FROM like_farm
-	  WHERE member_num = #{member_num} AND item_num = #{item_num}
-  </select>	
-  
-  <insert id="insertWishlistItem">
-	  INSERT INTO like_farm (member_num, item_num, like_farm_day)
-	  VALUES (#{member_num}, #{item_num}, now())
-  </insert>
-  
-  <delete id="deleteWishlist">
+	  WHERE member_num = #{member_num} 
+	  AND item_num = #{item_num}
+ 	 </select>
+ 	 	
+  <!--  찜 넣기 -->
+  	<insert id="insertWishlistItem">
+	  INSERT INTO like_farm (member_num
+	  						, item_num
+	  						, like_farm_day)
+	  				VALUES (#{member_num}
+	  						, #{item_num}
+	  						, now())
+  	</insert>
+  <!--  찜 삭제하기 -->
+ 	 <delete id="deleteWishlist">
   	DELETE 
   	FROM like_farm
   	WHERE item_num = #{item_num} 
   	AND member_num = #{member_num}
-  </delete>
+  	</delete>
   
-  <resultMap id="wishlist" type="com.itwillbs.domain.WishlistDTO">
+  	<resultMap id="wishlist" type="com.itwillbs.domain.WishlistDTO">
     <id property="member_num" column="member_num" />
     <result property="item_num" column="item_num" />
-</resultMap>
+	</resultMap>
   
-  <select id="selectWishlistget" resultMap="wishlist">
+  	<select id="selectWishlistget" resultMap="wishlist">
   	 SELECT * FROM like_farm
   	 WHERE member_num = #{member_num}
-  </select>
+  	</select>
  
  	<resultMap id="zzimlistResultMap" type="com.itwillbs.domain.WishlistDTO">
         <result column="item_num" property="item_num"/>
@@ -375,15 +429,20 @@ WHERE member_num = #{member_num};
     </resultMap>
     
     <select id="getzzimlist" resultMap="zzimlistResultMap">
-    	SELECT item.item_num, item.item_name, item.item_price, item.seller_num, seller.seller_storeName
+    	SELECT item.item_num
+    		, item.item_name
+    		, item.item_price
+    		, item.seller_num
+    		, seller.seller_storeName
 		FROM item
-		JOIN seller ON item.seller_num = seller.seller_num
-		JOIN like_farm ON item.item_num = like_farm.item_num
+		JOIN seller 
+		ON item.seller_num = seller.seller_num
+		JOIN like_farm 
+		ON item.item_num = like_farm.item_num
 		WHERE like_farm.member_num = #{member_num}
-
     </select>
   
-  <select id="memberDetail" parameterType="map" resultType="map">
+  	<select id="memberDetail" parameterType="map" resultType="map">
         SELECT * FROM member WHERE member_num = #{member_num}
     </select>
     
