@@ -250,9 +250,10 @@
    <!-- 선진) 정산관리 -->
    <select id="getSettlementList" resultType="map">
 	SELECT	DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-	        SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) AS totalSales,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05, 0) AS totalFee,
-	        TRUNCATE(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalSettlement
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
+	        FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalFee,
+        	FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05)), 0) AS totalSettlement,
+			od.settlement_yn AS settlement_yn
 	FROM	order_detail od		JOIN	item it 
 	ON		od.item_num = it.item_num
 	WHERE	od.item_num IN (select	item_num
@@ -286,7 +287,6 @@
            seller_type,
            item_name,
            item_price,
-           item_sale,
            item_mainImg,
            item_left,
            item_detail,
@@ -298,7 +298,6 @@
            #{seller_type},
            #{item_name},
            #{item_price},
-           #{item_sale},
            #{item_mainImg},
            #{item_left},
            #{item_detail},

@@ -25,6 +25,10 @@ public class AdminService {
 	public AdminDTO adminCheck(String admin_id) {
 	    return adminDAO.adminCheck(admin_id);
 	    }
+	public Map<String, Object> getAdminInfo(String admin_id) {
+		System.out.println("adminService의 getAdminInfo 매핑완");
+		return adminDAO.getAdminInfo(admin_id);
+	}
 
 	public List<Map<String, Object>> getCnotice() {
 		System.out.println("서비스 Cnotice() 확인!");

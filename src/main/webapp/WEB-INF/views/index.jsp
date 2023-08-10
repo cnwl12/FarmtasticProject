@@ -49,14 +49,14 @@
                         <ul>
                             <li class="active"><a href="index">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
-                            <li><a href="#">기획전</a>
+                         <!--    <li><a href="#">기획전</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
                                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li><a href="blog">제철팜</a></li>
                             <li><a href="contact">고객센터</a></li>
                         </ul>
@@ -136,8 +136,15 @@
                             </form>
                         </div>
                     </div> 
-                    
-                    <div class="hero__item set-bg">
+                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/banner.jpg" style="background-image: url(&quot;img/hero/banner.jpg&quot;);">
+                        <div class="hero__text">
+                            <span>FRUIT FRESH</span>
+                            <h2>Vegetable <br>100% Organic</h2>
+                            <p>Free Pickup and Delivery Available</p>
+                            <a href="farmStore" class="primary-btn">SHOP NOW</a>
+                        </div>
+                    </div>
+                    <%-- <div class="hero__item set-bg">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br>100% Organic</h2>
@@ -145,7 +152,7 @@
                             <a href="farmStore" class="primary-btn">SHOP NOW</a>
                         </div>
                        <img src="${pageContext.request.contextPath}/resources/img/yangpa.png" alt=""  style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
-                    </div>
+                    </div> --%>
                 </div>
             </div>
         </div>
