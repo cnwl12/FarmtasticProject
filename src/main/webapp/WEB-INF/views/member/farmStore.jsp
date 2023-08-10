@@ -137,7 +137,7 @@
                         </c:forEach>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </section>
     <!-- Product Section End -->

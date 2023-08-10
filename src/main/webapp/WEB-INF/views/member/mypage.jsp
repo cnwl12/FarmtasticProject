@@ -36,6 +36,31 @@
   display: none;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 주문목록  -->
+<script>
+    $(document).ready(function() {
+        var firstOrderNum = $(".orderLink").first().data("order-num");
+        var selectedOrder = firstOrderNum;
+
+        $(".orderLink").click(function() {
+            var orderNum = $(this).data("order-num");
+            var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
+
+            if (orderNum === selectedOrder) {
+                selectedOrder = null;
+            } else {
+                selectedOrder = orderNum;
+            }
+
+            $(".orderItemsDropdown").hide();
+            dropdown.toggle();
+        });
+    });
+</script>
+
+
 
 </head>
 
@@ -102,13 +127,13 @@
 											<ul class="llist-style1">
 												<li><label for="nowpw"><span class="bg_bul"></span>현재
 														비밀번호</label> <input type="password" class="txt" id="member_pass"
-													name="member_pass" size="26" maxlength="15" required=""
+													name="member_pass" size="26" maxlength="15" 
 													onkeydown="return keycheck(this.event);"
 													onkeypress="Capskeycheck(this,'new_member_pass');"
 													onkeyup="validatePasswordType(this,'new_member_pass');"
 													onfocus="helpOn('new_member_pass');"
 													onblur="chkBlur(this,'new_member_pass');"
-													style="width: 195px";> <span class="font_style1">현재
+													style="width: 195px;"> <span class="font_style1">현재
 														비밀번호를 입력해 주세요</span></li>
 
 
@@ -141,7 +166,7 @@
 
 												<li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
 												</label> <input type="password" class="txt" id="new_member_pass"
-													name="new_member_pass" size="26" maxlength="15" required=""
+													name="new_member_pass" size="26" maxlength="15" 
 													onkeydown="return keycheck(this.event);"
 													onkeypress="Capskeycheck(this,'new_member_pass');"
 													onkeyup="validatePasswordType(this,'new_member_pass');"
@@ -236,71 +261,123 @@
 			
 			<!-- 서영 찜페이지 만드는중 -->
 			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
-    <div class="container">
-        <h4>내 찜 목록</h4><br>
-        <ul class="favorite-list">
-            <c:forEach var="item" items="${zzimlist}">
-                <li class="favorite-item">
-                    <input type="checkbox" class="checkbox">
-                    <img src="${item.item_mainImg}" alt="제품 이미지">
-                    <div class="product-info">
-                        <h2 class="product-name">${item.item_name}</h2>
-                        <span class="product-price">₩${item.item_price}</span>
-                        <br>
-                        <span class="store-name">${item.seller_storeName}</span>
-                    </div>
-                    <button class="remove-button">X</button>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-</div>
+			    <div class="container">
+			        <h4>내 찜 목록</h4><br>
+			        <input type="checkbox" id="selectAllCheckbox">
+				    <label for="selectAllCheckbox"></label>
+				    <button id="deleteSelectedButton">선택 삭제</button>
+				    <button id="deleteAllButton">전체 삭제</button>
+				    <ul class="favorite-list">
+			            <c:forEach var="item" items="${zzimlist}">
+			                <li class="favorite-item" data-item-num="${item.item_num}">
+			                    <input type="checkbox" class="checkbox">
+			                    <a href="farmStoreDetail?item_num=${item.item_num}">
+			                    <img src="${item.item_mainImg}" alt="제품 이미지"></a>
+			                    <div class="product-info">
+			                    <a href="farmStoreDetail?item_num=${item.item_num}">
+			                        <h2 class="product-name">${item.item_name}</h2></a>
+			                        <span class="product-price">₩${item.item_price}</span>
+			                        <br>
+			                        <span class="store-name">${item.seller_storeName}</span>
+			                    </div>
+			                    <button class="remove-button">X</button>
+			                </li>
+			            </c:forEach>
+			        </ul>
+			    </div>
+			</div>
 			<!--  서영 찜페이지 끝 -->
 			
 						
-			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
-			<h4>주문관리</h4>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>수량</th>
-						<th>가격</th>
-						<th>주문상태</th>
-						<th>배송조회</th>
-					</tr>
-				</thead>
-		   <tbody id="inquiryList">
+	<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+    <h4>주문관리</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>주문번호</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>주문상태</th>
+                <th>배송조회</th>
+            </tr>
+        </thead>
+        <tbody id="inquiryList">
             <c:forEach var="order" items="${orderList}">
-                <tr class="boardTitle">
-                    <td><a href="javascript:void(0);" class="orderLink" data-order-num="${order.order_num}">${order.order_num}</a></td>
-                    <td>${order.item_name}</td>
-                    <td>${order.item_cnt}</td>
-                    <td>\ ${order.price}원</td>
-                    <td>결제완료</td>
-                    <td><input type="button" value="배송조회"></td>
-                </tr>
-                <tr class="orderItemsRow">
-                    <td colspan="6">
-                        <div class="orderItemsDropdown" style="display: none;">
-                            <c:choose>
-                                <c:when test="${order.order_num eq selectedOrder}">
-                                    <c:forEach var="item" items="${order.orderItems}">
-                                        <div>
-                                            <span>${item.item_name}</span> <span>${item.item_cnt}</span>
-                                            <span>${item.price}원</span>
-                                        </div>
-                                    </c:forEach>
-                                </c:when>
-                            </c:choose>
-                        </div>
-                    </td>
-                </tr>
+              <tr class="orderRow">
+			    <td class="orderNum">
+			    	<a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a></td>
+			    <td>${order.item_name} ···</td>
+			    <td>\ ${order.order_pay}원</td>
+			    <td>결제완료</td>
+			    <td><input type="button" value="배송조회"></td>
+			</tr>
             </c:forEach>
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+    	$(".viewDetails").click(function() {
+    	    var orderNum = $(this).data("order");
+    	    var popup = window.open("", "_blank", "width=600,height=400");
+    	    popup.document.write("<h2>주문 상세 내역 - 주문번호: " + orderNum + "</h2>");
+
+    	    // 중복된 주문번호에 해당하는 상품 정보 가져와서 표시
+    	    popup.document.write("<table>");
+    	    popup.document.write("<thead><tr><th>주문번호</th><th>가격</th><th>주문일</th><th>상품명</th><th>상품수량</th></tr></thead>");
+    	    popup.document.write("<tbody>");
+
+    	    var groupedOrderItems = {};
+    	    $(".orderRow").each(function() {
+    	        var rowOrderNum = $(this).find(".orderNum a").data("order");
+    	        var rowPrice = $(this).find("td:eq(2)").text();
+    	        var rowOrderDate = $(this).find("td:eq(3)").text();
+    	        var rowProductName = $(this).find("td:eq(1)").text();
+    	        var rowQuantity = $(this).find("td:eq(4)").text();
+    	        
+    	        if (!groupedOrderItems[rowOrderNum]) {
+    	            groupedOrderItems[rowOrderNum] = [];
+    	        }
+    	        groupedOrderItems[rowOrderNum].push({
+    	            price: rowPrice,
+    	            orderDate: rowOrderDate,
+    	            productName: rowProductName,
+    	            quantity: rowQuantity
+    	        });
+    	    });
+
+    	    for (var orderNum in groupedOrderItems) {
+    	        if (groupedOrderItems.hasOwnProperty(orderNum)) {
+    	            var items = groupedOrderItems[orderNum];
+    	            for (var i = 0; i < items.length; i++) {
+    	                popup.document.write("<tr>");
+    	                if (i === 0) {
+    	                    popup.document.write("<td rowspan='" + items.length + "'>" + orderNum + "</td>");
+    	                }
+    	                popup.document.write("<td>" + items[i].price + "</td>");
+    	                if (i === 0) {
+    	                    popup.document.write("<td rowspan='" + items.length + "'>" + items[i].orderDate + "</td>");
+    	                }
+    	                popup.document.write("<td>" + items[i].productName + "</td>");
+    	                popup.document.write("<td>" + items[i].quantity + "</td>");
+    	                popup.document.write("</tr>");
+    	            }
+    	        }
+    	    }
+
+    	    popup.document.write("</tbody>");
+    	    popup.document.write("</table>");
+
+    	    // 팝업 창 닫기 버튼 추가
+    	    popup.document.write('<button onclick="window.close()">닫기</button>');
+    	});
+    });
+</script>
+
+
+
+
 		 <!-- 주문관리 토글 끝  -->	
 			
 			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
@@ -672,29 +749,6 @@ $(document).ready(function() {
 	});
 
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- 주문목록  -->
-<script>
-    $(document).ready(function() {
-        var firstOrderNum = $(".orderLink").first().data("order-num");
-        var selectedOrder = firstOrderNum;
-
-        $(".orderLink").click(function() {
-            var orderNum = $(this).data("order-num");
-            var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
-
-            if (orderNum === selectedOrder) {
-                selectedOrder = null;
-            } else {
-                selectedOrder = orderNum;
-            }
-
-            $(".orderItemsDropdown").hide();
-            dropdown.toggle();
-        });
-    });
-</script>
 
 
 
@@ -911,15 +965,73 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	  // 비밀번호 입력창의 display 상태를 전환합니다.
 	  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
 	}
+	
 
 
-</script> 
+	function deleteFromWishlist(member_num, item_num) {
+		  // URLSearchParams를 통해 회원 번호와 아이템 번호를 정수로 보냅니다.
+		  const params = new URLSearchParams({
+		    member_num: parseInt(member_num, 10),
+		    item_num: parseInt(item_num, 10),
+		  });
+
+		  fetch("./deleteWishlist", {
+		    method: "POST",
+		    headers: {
+		      "Content-Type": "application/x-www-form-urlencoded",
+		    },
+		    body: params.toString(),
+		  })
+		    .then((response) => {
+		      if (response.ok) {
+		        console.log("찜 DB 항목 삭제 완료");
+
+		        // 삭제된 찜 아이템을 DOM에서 제거
+		        let listItem = document.querySelector(
+		          `.favorite-item[data-item-num="${item_num}"]`
+		        );
+		        if (listItem) {
+		          listItem.remove();
+		        }
+		      } else {
+		        throw new Error("찜 DB 항목 삭제 오류");
+		      }
+		    })
+		    .catch((error) => {
+		      console.error(error);
+		    });
+		}
 
 
+	// 선택 삭제
+	const deleteSelectedButton = document.getElementById("deleteSelectedButton");
+	const allCheckboxes = document.querySelectorAll(".checkbox");
+	deleteSelectedButton.addEventListener("click", function () {
+	  const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
 
+	  allCheckboxes.forEach((checkbox) => {
+	    if (checkbox.checked) {
+	      const listItem = checkbox.closest(".favorite-item");
+	      const item_num = listItem.getAttribute("data-item-num");
 
+	      deleteFromWishlist(member_num, item_num);
+	    }
+	  });
+	});
 
+	// 전체 삭제
+	const deleteAllButton = document.getElementById("deleteAllButton");
+	deleteAllButton.addEventListener("click", function () {
+	  const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
 
+	  allCheckboxes.forEach((checkbox) => {
+	    const listItem = checkbox.closest(".favorite-item");
+	    const item_num = listItem.getAttribute("data-item-num");
+
+	    deleteFromWishlist(member_num, item_num);
+	  });
+	});
+	</script>
 
 </body>
 </html>
