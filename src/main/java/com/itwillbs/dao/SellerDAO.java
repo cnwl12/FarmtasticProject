@@ -91,10 +91,10 @@ public class SellerDAO {
 		}
 		
 		// 선진) 정산신청
-		public void insertSettlementRequest(List<Integer> checkedSettlements) {
+		public void updateSettlementRequest(List<Integer> checkedSettlements) {
 			
-			System.out.println("SellerDAO의 insertSettlementRequest 매핑완");
-			sqlSession.insert(namespace + ".insertSettlementRequest", checkedSettlements);
+			System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+			sqlSession.update(namespace + ".updateSettlementRequest", checkedSettlements);
 		}
 		
 		

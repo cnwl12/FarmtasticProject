@@ -86,9 +86,9 @@ public class SellerService {
 		}
 		
 		// 선진) 정산신청
-		public void insertSettlementRequest(List<Integer> checkedSettlements) {
-			System.out.println("SellerService의 insertSettlementRequest 매핑완");
-			sellerDAO.insertSettlementRequest(checkedSettlements);
+		public void updateSettlementRequest(List<Integer> checkedSettlements) {
+			System.out.println("SellerService의 updateSettlementRequest 매핑완");
+			sellerDAO.updateSettlementRequest(checkedSettlements);
 		}
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {

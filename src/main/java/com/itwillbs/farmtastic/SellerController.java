@@ -318,7 +318,7 @@ public class SellerController {
 		
 	    if (checkedSettlements != null && !checkedSettlements.isEmpty()) {
 	        // 선택된 정산에 대해 settlement_yn 컬럼을 인서트하는 서비스 메서드 호출
-	        sellerService.insertSettlementRequest(checkedSettlements);
+	        sellerService.updateSettlementRequest(checkedSettlements);
 	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
