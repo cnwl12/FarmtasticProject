@@ -39,18 +39,12 @@
 		location.href="farmStore";
 	}
 	
-	</script>
-	
-	
-	<script type="text/javascript">
 	function deleteCart(item_num){
 		
 		if(confirm("삭제하시겠습니까?")){
 			location.href="deleteCart?item_num="+item_num;
 		}
-		
 	}
-	
 	</script>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -178,25 +172,33 @@
 		</div>
             </div>
     
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__btns">
-                        <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-                         <!-- <input type="submit" class="primary-btn cart-btn cart-btn-right" value="UPDATE CART "> -->
-                    </div>
-    	          </div>
-                <div class="col-lg-6">
-                    <div class="shoping__checkout">
+<div class="row">
+    <c:choose>
+        <c:when test="${empty itemList}">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+                </div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Total	 <span>${totalSum}원</span></li>
+                            <li>Total <span>${totalSum}원</span></li>
                         </ul>
-                    </div>
-                        <a href="checkout" class="primary-btn">주문하기</a>	
                 </div>
-             </div>
-        </div>
-    </section>
+                     <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+                    <a href="checkout" class="primary-btn">주문하기</a>
+            </div>
+        </c:otherwise>
+    </c:choose>
+</div>
+
+
+
+
     <!-- Shoping Cart Section End -->
     
     <!-- bottom.jsp로 분리  -->

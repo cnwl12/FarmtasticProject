@@ -709,7 +709,17 @@ public class SellerController {
 		return buyreview;
 	}
 	
-	
+	@RequestMapping(value = "/deleteSellerReview", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteSellerReview(@RequestParam("review_num") int review_num, @RequestParam("member_num") int member_num) {
+	    try {
+	        // seller 관련 서비스 변경
+	        sellerService.deleteSellerReview(review_num, member_num);
+	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully deleted.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+	    }
+	}
 	
 	
 
