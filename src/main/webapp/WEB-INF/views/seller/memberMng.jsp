@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,15 +73,18 @@ body {
 					<!-- 검색바 시작 -->
 					<div class="panel panel-seller"
 						ng-include="'shared/products/relation-list/include/search-condition-area.html.inc'">
-						<form id="searchForm" name="vm.searchForm" method="get" action="${pageContext.request.contextPath}/memberMngPro">
+						<form id="searchForm" name="vm.searchForm" method="get"
+							action="${pageContext.request.contextPath}/memberMngPro">
 							<div class="panel-body">
 								<div class="seller-search-section">
 									<ul class="seller-list-border">
 										<li><label class="control-label">회원 검색</label>
 											<div class="input-content">
 												<div class="form-inline narrow-area">
-													<label for="start-date">시작일: </label> <input type="date" id="start-date" name="startDate" class="form-control mx-2">
-													<label for="end-date">종료일: </label> <input type="date" id="end-date" name="endDate" class="form-control mx-2">
+													<label for="start-date">시작일: </label> <input type="date"
+														id="start-date" name="startDate" class="form-control mx-2">
+													<label for="end-date">종료일: </label> <input type="date"
+														id="end-date" name="endDate" class="form-control mx-2">
 													<!-- 1주, 1개월, 3개월, 6개월, 1년 버튼 추가 -->
 													<button type="button" class="btn btn-primary btn-sm mx-2"
 														onclick="setDateRange(7)">1주</button>
@@ -110,7 +114,7 @@ body {
 					<!-- 검색바 끝 -->
 
 					<!-- 주문회원 목록 시작 -->
-					<table class="table table-bordered" id="dataTable" width="50%"
+					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
@@ -122,13 +126,13 @@ body {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="member" items="${MemberMngjoin}">
+							<c:forEach var="data" items="${MemberMngjoin}">
 								<tr>
-									<td>${member.member_id}</td>
-									<td>${member.item_name}</td>
-									<td>${member.item_cnt}</td>
-									<td>${member.order_pay}</td>
-									<td>${member.order_day}</td>
+									<td><c:out value="${data.member_id}" /></td>
+									<td><c:out value="${data.item_name}" /></td>
+									<td><c:out value="${data.item_cnt}" /></td>
+									<td><c:out value="${data.order_pay.intValue()}" /></td>
+									<td><c:out value="${data.order_day}" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
