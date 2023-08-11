@@ -340,13 +340,15 @@ public class SellerController {
 		System.out.println("questionMng 매핑확인여부");
 		 String seller_num = (String) request.getSession().getAttribute("seller_num");
 	        List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
-
+	        List<String> itemNames = sellerService.getItemNames(seller_num);
+	        model.addAttribute("itemNames", itemNames);
 	        model.addAttribute("oneboard", oneboard);
 	        String seller_id = sellerService.idCheck(seller_num);
 		    model.addAttribute("seller_id", seller_id);
 		return "/seller/questionMng";
 	    }
 	}
+
 	
 	@RequestMapping("/updateReply")
 	public String updateReply(Locale locale, Model model, HttpSession session, HttpServletRequest request){

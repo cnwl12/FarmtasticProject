@@ -342,6 +342,16 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/mypage";
 	}
 	
+	@RequestMapping(value = "/getOrderDetail", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map<String, Object>> getOrderDetail(@RequestParam int member_num, @RequestParam String order_num) {
+	    // 주문 상세 정보 조회 로직
+	    List<Map<String, Object>> orderDetail = memberService.getOrderDetail(member_num, order_num);
+
+	    // 주문 상세 정보를 JSON 형식으로 반환
+	    return orderDetail;
+	}
+	
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
 		

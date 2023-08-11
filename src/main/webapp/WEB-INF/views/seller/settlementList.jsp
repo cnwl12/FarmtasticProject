@@ -67,7 +67,9 @@
                         </div>
                         
                         <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
-                        
+                        <input type="hidden" id="selectedMonths" name="selectedMonths" value=""/>
+
+                   		
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="request" type="submit">정산신청</button>
                    		
                         <div class="card-body">
@@ -94,9 +96,9 @@
                                             <td>${slist.totalSales}</td>
                                             <td>${slist.totalFee}</td>
                                             <td>${slist.totalSettlement}</td>
-                                            <td>${slist.settlement_yn}</td>
                                             <td></td>
-                                            <td>${slist.settlement_yn}</td>
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                      	   </tr>	
                                      </c:forEach>
@@ -108,6 +110,40 @@
                       </form>
                  
                     </div>
+                    
+                    
+					<!-- 정산 신청 스크립트 -->
+					<script>
+				    const checkedSettlements = new Set(); // 중복을 허용하지 않는 Set 사용
+
+				    // 체크박스 변경 이벤트
+				    const onChangeCheckbox = (e, id) => {
+				        if (e.target.checked) {
+				            checkedSettlements.add(id); // Set에 추가
+				        } else {
+				            checkedSettlements.delete(id); // Set에서 제거
+				        }
+				    };
+
+				    // 정산신청 버튼 클릭 이벤트
+				    const onRequestButtonClick = (e) => {
+				        e.preventDefault();
+
+				        // form 요소 선택
+				        const form = document.getElementById("settlementRequest");
+
+				        // Set을 배열로 변환하여 hidden input에 추가
+				        const checkedArray = Array.from(checkedSettlements);
+				        document.getElementById("selectedMonths").value = checkedArray.join(',');
+
+				        // 폼 데이터 전송
+				        form.submit();
+				    };
+
+				    // 정산신청 버튼 클릭 이벤트 추가
+				    document.getElementById("request").addEventListener("click", onRequestButtonClick);
+				</script>
+
                    
 					<!-- 정산 신청 끝 -->
 
@@ -174,48 +210,6 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-
-	<!-- 정산 신청 스크립트 -->
-	<script>
-	    const checkedSettlements = new Set(); // 중복을 허용하지 않는 Set 사용
-	    
-	    // 체크박스 변경 이벤트
-	    const onChangeCheckbox = (e, id) => {
-	        if (e.target.checked) {
-	            checkedSettlements.add(id); // Set에 추가
-	        } else {
-	            checkedSettlements.delete(id); // Set에서 제거
-	        }
-	    };
-	
-	    // 정산신청 버튼 클릭 이벤트
-	    const onRequestButtonClick = (e) => {
-    			e.preventDefault();
-	
-	        // form 요소 선택
-	        const form = document.getElementById("settlementRequest");
-	
-	        // Set을 배열로 변환하여 hidden input에 추가
-	        const checkedArray = Array.from(checkedSettlements);
-	        checkedArray.forEach((id) => {
-	            const input = document.createElement("input");
-	            input.type = "hidden";
-	            input.name = "checkedSettlements";
-	            input.value = id;
-	            form.appendChild(input);
-	        });
-	
-	        // 폼 데이터 전송
-	        form.submit();
-	    };
-	
-	    // 정산신청 버튼 클릭 이벤트 추가
-	    document.getElementById("request").addEventListener("click", onRequestButtonClick);
-	</script>
-
-
-
-
 
 
 

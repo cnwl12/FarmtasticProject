@@ -206,6 +206,10 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace+".selectByque", seller_num);
 	    }
 		
+		public List<String> getItemNames(String seller_num) {
+			return sqlSession.selectList(namespace+".getItemNames", seller_num);
+	    }
+		
 		public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
 		    System.out.println("문의글 업데이트 DAO");
 

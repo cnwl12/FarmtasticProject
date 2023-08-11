@@ -65,7 +65,6 @@ public class MemberDAO {
 	
 	public MemberDTO userCheck0(MemberDTO memberDTO) {
 		System.out.println("MemberDAO userCheck0()");
-		
 		return sqlSession.selectOne(namespace+".userCheck0", memberDTO);
 	}
 	
@@ -276,5 +275,15 @@ public class MemberDAO {
 
 	public List<Map<String, Object>> getOrderPay(int member_num) {
 		return sqlSession.selectList(namespace+".getOrderPay",member_num);
+	}
+
+
+	public List<Map<String, Object>> getOrderDetail(int member_num, String order_num) {
+	    
+		Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("member_num", member_num);
+	    paramMap.put("order_num", order_num);
+	    
+	    return sqlSession.selectList(namespace + ".getOrderDetail", paramMap);
 	}
 }
