@@ -517,7 +517,7 @@
    			, ob.one_board_repYn
    			, ob.one_board_reply
    			, ob.one_board_repDay
-   			, i.seller_num
+   			, i.seller_num 
    			, i.item_name
    			, s.seller_name
 	FROM one_board ob
