@@ -96,10 +96,10 @@
                                             <td>${slist.totalSales}</td>
                                             <td>${slist.totalFee}</td>
                                             <td>${slist.totalSettlement}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>${slist.settlementApplication}</td>
+                                            <td>${slist.applyDay}</td>
+                                            <td>${slist.settlementComplete}</td>
+                                            <td>${slist.completeDay}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
