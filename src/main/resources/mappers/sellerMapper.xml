@@ -304,9 +304,11 @@
 	    JOIN item it ON od.item_num = it.item_num
 	    WHERE od.item_num IN (SELECT item_num
 	                          FROM item
+
 	                          WHERE seller_num = #{seller_num})
 	) AS selected_orders
 	WHERE settlementMonth IN (<foreach item="selectedMonth" collection="checkedSettlements" separator=",">#{selectedMonth}</foreach>);
+
 	</insert>
    
     <!-- 가맹점 상태 Y/N -->

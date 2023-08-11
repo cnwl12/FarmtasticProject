@@ -89,7 +89,7 @@ public class SellerService {
 		public void updateSettlementRequest(String seller_num, List<String> checkedSettlements) {
 		    System.out.println("SellerService의 updateSettlementRequest 매핑완");
 		    
-		    Map<String, Object> params = new HashMap<>();
+		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
 		    System.out.println(params);
