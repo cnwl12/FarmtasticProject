@@ -378,7 +378,7 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 																	${row.one_board_content}
 																</div>
 															</div>
-														</td>
+														</td> 
 													</tr>
 													<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
 														<td colspan="5">
