@@ -110,6 +110,7 @@
     select member_id
     		, member_pass
     		, member_delYn 
+    		, member_num
     from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
@@ -260,6 +261,19 @@
     ORDER BY o.order_num;
 	</select>
 	
+	<!-- 주문 상세 내역 불러오기  -->
+	<select id="getOrderDetail" resultType="map">
+	SELECT order_num
+		,  i.item_name
+		,  item_cnt
+        ,  i.item_price
+        ,  i.item_price * item_cnt AS price 
+    FROM order_detail o
+    JOIN item i
+    ON i.item_num = o.item_num
+    WHERE o.member_num =#{member_num}
+    AND order_num = #{order_num};
+	</select> 
 	
 	<select id="getOrderPay" resultType="map">
 		SELECT order_num
@@ -275,6 +289,7 @@
 		ORDER BY order_day DESC
 		LIMIT 1;
 	</select>
+	
   
   <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
