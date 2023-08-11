@@ -94,7 +94,9 @@ public class SellerDAO {
 		public void updateSettlementRequest(Map<String, Object> params) {
 			
 		    System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+		    System.out.println(params);
 		    sqlSession.update(namespace + ".updateSettlementRequest", params);
+		    
 		}
 
 		

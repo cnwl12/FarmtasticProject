@@ -92,6 +92,7 @@ public class SellerService {
 		    Map<String, Object> params = new HashMap<>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
+		    System.out.println(params);
 		    sellerDAO.updateSettlementRequest(params);
 		}
 

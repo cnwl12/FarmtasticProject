@@ -44,7 +44,55 @@
 
                     <!-- Content Row -->
                     <div class="row">
+	<!-- 판매자 정보 시작 -->
+						<div class="panel panel-seller" id="chargePersonInfoPanelInSellerInfoPage">
 
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h3 class="panel-title">관리자 정보</h3>
+								</div>
+							</div>
+
+							<div class="panel-body">
+								<ul class="seller-list-border">
+									<li>
+									<label class="control-label">이름</label>
+										<div class="input-content">
+											<input type="text" class="form-control" name="seller_email" value="${admin.admin_name}">
+											<div class="form-control-static">${seller.seller_name}</div>
+										</div>
+									</li>
+
+									<li>
+									<label class="control-label">로그인ID</label>
+										<div class="input-content">
+											<input type="text" class="form-control" name="seller_email" value="${admin.admin_id}">
+											<div class="form-control-static">${seller.seller_id}</div>
+										</div>
+									</li>
+
+									<li>
+									<label class="control-label">이메일 주소</label>
+										<div class="input-content">
+											<div class="form-inline mobile-inline"> <!-- 이 클래스는 텍스트박스 길이 줄여줌. 없으면 늘어남 -->
+												<input type="text" class="form-control" name="seller_email" value="${seller.seller_email}">
+											</div>
+										</div>
+									</li>
+
+									<li> 							
+									<label class="control-label">휴대폰 <br class="visible-xs">번호 <!-- 이 클래스는 뭐지?  --> </label>
+										<div class="input-content">
+											<div class="form-inline mobile-inline">
+												<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+						<!-- 판매자 정보 끝 -->
 
 
 
