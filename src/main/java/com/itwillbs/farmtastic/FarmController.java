@@ -84,14 +84,24 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String blog(Locale locale, Model model) {
 
 		System.out.println("blog 매핑확인여부");
-
+		
+		List<Map<String, Object>> bContent = adminService.getBlog();
+		model.addAttribute("bContent", bContent);
+		System.out.println(bContent);
+		
 		return "/member/blog";
 	}
 
 	@RequestMapping(value = "/blogDetails", method = RequestMethod.GET)
-	public String blogDetails(Locale locale, Model model) {
+	public String blogDetails(@RequestParam("admin_blog_num") int admin_blog_num, Locale locale, Model model) {
 
 		System.out.println("blogDetails 매핑확인여부");
+		
+		Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
+		model.addAttribute("bContent", bContent);
+		model.addAttribute("admin_blog_num", admin_blog_num);
+		System.out.println("controller" + bContent);
+		
 		return "/member/blogDetails";
 	}
 

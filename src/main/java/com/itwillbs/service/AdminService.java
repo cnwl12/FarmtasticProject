@@ -61,6 +61,33 @@ public class AdminService {
         adminDAO.deleteContent(admin_cs_num);
     }
  
-  
+    // 제철팜 글목록 가져오기
+	public List<Map<String, Object>> getBlog() {
+		System.out.println("AdminService getBlog 매핑완");
+        return adminDAO.getBlog();
+	}
+	
+	// 제철팜 글내용 가져오기
+	public Map<String, Object> getblogContent(int admin_blog_num) {
+	    System.out.println("AdminService getblogContent 매핑완");
+	    return adminDAO.getblogContent(admin_blog_num);
+	}
 
+	// 제철팜 글쓰기
+	public void insertBlog(HashMap<String, String> blognoticeList, List<MultipartFile> blogFiles, HttpSession session) {
+		System.out.println("AdminService insertBlog 매핑완");
+		adminDAO.insertBlog(blognoticeList); // DB저장 코드 
+	}
+	
+	// 제철팜 글수정
+    public void blogUpdatePro(int admin_blog_num, String admin_blog_sub, String admin_blog_content) {
+        adminDAO.blogUpdatePro(admin_blog_num, admin_blog_sub, admin_blog_content);
+    }
+    
+    // 제철팜 글삭제
+	public void blogDelete(int admin_blog_num) {
+		adminDAO.blogDelete(admin_blog_num);
+	}
+
+	
 }

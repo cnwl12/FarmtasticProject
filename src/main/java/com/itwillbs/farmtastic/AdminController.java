@@ -663,4 +663,192 @@ public class AdminController {
 //			}
 //			return gson.toJson(map);
 //		}
+	
+	// 제철팜관리 화면
+	@RequestMapping(value = "/blogMng", method = RequestMethod.GET)
+	public String blogMng(Locale locale, Model model, HttpSession session) {
+		
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	        	System.out.println("AdminController의 blogMng 매핑완");
+	        	
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            
+	            model.addAttribute("admin_id", admin_id);
+	            model.addAttribute("admin", adminInfo);
+	            // 제철팜 글목록 가져오기
+	            List<Map<String, Object>> blogList = adminService.getBlog();
+	   		 	model.addAttribute("blogList", blogList);
+	           
+	            
+	            return "/admin/customerMenu/blogMng";
+	        }
+		
+	}
+	
+	// 제철팜 글쓰기 화면
+	@RequestMapping(value = "/blogWrite", method = RequestMethod.GET)
+	public String blogWrite(Locale locale, Model model, HttpSession session) {
+		
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	        	System.out.println("AdminController의 blogWrite 매핑완");
+	        	
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            
+	            model.addAttribute("admin_id", admin_id);
+	            model.addAttribute("admin", adminInfo);
+	            return "/admin/customerMenu/blogWrite";
+	        }
+		
+	}
+	
+	// 글쓰기 등록 버튼을 누르면
+	@RequestMapping(value = "/blogWritePro", method = RequestMethod.POST)
+	public String blogWritePro(@RequestParam HashMap<String, String> blognoticeList,
+							   @RequestParam("blogFile") List<MultipartFile> blogFiles, HttpSession session) throws Exception {
+		
+		System.out.println("AdminController의 blogWritePro 매핑완");
+		
+		// 첨부파일 올라갈 물리적 경로 
+		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+		
+//		System.out.println(uploadPath);
+		
+		for (int i = 0; i <blogFiles.size(); i++) {
+            MultipartFile blogFile = blogFiles.get(i);
+            if (!blogFile.isEmpty() && blogFile.getSize() > 0) { // 파일이 전송되었는지 확인
+                String blogFileName = blogFile.getOriginalFilename(); // 파일 원래 이름
+                String fileExtension = FilenameUtils.getExtension(blogFileName); // 확장자
+
+                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+
+                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+
+                String filePath = uploadPath + "/" + storedFileName;
+                
+                System.out.println("filePath : " + filePath);
+                
+                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+
+                // 임시경로에서 filePath로 파일이동 
+                File dest = new File(filePath);
+                blogFile.transferTo(dest);
+                
+                // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
+                // 사진 정보의 경로를 저장
+                blognoticeList.put("admin_blog_file", saveFileName);
+
+                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
+        	}
+        }
+		
+		adminService.insertBlog(blognoticeList, blogFiles, session);
+	    return "redirect:/blogMng";
+	}
+	
+	// 제철팜 글내용 화면
+	@RequestMapping(value = "/blogContent", method = RequestMethod.GET)
+	public String blogContent(@RequestParam("admin_blog_num") int admin_blog_num, Locale locale, Model model, HttpSession session) {
+		
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	        	System.out.println("AdminController의 blogContent 매핑완");
+	        	
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            
+	            Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
+	    	    model.addAttribute("bContent", bContent);
+	    	    model.addAttribute("admin_blog_num", admin_blog_num);
+	    	    
+	    	    String adminId = bContent.get("admin_id").toString();
+	    	    model.addAttribute("admin_id", bContent.get("admin_id").toString());
+	    	    
+	    	    model.addAttribute("admin_id", admin_id);
+	            model.addAttribute("admin", adminInfo);
+	            
+	            return "/admin/customerMenu/blogContent";
+	        }
+		
+	}
+	
+	//	제철팜 글수정 화면
+	@RequestMapping(value = "/blogUpdate", method = RequestMethod.GET)
+	public String blogUpdate(@RequestParam("admin_blog_num") int admin_blog_num, Locale locale, Model model, HttpSession session) {
+
+	    if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+        	System.out.println("AdminController의 blogUpdate 매핑완");
+    		
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            
+            Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
+    	    model.addAttribute("bContent", bContent);
+    	    model.addAttribute("admin_blog_num", admin_blog_num);
+    	    
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/customerMenu/blogUpdate";
+        }
+	}
+	
+	// 수정 버튼을 누르면
+	@PostMapping("/blogUpdatePro")
+    public String blogUpdatePro(HttpServletRequest request) {
+		
+		System.out.println("AdminController의 blogUpdatePro 매핑완");
+		
+        int admin_blog_num = Integer.parseInt(request.getParameter("admin_blog_num"));
+        String admin_blog_sub = request.getParameter("admin_blog_sub");
+        String admin_blog_content = request.getParameter("admin_blog_content");
+
+        adminService.blogUpdatePro(admin_blog_num, admin_blog_sub, admin_blog_content);
+
+        return "redirect:/blogContent?admin_blog_num=" + admin_blog_num;
+	
+	}
+	
+	// 제철팜 글 삭제
+	@RequestMapping(value = "/blogDelete", method = RequestMethod.GET)
+	public String blogDelete(@RequestParam("admin_blog_num") int admin_blog_num, HttpSession session) {
+		
+		System.out.println("AdminController의 blogDelete 매핑완");
+		
+	    AdminDTO currentAdmin = (AdminDTO) session.getAttribute("admin");
+	    String currentUserId = currentAdmin.getAdmin_id();
+
+	    Map<String, Object> bnotice = adminService.getblogContent(admin_blog_num); 
+	    String writerId = (String) bnotice.get("admin_id"); 
+
+	    if (writerId == null || !writerId.equals(currentUserId)) { 
+	        return "redirect:/blogMng";
+	    }
+
+	    adminService.blogDelete(admin_blog_num);
+	    return "redirect:/blogMng";
+	}
+		
+		
 }

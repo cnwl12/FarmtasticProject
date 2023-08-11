@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -36,11 +38,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog__details__hero__text">
-                        <h2>The Moment You Need To Remove Garlic From The Menu</h2>
+                        <h2>${bContent.admin_blog_sub} 아니면 제목을 여기에?</h2>
                         <ul> 
-                            <li>By Michael Scofield</li>
-                            <li>January 14, 2019</li>
-                            <li>8 Comments</li>
+                            <li>By ${bContent.admin_id}</li>
+                            <li>${bContent.admin_blog_day}</li>
                         </ul>
                     </div>
                 </div>
@@ -116,24 +117,20 @@
                         </div>
                     </div>
                 </div>
+                
+                <input type="hidden" name="admin_blog_num" value="${admin_blog_num}">
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
-                        <img src="${pageContext.request.contextPath}/resources/img/blog/details/details-pic.jpg" alt="">
-                        <p>Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                            dui. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit
-                            aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur
-                            sed, convallis at tellus. Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada.
-                            Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus.
-                            Donec rutrum congue leo eget malesuada. Curabitur non nulla sit amet nisl tempus convallis
-                            quis ac lectus. Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada
-                            feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.</p>
-                        <h3>The corner window forms a place within a place that is a resting point within the large
-                            space.</h3>
-                        <p>The study area is located at the back with a view of the vast nature. Together with the other
-                            buildings, a congruent story has been managed in which the whole has a reinforcing effect on
-                            the components. The use of materials seeks connection to the main house, the adjacent
-                            stables</p>
+                        <%-- <img src="${pageContext.request.contextPath}/resources/img/blog/details/details-pic.jpg" alt=""> --%>
+						<c:choose>
+  								<c:when test="${bContent.admin_blog_file != null && bContent.admin_blog_file != ''}">
+      									<img src="${bContent.admin_blog_file}"><br>
+  								</c:when>
+						</c:choose>
+                        <h3>${bContent.admin_blog_sub}</h3>
+                        <p>${bContent.admin_blog_content}</p>
                     </div>
+                    
                     <div class="blog__details__content">
                         <div class="row">
                             <div class="col-lg-6">
@@ -147,6 +144,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="blog__details__widget">
                                     <ul>
@@ -165,6 +163,8 @@
                         </div>
                     </div>
                 </div>
+                
+                
             </div>
         </div>
     </section>
@@ -176,7 +176,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title related-blog-title">
-                        <h2>Post You May Like</h2>
+                        <h2>이런 레시피는 어떠세요?</h2>
                     </div>
                 </div>
             </div>

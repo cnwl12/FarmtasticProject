@@ -37,9 +37,14 @@
                     <span>공지사항</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="blogMng">
+                    <span>제철팜관리</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="customerAdmin">
                     <span>회원관리</span></a>
             </li>
+            
             <!--
             <li class="nav-item">
                 <a class="nav-link" href="cnotice">

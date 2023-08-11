@@ -67,9 +67,43 @@ public class AdminDAO {
 	 public void deleteContent(int admin_cs_num) {
 		    sqlSession.delete(NAMESPACE+"deleteContent", admin_cs_num);
 	 }
-	
 	 
+	// 제철팜 글목록 가져오기
+	public List<Map<String, Object>> getBlog() {
+		System.out.println("AdminDAO getBlog 매핑완");
+		return sqlSession.selectList(NAMESPACE + "getBlog");
+	}
+	
+	// 제철팜 글내용 가져오기
+	public Map<String, Object> getblogContent(int admin_blog_num) {
+		System.out.println("AdminDAO getblogContent 매핑완");
+		return sqlSession.selectOne(NAMESPACE + "getblogContent", admin_blog_num);
+	}
+	
+	// 제철팜 글쓰기
+	public void insertBlog(HashMap<String, String> blognoticeList) {
+		System.out.println("AdminDAO insertBlog 매핑완");
+		sqlSession.insert(NAMESPACE + "insertBlog", blognoticeList);
+	}  
+	
+	// 제철팜 글수정
+	public void blogUpdatePro(int admin_blog_num, String admin_blog_sub, String admin_blog_content) {
+		System.out.println("AdminDAO getblogContent 매핑완");
+		
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("admin_blog_num", admin_blog_num);
+        params.put("admin_blog_sub", admin_blog_sub);
+        params.put("admin_blog_content", admin_blog_content);
+
+        sqlSession.update(NAMESPACE + "blogUpdate", params);
+	}
+	
+	// 제철팜 글삭제
+	public void blogDelete(int admin_blog_num) {
+		System.out.println("AdminDAO blogDelete 매핑완");
+		
+		sqlSession.delete(NAMESPACE + "blogDelete", admin_blog_num);
+	}
+
+	
 }
-	
-	
-    

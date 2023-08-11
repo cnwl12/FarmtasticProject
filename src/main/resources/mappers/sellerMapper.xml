@@ -287,9 +287,9 @@
 INSERT INTO settlement (
 	    seller_num,
 	    order_num,
-	    stmtApplication, 
-		stmtApplication_day, 
-		stmtComplete
+	    settlementApplication, 
+		settlementApplication_day, 
+		settlementComplete
 	)
 	SELECT
 	    #{seller_num},
