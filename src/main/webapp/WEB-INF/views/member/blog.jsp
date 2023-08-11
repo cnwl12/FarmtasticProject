@@ -41,13 +41,10 @@
                     <div class="breadcrumb__text">
                         <h2>제철팜</h2> 
                         <div class="breadcrumb__option">
-<<<<<<< HEAD
                             <a href="./index.html">Home</a>
                             <span>제철팜</span> 
-=======
                             <a href="index">Home</a>
                             <span>Blog</span> 
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                         </div>
                     </div>
                 </div>    
@@ -98,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
                         </c:forEach>
 
 
@@ -112,8 +108,6 @@
                             </div>
                         </div>
                         
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                     </div>
                 </div>
             </div>

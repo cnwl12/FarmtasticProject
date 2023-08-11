@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 <!DOCTYPE html>
 <html>
 
@@ -58,7 +54,6 @@
     <section class="blog-details spad">
         <div class="container">
             <div class="row">
-<<<<<<< HEAD
                 <div class="col-lg-4 col-md-5 order-md-1 order-2">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
@@ -124,8 +119,6 @@
                 </div>
                 
                 <input type="hidden" name="admin_blog_num" value="${admin_blog_num}">
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
                         <%-- <img src="${pageContext.request.contextPath}/resources/img/blog/details/details-pic.jpg" alt=""> --%>
@@ -177,7 +170,6 @@
     </section>
     <!-- Blog Details Section End -->
 
-<<<<<<< HEAD
     <!-- Related Blog Section Begin -->
     <section class="related-blog spad">
         <div class="container">
@@ -238,8 +230,6 @@
         </div>
     </section>
     <!-- Related Blog Section End -->
-=======
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
 
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
