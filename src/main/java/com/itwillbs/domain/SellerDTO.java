@@ -27,6 +27,8 @@ public class SellerDTO {
 	
 	private String item_name;
 	private	String member_name;
+	private int member_num;
+	private int review_num;
 	private int review_star;
 	private String review_title;
 	private String review_content;
@@ -198,6 +200,18 @@ public class SellerDTO {
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
+	public int getMember_num() {
+		return member_num;
+	}
+	public void setMember_num(int member_num) {
+		this.member_num = member_num;
+	}
+	public int getReview_num() {
+		return review_num;
+	}
+	public void setReview_num(int review_num) {
+		this.review_num = review_num;
+	}
 	@Override
 	public String toString() {
 		return "SellerDTO [seller_num=" + seller_num + ", seller_type=" + seller_type + ", seller_licenseNum="
@@ -208,9 +222,12 @@ public class SellerDTO {
 				+ ", seller_email=" + seller_email + ", seller_file=" + seller_file + ", seller_post=" + seller_post
 				+ ", seller_addMain=" + seller_addMain + ", seller_addSub=" + seller_addSub + ", seller_joinDay="
 				+ seller_joinDay + ", seller_recoYn=" + seller_recoYn + ", item_name=" + item_name + ", member_name="
-				+ member_name + ", review_star=" + review_star + ", review_title=" + review_title + ", review_content="
-				+ review_content + ", review_img=" + review_img + ", review_day=" + review_day + "]";
+				+ member_name + ", member_num=" + member_num + ", review_num=" + review_num + ", review_star="
+				+ review_star + ", review_title=" + review_title + ", review_content=" + review_content
+				+ ", review_img=" + review_img + ", review_day=" + review_day + "]";
 	}
+	
+	
 	
 	
 	

@@ -579,6 +579,8 @@ INSERT INTO settlement (
    SELECT i.seller_num
    			, i.item_name
    			, r.review_star
+   			, r.review_num
+   			, r.member_num
    			, m.member_name
    			, r.review_title
    			, r.review_content
@@ -594,5 +596,10 @@ INSERT INTO settlement (
 	WHERE i.seller_num = #{seller_num};
    </select>
    
+   <delete id="deleteReview" parameterType="map">
+    delete from review
+    where review_num = #{review_num}
+    and member_num = #{member_num};
+	</delete>
    
 </mapper>
