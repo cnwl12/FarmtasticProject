@@ -350,7 +350,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/searchId";
 	}
 
-	/* 택배구현중 */
+	/* 택배 */
 	@GetMapping
 	@RequestMapping(value = "/parcel", method = RequestMethod.GET)
 	public String parcel(Locale locale, Model model) {
