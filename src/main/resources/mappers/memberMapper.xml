@@ -109,8 +109,13 @@
   	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
     select member_id
     		, member_pass
+<<<<<<< HEAD
     		, member_delYn
     		, member_num 
+=======
+    		, member_delYn 
+    		, member_num
+>>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
     from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
@@ -131,10 +136,10 @@
   	WHERE member_id = #{member_id}
 	</update>
 
-	<select id="getItemsearch" parameterType="string" resultType="map">
-	SELECT item_name, item_price, item_mainImg, item_detail
-	FROM item
-	WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
+<select id="getItemsearch" parameterType="string" resultType="map">
+  SELECT item_num, item_name, item_price, item_mainImg, item_detail
+  FROM item
+  WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
 </select>
 
   	<!-- sungha end-->

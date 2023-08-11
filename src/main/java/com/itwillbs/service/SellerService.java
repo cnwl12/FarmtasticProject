@@ -211,7 +211,9 @@ public class SellerService {
 	    	System.out.println("문의글 서비스왔니??");
 	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
 	    }
-
+	    public List<String> getItemNames(String seller_num) {
+	        return sellerDAO.getItemNames(seller_num);
+	    }
 		
 	    // 판매자 리뷰관리
 	    public List<SellerDTO> getReview(String seller_num) {
