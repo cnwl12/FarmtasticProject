@@ -99,13 +99,14 @@
 											<table class="custom-table">
 												<caption>고객문의</caption>
 												<colgroup>
-													<col width="13%">
-													<col>
-													<col width="13%">
-													<col width="13%">
-													<col width="13%">
-													<col width="35%">
+												    <col width="16.67%">
+												    <col width="16.67%">
+												    <col width="16.67%">
+												    <col width="16.67%">
+												    <col width="16.67%">
+												    <col width="16.67%">
 												</colgroup>
+
 												<tbody>
 													<tr>
 														<th scope="row" class="vline_m"><label for="sel_choice">처리상태</label></th>
@@ -124,16 +125,16 @@
 																<option value="환불">환불</option>
 																<option value="기타">기타</option>
 														</select></td>
-														<th scope="row" class="vline_m"><label for="sel_choice3">상세검색</label></th>
-														<td><select id="sel_choice3" name="searchType"
-															style="width: 85px">
-																<option value="">선택</option>
-																<option value="productName">상품명</option>
-																<option value="purchaserName">질문자명</option>
-														</select> <input type="text" title="상세검색" class="ipt" name="queryText"
-															onfocus="this.className='ipt ipt_on';"
-															onblur="this.className='ipt';" maxlength="20"
-															style="width: 167px"></td>
+														<th scope="row" class="vline_m"><label for="sel_choice3">상품명</label></th>
+														<td>
+														    <select id="sel_choice3" name="item_name" style="width: 85px">
+															    <option value="all">전체</option>
+															    <c:forEach var="itemName" items="${itemNames}">
+															        <option value="${itemName}">${itemName}</option>
+															    </c:forEach>
+															</select>
+														</td>
+
 													</tr>
 												</tbody>
 											</table>
@@ -542,14 +543,12 @@ function searchFormSubmit(event) {
 	  // 폼 데이터를 가져옵니다.
 	  var treatmentStatus = document.querySelector("#sel_choice").value;
 	  var inquiryType = document.querySelector("#sel_choice2").value;
-	  var searchType = document.querySelector("#sel_choice3").value;
-	  var queryText = document.querySelector("input[name='queryText']").value;
+	  var item_name = document.querySelector("#sel_choice3").value;
 
 	  // 콘솔에 결과를 출력합니다.
 	  console.log("처리상태:", treatmentStatus);
 	  console.log("문의유형:", inquiryType);
-	  console.log("상세검색:", searchType);
-	  console.log("검색어:", queryText);
+	  console.log("상품명", item_name);
 
 	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
 	  $("tbody tr.data-row").each(function () {
@@ -558,14 +557,17 @@ function searchFormSubmit(event) {
 
 	    // 필요한 경우 다른 칼럼에 대한 변수를 추가합니다.
 	    var one_board_inquiryType = $row.find("td").eq(2).text(); // 아래 추가된 if 조건에 맞게 수정
+	    var one_board_item_name = $row.find("td").eq(4).text(); 
 	    
 	    var match_treatmentStatus = treatmentStatus === one_board_repYn || treatmentStatus === "all";
 	    var match_inquiryType = inquiryType === one_board_inquiryType || inquiryType === "all";
+	    var match_item_name = item_name === one_board_item_name || item_name === "all";
 	    // 필요한 경우 다른 조건을 추가합니다.
 
 	    if (
 	      match_treatmentStatus &&
-	      match_inquiryType // &&
+	      match_inquiryType &&
+	      match_item_name
 	      // 필요한 경우 다른 조건을 추가합니다.
 	    ) {
 	      $row.show();
