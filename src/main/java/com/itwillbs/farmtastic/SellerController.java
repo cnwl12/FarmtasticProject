@@ -713,7 +713,7 @@ public class SellerController {
 	public ResponseEntity<String> deleteSellerReview(@RequestParam("review_num") int review_num, @RequestParam("member_num") int member_num) {
 	    try {
 	        // seller 관련 서비스 변경
-	        sellerService.deleteReview(review_num, member_num);
+	        sellerService.deleteSellerReview(review_num, member_num);
 	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully deleted.");
 	    } catch (Exception e) {
 	        e.printStackTrace();

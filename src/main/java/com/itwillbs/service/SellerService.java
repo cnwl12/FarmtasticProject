@@ -220,8 +220,8 @@ public class SellerService {
 	    public List<SellerDTO> getReview(String seller_num) {
 	    	return sellerDAO.getReview(seller_num);
 		}
-	    public boolean deleteReview(int review_num, int member_num) {
-	        return sellerDAO.deleteReview(review_num, member_num) > 0;
+	    public boolean deleteSellerReview(int review_num, int member_num) {
+	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
 	    }  
 	    
 }

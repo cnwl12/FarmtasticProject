@@ -228,11 +228,11 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace+".getReview", seller_num);
 		}
 		
-		public int deleteReview(int review_num, int member_num) {
+		public int deleteSellerReview(int review_num, int member_num) {
 		    Map<String, Integer> params = new HashMap<>();
 		    params.put("review_num", review_num);
 		    params.put("member_num", member_num);
-		    return sqlSession.delete(namespace + ".deleteReview", params);
+		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
 
 

@@ -517,7 +517,7 @@
 	WHERE i.seller_num = #{seller_num};
    </select>
    
-   <delete id="deleteReview" parameterType="map">
+   <delete id="deleteSellerReview" parameterType="map">
     delete from review
     where review_num = #{review_num}
     and member_num = #{member_num};

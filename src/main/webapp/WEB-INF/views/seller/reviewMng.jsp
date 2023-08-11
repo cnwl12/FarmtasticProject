@@ -171,6 +171,7 @@
     				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         			<thead>
             		<tr>
+            		<th>리뷰</th>
             		<th>상품명</th>
             		<th>별점</th>
             		<th>작성자</th>
@@ -281,9 +282,9 @@
     	  const table = $("#dataTable").DataTable();
     	  
     	  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    	    const rowDate = moment(data[6], "YYYY-MM-DD");
-    	    const rowScore = (data[1] === '★★★★★') ? 5 : data[1].length;
-    	    const rowKeyword = keywordType === "PRODUCT_NAME" ? data[0] : data[2];
+    	    const rowDate = moment(data[7], "YYYY-MM-DD");
+    	    const rowScore = (data[2] === '★★★★★') ? 5 : data[1].length;
+    	    const rowKeyword = keywordType === "PRODUCT_NAME" ? data[1] : data[3];
 
     	    const isDateInRange =
     	      (!startDate || moment(startDate).isBefore(rowDate) || moment(startDate).isSame(rowDate)) &&
@@ -341,6 +342,7 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                         var review_date = moment(seller.review_day).format('YYYY-MM-DD');
 
                         table.row.add([
+                        	'<input type="checkbox" class="review-checkbox" data-review_num="' + seller.review_num + '" data-member_num="' + seller.member_num + '"/>',
                             seller.item_name,
                             review_stars,
                             seller.member_name,
@@ -370,7 +372,52 @@ document.getElementById("reviewScoresSelect").addEventListener("change", functio
 // 처음 페이지 로드 시 모든 리뷰 가져오기
 getReview(); 
 </script>
+<script type="text/javascript">
+$(document).ready(function () {
+  var selectedReview;
+  var selectedMember;
 
+  // 삭제 버튼 클릭 이벤트
+  $(document).on('click', '#del-review-button', function () {
+	  var checkedReviews = $('input[type=checkbox][name=review-checkbox]:checked');
+    if (checkedReviews.length === 1) {
+      // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
+      selectedReview = checkedReviews.first().data("review_num");
+      selectedMember = checkedReviews.first().data("member_num");
+      console.log('Selected review number:', selectedReview);
+
+      deleteReview(selectedReview, selectedMember);
+    } else {
+      alert('한 개의 리뷰만 선택해 주세요.');
+    }
+  });
+
+  // 리뷰를 삭제하는 함수
+  function deleteReview(selectedReview, selectedMember) {
+    $.ajax({
+      type: 'POST',
+      url: 'deleteReview',
+      data: {
+        review_num: selectedReview,
+        member_num: selectedMember // 쉼표로 구분하세요.
+      },
+      dataType: 'text',
+      success: function (responseText) {
+        console.log(responseText);
+        if (responseText === 'The review has been successfully deleted.') {
+          alert('리뷰가 성공적으로 삭제되었습니다.');
+          location.reload(); // 페이지를 새로고침합니다.
+        } else {
+          alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
+        }
+      },
+      error: function () {
+        alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
+      },
+    });
+  }
+});
+</script>
 </body>
 
 </html>
