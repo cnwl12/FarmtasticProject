@@ -267,8 +267,8 @@
 	ORDER BY	settlementMonth;
    </select>
    
-   <!-- 선진) 정산신청 -->
-   <update id="updateSettlementRequest">
+   <!-- 선진) 정산신청 --> <!-- 오더디테일에 업데이트 하는 방법 -->
+<!--     <update id="updateSettlementRequest">
     UPDATE order_detail
     SET settlement_yn = 'N'
     WHERE settlement_yn IS NULL
@@ -279,7 +279,34 @@
         <foreach collection="checkedSettlements" item="settlementMonth" open="(" separator="," close=")">
             #{settlementMonth}
         </foreach>
-	</update>
+	</update> -->
+	
+	<!-- 정산테이블에 인서트하는 방법 -->
+	<insert id="updateSettlementRequest">
+INSERT INTO settlement (
+	    seller_num,
+	    order_num,
+	    stmtApplication, 
+		stmtApplication_day, 
+		stmtComplete
+	)
+	SELECT
+	    #{seller_num},
+	    order_num,
+	    'Y',
+	    now(),
+	    'N'
+	FROM (
+	    SELECT DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
+	           od.order_num AS order_num
+	    FROM order_detail od
+	    JOIN item it ON od.item_num = it.item_num
+	    WHERE od.item_num IN (SELECT item_num
+	                          FROM item
+	                          WHERE seller_num = #{seller_num})
+	) AS selected_orders
+	WHERE settlementMonth IN (${selectedMonths});
+	</insert>
    
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">

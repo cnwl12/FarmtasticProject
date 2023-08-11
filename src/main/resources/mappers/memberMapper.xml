@@ -109,7 +109,8 @@
   	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
     select member_id
     		, member_pass
-    		, member_delYn 
+    		, member_delYn
+    		, member_num 
     from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
