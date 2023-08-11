@@ -98,7 +98,7 @@
     												<div class="form-inline">
       													<div class="pc-inline-block">
         													<div class="seller-input form-group">
-          														<select id="reviewScoresSelect" class="form-control" onchange="handleReviewScoreChange(event)">
+          														<select id="reviewScoresSelect" class="form-control">
             														<option value="">전체</option>
             														<option value="1">1점</option>
             														<option value="2">2점</option>
@@ -121,19 +121,12 @@
       													<div class="form-group">
         													<select id="searchKeywordTypeSelect" class="form-control">
           														<option value="PRODUCT_NAME" selected>상품명</option>
-          														<option value="PRODUCT_ORDER_NAME">작성자명</option>
+          														<option value="AUTHOR_NAME">작성자명</option>
         													</select>
       													</div>
       													<div class="form-group" id="searchKeywordInputWrapper">
         													<div class="seller-input-wrap">
-          														<textarea
-            														id="searchKeywordInput"
-            														placeholder="입력해주세요."
-            														class="form-control"
-            														rows="1"
-            														style="height: 37px; max-height: 37px; min-height: 20px;"
-            														title="검색어 입력">
-          														</textarea>
+          														<input type="text" class="form-control" id="searchKeywordInput" placeholder="검색어를 입력해주세요.">
         													</div>
       													</div>
     												</div>
@@ -146,7 +139,7 @@
 								<!--  -->
 								<div class="panel-footer">
 									<div class="seller-btn-area btn-group-lg">
-										<button class="btn btn-primary" type="button" onclick="search()">검색</button>
+										<button class="btn btn-primary" type="button" onclick="applyFilters()">검색</button>
 										<button class="btn btn-primary" type="button" onclick="reset()">초기화</button>
 									</div>
 								</div>
@@ -161,6 +154,7 @@
 					<div class="panel-heading">
   						<div class="pc-pull-left">
     						<h3 class="panel-title">리뷰목록</h3>
+    						<button class="btn btn-primary" id="del-review-button">삭제</button>
   						</div>
 					</div>
 					
@@ -172,9 +166,12 @@
         			 <div class="review-list">
 					<input type="hidden" name="seller_num" value="${sessionScope.seller_num}">
 					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
+					<input type="hidden" id="member_num"name="member_num" value="${review.member_num}">
+					<input type="hidden" id="review_num"name="review_num" value="${review.review_num}">
     				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         			<thead>
             		<tr>
+            		<th>리뷰</th>
             		<th>상품명</th>
             		<th>별점</th>
             		<th>작성자</th>
@@ -266,132 +263,161 @@
 
 
 <script>
+    function setDateRange(days) {
+        const now = new Date();
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+        const startDate = new Date(now - days * 24 * 60 * 60 * 1000);
+        startDateInput.valueAsDate = startDate;
+        endDateInput.valueAsDate = now;
+    }
     
-        function setDateRange(days) {
-            const now = new Date();
-            const startDateInput = document.getElementById('start-date');
-            const endDateInput = document.getElementById('end-date');
-            const startDate = new Date(now - days * 24 * 60 * 60 * 1000);
-            startDateInput.valueAsDate = startDate;
-            endDateInput.valueAsDate = now;
-        }
-		
-        function search() {
-            const startDate = document.getElementById("start-date").value;
-            const endDate = document.getElementById("end-date").value;
-            const reviewScore = document.getElementById("reviewScoresSelect").value;
-            const keywordTypeIndex = document.getElementById("searchKeywordTypeSelect")
-              .selectedIndex;
-            const keyword = document.getElementById("searchKeywordInput").value;
+    function applyFilters() {
+    	  const startDate = document.getElementById("start-date").value;
+    	  const endDate = document.getElementById("end-date").value;
+    	  const reviewScore = document.getElementById("reviewScoresSelect").value;
+    	  const keywordType = document.getElementById("searchKeywordTypeSelect").value;
+    	  const keyword = document.getElementById("searchKeywordInput").value;
 
-            const table = $("#dataTable").DataTable();
+    	  const table = $("#dataTable").DataTable();
+    	  
+    	  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    	    const rowDate = moment(data[7], "YYYY-MM-DD");
+    	    const rowScore = (data[2] === '★★★★★') ? 5 : data[1].length;
+    	    const rowKeyword = keywordType === "PRODUCT_NAME" ? data[1] : data[3];
 
-            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-              const rowDate = moment(data[6], "YYYY-MM-DD");
-              const rowScore = data[1].length;
-              const rowKeyword = data[keywordTypeIndex];
+    	    const isDateInRange =
+    	      (!startDate || moment(startDate).isBefore(rowDate) || moment(startDate).isSame(rowDate)) &&
+    	      (!endDate || moment(endDate).isSame(rowDate) || moment(endDate).isAfter(rowDate));
+    	    const isScoreMatched = !reviewScore || rowScore == reviewScore;
+    	    const isKeywordMatched = !keyword || rowKeyword.includes(keyword);
 
-              const isDateInRange =
-                (!startDate || moment(startDate).isSameOrBefore(rowDate)) &&
-                (!endDate || moment(endDate).isSameOrAfter(rowDate));
-              const isScoreMatched = !reviewScore || rowScore >= reviewScore;
-              const isKeywordMatched = !keyword || rowKeyword.includes(keyword);
+    	    return isDateInRange && isScoreMatched && isKeywordMatched;
+    	  });
 
-              return isDateInRange && isScoreMatched && isKeywordMatched;
-            });
+    	  table.draw();
+    	  $.fn.dataTable.ext.search.pop();
+    	}
 
-            table.draw();
-            $.fn.dataTable.ext.search.pop();
-        }
-        
-        document.addEventListener("DOMContentLoaded", () => {
-        const resetButton = document.querySelector('button[type="reset"]');
-        if (resetButton) {
-            resetButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                document.getElementById('start-date').value = '';
-                document.getElementById('end-date').value = '';
-                setDateRange(30);
-                applyFilters();
-            });
-        }
+    const resetButton = document.querySelector('button[type="reset"]');
+    if (resetButton) {
+        resetButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.getElementById('start-date').value = '';
+            document.getElementById('end-date').value = '';
+            document.getElementById("reviewScoresSelect").value = '';
+            document.getElementById("searchKeywordTypeSelect").selectedIndex = 0;
+            document.getElementById("searchKeywordInput").value = '';
+            setDateRange(30);
+            applyFilters();
+        });
+    }
 
-        function applyFilters() {
-            search();
-        }
+    setDateRange(30);
 
-        
-    });
 </script>
 
 <script>
-    function getReview() {
-        var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
+function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, keyword) {
+    var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
 
-        if (seller_num) {
-            $.ajax({
-                type: "GET",
-                url: "${pageContext.request.contextPath}/getReview",
-                data: { seller_num: seller_num },
-                dataType: "json",
-                success: function(buyreview) {
-                    var table = $('#dataTable').DataTable();
-                    table.clear().draw();
+    if (seller_num) {
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/getReview",
+            data: { seller_num: seller_num },
+            dataType: "json",
+            success: function(buyreview) {
+                var table = $('#dataTable').DataTable();
+                table.clear().draw();
 
-                    if (buyreview.length === 0) {
-                        $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
-                    } else {
-                        $.each(buyreview, function(index, seller) {
-                            var review_stars = '';
-                            for (let i = 1; i <= seller.review_star; i++) {
-                                review_stars += '★';
-                            }
-                            var review_date = moment(seller.review_day).format('YYYY-MM-DD');
+                if (buyreview.length === 0) {
+                    $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
+                } else {
+                    $.each(buyreview, function(index, seller) {
+                        var review_stars = '';
+                        for (let i = 1; i <= seller.review_star; i++) {
+                            review_stars += '★';
+                        }
+                        var review_date = moment(seller.review_day).format('YYYY-MM-DD');
 
-                            table.row.add([
-                                seller.item_name,
-                                review_stars,
-                                seller.member_name,
-                                seller.review_title,
-                                seller.review_content,
-                                seller.review_img,
-                                review_date
-                            ]).draw();
-                        });
-                    }
-                },
-                error: function () {
-                    alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+                        table.row.add([
+                        	'<input type="checkbox" class="review-checkbox" data-review_num="' + seller.review_num + '" data-member_num="' + seller.member_num + '"/>',
+                            seller.item_name,
+                            review_stars,
+                            seller.member_name,
+                            seller.review_title,
+                            seller.review_content,
+                            seller.review_img,
+                            review_date
+                        ]).draw();
+                    });
                 }
-            });
-        } else {
-            alert('오류가 발생했습니다.');
-        }
-    }
-
-    function executeSearch() {
-        $('#dataTable').DataTable().draw();
-    }
-
-    $(document).ready(function () {
-        const table = $('#dataTable').DataTable({
-            retrieve: true,
-            ordering: false,
-            searching: false,
-            paging: false,
-            info: false
+            },
+            error: function () {
+                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+            }
         });
-        getReview();
-        $('#search').on('click', executeSearch);
-        $(".setDateRange").click(function () {
-            setDateRange(this.dataset.days_range);
-            executeSearch();
-        });
+    } else {
+        alert("오류가 발생했습니다.");
+    }
+}
 
-        $.fn.dataTable.ext.search.push(customSearch);
-    });
+// 이벤트 리스너 추가
+document.getElementById("reviewScoresSelect").addEventListener("change", function() {
+    // 필터링 함수 호출
+    applyFilters();
+});
+
+// 처음 페이지 로드 시 모든 리뷰 가져오기
+getReview(); 
 </script>
+<script type="text/javascript">
+$(document).ready(function () {
+  var selectedReview;
+  var selectedMember;
 
+  // 삭제 버튼 클릭 이벤트
+  $(document).on('click', '#del-review-button', function () {
+	  var checkedReviews = $('input[type=checkbox][name=review-checkbox]:checked');
+    if (checkedReviews.length === 1) {
+      // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
+      selectedReview = checkedReviews.first().data("review_num");
+      selectedMember = checkedReviews.first().data("member_num");
+      console.log('Selected review number:', selectedReview);
+
+      deleteReview(selectedReview, selectedMember);
+    } else {
+      alert('한 개의 리뷰만 선택해 주세요.');
+    }
+  });
+
+  // 리뷰를 삭제하는 함수
+  function deleteReview(selectedReview, selectedMember) {
+    $.ajax({
+      type: 'POST',
+      url: 'deleteReview',
+      data: {
+        review_num: selectedReview,
+        member_num: selectedMember // 쉼표로 구분하세요.
+      },
+      dataType: 'text',
+      success: function (responseText) {
+        console.log(responseText);
+        if (responseText === 'The review has been successfully deleted.') {
+          alert('리뷰가 성공적으로 삭제되었습니다.');
+          location.reload(); // 페이지를 새로고침합니다.
+        } else {
+          alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
+        }
+      },
+      error: function () {
+        alert('리뷰 삭제에 실패했습니다. 다시 시도해 주세요.');
+      },
+    });
+  }
+});
+</script>
 </body>
 
 </html>

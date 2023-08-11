@@ -702,7 +702,7 @@ ol {
 }
 
 .hero__search__form form input {
-	width: 30%; /*  width: 70%;*/
+	width: 100px; /*  width: 70%;*/
 	border: none;
 	height: 48px;
 	font-size: 16px;

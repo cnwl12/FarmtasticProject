@@ -127,11 +127,22 @@ public class AdminController {
 	        }
 	}
 	@RequestMapping(value = "/adminProfile", method = RequestMethod.GET)
-		public String adminProfile(Locale locale, Model model) {
+		public String adminProfile(Locale locale, Model model,HttpSession session) {
 			
 			System.out.println("adminProfile 매핑확인여부");
+			 if (session.getAttribute("admin_id") == null) {
+		            // 세션에 로그인 정보가 없는 경우
+		            model.addAttribute("error", "로그인후 이용해주세요");
+		            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+		        } else {
+		            // 로그인한 경우
+		            String admin_id = (String) session.getAttribute("admin_id");
+		            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+		            model.addAttribute("admin", adminInfo);
+		            model.addAttribute("admin_id", admin_id);
+		            return "/admin/adminProfile";
+		        }
 			
-			return "/admin/adminProfile";
 	}   
 	@RequestMapping(value = "/notetest", method = RequestMethod.GET)
 	public String notetest(Locale locale, Model model,HttpSession session) {

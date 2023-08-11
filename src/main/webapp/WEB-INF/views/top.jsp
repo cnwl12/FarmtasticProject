@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,10 +17,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
     
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-1.12.4.min.js"
-    ></script> 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
         <!-- Js Plugins -->
     <%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
@@ -128,12 +125,8 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="search" method="get" id="search-form">
-                                <div class="hero__search__categories">
-                                    모든 카테고리
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
                                 <section class="search">											<!-- autocomplete="off" -->
-                                  <input type="text" name="query" id="searchQuery" placeholder="지민이네 당근은 어떠세요?" autocomplete="off">
+                                  <input type="text" name="query" id="searchQuery" autocomplete="off">
                                   <div class="autocomplete"></div>
                                 </section>
                                 <button type="submit" class="site-btn">검색</button>

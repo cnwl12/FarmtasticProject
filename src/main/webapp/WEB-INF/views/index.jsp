@@ -24,7 +24,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
- 	
+ 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
+ 	    
+ 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
+    <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
  	
 </head>
 
@@ -119,19 +122,17 @@
                             <li><a href="#">옥수수</a></li>
                             <li><a href="#">버섯</a></li>
                             <li><a href="#">호박</a></li>
-<!--                             <li><a href="#">Fresh Bananas</a></li> -->
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    모든 카테고리 
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="지민이네 당근은 어떠세요?">
+                          <form action="search" method="get" id="search-form">
+                               <section class="search">	
+                                <input type="text" name="query" id="searchQuery" autocomplete="off">
+                                  <div class="autocomplete"></div>
+                                </section>
                                 <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>

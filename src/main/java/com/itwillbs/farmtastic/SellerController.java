@@ -313,17 +313,16 @@ public class SellerController {
 
 	// 선진) 정산신청
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
-	public String settlementRequest(@RequestParam("checkedSettlements") String[] checkedSettlements, HttpSession session, Model model) {
+	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, HttpSession session, Model model) {
 	    System.out.println("SellerController의 settlementRequest 매핑완");
-	    System.out.println(Arrays.toString(checkedSettlements)); // 배열 형태로 출력
-	    
-	    if (checkedSettlements != null && checkedSettlements.length > 0) {
+	    System.out.println(Arrays.toString(selectedMonths)); // 배열 형태로 출력
+
+	    if (selectedMonths != null && selectedMonths.length > 0) {
 	        // 선택된 정산에 대해 settlement_yn 컬럼을 인서트하는 서비스 메서드 호출
-	        sellerService.updateSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(checkedSettlements));
+	        sellerService.updateSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
-	
 	
 
 	// 서영 : 문의게시판
@@ -710,7 +709,17 @@ public class SellerController {
 		return buyreview;
 	}
 	
-	
+	@RequestMapping(value = "/deleteSellerReview", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteSellerReview(@RequestParam("review_num") int review_num, @RequestParam("member_num") int member_num) {
+	    try {
+	        // seller 관련 서비스 변경
+	        sellerService.deleteSellerReview(review_num, member_num);
+	        return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully deleted.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 업데이트 중 오류가 발생했습니다.");
+	    }
+	}
 	
 	
 

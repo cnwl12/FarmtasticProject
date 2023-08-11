@@ -273,4 +273,9 @@ public class MemberService {
 	public List<Map<String, Object>> getOrderPay(int member_num) {
 		return memberDAO.getOrderPay(member_num);
 	}
+
+	public List<Map<String, Object>> getOrderDetail(int member_num, String order_num) {
+	    return memberDAO.getOrderDetail(member_num, order_num);
+	}
+
 }

@@ -89,9 +89,10 @@ public class SellerService {
 		public void updateSettlementRequest(String seller_num, List<String> checkedSettlements) {
 		    System.out.println("SellerService의 updateSettlementRequest 매핑완");
 		    
-		    Map<String, Object> params = new HashMap<>();
+		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
+		    System.out.println(params);
 		    sellerDAO.updateSettlementRequest(params);
 		}
 
@@ -219,5 +220,8 @@ public class SellerService {
 	    public List<SellerDTO> getReview(String seller_num) {
 	    	return sellerDAO.getReview(seller_num);
 		}
+	    public boolean deleteSellerReview(int review_num, int member_num) {
+	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
+	    }  
 	    
 }
