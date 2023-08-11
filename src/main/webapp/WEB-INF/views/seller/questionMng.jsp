@@ -64,7 +64,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- 메인 컨텐츠 시작 -->
-            <div id="content">
+            <div id="content2">
 
                  <jsp:include page="./inc/top.jsp"></jsp:include>
 
@@ -84,7 +84,7 @@
 					<!-- 고객문의관리 시작 -->
 						<div id="wrap">
 							<div id="container">
-								<div id="content">
+								<div id="content2">
 									<div class="hd2_wrap">
 										<h2 class="hd2 h_sell8 fl">
 											<span class="blind">고객문의 관리</span>
@@ -99,16 +99,25 @@
 											<table class="custom-table">
 												<caption>고객문의</caption>
 												<colgroup>
-												    <col width="16.67%">
-												    <col width="16.67%">
-												    <col width="16.67%">
-												    <col width="16.67%">
-												    <col width="16.67%">
-												    <col width="16.67%">
+													<col width="16%">
+												    <col width="12%">
+												    <col width="12%">
+												    <col width="15%">
+												    <col width="15%">
+												    <col width="15%">
+												    <col width="15%">
 												</colgroup>
 
 												<tbody>
 													<tr>
+														<td>
+														  <select id="sel_choice0" name="sequence" style="width: 120px" >
+														    <option value="desc">최근날짜순</option>
+														    <option value="asc">오래된순</option>
+														  </select>
+														</td>
+
+
 														<th scope="row" class="vline_m"><label for="sel_choice">처리상태</label></th>
 														<td><select id="sel_choice" name="treatmentStatus"
 															style="width: 85px">
@@ -152,7 +161,7 @@
 										<div class="_qna_list_container scrl uio_grid"
 											style="width: 100%; height: 377px;">
 											<div class="_flexible_area flexible_area" style="display: block;">
-												<div class="_header header" style="height: 30px;">
+												<div class="_header header2" style="height: 35px;">
 													<table>
 													  <colgroup>
 													    <col style="width: 150px;">
@@ -178,11 +187,10 @@
 
 													<div class="_resize_handle_container resize_handle_container"></div>
 												</div>
-												<div class="_body body" style="height: 360px;">
-													<div class="_virtual_bar virtual_bar" style="display: block;"></div>
-													<div class="_table_container">
+												<div class="_body body" style="height: 350px;  overflow: hidden;">
+													<div class="_table_container" style="height: 350px; overflow-y: scroll;">
 													<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-														<table>
+														<table id="date-table">
 															<colgroup>
 															<col data-columnname="regDate" style="width: 150px;">
 															<col data-columnname="answerYn" style="width: 120px;">
@@ -194,7 +202,7 @@
 															</colgroup>
 															<tbody>
 															  <c:forEach var="row" items="${oneboard}">
-															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" >
+															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
 															      <td>${row.one_board_day}</td>
 															      <td>${row.one_board_repYn}</td>
 															      <td>${row.one_board_type}</td>
@@ -210,11 +218,6 @@
 													</div>
 													<div class="_selection_layer selection_layer"></div>
 												</div>
-												<div class="_virtual_scrollbar virtual_scrollbar"
-													style="display: block; height: 340px; top: 20px;">
-													<div class="_content content"></div>
-												</div>
-												<div class="_space space" style="display: block; height: 20px;"></div>
 											</div>
 											<div class="left_line"></div>
 											<div class="right_line"></div>
@@ -265,7 +268,12 @@
 														</tr>
 														<tr>
 															<th scope="row">문의내용</th>
-															<td id="one_board_content" colspan="3" class="line_h18">&nbsp;</td>
+															<td id="one_board_content" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
+															
+														</tr>
+														<tr>
+															<th scope="row">답변</th>
+															<td id="one_board_reply" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
 															
 														</tr>
 													</tbody>
@@ -328,27 +336,23 @@
 										var templates = {};
 									</script>
 					
-<!-- 									
 					
 					
 								</div>
 							</div>
 						</div>
-					
-					
-					
-					
-					
 					<!-- 고객문의관리 끝 -->
 
-				</div>
+			</div>
 				<!-- 페이지 컨텐츠 끝 -->
 				
-			</div>
-			</div>
-			</div>
-			<!-- 메인 컨텐츠 끝 -->		
-</body>
+		</div>
+			<!-- 메인 컨텐츠 끝 -->	
+	</div>
+      <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -358,13 +362,6 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -430,6 +427,7 @@
 		    var one_board_repDay = $(this).find("td:eq(6)").text();
 		    var one_board_content = $(this).data("one-board-content");
 		    var one_board_num = $(this).data("one-board-num");
+		    var one_board_reply = $(this).data("one-board-reply");
 
 		 // 이 정보를 사용하여 필요한 곳에 데이터를 채웁니다.
 		    $('#one_board_day').html(one_board_day || '&nbsp;');
@@ -440,6 +438,7 @@
 		    $('#one_board_title').html(one_board_title || '&nbsp;');
 		    $('#one_board_content').html(one_board_content || '&nbsp;');
 		    $('#one_board_num').val(one_board_num);
+		    $('#one_board_reply').html(one_board_reply || '&nbsp;');
 		  });
 		});
 
@@ -460,6 +459,7 @@
 	      $('#one_board_title').html(response.one_board_title || '&nbsp;');
 	      $('#one_board_content').html(response.one_board_content || '&nbsp;');
 	      $('#one_board_num').html(response.one_board_num || '&nbsp;');
+	      $('#one_board_reply').html(response.one_board_reply || '&nbsp;');
 	    },
 	    error: function(error){
 	      console.error("Error fetching detail data:", error);
@@ -541,11 +541,13 @@ function searchFormSubmit(event) {
 	  }
 
 	  // 폼 데이터를 가져옵니다.
+	  var sequence = document.querySelector("#sel_choice0").value;
 	  var treatmentStatus = document.querySelector("#sel_choice").value;
 	  var inquiryType = document.querySelector("#sel_choice2").value;
 	  var item_name = document.querySelector("#sel_choice3").value;
 
 	  // 콘솔에 결과를 출력합니다.
+	  console.log("정렬순서", sequence);
 	  console.log("처리상태:", treatmentStatus);
 	  console.log("문의유형:", inquiryType);
 	  console.log("상품명", item_name);
@@ -553,12 +555,14 @@ function searchFormSubmit(event) {
 	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
 	  $("tbody tr.data-row").each(function () {
 	    var $row = $(this);
+	    var one_board_day = $row.find("td").eq(0).text();
 	    var one_board_repYn = $row.find("td").eq(1).text();
 
 	    // 필요한 경우 다른 칼럼에 대한 변수를 추가합니다.
 	    var one_board_inquiryType = $row.find("td").eq(2).text(); // 아래 추가된 if 조건에 맞게 수정
 	    var one_board_item_name = $row.find("td").eq(4).text(); 
-	    
+
+	    var match_sequence = sequence === one_board_day || sequence === "asc" || sequence === "desc";
 	    var match_treatmentStatus = treatmentStatus === one_board_repYn || treatmentStatus === "all";
 	    var match_inquiryType = inquiryType === one_board_inquiryType || inquiryType === "all";
 	    var match_item_name = item_name === one_board_item_name || item_name === "all";
@@ -567,7 +571,8 @@ function searchFormSubmit(event) {
 	    if (
 	      match_treatmentStatus &&
 	      match_inquiryType &&
-	      match_item_name
+	      match_item_name &&
+	      match_sequence
 	      // 필요한 경우 다른 조건을 추가합니다.
 	    ) {
 	      $row.show();
@@ -575,12 +580,55 @@ function searchFormSubmit(event) {
 	      $row.hide();
 	    }
 	  });
+
+	  // 날짜 순 정렬 함수 호출
+	  sortTable();
 	}
 
 //실제 데이터 처리 및 필터링 코드를 작성합니다.
 
 
 </script>
+
+<script>
+function sortTable() {
+	  var table, tbody, rows, sortOrder;
+	  table = document.getElementById("date-table"); // id를 사용하여 테이블 선택
+	  tbody = table.tBodies[0]; // 테이블 본문 선택
+	  sortOrder = document.getElementById("sel_choice0").value; // 선택된 정렬 순서를 가져옴
+
+	  // 행만 선택
+	  rows = tbody.querySelectorAll("tr.data-row");
+
+	  // 선택된 정렬 순서에 따라 행을 정렬합니다.
+	  if (sortOrder === 'desc') {
+	    rows = Array.from(rows).sort(compareRows).reverse();
+	  } else {
+	    rows = Array.from(rows).sort(compareRows);
+	  }
+
+	  // 정렬된 행을 테이블에 추가합니다.
+	  for (const row of rows) {
+	    tbody.appendChild(row);
+	  }
+	}
+
+	function compareRows(a, b) {
+	  var aValue = parseDate(a.children[0].innerText);
+	  var bValue = parseDate(b.children[0].innerText);
+
+	  return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+	}
+
+	function parseDate(dateString) {
+	  var parts = dateString.split("-");
+	  return new Date(parts[0], parts[1] - 1, parts[2]);
+	}
+
+
+
+</script>
+
 
 
 </body>

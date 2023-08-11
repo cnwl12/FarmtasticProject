@@ -160,21 +160,21 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     <div class="product__details__text">
                         <h3>${item.item_name}</h3>
                         <div class="product__details__rating">
-    <c:forEach var="i" begin="1" end="5">
-        <c:choose>
-            <c:when test="${averageStarRating - i >= 0}">
-                <i class="fa fa-star"></i>
-            </c:when>
-            <c:when test="${averageStarRating - i >= -0.5}">
-                <i class="fa fa-star-half"></i>
-            </c:when>
-            <c:otherwise>
-                <i class="fa fa-star-o"></i>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-    <span>(${reviewCount} reviews)</span>
-</div>
+						    <c:forEach var="i" begin="1" end="5">
+						        <c:choose>
+						            <c:when test="${averageStarRating - i >= 0}">
+						                <i class="fa fa-star"></i>
+						            </c:when>
+						            <c:when test="${averageStarRating - i >= -0.5}">
+						                <i class="fa fa-star-half"></i>
+						            </c:when>
+						            <c:otherwise>
+						                <i class="fa fa-star-o"></i>
+						            </c:otherwise>
+						        </c:choose>
+						    </c:forEach>
+						    <span>(${reviewCount} reviews)</span>
+						</div>
 
                         <div class="product__details__price">${item.item_price}</div>
                        <%--  <p>${item.item_detail}</p> --%>
