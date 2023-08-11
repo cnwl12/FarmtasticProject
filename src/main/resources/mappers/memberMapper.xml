@@ -109,13 +109,8 @@
   	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
     select member_id
     		, member_pass
-<<<<<<< HEAD
     		, member_delYn
-    		, member_num 
-=======
-    		, member_delYn 
     		, member_num
->>>>>>> branch 'master' of https://github.com/cnwl12/FarmtasticProject.git
     from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
