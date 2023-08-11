@@ -96,10 +96,10 @@
                                             <td>${slist.totalSales}</td>
                                             <td>${slist.totalFee}</td>
                                             <td>${slist.totalSettlement}</td>
-                                            <td>${slist.settlementApplication}</td>
-                                            <td>${slist.applyDay}</td>
-                                            <td>${slist.settlementComplete}</td>
-                                            <td>${slist.completeDay}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
@@ -111,7 +111,42 @@
                  
                     </div>
                     
-                  
+                    
+					<!-- 정산 신청 스크립트 -->
+					<script>
+				    const checkedSettlements = new Set(); // 중복을 허용하지 않는 Set 사용
+
+				    // 체크박스 변경 이벤트
+				    const onChangeCheckbox = (e, id) => {
+				        if (e.target.checked) {
+				            checkedSettlements.add(id); // Set에 추가
+				        } else {
+				            checkedSettlements.delete(id); // Set에서 제거
+				        }
+				    };
+
+				    // 정산신청 버튼 클릭 이벤트
+				    const onRequestButtonClick = (e) => {
+				        e.preventDefault();
+
+				        // form 요소 선택
+				        const form = document.getElementById("settlementRequest");
+
+				        // Set을 배열로 변환하여 hidden input에 추가
+				        const checkedArray = Array.from(checkedSettlements);
+				        document.getElementById("selectedMonths").value = checkedArray.join(',');
+
+				        // 폼 데이터 전송
+				        form.submit();
+				    };
+
+				    // 정산신청 버튼 클릭 이벤트 추가
+				    document.getElementById("request").addEventListener("click", onRequestButtonClick);
+				</script>
+
+                   
+					<!-- 정산 신청 끝 -->
+
 				</div>
 				<!-- 페이지 컨텐츠 끝 -->
 				
@@ -175,22 +210,7 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-		<script>
-	var selectedSettlementMonths = [];
 
-	function onChangeCheckbox(event, month) {
-	  if (event.target.checked) {
-	    selectedSettlementMonths.push(month);
-	  } else {
-	    var index = selectedSettlementMonths.indexOf(month);
-	    if (index > -1) {
-	      selectedSettlementMonths.splice(index, 1);
-	    }
-	  }
-	  // 여기에서 "selectedMonths" 값을 업데이트합니다.
-	  document.getElementById("selectedMonths").value = selectedSettlementMonths.join(",");
-	}
-	</script>
 
 
 </body>

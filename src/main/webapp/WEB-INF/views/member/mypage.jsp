@@ -38,30 +38,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- 주문목록  -->
-<script>
-    $(document).ready(function() {
-        var firstOrderNum = $(".orderLink").first().data("order-num");
-        var selectedOrder = firstOrderNum;
-
-        $(".orderLink").click(function() {
-            var orderNum = $(this).data("order-num");
-            var dropdown = $(this).closest(".boardTitle").next(".orderItemsRow").find(".orderItemsDropdown");
-
-            if (orderNum === selectedOrder) {
-                selectedOrder = null;
-            } else {
-                selectedOrder = orderNum;
-            }
-
-            $(".orderItemsDropdown").hide();
-            dropdown.toggle();
-        });
-    });
-</script>
-
-
-
 </head>
 
 <body>
@@ -202,12 +178,7 @@
 										<td>
 											<!-- 메일 앞부분  --> <input type="text" class="txt"
 											id="member_email" name="member_email" title="이메일 아이디" size="50"
-											value="${memberDTO.member_email}"> <!-- 주소부분 --> <!-- <input
-                                            type="hidden" name="hdnOldIsRcvMail" id="hdnOldIsRcvMail"
-                                            value="True"> <input type="hidden" name="old_email"
-                                            id="old_email" value="wjc5510@naver.com"> <input
-                                            type="hidden" name="old_email_pre" id="old_email_pre"
-                                            value="wjc5***"> -->
+											value="${memberDTO.member_email}"> <!-- 주소부분 --> 
 										</td>
 									</tr>
 									<tr>
@@ -289,7 +260,7 @@
 			<!--  서영 찜페이지 끝 -->
 			
 						
-	<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
     <h4>주문관리</h4>
     <table class="table">
         <thead>
@@ -301,78 +272,67 @@
                 <th>배송조회</th>
             </tr>
         </thead>
+        
         <tbody id="inquiryList">
             <c:forEach var="order" items="${orderList}">
-              <tr class="orderRow">
-			    <td class="orderNum">
-			    	<a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a></td>
-			    <td>${order.item_name} ···</td>
-			    <td>\ ${order.order_pay}원</td>
-			    <td>결제완료</td>
-			    <td><input type="button" value="배송조회"></td>
-			</tr>
+                <tr class="orderRow">
+                    <td class="orderNum">
+                        <a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
+                    </td>
+                    <td>${order.item_name} ···</td>
+                    <td>\ ${order.order_pay}원</td>
+                    <td>결제완료</td>
+                    <td><input type="button" value="배송조회"></td>
+                </tr>
             </c:forEach>
         </tbody>
     </table>
 </div>
 
-<script>
-    $(document).ready(function() {
-    	$(".viewDetails").click(function() {
-    	    var orderNum = $(this).data("order");
-    	    var popup = window.open("", "_blank", "width=600,height=400");
-    	    popup.document.write("<h2>주문 상세 내역 - 주문번호: " + orderNum + "</h2>");
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".viewDetails").click(function() {
+        var orderNum = $(this).data("order");
+        var memberNum = ${memberDTO.member_num}; // session에서 가져오거나 페이지에서 설정
 
-    	    // 중복된 주문번호에 해당하는 상품 정보 가져와서 표시
-    	    popup.document.write("<table>");
-    	    popup.document.write("<thead><tr><th>주문번호</th><th>가격</th><th>주문일</th><th>상품명</th><th>상품수량</th></tr></thead>");
-    	    popup.document.write("<tbody>");
+        // 새로운 팝업 창 열기
+        var popup = window.open("", "_blank", "width=600,height=600");
 
-    	    var groupedOrderItems = {};
-    	    $(".orderRow").each(function() {
-    	        var rowOrderNum = $(this).find(".orderNum a").data("order");
-    	        var rowPrice = $(this).find("td:eq(2)").text();
-    	        var rowOrderDate = $(this).find("td:eq(3)").text();
-    	        var rowProductName = $(this).find("td:eq(1)").text();
-    	        var rowQuantity = $(this).find("td:eq(4)").text();
-    	        
-    	        if (!groupedOrderItems[rowOrderNum]) {
-    	            groupedOrderItems[rowOrderNum] = [];
-    	        }
-    	        groupedOrderItems[rowOrderNum].push({
-    	            price: rowPrice,
-    	            orderDate: rowOrderDate,
-    	            productName: rowProductName,
-    	            quantity: rowQuantity
-    	        });
-    	    });
+        // 팝업 창에 내용 작성
+        popup.document.write("<html><head><title>주문 상세 내역</title>");
+        popup.document.write("<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/popup-style.css'>");
+        popup.document.write("</head><body>");
 
-    	    for (var orderNum in groupedOrderItems) {
-    	        if (groupedOrderItems.hasOwnProperty(orderNum)) {
-    	            var items = groupedOrderItems[orderNum];
-    	            for (var i = 0; i < items.length; i++) {
-    	                popup.document.write("<tr>");
-    	                if (i === 0) {
-    	                    popup.document.write("<td rowspan='" + items.length + "'>" + orderNum + "</td>");
-    	                }
-    	                popup.document.write("<td>" + items[i].price + "</td>");
-    	                if (i === 0) {
-    	                    popup.document.write("<td rowspan='" + items.length + "'>" + items[i].orderDate + "</td>");
-    	                }
-    	                popup.document.write("<td>" + items[i].productName + "</td>");
-    	                popup.document.write("<td>" + items[i].quantity + "</td>");
-    	                popup.document.write("</tr>");
-    	            }
-    	        }
-    	    }
+        popup.document.write("<h2>주문 상세 내역 - 주문번호: " + orderNum + "</h2>");
+        popup.document.write("<div id='orderDetailTable'></div>");
+        // 서버에서 데이터 가져와서 표시
+   		 $.ajax({
+            url: "getOrderDetail",
+            data: { member_num: memberNum, order_num: orderNum },
+            dataType: "json",
+            success: function(data) {
+                var orderDetailTable = popup.document.getElementById("orderDetailTable");
+                orderDetailTable.innerHTML = "<h3>주문 상세 정보</h3>";
+                orderDetailTable.innerHTML += "<table><thead><tr><th>상품명</th><th>수량</th><th>가격</th></tr></thead><tbody>";
 
-    	    popup.document.write("</tbody>");
-    	    popup.document.write("</table>");
+                for (var i = 0; i < data.length; i++) {
+                    orderDetailTable.innerHTML += "<tr>";
+                    orderDetailTable.innerHTML += "<td>" + data[i].item_name + "</td>";
+                    orderDetailTable.innerHTML += "<td>" + data[i].item_cnt + "</td>";
+                    orderDetailTable.innerHTML += "<td>" + data[i].price + "원</td>";
+                    orderDetailTable.innerHTML += "</tr>";
+                }
 
-    	    // 팝업 창 닫기 버튼 추가
-    	    popup.document.write('<button onclick="window.close()">닫기</button>');
-    	});
+                orderDetailTable.innerHTML += "</tbody></table>";
+
+                // 팝업 창 닫기 버튼 추가
+                popup.document.write('<button onclick="window.close()">닫기</button>');
+
+                popup.document.write("</body></html>");
+            }
+        });
     });
+});
 </script>
 
 

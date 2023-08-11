@@ -94,7 +94,9 @@ public class SellerDAO {
 		public void updateSettlementRequest(Map<String, Object> params) {
 			
 		    System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+		    System.out.println(params);
 		    sqlSession.update(namespace + ".updateSettlementRequest", params);
+		    
 		}
 
 		
@@ -189,7 +191,7 @@ public class SellerDAO {
 		
 		public List<Map<String, Object>> MemberMngjoin(Date startDate, Date endDate) {
 		    System.out.println("SellerDAO MemberMngjoin()");
-		    Map<String, Object> params = new HashMap<>();
+		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("startDate", startDate);
 		    params.put("endDate", endDate);
 		    return sqlSession.selectList(namespace + ".MemberMngjoin", params);
@@ -213,7 +215,7 @@ public class SellerDAO {
 		public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
 		    System.out.println("문의글 업데이트 DAO");
 
-		    Map<String, Object> params = new HashMap<>();
+		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("one_board_num", one_board_num);
 		    params.put("one_board_reply", one_board_reply);
