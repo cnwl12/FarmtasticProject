@@ -222,6 +222,6 @@ public class SellerService {
 		}
 	    public boolean deleteReview(int review_num, int member_num) {
 	        return sellerDAO.deleteReview(review_num, member_num) > 0;
-	    }
+	    }  
 	    
 }
