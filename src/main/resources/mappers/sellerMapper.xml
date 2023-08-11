@@ -147,6 +147,7 @@
 		 	, seller_storeName
 		 	, seller_joinDay
 		 	, seller_recoYn
+		 	, seller_num
 	from seller; 
 	</select>
 	

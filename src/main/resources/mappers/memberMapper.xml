@@ -110,6 +110,7 @@
     select member_id
     		, member_pass
     		, member_delYn 
+    		, member_num
     from member
     where member_id = #{member_id}
     and member_pass = #{member_pass}
