@@ -266,6 +266,7 @@
     </div>
 
     <button id="submit-button" type="submit">조회</button>
+    <td><a href="mypage"><input type="button" value="마이페이지돌아가기"></a></td>
 </form>
 <%-- 
 <div class="col-xs-12 info-area no-padding">

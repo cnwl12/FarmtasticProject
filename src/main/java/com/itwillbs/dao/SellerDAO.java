@@ -189,13 +189,19 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".idCheck", seller_id);
 		}
 		
-		public List<Map<String, Object>> MemberMngjoin(Date startDate, Date endDate) {
+
+		
+		public List<Map<String, Object>> MemberMngjoin(Map<String, Object> params) {
 		    System.out.println("SellerDAO MemberMngjoin()");
-		    Map<String, Object> params = new HashMap<String, Object>();
+		    String seller_num = (String) params.get("seller_num");
+		    Date startDate = (Date) params.get("startDate");
+		    Date endDate = (Date) params.get("endDate");
 		    params.put("startDate", startDate);
 		    params.put("endDate", endDate);
 		    return sqlSession.selectList(namespace + ".MemberMngjoin", params);
 		}
+
+		
 		
 		// 상태 조회 후 변경 
 		public void updateStatus(HashMap<String, String> status) {
@@ -234,6 +240,7 @@ public class SellerDAO {
 		    params.put("member_num", member_num);
 		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
+		
 
 
 

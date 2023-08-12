@@ -103,7 +103,6 @@ body {
 							</div>
 							<div class="panel-footer">
 								<div class="seller-btn-area btn-group-lg">
-									<!-- 검색버튼 클릭시 memberMngPro.do로 이동하도록 수정 -->
 									<button id="searchButton" type="submit" class="btn btn-primary">검색</button>
 									<!-- 초기화 버튼 추가 -->
 									<button type="reset" class="btn btn-default">초기화</button>
@@ -119,20 +118,25 @@ body {
 						<thead>
 							<tr>
 								<th>회원아이디</th>
+								<th>이름</th>
+								<th>연락처</th>
+								<th>배송정보</th>
 								<th>상품명</th>
-								<th>수량</th>
-								<th>결제금액</th>
 								<th>주문일</th>
+								<th>금액</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="data" items="${MemberMngjoin}">
 								<tr>
 									<td><c:out value="${data.member_id}" /></td>
+									<td><c:out value="${data.member_name}" /></td>
+									<td><c:out value="${data.member_phone}" /></td>
+									<td><c:out value="${data.order_addMain}" /></td>
 									<td><c:out value="${data.item_name}" /></td>
-									<td><c:out value="${data.item_cnt}" /></td>
-									<td><c:out value="${data.order_pay.intValue()}" /></td>
 									<td><c:out value="${data.order_day}" /></td>
+									<td><c:out value="${data.order_pay.intValue()}" /></td>
+									
 								</tr>
 							</c:forEach>
 						</tbody>

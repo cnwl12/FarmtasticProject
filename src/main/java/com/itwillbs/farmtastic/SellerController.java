@@ -678,28 +678,30 @@ public class SellerController {
 	
 	/* sungha 판매자->회원관리....조회..*/
 	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
-	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDateStr,
-	                            @RequestParam(name = "endDate", required = false) String endDateStr,
+	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDate,
+	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
 	    System.out.println("memberMngPro sellerController()");
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-	    java.sql.Date startDate = null, endDate = null;
-
-	    if (startDateStr != null && endDateStr != null) {
-	        try {
-	            startDate = new java.sql.Date(dateFormat.parse(startDateStr).getTime());
-	            endDate = new java.sql.Date(dateFormat.parse(endDateStr).getTime());
-	        } catch (ParseException e) {
-	            e.printStackTrace();
+	    String seller_num = (String) session.getAttribute("seller_num");
+	    Date start = null;
+	    Date end = null;
+	    try {
+	        if (startDate != null && !startDate.trim().isEmpty()) {
+	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 	        }
+	        if (endDate != null && !endDate.trim().isEmpty()) {
+	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+	        }
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	        start = null;
+	        end = null;
 	    }
-
-	    List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin(startDate, endDate);
+	    List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin(seller_num, start, end);
 	    model.addAttribute("MemberMngjoin", MemberMngjoin);
-
 	    return "/seller/memberMng";
 	}
+
 
 	//혜원 판매자 리뷰관리
 	@RequestMapping(value = "/getReview", method = RequestMethod.GET)

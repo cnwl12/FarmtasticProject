@@ -192,10 +192,15 @@ public class SellerService {
 	         return sellerDAO.idCheck(seller_num);
 		}
 
-		public List<Map<String, Object>> MemberMngjoin(java.sql.Date startDate, java.sql.Date endDate) {
+		public List<Map<String, Object>> MemberMngjoin(String seller_num, Date startDate, Date endDate) {
 		    System.out.println("SellerService의 MemberMngjoin()");
-		    return sellerDAO.MemberMngjoin(startDate, endDate);
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("startDate", startDate);
+		    params.put("endDate", endDate);
+		    return sellerDAO.MemberMngjoin(params);
 		}
+
 
 		public void updateStatus(HashMap<String, String> status) {
 			
