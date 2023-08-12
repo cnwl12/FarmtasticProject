@@ -278,4 +278,13 @@ public class MemberService {
 	    return memberDAO.getOrderDetail(member_num, order_num);
 	}
 
+	public void cancelOrder(HashMap<String, Object> cancel) {
+		System.out.println("취소 서비스");
+		memberDAO.cancelOrder(cancel);
+	}
+
+	public void cancelInsert(HashMap<String, Object> cancel) {
+		memberDAO.cancelInsert(cancel);
+	}
+
 }

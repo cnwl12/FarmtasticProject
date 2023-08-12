@@ -260,82 +260,45 @@
 			<!--  서영 찜페이지 끝 -->
 			
 						
-<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
-    <h4>주문관리</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>주문번호</th>
-                <th>상품명</th>
-                <th>가격</th>
-                <th>주문상태</th>
-                <th>배송조회</th>
-            </tr>
-        </thead>
-        
-        <tbody id="inquiryList">
-            <c:forEach var="order" items="${orderList}">
-                <tr class="orderRow">
-                    <td class="orderNum">
-                        <a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
-                    </td>
-                    <td>${order.item_name} ···</td>
-                    <td>\ ${order.order_pay}원</td>
-                    <td><input type ="button" value="결제완료"></td>
-                    <td><a href="parcel"><input type="button" value="배송조회"></a></td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $(".viewDetails").click(function() {
-        var orderNum = $(this).data("order");
-        var memberNum = ${memberDTO.member_num}; // session에서 가져오거나 페이지에서 설정
-
-        // 새로운 팝업 창 열기
-        var popup = window.open("", "_blank", "width=600,height=600");
-
-        // 팝업 창에 내용 작성
-        popup.document.write("<html><head><title>주문 상세 내역</title>");
-        popup.document.write("<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/popup-style.css'>");
-        popup.document.write("</head><body>");
-
-        popup.document.write("<h2>주문 상세 내역 - 주문번호: " + orderNum + "</h2>");
-        popup.document.write("<div id='orderDetailTable'></div>");
-        // 서버에서 데이터 가져와서 표시
-   		 $.ajax({
-            url: "getOrderDetail",
-            data: { member_num: memberNum, order_num: orderNum },
-            dataType: "json",
-            success: function(data) {
-                var orderDetailTable = popup.document.getElementById("orderDetailTable");
-                orderDetailTable.innerHTML = "<h3>주문 상세 정보</h3>";
-                orderDetailTable.innerHTML += "<table><thead><tr><th>상품명</th><th>수량</th><th>가격</th></tr></thead><tbody>";
-
-                for (var i = 0; i < data.length; i++) {
-                    orderDetailTable.innerHTML += "<tr>";
-                    orderDetailTable.innerHTML += "<td>" + data[i].item_name + "</td>";
-                    orderDetailTable.innerHTML += "<td>" + data[i].item_cnt + "</td>";
-                    orderDetailTable.innerHTML += "<td>" + data[i].price + "원</td>";
-                    orderDetailTable.innerHTML += "</tr>";
-                }
-
-                orderDetailTable.innerHTML += "</tbody></table>";
-
-                // 팝업 창 닫기 버튼 추가
-                popup.document.write('<button onclick="window.close()">닫기</button>');
-
-                popup.document.write("</body></html>");
-            }
-        });
-    });
-});
-</script>
-
-
+			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+			    <h4>주문관리</h4>
+			    <table class="table">
+			        <thead>
+			            <tr style="text-align: center;">
+			                <th>주문번호</th>
+			                <th>상품명</th>
+			                <th>가격</th>
+			                <th>주문상태</th>
+			                <th>배송조회</th>
+			                <th>변경</th>
+			            </tr>
+			        </thead>
+			        
+			        <tbody id="inquiryList">
+			            <c:forEach var="order" items="${orderList}">
+			                <tr class="orderRow">
+			                    <td class="orderNum">
+			                      <a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
+			                    </td>
+			                    <td>${order.item_name} ···</td>
+			                    <td>\ ${order.order_pay}원</td>
+			                    <td>  
+				                    <c:choose>
+					                    <c:when test="${order.order_cancel eq 'Y'}">
+					                        주문 취소
+					                    </c:when>
+					                    <c:otherwise>
+					                        결제완료
+					                    </c:otherwise>
+					                </c:choose>
+					            </td>    
+			                    <td><a href="parcel"><input type="button" value="배송조회"></a></td>
+								<td><input type="button" class="orderCancelButton" data-order="${order.order_num}" value="주문취소"></td>
+			                </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+			</div>
 
 
 		 <!-- 주문관리 토글 끝  -->	
@@ -666,7 +629,7 @@ $(document).ready(function() {
                     }
                     $("#getItemMyReview tbody").html(rows);
 
-                    // 별점을 ★로 변경
+                    // 별점을 ★로 변경 
                     let reviewStars = document.querySelectorAll('.review-star');
                     reviewStars.forEach(function(starElement){
                         let starCount = parseInt(starElement.textContent, 10);
@@ -709,6 +672,134 @@ $(document).ready(function() {
 	});
 
 </script>
+
+<!-- 주문관리 팝업 : 상세내용 -->
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".viewDetails").click(function() {
+        var orderNum = $(this).data("order");
+        var memberNum = ${memberDTO.member_num}; // session에서 가져오거나 페이지에서 설정
+
+        // 새로운 팝업 창 열기
+        var popup = window.open("", "_blank", "width=600,height=500");
+
+        // 팝업 창에 내용 작성
+        popup.document.write("<html><head><title>주문 상세 내역</title>");
+        popup.document.write("<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/popup-style.css'>");
+        popup.document.write("</head><body>");
+
+        popup.document.write("<h2>주문 상세 내역 - 주문번호: " + orderNum + "</h2>");
+        popup.document.write("<div id='orderDetailTable'></div>");
+        
+        // 서버에서 데이터 가져와서 표시
+        $.ajax({
+            url: "getOrderDetail",
+            data: { member_num: memberNum, order_num: orderNum },
+            dataType: "json",
+            success: function(data) {
+                var orderDetailTable = popup.document.getElementById("orderDetailTable");
+                orderDetailTable.innerHTML = "<h3>주문 상세 정보</h3>";
+                
+                var tableHtml = "<table>";
+                tableHtml += "<thead><tr><th>상품명</th><th>수량</th><th>가격</th><th>total</th></tr></thead><tbody>";
+
+                for (var i = 0; i < data.length; i++) {
+                    tableHtml += "<tr>";
+                    tableHtml += "<td>" + data[i].item_name + "</td>";
+                    tableHtml += "<td>" + data[i].item_cnt + "</td>";
+                    tableHtml += "<td>" + data[i].item_price + "</td>";
+                    tableHtml += "<td>" + data[i].price + "원</td>";
+                    tableHtml += "</tr>";
+                }  
+ 
+                tableHtml += "</tbody></table>";
+
+                orderDetailTable.innerHTML += tableHtml;
+ 
+                // 팝업 창 닫기 버튼 추가
+                popup.document.write('<div><button onclick="window.close()">닫기</button></div>');
+ 
+                popup.document.write("</body></html>");
+            } 
+        });
+    });
+});
+    </script>    
+    
+    
+    <script type="text/javascript">
+    // 주문 취소 버튼 클릭 시
+	$(document).ready(function() {
+    $(".orderCancelButton").click(function() {
+    	var orderNum = $(this).data("order");
+        var popup = window.open("", "_blank", "width=600,height=400");
+        console.log(orderNum);
+
+        // 팝업 창에 내용 작성
+        var popupContent = generatePopupContent(orderNum);
+        popup.document.write(popupContent);
+
+        var confirmButton = popup.document.getElementById("confirmCancel");
+        confirmButton.addEventListener("click", function() {
+        	var selectedType = popup.document.getElementById("cancel_type").value;
+        	var detailedReason = popup.document.getElementById("cancel_reason").value;
+
+            $.ajax({
+                url: "cancelOrder", // 주문 취소를 처리하는 서버 API URL
+                method: "POST",
+                data: { 
+                	  orderNum: orderNum,
+                      cancel_reason: detailedReason,
+                      cancel_type: selectedType},
+                success: function(response) {
+                    if (response.success) {
+                        alert("주문이 취소되었습니다.");
+                    } else {
+                        alert("주문 취소가 취소되었습니다.");
+                    }
+                    // 팝업 창 닫기
+                    popup.close();
+                },
+                error: function() {
+                    alert("서버와의 통신에 문제가 발생했습니다.");
+                }
+            });
+        });
+    }); 
+});
+
+
+function generatePopupContent(orderNum) {
+	console.log(orderNum);
+	
+	return `
+    <html>
+    <head>
+        <title>주문 취소</title>
+        <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/popup-style.css'>
+    </head>
+    <body>
+        <h2>주문 취소 - 주문번호: ` + orderNum + `</h2>
+        <p>취소 사유: 
+            <select id='cancel_type'>
+                <option value=''>사유를 선택해주세요</option>
+                <option value='불량'>상품 불량</option>
+                <option value='주문오류'>다른 상품을 주문함</option>
+                <option value='기타'>기타</option>
+            </select>
+        </p>
+        <p>상세 취소 사유:</p>
+        <textarea id='cancel_reason' rows='4' cols='50'></textarea>
+        <button id="confirmCancel">주문 취소</button>
+        <button onclick="window.close()">닫기</button>
+    </body>
+    </html>`;
+
+}
+</script>
+
+<!-- 주문취소 끝 -->
+
 
 
 
@@ -991,6 +1082,11 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	    deleteFromWishlist(member_num, item_num);
 	  });
 	});
+	
+	
+	
+	
+	
 	</script>
 
 </body>

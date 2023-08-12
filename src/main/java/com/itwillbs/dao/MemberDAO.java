@@ -286,4 +286,15 @@ public class MemberDAO {
 	    
 	    return sqlSession.selectList(namespace + ".getOrderDetail", paramMap);
 	}
+
+
+	public void cancelOrder(HashMap<String, Object> cancel) {
+		System.out.println("취소다오");
+		sqlSession.update(namespace + ".cancelOrder", cancel);
+	}
+
+
+	public void cancelInsert(HashMap<String, Object> cancel) {
+		sqlSession.insert(namespace + ".cancelInsert", cancel);
+	}
 }

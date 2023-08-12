@@ -253,11 +253,12 @@
          , MIN(o.order_day) AS order_day
          , MIN(i.item_name) AS item_name
          , FORMAT(SUM(i.item_price * od.item_cnt), 0) AS total_price
+         , o.order_cancel
     FROM orders o
     JOIN order_detail od ON o.order_num = od.order_num
     JOIN item i ON i.item_num = od.item_num
     WHERE o.member_num = #{member_num}
-    GROUP BY o.order_num
+    GROUP BY o.order_num, o.order_cancel
     ORDER BY o.order_num;
 	</select>
 	
@@ -290,6 +291,26 @@
 		LIMIT 1;
 	</select>
 	
+	<!-- 주문테이블에 주문상태 변경  -->
+	<update id="cancelOrder">
+	UPDATE orders
+	SET order_cancel = 'Y'
+	WHERE order_num = #{order_num}
+	</update>
+	
+	<!-- 취소 테이블에 인서트 -->
+	<insert id="cancelInsert">
+	INSERT INTO cancel (
+					    order_num
+					  , cancel_reason
+					  , cancel_type
+					  , cancel_request)
+				VALUES (
+				  	    #{order_num}
+				  	  , #{cancel_reason}
+				  	  , #{cancel_type}
+				  	  , NOW())
+	</insert>
   
   <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">

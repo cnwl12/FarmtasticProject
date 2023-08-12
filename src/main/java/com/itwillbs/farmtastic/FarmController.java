@@ -382,6 +382,23 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return orderDetail;
 	}
 	
+	@RequestMapping(value="/cancelOrder", method = RequestMethod.POST)
+	public String cancelOrder(@RequestParam HashMap<String, Object> cancel) {
+		
+	   String orderNum = cancel.get("orderNum").toString();
+	    cancel.put("order_num", orderNum);
+		
+		//취소하러 오는지 
+		System.out.println("cancelOrder");
+		// update, insert 과정 
+		memberService.cancelOrder(cancel);
+		// 취소 했으면 인서트 
+		memberService.cancelInsert(cancel);
+		
+		
+		return "/member/mypage";
+	}
+	
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
 		
