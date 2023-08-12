@@ -683,6 +683,7 @@ public class SellerController {
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
 	    System.out.println("memberMngPro sellerController()");
 	    String seller_num = (String) session.getAttribute("seller_num");
+	    
 	    Date start = null;
 	    Date end = null;
 	    try {
@@ -699,6 +700,9 @@ public class SellerController {
 	    }
 	    List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin(seller_num, start, end);
 	    model.addAttribute("MemberMngjoin", MemberMngjoin);
+	    String seller_id = sellerService.idCheck(seller_num);
+	    model.addAttribute("seller_id", seller_id);
+	    session.setAttribute("seller_num", seller_num);
 	    return "/seller/memberMng";
 	}
 
