@@ -100,6 +100,12 @@
   	<delete id="blogDelete" parameterType="int">
   		DELETE FROM admin_blog WHERE admin_blog_num = #{admin_blog_num}
 	</delete>
-	
+
+	<!-- 제철팜 디테일 이런 레시피는 어떠세요? -->
+	<select id="getAllPosts" resultType="map">
+	    SELECT * 
+	    FROM admin_blog
+	    ORDER BY admin_blog_num ASC;
+	</select>
 	
 </mapper>

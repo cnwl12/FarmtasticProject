@@ -41,10 +41,10 @@
                     <div class="breadcrumb__text">
                         <h2>제철팜</h2> 
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <!-- <a href="./index.html">Home</a>
                             <span>제철팜</span> 
                             <a href="index">Home</a>
-                            <span>Blog</span> 
+                            <span>Blog</span>  -->
                         </div>
                     </div>
                 </div>    
@@ -55,11 +55,11 @@
 
     <!-- Blog Section Begin -->
     <section class="blog spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-5">
-                  <!-- 글 검색 바 일단 주석  -->
-                  <!--   <div class="blog__sidebar">
+         <div class="container">
+            <div class="row"> 
+                 <div class="col-lg-4 col-md-5">
+                 <!-- 글 검색 바 일단 주석  -->
+                  <!-- <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
                             <form action="#">
                                 <input type="text" placeholder="Search...">
@@ -91,7 +91,7 @@
                                     <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}">${blist.admin_blog_sub}</a></h5>
                                     <%-- <td><a href="${pageContext.request.contextPath}/contactContent?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td> --%>
                                     <p>${blist.admin_blog_content}</p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                    <a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}" class="blog__btn">자세히보기 <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -108,10 +108,10 @@
                             </div>
                         </div>
                         
-                    </div>
+                     </div>
                 </div>
-            </div>
-        </div>
+             </div>
+        </div> 
     </section>
     <!-- Blog Section End -->
 

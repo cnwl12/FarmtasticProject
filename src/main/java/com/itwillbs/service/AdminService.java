@@ -81,13 +81,19 @@ public class AdminService {
 	
 	// 제철팜 글수정
     public void blogUpdatePro(int admin_blog_num, String admin_blog_sub, String admin_blog_content) {
+    	System.out.println("AdminService blogUpdatePro 매핑완");
         adminDAO.blogUpdatePro(admin_blog_num, admin_blog_sub, admin_blog_content);
     }
     
     // 제철팜 글삭제
 	public void blogDelete(int admin_blog_num) {
+		System.out.println("AdminService blogDelete 매핑완");
 		adminDAO.blogDelete(admin_blog_num);
 	}
-
 	
+	// 제철팜 디테일 이런 레시피는 어떠세요?
+	public List<Map<String, Object>> getAllPosts() {
+	    System.out.println("AdminService getAllPosts 매핑완");
+	    return adminDAO.getAllPosts();
+	}
 }

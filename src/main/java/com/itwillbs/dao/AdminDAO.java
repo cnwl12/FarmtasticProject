@@ -105,5 +105,9 @@ public class AdminDAO {
 		sqlSession.delete(NAMESPACE + "blogDelete", admin_blog_num);
 	}
 
-	
+	// 제철팜 디테일 이런 레시피는 어떠세요?
+	public List<Map<String, Object>> getAllPosts() {
+	    System.out.println("AdminDAO getAllPosts 매핑완");
+	    return sqlSession.selectList(NAMESPACE + "getAllPosts");
+	}
 }

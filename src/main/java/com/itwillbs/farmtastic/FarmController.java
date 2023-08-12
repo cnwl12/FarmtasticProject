@@ -1,5 +1,6 @@
 package com.itwillbs.farmtastic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.io.BufferedReader;
@@ -87,22 +88,41 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		List<Map<String, Object>> bContent = adminService.getBlog();
 		model.addAttribute("bContent", bContent);
-		System.out.println(bContent);
+		System.out.println("제철팜 메인에 컨텐츠 : " + bContent);
 		
 		return "/member/blog";
 	}
 
 	@RequestMapping(value = "/blogDetails", method = RequestMethod.GET)
 	public String blogDetails(@RequestParam("admin_blog_num") int admin_blog_num, Locale locale, Model model) {
-
+	    
 		System.out.println("blogDetails 매핑확인여부");
-		
-		Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
-		model.addAttribute("bContent", bContent);
-		model.addAttribute("admin_blog_num", admin_blog_num);
-		System.out.println("controller" + bContent);
-		
-		return "/member/blogDetails";
+	    
+	    Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
+	    model.addAttribute("bContent", bContent);
+	    model.addAttribute("admin_blog_num", admin_blog_num);
+	    System.out.println("제철팜 디테일에 컨텐츠 : " + bContent);
+	    
+	    List<Map<String, Object>> allPosts = adminService.getAllPosts();
+	    List<Map<String, Object>> nextThreePosts = new ArrayList<>();
+
+	    int nextIndex = 0;
+	    for (int i = 0; i < allPosts.size(); i++) {
+	        if ((int) allPosts.get(i).get("admin_blog_num") == admin_blog_num) {
+	            nextIndex = (i + 1) % allPosts.size(); // 다음 포스트 인덱스
+	            break;
+	        }
+	    }
+
+	    for (int i = 0; i < 3; i++) {
+	        nextThreePosts.add(allPosts.get(nextIndex));
+	        nextIndex = (nextIndex + 1) % allPosts.size();
+	    }
+	    
+	    model.addAttribute("nextThreePosts", nextThreePosts);
+	    System.out.println("컨트롤러에서 가져오는 nextThreePosts : " + nextThreePosts);
+	    
+	    return "/member/blogDetails";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
