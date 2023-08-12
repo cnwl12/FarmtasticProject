@@ -282,4 +282,8 @@ public class MemberService {
 		memberDAO.cancelInsert(cancel);
 	}
 
+	public void updateItemLeft(HashMap<String, Object> payInfo) {
+		memberDAO.updateItemLeft(payInfo);
+	}
+
 }

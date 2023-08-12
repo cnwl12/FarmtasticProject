@@ -47,7 +47,6 @@
   <section class="blog spad" style="padding-top: 10px;">
     <div class="container">
 	 <div class="row">
-	  <div class="col-lg-4 col-md-5">
                    <div class="blog__sidebar">
                 <div class="blog__sidebar__item">      
 		<!-- <div id="contents">  -->
@@ -62,10 +61,9 @@
 				</ul>
 			</div>
 			 </div>
-                </div>
                 <div>
 
-			<div id="menu1_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu1_cont" style="width: 780px; margin-left:25%;">
 				<form novalidate 
 					action="${pageContext.request.contextPath }/updatePro" method="post">
 					<div class="myoption" style="float: right;  margin-bottom: 10px; width: 780px;">
@@ -233,7 +231,7 @@
 			</div>
 			
 			<!-- 서영 찜페이지 만드는중 -->
-			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu5_cont" style="width: 780px; margin-left:25%;">
 			    <div class="container">
 			        <h4>내 찜 목록</h4><br>
 			        <input type="checkbox" id="selectAllCheckbox">
@@ -270,7 +268,7 @@
 			<!--  서영 찜페이지 끝 -->
 			
 						
-			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu2_cont" style="width: 780px; margin-left:25%;">
 			    <h4>주문관리</h4>
 			    <table class="table">
 			        <thead>
@@ -313,8 +311,9 @@
 
 		 <!-- 주문관리 토글 끝  -->	
 			
-			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
-			<h4>나의 리뷰</h4>
+			<div id="menu3_cont" style="width: 800px; margin-left:25%;">
+			 <div class="container">
+			<h4>나의 리뷰</h4> 
 			<button class="site-btn" id="edit-review-button" >수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>
 				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
@@ -359,14 +358,15 @@
            		<th>작성일</th>
  				<th>이미지</th>
            		</tr>
-        		</thead>
-        		<tbody>
+        		</thead>  
+        		<tbody> 
             	
         		</tbody>
     			</table>
 				</div>
+				</div>
 			</div>
-			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu4_cont" style="width: 780px; margin-left:25%;">
 				<h4>1:1문의</h4>
 				 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
 				

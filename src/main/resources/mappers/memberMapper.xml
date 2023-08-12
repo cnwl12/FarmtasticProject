@@ -311,6 +311,17 @@
 				  	  , #{cancel_type}
 				  	  , NOW())
 	</insert>
+	
+	<!-- 재고정리  -->
+	<update id="updateItemLeft">
+    UPDATE item
+    SET item_left = item_left - ( SELECT item_cnt
+							      FROM order_detail
+							      WHERE order_num = #{order_num} AND item_num = #{item_num}
+							    )
+    WHERE item_num = #{item_num}
+	</update>
+	
   
   <!-- 리뷰작성 - 막내 -->
   <insert id="insertReview">
