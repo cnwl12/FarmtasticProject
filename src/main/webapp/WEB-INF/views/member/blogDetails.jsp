@@ -187,16 +187,18 @@
 	                        <div class="blog__item__pic">
 		                        <c:choose>
 	                                <c:when test="${nextPost.admin_blog_file != null && nextPost.admin_blog_file != ''}">
+	                                <a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${nextPost.admin_blog_num}">
 	                                    <img src="${nextPost.admin_blog_file}" style="width: 300px; height: 300px;"><br>
+	                                </a>
 	                                </c:when>
 	                                <c:otherwise>
-	                                    <img src="${pageContext.request.contextPath}/resources/img/blog/blog-1.jpg" alt="">
+	                                    	<img src="${pageContext.request.contextPath}/resources/img/blog/blog-1.jpg" alt="">
 	                                </c:otherwise>
 	                            </c:choose>
 	                        </div>
 	                        <div class="blog__item__text">
 	                            <ul>
-	                                <li><i class="fa fa-calendar-o"></i>${nextPost.admin_blog_day}</li>
+	                                <li>${nextPost.admin_blog_day}</li>
 	                            </ul>
 	                             <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${nextPost.admin_blog_num}">${nextPost.admin_blog_sub}</a></h5>
 	                        </div>

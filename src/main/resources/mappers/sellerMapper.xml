@@ -202,7 +202,7 @@
    </select>
    
 	<!-- 정산테이블에 인서트하는 방법 -->
-	<insert id="updateSettlementRequest">
+	<insert id="insertSettlementRequest">
 	INSERT INTO settlement (
 	    seller_num,
 	    order_num,
@@ -227,9 +227,18 @@
 	                          WHERE seller_num = #{seller_num})
 	) AS selected_orders
 	WHERE settlementMonth IN (<foreach item="selectedMonth" collection="checkedSettlements" separator=",">#{selectedMonth}</foreach>);
-
 	</insert>
    
+	<!-- 정산 취소 -->
+	<!-- 정산테이블에 인서트하는 방법 -->
+	<delete id="deleteSettlementRequest">
+    DELETE FROM settlement
+    WHERE seller_num = #{seller_num} AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN 
+    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
+        #{selectedMonth}
+    </foreach>
+	</delete>
+
     <!-- 가맹점 상태 Y/N -->
     <update id="approveSellerStatus" parameterType="list">
     update seller

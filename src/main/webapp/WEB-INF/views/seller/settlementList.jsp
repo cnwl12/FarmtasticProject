@@ -68,9 +68,9 @@
                         
                         <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
                         <input type="hidden" id="selectedMonths" name="selectedMonths" value=""/>
-
                    		
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="request" type="submit">정산신청</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit">정산신청</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="deleteSettlement()">신청취소</button>
                    		
                         <div class="card-body">
                             <div class="table-responsive">
@@ -175,7 +175,8 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-		<script>
+	
+	<script>
 	var selectedSettlementMonths = [];
 
 	function onChangeCheckbox(event, month) {
@@ -190,8 +191,14 @@
 	  // 여기에서 "selectedMonths" 값을 업데이트합니다.
 	  document.getElementById("selectedMonths").value = selectedSettlementMonths.join(",");
 	}
-	</script>
 
+	function submitAction(action) {
+	    $('#action').val(action);
+	    event.preventDefault(); // 현재 이벤트를 막습니다.
+	    $('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
+	}
+
+	</script>
 
 </body>
 

@@ -309,21 +309,32 @@ public class SellerController {
 		return "/seller/settlementList";
 	    }
 	}
-	
 
-	// 선진) 정산신청
+	// 선진) 정산신청 & 정산취소 
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
-	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, HttpSession session, Model model) {
+	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
 	    System.out.println("SellerController의 settlementRequest 매핑완");
 	    System.out.println(Arrays.toString(selectedMonths)); // 배열 형태로 출력
+	    System.out.println("가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
+	    
 
-	    if (selectedMonths != null && selectedMonths.length > 0) {
-	        // 선택된 정산에 대해 settlement_yn 컬럼을 인서트하는 서비스 메서드 호출
-	        sellerService.updateSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
-	    }
+	    if ("request".equals(action)) {
+	        // 정산 신청 기능 처리
+	        if (selectedMonths != null && selectedMonths.length > 0) {
+	        	System.out.println("신청 기능 여기오나요?? 액션값은? : " + action);
+	            sellerService.insertSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        }
+	    } else if ("cancel".equals(action)) {
+	        // 정산 취소 기능 처리
+	        if (selectedMonths != null && selectedMonths.length > 0) {
+	        	System.out.println("취소 기능 여기오나요?? 액션값은? : " + action);
+	            sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        }
+	    } else {System.out.println("암것도아녀 여기오나요?? 액션값은? : " + action);}
+
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
-	
+
 
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
