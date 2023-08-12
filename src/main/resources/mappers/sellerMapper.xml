@@ -461,16 +461,18 @@
      
   	</select> 
   	
-<select id="MemberMngjoin" resultType="map">
-   SELECT m.member_id, i.item_name, od.item_cnt,
-        od.item_cnt * i.item_price AS order_pay, o.order_day 
+<select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT m.member_id, m.member_name, m.member_phone, o.order_addMain, i.item_name, 
+           o.order_day, od.item_cnt * i.item_price AS order_pay  
     FROM member m 
     INNER JOIN orders o ON m.member_num = o.member_num 
     INNER JOIN order_detail od ON o.order_num = od.order_num 
     INNER JOIN item i ON od.item_num = i.item_num 
-    WHERE o.order_day BETWEEN #{startDate} AND #{endDate}
+    WHERE i.seller_num = #{seller_num} AND
+          o.order_day BETWEEN #{startDate} AND #{endDate}
     ORDER BY o.order_day DESC
 </select>
+
 
 
 
