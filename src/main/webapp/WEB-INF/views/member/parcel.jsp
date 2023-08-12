@@ -236,6 +236,7 @@
     </style>
 </head>
 <body>
+<jsp:include page="../top.jsp"></jsp:include>
 <form>
     <div class="form-group">
         <label for="carrier">택배사:</label>

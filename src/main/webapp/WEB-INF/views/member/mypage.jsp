@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -6,36 +7,60 @@
 <meta charset="UTF-8">
 <title>Farmtastic_Mypage</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css">
-<!-- 지마켓  -->  
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/page.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/zzim.css"
+	type="text/css">
+<!-- 지마켓  -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/myg.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/page.css"
+	type="text/css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <style>
-
-.star {  
-	color : lightgray;
-	cursor : pointer;
+.star {
+	color: lightgray;
+	cursor: pointer;
 }
+
 .review-star {
-	color : orange;
+	color: orange;
 }
 
 .star.selected {
-  color: orange;
+	color: orange;
 }
+
 #edit-review-popup {
-  display: none;
+	display: none;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,454 +69,442 @@
 
 <body>
 	<jsp:include page="../top.jsp"></jsp:include>
-  <section class="blog spad" style="padding-top: 10px;">
-    <div class="container">
-	 <div class="row">
-	  <div class="col-lg-4 col-md-5">
-                   <div class="blog__sidebar">
-                <div class="blog__sidebar__item">      
-		<!-- <div id="contents">  -->
-			<!-- <div id="main_menu"> -->
-			<h4>마이페이지</h4>
-				<ul class="menu_list">
-					<li id="menu1" class="on"><a href="mypage" class="toggle-mypage" data-target="mypage">나의정보</a></li>
-					<li id="menu5"><a href="#" class="toggle-mypage" data-target="myzzim">찜한상품</a></li>
-					<li id="menu2"><a href="#" class="toggle-mypage" data-target="myorder">주문관리</a></li>
-					<li id="menu3"><a href="#" class="toggle-mypage" data-target="myreview">리뷰관리</a></li>
-					<li id="menu4"><a href="#" class="toggle-mypage" data-target="myoneboard">1:1 문의</a></li>
-				</ul>
-			</div>
-			 </div>
-                </div>
-                <div>
+	<section class="blog spad" style="padding-top: 10px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-5">
+					<div class="blog__sidebar">
+						<div class="blog__sidebar__item">
+							<!-- <div id="contents">  -->
+							<!-- <div id="main_menu"> -->
+							<h4>마이페이지</h4>
+							<ul class="menu_list">
+								<li id="menu1" class="on"><a href="mypage"
+									class="toggle-mypage" data-target="mypage">나의정보</a></li>
+								<li id="menu5"><a href="#" class="toggle-mypage"
+									data-target="myzzim">찜한상품</a></li>
+								<li id="menu2"><a href="#" class="toggle-mypage"
+									data-target="myorder">주문관리</a></li>
+								<li id="menu3"><a href="#" class="toggle-mypage"
+									data-target="myreview">리뷰관리</a></li>
+								<li id="menu4"><a href="#" class="toggle-mypage"
+									data-target="myoneboard">1:1 문의</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div>
 
-			<div id="menu1_cont" style="width: 780px; margin-left: -80px;">
-				<form novalidate 
-					action="${pageContext.request.contextPath }/updatePro" method="post">
-					<div class="myoption" style="float: right;  margin-bottom: 10px; width: 780px;">
-						<h4>나의 정보</h4>
-						<table class="myg_tab">
-							<tbody>
-								<tr>
+					<div id="menu1_cont" style="width: 780px; margin-left: -80px;">
+						<form novalidate
+							action="${pageContext.request.contextPath }/updatePro"
+							method="post">
+							<div class="myoption"
+								style="float: right; margin-bottom: 10px; width: 780px;">
+								<h4>나의 정보</h4>
+								<table class="myg_tab">
+									<tbody>
+										<tr>
+										</tr>
+									</tbody>
+								</table>
+								<!-- <h5 class="list1">회원정보 설정</h5> -->
+								<div class="my_info_setting">
+									<table class="myinfo">
+										<colgroup>
+											<col style="width: 17%;">
+											<col>
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row"><label for="name1">이름</label></th>
+
+												<td><span><input type="text" class="txt"
+														id="member_name" name="member_name"
+														value="${memberDTO.member_name}" required> <span
+														class="error-message" style="color: red; display: none;">이름을
+															입력하세요</span></span></td>
+											</tr>
+											<tr>
+												<th scope="row">사용자ID</th>
+												<td><span><input type="text" class="txt"
+														id="member_id" name="member_id"
+														value="${memberDTO.member_id}" readonly></span></td>
+											</tr>
+
+											<tr style="visibility: visible;">
+												<th scope="row">비밀번호</th>
+												<td id="PasswordEdit" class="PwdEdit"
+													style="display: block;">
+													<ul class="llist-style1">
+														<li><label for="nowpw"><span class="bg_bul"></span>현재
+																비밀번호</label> <input type="password" class="txt" id="member_pass"
+															name="member_pass" size="26" maxlength="15"
+															onkeydown="return keycheck(this.event);"
+															onkeypress="Capskeycheck(this,'new_member_pass');"
+															onkeyup="validatePasswordType(this,'new_member_pass');"
+															onfocus="helpOn('new_member_pass');"
+															onblur="chkBlur(this,'new_member_pass');"
+															style="width: 195px;"> <span class="font_style1">현재
+																비밀번호를 입력해 주세요</span></li>
+
+														<li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
+														</label> <input type="password" class="txt" id="new_member_pass"
+															name="new_member_pass" size="26" maxlength="15"
+															onkeydown="return keycheck(this.event);"
+															onkeypress="Capskeycheck(this,'new_member_pass');"
+															onkeyup="validatePasswordType(this,'new_member_pass');"
+															onfocus="helpOn('new_member_pass');"
+															onblur="chkBlur(this,'new_member_pass');"
+															style="width: 195px;"> <span class="font_style1"></span>
+														</li>
+														<li><label for="new_pw_corfirm"> <span
+																class="bg_bul"></span>새 비밀번호 확인
+														</label> <input type="password" class="txt" id="pwd2" name="pwd2"
+															size="26" maxlength="15" required
+															onfocus="helpOn('new_member_pass');"
+															onkeyup="validateNewPassword(); helpOff('new_member_pass');"
+															onblur="helpOff('new_member_pass');"
+															style="width: 203px;"> <span id="message"
+															style="color: red; margin-left: 10px;"></span></li>
+
+													</ul>
+												</td>
+
+											</tr>
+
+											<tr>
+												<th scope="row"><label>휴대폰번호</label></th>
+												<td><input type="text" class="txt" id="member_phone"
+													name="member_phone" size="15" maxlength="15"
+													value="${memberDTO.member_phone}" title="휴대폰 첫자리">
+											</tr>
+
+
+											<tr style="visibility: visible;">
+												<th scope="row"><label for="email">E-mail</label></th>
+												<td><input type="text" class="txt" id="member_email"
+													name="member_email" title="이메일 아이디" size="50"
+													value="${memberDTO.member_email}"> <!-- 주소부분 --></td>
+											</tr>
+											<tr>
+												<th scope="row"><label>우편번호</label></th>
+												<td><input type="text" class="txt" name="member_post"
+													class="form-control" id="sample4_postcode"
+													value="${memberDTO.member_post}" placeholder="우편번호"
+													required>
+													<div id="btbt">
+														<input type="button" id="sample4_execDaumPostcode()"
+															onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+													</div>
+													<div class="invalid-feedback">우편번호를 입력해주세요.</div></td>
+											</tr>
+
+											<tr>
+												<th scope="row"><label>도로명주소</label></th>
+												<td><input type="text" class="txt"
+													name="member_addMain" id="sample4_roadAddress"
+													value="${memberDTO.member_addMain}" placeholder="도로명주소"
+													size="80" required>
+
+													<div class="invalid-feedback">주소를 입력해주세요.</div>
+											</tr>
+
+											<tr>
+												<th scope="row"><label>상세주소</label></th>
+												<td><input type="text" class="txt" name="member_addSub"
+													id="sample4_detailAddress"
+													value="${memberDTO.member_addSub}" placeholder="상세주소"
+													size="80">
+											</tr>
+
+											<tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="btn_center">
+								<button type="submit" class="btn_blue_style2" id="img_submit">
+									<span style="color: #fff; text-align: center;">수정하기</span>
+								</button>
+							</div>
+						</form>
+					</div>
+
+					<!-- 서영 찜페이지 만드는중 -->
+					<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
+						<div class="container">
+							<h4>내 찜 목록</h4>
+							<br> <input type="checkbox" id="selectAllCheckbox">
+							<label for="selectAllCheckbox"></label>
+							<button id="deleteSelectedButton">선택 삭제</button>
+							<button id="deleteAllButton">전체 삭제</button>
+							<ul class="favorite-list">
+								<c:forEach var="item" items="${zzimlist}">
+									<li class="favorite-item" data-item-num="${item.item_num}">
+										<input type="checkbox" class="checkbox"> <a
+										href="farmStoreDetail?item_num=${item.item_num}"> <img
+											src="${item.item_mainImg}" alt="제품 이미지"></a>
+										<div class="product-info">
+											<a href="farmStoreDetail?item_num=${item.item_num}"></a>
+											<h2 class="product-name">${item.item_name}</h2>
+											<span class="product-price">₩${item.item_price}</span> <br>
+											<span class="store-name">${item.seller_storeName}</span>
+										</div>
+										<button class="remove-button">X</button>
+									</li>
+								</c:forEach>
+							</ul>
+							<!-- 페이징 처리를 위한 페이지 네비게이션 추가 -->
+							<div class="pagination">
+								<button class="prev-page">이전</button>
+								<div class="page-numbers">
+									<!-- 여기에 동적으로 페이지 번호를 생성할 예정입니다.-->
+								</div>
+								<button class="next-page">다음</button>
+							</div>
+						</div>
+					</div>
+					<!--  서영 찜페이지 끝 -->
+
+
+					<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
+						<h4>주문관리</h4>
+						<table class="table">
+							<thead>
+								<tr style="text-align: center;">
+									<th>주문번호</th>
+									<th>상품명</th>
+									<th>가격</th>
+									<th>주문상태</th>
+									<th>배송조회</th>
+									<th>변경</th>
 								</tr>
+							</thead>
+
+							<tbody id="inquiryList">
+								<c:forEach var="order" items="${orderList}">
+									<tr class="orderRow">
+										<td class="orderNum"><a href="javascript:void(0);"
+											class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
+										</td>
+										<td>${order.item_name}···</td>
+										<td>\ ${order.order_pay}원</td>
+										<td><c:choose>
+												<c:when test="${order.order_cancel eq 'Y'}">
+					                        주문 취소
+					                    </c:when>
+												<c:otherwise>
+					                        결제완료
+					                    </c:otherwise>
+											</c:choose></td>
+										<td><a href="parcel"><input type="button"
+												value="배송조회"></a></td>
+										<td><input type="button" class="orderCancelButton"
+											data-order="${order.order_num}" value="주문취소"></td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
-						<!-- <h5 class="list1">회원정보 설정</h5> -->
-						<div class="my_info_setting">
-							<table class="myinfo">
-								<colgroup>
-									<col style="width: 17%;">
-									<col>
-								</colgroup>
+					</div>
+
+
+					<!-- 주문관리 토글 끝  -->
+
+					<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
+						<h4>나의 리뷰</h4>
+						<button class="site-btn" id="edit-review-button">수정</button>
+						<button class="site-btn" id="delete-review-button">삭제</button>
+						<div id="edit-review-popup"
+							style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 300px; border: 1px solid #ccc; padding: 20px; background-color: white;">
+							<h5>리뷰 수정</h5>
+							<p>수정할 리뷰의 정보를 입력하세요:</p>
+							<form id="edit-review-form" method="post"
+								enctype="multipart/form-data">
+								<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
+								<div class="form-group">
+									<div class="rating">
+										<span class="star" data-value="1">★</span> <span class="star"
+											data-value="2">★</span> <span class="star" data-value="3">★</span>
+										<span class="star" data-value="4">★</span> <span class="star"
+											data-value="5">★</span> <input type="hidden" id="review_star"
+											name="review_star" value="">
+									</div>
+								</div>
+								<br> <input type="text" id="review-title"><br>
+								<textarea name="review_content" id="review_content" cols="60"
+									rows="4" style="font-size: 12px;"></textarea>
+								<br> <input type="hidden" id="review_num" name="review_num">
+								<input type="file" id="review_img" name="review_image">
+								<button type="submit" class="site-btn"
+									id="submit-edit-review-btn">저장</button>
+								<button type="button" class="site-btn" id="close-edit-popup">취소</button>
+							</form>
+						</div>
+
+						<div class="reviews-list">
+							<input type="hidden" name="member_num"
+								value="${sessionScope.member_num}"> <input type="hidden"
+								name="review_num" value="${review.review_num}"> <input
+								type="hidden" id="item_name" name="item_name"
+								value="${item.item_name}">
+							<table class="table" id="getItemMyReview">
+								<thead>
+									<tr>
+										<th>리뷰</th>
+										<th>별점</th>
+										<th>상품명</th>
+										<th>제목</th>
+										<th>내용</th>
+										<th>작성일</th>
+										<th>이미지</th>
+									</tr>
+								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><label for="name1">이름</label></th>
-
-										<td><span><input type="text" class="txt"
-												id="member_name" name="member_name"
-												value="${memberDTO.member_name}" required> <span
-												class="error-message" style="color: red; display: none;">이름을
-													입력하세요</span></span></td>
-									</tr>
-									<tr>
-										<th scope="row">사용자ID</th>
-										<td><span><input type="text" class="txt"
-												id="member_id" name="member_id"
-												value="${memberDTO.member_id}" readonly></span></td>
-									</tr>
-									<tr style="visibility: visible;">
-										<th scope="row">비밀번호</th>
-										<td id="PasswordEdit" class="PwdEdit" style="display: block;">
-											<ul class="llist-style1">
-												<li><label for="nowpw"><span class="bg_bul"></span>현재
-														비밀번호</label> <input type="password" class="txt" id="member_pass"
-													name="member_pass" size="26" maxlength="15" 
-													onkeydown="return keycheck(this.event);"
-													onkeypress="Capskeycheck(this,'new_member_pass');"
-													onkeyup="validatePasswordType(this,'new_member_pass');"
-													onfocus="helpOn('new_member_pass');"
-													onblur="chkBlur(this,'new_member_pass');"
-													style="width: 195px;"> <span class="font_style1">현재
-														비밀번호를 입력해 주세요</span></li>
-
-
-
-												<script>
-                                                    function validateNewPassword() {
-                                                        var newPassword = document
-                                                                .getElementById("new_member_pass").value;
-                                                        var confirmPassword = document
-                                                                .getElementById("pwd2").value;
-
-                                                        if (newPassword != confirmPassword) {
-                                                            document
-                                                                    .getElementById("pwd2").style.borderColor = "red";
-                                                            document
-                                                                    .getElementById("message").innerHTML = "두 개의 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.";
-                                                            document
-                                                                    .getElementById("img_submit").setAttribute("disabled", "true");
-                                                        } else {
-                                                            document
-                                                                    .getElementById("pwd2").style.borderColor = "";
-                                                            document
-                                                                    .getElementById("message").innerHTML = "";
-                                                            document
-                                                                    .getElementById("img_submit").removeAttribute("disabled");
-                                                        }
-                                                    }
-                                                </script>
-
-
-												<li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
-												</label> <input type="password" class="txt" id="new_member_pass"
-													name="new_member_pass" size="26" maxlength="15" 
-													onkeydown="return keycheck(this.event);"
-													onkeypress="Capskeycheck(this,'new_member_pass');"
-													onkeyup="validatePasswordType(this,'new_member_pass');"
-													onfocus="helpOn('new_member_pass');"
-													onblur="chkBlur(this,'new_member_pass');"
-													style="width: 195px;"> <span class="font_style1"></span>
-												</li>
-												<li><label for="new_pw_corfirm"> <span
-														class="bg_bul"></span>새 비밀번호 확인
-												</label> <input type="password" class="txt" id="pwd2" name="pwd2"
-													size="26" maxlength="15" required=""
-													onfocus="helpOn('new_member_pass');"
-													onkeyup="validateNewPassword(); helpOff('new_member_pass');"
-													onblur="helpOff('new_member_pass');" style="width: 203px;">
-													<span id="message" style="color: red; margin-left: 10px;"></span>
-												</li>
-
-											</ul>
-										</td>
-
-									</tr>
-
-									<tr>
-										<th scope="row"><label>휴대폰번호</label></th>
-										<td><input type="text" class="txt" id="member_phone"
-											name="member_phone" size="15" maxlength="15"
-											value="${memberDTO.member_phone}" title="휴대폰 첫자리">
-									</tr>
-
-
-									<tr style="visibility: visible;">
-										<th scope="row"><label for="email">E-mail</label></th>
-										<td>
-											<!-- 메일 앞부분  --> <input type="text" class="txt"
-											id="member_email" name="member_email" title="이메일 아이디" size="50"
-											value="${memberDTO.member_email}"> <!-- 주소부분 --> 
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><label>우편번호</label></th>
-										<td><input type="text" class="txt" name="member_post"
-											class="form-control" id="sample4_postcode" placeholder="우편번호"
-											required>
-											<div id="btbt">
-												<input type="button" id="member_post"
-													onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-											</div>
-											<div class="invalid-feedback">우편번호를 입력해주세요.</div></td>
-									</tr>
-
-									<th scope="row"><label>도로명주소</label></th>
-									<td><input type="text" class="txt" name="member_addMain"
-										id="sample4_roadAddress" placeholder="도로명주소" size="80"
-										required>
-
-										<div class="invalid-feedback">주소를 입력해주세요.</div>
-									</tr>
-
-									<th scope="row"><label>지번주소</label></th>
-									<td><input type="text" class="txt"
-										id="sample4_jibunAddress" placeholder="지번주소" size="80">
-									</tr>
-
-									<th scope="row"><label>상세주소</label></th>
-									<td><input type="text" class="txt" name="member_addSub"
-										id="sample4_detailAddress" placeholder="상세주소" size="80">
-									</tr>
-
-									<th scope="row"><label>참고항목</label></th>
-									<td><input type="text" class="txt"
-										id="sample4_extraAddress" placeholder="참고항목" size="80">
-									</tr>
-
-
 
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="btn_center">
-						<button type="submit" class="btn_blue_style2" id="img_submit">
-							<span style="color: #fff; text-align: center;">수정하기</span>
-						</button>
-					</div>
-				</form> 
-			</div>
-			
-			<!-- 서영 찜페이지 만드는중 -->
-			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
-			    <div class="container">
-			        <h4>내 찜 목록</h4><br>
-			        <input type="checkbox" id="selectAllCheckbox">
-				    <label for="selectAllCheckbox"></label>
-				    <button id="deleteSelectedButton">선택 삭제</button>
-				    <button id="deleteAllButton">전체 삭제</button>
-				    <ul class="favorite-list">
-			            <c:forEach var="item" items="${zzimlist}">
-			                <li class="favorite-item" data-item-num="${item.item_num}">
-			                    <input type="checkbox" class="checkbox">
-			                    <a href="farmStoreDetail?item_num=${item.item_num}">
-			                    <img src="${item.item_mainImg}" alt="제품 이미지"></a>
-			                    <div class="product-info">
-			                    <a href="farmStoreDetail?item_num=${item.item_num}"></a>
-			                        <h2 class="product-name">${item.item_name}</h2>
-			                        <span class="product-price">₩${item.item_price}</span>
-			                        <br>
-			                        <span class="store-name">${item.seller_storeName}</span>
-			                    </div>
-			                    <button class="remove-button">X</button>
-			                </li>
-			            </c:forEach>
-			        </ul>
-			    <!-- 페이징 처리를 위한 페이지 네비게이션 추가 -->
-			        <div class="pagination">
-			            <button class="prev-page">이전</button>
-			            <div class="page-numbers">
-			                <!-- 여기에 동적으로 페이지 번호를 생성할 예정입니다.-->
-			            </div>
-			            <button class="next-page">다음</button>
-			        </div>
-			    </div>
-			</div>
-			<!--  서영 찜페이지 끝 -->
-			
-						
-			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
-			    <h4>주문관리</h4>
-			    <table class="table">
-			        <thead>
-			            <tr style="text-align: center;">
-			                <th>주문번호</th>
-			                <th>상품명</th>
-			                <th>가격</th>
-			                <th>주문상태</th>
-			                <th>배송조회</th>
-			                <th>변경</th>
-			            </tr>
-			        </thead>
-			        
-			        <tbody id="inquiryList">
-			            <c:forEach var="order" items="${orderList}">
-			                <tr class="orderRow">
-			                    <td class="orderNum">
-			                      <a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
-			                    </td>
-			                    <td>${order.item_name} ···</td>
-			                    <td>\ ${order.order_pay}원</td>
-			                    <td>  
-				                    <c:choose>
-					                    <c:when test="${order.order_cancel eq 'Y'}">
-					                        주문 취소
-					                    </c:when>
-					                    <c:otherwise>
-					                        결제완료
-					                    </c:otherwise>
-					                </c:choose>
-					            </td>    
-			                    <td><a href="parcel"><input type="button" value="배송조회"></a></td>
-								<td><input type="button" class="orderCancelButton" data-order="${order.order_num}" value="주문취소"></td>
-			                </tr>
-			            </c:forEach>
-			        </tbody>
-			    </table>
-			</div>
+					<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
+						<h4>1:1문의</h4>
+						<input type="hidden" id="member_num"
+							value="${sessionScope.member_num}">
 
+						<table class="table">
+							<thead>
+								<tr>
+									<th>상품명</th>
+									<th>답변상태</th>
+									<th>문의유형</th>
+									<th>제목</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody id="inquiryList">
+								<!-- 여기에 문의 내용이 추가됩니다. -->
+								<c:forEach var="row" items="${oneBoardList2}">
+									<tr class="boardTitle"
+										onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
+										<td>${row.item_name}</td>
+										<td>${row.one_board_repYn}</td>
+										<td>${row.one_board_type}</td>
+										<td>${row.one_board_title}</td>
+										<td>${row.one_board_day}</td>
+									</tr>
 
-		 <!-- 주문관리 토글 끝  -->	
-			
-			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
-			<h4>나의 리뷰</h4>
-			<button class="site-btn" id="edit-review-button" >수정</button>			
-			<button class="site-btn" id="delete-review-button" >삭제</button>
-				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
-				transform: translate(-50%, -50%);  width: 500px; height: 300px; border: 1px solid #ccc;
-				 padding: 20px; background-color: white;">
-		        <h5>리뷰 수정</h5>
-        		<p>수정할 리뷰의 정보를 입력하세요:</p>
-        		<form id="edit-review-form"  method="post" enctype="multipart/form-data">
-            	<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
-            	<div class="form-group">
-            	<div class="rating">
-  				<span class="star" data-value="1">★</span>
-  				<span class="star" data-value="2">★</span>
-  				<span class="star" data-value="3">★</span>
- 				<span class="star" data-value="4">★</span>
-  				<span class="star" data-value="5">★</span>
-  				<input type="hidden" id="review_star" name="review_star" value="">
-				</div>
-				</div>
-            	<br>
-           	 	<input type="text" id="review-title"><br>
-            	<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
-            	<input type="hidden" id="review_num" name="review_num">
-            	<input type="file" id="review_img" name="review_image">
-            	<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
-            	<button type="button" class="site-btn" id="close-edit-popup">취소</button>
-        		</form>
-    			</div>
-			
-				<div class="reviews-list">
-				<input type="hidden" name="member_num" value="${sessionScope.member_num}">
-				<input type="hidden" name="review_num" value="${review.review_num}">
-				<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
-    			<table class="table" id="getItemMyReview" >
-        		<thead>
-            	<tr>
-            	<th>리뷰</th>
-            	<th>별점</th>
-            	<th>상품명</th>
-            	<th>제목</th>
-           		<th>내용</th>
-           		<th>작성일</th>
- 				<th>이미지</th>
-           		</tr>
-        		</thead>
-        		<tbody>
-            	
-        		</tbody>
-    			</table>
-				</div>
-			</div>
-			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
-				<h4>1:1문의</h4>
-				 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
-				
-				<table class="table">
-					<thead>
-						<tr>
-							<th>상품명</th>
-							<th>답변상태</th>
-							<th>문의유형</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody id="inquiryList">
-					<!-- 여기에 문의 내용이 추가됩니다. --> 
-						<c:forEach var="row" items="${oneBoardList2}">
-							<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
-								<td>${row.item_name}</td>
-								<td>${row.one_board_repYn}</td>
-								<td>${row.one_board_type}</td>
-								<td>${row.one_board_title}</td>
-								<td>${row.one_board_day}</td>
-							</tr>
-									                    
-							<c:choose>
-								 <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-									<tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
-										<td colspan="5">
-											비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-											<button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-										</td>
-									</tr>
-									<!-- 비밀번호 확인 후 나타납니다. -->
-									<tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-									<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
-										<td colspan="5">
-											 <div class="image">
-												<strong>Q:</strong>
-												<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-													<img src="${row.one_board_file}" />
-												</c:if>
-												<div class="content">
-													${row.one_board_content}
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-										<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
-										<td colspan="5">
-											<div class="content">
-												<strong>A:</strong>
-												<c:if test="${row.one_board_reply != null}">
+									<c:choose>
+										<c:when
+											test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
+											<tr class="boardContent"
+												id="password_row${row.one_board_num}" style="display: none;">
+												<td colspan="5">비밀번호: <input type="password"
+													id="boardPassword${row.one_board_num}" />
+													<button
+														onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+												</td>
+											</tr>
+											<!-- 비밀번호 확인 후 나타납니다. -->
+											<tr class="boardContent" id="question${row.one_board_num}"
+												data-one-board-num="${row.one_board_num}"
+												style="display: none;">
+												<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
+												<td colspan="5">
+													<div class="image">
+														<strong>Q:</strong>
+														<c:if
+															test="${row.one_board_file != null && not empty row.one_board_file}">
+															<img src="${row.one_board_file}" />
+														</c:if>
+														<div class="content">${row.one_board_content}</div>
+													</div>
+												</td>
+											</tr>
+											<tr class="boardContent" id="answer${row.one_board_num}"
+												data-one-board-num="${row.one_board_num}"
+												style="display: none;">
+												<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
+												<td colspan="5">
+													<div class="content">
+														<strong>A:</strong>
+														<c:if test="${row.one_board_reply != null}">
 													${row.one_board_reply}
 												</c:if>
-											</div>
-										</td>
-									</tr>
-								</c:when>
-								<c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
-									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-										<td colspan="5">
-											비공개된 게시글입니다.
-										</td>
-									 </tr>
-								</c:when>
-							<c:otherwise>
-								 <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-									<td colspan="5">
-										<div class="image">
-											<strong>Q:</strong>
-											<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-												<img src="${row.one_board_file}" />
-											</c:if>
-											<div class="content">
-												${row.one_board_content}
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-									<td colspan="5">
-										<div class="content">
-											<strong>A:</strong>
-											<c:if test="${row.one_board_reply != null}">
+													</div>
+												</td>
+											</tr>
+										</c:when>
+										<c:when
+											test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+											<tr class="boardContent" id="answer${row.one_board_num}"
+												data-one-board-num="${row.one_board_num}"
+												style="display: none;">
+												<td colspan="5">비공개된 게시글입니다.</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<tr class="boardContent" id="question${row.one_board_num}"
+												data-one-board-num="${row.one_board_num}"
+												style="display: none;">
+												<td colspan="5">
+													<div class="image">
+														<strong>Q:</strong>
+														<c:if
+															test="${row.one_board_file != null && not empty row.one_board_file}">
+															<img src="${row.one_board_file}" />
+														</c:if>
+														<div class="content">${row.one_board_content}</div>
+													</div>
+												</td>
+											</tr>
+											<tr class="boardContent" id="answer${row.one_board_num}"
+												data-one-board-num="${row.one_board_num}"
+												style="display: none;">
+												<td colspan="5">
+													<div class="content">
+														<strong>A:</strong>
+														<c:if test="${row.one_board_reply != null}">
 												${row.one_board_reply}
 											</c:if>
-										</div>
-									</td>
-								</tr>
-							</c:otherwise>
-						 </c:choose>
-					</c:forEach>
-	
-				</tbody>
-			</table>
-		   <div class="inquiry-pagination">
-			    <button class="inquiry-prev-page">이전</button>
-			    <div class="inquiry-page-numbers">
-			    </div>
-			    <button class="inquiry-next-page">다음</button>
+													</div>
+												</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+							</tbody>
+						</table>
+						<div class="inquiry-pagination">
+							<button class="inquiry-prev-page">이전</button>
+							<div class="inquiry-page-numbers"></div>
+							<button class="inquiry-next-page">다음</button>
+						</div>
+
+
+					</div>
+
+				</div>
+
+
 			</div>
-
-		  	
-		  </div>	
-
-	</div>
-
-       
-            </div>
-            </div>
-     </section>
+		</div>
+	</section>
 
 
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
 	<!-- Js Plugins -->
-	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/jquery.nice-select.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/jquery.slicknav.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/jquery.slicknav.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/mixitup.min.js"></script>
 	<script
@@ -502,70 +515,100 @@
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
         //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-        function sample4_execDaumPostcode() {
-            new daum.Postcode(
-                {
-                    oncomplete : function(data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var roadAddr = data.roadAddress; // 도로명 주소 변수
-                        var extraRoadAddr = ''; // 참고 항목 변수
-
-                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                            extraRoadAddr += data.bname;
-                        }
-                        // 건물명이 있고, 공동주택일 경우 추가한다.
-                        if (data.buildingName !== '' && data.apartment === 'Y') {
-                            extraRoadAddr += (extraRoadAddr !== '' ? ', '
-                                    + data.buildingName
-                                    : data.buildingName);
-                        }
-                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                        if (extraRoadAddr !== '') {
-                            extraRoadAddr = ' (' + extraRoadAddr + ')';
-                        }
-
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('sample4_postcode').value = data.zonecode;
-                        document.getElementById("sample4_roadAddress").value = roadAddr;
-                        document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-
-                        // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                        if (roadAddr !== '') {
-                            document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                        } else {
-                            document.getElementById("sample4_extraAddress").value = '';
-                        }
-
-                        var guideTextBox = document.getElementById("guide");
-                        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                        if (data.autoRoadAddress) {
-                            var expRoadAddr = data.autoRoadAddress
-                                    + extraRoadAddr;
-                            guideTextBox.innerHTML = '(예상 도로명 주소 : '
-                                    + expRoadAddr + ')';
-                            guideTextBox.style.display = 'block';
-
-                        } else if (data.autoJibunAddress) {
-                            var expJibunAddr = data.autoJibunAddress;
-                            guideTextBox.innerHTML = '(예상 지번 주소 : '
-                                    + expJibunAddr + ')';
-                            guideTextBox.style.display = 'block';
-                        } else {
-                            guideTextBox.innerHTML = '';
-                            guideTextBox.style.display = 'none';
-                        }
-                    }
-                }).open();
-        }
+      function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+            
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if (data.buildingName !== '' && data.apartment === 'Y') {
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if (extraRoadAddr !== '') {
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample4_postcode').value = data.zonecode;
+      		document.getElementById("sample4_roadAddress").value = data.roadAddress;
+      		document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+      		document.getElementById("sample4_extraAddress").value = data.userSelectedType === "R" ? data.bname : "";
+           
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            document.getElementById("sample4_extraAddress").value = '';
+            if (roadAddr !== '') {
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                
+            }
+            
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if (data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else if (data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+           
+            window.opener.closeDaumPostcode();
+        
+        },
+    
+    }).open();
+}
     </script>
 
-    
-<script>
+	<script>
+
+	function closeDaumPostcode() {
+		  // 팝업 창을 닫습니다.
+		  window.close();
+		}
+	</script>
+
+
+
+	<script>
+   function validateNewPassword() {
+    var newPassword = document.getElementById("new_member_pass").value;
+    var confirmPassword = document.getElementById("pwd2").value;
+
+    if (newPassword != confirmPassword) {
+    	document.getElementById("pwd2").style.borderColor = "red";
+    	document.getElementById("message").innerHTML = "두 개의 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.";
+	    document.getElementById("img_submit").setAttribute("disabled", "true");                                                            
+    } else {
+        document.getElementById("pwd2").style.borderColor = "";
+                
+        document.getElementById("message").innerHTML = "";
+                
+        document.getElementById("img_submit").removeAttribute("disabled");
+                
+    }
+}
+</script>
+
+
+
+	<script>
 
 $(document).ready(function() {
     // 마이페이지 전환 초기 설정
@@ -612,10 +655,10 @@ $(document).ready(function() {
   });
  });  
 </script>
-<script>     
+	<script>     
 
     function getItemMyReview() {
-    	var member_num =  '<%= request.getSession().getAttribute("member_num") %>';
+    	var member_num =  '<%=request.getSession().getAttribute("member_num")%>';
         
     	if(member_num) {
     		
@@ -688,8 +731,8 @@ $(document).ready(function() {
 
 </script>
 
-<!-- 주문관리 팝업 : 상세내용 -->
-<script type="text/javascript">
+	<!-- 주문관리 팝업 : 상세내용 -->
+	<script type="text/javascript">
 $(document).ready(function() {
     $(".viewDetails").click(function() {
         var orderNum = $(this).data("order");
@@ -739,10 +782,10 @@ $(document).ready(function() {
         });
     });
 });
-    </script>    
-    
-    
-    <script type="text/javascript">
+    </script>
+
+
+	<script type="text/javascript">
     // 주문 취소 버튼 클릭 시
 	$(document).ready(function() {
     $(".orderCancelButton").click(function() {
@@ -813,12 +856,12 @@ function generatePopupContent(orderNum) {
 }
 </script>
 
-<!-- 주문취소 끝 -->
+	<!-- 주문취소 끝 -->
 
 
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () { 
 	const stars = document.querySelectorAll(".star"); 
 
@@ -921,7 +964,7 @@ function updateReview(selectedReview, review_star, review_title, review_content,
   }
 });
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).ready(function () {
   var selectedReview;
   var selectedMember;
@@ -1103,7 +1146,7 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	
 	
 	</script>
-	
+
 	<script>
 	$(document).ready(function() {
 	  // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
@@ -1202,8 +1245,27 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 
 </script>
 
+	<script>
+$(document).ready(function() {
+  // "수정하기" 버튼 클릭 이벤트 처리
+  $('#img_submit').click(function(e) {
+    e.preventDefault();
 
-	
+    // 입력 필드의 값을 가져옵니다.
+    var currentPassword = $('#member_pass').val();
+    var newPassword = $('#new_member_pass').val();
+    var confirmPassword = $('#pwd2').val();
 
+    // 입력값이 유효한지 검사합니다.
+    if (currentPassword.trim() === '' || newPassword.trim() === '' || confirmPassword.trim() === '') {
+      alert('비밀번호를 입력해주세요.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');
+      return;
+    }
+    </script>
 </body>
 </html>
