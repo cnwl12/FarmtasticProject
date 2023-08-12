@@ -80,9 +80,9 @@ public class AdminService {
 	}
 	
 	// 제철팜 글수정
-    public void blogUpdatePro(int admin_blog_num, String admin_blog_sub, String admin_blog_content) {
+    public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content) {
     	System.out.println("AdminService blogUpdatePro 매핑완");
-        adminDAO.blogUpdatePro(admin_blog_num, admin_blog_sub, admin_blog_content);
+        adminDAO.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
     }
     
     // 제철팜 글삭제

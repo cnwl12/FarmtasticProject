@@ -832,10 +832,11 @@ public class AdminController {
 		System.out.println("AdminController의 blogUpdatePro 매핑완");
 		
         int admin_blog_num = Integer.parseInt(request.getParameter("admin_blog_num"));
-        String admin_blog_sub = request.getParameter("admin_blog_sub");
+        String admin_blog_mainTitle = request.getParameter("admin_blog_mainTitle");
+        String admin_blog_subTitle = request.getParameter("admin_blog_subTitle");
         String admin_blog_content = request.getParameter("admin_blog_content");
 
-        adminService.blogUpdatePro(admin_blog_num, admin_blog_sub, admin_blog_content);
+        adminService.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
 
         return "redirect:/blogContent?admin_blog_num=" + admin_blog_num;
 	

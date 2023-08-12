@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog__details__hero__text">
-                        <h2>${bContent.admin_blog_sub}</h2>
+                        <h2>${bContent.admin_blog_mainTitle}</h2>
                         <ul> 
                             <li>By ${bContent.admin_id}</li>
                             <li>${bContent.admin_blog_day}</li>
@@ -121,6 +121,7 @@
                 <input type="hidden" name="admin_blog_num" value="${admin_blog_num}">
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
+                    <h4>${bContent.admin_blog_subTitle}</h4><br>
                         <%-- <img src="${pageContext.request.contextPath}/resources/img/blog/details/details-pic.jpg" alt=""> --%>
 						<c:choose>
   								<c:when test="${bContent.admin_blog_file != null && bContent.admin_blog_file != ''}">
@@ -200,7 +201,7 @@
 	                            <ul>
 	                                <li>${nextPost.admin_blog_day}</li>
 	                            </ul>
-	                             <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${nextPost.admin_blog_num}">${nextPost.admin_blog_sub}</a></h5>
+	                             <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${nextPost.admin_blog_num}">${nextPost.admin_blog_mainTitle}</a></h5>
 	                        </div>
 	                    </div>
 	                </div>
