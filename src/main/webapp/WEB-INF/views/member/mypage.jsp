@@ -281,7 +281,7 @@
                     </td>
                     <td>${order.item_name} ···</td>
                     <td>\ ${order.order_pay}원</td>
-                    <td>결제완료</td>
+                    <td><input type ="button" value="결제완료"></td>
                     <td><input type="button" value="배송조회"></td>
                 </tr>
             </c:forEach>

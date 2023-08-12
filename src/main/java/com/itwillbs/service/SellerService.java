@@ -98,7 +98,6 @@ public class SellerService {
 
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
-			System.out.println("itemInsert 확인!!!");
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 
 		}
 

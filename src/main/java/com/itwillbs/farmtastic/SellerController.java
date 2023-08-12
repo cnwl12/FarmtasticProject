@@ -482,18 +482,11 @@ public class SellerController {
 	    model.addAttribute("seller_id", seller_id);
 	    session.setAttribute("seller_num", seller_num);
 
-	    // 삭제예정 
-	    // String seller_num = "TA002";
-	   session.setAttribute("seller_num", seller_num);
-	    
-	    // session.setAttribute("seller_num", seller_num);
-
 	    System.out.println("itemInsertList 매핑확인여부");
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
 	    
 	    model.addAttribute("itemList", itemList);
-	    System.out.println(seller_num);
 	    
 	    return "/seller/itemMng";
 		}

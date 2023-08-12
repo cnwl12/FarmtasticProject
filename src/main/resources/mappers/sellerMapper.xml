@@ -318,6 +318,7 @@
      <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">
        SELECT item_num
+       		 ,seller_type
        		 ,item_name
        		 ,item_price
        		 ,item_mainImg

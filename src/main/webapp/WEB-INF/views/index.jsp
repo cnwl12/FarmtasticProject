@@ -222,7 +222,17 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg">
-                          <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
+                                  <a href="farmStoreDetail?item_num=${item.item_num}">
+                              <div class="image-container">
+				                        <div class="product-image"
+				                             style="background-image: url('${item.item_mainImg}');"></div>
+				                        <c:choose>
+				                            <c:when test="${item.item_left < 3}">
+				                                <div class="overlay sold-out">마감 임박</div>
+				                            </c:when>
+				                        </c:choose>
+				                    </div>
+				                  </a>
                             <ul class="featured__item__pic__hover">
                                <li>
 	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
@@ -230,8 +240,7 @@
 								</a>
 
 								</li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
