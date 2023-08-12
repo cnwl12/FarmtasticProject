@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/page.css" type="text/css">
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
@@ -398,9 +399,16 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 			            	 </table>
 			            	 </div>
 			        		</div>
+			        		 <div class="inquiry-pagination">
+							    <button class="inquiry-prev-page">이전</button>
+							    <div class="inquiry-page-numbers">
+							    </div>
+							    <button class="inquiry-next-page">다음</button>
+							</div>
                          </div>
 
-			        </div>
+			       				 </div>
+			       
 			        		</div>
                         </div>
                     </div>
@@ -520,17 +528,24 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		  var questionElement = document.getElementById("question" + oneBoardNum);
 		  var answerElement = document.getElementById("answer" + oneBoardNum);
 		  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
-		  
+
+		  // 로그 추가
+		  console.log("handleRowClick 호출됨: isPrivate=" + isPrivate);
+		  console.log(isPrivate)
+
 		  // 내용이 열려있는 것이 숨김 처리되는 경우
 		  if (
 		    (questionElement.style.display !== "none" && isPrivate) ||
 		    (!isPrivate && questionElement.style.display !== "none")
 		  ) {
+			  console.log("여기니?2");
 		    questionElement.style.display = "none";
 		    answerElement.style.display = "none";
 		    passwordRowElement.style.display = "none";
 		  } else {
+			  console.log("여기니3?");
 		    if (isPrivate) {
+		    	console.log("여기니?4");
 		      passwordRowElement.style.display = "";
 		    } else {
 		      questionElement.style.display = "";
@@ -730,7 +745,55 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
     }
 });
 	
-	
+	$(document).ready(function() {
+		  // 찜 페이지용 스크립트
+		  // 기존 코드 유지
+
+		  // 문의 페이지용 스크립트
+
+		  // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
+		  var totalInquiryItems = ${oneBoardList.size()};
+		  var inquiryItemsPerPage = 10;
+
+		  // 페이지 번호를 생성하세요.
+		  var inquiryTotalPages = Math.ceil(totalInquiryItems / inquiryItemsPerPage);
+		  for (var i = 1; i <= inquiryTotalPages; i++) {
+		    $(".inquiry-page-numbers").append('<button class="inquiry-page-number">' + i + '</button>');
+		  }
+
+		  // 초기 페이지 내용을 표시하세요.
+		  showInquiryPageItems(1, inquiryItemsPerPage);
+
+		  // 페이지 번호 클릭 이벤트를 설정하세요.
+		  $(document).on("click", ".inquiry-page-number", function() {
+		    var pageNumber = $(this).text();
+		    showInquiryPageItems(pageNumber, inquiryItemsPerPage);
+		  });
+
+		  // 이전 페이지 버튼 이벤트를 설정하세요.
+		  $(".inquiry-prev-page").click(function() {
+		    var currentPage = $(".inquiry-page-number.active").text();
+		    if (currentPage > 1) {
+		      showInquiryPageItems(currentPage - 1, inquiryItemsPerPage);
+		    }
+		  });
+
+		  // 다음 페이지 버튼 이벤트를 설정하세요.
+		  $(".inquiry-next-page").click(function() {
+		    var currentPage = $(".inquiry-page-number.active").text();
+		    if (currentPage < inquiryTotalPages) {
+		      showInquiryPageItems(parseInt(currentPage) + 1, inquiryItemsPerPage);
+		    }
+		  });
+
+		  // 페이지 항목을 표시하는 함수를 만드세요.
+		  function showInquiryPageItems(page, itemsPerPage) {
+		    $(".inquiry-item").hide();
+		    $(".inquiry-item").slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+		    $(".inquiry-page-number").removeClass("active");
+		    $(".inquiry-page-number:eq(" + (page - 1) + ")").addClass("active");
+		  }
+		});
 	
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

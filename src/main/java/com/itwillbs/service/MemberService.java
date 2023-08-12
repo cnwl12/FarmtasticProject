@@ -233,11 +233,6 @@ public class MemberService {
 		return memberDAO.getzzimlist(member_num);
 	}
 	
-	    
-//	  public int removeFromWishlist(int item_num) {
-//	    return memberDAO.deleteWishlistItem(item_num);
-//	  }
-
 	public void deleteWishlist(WishlistDTO wishlistDTO) {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
