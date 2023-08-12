@@ -434,7 +434,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(HttpSession session, @RequestParam(value = "member_id", required = false) String member_id,
+	public String updatePro(HttpSession session, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
 			@RequestParam(value = "member_pass", required = false) String member_pass,
 			@RequestParam(value = "new_member_pass", required = false) String new_member_pass,
 			@RequestParam(value = "member_name", required = false) String member_name,
@@ -477,8 +477,10 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberService.updateMember(memberDTO);
 			return "/index";
 		} else {
-			System.out.println("비밀번호 오류");
-			return "/index";
+			
+			
+			sendResponse(response, "비밀번호가 틀립니다.");
+			return "/mypage";
 		}
 	}
 

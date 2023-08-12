@@ -90,9 +90,9 @@
                                         <li>${blist.admin_blog_day}</li>
                                     </ul>
                                     <%-- <h5><a href="blogDetails">${blist.admin_blog_sub}</a></h5> --%>
-                                    <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}">${blist.admin_blog_sub}</a></h5>
+                                    <h5><a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}">${blist.admin_blog_mainTitle}</a></h5>
                                     <%-- <td><a href="${pageContext.request.contextPath}/contactContent?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td> --%>
-                                    <p>${blist.admin_blog_content}</p>
+                                    <p>${blist.admin_blog_subTitle}</p>
                                     <a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}" class="blog__btn">자세히보기 <span class="arrow_right"></span></a>
                                 </div>
                             </div>

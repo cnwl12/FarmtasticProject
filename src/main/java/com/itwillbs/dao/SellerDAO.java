@@ -91,16 +91,23 @@ public class SellerDAO {
 		}
 		
 		// 선진) 정산신청
-		public void updateSettlementRequest(Map<String, Object> params) {
+		public void insertSettlementRequest(Map<String, Object> params) {
 			
-		    System.out.println("SellerDAO의 updateSettlementRequest 매핑완");
+		    System.out.println("SellerDAO의 insertSettlementRequest 매핑완");
 		    System.out.println(params);
-		    sqlSession.update(namespace + ".updateSettlementRequest", params);
+		    sqlSession.update(namespace + ".insertSettlementRequest", params);
 		    
 		}
 
 		
-		
+		// 선진) 정산취소
+		public void deleteSettlementRequest(Map<String, Object> params) {
+			
+		    System.out.println("SellerDAO의 deleteSettlementRequest 매핑완");
+		    System.out.println(params);
+		    sqlSession.update(namespace + ".deleteSettlementRequest", params);
+		    
+		}
 		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			

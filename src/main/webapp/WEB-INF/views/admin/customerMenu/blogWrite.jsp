@@ -60,7 +60,8 @@
                           	 <button type="submit" onclick="submitForm()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">등록</button>
                           </div>
                          	<label>작성자: </label><input type="text" id="adminId" name="admin_id" style="width: 20%; border: none; background-color: white;" value="${admin.admin_id}" readonly="readonly"/><br>
-							<label>제목: </label><input type="text" name="admin_blog_sub" style="width: 40%; border: none; background-color: white;"/> <br>
+							<label>제목: </label><input type="text" name="admin_blog_mainTitle" style="width: 40%; border: none; background-color: white;"/> <br>
+							<label>소제목: </label><input type="text" name="admin_blog_subTitle" style="width: 40%; border: none; background-color: white;"/> <br>
 							<label>작성 시간: </label><input type="hidden" name="admin_blog_day" style="width: 40%; border: none; background-color: white;"/> <br>
 							<label>첨부파일: </label><input type="file" name="blogFile" style="width: 40%; border: none; background-color: white;"/>
                         </div>   

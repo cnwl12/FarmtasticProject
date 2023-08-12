@@ -59,7 +59,8 @@
                             <button type="submit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="저장">저장</button>
                           </div>
                              <label>작성자: </label><input type="text" name="admin_id" value="${bContent.admin_id}" style="width: 20%; border: none; background-color: white;" /><br>    
-           					 <label>제목: </label><input type="text" name="admin_blog_sub" value="${bContent.admin_blog_sub}" style="width: 40%; border: none; background-color: white;"/><br>
+           					 <label>제목: </label><input type="text" name="admin_blog_mainTitle" value="${bContent.admin_blog_mainTitle}" style="width: 40%; border: none; background-color: white;"/><br>
+           					 <label>소제목: </label><input type="text" name="admin_blog_subTitle" value="${bContent.admin_blog_subTitle}" style="width: 40%; border: none; background-color: white;"/><br>
            					 <label>첨부파일: </label><input type="text" name="blogFile" value="${bContent.admin_blog_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/>
                         </div>   
                         <div class="card-body">

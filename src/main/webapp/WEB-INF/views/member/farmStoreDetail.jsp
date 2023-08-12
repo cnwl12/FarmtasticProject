@@ -683,6 +683,18 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
 	$(document).ready(function () {
     getItemReviews();
+    function maskWriterName(name) {
+    	  if (!name || name.length === 0) {
+    	    return '';
+    	  }
+
+    	  if (name.length > 2) {
+    	    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+    	  } else {
+    	    return name[0] + "*";
+    	  }
+    	}
+    
     function getItemReviews() {
         var item_num = ${item.item_num};
         $.ajax({
@@ -691,6 +703,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
             data: { item_num: item_num },
             dataType: "json",
             success: function(reviews) {
+            	// 작성자 이름 마스킹 처리
+                reviews.forEach(function(review) {
+                    review.member_name = maskWriterName(review.member_name);
+                });
                 if (reviews.length === 0) {
                     $("#getItemReviews tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {

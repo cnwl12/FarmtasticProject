@@ -86,16 +86,26 @@ public class SellerService {
 		}
 		
 		// 선진) 정산신청
-		public void updateSettlementRequest(String seller_num, List<String> checkedSettlements) {
-		    System.out.println("SellerService의 updateSettlementRequest 매핑완");
+		public void insertSettlementRequest(String seller_num, List<String> checkedSettlements) {
+		    System.out.println("SellerService의 insertSettlementRequest 매핑완");
 		    
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
 		    System.out.println(params);
-		    sellerDAO.updateSettlementRequest(params);
+		    sellerDAO.insertSettlementRequest(params);
 		}
 
+		// 선진) 정산취소
+		public void deleteSettlementRequest(String seller_num, List<String> checkedSettlements) {
+		    System.out.println("SellerService의 deleteSettlementRequest 매핑완");
+		    
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("checkedSettlements", checkedSettlements);
+		    System.out.println(params);
+		    sellerDAO.deleteSettlementRequest(params);
+		}
 		
 		public void itemInsert(HashMap<String, String> itemList, List<MultipartFile> files,HttpSession session) {
 	        sellerDAO.itemInsert(itemList); // DB저장 코드 
