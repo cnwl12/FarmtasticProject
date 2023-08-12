@@ -318,6 +318,19 @@
 </script>
 
 <script>
+//작성자 이름 마스킹 처리 함수
+function maskWriterName(name) {
+  if (!name || name.length === 0) {
+    return '';
+  }
+
+  if (name.length > 2) {
+    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+  } else {
+    return name[0] + "*";
+  }
+}
+
 function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, keyword) {
     var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
 
@@ -335,6 +348,7 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                     $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
                     $.each(buyreview, function(index, seller) {
+                    	var maskedName = maskWriterName(seller.member_name);
                         var review_stars = '';
                         for (let i = 1; i <= seller.review_star; i++) {
                             review_stars += '★';
@@ -345,7 +359,7 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                         	'<input type="checkbox" class="review-checkbox" data-review_num="' + seller.review_num + '" data-member_num="' + seller.member_num + '"/>',
                             seller.item_name,
                             review_stars,
-                            seller.member_name,
+                            maskedName,
                             seller.review_title,
                             seller.review_content,
                             seller.review_img,
