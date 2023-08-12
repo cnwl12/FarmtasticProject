@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이전/다음 버튼을 예쁘게 꾸며줍니다. */
+.prev-page, .next-page {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* 페이지 번호를 감싸고있는 .page-numbers 요소를 가운데 정렬합니다. */
+.page-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* 페이지 번호들에 대한 스타일을 여기에 작성합니다. */
+.page-number {
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  padding: 4px 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 현재 선택된 페이지의 스타일을 변경하여 구분해줍니다. */
+.page-number.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+/* 마우스를 올렸을 때 ��타일을 변경하여 표시해줍니다. */
+.page-number:hover {
+  background-color: #ddd;
+}
+
+/* 이전/다음 버튼에 대한 마우스 호버 및 클릭 시 스타일을 변경해줍니다. */
+.prev-page:hover, .next-page:hover {
+  background-color: #3e8e41;
+}
+
+.prev-page:active, .next-page:active {
+  background-color: #3e8e41;
+  transform: translateY(2px);
+}
+
+.inquiry-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이전/다음 버튼을 예쁘게 꾸며줍니다. */
+.inquiry-prev-page, .inquiry-next-page {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* 페이지 번호를 감싸고있는 .inquiry-page-numbers 요소를 가운데 정렬합니다. */
+.inquiry-page-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* 페이지 번호들에 대한 스타일을 여기에 작성합니다. */
+.inquiry-page-number {
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  padding: 4px 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 현재 선택된 페이지의 스타일을 변경하여 구분해줍니다. */
+.inquiry-page-number.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+/* 마우스를 올렸을 때 스타일을 변경하여 표시해줍니다. */
+.inquiry-page-number:hover {
+  background-color: #ddd;
+}
+
+/* 이전/다음 버튼에 대한 마우스 호버 및 클릭 시 스타일을 변경해줍니다. */
+.inquiry-prev-page:hover, .inquiry-next-page:hover {
+  background-color: #3e8e41;
+}
+
+.inquiry-prev-page:active, .inquiry-next-page:active {
+  background-color: #3e8e41;
+  transform: translateY(2px);
+}

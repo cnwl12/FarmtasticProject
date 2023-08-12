@@ -17,10 +17,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css">
 <!-- 지마켓  -->  
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/page.css" type="text/css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <style>
+
 .star {  
 	color : lightgray;
 	cursor : pointer;
@@ -245,8 +247,8 @@
 			                    <a href="farmStoreDetail?item_num=${item.item_num}">
 			                    <img src="${item.item_mainImg}" alt="제품 이미지"></a>
 			                    <div class="product-info">
-			                    <a href="farmStoreDetail?item_num=${item.item_num}">
-			                        <h2 class="product-name">${item.item_name}</h2></a>
+			                    <a href="farmStoreDetail?item_num=${item.item_num}"></a>
+			                        <h2 class="product-name">${item.item_name}</h2>
 			                        <span class="product-price">₩${item.item_price}</span>
 			                        <br>
 			                        <span class="store-name">${item.seller_storeName}</span>
@@ -255,6 +257,14 @@
 			                </li>
 			            </c:forEach>
 			        </ul>
+			    <!-- 페이징 처리를 위한 페이지 네비게이션 추가 -->
+			        <div class="pagination">
+			            <button class="prev-page">이전</button>
+			            <div class="page-numbers">
+			                <!-- 여기에 동적으로 페이지 번호를 생성할 예정입니다.-->
+			            </div>
+			            <button class="next-page">다음</button>
+			        </div>
 			    </div>
 			</div>
 			<!--  서영 찜페이지 끝 -->
@@ -394,44 +404,76 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
-			<h4>1:1문의</h4>
-			<Label>여기 div안에 작업할 거 넣어주시면 토글이 적용되옵니다 - 막내</Label>
-			 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
-			
-			<table class="table">
-				<thead>
-					<tr>
-						<th>상품명</th>
-						<th>답변상태</th>
-						<th>문의유형</th>
-						<th>제목</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<tbody id="inquiryList">
-				<!-- 여기에 문의 내용이 추가됩니다. --> 
-					<c:forEach var="row" items="${oneBoardList2}">
-						<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
-							<td>${row.item_name}</td>
-							<td>${row.one_board_repYn}</td>
-							<td>${row.one_board_type}</td>
-							<td>${row.one_board_title}</td>
-							<td>${row.one_board_day}</td>
+				<h4>1:1문의</h4>
+				 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
+				
+				<table class="table">
+					<thead>
+						<tr>
+							<th>상품명</th>
+							<th>답변상태</th>
+							<th>문의유형</th>
+							<th>제목</th>
+							<th>작성일</th>
 						</tr>
-								                    
-						<c:choose>
-							 <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-								<tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+					</thead>
+					<tbody id="inquiryList">
+					<!-- 여기에 문의 내용이 추가됩니다. --> 
+						<c:forEach var="row" items="${oneBoardList2}">
+							<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
+								<td>${row.item_name}</td>
+								<td>${row.one_board_repYn}</td>
+								<td>${row.one_board_type}</td>
+								<td>${row.one_board_title}</td>
+								<td>${row.one_board_day}</td>
+							</tr>
+									                    
+							<c:choose>
+								 <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
+									<tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
+										<td colspan="5">
+											비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
+											<button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
+										</td>
+									</tr>
+									<!-- 비밀번호 확인 후 나타납니다. -->
+									<tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
+									<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
+										<td colspan="5">
+											 <div class="image">
+												<strong>Q:</strong>
+												<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
+													<img src="${row.one_board_file}" />
+												</c:if>
+												<div class="content">
+													${row.one_board_content}
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+										<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
+										<td colspan="5">
+											<div class="content">
+												<strong>A:</strong>
+												<c:if test="${row.one_board_reply != null}">
+													${row.one_board_reply}
+												</c:if>
+											</div>
+										</td>
+									</tr>
+								</c:when>
+								<c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
+									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
+										<td colspan="5">
+											비공개된 게시글입니다.
+										</td>
+									 </tr>
+								</c:when>
+							<c:otherwise>
+								 <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
 									<td colspan="5">
-										비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-										<button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-									</td>
-								</tr>
-								<!-- 비밀번호 확인 후 나타납니다. -->
-								<tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-								<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
-									<td colspan="5">
-										 <div class="image">
+										<div class="image">
 											<strong>Q:</strong>
 											<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
 												<img src="${row.one_board_file}" />
@@ -443,7 +485,6 @@ $(document).ready(function() {
 									</td>
 								</tr>
 								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-									<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
 									<td colspan="5">
 										<div class="content">
 											<strong>A:</strong>
@@ -453,45 +494,19 @@ $(document).ready(function() {
 										</div>
 									</td>
 								</tr>
-							</c:when>
-							<c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
-								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-									<td colspan="5">
-										비공개된 게시글입니다.
-									</td>
-								 </tr>
-							</c:when>
-						<c:otherwise>
-							 <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-								<td colspan="5">
-									<div class="image">
-										<strong>Q:</strong>
-										<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-											<img src="${row.one_board_file}" />
-										</c:if>
-										<div class="content">
-											${row.one_board_content}
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-								<td colspan="5">
-									<div class="content">
-										<strong>A:</strong>
-										<c:if test="${row.one_board_reply != null}">
-											${row.one_board_reply}
-										</c:if>
-									</div>
-								</td>
-							</tr>
-						</c:otherwise>
-					 </c:choose>
-				</c:forEach>
+							</c:otherwise>
+						 </c:choose>
+					</c:forEach>
+	
+				</tbody>
+			</table>
+		   <div class="inquiry-pagination">
+			    <button class="inquiry-prev-page">이전</button>
+			    <div class="inquiry-page-numbers">
+			    </div>
+			    <button class="inquiry-next-page">다음</button>
+			</div>
 
-			</tbody>
-		</table>
-		  	
 		  	
 		  </div>	
 
@@ -992,6 +1007,107 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	  });
 	});
 	</script>
+	
+	<script>
+	$(document).ready(function() {
+	  // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
+	  var totalItems = ${zzimlist.size()};
+	  var itemsPerPage = 10;
+	
+	  // 페이지 번호를 생성하세요.
+	  var totalPages = Math.ceil(totalItems / itemsPerPage);
+	  for (var i = 1; i <= totalPages; i++) {
+	    $(".page-numbers").append('<button class="page-number">' + i + '</button>');
+	  }
+	
+	  // 초기 페이지 내용을 표시하세요.
+	  showPageItems(1, itemsPerPage);
+	
+	  // 페이지 번호 클릭 이벤트를 설정하세요.
+	  $(document).on("click", ".page-number", function() {
+	    var pageNumber = $(this).text();
+	    showPageItems(pageNumber, itemsPerPage);
+	  });
+	
+	  // 이전 페이지 버튼 이벤트를 설정하세요.
+	  $(".prev-page").click(function() {
+	    var currentPage = $(".page-number.active").text();
+	    if (currentPage > 1) {
+	      showPageItems(currentPage - 1, itemsPerPage);
+	    }
+	  });
+	
+	  // 다음 페이지 버튼 이벤트를 설정하세요.
+	  $(".next-page").click(function() {
+	    var currentPage = $(".page-number.active").text();
+	    if (currentPage < totalPages) {
+	      showPageItems(parseInt(currentPage) + 1, itemsPerPage);
+	    }
+	  });
+	
+	  // 페이지 항목을 표시하는 함수를 만드세요.
+	  function showPageItems(page, itemsPerPage) {
+	    $(".favorite-item").hide();
+	    $(".favorite-item").slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+	    $(".page-number").removeClass("active");
+	    $(".page-number:eq(" + (page - 1) + ")").addClass("active");
+	  }
+	});
+	
+	$(document).ready(function() {
+		  // 찜 페이지용 스크립트
+		  // 기존 코드 유지
+
+		  // 문의 페이지용 스크립트
+
+		  // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
+		  var totalInquiryItems = ${oneBoardList2.size()};
+		  var inquiryItemsPerPage = 10;
+
+		  // 페이지 번호를 생성하세요.
+		  var inquiryTotalPages = Math.ceil(totalInquiryItems / inquiryItemsPerPage);
+		  for (var i = 1; i <= inquiryTotalPages; i++) {
+		    $(".inquiry-page-numbers").append('<button class="inquiry-page-number">' + i + '</button>');
+		  }
+
+		  // 초기 페이지 내용을 표시하세요.
+		  showInquiryPageItems(1, inquiryItemsPerPage);
+
+		  // 페이지 번호 클릭 이벤트를 설정하세요.
+		  $(document).on("click", ".inquiry-page-number", function() {
+		    var pageNumber = $(this).text();
+		    showInquiryPageItems(pageNumber, inquiryItemsPerPage);
+		  });
+
+		  // 이전 페이지 버튼 이벤트를 설정하세요.
+		  $(".inquiry-prev-page").click(function() {
+		    var currentPage = $(".inquiry-page-number.active").text();
+		    if (currentPage > 1) {
+		      showInquiryPageItems(currentPage - 1, inquiryItemsPerPage);
+		    }
+		  });
+
+		  // 다음 페이지 버튼 이벤트를 설정하세요.
+		  $(".inquiry-next-page").click(function() {
+		    var currentPage = $(".inquiry-page-number.active").text();
+		    if (currentPage < inquiryTotalPages) {
+		      showInquiryPageItems(parseInt(currentPage) + 1, inquiryItemsPerPage);
+		    }
+		  });
+
+		  // 페이지 항목을 표시하는 함수를 만드세요.
+		  function showInquiryPageItems(page, itemsPerPage) {
+		    $(".inquiry-item").hide();
+		    $(".inquiry-item").slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+		    $(".inquiry-page-number").removeClass("active");
+		    $(".inquiry-page-number:eq(" + (page - 1) + ")").addClass("active");
+		  }
+		});
+
+</script>
+
+
+	
 
 </body>
 </html>
