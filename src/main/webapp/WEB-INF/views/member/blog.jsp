@@ -79,7 +79,9 @@
                                     <%-- <img src="${pageContext.request.contextPath}/resources/img/blog/blog-2.jpg" alt=""> --%>
                                       <c:choose>
         								<c:when test="${blist.admin_blog_file != null && blist.admin_blog_file != ''}">
+        									<a href="${pageContext.request.contextPath}/blogDetails?admin_blog_num=${blist.admin_blog_num}">
             									<img src="${blist.admin_blog_file}" style="width: 300px; height: 300px;"><br>
+            								</a>
         								</c:when>
     								</c:choose>
                                 </div>
