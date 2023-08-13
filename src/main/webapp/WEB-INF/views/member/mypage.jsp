@@ -283,63 +283,65 @@
                </div>
 
 
-               <!-- 주문관리 토글 끝  -->
-
-               <div id="menu3_cont" style="width: 780px; margin-left:25%;;">
-                  <h4>나의 리뷰</h4>
-                  <button class="site-btn" id="edit-review-button">수정</button>
-                  <button class="site-btn" id="delete-review-button">삭제</button>
-                  <div id="edit-review-popup"
-                     style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 300px; border: 1px solid #ccc; padding: 20px; background-color: white;">
-                     <h5>리뷰 수정</h5>
-                     <p>수정할 리뷰의 정보를 입력하세요:</p>
-                     <form id="edit-review-form" method="post"
-                        enctype="multipart/form-data">
-                        <!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
-                        <div class="form-group">
-                           <div class="rating">
-                              <span class="star" data-value="1">★</span> <span class="star"
-                                 data-value="2">★</span> <span class="star" data-value="3">★</span>
-                              <span class="star" data-value="4">★</span> <span class="star"
-                                 data-value="5">★</span> <input type="hidden" id="review_star"
-                                 name="review_star" value="">
-                           </div>
-                        </div>
-                        <br> <input type="text" id="review-title"><br>
-                        <textarea name="review_content" id="review_content" cols="60"
-                           rows="4" style="font-size: 12px;"></textarea>
-                        <br> <input type="hidden" id="review_num" name="review_num">
-                        <input type="file" id="review_img" name="review_image">
-                        <button type="submit" class="site-btn"
-                           id="submit-edit-review-btn">저장</button>
-                        <button type="button" class="site-btn" id="close-edit-popup">취소</button>
-                     </form>
-                  </div>
-
-                  <div class="reviews-list">
-                     <input type="hidden" name="member_num"
-                        value="${sessionScope.member_num}"> <input type="hidden"
-                        name="review_num" value="${review.review_num}"> <input
-                        type="hidden" id="item_name" name="item_name"
-                        value="${item.item_name}">
-                     <table class="table" id="getItemMyReview">
-                        <thead>
-                           <tr>
-                              <th>리뷰</th>
-                              <th>별점</th>
-                              <th>상품명</th>
-                              <th>제목</th>
-                              <th>내용</th>
-                              <th>작성일</th>
-                              <th>이미지</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
+               <!-- 주문관리 토글 끝  -->	
+			
+			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
+			<h4>나의 리뷰</h4>
+			<button class="site-btn" id="edit-review-button" >수정</button>			
+			<button class="site-btn" id="delete-review-button" >삭제</button>
+				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
+				transform: translate(-50%, -50%);  width: 500px; height: 300px; border: 1px solid #ccc;
+				 padding: 20px; background-color: white;">
+		        	<h5>리뷰 수정</h5>
+        			<p>수정할 리뷰의 정보를 입력하세요:</p>
+        				<form id="edit-review-form"  method="post" enctype="multipart/form-data">
+            			<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
+            				<div class="form-group">
+            					<div class="rating">
+  								<span class="star" data-value="1">★</span>
+  								<span class="star" data-value="2">★</span>
+  								<span class="star" data-value="3">★</span>
+ 								<span class="star" data-value="4">★</span>
+  								<span class="star" data-value="5">★</span>
+  								<input type="hidden" id="review_star" name="review_star" value="">
+								</div>
+							</div>
+            				<br>
+           	 				<input type="text" id="review-title"><br>
+            				<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
+            				<input type="hidden" id="review_num" name="review_num">
+            				<input type="file" id="review_img" name="review_image">
+            				<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
+            				<button type="button" class="site-btn" id="close-edit-popup">취소</button>
+        				</form>
+    				</div>
+			
+				<div class="reviews-list">
+					<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+					<input type="hidden" name="review_num" value="${review.review_num}">
+					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
+    					<table class="table" id="getItemMyReview" >
+        					<thead>
+            				<tr>
+            				<th>리뷰</th>
+            				<th>별점</th>
+            				<th>상품명</th>
+            				<th>제목</th>
+           					<th>내용</th>
+           					<th>작성일</th>
+ 							<th>이미지</th>
+           					</tr>
+        					</thead>
+        					<tbody>
+        					</tbody>
+    					</table>
+    				<div class="pagination">
+    					<span class="prev-page1">이전</span>
+    					<div class="page-numbers1"></div>
+    					<span class="next-page1">다음</span>
+					</div>
+				</div>
+			</div>
                
                <div id="menu4_cont" style="width: 780px; margin-left:25%;;">
                   <h4>1:1문의</h4>
@@ -455,276 +457,10 @@
                      <div class="inquiry-page-numbers"></div>
                      <button class="inquiry-next-page">다음</button>
                   </div>
-
-
                </div>
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="btn_center">
-						<button type="submit" class="btn_blue_style2" id="img_submit">
-							<span style="color: #fff; text-align: center;">수정하기</span>
-						</button>
-					</div>
-				</form> 
 			</div>
-			
-			<!-- 서영 찜페이지 만드는중 -->
-			<div id="menu5_cont" style="width: 780px; margin-left: -80px;">
-			    <div class="container">
-			        <h4>내 찜 목록</h4><br>
-			        <input type="checkbox" id="selectAllCheckbox">
-				    <label for="selectAllCheckbox"></label>
-				    <button id="deleteSelectedButton">선택 삭제</button>
-				    <button id="deleteAllButton">전체 삭제</button>
-				    <ul class="favorite-list">
-			            <c:forEach var="item" items="${zzimlist}">
-			                <li class="favorite-item" data-item-num="${item.item_num}">
-			                    <input type="checkbox" class="checkbox">
-			                    <a href="farmStoreDetail?item_num=${item.item_num}">
-			                    <img src="${item.item_mainImg}" alt="제품 이미지"></a>
-			                    <div class="product-info">
-			                    <a href="farmStoreDetail?item_num=${item.item_num}"></a>
-			                        <h2 class="product-name">${item.item_name}</h2>
-			                        <span class="product-price">₩${item.item_price}</span>
-			                        <br>
-			                        <span class="store-name">${item.seller_storeName}</span>
-			                    </div>
-			                    <button class="remove-button">X</button>
-			                </li>
-			            </c:forEach>
-			        </ul>
-			    <!-- 페이징 처리를 위한 페이지 네비게이션 추가 -->
-			        <div class="pagination">
-			            <button class="prev-page">이전</button>
-			            <div class="page-numbers">
-			                <!-- 여기에 동적으로 페이지 번호를 생성할 예정입니다.-->
-			            </div>
-			            <button class="next-page">다음</button>
-			        </div>
-			    </div>
-			</div>
-			<!--  서영 찜페이지 끝 -->
-			
-						
-			<div id="menu2_cont" style="width: 780px; margin-left: -80px;">
-			    <h4>주문관리</h4>
-			    <table class="table">
-			        <thead>
-			            <tr style="text-align: center;">
-			                <th>주문번호</th>
-			                <th>상품명</th>
-			                <th>가격</th>
-			                <th>주문상태</th>
-			                <th>배송조회</th>
-			                <th>변경</th>
-			            </tr>
-			        </thead>
-			        
-			        <tbody id="inquiryList">
-			            <c:forEach var="order" items="${orderList}">
-			                <tr class="orderRow">
-			                    <td class="orderNum">
-			                      <a href="javascript:void(0);" class="viewDetails" data-order="${order.order_num}">${order.order_num}</a>
-			                    </td>
-			                    <td>${order.item_name} ···</td>
-			                    <td>\ ${order.order_pay}원</td>
-			                    <td>  
-				                    <c:choose>
-					                    <c:when test="${order.order_cancel eq 'Y'}">
-					                        주문 취소
-					                    </c:when>
-					                    <c:otherwise>
-					                        결제완료
-					                    </c:otherwise>
-					                </c:choose>
-					            </td>    
-			                    <td><a href="parcel"><input type="button" value="배송조회"></a></td>
-								<td><input type="button" class="orderCancelButton" data-order="${order.order_num}" value="주문취소"></td>
-			                </tr>
-			            </c:forEach>
-			        </tbody>
-			    </table>
-			</div>
-
-
-		 <!-- 주문관리 토글 끝  -->	
-			
-			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
-			<h4>나의 리뷰</h4>
-			<button class="site-btn" id="edit-review-button" >수정</button>			
-			<button class="site-btn" id="delete-review-button" >삭제</button>
-				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
-				transform: translate(-50%, -50%);  width: 500px; height: 300px; border: 1px solid #ccc;
-				 padding: 20px; background-color: white;">
-		        	<h5>리뷰 수정</h5>
-        			<p>수정할 리뷰의 정보를 입력하세요:</p>
-        				<form id="edit-review-form"  method="post" enctype="multipart/form-data">
-            			<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
-            				<div class="form-group">
-            					<div class="rating">
-  								<span class="star" data-value="1">★</span>
-  								<span class="star" data-value="2">★</span>
-  								<span class="star" data-value="3">★</span>
- 								<span class="star" data-value="4">★</span>
-  								<span class="star" data-value="5">★</span>
-  								<input type="hidden" id="review_star" name="review_star" value="">
-								</div>
-							</div>
-            				<br>
-           	 				<input type="text" id="review-title"><br>
-            				<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
-            				<input type="hidden" id="review_num" name="review_num">
-            				<input type="file" id="review_img" name="review_image">
-            				<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
-            				<button type="button" class="site-btn" id="close-edit-popup">취소</button>
-        				</form>
-    				</div>
-			
-				<div class="reviews-list">
-					<input type="hidden" name="member_num" value="${sessionScope.member_num}">
-					<input type="hidden" name="review_num" value="${review.review_num}">
-					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
-    					<table class="table" id="getItemMyReview" >
-        					<thead>
-            				<tr>
-            				<th>리뷰</th>
-            				<th>별점</th>
-            				<th>상품명</th>
-            				<th>제목</th>
-           					<th>내용</th>
-           					<th>작성일</th>
- 							<th>이미지</th>
-           					</tr>
-        					</thead>
-        					<tbody>
-        					</tbody>
-    					</table>
-    				<div class="pagination">
-    					<span class="prev-page1">이전</span>
-    					<div class="page-numbers1"></div>
-    					<span class="next-page1">다음</span>
-					</div>
-				</div>
-			</div>
-			
-			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
-				<h4>1:1문의</h4>
-				 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
-				
-				<table class="table">
-					<thead>
-						<tr>
-							<th>상품명</th>
-							<th>답변상태</th>
-							<th>문의유형</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody id="inquiryList">
-					<!-- 여기에 문의 내용이 추가됩니다. --> 
-						<c:forEach var="row" items="${oneBoardList2}">
-							<tr class="boardTitle" onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
-								<td>${row.item_name}</td>
-								<td>${row.one_board_repYn}</td>
-								<td>${row.one_board_type}</td>
-								<td>${row.one_board_title}</td>
-								<td>${row.one_board_day}</td>
-							</tr>
-									                    
-							<c:choose>
-								 <c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num eq row.member_num}">
-									<tr class="boardContent" id="password_row${row.one_board_num}" style="display:none;">
-										<td colspan="5">
-											비밀번호: <input type="password" id="boardPassword${row.one_board_num}" />
-											<button onclick="checkPassword('${row.one_board_pass}', ${row.one_board_num}, 'boardPassword${row.one_board_num}')">확인</button>
-										</td>
-									</tr>
-									<!-- 비밀번호 확인 후 나타납니다. -->
-									<tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-									<!-- 여기에 공개 글일 때 나오는 질문 파트 -->
-										<td colspan="5">
-											 <div class="image">
-												<strong>Q:</strong>
-												<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-													<img src="${row.one_board_file}" />
-												</c:if>
-												<div class="content">
-													${row.one_board_content}
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-										<!-- 여기에 공개 글일 때 나오는 답변 파트 -->
-										<td colspan="5">
-											<div class="content">
-												<strong>A:</strong>
-												<c:if test="${row.one_board_reply != null}">
-													${row.one_board_reply}
-												</c:if>
-											</div>
-										</td>
-									</tr>
-								</c:when>
-								<c:when test="${row.one_board_private eq '비공개' and sessionScope.member_num ne row.member_num}">
-									<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-										<td colspan="5">
-											비공개된 게시글입니다.
-										</td>
-									 </tr>
-								</c:when>
-							<c:otherwise>
-								 <tr class="boardContent" id="question${row.one_board_num}" data-one-board-num="${row.one_board_num}"  style="display:none;">
-									<td colspan="5">
-										<div class="image">
-											<strong>Q:</strong>
-											<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-												<img src="${row.one_board_file}" />
-											</c:if>
-											<div class="content">
-												${row.one_board_content}
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
-									<td colspan="5">
-										<div class="content">
-											<strong>A:</strong>
-											<c:if test="${row.one_board_reply != null}">
-												${row.one_board_reply}
-											</c:if>
-										</div>
-									</td>
-								</tr>
-							</c:otherwise>
-						 </c:choose>
-					</c:forEach>
-	
-				</tbody>
-			</table>
-		   <div class="inquiry-pagination">
-			    <button class="inquiry-prev-page">이전</button>
-			    <div class="inquiry-page-numbers">
-			    </div>
-			    <button class="inquiry-next-page">다음</button>
-			</div>
-
-		  	
-		  </div>	
-
-	</div>
-
-       
-            </div>
-
-
-         </div>
-      </div>
+		</div>
+	</div>	
    </section>
 
 
