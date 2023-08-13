@@ -488,8 +488,8 @@
   	</select> 
   	
 <select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
-    SELECT m.member_id, m.member_name, m.member_phone, o.order_addMain, i.item_name, 
-           o.order_day, od.item_cnt * i.item_price AS order_pay  
+    SELECT m.member_id, m.member_name, m.member_phone,  CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain, i.item_name, 
+           o.order_day, od.item_cnt * i.item_price AS order_pay, od.item_cnt, o.order_phone, o.order_name   
     FROM member m 
     INNER JOIN orders o ON m.member_num = o.member_num 
     INNER JOIN order_detail od ON o.order_num = od.order_num 

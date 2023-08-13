@@ -63,10 +63,7 @@ body {
 					<!-- 페이지 상단 시작 -->
 					<h1 class="h3 mb-2 text-gray-800">회원관리</h1>
 					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">
-							official DataTables documentation</a>.
+						<a>날짜는 필수로 입력해야 검색이됩니다</a>.
 					</p>
 					<!-- 페이지 상단 끝 -->
 
@@ -120,8 +117,11 @@ body {
 								<th>회원아이디</th>
 								<th>이름</th>
 								<th>연락처</th>
+								<th>받는사람이름</th>
+								<th>받는사람연락처</th>
 								<th>배송정보</th>
 								<th>상품명</th>
+								<th>주문수량</th>
 								<th>주문일</th>
 								<th>금액</th>
 							</tr>
@@ -132,8 +132,11 @@ body {
 									<td><c:out value="${data.member_id}" /></td>
 									<td><c:out value="${data.member_name}" /></td>
 									<td><c:out value="${data.member_phone}" /></td>
+									<td><c:out value="${data.order_name}" /></td>
+									<td><c:out value="${data.order_phone}" /></td>
 									<td><c:out value="${data.order_addMain}" /></td>
 									<td><c:out value="${data.item_name}" /></td>
+									<td><c:out value="${data.item_cnt}" /></td>
 									<td><c:out value="${data.order_day}" /></td>
 									<td><c:out value="${data.order_pay.intValue()}" /></td>
 									

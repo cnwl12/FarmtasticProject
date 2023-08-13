@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>배송 조회</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -50,7 +51,7 @@
                             updateParcelStatus(result);
                         } else {
                             // 조회된 운송 정보가 없을 경우
-                            var html = "<tr><td colspan='3'>조회된 운송 정보가 없습니다.</td></tr>";
+                            var html = "<tr><th>시간</th><th>현재위치</th><th>상태</th></tr><tr><td colspan='3'>조회된 운송 정보가 없습니다.</td></tr>";
                             $("#tracking-info-table").html(html);
                         }
                     },
@@ -135,7 +136,7 @@
                 $("#tracking-number").val(trackingNumber);
                 loadTrackingInfo(carrier, trackingNumber);
             } else {
-                var html = "<tr><td colspan='3'>택배사와 운송장 번호를 입력해주세요.</td></tr>";
+                var html = "<tr><th>시간</th><th>현재위치</th><th>상태</th></tr><tr><td colspan='3'>택배사와 운송장 번호를 입력해주세요.</td></tr>";
                 $("#tracking-info-table").html(html);
             }
 
@@ -267,6 +268,7 @@
     </div>
 
     <button id="submit-button" type="submit">조회</button>
+    
     <td><a href="mypage"><input type="button" value="마이페이지돌아가기"></a></td>
 </form>
 <%-- 
@@ -321,9 +323,10 @@
         </thead>
         <tbody></tbody>
     </table>
-</div>
+    <div id="status-message"></div>
 
-<div class="col-xs-12 info-area no-padding">
+
+<!-- <div class="col-xs-12 info-area no-padding">
     <div class="info-back-line">
         <div class="col-xs-15 text-center info-parcel-text-none">
             <div class="time-text"></div>
@@ -348,7 +351,8 @@
             <div class="time-text"></div>
             <div class="time-text"></div>
         </div>
-    </div>
-</div>
+    </div> -->
+
 </body>
 </html>
+
