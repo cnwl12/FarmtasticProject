@@ -88,9 +88,8 @@ input#file-upload-button {
     padding: 13px 30px 12px;
     background: #7fad39;
     border: none;
-	}		    
-}
-
+	}		 
+	
 </style>	
 	
 <!-- 카트추가 함수 -->
@@ -239,32 +238,32 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                                 <div class="product__details__tab__desc">
                                 	<div>
                                 	<c:choose>
-    								<c:when test="${empty sessionScope.member_num}">
-     								 <p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
-    								</c:when>
+    									<c:when test="${empty sessionScope.member_num}">
+     								 	<p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
+    									</c:when>
     								<c:otherwise>
                                     <h6>리뷰 쓰기</h6>
                                     <form action="${pageContext.request.contextPath}/insertReview" method="post" name="insertReview" id="insertReview" enctype="multipart/form-data">
-    								<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
-    								<input type="hidden" name="member_num" value="${sessionScope.member_num}">
-   									<div class="rating">
-  									<span class="star" data-value="1">★</span>
-  									<span class="star" data-value="2">★</span>
-  									<span class="star" data-value="3">★</span>
- 					 				<span class="star" data-value="4">★</span>
-  									<span class="star" data-value="5">★</span>
-  									<input type="hidden" id="review_star" name="review_star" value="">
-									</div>
-									<br>
-    								<label for="review_title"></label>
-    								<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
- 									<label for="file"></label>
-        							<input type="file" id="review_img" name="review_image"  style="padding-left: 73px;">
-    								<br><br>
-    								<label for="review_content"></label>
-    								<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요" required></textarea>
-    								<br>
-    								<button id="write-review-btn" type="submit">리뷰 작성</button>
+    									<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
+    									<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+   											<div class="rating">
+  												<span class="star" data-value="1">★</span>
+  												<span class="star" data-value="2">★</span>
+  												<span class="star" data-value="3">★</span>
+ 					 							<span class="star" data-value="4">★</span>
+  												<span class="star" data-value="5">★</span>
+  												<input type="hidden" id="review_star" name="review_star" value="">
+											</div>
+											<br>
+    									<label for="review_title"></label>
+    									<input type="text" name="review_title" id="review_title" style="width:300px;height:20px;font-size:16px;" placeholder="제목을 입력해주세요" required> 
+ 										<label for="file"></label>
+        								<input type="file" id="review_img" name="review_image"  style="padding-left: 73px;">
+    									<br><br>
+    									<label for="review_content"></label>
+    									<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요" required></textarea>
+    									<br>
+    									<button id="write-review-btn" type="submit">리뷰 작성</button>
 									</form>
 									</c:otherwise>
   									</c:choose>
@@ -289,6 +288,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
             						
         							</tbody>
     								</table>
+    								<div class="pagination">
+    									<span class="prev-page">이전</span>
+    									<div class="page-numbers"></div>
+    									<span class="next-page">다음</span>
+									</div>
 									</div>
                                 </div>
                             </div>
@@ -682,84 +686,158 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	//------------------------------------------------------------
 
 	$(document).ready(function () {
-    getItemReviews();
-    function maskWriterName(name) {
-    	  if (!name || name.length === 0) {
-    	    return '';
-    	  }
+    let allReviews = [];
+    let currentPage = 1;
+    const perPage = 7;
 
-    	  if (name.length > 2) {
-    	    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
-    	  } else {
-    	    return name[0] + "*";
-    	  }
-    	}
-    
-    function getItemReviews() {
+    function maskWriterName(name) {
+        if (!name || name.length === 0) {
+            return '';
+        }
+
+        if (name.length > 2) {
+            return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+        } else {
+            return name[0] + "*";
+        }
+    }
+
+    function getItemReviews(pageNumber) {
         var item_num = ${item.item_num};
         $.ajax({
             type: "GET",
             url: "${pageContext.request.contextPath}/getItemReviews",
-            data: { item_num: item_num },
+            data: { 
+                item_num: item_num,
+                page: pageNumber
+            },
             dataType: "json",
-            success: function(reviews) {
-            	// 작성자 이름 마스킹 처리
-                reviews.forEach(function(review) {
+            success: function (reviews) {
+             // 최신 리뷰 순으로 정렬 후 추가로 리뷰 번호로 내림차순 정렬
+                allReviews = reviews.sort((a, b) => {
+                    if (parseInt(b.review_day) === parseInt(a.review_day)) {
+                        return b.review_num - a.review_num;
+                    } else {
+                        return parseInt(b.review_day) - parseInt(a.review_day);
+                    }
+                });
+
+                var startIndex = (currentPage - 1) * perPage;
+                var endIndex = startIndex + perPage;
+                var currentReviews = allReviews.slice(startIndex, endIndex);
+
+                // 작성자 이름 마스킹 처리
+                currentReviews.forEach(function (review) {
                     review.member_name = maskWriterName(review.member_name);
                 });
-                if (reviews.length === 0) {
+
+                if (currentReviews.length === 0) {
                     $("#getItemReviews tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
-                    var rows = "";
-                    for (var i = reviews.length - 1; i >= 0; i--) {
-                        var review = reviews[i];
-                        rows += "<tr>" +
-                            "<td>" + (i + 1) + "</td>" +
-                            "<td>" + review.member_name + "</td>" +
-                            "<td class='review-star'>" + review.review_star + "</td>" +
-                            "<td>" + review.review_title + "</td>" +
-                            "<td>" + review.review_content + "</td>" +
-                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                            "<td><img src='" + review.review_img + "' alt='Review image' width='100'></td>" +
-                        "</tr>";
-                    }
-                    $("#getItemReviews tbody").html(rows);
-
-                    // 별점을 ★로 변경
-                    let reviewStars = document.querySelectorAll('.review-star');
-                    reviewStars.forEach(function(starElement){
-                        let starCount = parseInt(starElement.textContent, 10);
-                        let stars = '';
-                        for (let i = 1; i <= starCount; i++) {
-                            stars += '★';
-                        }
-                        starElement.textContent = stars;
-                    });
-
-                    // 작성일을 YYYY-MM-DD 형식으로 변경
-                    let reviewDates = document.querySelectorAll('.review-date');
-                    reviewDates.forEach(function (dateElement) {
-                        let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
-
-                        // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
-                        if (isNaN(timestamp)) {
-                            console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
-                            return;
-                        }
-
-                        let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
-
-                        // 포맷된 날짜를 표시합니다.
-                        dateElement.textContent = date;
-                    });
+                    displayReviews(currentReviews);
                 }
+                
+                // 페이지네이션 업데이트
+                updatePagination();
             },
             error: function () {
                 alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
             }
         });
     }
+
+    function displayReviews(reviews) {
+        var rows = "";
+
+        for (var i = 0; i < reviews.length; i++) {
+            var review = reviews[i];
+            var reversedIndex = allReviews.length - ((currentPage - 1) * perPage + i);
+            rows += "<tr>" +
+                "<td>" + reversedIndex + "</td>" +
+                "<td>" + review.member_name + "</td>" +
+                "<td class='review-star'>" + review.review_star + "</td>" +
+                "<td>" + review.review_title + "</td>" +
+                "<td>" + review.review_content + "</td>" +
+                "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
+                "<td><img src='" + review.review_img + "' alt='Review image' width='100'></td>" +
+            "</tr>";
+        }
+        $("#getItemReviews tbody").html(rows);
+
+        // 별점을 ★로 변경
+        let reviewStars = document.querySelectorAll('.review-star');
+        reviewStars.forEach(function (starElement) {
+            let starCount = parseInt(starElement.textContent, 10);
+            let stars = '';
+            for (let i = 1; i <= starCount; i++) {
+                stars += '★';
+            }
+            starElement.textContent = stars;
+        });
+
+        // 작성일을 YYYY-MM-DD 형식으로 변경
+        let reviewDates = document.querySelectorAll('.review-date');
+        reviewDates.forEach(function (dateElement) {
+            let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
+
+            // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+            if (isNaN(timestamp)) {
+                console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
+                return;
+            }
+
+            let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
+
+            // 포맷된 날짜를 표시합니다.
+            dateElement.textContent = date;
+        });
+    }
+
+    function updatePagination() {
+        var totalPages = Math.ceil(allReviews.length / perPage);
+
+        document.querySelector(".prev-page").onclick = function () {
+            if (currentPage > 1) {
+                currentPage--;
+                getItemReviews(currentPage);
+            }
+        };
+        document.querySelector(".next-page").onclick = function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                getItemReviews(currentPage);
+            }
+        };
+
+        var pageNumbers = document.querySelector(".page-numbers");
+        pageNumbers.innerHTML = "";
+        for (var i = 1; i <= totalPages; i++) {
+            var pageNumber = document.createElement("span");
+            pageNumber.className = "page-number";
+            pageNumber.textContent = i;
+
+            pageNumber.onclick = (function (i) {
+                return function () {
+                    currentPage = i;
+                    getItemReviews(currentPage);
+                };
+            })(i);
+
+            if (i === currentPage) {
+                pageNumber.classList.add("active");
+            }
+
+            pageNumbers.appendChild(pageNumber);
+        }
+    }
+
+    // 페이지 로딩 후 첫 호출
+    getItemReviews(1);
 });
+	
+	
+	
+	// ------------------------------------------------
 	
 	$(document).ready(function() {
 		  // 찜 페이지용 스크립트

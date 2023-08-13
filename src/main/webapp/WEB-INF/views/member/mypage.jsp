@@ -320,52 +320,57 @@
 				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
 				transform: translate(-50%, -50%);  width: 500px; height: 300px; border: 1px solid #ccc;
 				 padding: 20px; background-color: white;">
-		        <h5>리뷰 수정</h5>
-        		<p>수정할 리뷰의 정보를 입력하세요:</p>
-        		<form id="edit-review-form"  method="post" enctype="multipart/form-data">
-            	<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
-            	<div class="form-group">
-            	<div class="rating">
-  				<span class="star" data-value="1">★</span>
-  				<span class="star" data-value="2">★</span>
-  				<span class="star" data-value="3">★</span>
- 				<span class="star" data-value="4">★</span>
-  				<span class="star" data-value="5">★</span>
-  				<input type="hidden" id="review_star" name="review_star" value="">
-				</div>
-				</div>
-            	<br>
-           	 	<input type="text" id="review-title"><br>
-            	<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
-            	<input type="hidden" id="review_num" name="review_num">
-            	<input type="file" id="review_img" name="review_image">
-            	<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
-            	<button type="button" class="site-btn" id="close-edit-popup">취소</button>
-        		</form>
-    			</div>
+		        	<h5>리뷰 수정</h5>
+        			<p>수정할 리뷰의 정보를 입력하세요:</p>
+        				<form id="edit-review-form"  method="post" enctype="multipart/form-data">
+            			<!-- 여기에 수정할 리뷰의 내용을 보여주는 input이나 textarea 추가 -->
+            				<div class="form-group">
+            					<div class="rating">
+  								<span class="star" data-value="1">★</span>
+  								<span class="star" data-value="2">★</span>
+  								<span class="star" data-value="3">★</span>
+ 								<span class="star" data-value="4">★</span>
+  								<span class="star" data-value="5">★</span>
+  								<input type="hidden" id="review_star" name="review_star" value="">
+								</div>
+							</div>
+            				<br>
+           	 				<input type="text" id="review-title"><br>
+            				<textarea name="review_content" id="review_content"  cols="60" rows="4" style="font-size:12px;"></textarea><br>
+            				<input type="hidden" id="review_num" name="review_num">
+            				<input type="file" id="review_img" name="review_image">
+            				<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>
+            				<button type="button" class="site-btn" id="close-edit-popup">취소</button>
+        				</form>
+    				</div>
 			
 				<div class="reviews-list">
-				<input type="hidden" name="member_num" value="${sessionScope.member_num}">
-				<input type="hidden" name="review_num" value="${review.review_num}">
-				<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
-    			<table class="table" id="getItemMyReview" >
-        		<thead>
-            	<tr>
-            	<th>리뷰</th>
-            	<th>별점</th>
-            	<th>상품명</th>
-            	<th>제목</th>
-           		<th>내용</th>
-           		<th>작성일</th>
- 				<th>이미지</th>
-           		</tr>
-        		</thead>
-        		<tbody>
-            	
-        		</tbody>
-    			</table>
+					<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+					<input type="hidden" name="review_num" value="${review.review_num}">
+					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
+    					<table class="table" id="getItemMyReview" >
+        					<thead>
+            				<tr>
+            				<th>리뷰</th>
+            				<th>별점</th>
+            				<th>상품명</th>
+            				<th>제목</th>
+           					<th>내용</th>
+           					<th>작성일</th>
+ 							<th>이미지</th>
+           					</tr>
+        					</thead>
+        					<tbody>
+        					</tbody>
+    					</table>
+    				<div class="pagination">
+    					<span class="prev-page1">이전</span>
+    					<div class="page-numbers1"></div>
+    					<span class="next-page1">다음</span>
+					</div>
 				</div>
 			</div>
+			
 			<div id="menu4_cont" style="width: 780px; margin-left: -80px;">
 				<h4>1:1문의</h4>
 				 <input type="hidden" id="member_num" value="${sessionScope.member_num}">
@@ -613,78 +618,142 @@ $(document).ready(function() {
  });  
 </script>
 <script>     
+$(document).ready(function () {
+    let allReviews = [];
+    let currentPage = 1;
+    const perPage = 2;
 
-    function getItemMyReview() {
-    	var member_num =  '<%= request.getSession().getAttribute("member_num") %>';
+    function getItemMyReview(pageNumber) {
+        var member_num = '<%= request.getSession().getAttribute("member_num") %>';
         
-    	if(member_num) {
-    		
-    	
-    	$.ajax({
-            type: "GET",
-            url: "${pageContext.request.contextPath}/getItemMyReview",
-            data: { member_num: member_num },
-            dataType: "json",
-            success: function(myreview) {
-                if (myreview.length === 0) {
-                    $("#getItemMyReview tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
-                } else {
-                    var rows = "";
-                    for (var i = myreview.length - 1; i >= 0; i--) {
-                        var review = myreview[i];
-                        rows += "<tr>" +
-                        "<td><input type='checkbox' data-member_num='" + review.member_num + "'data-review_num='"+ review.review_num +"' class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
-                            "<td class='review-star'>" + review.review_star + "</td>" +
-                            "<td>" + review.item_name + "</td>" +
-                            "<td>" + review.review_title + "</td>" +
-                            "<td>" + review.review_content + "</td>" +
-                            "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                            "<td>" + review.review_img + "</td>" +
-                        "</tr>";
+        if (member_num) {
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/getItemMyReview",
+                data: { 
+                    member_num: member_num,
+                    page: pageNumber
+                },
+                dataType: "json",
+                success: function (myreview) {
+                	allReviews = myreview.sort((a, b) => {
+                        if (parseInt(b.review_day) === parseInt(a.review_day)) {
+                            return b.review_num - a.review_num;
+                        } else {
+                            return parseInt(b.review_day) - parseInt(a.review_day);
+                        }
+                    });
+                	
+                    
+                    if (myreview.length === 0) {
+                        $("#getItemMyReview tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
+                    } else {
+                        var startIndex = (currentPage - 1) * perPage;
+                        var endIndex = startIndex + perPage;
+                        var currentReviews = allReviews.slice(startIndex, endIndex);
+                        displayReviews(currentReviews);
                     }
-                    $("#getItemMyReview tbody").html(rows);
 
-                    // 별점을 ★로 변경 
-                    let reviewStars = document.querySelectorAll('.review-star');
-                    reviewStars.forEach(function(starElement){
-                        let starCount = parseInt(starElement.textContent, 10);
-                        let stars = '';
-                        for (let i = 1; i <= starCount; i++) {
-                            stars += '★';
-                        }
-                        starElement.textContent = stars;
-                    });
-
-                    // 작성일을 YYYY-MM-DD 형식으로 변경
-                    let reviewDates = document.querySelectorAll('.review-date');
-                    reviewDates.forEach(function (dateElement) {
-                        let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
-
-                        // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
-                        if (isNaN(timestamp)) {
-                            console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
-                            return;
-                        }
-
-                        let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
-
-                        // 포맷된 날짜를 표시합니다.
-                        dateElement.textContent = date;
-                    });
+                    // 페이지네이션 업데이트
+                    updatePagination();
+                },
+                error: function () {
+                    alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
                 }
-            },
-            error: function () {
-                alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
-            }
-        });
-    	} else {
-    		('로그인이 필요합니다.');	
-    	}
+            });
+        } else {
+            alert('로그인이 필요합니다.');
+        }
     }
-    
-    $(document).ready(function () {
-    	getItemMyReview();
-	});
+
+    function displayReviews(reviews) {
+        var rows = "";
+
+        for (var i = 0; i < reviews.length; i++) {
+            var review = reviews[i];
+            rows += "<tr>" +
+                "<td><input type='checkbox' data-member_num='" + review.member_num + "'data-review_num='"+ review.review_num +"' class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
+                "<td class='review-star'>" + review.review_star + "</td>" +
+                "<td>" + review.item_name + "</td>" +
+                "<td>" + review.review_title + "</td>" +
+                "<td>" + review.review_content + "</td>" +
+                "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
+                "<td>" + review.review_img + "</td>" +
+            "</tr>";
+        }
+        $("#getItemMyReview tbody").html(rows);
+
+        // 별점을 ★로 변경
+        let reviewStars = document.querySelectorAll('.review-star');
+        reviewStars.forEach(function (starElement) {
+            let starCount = parseInt(starElement.textContent, 10);
+            let stars = '';
+            for (let i = 1; i <= starCount; i++) {
+                stars += '★';
+            }
+            starElement.textContent = stars;
+        });
+
+        // 작성일을 YYYY-MM-DD 형식으로 변경
+        let reviewDates = document.querySelectorAll('.review-date');
+        reviewDates.forEach(function (dateElement) {
+            let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10);
+
+            // 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+            if (isNaN(timestamp)) {
+                console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
+                return;
+            }
+
+            let date = moment(timestamp).format('YYYY-MM-DD'); // moment.js를 사용해 날짜를 변환합니다.
+
+            // 포맷된 날짜를 표시합니다.
+            dateElement.textContent = date;
+        });
+    }
+
+    function updatePagination() {
+        var totalPages = Math.ceil(allReviews.length / perPage);
+
+        document.querySelector(".prev-page1").onclick = function () {
+            if (currentPage > 1) {
+                currentPage--;
+                getItemMyReview(currentPage);
+            }
+        };
+        document.querySelector(".next-page1").onclick = function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                getItemMyReview(currentPage);
+            }
+        };
+
+        var pageNumbers = document.querySelector(".page-numbers1");
+        pageNumbers.innerHTML = "";
+        // 수정된 반복문은 현재 페이지 번호와 totalpages를 비교하여 추가합니다.
+        for (var i = 1; i <= totalPages; i++) {
+            var pageNumber = document.createElement("span");
+            pageNumber.className = "page-number";
+            pageNumber.textContent = i;
+
+            pageNumber.onclick = (function (i) {
+                return function () {
+                    currentPage = i;
+                    getItemMyReview(currentPage);
+                };
+            })(i);
+
+            if (i === currentPage) {
+                pageNumber.classList.add("active");
+            }
+
+            pageNumbers.appendChild(pageNumber);
+        }
+    }
+
+    // 페이지 로딩 시 getItemMyReview 함수를 호출하여 리뷰를 표시합니다.
+    getItemMyReview(currentPage);
+});
 
 </script>
 
