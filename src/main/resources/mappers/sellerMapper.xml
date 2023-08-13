@@ -404,17 +404,24 @@
     
     
    <!-- 정산작업 아직 미완성구문 -->
-	<update id="updateSettlementYn" parameterType="map">       
-  	 UPDATE settlement
-		SET settlementComplete = 'Y',
-    		settlementComplete_day = NOW()
-	 WHERE seller_num IN
-   	 (   <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
-            #{sellerNum}
-        </foreach> ) 
-	 AND DATE_FORMAT(STR_TO_DATE(SUBSTRING(order_num, 1, 8), '%Y%m%d'), '%Y-%m') = #{order_month}; 
+	<update id="updateSettlementYn" parameterType="map">
+   UPDATE settlement
+    SET settlementComplete = 'Y',
+    settlementComplete_day = NOW()
+    WHERE seller_num IN
+        (
+            <foreach collection="sellerNums" item="sellerNum" open="" close="" separator=",">
+                #{sellerNum}
+            </foreach>
+        )
+    AND DATE_FORMAT(STR_TO_DATE(SUBSTRING(order_num, 1, 8), '%Y%m%d'), '%Y-%m') IN
+        (
+            <foreach collection="orderMonths" item="orderMonth" open="" close="" separator=",">
+                #{orderMonth}
+            </foreach>
+        );
 	</update>
-   
+
 
    <!-- 일별 판매량 가져오기 수정-->
    <select id="daySales" resultType="map" parameterType="map">
