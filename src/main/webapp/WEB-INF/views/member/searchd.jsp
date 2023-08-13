@@ -46,7 +46,7 @@
         <div class="product__item__pic set-bg">
           <a href="farmStoreDetail?item_num=${item.item_num}">
             <div class="image-container">
-              <div class="product-image" style="background-image: url('${item.item_mainImg}'); background-size: contain; background-repeat: no-repeat; width: 200%; height: 100%; position: relative; background-position: center;"></div>
+              <div class="product-image" style="background-image: url('${item.item_mainImg}'); background-size: contain; background-repeat: no-repeat; width: 100%; height: 100%; position: relative; background-position: center;"></div>
 
               <c:choose>
                 <c:when test="${item.item_left < 3}">

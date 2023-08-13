@@ -259,7 +259,7 @@
     
 
     
-   <%-- 
+    
     <script>
     function goToSearchdPage() {
         location.href = "${pageContext.request.contextPath}/member/searchd";
@@ -285,6 +285,6 @@
         });
     });
     </script>
-  --%>   
+     
 </body>
 </html>
