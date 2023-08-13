@@ -4,8 +4,30 @@
 <head>
 
     <meta charset="UTF-8">
+    <jsp:include page="../top.jsp"></jsp:include>
+    
     <title>배송 조회</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css"> --%>
+<!-- 지마켓  -->  
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/page.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+    
     <%--
      SweetTracker API 키를 설정합니다.
      --%>
@@ -104,47 +126,50 @@
              * @param event 이벤트 객체
              */
             function onSubmitForm(event) {
-                event.preventDefault();
-                var carrier = $("#carrier").val();
-                var trackingNumber = $("#tracking-number").val();
-                if (carrier && trackingNumber) {
-                    loadTrackingInfo(carrier, trackingNumber);
-                } else {
-                    alert("택배사와 운송장 번호를 모두 입력해주세요.");
-                }
-            }
+            	  event.preventDefault();
+            	  var carrier = $("#carrier").val();
+            	  var trackingNumber = $("#tracking-number").val();
+            	  if (carrier && trackingNumber) {
+            	    loadTrackingInfo(carrier, trackingNumber);
+            	  } else {
+            	    alert("택배사와 운송장 번호를 모두 입력해주세요.");
+            	  }
+            	}
 
-            $("#tracking-number").on("input", function () {
-                var trackingNumber = $(this).val();
-                var selectedCarrier = $("#carrier option:selected").text();
-                $(".title-invoice").html(trackingNumber);
-                $(".title-company").html(selectedCarrier);
-            });
+            	$("#tracking-number").on("input", function () {
+            	  var trackingNumber = $(this).val();
+            	  var selectedCarrier = $("#carrier option:selected").text();
+            	  $(".title-invoice").html(trackingNumber);
+            	  $(".title-company").html(selectedCarrier);
+            	});
 
-            $("#carrier").change(function () {
-                var selectedCarrier = $("#carrier option:selected").text();
-                $(".title-company").html(selectedCarrier);
-            });
+            	$("#carrier").change(function () {
+            	  var selectedCarrier = $("#carrier option:selected").text();
+            	  $(".title-company").html(selectedCarrier);
+            	});
 
-            // URL 파라미터로 전달된 운송 정보를 조회합니다.
-            var urlParams = new URLSearchParams(window.location.search);
-            var carrier = urlParams.get("carrier");
-            var trackingNumber = urlParams.get("trackingNumber");
+            	// URL 파라미터로 전달된 운송 정보를 조회합니다.
+            	var urlParams = new URLSearchParams(window.location.search);
+            	var carrier = urlParams.get("carrier");
+            	var trackingNumber = urlParams.get("trackingNumber");
 
-            if (carrier && trackingNumber) {
-                $("#carrier").val(carrier);
-                $("#tracking-number").val(trackingNumber);
-                loadTrackingInfo(carrier, trackingNumber);
-            } else {
-                var html = "<tr><th>시간</th><th>현재위치</th><th>상태</th></tr><tr><td colspan='3'>택배사와 운송장 번호를 입력해주세요.</td></tr>";
-                $("#tracking-info-table").html(html);
-            }
+            	if (carrier && trackingNumber) {
+            	  $("#carrier").val(carrier);
+            	  $("#tracking-number").val(trackingNumber);
+            	  loadTrackingInfo(carrier, trackingNumber);
+            	} else {
+            	  var html = "<tr><th>시간</th><th>현재위치</th><th>상태</th></tr><tr><td colspan='3'>택배사와 운송장 번호를 입력해주세요.</td></tr>";
+            	  $("#tracking-info-table").html(html);
+            	}
 
-            // 폼 제출 이벤트를 바인딩합니다.
-            $("form").submit(onSubmitForm);
+            	// 폼 제출 이벤트를 submit 버튼 아이디에만 바인딩합니다.
+            	$("#submit-button").on("click", onSubmitForm);
         });
     </script>
-    <style>
+  
+   <style>
+    	
+    	
         .parcel-img {
             width: 100px;
             height: 100px;
@@ -216,11 +241,15 @@
             margin-bottom: 3px;
         }
 
+
         table {
             width: 100%;
             max-width: 800px;
             margin: 30px auto 0px 0px;
             border-collapse: collapse;
+            table-layout: fixed;
+            border: 5px solid skyblue;
+            
         }
 
         th, td {
@@ -228,16 +257,79 @@
             border-bottom: 1px solid #ddd;
             margin-bottom: 1px;
             font-size: 14px;
+            font-weight: bold; /* 텍스트 굵게 설정 */
         }
 
         th {
             background-color: #f8f8f8;
             text-transform: uppercase;
         }
+        
+        /* 버튼 스타일 */
+		#submit-button {
+    		background-color: #00BFFF;
+   			color: #000000;
+    		font-size: 16px;
+    		font-weight: bold;
+    		height: 60px;
+    		width: 100%;
+    		border: none;
+    		border-radius: 0;
+    		padding: 0 30px;
+    		cursor: pointer;
+		}
+
+		#submit-button:hover {
+    		background-color: #00BFFF;
+		}
+        
+    	select,	input {
+    		font-size: 16px;
+    		height: 60px;
+    		border-radius: 0;
+    		border: 1px solid #959eac;
+    		padding-left: 10px;
+		}
+		
+		#tracking-number {
+    		width: 100%;
+    		height: 60px;
+    		font-size: 20px;
+    		border-radius: 0;
+   			border: 1px solid #959eac;
+    		padding-left: 10px;
+		}	
+		
+		.form-group select#carrier {
+			width:100%;
+			max-width:400px;
+			padding:10px;
+			color:black;
+  			font-size:16px;
+  			border:1px solid black;
+  			border-radius:5px;
+		}
+		
+		
     </style>
+  
+  
+  
+  
 </head>
 <body>
-<jsp:include page="../top.jsp"></jsp:include>
+
+
+<div style="display: flex; justify-content: center;">
+    <h2 style="text-align: center;">택배 정보 조회</h2>
+</div>
+ 
+ 
+<div style="background-color: #efefef;">
+<div style="height: 50px;"></div>
+
+<div style="display: flex; justify-content: center;">
+
 <form>
     <div class="form-group">
         <label for="carrier">택배사:</label>
@@ -269,90 +361,41 @@
 
     <button id="submit-button" type="submit">조회</button>
     
-    <td><a href="mypage"><input type="button" value="마이페이지돌아가기"></a></td>
+   
 </form>
-<%-- 
-<div class="col-xs-12 info-area no-padding">
-    <div class="info-back-line">
-        <div class="col-xs-15 text-center" style="justify-content: flex-start">
-            <img src="${pageContext.request.contextPath}/resources/img/ic_sky_delivery_step1_off.png"
-                 class="parcel-img"/>
-
-            <div class="info-parcel-text-none">상품인수</div>
-        </div>
-
-        <div class="col-xs-15 text-center" style="justify-content: flex-start">
-            <img src="${pageContext.request.contextPath}/resources/img/ic_sky_delivery_step2_off.png"
-                 class="parcel-img"/>
-            <div class="info-parcel-text-none">상품이동중</div>
-        </div>
-
-        <div class="col-xs-15 text-center" style="justify-content: flex-start">
-            <img src="${pageContext.request.contextPath}/resources/img/ic_sky_delivery_step3_off.png"
-                 class="parcel-img"/>
-            <div class="info-parcel-text-none">배송지도착</div>
-        </div>
-        <div class="col-xs-15 text-center" style="justify-content: flex-start">
-            <img src="${pageContext.request.contextPath}/resources/img/ic_sky_delivery_step4_off.png"
-                 class="parcel-img"/>
-            <div class="info-parcel-text-none">배송출발</div>
-        </div>
-
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <img src="${pageContext.request.contextPath}/resources/img/ic_sky_delivery_step5_on.png"
-                 class="parcel-img"/>
-            <div class="info-parcel-text-active">배송완료</div>
-        </div>
-    </div> --%>
+</div>
 
 
+	<div style="display: flex; justify-content: center;">
     <div class="title-content">
         <div class="title-notice">운송장 번호</div>
         <div class="title-invoice"></div>
         <div class="title-company"></div>
     </div>
+	</div>
+	
 
-
-    <table id="tracking-info-table" class="table">
-        <thead>
-        <tr>
-            <th>시간</th>
-            <th>현재 위치</th>
-            <th>배송 상태</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div style="display: flex; justify-content: center;">
+    <div style="display: table; overflow: auto; max-width: 1200px;">
+        <table id="tracking-info-table" class="table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>시간</th>
+                    <th>현재 위치</th>
+                    <th>배송 상태</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
     <div id="status-message"></div>
+   
+</div>
+</div>
 
 
-<!-- <div class="col-xs-12 info-area no-padding">
-    <div class="info-back-line">
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <div class="time-text"></div>
-            <div class="time-text"></div>
-        </div>
-
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <div class="time-text"></div>
-            <div class="time-text"></div>
-        </div>
-
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <div class="time-text"></div>
-            <div class="time-text"></div>
-        </div>
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <div class="time-text"></div>
-            <div class="time-text"></div>
-        </div>
-
-        <div class="col-xs-15 text-center info-parcel-text-none">
-            <div class="time-text"></div>
-            <div class="time-text"></div>
-        </div>
-    </div> -->
 
 </body>
+
 </html>
 

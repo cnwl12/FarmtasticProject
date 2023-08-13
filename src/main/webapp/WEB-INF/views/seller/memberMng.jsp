@@ -63,7 +63,7 @@ body {
 					<!-- 페이지 상단 시작 -->
 					<h1 class="h3 mb-2 text-gray-800">회원관리</h1>
 					<p class="mb-4">
-						<a>날짜는 필수로 입력해야 검색이됩니다</a>.
+						<a>날짜는 필수로 입력해야 검색이됩니다(날짜검색후 하단의 Search에서 다른정보검색)</a>.
 					</p>
 					<!-- 페이지 상단 끝 -->
 
@@ -75,7 +75,7 @@ body {
 							<div class="panel-body">
 								<div class="seller-search-section">
 									<ul class="seller-list-border">
-										<li><label class="control-label">회원 검색</label>
+										<li><label class="control-label">날짜 검색</label>
 											<div class="input-content">
 												<div class="form-inline narrow-area">
 													<label for="start-date">시작일: </label> <input type="date"
@@ -115,7 +115,7 @@ body {
 						<thead>
 							<tr>
 								<th>회원아이디</th>
-								<th>이름</th>
+								<th>회원이름</th>
 								<th>연락처</th>
 								<th>받는사람이름</th>
 								<th>받는사람연락처</th>
