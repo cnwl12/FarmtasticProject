@@ -182,26 +182,44 @@
 
    <!-- 선진) 정산관리 -->
    <select id="getSettlementList" resultType="map">
-   SELECT	DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-	   FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
-	   FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05), 0) AS totalFee,
-       FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))*0.05)), 0) AS totalSettlement,
-		s.settlementApplication,
-        s.settlementComplete,
-        s.settlementApplication_day AS applyDay,
-        s.settlementComplete_day AS completeDay
-	FROM	order_detail od		
-    LEFT JOIN	item it 
-	ON		od.item_num = it.item_num
-    LEFT JOIN	settlement s
-    ON 		od.order_num = s.order_num
-	WHERE	od.item_num IN (select	item_num
-							from	item
-							where	seller_num = #{seller_num})
-	ORDER BY	settlementMonth;
+	SELECT 
+	    DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
+	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
+	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05), 0) AS totalFee,
+	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05)), 0) AS totalSettlement,
+	    ss.settlementApplication,
+	    ss.settlementApplication_day AS applyDay,
+	    ss.settlementComplete,
+	    ss.settlementComplete_day AS completeDay
+	FROM 
+	    order_detail od
+	    LEFT JOIN item it ON od.item_num = it.item_num
+	    LEFT JOIN (
+	        SELECT 
+	            s.order_num,
+	            s.settlementApplication,
+	            s.settlementApplication_day,
+	            s.settlementComplete,
+	            s.settlementComplete_day
+	        FROM 
+	            settlement s
+	        WHERE 
+	            s.seller_num = 'CA001'
+	    ) ss ON od.order_num = ss.order_num
+	WHERE 
+	    od.item_num IN (
+	        SELECT 
+	            item_num
+	        FROM 
+	            item
+	        WHERE 
+	            seller_num = 'CA001'
+	    )
+	ORDER BY 
+	    settlementMonth;
    </select>
-   
-	<!-- 정산테이블에 인서트하는 방법 -->
+
+	<!-- 정산 신청 -->
 	<insert id="insertSettlementRequest">
 	INSERT INTO settlement (
 	    seller_num,
@@ -229,8 +247,7 @@
 	WHERE settlementMonth IN (<foreach item="selectedMonth" collection="checkedSettlements" separator=",">#{selectedMonth}</foreach>);
 	</insert>
    
-	<!-- 정산 취소 -->
-	<!-- 정산테이블에 인서트하는 방법 -->
+	<!-- 선진) 정산 취소 -->
 	<delete id="deleteSettlementRequest">
     DELETE FROM settlement
     WHERE seller_num = #{seller_num} AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN 
