@@ -375,11 +375,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/getOrderDetail", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, Object>> getOrderDetail(@RequestParam int member_num, @RequestParam String order_num) {
-	    // 주문 상세 정보 조회 로직
+	
 	    List<Map<String, Object>> orderDetail = memberService.getOrderDetail(member_num, order_num);
-
-	    // 주문 상세 정보를 JSON 형식으로 반환
-	    return orderDetail;
+	    return orderDetail; // JSON 형식으로 반환
 	}
 	
 	@RequestMapping(value="/cancelOrder", method = RequestMethod.POST)
@@ -436,7 +434,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(HttpSession session, @RequestParam(value = "member_id", required = false) String member_id,
+	public String updatePro(HttpSession session, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
 			@RequestParam(value = "member_pass", required = false) String member_pass,
 			@RequestParam(value = "new_member_pass", required = false) String new_member_pass,
 			@RequestParam(value = "member_name", required = false) String member_name,
@@ -479,8 +477,10 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberService.updateMember(memberDTO);
 			return "/index";
 		} else {
-			System.out.println("비밀번호 오류");
-			return "/index";
+			
+			
+			sendResponse(response, "비밀번호가 틀립니다.");
+			return "/mypage";
 		}
 	}
 
@@ -640,6 +640,11 @@ public class FarmController { // 소비자 (컨트롤러)
 		    memberService.insertOrders(payInfo);
 		    System.out.println(payInfo + " member_num : " + member_num);
 		    
+		    System.out.println("업데이트 들어갈 예정 :" + payInfo);
+		 //   payInfo.put("item_num", item_num);
+		    // 아이템 재고 줄이기
+		//	 memberService.updateItemLeft(payInfo);
+		    
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
 		}
@@ -655,12 +660,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		int member_num = (int)session.getAttribute("member_num");
 		orderDetail.put("member_num", member_num);
 
-		memberService.insertOrderDetail(orderDetail);
-		System.out.println("인서트 다녀왔음!");
+	    memberService.insertOrderDetail(orderDetail);
+		System.out.println("인서트 다녀왔음!"+ orderDetail );
 		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		memberService.deleteAllCart(orderDetail);
 		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
+		
 		return "redirect:/orderSuccess";
 	}
 	
@@ -684,7 +690,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
 	public String deleteCart(@RequestParam HashMap<String, Object> cart, HttpSession session) {
 
-	//	int member_num = 16;
 		int member_num = (int)session.getAttribute("member_num");
 		cart.put("member_num", member_num);
 

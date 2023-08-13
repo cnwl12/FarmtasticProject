@@ -297,4 +297,8 @@ public class MemberDAO {
 	public void cancelInsert(HashMap<String, Object> cancel) {
 		sqlSession.insert(namespace + ".cancelInsert", cancel);
 	}
+
+	public void updateItemLeft(HashMap<String, Object> payInfo) {
+		sqlSession.update(namespace+".updateItemLeft", payInfo);
+	}
 }

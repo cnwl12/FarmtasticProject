@@ -63,6 +63,7 @@
                                             <th class="sorting sorting_desc">작성번호</th>
                                             <th>작성자</th>
                                             <th>제목</th>
+                                            <th>소제목</th>
                                             <th>작성날짜</th>
                                         
                                         </tr>
@@ -72,6 +73,7 @@
                                            <th class="sorting sorting_desc">작성번호</th>
                                             <th>작성자</th>
                                             <th>제목</th>
+                                            <th>소제목</th>
                                             <th>작성날짜</th>
                                             
                                         </tr>
@@ -81,7 +83,8 @@
                                         <tr>
                                         	<td>${blist.admin_blog_num}</td>
                                             <td>${blist.admin_id}</td>
-                                            <td><a href="${pageContext.request.contextPath}/blogContent?admin_blog_num=${blist.admin_blog_num}">${blist.admin_blog_sub}</a></td>
+                                            <td><a href="${pageContext.request.contextPath}/blogContent?admin_blog_num=${blist.admin_blog_num}">${blist.admin_blog_mainTitle}</a></td>
+                                        	<td>${blist.admin_blog_subTitle}</td>
                                         	<td>${blist.admin_blog_day}</td>
                                         </tr>
                                      </c:forEach>   
