@@ -366,59 +366,62 @@
        
       <!--월별 판매량 가져오기  -->
     <select id="getSales" resultType="map">
- 		WITH sales_info AS (
-   			 SELECT i.seller_num,
-          		 	DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as order_month,
-           			i.item_price * o.item_cnt as total_revenue,
-           			(i.item_price * o.item_cnt) * 0.05 as fee,
-           			(i.item_price * o.item_cnt) - ((i.item_price * o.item_cnt) * 0.05) as settlement_amount
-    		FROM item i
-    		JOIN order_detail o ON o.item_num = i.item_num),
-    
-		summary AS (
-    		SELECT seller_num,
-          	 	   order_month,
-           		   SUM(total_revenue) AS total_revenue,
-           		   SUM(fee) AS total_fee,
-           		   SUM(settlement_amount) AS total_settlement_amount
-    		FROM sales_info
-    		GROUP BY seller_num, order_month)
-    
-		SELECT  st.seller_num,
-       			s.seller_storeName,
-       			s.seller_name,
-       			sm.order_month,
-       			FORMAT(sm.total_revenue, 0) as total_revenue,
-       			FORMAT(sm.total_fee, 0) as fee,
-       			FORMAT(sm.total_settlement_amount, 0) as settlement_amount,
-       			st.settlementApplication
-		FROM settlement st
-		JOIN seller s 
-		ON s.seller_num = st.seller_num
-		JOIN summary sm 
-		ON sm.seller_num = st.seller_num
-		GROUP BY st.seller_num,
-         		 s.seller_storeName,
-         		 s.seller_name,
-         		 sm.order_month,
-         		 st.settlementApplication,
-         		 sm.total_revenue,
-         		 sm.total_fee,
-         		 sm.total_settlement_amount;
+ 	WITH sales_info AS (
+    			SELECT i.seller_num,
+          			   o.order_num,
+           			   DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as order_month,
+         			   i.item_price * o.item_cnt as total_revenue,
+          			   (i.item_price * o.item_cnt) * 0.05 as fee,
+           			   (i.item_price * o.item_cnt) - ((i.item_price * o.item_cnt) * 0.05) as settlement_amount
+   				FROM item i
+    			JOIN order_detail o ON o.item_num = i.item_num),
+
+			summary AS (
+    			SELECT seller_num,
+           			   order_month,
+           			   SUM(total_revenue) AS total_revenue,
+          			   SUM(fee) AS total_fee,
+          			   SUM(settlement_amount) AS total_settlement_amount
+    			FROM sales_info
+    			GROUP BY seller_num, order_month)
+
+			SELECT st.seller_num,
+      			   s.seller_storeName,
+       			   s.seller_name,
+       			   sm.order_month,
+      			   FORMAT(sm.total_revenue, 0) as total_revenue,
+      			   FORMAT(sm.total_fee, 0) as fee,
+        		   FORMAT(sm.total_settlement_amount, 0) as settlement_amount,
+      			   st.settlementApplication,
+      			   st.settlementComplete,
+      			   st.settlementComplete_day
+			FROM settlement st
+			JOIN seller s ON s.seller_num = st.seller_num
+			JOIN summary sm ON sm.seller_num = st.seller_num AND sm.order_month = DATE_FORMAT(STR_TO_DATE(SUBSTRING(st.order_num, 1, 8), '%Y%m%d'), '%Y-%m')
+			WHERE st.settlementApplication = 'Y'AND st.settlementApplication != 'N'
+			GROUP BY st.seller_num, s.seller_storeName, s.seller_name, sm.order_month,st.settlementComplete,st.settlementComplete_day;
     </select>
     
     
    <!-- 정산작업 아직 미완성구문 -->
-<update id="updateSettlementYn" parameterType="map">       
-    UPDATE settlement
-    SET settlement_yn = 'Y'
+	<update id="updateSettlementYn" parameterType="map">
+   UPDATE settlement
+    SET settlementComplete = 'Y',
+    settlementComplete_day = NOW()
     WHERE seller_num IN
-    (   <foreach collection="sellerNums" item="sellerNum" open="(" close=")" separator=",">
-            #{sellerNum}
-        </foreach> ) 
-    AND DATE_FORMAT(order_day, '%Y-%m') = #{order_month};
-</update>
-   
+        (
+            <foreach collection="sellerNums" item="sellerNum" open="" close="" separator=",">
+                #{sellerNum}
+            </foreach>
+        )
+    AND DATE_FORMAT(STR_TO_DATE(SUBSTRING(order_num, 1, 8), '%Y%m%d'), '%Y-%m') IN
+        (
+            <foreach collection="orderMonths" item="orderMonth" open="" close="" separator=",">
+                #{orderMonth}
+            </foreach>
+        );
+	</update>
+
 
    <!-- 일별 판매량 가져오기 수정-->
    <select id="daySales" resultType="map" parameterType="map">
@@ -488,8 +491,8 @@
   	</select> 
   	
 <select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
-    SELECT m.member_id, m.member_name, m.member_phone, o.order_addMain, i.item_name, 
-           o.order_day, od.item_cnt * i.item_price AS order_pay  
+    SELECT m.member_id, m.member_name, m.member_phone,  CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain, i.item_name, 
+           o.order_day, od.item_cnt * i.item_price AS order_pay, od.item_cnt, o.order_phone, o.order_name   
     FROM member m 
     INNER JOIN orders o ON m.member_num = o.member_num 
     INNER JOIN order_detail od ON o.order_num = od.order_num 

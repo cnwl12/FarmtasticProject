@@ -274,36 +274,49 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
 
-		String member_id = jsonObject.optString("id");
+		String member_id = jsonObject.optString("id") + "+";
 		String member_name = userProfile.getString("name");
 		String member_email = userProfile.getString("email");
-		/*
-		 * String member_phone = userProfile.getString("phone_number").replace("+82 10",
-		 * "010"); // repalce말고 딴걸로 바꿔야됨(외국사람거는처리가안됨)
-		 * System.out.println("member_phone -->>>>>" + member_phone);
-		 */
+		
 
 		String member_phone = userProfile.getString("phone_number");
+		member_phone = member_phone.replaceAll("[^0-9]+", ""); // 숫자 제외한 문자열 모두 제거
 
-		// 국제 전화번호일 경우 국가 코드를 "00"으로 변경
-		if (member_phone.startsWith("+")) {
-			member_phone = member_phone.replace("+", "00");
+		if (member_phone.startsWith("+")) { // 국가코드가 +로 시작하는 경우 처리
+		    member_phone = member_phone.substring(1);
+		} else if (member_phone.startsWith("00")) { // 국가코드가 00으로 시작하는 경우 처리
+		    member_phone = member_phone.substring(2);
 		}
 
-		// 국내 전화번호일 경우 번호의 길이에 따라 처리
-		if (member_phone.startsWith("02")) {
-			if (member_phone.length() == 9) {
-				member_phone = member_phone.replaceFirst("02", "02-");
-			} else if (member_phone.length() == 10) {
-				member_phone = member_phone.replaceFirst("02", "02-");
-			}
-		} else { // 국내 지역번호가 아니면서 "01"로 시작하는 경우
-			if (member_phone.length() == 10) {
-				member_phone = "010-" + member_phone.substring(2, 6) + "-" + member_phone.substring(6);
-			}
+		// 국가코드에 따라 전화번호 형식 변경하기
+		if (member_phone.startsWith("82")) { // 한국 국가코드인 경우
+		    member_phone = "0" + member_phone.substring(2);
+		    if (member_phone.startsWith("010")) { // 이미 010-xxxx-xxxx 형태인 경우
+		        // 아무런 처리 없이 그대로 두기
+		    } else if (member_phone.startsWith("02")) { // 서울 전화번호인 경우
+		        if (member_phone.length() == 9) { // 02-xxx-xxxx 형태인 경우
+		            member_phone = "02-" + member_phone.substring(2, 5) + "-" + member_phone.substring(5);
+		        } else if (member_phone.length() == 10) { // 02-xxxx-xxxx 형태인 경우
+		            member_phone = "02-" + member_phone.substring(3, 6) + "-" + member_phone.substring(6);
+		        }
+		    } else if (member_phone.startsWith("01")) { // 010 또는 지방번호인 경우
+		        if (member_phone.length() == 10) { // 지방번호인 경우
+		            member_phone = member_phone.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
+		        }
+		    }
+		} else if (member_phone.startsWith("1")) { // 미국 국가코드인 경우
+		    member_phone = "+" + member_phone; // "+"를 붙여서 국제 전화번호 형식으로 변경
+		    if (member_phone.length() == 12) { // 미국 국가번호인 경우
+		        member_phone = member_phone.replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d{4})", "+$1-$2-$3-$4");
+		    } else if (member_phone.length() == 11) { // 미국 국가번호 없이 숫자 10자리만 있는 경우
+		        member_phone = member_phone.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "+1-$1-$2-$3");
+		    }
+		} else { // 다른 국가 코드인 경우
+		    member_phone = "+" + member_phone; // "+"를 붙여서 국제 전화번호 형식으로 변경
+		    // 국가 코드와 지역 번호 파싱이 필요하다면 추가 구현이 필요합니다.
 		}
-
-		System.out.println(member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
+		
+		System.out.println("휴대폰번호확인:" + member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
 
 		// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
 		MemberDTO memberDTO = new MemberDTO();
@@ -311,7 +324,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		memberDTO.setMember_name(member_name);
 		memberDTO.setMember_email(member_email);
 		memberDTO.setMember_phone(member_phone);
-
+		System.out.println("휴대폰번호확인2:" + member_phone);
 		System.out.println(memberDTO.getMember_name());
 		MemberDAO memberDAO = new MemberDAO();
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
