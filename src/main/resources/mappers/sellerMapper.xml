@@ -204,7 +204,7 @@
 	        FROM 
 	            settlement s
 	        WHERE 
-	            s.seller_num = 'CA001'
+	            s.seller_num = #{seller_num}
 	    ) ss ON od.order_num = ss.order_num
 	WHERE 
 	    od.item_num IN (
@@ -213,7 +213,7 @@
 	        FROM 
 	            item
 	        WHERE 
-	            seller_num = 'CA001'
+	            seller_num = #{seller_num}
 	    )
 	ORDER BY 
 	    settlementMonth;
