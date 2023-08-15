@@ -372,10 +372,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		MemberDTO memberDTO = memberService.getMember1(member_num);
 		model.addAttribute("memberDTO", memberDTO);
 		List<OneBoardDTO> oneBoardList2 = memberService.findByItemNum2(member_num);
-		System.out.println(oneBoardList2 + "가나다");
 		model.addAttribute("oneBoardList2", oneBoardList2);
 		List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
-		System.out.println(zzimlist + "가나다");
 		model.addAttribute("zzimlist", zzimlist);
 		
 		// 주문관리 - 지원

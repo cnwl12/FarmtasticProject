@@ -208,8 +208,7 @@
                <!-- 서영 찜페이지 만드는중 -->
                <div id="menu5_cont" style="width: 780px; margin-left:25%;;">
                   <div class="container">
-                     <h4>내 찜 목록</h4>
-                     <br> <input type="checkbox" id="selectAllCheckbox">
+                     <h4>내 찜 목록</h4><br> 
                      <label for="selectAllCheckbox"></label>
                      <button id="deleteSelectedButton">선택 삭제</button>
                      <button id="deleteAllButton">전체 삭제</button>
@@ -225,7 +224,7 @@
                                  <span class="product-price">₩${item.item_price}</span> <br>
                                  <span class="store-name">${item.seller_storeName}</span>
                               </div>
-                              <button class="remove-button">X</button>
+                              <button class="remove-button" id="remove-button">X</button>
                            </li>
                         </c:forEach>
                      </ul>
@@ -1234,73 +1233,88 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
    
 
 
-   function deleteFromWishlist(member_num, item_num) {
-        // URLSearchParams를 통해 회원 번호와 아이템 번호를 정수로 보냅니다.
-        const params = new URLSearchParams({
-          member_num: parseInt(member_num, 10),
-          item_num: parseInt(item_num, 10),
-        });
+   function deleteFromWishlist(member_num, item_num, callback) {
+	   // 서버에 삭제 요청 보내기 (AJAX)
+	   $.ajax({
+	     url: "toggle_favorite?_num=" + item_num,
+	     type: "GET",
+	     dataType: "json",
+	     data: {
+	       member_num: member_num,
+	       item_num: item_num,
+	     },
+	     success: function (response) {
+	       if (typeof callback === "function") {
+	         callback(response);
+	       }
+	     },
+	     error: function (request, status, error) {
+	       alert("찜하기 처리에 실패하였습니다. 다시 시도해주세요.");
+	     },
+	   });
+	 }
 
-        fetch("./deleteWishlist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: params.toString(),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("찜 DB 항목 삭제 완료");
+// 선택 삭제
+   $("#deleteSelectedButton").click(function () {
+     const member_num = <%= session.getAttribute("member_num") %>;
+     const checkedItems = $(".checkbox:checked");
+     const checkedCount = checkedItems.length;
+     let successCount = 0;
 
-              // 삭제된 찜 아이템을 DOM에서 제거
-              let listItem = document.querySelector(
-                `.favorite-item[data-item-num="${item_num}"]`
-              );
-              if (listItem) {
-                listItem.remove();
-              }
-            } else {
-              throw new Error("찜 DB 항목 삭제 오류");
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+     checkedItems.each(function () {
+       const listItem = $(this).closest(".favorite-item");
+       const item_num = listItem.attr("data-item-num");
 
+       deleteFromWishlist(member_num, item_num, function (response) {
+         if (response.message == "찜 목록에서 상품이 삭제되었습니다.") {
+           successCount++;
 
-   // 선택 삭제
-   const deleteSelectedButton = document.getElementById("deleteSelectedButton");
-   const allCheckboxes = document.querySelectorAll(".checkbox");
-   deleteSelectedButton.addEventListener("click", function () {
-     const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
-
-     allCheckboxes.forEach((checkbox) => {
-       if (checkbox.checked) {
-         const listItem = checkbox.closest(".favorite-item");
-         const item_num = listItem.getAttribute("data-item-num");
-
-         deleteFromWishlist(member_num, item_num);
-       }
+           if (successCount === checkedCount) {
+        	 checkedItems.closest(".favorite-item").remove();
+             alert("선택한 상품이 찜 목록에서 삭제되었습니다.");
+           }
+         }
+       });
      });
    });
 
    // 전체 삭제
-   const deleteAllButton = document.getElementById("deleteAllButton");
-   deleteAllButton.addEventListener("click", function () {
-     const member_num = "member_num"; // 사용자 회원 번호를 얻으십시오.
+   $("#deleteAllButton").click(function () {
+     const member_num = <%= session.getAttribute("member_num") %>;
+     const allItems = $(".checkbox");
+     const allItemCount = allItems.length;
+     let successCount = 0;
 
-     allCheckboxes.forEach((checkbox) => {
-       const listItem = checkbox.closest(".favorite-item");
-       const item_num = listItem.getAttribute("data-item-num");
+     allItems.each(function () {
+       const listItem = $(this).closest(".favorite-item");
+       const item_num = listItem.attr("data-item-num");
 
-       deleteFromWishlist(member_num, item_num);
+       deleteFromWishlist(member_num, item_num, function (response) {
+         if (response.message == "찜 목록에서 상품이 삭제되었습니다.") {
+           successCount++;
+
+           if (successCount === allItemCount) {
+        	 allItems.closest(".favorite-item").remove();
+             alert("찜 목록에서 모든 상품이 삭제되었습니다.");
+           }
+         }
+       });
      });
    });
-   
-   
-   
-   
+
+   $("#menu5_cont").on("click", "#remove-button", function () {
+	   const member_num = <%= session.getAttribute("member_num") %>;
+	   const listItem = $(this).closest(".favorite-item");
+	   const item_num = listItem.attr("data-item-num");
+
+	   deleteFromWishlist(member_num, item_num, function (response) {
+	     if (response.message == "찜 목록에서 상품이 삭제되었습니다.") {
+	    	listItem.remove();
+	        alert("상품이 찜 목록에서 삭제되었습니다.");
+	     }
+	   });
+	 });
+
    
    </script>
 
