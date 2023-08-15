@@ -184,6 +184,16 @@ public class MemberService {
 		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByOneBoardNum(one_board_num);
 	  }
+	  
+	  public OneBoardDTO getOneBoard(int one_board_num) {
+			System.out.println("MemberService getOneBoard()");
+	        return memberDAO.getOneBoard(one_board_num);
+	    }
+	  
+	  public void updateOneBoard(OneBoardDTO OneBoard) {
+			System.out.println("MemberService insertOneBoard()");
+	        memberDAO.updateOneBoard(OneBoard);
+	    }
 	
 	// 막내 리뷰별점 갯수기능
 	 public int getReviewCountByItemNum(int item_num) {

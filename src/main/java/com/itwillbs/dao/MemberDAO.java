@@ -221,6 +221,17 @@ public class MemberDAO {
 		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByOneBoardNum", one_board_num);
 	    }
+	 
+	 //서영 : 문의수정 비밀번호 확인용
+	 public OneBoardDTO getOneBoard(int one_board_num) {
+		 System.out.println("MemberDAO getOneBoard ()!!");
+         return sqlSession.selectOne(namespace + ".getOneBoard", one_board_num);
+    }
+	 // 서영 : 문의수정하기
+	 public void updateOneBoard(OneBoardDTO OneBoard) {
+		 System.out.println("MemberDAO updateOneBoard ()!!");
+         sqlSession.update(namespace + ".updateOneBoard", OneBoard);
+    }
 
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);

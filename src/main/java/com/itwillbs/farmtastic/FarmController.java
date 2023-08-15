@@ -1041,13 +1041,33 @@ public class FarmController { // 소비자 (컨트롤러)
 	    List<OneBoardDTO> oneBoard = memberService.findByOneBoardNum(one_board_num);
 
 	    if (oneBoard != null) {
-	        model.addAttribute("one_board", oneBoard);
+	        model.addAttribute("one_board", oneBoard.get(0));
 	    } else {
 	        // 필요한 경우 에러 메시지를 추가하세요.
 	        model.addAttribute("errorMessage", "잘못된 접근입니다.");
 	    }
 	    return "/member/updateoneboard";
 	}
+	
+	@RequestMapping(value = "/updateOneboardForm", method = RequestMethod.GET)
+	public String updateOneboardForm(OneBoardDTO oneBoard, HttpServletRequest request, Model model) {
+		System.out.println("문의 업데이트..");
+	    // 데이터베이스에서 원래의 게시글을 가져옵니다.
+	    OneBoardDTO originalOneBoard = memberService.getOneBoard(oneBoard.getOne_board_num());
+	    
+	    // 사용자가 작성한 비밀번호와 원래 게시글의 비밀번호를 비교합니다.
+	    if (oneBoard.getOne_board_pass().equals(originalOneBoard.getOne_board_pass())) {
+	        // 비밀번호가 일하면, 업데이트를 진행합니다.
+	        memberService.updateOneBoard(oneBoard);
+	        return "/member/success";
+	    } else {
+	        // 비밀번호가 일치하지 않으면, 오류 메시지를 설정합니다.
+	    	request.getSession().setAttribute("message", "비밀번호가 일치하지 않습니다");
+	        // 다시 수정 폼 페이지로 리다이렉트하거나 다른 행동을 수행할 수 있습니다.
+	        return "redirect:updateoneboard?one_board_num=" + oneBoard.getOne_board_num();
+	    }
+	}
+
 
 
 	// 서영 :  찜하기용입니다
