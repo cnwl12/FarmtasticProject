@@ -496,6 +496,18 @@
 	JOIN item i ON ob.item_num = i.item_num
 	WHERE ob.member_num = #{member_num}
 	</select>
+	
+	<select id="findByItemNum" resultMap="oneBoardResultMap">
+    SELECT  one_board_type
+    		, one_board_title
+    		, one_board_content
+    		, one_board_file
+    		, one_board_pass
+    		, one_board_private
+    		, one_board_num
+	FROM one_board
+	WHERE one_board_num = #{one_board_num}
+	</select>
   
   <!-- 찜기능 불러오기 -->
   	<select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">

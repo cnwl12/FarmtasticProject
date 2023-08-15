@@ -178,6 +178,12 @@ public class MemberService {
 		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByItemNum2(member_num);
 	  }
+	  
+	  //서영 :마이페이지 문의수정을위해 문의내용가져오기
+	  public List<OneBoardDTO> findByOneBoardNum(int one_board_num) {
+		  System.out.println("1대1문의 노출");
+	       return memberDAO.findByOneBoardNum(one_board_num);
+	  }
 	
 	// 막내 리뷰별점 갯수기능
 	 public int getReviewCountByItemNum(int item_num) {

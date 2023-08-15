@@ -1019,6 +1019,23 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/success";
 	}
+	
+	@RequestMapping(value = "/updateoneboard", method = RequestMethod.GET)
+	public String updateoneBoard(@RequestParam("one_board_num") int one_board_num, Model model) {
+	    System.out.println("FarmController updateoneBoard()!");
+
+	    // 데이터베이스에서 해당 one_board_num을 가진 one_board 객체를 가져옵니다.
+	    List<OneBoardDTO> oneBoard = memberService.findByOneBoardNum(one_board_num);
+
+	    if (oneBoard != null) {
+	        model.addAttribute("one_board", oneBoard);
+	    } else {
+	        // 필요한 경우 에러 메시지를 추가하세요.
+	        model.addAttribute("errorMessage", "잘못된 접근입니다.");
+	    }
+	    return "/member/updateoneboard";
+	}
+
 
 	// 서영 :  찜하기용입니다
 	@RequestMapping(value = "/toggle_favorite", method = RequestMethod.GET)

@@ -210,14 +210,16 @@ public class MemberDAO {
 	 public List<OneBoardDTO> findByItemNum(int item_num) {
 			return sqlSession.selectList(namespace+".findByItemNum", item_num);
 	    }
-//	 public List<MemberDTO> getOneBoardList() {
-//	        return sqlSession.selectList(namespace + ".getOneBoardList");
-//	    }
 
 	 // 서영 마이페이지에서 1대1문의 확인하기 (member_num) 기준
 	 public List<OneBoardDTO> findByItemNum2(int member_num) {
 		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByItemNum2", member_num);
+	    }
+	 // 서영 : 마이페이지에서 문의 수정을 위해 
+	 public List<OneBoardDTO> findByOneBoardNum(int one_board_num) {
+		    System.out.println("1대1문의 마이페이지");
+			return sqlSession.selectList(namespace+".findByOneBoardNum", one_board_num);
 	    }
 
 	public void deleteCart(HashMap<String, Object> cart) {

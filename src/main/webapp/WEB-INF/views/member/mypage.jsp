@@ -22,6 +22,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <style>
+.edit-button {
+    position: relative;
+    float: right;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
 .star {
    color: lightgray;
    cursor: pointer;
@@ -394,6 +405,9 @@
                                           </c:if>
                                           <div class="content">${row.one_board_content}</div>
                                        </div>
+                                        <div>
+									        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+									    </div>
                                     </td>
                                  </tr>
                                  <tr class="boardContent" id="answer${row.one_board_num}"
@@ -431,6 +445,9 @@
                                           </c:if>
                                           <div class="content">${row.one_board_content}</div>
                                        </div>
+                                       <div>
+									       <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+									    </div>
                                     </td>
                                  </tr>
                                  <tr class="boardContent" id="answer${row.one_board_num}"
@@ -1315,7 +1332,11 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 	   });
 	 });
 
-   
+   function openEditPopup(oneBoardNum) {
+	    var popupURL = "updateoneboard?one_board_num=" + oneBoardNum;
+	    var popupWindow = window.open(popupURL, "EditPopup", "width=800, height=600, scrollbar=yes, resizable=yes");
+	    popupWindow.focus();
+	}
    </script>
 
    <script>
@@ -1365,10 +1386,6 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
    });
    
    $(document).ready(function() {
-        // 찜 페이지용 스크립트
-        // 기존 코드 유지
-
-        // 문의 페이지용 스크립트
 
         // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
         var totalInquiryItems = ${oneBoardList2.size()};
