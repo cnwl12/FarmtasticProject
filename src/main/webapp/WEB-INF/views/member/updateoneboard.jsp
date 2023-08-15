@@ -18,7 +18,7 @@
       <input type="hidden" name="member_num" value="${sessionScope.member_num}">
       
       <label for="one_board_type">문의유형</label>
-      <select name="one_board_type" id="one_board_type">
+      <select name="one_board_type" id="one_board_type"> 
         <option value="배송" ${one_board.one_board_type eq '배송' ? 'selected' : ''}>배송</option>
         <option value="상품" ${one_board.one_board_type eq '상품' ? 'selected' : ''}>상품</option>
         <option value="환불" ${one_board.one_board_type eq '환불' ? 'selected' : ''}>환불</option>
