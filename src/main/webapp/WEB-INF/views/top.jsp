@@ -266,11 +266,11 @@
     }
     
     $(document).ready(function() {
-        자동완성을 위한 ajax 요청
+        //자동완성을 위한 ajax 요청
         $("#searchQuery").keyup(function() {
-            현재 입력된 검색어
+            // 현재 입력된 검색어
             var query = $(this).val();
-            ajax 요청
+            // ajax 요청
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/autocomplete",

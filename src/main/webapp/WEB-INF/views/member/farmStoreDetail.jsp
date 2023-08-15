@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/page.css" type="text/css">
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+	<!-- 카트추가 함수 -->
 	
   
    
@@ -92,20 +94,8 @@ input#file-upload-button {
 	
 </style>	
 	
-<!-- 카트추가 함수 -->
-<script type="text/javascript">
-function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
-	
-	var cart_cnt = $("#cart_cnt").val(); // cart_cnt id값의 value값 
-	var item_num = $('.item_wrap').data("item_num");
-	
-	//console.log(item_num);
-	
-	location.href="insertCart?item_num="+item_num+"&cart_cnt="+cart_cnt;
-	
-}
 
-</script>
+
  
 
 </head>
@@ -414,195 +404,12 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                 </div>
         
     </section>
-    <!-- Product Details Section End -->
-
-
-
-	<!-- 최근 본 상품 나열 페이지 : 일단은 삭제함 -->
-    <!-- Related Product Section Begin -->
-   <%--  <section class="related-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/product/product-1.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/product/product-2.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text"> 
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/product/product-3.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/product/product-7.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --%>
-    <!-- Related Product Section End -->
 
    <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 	 <!-- Js Plugins -->
 	
-	<script>
-	function openPopup() {
-	  window.open(
-	    "oneboard?item_num=" + item_num, 
-	    "oneboardpop", 
-	    "width=600, height=1000, left=100, top=50, scrollbars=no, resizable=yes"
-	  );
-	}
-	function checkLogin() {
-		  // 로그인 여부를 확인하려면 input 태그에서 member_num 값을 가져옵니다.
-		  var member_num = document.getElementById("member_num").value;
-
-		  if (member_num == null || member_num == "") {
-		    // 로그인되어 있지 않은 경우 login.jsp로 이동합니다.
-		    window.location.href = "login";
-		  } else {
-		    // 로그인된 경우 openPopup 함수를 호출하여 문의하기 창을 엽니다.
-		    openPopup();
-		  }
-		}
-	</script>
-	
-	<script>
-	function handleRowClick(isPrivate, oneBoardNum, oneBoardPass, boardPasswordInputId) {
-		  var questionElement = document.getElementById("question" + oneBoardNum);
-		  var answerElement = document.getElementById("answer" + oneBoardNum);
-		  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
-
-		  // 로그 추가
-		  console.log("handleRowClick 호출됨: isPrivate=" + isPrivate);
-		  console.log(isPrivate)
-
-		  // 내용이 열려있는 것이 숨김 처리되는 경우
-		  if (
-		    (questionElement.style.display !== "none" && isPrivate) ||
-		    (!isPrivate && questionElement.style.display !== "none")
-		  ) {
-			  console.log("여기니?2");
-		    questionElement.style.display = "none";
-		    answerElement.style.display = "none";
-		    passwordRowElement.style.display = "none";
-		  } else {
-			  console.log("여기니3?");
-		    if (isPrivate) {
-		    	console.log("여기니?4");
-		      passwordRowElement.style.display = "";
-		    } else {
-		      questionElement.style.display = "";
-		      answerElement.style.display = "";
-		    }
-		  }
-		}
-
-		function showQuestionAndAnswer(oneBoardNum) {
-		  // 질문과 답변 element를 가져옵니다.
-		  var questionElement = document.getElementById("question" + oneBoardNum);
-		  var answerElement = document.getElementById("answer" + oneBoardNum);
-
-		  // 질문과 답변 element의 display 상태를 전환합니다.
-		  questionElement.style.display = questionElement.style.display === "table-row" ? "none" : "table-row";
-		  answerElement.style.display = answerElement.style.display === "table-row" ? "none" : "table-row";
-		}
-
-	function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
-		  var inputPassword = document.getElementById(inputPasswordId).value;
-
-		  if (savedPassword === inputPassword) {
-		    // 비밀번호가 일치할 경우 비밀번호 입력창을 숨기고 질문과 답변을 표시합니다.
-		    showQuestionAndAnswerAndHidePasswordInput(oneBoardNum, inputPasswordId);
-		  } else {
-		    // 일치하지 않는 경우 경고 메시지를 표시합니다.
-		    alert("비밀번호가 일치하지 않습니다.");
-		  }
-		}
-
-		function showQuestionAndAnswerAndHidePasswordInput(oneBoardNum, inputPasswordId) {
-		  var questionElement = document.getElementById("question" + oneBoardNum);
-		  var answerElement = document.getElementById("answer" + oneBoardNum);
-		  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
-
-		  // 질문과 답변 창을 표시합니다.
-		  questionElement.style.display = "table-row";
-		  answerElement.style.display = "table-row";
-
-		  // 비밀번호 입력창을 숨깁니다.
-		  passwordRowElement.style.display = "none";
-		}
-
-		function togglePasswordInput(oneBoardNum) {
-		  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
-
-		  // 비밀번호 입력창의 display 상태를 전환합니다.
-		  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
-		}
-
-
-
-// 	function handleBoardClick(one_board_num) { 
-// 	    sessionStorage.setItem('selectedBoardNum', one_board_num); // 선택한 문의의 one_board_num 값을 웹 브라우저의 sessionStorage에 저장
-// 	}
-</script>
-
-
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
 	</script>
@@ -879,8 +686,10 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 		});
 	
 	</script>
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>

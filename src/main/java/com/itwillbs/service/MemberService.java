@@ -292,4 +292,9 @@ public class MemberService {
 		memberDAO.updateItemLeft(payInfo);
 	}
 
+	public void clearCart(int member_num) {
+		System.out.println("서비스");
+		memberDAO.clearCart(member_num);
+	}
+
 }

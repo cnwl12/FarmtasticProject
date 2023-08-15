@@ -26,27 +26,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
  	
-	<!-- 주문상세 테이블에 추가함수  -->
-	<!-- <script type="text/javascript">
-	function insertOrderDetail(){
-		location.href="insertOrderDetail";  
-	}
-	</script>
-	 -->
-	<script type="text/javascript">
-	function history(){
-		confirm("계속 쇼핑하시겠습니까?");
-		location.href="farmStore";
-	}
-	
-	function deleteCart(item_num){
-		
-		if(confirm("삭제하시겠습니까?")){
-			location.href="deleteCart?item_num="+item_num;
-		}
-	}
-	</script>
-	
+ 	<!-- 가격변동 - 동기 -->
+ 	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(window).on('load', function () {
@@ -71,10 +52,6 @@
 	            success: function (response) {
                 console.log('장바구니 수량 업데이트 성공:', response);
                
-           //     console.log(item_price); // 올바른 가격 값이 출력되어야 함
-           //     console.log(cart_cnt_int); // 올바른 수량 값이 출력되어야 함
-           //     console.log(total);  // 올바른 총 가격 값이 출력되어야 함
-           
                 },
                 error: function (error) {
                 console.error('장바구니 수량 업데이트 실패:', error);
@@ -91,7 +68,6 @@
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 
-    <!-- Breadcrumb Section Begin --> 
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
@@ -107,9 +83,7 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
@@ -190,13 +164,15 @@
                         </ul>
                 </div>
                      <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-                    <a href="checkout" class="primary-btn">주문하기</a>
+                     <button class="primary-btn" onclick="clearCart()">전체삭제</button>
+                     <a href="checkout" class="primary-btn">주문하기</a>
             </div>
         </c:otherwise>
     </c:choose>
 </div>
 
-
+	</div>
+</section>
 
 
     <!-- Shoping Cart Section End -->
