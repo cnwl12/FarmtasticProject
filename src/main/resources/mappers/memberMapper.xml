@@ -143,17 +143,17 @@
             resultType="com.itwillbs.domain.MemberDTO">
     	select * 
     	from member       
-    	where member_nid = #{member_nid}
+    	where member_id = #{member_id}
   	</select> 
   	
   	<insert id="ninsertMember"> 
 	 	insert into member(member_num
-	 						, member_nid
+	 						, member_id
 	 						, member_name
 	 						, member_phone
 	 						, member_email)
 	 				values(#{member_num}
-	 						, #{member_nid}
+	 						, #{member_id}
 	 						, #{member_name}
 	 						, #{member_phone}
 	 						, #{member_email})

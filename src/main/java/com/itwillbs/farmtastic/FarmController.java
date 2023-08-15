@@ -179,12 +179,12 @@ public class FarmController { // 소비자 (컨트롤러)
 			org.json.JSONObject jsonObject = new org.json.JSONObject(respon.toString());
 			org.json.JSONObject userProfile = jsonObject.getJSONObject("response");
 
-			String member_nid = userProfile.getString("id");
+			String member_id = userProfile.getString("id");
 			String member_name = userProfile.getString("name");
 			String member_email = userProfile.getString("email");
 			String member_phone = userProfile.getString("mobile");
 			MemberDTO memberDTO = new MemberDTO();
-			memberDTO.setMember_nid(member_nid);
+			memberDTO.setMember_id(member_id);
 			memberDTO.setMember_name(member_name);
 			memberDTO.setMember_email(member_email);
 			memberDTO.setMember_phone(member_phone);
