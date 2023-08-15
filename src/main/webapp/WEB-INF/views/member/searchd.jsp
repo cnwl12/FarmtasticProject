@@ -31,50 +31,72 @@
 
 <jsp:include page="../top.jsp"></jsp:include>
 
+<section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>FarmFarm Market</h2>
+                        <div class="breadcrumb__option">
+                            <a href="main">Home</a>
+                            <span>Shop</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 <c:if test="${fn:length(itemList) eq 0}">
   <!-- 검색 결과가 없다는 메시지를 띄우는 스크립트 -->
   <script>
     alert("검색 결과가 없습니다.");
-    location.href = "${pageContext.request.contextPath}/index";
+    location.href = "${pageContext.request.contextPath}/main";
   </script>
 </c:if>
 
-<div class="row">
-  <c:forEach var="item" items="${itemList}">
-    <div class="col-lg-4 col-md-6 col-sm-6">
-      <div class="product__item">
-        <div class="product__item__pic set-bg">
-          <a href="farmStoreDetail?item_num=${item.item_num}">
-            <div class="image-container">
-              <div class="product-image" style="background-image: url('${item.item_mainImg}'); background-size: contain; background-repeat: no-repeat; width: 100%; height: 100%; position: relative; background-position: center;"></div>
+ <section class="product spad">
+        <div class="container">
 
-              <c:choose>
-                <c:when test="${item.item_left < 3}">
-                  <div class="overlay sold-out">마감 임박</div>
-                </c:when>
-              </c:choose>
-            </div>
-          </a>
-          <ul class="product__item__pic__hover">
-            <li>
-              <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-                <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
-              </a>
-            </li>
-            <li>
-              <a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a>
-            </li>
-          </ul>
-        </div>
-        <div class="product__item__text">
-          <h6><a href="farmStoreDetail?item_num=${item.item_num}">${item.item_name}</a></h6>
-          <h5>${item.item_price}</h5>
-        </div>
-      </div>
-    </div>
-  </c:forEach>
-</div>
-
+  <div class="row featured__filter">
+		<c:forEach var="item" items="${itemList}">
+			  <div class="col-lg-4 col-md-6 col-sm-6">
+				  <div class="featured__item">
+					 <div class="featured__item__pic set-bg">
+						<a href="farmStoreDetail?item_num=${item.item_num}">
+							<div class="image-container">
+								<div class="product-image"
+									style="background-image: url('${item.item_mainImg}');"></div>
+								<c:choose>
+									<c:when test="${item.item_left < 3}">
+										<div class="overlay sold-out">마감 임박</div>
+									</c:when>
+								</c:choose>
+							</div>
+						</a>
+						<ul class="product__item__pic__hover">
+							<li><a href="#" class="wishlist-btn"
+								data-member-num="${sessionScope.member_num}"
+								data-item-num="${item.item_num}"> <i
+									class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+							</a></li>
+							<li><a
+								href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i
+									class="fa fa-shopping-cart"></i></a></li>
+						</ul>
+					</div>
+					<div class="product__item__text">
+						<h6>
+							<a href="farmStoreDetail?item_num=${item.item_num}">${item.item_name}</a>
+						</h6>
+						<h5>${item.item_price}</h5>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+	</div>
+</section>
 <jsp:include page="../bottom.jsp"></jsp:include>
 
 <!-- Js Plugins -->

@@ -285,7 +285,7 @@
 
                <!-- 주문관리 토글 끝  -->	
 			
-			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu3_cont" style="width: 780px; margin-left: 25%;">
 			<h4>나의 리뷰</h4>
 			<button class="site-btn" id="edit-review-button" >수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>

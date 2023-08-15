@@ -46,7 +46,7 @@
                     <div class="breadcrumb__text">
                         <h2>FarmFarm Market</h2>
                         <div class="breadcrumb__option">
-                            <a href="index">Home</a>
+                            <a href="main">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     </div>
                     
                     <!-- 여기부터 ul 반복 -->
-                    <div class="row">
+                    <div class="row">  
 	              <c:forEach var="item" items="${itemList}">
 				    <div class="col-lg-4 col-md-6 col-sm-6">
 				        <div class="product__item">
@@ -145,7 +145,7 @@
   	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
-<!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 index에선 반대 -->
+<!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 main에선 반대 -->
     <!-- Js Plugins -->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
    	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>

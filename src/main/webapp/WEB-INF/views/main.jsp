@@ -44,13 +44,13 @@
             <div class="row">
                 <div class="col-lg-3"> 
                     <div class="header__logo">
-                        <a href="index"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>
+                        <a href="main"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6"> 
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="index">팜타스틱</a></li>
+                            <li class="active"><a href="main">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
                          <!--    <li><a href="#">기획전</a>
                                 <ul class="header__menu__dropdown">
@@ -159,44 +159,6 @@
         </div>
     </section>
     <!-- Hero Section End -->
- 
- 
-
-    <!-- Categories Section Begin : 메인 이미지  : 상이 -->
-   <%--  <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-2.jpg">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-3.jpg">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --%>
-    <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
     <section class="featured spad">

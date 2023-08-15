@@ -42,13 +42,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="index"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>
+                        <a href="main"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="index">팜타스틱</a></li>
+                            <li><a href="main">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
                           <!--   <li><a href="#">기획전</a> </li> -->
                             <li><a href="blog">제철팜</a></li>

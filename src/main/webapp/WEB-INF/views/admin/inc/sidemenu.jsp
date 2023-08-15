@@ -6,14 +6,14 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                <!--  <div class="sidebar-brand-icon rotate-n-15"> -->
-                <%-- <img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="width: 70%"> --%>
-                <img class="logo" src="${pageContext.request.contextPath}/resources/img/yangpa.png" style="width: 70%">
-                
+               <a href="${pageContext.request.contextPath}/main">
+                <img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="width: 70%">
+                </a>
                <!--  </div> -->
                <!--  <div class="sidebar-brand-text mx-3">판매자</div> -->
-            </a>
+            </a>  
 
-            <!-- Divider -->
+            <!-- Divider -->   
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->

@@ -364,10 +364,18 @@
 
    <!-- 개별상품 가져오기  -->
    <select id="getItem" resultType="map">
-       SELECT *
-       FROM item
-       WHERE item_num = #{item_num}
-       LIMIT 1
+     SELECT item_num
+		   ,item_price
+		   ,item_mainImg
+		   ,item_detail
+		   ,item_salesStatus
+		   ,item_left
+		   ,s.seller_storeName
+     FROM item i
+     JOIN seller s
+     ON s.seller_num = i.seller_num
+     WHERE item_num = #{item_num}
+     LIMIT 1;
    </select>
        
       <!--월별 판매량 가져오기  -->

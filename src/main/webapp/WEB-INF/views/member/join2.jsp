@@ -334,7 +334,6 @@ button#submitBtn {
 										<option value="SW">고구마</option>
 										<option value="ON">양파</option>
 										<option value="CA">당근</option>
-										<option value="CB">양배추</option>
 										<option value="MU">버섯</option>
   									</select>
 								</li>
@@ -386,7 +385,7 @@ button#submitBtn {
     $(document).ready(function() {
       // 처음으로 버튼 이벤트 핸들러
       $("#goMain").on("click", function() {
-        location.href = 'index';
+        location.href = 'main';
       });
 		
       // 유효성 검사 이벤트 핸들러를 각 입력란에 추가

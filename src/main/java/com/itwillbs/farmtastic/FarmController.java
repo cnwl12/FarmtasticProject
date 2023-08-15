@@ -70,15 +70,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	@Autowired
 	private NaverController naverController;
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(Locale locale, Model model) {
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String main(Locale locale, Model model) {
 
-		System.out.println("index 매핑확인여부");
+		System.out.println("main 매핑확인여부");
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
 
-		return "index";
+		return "main";
 	}
 
 	@RequestMapping(value = "/blog", method = RequestMethod.GET)
@@ -196,11 +196,11 @@ public class FarmController { // 소비자 (컨트롤러)
 				System.out.println("로그인");
 				session.setAttribute("member_num", existingMember.getMember_num()); 
 
-				return "redirect:/index";
+				return "redirect:/main";
 			} else {
 				memberService.ninsertMember(memberDTO);
 				System.out.println("회원가입");
-				return "redirect:/index";
+				return "redirect:/main";
 			}
 
 		} catch (Exception e) {
@@ -331,11 +331,11 @@ public class FarmController { // 소비자 (컨트롤러)
 		if (memberDTO2 != null) {
 			System.out.println("로그인");
 			session.setAttribute("member_num", memberDTO2.getMember_num());
-			return "redirect:/index";
+			return "redirect:/main";
 		} else {
 			memberService.insertMember(memberDTO);
 			System.out.println("회원가입");
-			return "redirect:/index";
+			return "redirect:/main";
 		}
 
 	}
@@ -488,7 +488,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberDTO.setMember_addSub(member_addSub);
 
 			memberService.updateMember(memberDTO);
-			return "/index";
+			return "/main";
 		} else {
 			
 			
@@ -745,7 +745,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			int item_count = memberService.countCart((int) session.getAttribute("member_num"));
 			session.setAttribute("item_count", item_count);
 			
-			return "redirect:/index";
+			return "redirect:/main";
 		} else if (memberDTO2 != null && "N".equals(memberDTO2.getMember_delYn())){
 			// 승인되지 않은 사용자
             sendResponse(response, "탈퇴한 회원입니다.");

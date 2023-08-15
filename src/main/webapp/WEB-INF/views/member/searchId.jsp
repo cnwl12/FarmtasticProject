@@ -46,7 +46,7 @@
                     <div class="breadcrumb__text">
                         <h2>searchId</h2> 
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="main">Home</a>
                             <span>searchId</span> 
                         </div>
                     </div>
