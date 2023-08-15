@@ -8,7 +8,7 @@
 	<insert id="insertMember"> 
 	 	insert into member
 	 			  ( member_num
-	 			  , member_id
+	 			  , member_id 
 	 			  , member_pass
 	 			  , member_name
 	 			  , member_phone
