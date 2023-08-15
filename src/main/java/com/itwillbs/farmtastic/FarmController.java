@@ -369,13 +369,14 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String mypage(HttpSession session, Model model) {
 		System.out.println("mypage 매핑확인여부");
 		Integer member_num = (Integer) session.getAttribute("member_num");
+		if (member_num == null) {
+	        return "redirect:/login";
+		}
 		MemberDTO memberDTO = memberService.getMember1(member_num);
 		model.addAttribute("memberDTO", memberDTO);
 		List<OneBoardDTO> oneBoardList2 = memberService.findByItemNum2(member_num);
-		System.out.println(oneBoardList2 + "가나다");
 		model.addAttribute("oneBoardList2", oneBoardList2);
 		List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
-		System.out.println(zzimlist + "가나다");
 		model.addAttribute("zzimlist", zzimlist);
 		
 		// 주문관리 - 지원
