@@ -82,7 +82,7 @@
 								<c:forEach var="item" items="${itemList}">
 								 <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
 								  <tr>
-								    <td class="shoping__cart__item">
+								    <td class="shoping__cart__item" id="item_num">
 								      <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
 								      <h5 id="item_name">${item.item_name}</h5>
 								    </td> 

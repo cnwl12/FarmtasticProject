@@ -43,9 +43,16 @@
             var total = item_price * cart_cnt_int;
             $(this).closest('tr').find('.item_total').text(total.toFixed()) 
             
-	        console.log(cart_cnt);
-	        console.log(item_num);
-
+	        console.log("카트수량 :" + cart_cnt);
+	        console.log("아이템번호 : " + item_num);
+			
+	        var totalSum = 0;
+	        // 하단 전체 가격 
+	        $('.item_total').each(function () {
+            	totalSum += parseInt($(this).text());
+	        });
+	        $('.cart-total-price').text(totalSum.toFixed());
+	        // 수량 - 가격 변동
 	        $.ajax({
 	            url: 'cartInUpdate?item_num=' + item_num,
 	            data: { 'cart_cnt': cart_cnt },
@@ -84,100 +91,104 @@
         </div>
     </section>
 
-    <section class="shoping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-    <div class="shoping__cart__table item_wrap" data-item_num="${item.item_num}">
-        <table>
-            <thead>
-                <tr>
-                    <th class="shoping__product">Products</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 장바구니에 상품 있을 때 -->
-               <c:choose>
-                    <c:when test="${not empty itemList}"> 
-                        <c:forEach var="item" items="${itemList}">
-                            <c:set var="totalSum" value="${totalSum + item.item_price * item.cart_cnt}" />
-                             <tr data-item_num="${item.item_num}">
-                                <td class="shoping__cart__item">
-                                    <a href="farmStoreDetail?item_num=${item.item_num}">
-                                        <img src="${item.item_mainImg}" alt="" style="width: 300px; height: 200px">
-                                        <h5>${item.item_name}</h5>
-                                    </a>
-                                </td>
-                               <td class="shoping__cart__price item_price">${item.item_price} </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">							<!-- name="item_num=${item.item_num},cart_cnt"  -->
-                                            <input type="text" value="${item.cart_cnt}" class="cart_cnt" >
-                                        </div>
-                                    </div>
-                                </td>
-                               <td class="shoping__cart__total item_total">
-                                    ${item.item_price * item.cart_cnt}
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close" onclick="deleteCart(${item.item_num})"></span>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:when> 
-                     <c:otherwise>
-                        <tr>
-                            <td colspan="5">
-                                <div class="empty-cart-message" id="emptyCartMessage">
-                                    <i class="fa fa-shopping-bag"></i>
-                                    <p>장바구니가 비어있습니다</p> 
-                                </div>
-                            </td>
-                        </tr>
-                    </c:otherwise> 
-                </c:choose> 
-            </tbody>
-        </table>
-    </div>
+	<section class="shoping-cart spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="shoping__cart__table item_wrap"
+						data-item_num="${item.item_num}">
+						<table>
+							<thead>
+								<tr>
+									<th class="shoping__product">Products</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- 장바구니에 상품 있을 때 -->
+								<c:choose>
+									<c:when test="${not empty itemList}">
+										<c:forEach var="item" items="${itemList}">
+											<c:set var="totalSum"
+												value="${totalSum + item.item_price * item.cart_cnt}" />
+											<tr data-item_num="${item.item_num}">
+												<td class="shoping__cart__item"><a
+													href="farmStoreDetail?item_num=${item.item_num}"> <img
+														src="${item.item_mainImg}" alt=""
+														style="width: 300px; height: 200px">
+														<h5>${item.item_name}</h5>
+												</a></td>
+												<td class="shoping__cart__price item_price">${item.item_price}
+												</td>
+												<td class="shoping__cart__quantity">
+													<div class="quantity">
+														<div class="pro-qty">
+															<!-- name="item_num=${item.item_num},cart_cnt"  -->
+															<input type="text" value="${item.cart_cnt}"
+																class="cart_cnt">
+														</div>
+													</div>
+												</td>
+												<td class="shoping__cart__total item_total">
+													${item.item_price * item.cart_cnt}</td>
+												<td class="shoping__cart__item__close"><span
+													class="icon_close" onclick="deleteCart(${item.item_num})"></span>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr>
+											<td colspan="5">
+												<div class="empty-cart-message" id="emptyCartMessage">
+													<i class="fa fa-shopping-bag"></i>
+													<p>장바구니가 비어있습니다</p>
+												</div>
+											</td>
+										</tr>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<c:choose>
+					<c:when test="${empty itemList}">
+						<div class="col-lg-12">
+							<div class="shoping__cart__btns">
+								<input type="button" class="primary-btn cart-btn"
+									onclick="history()" value="CONTINUE SHOPPING">
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="col-lg-6">
+							<div class="shoping__checkout">
+								<h5>Cart Total</h5>
+								<ul>
+									<li>Total <span class="cart-total-price">${totalSum}원</span></li>
+								</ul>
+							</div>
+							<input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+							<button class="primary-btn" onclick="clearCart()">전체삭제</button>
+							<a href="checkout" class="primary-btn">주문하기</a>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
 		</div>
-            </div>
-    
-<div class="row">
-    <c:choose>
-        <c:when test="${empty itemList}">
-            <div class="col-lg-12">
-                <div class="shoping__cart__btns">
-                    <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div class="col-lg-6">
-                <div class="shoping__checkout">
-                        <h5>Cart Total</h5>
-                        <ul>
-                            <li>Total <span>${totalSum}원</span></li>
-                        </ul>
-                </div>
-                     <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-                     <button class="primary-btn" onclick="clearCart()">전체삭제</button>
-                     <a href="checkout" class="primary-btn">주문하기</a>
-            </div>
-        </c:otherwise>
-    </c:choose>
-</div>
-
-	</div>
-</section>
+	</section>
 
 
-    <!-- Shoping Cart Section End -->
-    
-    <!-- bottom.jsp로 분리  -->
+
+	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 	<!-- Js Plugins -->

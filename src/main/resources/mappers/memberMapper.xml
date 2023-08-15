@@ -265,6 +265,7 @@
 	<!-- 주문 상세 내역 불러오기  -->
 	<select id="getOrderDetail" resultType="map">
 	SELECT order_num
+		,  i.item_num
 		,  i.item_name
 		,  item_cnt
         ,  i.item_price

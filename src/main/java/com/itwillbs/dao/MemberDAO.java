@@ -292,14 +292,12 @@ public class MemberDAO {
 
 
 	public List<Map<String, Object>> getOrderDetail(int member_num, String order_num) {
-	    
-		Map<String, Object> paramMap = new HashMap<>();
+	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("member_num", member_num);
 	    paramMap.put("order_num", order_num);
-	    
+
 	    return sqlSession.selectList(namespace + ".getOrderDetail", paramMap);
 	}
-
 
 	public void cancelOrder(HashMap<String, Object> cancel) {
 		System.out.println("취소다오");
@@ -311,10 +309,9 @@ public class MemberDAO {
 		sqlSession.insert(namespace + ".cancelInsert", cancel);
 	}
 
-	public void updateItemLeft(HashMap<String, Object> payInfo) {
-		sqlSession.update(namespace+".updateItemLeft", payInfo);
+	public void updateItemLeft(Map<String, Object> orderDetail) {
+	    sqlSession.update(namespace + ".updateItemLeft", orderDetail);
 	}
-
 
 	public void clearCart(int member_num) {
 		sqlSession.delete(namespace+".deleteAllCart", member_num);
