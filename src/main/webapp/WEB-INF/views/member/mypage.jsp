@@ -1334,7 +1334,7 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 
    function openEditPopup(oneBoardNum) {
 	    var popupURL = "updateoneboard?one_board_num=" + oneBoardNum;
-	    var popupWindow = window.open(popupURL, "EditPopup", "width=800, height=600, scrollbar=yes, resizable=yes");
+	    var popupWindow = window.open(popupURL, "EditPopup", "width=800, height=1000, scrollbar=yes, resizable=yes");
 	    popupWindow.focus();
 	}
    </script>

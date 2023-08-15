@@ -334,6 +334,9 @@ input#file-upload-button {
 																	<div class="content">
 																		${row.one_board_content}
 																	</div>
+																	<div>
+																        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+																    </div>
 																</div>
 															</td>
 														</tr>
@@ -367,6 +370,13 @@ input#file-upload-button {
 																<div class="content">
 																	${row.one_board_content}
 																</div>
+																<c:choose>
+											                        <c:when test="${sessionScope.member_num eq row.member_num}">
+											                            <div>
+											                                <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+											                            </div>
+											                        </c:when>
+											                    </c:choose>
 															</div>
 														</td> 
 													</tr>
@@ -412,6 +422,14 @@ input#file-upload-button {
 	
 	<script>
 	  var item_num = document.querySelector(".item_wrap").dataset.item_num;
+	</script>
+	
+	<script>
+	function openEditPopup(oneBoardNum) {
+	    var popupURL = "updateoneboard?one_board_num=" + oneBoardNum;
+	    var popupWindow = window.open(popupURL, "EditPopup", "width=800, height=1000, scrollbar=yes, resizable=yes");
+	    popupWindow.focus();
+	}
 	</script>
 	
 	<script type="text/javascript">
