@@ -13,7 +13,7 @@
    <!-- 2) @어노테이션 자동으로 동작 -->
    <!-- 어노테이션 붙여주고, 패키지안에 들어있어야함 -->
    <annotation-driven />
-
+ 
    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
    <!-- 3) 이미지, css, js, 업로드 파일 위치 설정 -->
    <resources mapping="/resources/**" location="/resources/" />

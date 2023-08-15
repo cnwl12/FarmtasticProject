@@ -17,7 +17,7 @@
         <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
             <constructor-arg ref="hikariConfig"></constructor-arg>
         </bean>
-
+ 
         <!-- 디비연결 객체생성  -->
         <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
             <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
