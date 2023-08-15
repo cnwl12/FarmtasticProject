@@ -288,13 +288,14 @@ public class MemberService {
 		memberDAO.cancelInsert(cancel);
 	}
 
-	public void updateItemLeft(HashMap<String, Object> payInfo) {
-		memberDAO.updateItemLeft(payInfo);
+	public void updateItemLeft(Map<String, Object> orderDetail) {
+		memberDAO.updateItemLeft(orderDetail);
 	}
 
 	public void clearCart(int member_num) {
 		System.out.println("서비스");
 		memberDAO.clearCart(member_num);
 	}
+
 
 }

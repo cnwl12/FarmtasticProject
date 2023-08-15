@@ -644,6 +644,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    model.addAttribute("payInfo", payInfo);
 		    payInfo.put("member_num", member_num);
 		    
+		    System.out.println(payInfo + "item_num 담기는지 확인");
 		    // paySuccess 넘어오는 애들 자체가 pay가 완료해서 넘어오는거임
 		    // pay 먼저 insert ! (pay가 먼저 insert되어야지,  order-detail-cartdelete실행 
 			
@@ -657,7 +658,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    System.out.println("업데이트 들어갈 예정 :" + payInfo);
 		 //   payInfo.put("item_num", item_num);
 		    // 아이템 재고 줄이기
-		//	 memberService.updateItemLeft(payInfo);
+			//memberService.updateItemLeft(payInfo);
 		    
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
@@ -687,14 +688,20 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 주문완료 페이지 정보
 	@RequestMapping(value = "/orderSuccess", method = RequestMethod.GET)
 	public String orderSuccess(Model model, HttpSession session) {
-		
-		int member_num = (int)session.getAttribute("member_num");
+	    int member_num = (int) session.getAttribute("member_num");
 
 	    List<Map<String, Object>> orderPayList = memberService.getOrderPay(member_num);
-	    
+
 	    if (!orderPayList.isEmpty()) {
 	        Map<String, Object> orderPay = orderPayList.get(0);
 	        model.addAttribute("orderPay", orderPay);
+
+	        String orderNum = (String) orderPay.get("order_num");
+	        List<Map<String, Object>> orderDetailList = memberService.getOrderDetail(member_num, orderNum);
+
+	        for (Map<String, Object> orderDetail : orderDetailList) {
+	            memberService.updateItemLeft(orderDetail);
+	        }
 	    }
 	    return "/member/orderSuccess";
 	}

@@ -9,7 +9,6 @@ function generateOrderNum() {
   return year + month + day + randomNum;
 }
 
-
 function requestPay() {
 
 	var IMP = window.IMP;
@@ -19,6 +18,9 @@ function requestPay() {
     // buyer_postcode 값을 HTML에서 가져옵니다.
     const merchantUid = generateOrderNum();
     
+    const itemNumElement = document.getElementById("item_num");
+ 	const itemNum = itemNumElement.innerText;
+	
     const itemNameElement = document.getElementById("item_name");  
     const itemName = itemNameElement.innerText;
 
@@ -71,6 +73,7 @@ function requestPay() {
         	param += "&order_post=" + buyerPostcode;
         	param += "&order_phone=" + buyerTel;
         	param += "&order_msg=" + orderMsg;
+        	// param += "&item_num=" + itemNum;
         	location.href = param;
         	alert("결제가 완료되었습니다.");
     	} else {
