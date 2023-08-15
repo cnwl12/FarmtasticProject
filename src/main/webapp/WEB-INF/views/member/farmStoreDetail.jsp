@@ -840,12 +840,6 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 	// ------------------------------------------------
 	
 	$(document).ready(function() {
-		  // 찜 페이지용 스크립트
-		  // 기존 코드 유지
-
-		  // 문의 페이지용 스크립트
-
-		  // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
 		  var totalInquiryItems = ${oneBoardList.size()};
 		  var inquiryItemsPerPage = 10;
 

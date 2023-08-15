@@ -898,6 +898,16 @@ function generatePopupContent(orderNum) {
 
 
    <script type="text/javascript">
+   
+   document.getElementById('selectAllCheckbox').addEventListener('click', function() {
+	   const allCheckboxes = document.querySelectorAll('.checkbox');
+	   const isChecked = this.checked;
+
+	   for (let checkbox of allCheckboxes) {
+	     checkbox.checked = isChecked;
+	   }
+	 });
+
 document.addEventListener("DOMContentLoaded", function () { 
    const stars = document.querySelectorAll(".star"); 
 
