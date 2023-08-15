@@ -122,8 +122,8 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                     <div class="breadcrumb__text">
                         <h2>FarmFarm Market</h2>
                         <div class="breadcrumb__option">
-                            <a href="index">Home</a>
-                            <a href="index">Vegetables</a>
+                            <a href="main">Home</a>
+                            <a href="main">Vegetables</a>
                             <span>맛있는 채소</span>
                         </div>
                     </div>
@@ -143,16 +143,11 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
                             <img class="product__details__pic__item--large"
                                 src="${item.item_mainImg}" alt="">
                         </div>
-                        <div class="product__details__pic__slider owl-carousel">
+                        <!-- 사진 하드코딩  -->
+                        <%-- <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-2.jpg"
                                 src="${pageContext.request.contextPath}/resources/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-3.jpg"
-                                src="${pageContext.request.contextPath}/resources/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-5.jpg"
-                                src="${pageContext.request.contextPath}/resources/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-4.jpg"
-                                src="${pageContext.request.contextPath}/resources/img/product/details/thumb-4.jpg" alt="">
-                        </div>
+                        </div> --%>
                     </div>
                 </div>
                 							<!-- class 추가 / 임의로 데이터 item_num 생성 / 모델에 담긴 값  -->
@@ -193,18 +188,18 @@ function insertCart(){	// 이동변경여부는 추후 작업할것임 (ajax)
 
                         
                         <ul>
-                            <%-- <li><b>Seller</b> <span>${item.seller_type}</span></li> --%>
+                            <li><b>Seller</b> <span>${item.seller_storeName}</span></li>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Weight</b> <span>0.5 kg</span></li>
-                            <li><b>Share on</b>
+                            <!-- <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
                                     <a href="#"><i class="fa fa-instagram"></i></a>
                                     <a href="#"><i class="fa fa-pinterest"></i></a>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                         
                         

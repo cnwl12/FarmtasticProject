@@ -109,8 +109,7 @@
 												<td>  					
 												<a href="itemUpdate?item_num=${item.item_num}">${item.item_name}</a></td> 
 												<td>${item.item_price}</td>
-												<td><img src="${item.item_mainImg}"
-													style="width: 200px; height: 100px"></td>
+												<td><a href="farmStoreDetail?item_num=${item.item_num}"><img src="${item.item_mainImg}" style="width: 200px; height: 100px"></a></td>
 												<td>${item.item_detail}</td>
 												<td>${item.item_left}</td>
 												<td>

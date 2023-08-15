@@ -285,7 +285,7 @@
 
                <!-- 주문관리 토글 끝  -->	
 			
-			<div id="menu3_cont" style="width: 780px; margin-left: -80px;">
+			<div id="menu3_cont" style="width: 780px; margin-left: 25%;">
 			<h4>나의 리뷰</h4>
 			<button class="site-btn" id="edit-review-button" >수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>
@@ -894,7 +894,118 @@ function generatePopupContent(orderNum) {
 
    <!-- 주문취소 끝 -->
 
-
+<script> 
+$(document).ready(function () { 
+	let allReviews = []; 
+	let currentPage = 1; 
+	const perPage = 2; 
+	
+	function getItemMyReview(pageNumber) { 
+		var member_num = '<%= request.getSession().getAttribute("member_num") %>';
+		if (member_num) { 
+			$.ajax({ type: "GET", url: "${pageContext.request.contextPath}/getItemMyReview",
+				data: { member_num: member_num, page: pageNumber }, dataType: "json", 
+				success: function (myreview) { 
+					allReviews = myreview.sort((a, b) => { 
+						if (parseInt(b.review_day) === parseInt(a.review_day)) { 
+							return b.review_num - a.review_num;
+							} else { 
+								return parseInt(b.review_day) - parseInt(a.review_day); } });
+					if (myreview.length === 0) { 
+						$("#getItemMyReview tbody").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>"); 
+						} else { 
+							var startIndex = (currentPage - 1) * perPage; 
+							var endIndex = startIndex + perPage; 
+							var currentReviews = allReviews.slice(startIndex, endIndex);
+							displayReviews(currentReviews);
+						} // 페이지네이션 업데이트 
+							updatePagination(); 
+						}, error: function () { 
+							alert("리뷰를 가져오는 데 실패하였습니다. 페이지를 새로 고치거나 나중에 다시 시도해 주십시오.");
+							}
+						});
+			} else { 
+				alert('로그인이 필요합니다.');
+				}
+		}
+	
+	function displayReviews(reviews) { 
+		var rows = "";
+		for (var i = 0; i < reviews.length; i++) { 
+			var review = reviews[i]; 
+			rows += "<tr>" + "<td><input type='checkbox' data-member_num='" + review.member_num + "'data-review_num='"+ review.review_num +"' class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
+							"<td class='review-star'>" + review.review_star + "</td>" + 
+							"<td>" + review.item_name + "</td>" + 
+							"<td>" + review.review_title + "</td>" + 
+							"<td>" + review.review_content + "</td>" + 
+							"<td class='review-date' data-timestamp='" + review.review_day + "'></td>" + 
+							"<td>" + review.review_img + "</td>" + 
+							"</tr>"; 
+							} 
+			$("#getItemMyReview tbody").html(rows);
+		
+		// 별점을 ★로 변경 
+		let reviewStars = document.querySelectorAll('.review-star'); 
+		reviewStars.forEach(function (starElement) { 
+			let starCount = parseInt(starElement.textContent, 10); 
+			let stars = ''; 
+			for (let i = 1; i <= starCount; i++) { 
+				stars += '★';
+				}
+			starElement.textContent = stars;
+			});
+		// 작성일을 YYYY-MM-DD 형식으로 변경 
+		let reviewDates = document.querySelectorAll('.review-date'); 
+		reviewDates.forEach(function (dateElement) { 
+			let timestamp = parseInt(dateElement.getAttribute('data-timestamp').trim(), 10); 
+			// 만약 timestamp가 NaN이라면, 값이 정상적으로 파싱되지 않은 것입니다.
+			if (isNaN(timestamp)) { 
+				console.error('Invalid timestamp value:', dateElement.getAttribute('data-timestamp'));
+				return;
+			} 
+			let date = moment(timestamp).format('YYYY-MM-DD');
+			// moment.js를 사용해 날짜를 변환합니다. 
+			// 포맷된 날짜를 표시합니다. 
+			dateElement.textContent = date; 
+		}); 
+	
+	} 
+	function updatePagination() { 
+		var totalPages = Math.ceil(allReviews.length / perPage); 
+		document.querySelector(".prev-page1").onclick = function () { 
+			if (currentPage > 1) { 
+				currentPage--; getItemMyReview(currentPage);
+			} 
+		};
+			document.querySelector(".next-page1").onclick = function () {
+				if (currentPage < totalPages) { 
+					currentPage++; getItemMyReview(currentPage);
+				}
+			};
+				var pageNumbers = document.querySelector(".page-numbers1");
+				pageNumbers.innerHTML = ""; 
+				// 수정된 반복문은 현재 페이지 번호와 totalpages를 비교하여 추가합니다.
+				for (var i = 1; i <= totalPages; i++) { 
+					var pageNumber = document.createElement("span"); 
+					pageNumber.className = "page-number"; 
+					pageNumber.textContent = i; 
+					pageNumber.onclick = (function (i) { 
+						return 
+						function () { 
+							currentPage = i; 
+							getItemMyReview(currentPage); 
+						}; 
+					})(i); 
+					if (i === currentPage) { 
+						pageNumber.classList.add("active"); 
+						} 
+					pageNumbers.appendChild(pageNumber); 
+				} 
+			} 
+		// 페이지 로딩 시 getItemMyReview 함수를 호출하여 리뷰를 표시합니다.
+		getItemMyReview(currentPage); 
+	});
+</script>
 
 
    <script type="text/javascript">

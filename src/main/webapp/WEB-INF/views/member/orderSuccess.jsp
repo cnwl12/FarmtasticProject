@@ -116,7 +116,7 @@
 		</div>
 	</section>
 	<div>
-		<input type="button" onclick="location.href='index'" value="메인으로">
+		<input type="button" onclick="location.href='main'" value="메인으로">
 	</div>
 
 

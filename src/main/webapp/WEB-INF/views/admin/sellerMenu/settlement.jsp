@@ -58,7 +58,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
-                         <form action="${pageContext.request.contextPath}/updateSettlementYn" method="post" id="settlementForm">
+                         <form action="updateSettlementYn" method="post" id="settlementForm">
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit">정산하기</button>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -74,6 +74,7 @@
                                             <th>수수료</th>
                                             <th>정산액</th>
                                             <th>정산여부</th>
+                                            <th>정산일</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -87,7 +88,7 @@
                                             <th>수수료</th>
                                             <th>정산액</th>
                                             <th>정산여부</th>
-                                            
+                                            <th>정산일</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -101,7 +102,8 @@
                                             <td>${sale.total_revenue}</td>
                                             <td>${sale.fee}</td>
                                             <td>${sale.settlement_amount}</td>
-                                            <td>${sale.settlement_yn}</td>
+                                            <td>${sale.settlementComplete}</td>
+                                            <td>${sale.settlementComplete_day}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
@@ -156,34 +158,47 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	<script>
-document.getElementById("settlementForm").addEventListener("submit", function(event) {
-    const checkboxes = document.getElementsByClassName("saleCheckbox");
-    let sellerNums = [];
-    let orderMonths = [];
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            sellerNums.push(checkboxes[i].dataset.sellerNum);
-            orderMonths.push(checkboxes[i].dataset.orderMonth);
-        }
-    }
-    if (sellerNums.length === 0) {
-        event.preventDefault();
-        alert("적어도 하나의 업체를 선택해주세요!");
-    } else {
-        const sellerNumInput = document.createElement("input");
-        sellerNumInput.type = "hidden";
-        sellerNumInput.name = "sellerNum";
-        sellerNumInput.value = sellerNums.join(",");
-        event.target.appendChild(sellerNumInput);
+$(document).ready(function() {
+    document.getElementById("settlementForm").addEventListener("submit", function(event) {
+        const checkboxes = document.getElementsByClassName("saleCheckbox");
+        let sellerNums = [];
+        let orderMonths = [];
+        let alreadySettled = false;
 
-        const orderMonthInput = document.createElement("input");
-        orderMonthInput.type = "hidden";
-        orderMonthInput.name = "orderMonth";
-        orderMonthInput.value = orderMonths.join(",");
-        event.target.appendChild(orderMonthInput);
-    }
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                let settlementComplete = checkboxes[i].parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent.trim();
+                if (settlementComplete === 'Y') {
+                    alreadySettled = true;
+                    break;
+                }
+                sellerNums.push(checkboxes[i].dataset.sellerNum);
+                orderMonths.push(checkboxes[i].dataset.orderMonth);
+            }
+        }
+        if (alreadySettled) {
+            event.preventDefault();
+            alert("이미 정산된 내역입니다!");
+        } else if (sellerNums.length === 0) {
+            event.preventDefault();
+            alert("적어도 하나의 업체를 선택해주세요!");
+        } else {
+            const sellerNumInput = document.createElement("input");
+            sellerNumInput.type = "hidden";
+            sellerNumInput.name = "sellerNum";
+            sellerNumInput.value = sellerNums.join(",");
+            event.target.appendChild(sellerNumInput);
+
+            const orderMonthInput = document.createElement("input");
+            orderMonthInput.type = "hidden";
+            orderMonthInput.name = "orderMonth";
+            orderMonthInput.value = orderMonths.join(",");
+            event.target.appendChild(orderMonthInput);
+        }
+    });
 });
 </script>
+
 </body>
 
 </html>

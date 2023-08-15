@@ -39,7 +39,7 @@
                     <div class="breadcrumb__text">
                         <h2>PaySuccess</h2> 
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="main">Home</a>
                             <span>PaySuccess</span> 
                         </div>
                     </div>

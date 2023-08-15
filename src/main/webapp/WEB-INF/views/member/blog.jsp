@@ -41,9 +41,9 @@
                     <div class="breadcrumb__text">
                         <h2>제철팜</h2> 
                         <div class="breadcrumb__option">
-                            <!-- <a href="./index.html">Home</a>
+                            <!-- <a href="./main.html">Home</a>
                             <span>제철팜</span> 
-                            <a href="index">Home</a>
+                            <a href="main">Home</a>
                             <span>Blog</span>  -->
                         </div>
                     </div>

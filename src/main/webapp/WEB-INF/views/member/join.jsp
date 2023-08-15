@@ -287,7 +287,7 @@ input#post {
     $(document).ready(function() {
       // 처음으로 버튼 이벤트 핸들러
       $("#goMain").on("click", function() {
-        location.href = 'index';
+        location.href = 'main';
       });
 		
       // 유효성 검사 이벤트 핸들러를 각 입력란에 추가

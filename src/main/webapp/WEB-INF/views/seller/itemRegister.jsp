@@ -6,34 +6,24 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
 <title>seller/itemRegister</title>
 
 <!-- Custom fonts for this template -->
-<link
-	href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this page -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
 
 <!-- Custom styles for this template -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
 
 <!-- 사이드바 줄어든거 되돌리기 -->
 <style type="text/css">
@@ -50,11 +40,8 @@ body {
 
 <body id="page-top">
 
-	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<jsp:include page="./inc/sidemenu.jsp"></jsp:include>
-
-		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 
 			<!-- 메인 컨텐츠 시작 -->
@@ -96,7 +83,6 @@ body {
 												<option value="SW">고구마</option>
 												<option value="ON">양파</option>
 												<option value="CA">당근</option>
-												<option value="CB">양배추</option>
 												<option value="MU">버섯</option>
 											</select>
 										</div>
