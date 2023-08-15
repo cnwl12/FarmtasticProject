@@ -711,6 +711,19 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "redirect:/shoppingCart";
 	}
+	
+	@RequestMapping(value = "/clearCart", method = RequestMethod.GET)
+	public String clearCart(HttpSession session) {
+
+		int member_num = (int)session.getAttribute("member_num");
+		session.setAttribute("member_num", member_num);
+		System.out.println(member_num);
+
+		System.out.println("clearCart 컨트롤러 오는지");
+		memberService.clearCart(member_num);
+
+		return "redirect:/shoppingCart";
+	}
 
 	// -------------------------------------------------------
 

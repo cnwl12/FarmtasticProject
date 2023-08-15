@@ -301,4 +301,9 @@ public class MemberDAO {
 	public void updateItemLeft(HashMap<String, Object> payInfo) {
 		sqlSession.update(namespace+".updateItemLeft", payInfo);
 	}
+
+
+	public void clearCart(int member_num) {
+		sqlSession.delete(namespace+".deleteAllCart", member_num);
+	}
 }
