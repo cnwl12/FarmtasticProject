@@ -497,7 +497,7 @@
 	WHERE ob.member_num = #{member_num}
 	</select>
 	
-	<select id="findByItemNum" resultMap="oneBoardResultMap">
+	<select id="findByOneBoardNum" resultMap="oneBoardResultMap">
     SELECT  one_board_type
     		, one_board_title
     		, one_board_content
