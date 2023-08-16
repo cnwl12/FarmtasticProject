@@ -378,7 +378,7 @@
      LIMIT 1;
    </select>
        
-      <!--월별 판매량 가져오기  -->
+      <!--월별 판매량(정산) 가져오기  -->
     <select id="getSales" resultType="map">
  	WITH sales_info AS (
                 SELECT i.seller_num,
@@ -472,28 +472,29 @@
    
    
    
-   
-   <!--  
-   	 SELECT s.seller_num, s.seller_storeName, s.seller_name,
-	 DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
-	 DATE_FORMAT(st.order_day, '%Y-%m-%d') as order_day,
-     FORMAT(o.order_pay, 0) as revenue,
-     FORMAT(floor((o.order_pay) * 0.05), 0) as fee,
-     FORMAT((o.order_pay) - floor((o.order_pay) * 0.05), 0) as income
-     FROM settlement st
-	 LEFT JOIN seller s ON s.seller_num = st.seller_num
-	 LEFT JOIN item i ON s.seller_num = i.seller_num
-	 LEFT JOIN orders o on o.order_day = st.order_day
-     WHERE s.seller_num != 'admin'
-     AND s.seller_num = #{sellerNum}
-	 AND DATE_FORMAT(st.order_day, '%Y-%m') = #{orderMonth} 
-     GROUP BY s.seller_num, s.seller_id, s.seller_name, st.order_day,order_pay
-     ORDER BY st.order_day;
-     -->
+
    </select>
    
    <!--판매자별 연간판매량전체-->
    <select id="yearSales" resultType="map" parameterType="map">
+   SELECT s.seller_num, 
+       s.seller_storeName,
+       s.seller_name,
+       MONTH(os.order_day) as order_month,
+       FORMAT(SUM(it.item_price * od.item_cnt), 0) AS  yearly_revenue,
+       FORMAT(SUM(floor(it.item_price * od.item_cnt) * 0.05), 0) as yearly_fee,
+       FORMAT(SUM((it.item_price * od.item_cnt) - floor((it.item_price * od.item_cnt) * 0.05)), 0) AS yearly_income
+FROM order_detail od
+LEFT JOIN item it ON od.item_num = it.item_num
+LEFT JOIN seller s ON it.seller_num = s.seller_num
+LEFT JOIN orders os ON od.order_num = os.order_num
+WHERE od.item_num IN (SELECT item_num
+                      FROM item
+                      WHERE seller_num = #{sellerNum})
+      AND os.order_cancel = 'N'
+GROUP BY s.seller_num, s.seller_storeName, s.seller_name,  MONTH(os.order_day)
+ORDER BY MONTH(os.order_day); 
+<!-- 
       SELECT st.seller_num, s.seller_name,
 	  DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
 	  FORMAT(SUM(o.order_pay), 0) AS revenue,
@@ -507,6 +508,7 @@
 	  AND s.seller_num = #{sellerNum}
 	  GROUP BY s.seller_num, s.seller_name, order_month
 	  ORDER BY order_month;
+    -->
    </select>
    
    	<!-- 판매자 회원가입 -->
