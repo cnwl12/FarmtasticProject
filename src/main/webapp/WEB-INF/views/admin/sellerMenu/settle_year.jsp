@@ -75,16 +75,6 @@
                                             <th>정산액</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>코드</th>
-                                            <th>대표자</th>
-                                            <th>매출월</th>
-                                            <th>매출액</th>
-                                            <th>수수료</th>
-                                            <th>정산액</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>

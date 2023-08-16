@@ -70,15 +70,7 @@
                                         
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                           <th class="sorting sorting_desc">작성번호</th>
-                                            <th>작성자</th>
-                                            <th>제목</th>
-                                            <th>작성날짜</th>
-                                            
-                                        </tr>
-                                    </tfoot>
+                                
                                     <tbody>
                                       <c:forEach items="${notice}" var="list">
                                         <tr>

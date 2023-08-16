@@ -85,19 +85,6 @@
                                             <th>매출일</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr style="background-color: #edf1f5;">
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-											<th>주문번호</th>
-                                            <th>상품번호</th>
-                                            <th>정산액</th>
-                                            <th>수수료</th>
-                                            <th>매출액(일)</th>
-                                            <th>매출일</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                      <c:forEach items="${DailySalesList}" var="list">
     									<input type="hidden" value="${list.seller_num}">
