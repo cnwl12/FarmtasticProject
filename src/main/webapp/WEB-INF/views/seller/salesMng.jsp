@@ -65,20 +65,24 @@
 					<div class="panel panel-dashboard panel-stats">
 						<div class="panel-body">
 							<div class="text-center">
-								<div data-toggle="buttons" class="btn-group btn-group-customize">
+								<div data-toggle="buttons" class="btn-group btn-group-customize chartList">
 <!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay"> -->
 <!-- 										<input type="radio">이번달 일자별 매출 -->
 <!-- 									</label> -->
 <!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer"> -->
 <!-- 										<input type="radio">최근 12개월 매출 -->
 <!-- 									</label>  -->
-<!-- 									<label class="btn btn-default active" ng-class="{active: vm.currentChartIndex === 2}" ng-click="vm.showChart(2)" data-nclicks-code="sales.price"> -->
-<!-- 										<input type="radio">미정 -->
-<!-- 									</label> -->
-									<ul class="chartList">
-				                        <li id="chart1" class="on"><a href="mypage" class="toggle-chart" data-target="dailyChart">이번달 일자별 매출</a></li>
-				                        <li id="chart2" class="on"><a href="#" class="toggle-chart" data-target="monthlyChart">최근 12개월 매출</a></li>
-			                        </ul>
+									<label id="chart1" class="on">
+										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">이번달 일자별 매출</button>
+									</label>
+									<label id="chart1" class="on">
+										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="monthlyChart">최근 12개월 매출</button>
+									</label> 
+									
+<!-- 									<ul class="chartList"> -->
+<!-- 				                        <li id="chart1" class="on"><a href="#" class="toggle-chart" data-target="dailyChart">이번달 일자별 매출</a></li> -->
+<!-- 				                        <li id="chart2" class="on"><a href="#" class="toggle-chart" data-target="monthlyChart">최근 12개월 매출</a></li> -->
+<!-- 			                        </ul> -->
 								</div>
 							</div>
 						</div>
@@ -206,7 +210,7 @@
 					  });
 					
 					  // 매출 데이터를 가져오는 함수
-					  function ajaxDailySales() {
+					  function ajaxMonthlySales() {
 					    $.ajax({
 					      url: '${pageContext.request.contextPath}/chartMonthlySales',
 					      type: 'get',
