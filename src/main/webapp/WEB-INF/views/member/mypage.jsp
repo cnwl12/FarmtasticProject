@@ -284,8 +284,18 @@
                                  </c:choose></td>
                               <td><a href="parcel"><input type="button"
                                     value="배송조회"></a></td>
-                              <td><input type="button" class="orderCancelButton"
-                                 data-order="${order.order_num}" value="주문취소"></td>
+                              <td>
+                              <c:choose>
+                              <c:when test="${order.order_cancel eq 'Y'}">
+                              <input type="button" class="cancelList"
+                                 data-order="${order.order_num}" value="취소확인">
+                                 </c:when>
+                                   <c:otherwise>
+                                       <input type="button" class="orderCancelButton"
+                                		 data-order="${order.order_num}" value="주문취소">
+                                   </c:otherwise>
+                                 </c:choose>
+                                 </td>
                            </tr>
                         </c:forEach>
                      </tbody>
@@ -864,6 +874,7 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.success) {
                         alert("주문이 취소되었습니다.");
+                        location.reload();
                     } else {
                         alert("주문 취소가 취소되었습니다.");
                     }
@@ -904,8 +915,11 @@ function generatePopupContent(orderNum) {
         <button onclick="window.close()">닫기</button>
     </body>
     </html>`;
+	}
+// ---------------(취소된 내역)
 
-}
+
+
 </script>
 
    <!-- 주문취소 끝 -->
