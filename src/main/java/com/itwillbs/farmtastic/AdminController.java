@@ -675,7 +675,7 @@ public class AdminController {
 //			return gson.toJson(map);
 //		}
 	
-	// 제철팜관리 화면
+	// 제철팜 관리자 화면
 	@RequestMapping(value = "/blogMng", method = RequestMethod.GET)
 	public String blogMng(Locale locale, Model model, HttpSession session) {
 		
@@ -693,14 +693,13 @@ public class AdminController {
 	            model.addAttribute("admin_id", admin_id);
 	            model.addAttribute("admin", adminInfo);
 	            // 제철팜 글목록 가져오기
-	            List<Map<String, Object>> blogList = adminService.getBlog();
+	            List<Map<String, Object>> blogList = adminService.getBlogMng();
 	   		 	model.addAttribute("blogList", blogList);
 	           
-	            
 	            return "/admin/customerMenu/blogMng";
 	        }
 		
-	}
+	}	
 	
 	// 제철팜 글쓰기 화면
 	@RequestMapping(value = "/blogWrite", method = RequestMethod.GET)

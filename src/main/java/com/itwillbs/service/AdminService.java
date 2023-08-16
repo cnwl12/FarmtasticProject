@@ -61,10 +61,23 @@ public class AdminService {
         adminDAO.deleteContent(admin_cs_num);
     }
  
-    // 제철팜 글목록 가져오기
-	public List<Map<String, Object>> getBlog() {
+    // 제철팜 소비자 화면
+	public List<Map<String, Object>> getBlog(Map<String, Integer> bMap) {
 		System.out.println("AdminService getBlog 매핑완");
-        return adminDAO.getBlog();
+		//시작하는 행번호 구하기
+		int startRow = (bMap.get("currentPage")-1)*bMap.get("pageSize")+1;
+		//끝나는 행번호 구하기
+		int endRow = startRow + (bMap.get("pageSize") -1);
+		System.out.println("startRow는 몇번인가요? : " + startRow);
+        bMap.put("startRow", startRow - 1);
+        bMap.put("endRow", endRow);
+        return adminDAO.getBlog(bMap);
+	}
+
+    // 제철팜 관리자 화면
+	public List<Map<String, Object>> getBlogMng() {
+		System.out.println("AdminService getBlogMng 매핑완");
+        return adminDAO.getBlogMng();
 	}
 	
 	// 제철팜 글내용 가져오기
@@ -95,5 +108,11 @@ public class AdminService {
 	public List<Map<String, Object>> getAllPosts() {
 	    System.out.println("AdminService getAllPosts 매핑완");
 	    return adminDAO.getAllPosts();
+	}
+	
+	// 제철팜 페이징 처리
+	public int getBlogCount() {
+		System.out.println("AdminService getBlogCount 매핑완");
+		return adminDAO.getBlogCount();
 	}
 }

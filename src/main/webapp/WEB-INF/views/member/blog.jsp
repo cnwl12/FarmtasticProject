@@ -103,10 +103,22 @@
                         
                         <div class="col-lg-12">
                             <div class="product__pagination blog__pagination">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+<!--                                 <a href="#">1</a> -->
+<!--                                 <a href="#">2</a> -->
+<!--                                 <a href="#">3</a> -->
+<!--                                 <a href="#"><i class="fa fa-long-arrow-right"></i></a> -->
+                                
+								<c:if test="${bMap['startPage'] > bMap['pageBlock']}">
+        							<a href="${pageContext.request.contextPath}/blog?pageNum=${bMap['startPage'] - bMap['pageBlock']}">이전</a>
+								</c:if>
+								
+								<c:forEach var="i" begin="${bMap['startPage']}" end="${bMap['endPage']}" step="1">
+									<a href="${pageContext.request.contextPath}/blog?pageNum=${i}">${i}</a>
+								</c:forEach>
+								
+								<c:if test="${bMap['endPage'] < bMap['pageCount']}">
+								    <a href="${pageContext.request.contextPath}/blog?pageNum=${bMap['startPage'] + bMap['pageBlock']}">다음</a>
+								</c:if>
                             </div>
                         </div>
                         

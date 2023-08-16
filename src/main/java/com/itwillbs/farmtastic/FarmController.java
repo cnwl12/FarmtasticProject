@@ -82,14 +82,46 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/blog", method = RequestMethod.GET)
-	public String blog(Locale locale, Model model) {
+	public String blog(Locale locale, Model model, HttpServletRequest request) {
 
 		System.out.println("blog 매핑확인여부");
 		
-		List<Map<String, Object>> bContent = adminService.getBlog();
+		// 한 페이지에 보여줄 글 개수 설정
+		int pageSize = 2;
+		// 페이지 번호
+		String spageNum = request.getParameter("pageNum");
+		// 페이지 번호가 없을때 1로 설정
+		if(spageNum == null) {
+			spageNum = "1";
+		}
+		int pageNum = Integer.parseInt(spageNum);
+		int currentPage = Integer.parseInt(spageNum);
+		// 전체 글 개수 구하기
+		int count = adminService.getBlogCount();
+		// 페이징 처리
+		int pageBlock = 5; // 화면에 보일 페이지의 수
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
+		int endPage = startPage + pageBlock-1;
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		if(endPage > pageCount){
+			endPage = pageCount; 
+		}
+		Map<String, Integer> bMap = new HashMap<String, Integer>();
+		bMap.put("pageSize", pageSize);
+		bMap.put("pageNum", pageNum);
+		bMap.put("currentPage", currentPage);
+		bMap.put("count", count);
+		bMap.put("pageBlock", pageBlock);
+		bMap.put("startPage", startPage);
+		bMap.put("endPage", endPage);
+		bMap.put("pageCount", pageCount);
+		
+		List<Map<String, Object>> bContent = adminService.getBlog(bMap);
 		model.addAttribute("bContent", bContent);
+		model.addAttribute("bMap", bMap);
 		System.out.println("제철팜 메인에 컨텐츠 : " + bContent);
 		
+		System.out.println("bMap오나요? : " + bMap);
 		return "/member/blog";
 	}
 

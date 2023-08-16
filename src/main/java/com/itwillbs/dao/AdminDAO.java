@@ -68,10 +68,16 @@ public class AdminDAO {
 		    sqlSession.delete(NAMESPACE+"deleteContent", admin_cs_num);
 	 }
 	 
-	// 제철팜 글목록 가져오기
-	public List<Map<String, Object>> getBlog() {
+	// 제철팜 소비자 화면
+	public List<Map<String, Object>> getBlog(Map<String, Integer> bMap) {
 		System.out.println("AdminDAO getBlog 매핑완");
-		return sqlSession.selectList(NAMESPACE + "getBlog");
+		return sqlSession.selectList(NAMESPACE + "getBlog", bMap);
+	}
+	
+    // 제철팜 관리자 화면
+	public List<Map<String, Object>> getBlogMng() {
+		System.out.println("AdminService getBlogMng 매핑완");
+        return sqlSession.selectList(NAMESPACE + "getBlogMng");
 	}
 	
 	// 제철팜 글내용 가져오기
@@ -110,5 +116,11 @@ public class AdminDAO {
 	public List<Map<String, Object>> getAllPosts() {
 	    System.out.println("AdminDAO getAllPosts 매핑완");
 	    return sqlSession.selectList(NAMESPACE + "getAllPosts");
+	}
+	
+	// 제철팜 페이징 처리
+	public int getBlogCount() {
+		System.out.println("AdminDAO getBlogCount 매핑완");
+		return sqlSession.selectOne(NAMESPACE + "getBlogCount");
 	}
 }

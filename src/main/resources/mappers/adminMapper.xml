@@ -45,6 +45,7 @@
     	  #{admin_cs_file}
   		  )
   	</insert>
+  	
    	<update id="updateContent" parameterType="Map">
     UPDATE admin_csnotice
     SET admin_csnotice_sub=#{admin_csnotice_sub}, 
@@ -56,8 +57,16 @@
   	DELETE FROM admin_csnotice WHERE admin_cs_num = #{admin_cs_num}
 	</delete>
 	
-	<!-- 제철팜 글목록 가져오기 -->
+	<!-- 제철팜 소비자 화면 -->
 	<select id="getBlog" resultType="map">
+    	SELECT * 
+    	FROM admin_blog
+    	ORDER BY admin_blog_num DESC
+    	LIMIT #{startRow}, #{pageSize}  
+    </select>
+    
+    <!-- 제철팜 관리자 화면 -->
+	<select id="getBlogMng" resultType="map">
     	SELECT * 
     	FROM admin_blog
     	ORDER BY admin_blog_num DESC;  
@@ -110,5 +119,11 @@
 	    FROM admin_blog
 	    ORDER BY admin_blog_num ASC;
 	</select>
-	
+
+	<!-- 제철팜 페이징 처리 -->
+	<select id="getBlogCount" resultType="java.lang.Integer">
+  		SELECT count(*) 
+  		FROM admin_blog
+  	</select>
+  	
 </mapper>
