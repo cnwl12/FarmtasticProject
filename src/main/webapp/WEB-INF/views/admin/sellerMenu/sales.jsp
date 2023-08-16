@@ -63,7 +63,8 @@
                             <div>
                             
     						<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
-    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 6, 7)}월</label>
+    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 0, 4)}-${fn:substring(currentMonth, 5, 7)}</label>
+
    			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
    			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
 							
@@ -200,8 +201,9 @@ $(document).ready(function () {
             });
         
             $("#hidden_month").val(monthly);
+            var updatedYear = parseInt(monthly.substr(0, 4));
             var updatedMonth = parseInt(monthly.substr(5, 2));
-            $("#current_month_label").text(updatedMonth + "월");
+            $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
         });
         // dataTable2에 대한 업데이트
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
