@@ -73,10 +73,14 @@ public class SellerService {
 			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
-		// 선진) 매출관리 - 일자별 매출 리스트
-		public List<Map<String,Object>> getDailySalesList(String seller_num) {
+		// 선진) 매출관리 - 검색바
+		public List<Map<String,Object>> getDailySalesList(String seller_num, Date startDate, Date endDate) {
 			System.out.println("SellerService의 getDailySalesList 매핑완");
-			return sellerDAO.getDailySalesList(seller_num);
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("startDate", startDate);
+		    params.put("endDate", endDate);
+			return sellerDAO.getDailySalesList(params);
 		}
 		
 		// 선진) 정산관리

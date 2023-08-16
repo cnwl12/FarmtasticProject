@@ -154,10 +154,10 @@
 																							WHERE seller_num = #{seller_num} AND os.order_cancel = 'N')) q2 ON q1.order_mm = q2.order_mm																																					
 	ORDER BY q1.order_mm; 
    </select>
-   
-   <!-- 선진) 매출관리 일별 매출 리스트 -->
+
+   <!-- 선진) 매출관리 - 검색바 -->
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-   <select id="getDailySalesList" resultType="map">
+   <select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
      SELECT	od.order_num,
      		s.seller_num, 
      		s.seller_storeName,
@@ -183,6 +183,7 @@
 							from	item
 							where	seller_num = #{seller_num})
 						AND os.order_cancel = 'N'
+						AND os.order_day BETWEEN #{startDate} AND #{endDate}
 	ORDER BY os.order_day;
    </select>
 
