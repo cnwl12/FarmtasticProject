@@ -1,33 +1,30 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>카카오 로그인 페이지</title>
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script type="text/javascript">
-        // SDK 초기화
+    <script>
         Kakao.init('fa74773a794ad7a254e291d7cbf8fd00');
 
-        //카카오 로그인 페이지 띄우기 함수
-        function openKakaoLoginForm() {
+        
+        window.onload = function() {
             Kakao.Auth.login({
                 success: function(authObj) {
-                    // 로그인 성공, authObj에 access_token, refresh_token 등이 담겨있습니다.
-                    location.href = "http://localhost:8080/farmtastic/kakaocallback?access_token=" + authObj.access_token;
+                    // 로그인에 성공하면, authObj.access_token이 발급됩니다.
+                    location.href = "<%= request.getContextPath() %>/kakaocallback?access_token=" + authObj.access_token;
                 },
                 fail: function(err) {
-                    // 로그인 실패, 에러메시지 alert로 출력
-                    alert(JSON.stringify(err));
+                    alert('카카오 로그인에 실패하였습니다.');
                 }
             });
         }
-
-        openKakaoLoginForm(); //페이지 로딩 시 카카오 로그인 페이지 열기
     </script>
 </head>
 <body>
-
+   
 </body>
 </html>

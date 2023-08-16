@@ -68,6 +68,8 @@
 		FROM cart c
 		JOIN orders o 
 		ON c.member_num = o.member_num
+		JOIN item i
+		ON c.item_num = i.item_num
 		WHERE c.member_num = #{member_num};
 	</insert>	
   	  	  	
@@ -298,6 +300,14 @@
 	SET order_cancel = 'Y'
 	WHERE order_num = #{order_num}
 	</update>
+	
+	<select id="getCancelList" resultType="map">
+	SELECT cancel_type, cancel_reason, cancel_request
+	FROM cancel
+	WHERE order_num = #{order_num};
+	</select>
+	
+	
 	
 	<!-- 취소 테이블에 인서트 -->
 	<insert id="cancelInsert">

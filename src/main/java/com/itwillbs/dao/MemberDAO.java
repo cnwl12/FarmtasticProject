@@ -300,10 +300,8 @@ public class MemberDAO {
 	}
 
 	public void cancelOrder(HashMap<String, Object> cancel) {
-		System.out.println("취소다오");
 		sqlSession.update(namespace + ".cancelOrder", cancel);
 	}
-
 
 	public void cancelInsert(HashMap<String, Object> cancel) {
 		sqlSession.insert(namespace + ".cancelInsert", cancel);
@@ -315,5 +313,17 @@ public class MemberDAO {
 
 	public void clearCart(int member_num) {
 		sqlSession.delete(namespace+".deleteAllCart", member_num);
+	}
+
+	public List<Map<String, Object>> getCancelList(int member_num) {
+		return sqlSession.selectList(namespace+".getCancelList", member_num);
+	}
+
+	public void cancelUpdate(HashMap<String, Object> cancel) {
+		sqlSession.update(namespace + ".cancelOrder", cancel);
+	}
+
+	public void cancelDelete(HashMap<String, Object> cancel) {
+		sqlSession.delete(namespace + ".cancelDelete", cancel);
 	}
 }

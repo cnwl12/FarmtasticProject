@@ -382,6 +382,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		// 주문관리 - 지원
 		List<Map<String, Object>> orderList = memberService.getOrderList(member_num);
 		model.addAttribute("orderList", orderList);
+		List<Map<String, Object>> cancelList = memberService.getCancelList(member_num);
+		model.addAttribute("cancelList", cancelList);
 		
 		return "/member/mypage";
 	}
@@ -410,6 +412,25 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		return "/member/mypage";
 	}
+	
+	@RequestMapping(value="/cancelList", method = RequestMethod.POST)
+	public String cancelList(@RequestParam HashMap<String, Object> cancel) {
+		
+	    String orderNum = cancel.get("orderNum").toString();
+	    cancel.put("order_num", orderNum);
+		
+		//취소하러 오는지 
+		System.out.println("cancelList");
+		// 주문상태 업데이트 
+		memberService.cancelUpdate(cancel);
+		// 취소디비 딜리트 
+		memberService.cancelDelete(cancel);
+		
+		return "/member/mypage";
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {

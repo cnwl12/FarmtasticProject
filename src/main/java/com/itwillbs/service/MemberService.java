@@ -303,8 +303,18 @@ public class MemberService {
 	}
 
 	public void clearCart(int member_num) {
-		System.out.println("서비스");
 		memberDAO.clearCart(member_num);
+	}
+	public List<Map<String, Object>> getCancelList(int member_num) {
+		return memberDAO.getCancelList(member_num);
+	}
+
+	public void cancelUpdate(HashMap<String, Object> cancel) {
+		 memberDAO.cancelUpdate(cancel);
+	}
+
+	public void cancelDelete(HashMap<String, Object> cancel) {
+		 memberDAO.cancelDelete(cancel);
 	}
 
 

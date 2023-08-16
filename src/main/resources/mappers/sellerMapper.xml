@@ -5,44 +5,6 @@
 
 <mapper namespace="SellerMapper">
     <select id="getSellers" resultType="map">
-	 <!-- 	WITH monthly_seller_data AS (
-    		SELECT s.seller_num,
-    			   s.seller_storeName,
-    			   s.seller_name,
-	 	           SUM(o.sales) AS daily_sales_raw,
-           		   DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m-%d') as pay_day,
-           		   o.monthly
-    		FROM (
-        			SELECT o.order_num, 
-        			o.item_num, 
-        			o.item_cnt, 
-        			i.item_price, 
-        			i.seller_num,
-               	    (i.item_price * o.item_cnt) as sales,
-                	DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly
-        FROM order_detail o
-        LEFT JOIN item i 
-        ON i.item_num = o.item_num
-    	) o
-    	LEFT JOIN seller s 
-    	ON s.seller_num = o.seller_num
-    	WHERE o.monthly = #{monthly}
-    	GROUP BY o.monthly, 
-    		 	 s.seller_num, 	
-    		 	 s.seller_storeName, 
-    		 	 s.seller_name, 
-    		 	 pay_day
-		)
-	   SELECT *, 
-       FORMAT(daily_sales_raw, 0) AS daily_sales,
-       FORMAT(FLOOR(daily_sales_raw * 0.05), 0) as daily_fee,
-       FORMAT(daily_sales_raw - (daily_sales_raw * 0.05), 0) as daily_settlement,
-	   FORMAT(SUM(daily_sales_raw) OVER (PARTITION BY monthly), 0) as month_sales,  
-	   FORMAT(SUM(FLOOR(daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_fee,
-       FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
-	   FROM monthly_seller_data
-	   ORDER BY pay_day;
-	   -->
 		WITH monthly_seller_data AS (
     		SELECT s.seller_num,
     			   s.seller_storeName,
@@ -67,7 +29,7 @@
         LEFT JOIN orders o
         ON o.order_num = od.order_num
     	WHERE od.monthly = #{monthly}
-        AND o.order_cancel != 'Y' 
+        AND o.order_cancel = 'N' 
     	GROUP BY od.monthly, 
     		 	 s.seller_num, 	
     		 	 s.seller_storeName, 
@@ -106,7 +68,6 @@
     LEFT JOIN seller s ON s.seller_num = i.seller_num;
 </select>
  
-    
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
 	select seller_licenseNum
@@ -170,10 +131,6 @@
 	]]>
    </select>
 	
-		
-	
-	
-	
    <!-- 선진) 최근 12개월의 월별 매출 차트 -->
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="getMonthlySales" resultType="map">
@@ -232,7 +189,7 @@
 	ORDER BY os.order_day;
    </select>
 	
-	 <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="dailySales" resultType="map">
      SELECT	od.order_num,
      		s.seller_num, 
@@ -357,7 +314,7 @@
     </foreach>
 	</update>
     
-   <!-- 상품 등록 -->
+    <!-- 상품 등록 -->
     <insert id="itemInsert">
        INSERT INTO item (
            seller_type,
@@ -398,7 +355,7 @@
    </update>
    
    
-   <!-- 판매상태 생성 조회 후 업데이트  -->
+    <!-- 판매상태 생성 조회 후 업데이트  -->
 	<update id="updateStatus">
     UPDATE item
     SET item_salesStatus = 
@@ -419,11 +376,12 @@
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
+       		 ,item_salesStatus
        FROM item
        ORDER BY item_num desc
     </select>
     
-     <!-- 상품전체 가져오기 (본인제품)  -->
+    <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">
        SELECT item_num
        		 ,seller_type
@@ -441,6 +399,7 @@
    <!-- 개별상품 가져오기  -->
    <select id="getItem" resultType="map">
      SELECT item_num
+     	   ,item_name
 		   ,item_price
 		   ,item_mainImg
 		   ,item_detail
@@ -454,7 +413,7 @@
      LIMIT 1;
    </select>
        
-      <!--월별 판매량(정산) 가져오기  -->
+    <!--월별 판매량(정산) 가져오기  -->
     <select id="getSales" resultType="map">
  	WITH sales_info AS (
                 SELECT i.seller_num,
@@ -495,7 +454,7 @@
     </select>
     
     
-   <!-- 정산작업 아직 미완성구문 -->
+    <!-- 정산작업 아직 미완성구문 -->
 	<update id="updateSettlementYn" parameterType="map">
    UPDATE settlement
     SET settlementComplete = 'Y',
