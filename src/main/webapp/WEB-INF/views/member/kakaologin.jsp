@@ -14,6 +14,7 @@
         	redirectUri: "http://localhost:8080/farmtastic/kakaocallback",
         });
     </script>
+
 </head>
 <body>
     <% if (session.getAttribute("kakaoAccessToken") != null) { %>
