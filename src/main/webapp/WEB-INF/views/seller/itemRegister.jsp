@@ -16,7 +16,7 @@
 <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-<!-- Custom styles for this page -->
+<!-- Custom styles for this page --> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
@@ -24,6 +24,10 @@
 <!-- Custom styles for this template -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputValidate.js"></script>
+
+
 
 <!-- 사이드바 줄어든거 되돌리기 -->
 <style type="text/css">
@@ -136,17 +140,17 @@ body {
 							<div class="inner-content input-content">
 								<div class="form-section-sub">
 									<div class="form-sub-wrap">
-										<label class="control-label" for="prd_price2">판매가<i
-											class="icon-must" aria-label="필수항목"></i></label>
 										<div class="input-content">
 											<div class="form-inline" id="error_salePrice">
 												<div class="form-group">
 													<div class="input-group">
 														<div class="seller-input-wrap">
 															<input
-																type="text"
+																type="number"
 																class="form-control ng-pristine ng-untouched ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-valid-pattern ng-valid-minlength ng-valid-maxlength"
-																id="prd_price2" max="999999990" max-err-type="max.won"
+																id="item_price" max="999999990" min="0"
+																oninput="validateNumberInput(this, 0, 999999990)"
+																style="width: 285px;"
 																name="item_price"
 																value="">
 														</div>
@@ -178,9 +182,12 @@ body {
 													<div class="input-group">
 														<div class="seller-input-wrap">
 															<input name="item_left" value=""
+																oninput="validateLeft()"
 																type="number"
 																class="form-control"
-																id="stock" placeholder="숫자만 입력" title="재고수량 입력">
+																min="0" max="100" 
+																style="width: 285px;"
+																id="item_left_input" placeholder="최소1부터 최대100까지" title="재고수량 입력">
 														</div>
 														<span class="input-group-addon">개</span>
 													</div>
@@ -249,7 +256,7 @@ body {
 							<div class="input-content inner-content">
 								<div class="form-section-sub">
 									<div class="form-sub-wrap"></div>
-									<textarea name="item_detail" value=""></textarea>
+									<textarea name="item_detail"  style=" width: 100%;  height: 150px; resize: vertical;" value=""></textarea>
 								</div>
 							</div>
 						</div>

@@ -370,7 +370,6 @@
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
        SELECT item_num
-       		 ,seller_type
        		 ,item_name
        		 ,item_price
        		 ,item_mainImg
@@ -400,6 +399,7 @@
    <select id="getItem" resultType="map">
      SELECT item_num
      	   ,item_name
+     	   ,i.seller_type
 		   ,item_price
 		   ,item_mainImg
 		   ,item_detail

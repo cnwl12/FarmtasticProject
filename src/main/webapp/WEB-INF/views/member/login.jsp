@@ -189,7 +189,6 @@ function enterCheck2(event) {
 							<div class="join-guide ">
 								<div class="link-btn">
 									<a href="join2" class="btn">사업자 회원가입</a> 
-								<!-- ㄴ 사업자 회원가입 폼이 어딨징 내가 만들어야 했나? -->
 								</div>
 							</div>
 						</div>
@@ -198,33 +197,8 @@ function enterCheck2(event) {
 					</div>
 					<!-- ### 컨텐츠 끝 ###  -->
 
-					<div id="ui-pop-join-guide-register" class="join2 type btn-fixed-bottom-on" style="display:none;">
-						<div class="join-finish ty2">
-							<div class="top-msg">
-								<p class="txt1">
-									<em id="registerName">김홈플</em> 고객님!<br>
-									온라인 간편회원 이시네요.<br>
-									<span>통합회원으로 전환하고</span><br>멤버십 혜택 받으세요!
-								</p>
-								<p class="txt2">
-									온라인 등급제가<br>
-									“홈플one 통합 등급제”로 개편되어,<br>
-									통합회원 전환 후<br>
-									더 많은 혜택을 받으실 수 있습니다.
-								</p>
-							</div>
-						</div>
-						<div class="btn-fixed-bottom n-2">
-							<div class="btns">
-								<a href="javascript:void(0);" onclick="javascript:setRegisterLayer(1);" class="ty2">7일간 안보기</a>
-								<a href="javascript:void(0);" onclick="javascript:fn_pageOpen(9);">통합회원 전환하기</a>
-							</div>
-						</div>
-					</div>
 				</div>
-				<!-- //ui-content -->
 			</div>
-			<!-- //ui-container -->
 		</div>
 		
 		<!-- bottom.jsp로 분리  -->

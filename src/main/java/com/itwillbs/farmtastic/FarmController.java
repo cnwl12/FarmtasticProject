@@ -78,7 +78,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
 
-		return "main";
+		return "main"; 
 	}
 
 	@RequestMapping(value = "/blog", method = RequestMethod.GET)
@@ -429,6 +429,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return orderDetail; // JSON 형식으로 반환
 	}
 	
+	// 주문취소
 	@RequestMapping(value="/cancelOrder", method = RequestMethod.POST)
 	public String cancelOrder(@RequestParam HashMap<String, Object> cancel) {
 		
@@ -446,12 +447,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/mypage";
 	}
 	
+	// 주문취소 목록
 	@RequestMapping(value="/cancelList", method = RequestMethod.POST)
 	public String cancelList(@RequestParam HashMap<String, Object> cancel) {
 		
 	    String orderNum = cancel.get("orderNum").toString();
 	    cancel.put("order_num", orderNum);
 		
+	    System.out.println(cancel);
 		//취소하러 오는지 
 		System.out.println("cancelList");
 		// 주문상태 업데이트 
