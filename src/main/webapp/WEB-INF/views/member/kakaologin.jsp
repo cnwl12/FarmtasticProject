@@ -10,6 +10,7 @@
     <script>
         Kakao.init('fa74773a794ad7a254e291d7cbf8fd00');
 
+        
         window.onload = function() {
             Kakao.Auth.login({
                 success: function(authObj) {
