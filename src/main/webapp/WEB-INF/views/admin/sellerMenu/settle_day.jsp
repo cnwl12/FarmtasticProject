@@ -95,10 +95,10 @@
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
-                                            <td>${sale.order_day}</td>
-                                            <td>${sale.revenue}</td>
-                                            <td>${sale.fee}</td>
-                                            <td>${sale.income}</td>
+                                            <td>${sale.orderday}</td>
+                                            <td>${sale.dailySales}</td>
+                                            <td>${sale.dailyFee}</td>
+                                            <td>${sale.dailySettlement}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>
