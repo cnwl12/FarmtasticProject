@@ -112,16 +112,16 @@
                             <span>모든 카테고리</span>
                         </div>
                         <ul>
-                            <li><a href="#">바나나</a></li>
-                            <li><a href="#">배</a></li>
-                            <li><a href="#">블루베리</a></li>
-                            <li><a href="#">사과</a></li>
-                            <li><a href="#">당근</a></li>
-                            <li><a href="#">감자</a></li>
-                            <li><a href="#">고구마</a></li>
-                            <li><a href="#">옥수수</a></li>
-                            <li><a href="#">버섯</a></li>
-                            <li><a href="#">호박</a></li>
+                           <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=블루베리">블루베리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=옥수수">옥수수</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=호박">호박</a></li>
                         </ul>
                     </div>
                 </div>
