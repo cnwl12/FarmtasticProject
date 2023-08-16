@@ -180,7 +180,7 @@ input#file-upload-button {
                          </c:otherwise>
                         </c:choose>
                         <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}" style="color: red;"></i>
 							</a>
 
 
@@ -718,8 +718,8 @@ input#file-upload-button {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
