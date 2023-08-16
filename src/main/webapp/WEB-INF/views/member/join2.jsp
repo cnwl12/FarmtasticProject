@@ -27,7 +27,7 @@
 	  
 <style>
 div#btbt {
-padding : 0px 60px;
+padding : 0px 60px;   
 text-align: right;
 
 }
