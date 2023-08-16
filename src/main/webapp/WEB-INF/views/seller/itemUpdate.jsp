@@ -136,6 +136,7 @@ body {
 												<option value="ON">양파</option>
 												<option value="CA">당근</option>
 												<option value="MU">버섯</option>
+												<option value="ETC">기타</option>
 											</select>
 										</div>
 									</div>

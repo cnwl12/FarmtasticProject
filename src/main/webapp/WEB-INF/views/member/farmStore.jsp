@@ -86,18 +86,18 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
+                                <!-- <div class="filter__sort">
                                     <span>Sort By</span>
                                     <select>
                                         <option value="0">Default</option>
                                         <option value="0">Default</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-lg-4 col-md-4">
-                                <div class="filter__found">
+                                <!-- <div class="filter__found">
                                     <h6><span>16</span> Products found</h6>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -110,24 +110,35 @@
 				            <div class="product__item__pic set-bg">
 				                <a href="farmStoreDetail?item_num=${item.item_num}">
 				                    <div class="image-container">
-				                        <div class="product-image"
-				                             style="background-image: url('${item.item_mainImg}');"></div>
-				                        <c:choose>
-				                            <c:when test="${item.item_left < 3}">
-				                                <div class="overlay sold-out">마감 임박</div>
-				                            </c:when>
-				                        </c:choose>
+				                        <div class="product-image" style="background-image: url('${item.item_mainImg}');"></div>
+				                    <c:choose>
+				                          <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+				                            <div class="overlay sold-out">판매 종료</div>
+				                        </c:when>
+				                        <c:when test="${item.item_left < 3}">
+				                            <div class="overlay sold-out">마감 임박</div>
+				                        </c:when>
+				                    </c:choose>
 				                    </div>
-				                </a> 
-                                    <ul class="product__item__pic__hover">
-	                                    	<li>
-				                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-											  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
-											</a>
-											</li>
-                                        <li><a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
+				                </a>
+										<ul class="product__item__pic__hover">
+											<li><a href="#" class="wishlist-btn"
+												data-member-num="${sessionScope.member_num}"
+												data-item-num="${item.item_num}"> <i
+													class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+											</a></li>
+											<c:choose>
+												<c:when
+													test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+												</c:when>
+												<c:otherwise>
+													<li><a
+														href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</c:otherwise>
+											</c:choose>
+										</ul>
+									</div>
                                    <div class="product__item__text">
                                     <h6><a href="farmStoreDetail?item_num=${item.item_num}">${item.item_name}</a></h6>
                                     <h5> ${item.item_price}</h5>
