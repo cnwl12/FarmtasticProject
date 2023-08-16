@@ -89,7 +89,7 @@
             </c:if>
             <!-- 일반 로그인 상태인 경우 -->
             <c:if test="${empty sessionScope.accessToken}">
-                <a href="logout"><i class="fa fa-sign-out"></i>Logout</a>
+                <a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
             </c:if>
         </c:otherwise>
     </c:choose>
