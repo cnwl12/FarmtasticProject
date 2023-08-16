@@ -329,7 +329,7 @@ input#file-upload-button {
 																 <div class="image">
 																	<strong>Q:</strong>
 																	<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-																		<img src="${row.one_board_file}" />
+																		<div class="image2" style="background-image: url('${row.one_board_file}');"></div>
 																	</c:if>
 																	<div class="content">
 																		${row.one_board_content}
@@ -365,7 +365,7 @@ input#file-upload-button {
 															<div class="image">
 																<strong>Q:</strong>
 																<c:if test="${row.one_board_file != null && not empty row.one_board_file}">
-																	<img src="${row.one_board_file}" />
+																	<div class="image2" style="background-image: url('${row.one_board_file}');"></div>
 																</c:if>
 																<div class="content">
 																	${row.one_board_content}

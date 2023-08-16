@@ -282,8 +282,10 @@
                                        결제완료
                                    </c:otherwise>
                                  </c:choose></td>
-                              <td><a href="parcel"><input type="button"
-                                    value="배송조회"></a></td>
+                              <td><a href="javascript:void(0);" onclick="openPopup()">
+                              <input type="button" value="배송조회"></a></td>
+								
+
                               <td><input type="button" class="orderCancelButton"
                                  data-order="${order.order_num}" value="주문취소"></td>
                            </tr>
@@ -1455,5 +1457,17 @@ $(document).ready(function() {
       return;
     }
     </script>
+    
+	<script>
+	function openPopup() {
+  		var width = 500;
+  		var height = 800;
+  		var left = (window.innerWidth - width) / 2;
+  		var top = (window.innerHeight - height) / 2;
+  
+  		var popup = window.open('parcel', 'popupWindow', 'height=' + height + ',width=' + width + ',left=' + left + ',top=' + top);
+  			popup.focus();
+	}
+	</script>    
 </body>
 </html>

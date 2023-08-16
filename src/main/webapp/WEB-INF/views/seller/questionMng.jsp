@@ -298,25 +298,23 @@
 												      <col>
 												    </colgroup>
 												    <tbody>
-												      <tr>
-												        <th scope="row">답변내용</th>
-												        <td>
-												          <textarea cols="30" rows="5" id="one_board_reply"
-												            name="one_board_reply" onfocus="this.className='ta scrl ta_on';"
-												            onblur="this.className='ta scrl';" class="ta scrl"
-												            style="width: 100%; height: 250px"></textarea>
-												          <div class="space_h">
-												            <span class="num_meta2 fr"><em><span
-												              class="blind">입력된 글자수 : </span><span
-												              id="_char_count_span">0</span></em>/<strong><span
-												              class="blind">최대 입력 글자 : </span>1,000</strong></span>
-												           <button type="submit" class="btn_d"><span>답변하기</span></button>
-												
-												            <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
-												          </div>
-												        </td>
-												      </tr>
-												    </tbody>
+													  <tr>
+													    <th scope="row">답변내용</th>
+													    <td>
+													      <textarea cols="30" rows="5" id="one_board_reply"
+													                name="one_board_reply" class="ta scrl"
+													                style="width: 100%; height: 250px"></textarea>
+													      <div class="space_h">
+													        <span class="num_meta2 fr"><em><span
+													          class="blind">입력된 글자수 : </span><span
+													          id="_char_count_span">0</span></em>/<strong><span
+													          class="blind">최대 입력 글자 : </span>1,000</strong></span>
+													       <button type="submit" class="btn_d"><span>답변하기</span></button>
+													        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+													      </div>
+													    </td>
+													  </tr>
+													</tbody>
 												  </table>
 												</form>
 
@@ -398,11 +396,6 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 	<!-- 서영: 1대1문의를 위한 js -->
 	<script>
@@ -467,28 +460,6 @@
 	  });
 	}
 	
-// 	function handleClickOneBoardTitle(event) {
-// 	    const targetRow = event.target.closest('tr');
-// 	    const one_board_num = targetRow.getAttribute('data-one-board-num'); // 속성을 변경했습니다.
-// 	    const one_board_repYn = targetRow.querySelector('td:nth-child(2)').textContent;
-
-// 	    if (one_board_num) {
-// 	        const currentForm = document.getElementById('answerForm');
-
-// 	        const regCommentButton = document.getElementById('regComment');
-// 	        const editCommentButton = document.getElementById('editComment');
-
-// 	        if (one_board_repYn === '미답변') {
-// 	            regCommentButton.style.display = 'inline';
-// 	            editCommentButton.style.display = 'none';
-// 	        } else if (one_board_repYn === '답변완료') {
-// 	            regCommentButton.style.display = 'none';
-// 	            editCommentButton.style.display = 'inline';
-// 	        }
-
-// 	        const existingHiddenInput = document.querySelector('input[name="one_board_num"]');
-// 	    }
-// 	}
 
 	document.getElementById("processComment").addEventListener("click", sendFormData);
 
@@ -625,6 +596,26 @@ function sortTable() {
 	  return new Date(parts[0], parts[1] - 1, parts[2]);
 	}
 
+
+
+</script>
+<script>
+$(document).ready(function() {
+    function updateCharCount() {
+        const maxLength = 1000;
+        const textArea = $('#one_board_reply');
+        const textLength = textArea.val().length;
+
+        if (textLength > maxLength) {
+            alert(`글자수는 ${maxLength}자까지 입력 가능합니다.`);
+            textArea.val(textArea.val().substring(0, maxLength));
+        }
+
+        $('#_char_count_span').text(textLength);
+    }
+
+    $('#one_board_reply').on('input', updateCharCount);
+});
 
 
 </script>

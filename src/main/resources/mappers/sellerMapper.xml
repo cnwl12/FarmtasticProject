@@ -5,7 +5,7 @@
 
 <mapper namespace="SellerMapper">
     <select id="getSellers" resultType="map">
-		WITH monthly_seller_data AS (
+	 <!-- 	WITH monthly_seller_data AS (
     		SELECT s.seller_num,
     			   s.seller_storeName,
     			   s.seller_name,
@@ -42,7 +42,47 @@
        FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
 	   FROM monthly_seller_data
 	   ORDER BY pay_day;
-		
+	   -->
+		WITH monthly_seller_data AS (
+    		SELECT s.seller_num,
+    			   s.seller_storeName,
+    			   s.seller_name,
+	 	           SUM(od.sales) AS daily_sales_raw,
+           		   DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m-%d') as pay_day,
+           		   od.monthly
+    		FROM (
+        			SELECT od.order_num, 
+        			od.item_num, 
+        			od.item_cnt, 
+        			i.item_price, 
+        			i.seller_num,
+               	    (i.item_price * od.item_cnt) as sales,
+                	DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly
+        FROM order_detail od
+        LEFT JOIN item i 
+        ON i.item_num = od.item_num
+    	) od
+    	LEFT JOIN seller s 
+    	ON s.seller_num = od.seller_num
+        LEFT JOIN orders o
+        ON o.order_num = od.order_num
+    	WHERE od.monthly = #{monthly}
+        AND o.order_cancel != 'Y' 
+    	GROUP BY od.monthly, 
+    		 	 s.seller_num, 	
+    		 	 s.seller_storeName, 
+    		 	 s.seller_name, 
+    		 	 pay_day
+		)
+	   SELECT *, 
+       FORMAT(daily_sales_raw, 0) AS daily_sales,
+       FORMAT(FLOOR(daily_sales_raw * 0.05), 0) as daily_fee,
+       FORMAT(daily_sales_raw - (daily_sales_raw * 0.05), 0) as daily_settlement,
+	   FORMAT(SUM(daily_sales_raw) OVER (PARTITION BY monthly), 0) as month_sales,  
+	   FORMAT(SUM(FLOOR(daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_fee,
+       FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
+	   FROM monthly_seller_data
+	   ORDER BY pay_day;
 </select>
 
 <select id="totalSales" resultType="map">
@@ -128,7 +168,11 @@
 	ORDER BY date_range.order_mmdd; 
 	]]>
    </select>
-
+	
+		
+	
+	
+	
    <!-- 선진) 최근 12개월의 월별 매출 차트 -->
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="getMonthlySales" resultType="map">
@@ -186,7 +230,37 @@
 						AND os.order_day BETWEEN #{startDate} AND #{endDate}
 	ORDER BY os.order_day;
    </select>
-
+	
+	 <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+   <select id="dailySales" resultType="map">
+     SELECT	od.order_num,
+     		s.seller_num, 
+     		s.seller_storeName,
+     		s.seller_name,
+     		od.item_num, 
+     		it.seller_type, 
+     		it.item_name, 
+     		od.item_cnt, 
+     		it.item_price, 
+			FORMAT((it.item_price * od.item_cnt),0) as dailySales,
+            FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
+            FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
+	        os.order_day,
+	        DATE_FORMAT(os.order_day, '%Y-%m-%d') as orderday
+	FROM	order_detail od		
+    LEFT JOIN item it 
+    ON od.item_num = it.item_num
+    LEFT JOIN seller s
+    ON it.seller_num = s.seller_num
+	LEFT JOIN orders os 
+	ON od.order_num = os.order_num
+	WHERE	od.item_num IN (select	item_num
+							from	item
+							where	seller_num = #{seller_num})
+						AND os.order_cancel = 'N'
+	ORDER BY os.order_day;
+   </select>
+	
    <!-- 선진) 정산관리 -->
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="getSettlementList" resultType="map">
@@ -379,7 +453,7 @@
      LIMIT 1;
    </select>
        
-      <!--월별 판매량 가져오기  -->
+      <!--월별 판매량(정산) 가져오기  -->
     <select id="getSales" resultType="map">
  	WITH sales_info AS (
                 SELECT i.seller_num,
@@ -473,28 +547,29 @@
    
    
    
-   
-   <!--  
-   	 SELECT s.seller_num, s.seller_storeName, s.seller_name,
-	 DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
-	 DATE_FORMAT(st.order_day, '%Y-%m-%d') as order_day,
-     FORMAT(o.order_pay, 0) as revenue,
-     FORMAT(floor((o.order_pay) * 0.05), 0) as fee,
-     FORMAT((o.order_pay) - floor((o.order_pay) * 0.05), 0) as income
-     FROM settlement st
-	 LEFT JOIN seller s ON s.seller_num = st.seller_num
-	 LEFT JOIN item i ON s.seller_num = i.seller_num
-	 LEFT JOIN orders o on o.order_day = st.order_day
-     WHERE s.seller_num != 'admin'
-     AND s.seller_num = #{sellerNum}
-	 AND DATE_FORMAT(st.order_day, '%Y-%m') = #{orderMonth} 
-     GROUP BY s.seller_num, s.seller_id, s.seller_name, st.order_day,order_pay
-     ORDER BY st.order_day;
-     -->
+
    </select>
    
    <!--판매자별 연간판매량전체-->
    <select id="yearSales" resultType="map" parameterType="map">
+   SELECT s.seller_num, 
+       s.seller_storeName,
+       s.seller_name,
+       MONTH(os.order_day) as order_month,
+       FORMAT(SUM(it.item_price * od.item_cnt), 0) AS  yearly_revenue,
+       FORMAT(SUM(floor(it.item_price * od.item_cnt) * 0.05), 0) as yearly_fee,
+       FORMAT(SUM((it.item_price * od.item_cnt) - floor((it.item_price * od.item_cnt) * 0.05)), 0) AS yearly_income
+FROM order_detail od
+LEFT JOIN item it ON od.item_num = it.item_num
+LEFT JOIN seller s ON it.seller_num = s.seller_num
+LEFT JOIN orders os ON od.order_num = os.order_num
+WHERE od.item_num IN (SELECT item_num
+                      FROM item
+                      WHERE seller_num = #{sellerNum})
+      AND os.order_cancel = 'N'
+GROUP BY s.seller_num, s.seller_storeName, s.seller_name,  MONTH(os.order_day)
+ORDER BY MONTH(os.order_day); 
+<!-- 
       SELECT st.seller_num, s.seller_name,
 	  DATE_FORMAT(st.order_day, '%Y-%m') as order_month,
 	  FORMAT(SUM(o.order_pay), 0) AS revenue,
@@ -508,6 +583,7 @@
 	  AND s.seller_num = #{sellerNum}
 	  GROUP BY s.seller_num, s.seller_name, order_month
 	  ORDER BY order_month;
+    -->
    </select>
    
    	<!-- 판매자 회원가입 -->

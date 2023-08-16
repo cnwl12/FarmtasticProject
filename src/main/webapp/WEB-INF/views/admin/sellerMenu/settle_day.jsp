@@ -72,6 +72,7 @@
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
+                                            <th>상품명</th>
                                             <th>매출일</th>
                                             <th>매출액(업체)</th>
                                             <th>수수료</th>
@@ -84,6 +85,7 @@
                                             <td> ${sale.seller_num}</td>
                                             <td>${sale.seller_storeName}</td>
                                             <td>${sale.seller_name}</td>
+                                            <td>${sale.item_name}</td>
                                             <td>${sale.orderday}</td>
                                             <td>${sale.dailySales}</td>
                                             <td>${sale.dailyFee}</td>
