@@ -78,6 +78,11 @@ public class SellerService {
 			System.out.println("SellerService의 getDailySalesList 매핑완");
 			return sellerDAO.getDailySalesList(seller_num);
 		}
+		// 선진) 매출관리 - 일자별 매출 리스트
+		public List<Map<String,Object>> dailySales(String seller_num) {
+			System.out.println("SellerService의 dailySales 매핑완");
+			return sellerDAO.dailySales(seller_num);
+		}
 		
 		// 선진) 정산관리
 		public List<Map<String,Object>> getSettlementList(String seller_num) {

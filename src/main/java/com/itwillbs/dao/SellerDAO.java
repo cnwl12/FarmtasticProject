@@ -82,6 +82,12 @@ public class SellerDAO {
 			System.out.println("SellerDAO의 getDailySalesList 매핑완");
 			return sqlSession.selectList(namespace + ".getDailySalesList", seller_num);
 		}
+		public List<Map<String,Object>> dailySales(String seller_num) {
+			
+			System.out.println("SellerDAO의 dailySales 매핑완");
+			return sqlSession.selectList(namespace + ".dailySales", seller_num);
+		}
+		
 		
 		// 선진) 정산관리
 		public List<Map<String,Object>> getSettlementList(String seller_num) {
