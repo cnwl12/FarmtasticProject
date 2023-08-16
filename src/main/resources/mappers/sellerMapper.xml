@@ -106,7 +106,6 @@
     LEFT JOIN seller s ON s.seller_num = i.seller_num;
 </select>
  
-    
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
 	select seller_licenseNum
@@ -169,10 +168,6 @@
 	]]>
    </select>
 	
-		
-	
-	
-	
    <!-- 선진) 최근 12개월의 월별 매출 차트 -->
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="getMonthlySales" resultType="map">
@@ -231,7 +226,7 @@
 	ORDER BY os.order_day;
    </select>
 	
-	 <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="dailySales" resultType="map">
      SELECT	od.order_num,
      		s.seller_num, 
@@ -356,7 +351,7 @@
     </foreach>
 	</update>
     
-   <!-- 상품 등록 -->
+    <!-- 상품 등록 -->
     <insert id="itemInsert">
        INSERT INTO item (
            seller_type,
@@ -397,7 +392,7 @@
    </update>
    
    
-   <!-- 판매상태 생성 조회 후 업데이트  -->
+    <!-- 판매상태 생성 조회 후 업데이트  -->
 	<update id="updateStatus">
     UPDATE item
     SET item_salesStatus = 
@@ -422,7 +417,7 @@
        ORDER BY item_num desc
     </select>
     
-     <!-- 상품전체 가져오기 (본인제품)  -->
+    <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">
        SELECT item_num
        		 ,seller_type
@@ -453,7 +448,7 @@
      LIMIT 1;
    </select>
        
-      <!--월별 판매량(정산) 가져오기  -->
+    <!--월별 판매량(정산) 가져오기  -->
     <select id="getSales" resultType="map">
  	WITH sales_info AS (
                 SELECT i.seller_num,
@@ -494,7 +489,7 @@
     </select>
     
     
-   <!-- 정산작업 아직 미완성구문 -->
+    <!-- 정산작업 아직 미완성구문 -->
 	<update id="updateSettlementYn" parameterType="map">
    UPDATE settlement
     SET settlementComplete = 'Y',
