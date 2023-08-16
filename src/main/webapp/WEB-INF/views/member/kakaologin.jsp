@@ -10,21 +10,14 @@
     <script>
         Kakao.init('fa74773a794ad7a254e291d7cbf8fd00');
 
-        
-        window.onload = function() {
-            Kakao.Auth.login({
-                success: function(authObj) {
-                    // 로그인에 성공하면, authObj.access_token이 발급됩니다.
-                    location.href = "<%= request.getContextPath() %>/kakaocallback?access_token=" + authObj.access_token;
-                },
-                fail: function(err) {
-                    alert('카카오 로그인에 실패하였습니다.');
-                }
-            });
-        }
+        Kakao.Auth.authorize({
+        	redirectUri: "http://localhost:8080/farmtastic/kakaocallback",
+        });
     </script>
 </head>
 <body>
-   
+    <% if (session.getAttribute("kakaoAccessToken") != null) { %>
+        로그인 되었습니다. access_token: <%= session.getAttribute("kakaoAccessToken") %>
+    <% } %>
 </body>
 </html>

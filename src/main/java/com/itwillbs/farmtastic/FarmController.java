@@ -216,6 +216,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/kakaologin";
 	}
+	
 
 	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
 	public String kakaocallback(Locale locale, Model model) {
