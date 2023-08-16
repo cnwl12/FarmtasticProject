@@ -165,7 +165,7 @@ button#submitBtn {
 <!-- 			// join_header -->
 			<div class="join_content">  
 				<div class="form">
-					<form class="validation-form" novalidate action="${pageContext.request.contextPath}/insertPro2" id="join2" name="join2" method="post">
+					<form enctype="multipart/form-data" class="validation-form" novalidate action="${pageContext.request.contextPath}/insertPro2" id="join2" name="join2" method="post">
 						<fieldset>
 							<legend>팜타스틱 사업자 회원가입 정보입력</legend>
 							<p class="">회원정보를 입력해주세요. 모두 입력하셔야 가입이 가능합니다.</p>
@@ -322,6 +322,11 @@ button#submitBtn {
 								</li>
 								
 								<li>
+								<label for="attachment">첨부파일:</label>
+								<input type="file" id="seller_file" name="file" />
+								</li>
+								
+								<li>
 									<label for="seller_type">사업자 분류</label>
 									<select name="seller_type" id="seller_type">
 										<option value="">카테고리를 선택해주세요</option>
@@ -335,6 +340,7 @@ button#submitBtn {
 										<option value="ON">양파</option>
 										<option value="CA">당근</option>
 										<option value="MU">버섯</option>
+										<option value="ETC">기타</option>
   									</select>
 								</li>
 							</ul>
@@ -428,25 +434,26 @@ button#submitBtn {
     	    const currDate = new Date(); // 현재 시간 정보 가져오기
     	    const formattedDate = `${currDate.getFullYear()}-${currDate.getMonth() + 1}-${currDate.getDate()}`; // 날짜 정보 포맷팅
     	    $("#seller_joinDay").val(formattedDate); // hidden 필드에 채우기
-
+			$("#join2").submit();
     	    // 폼 데이터를 JavaScript 객체로 만듭니다.
-    	    var formData = $("#join2").serialize();
+//     	    var formData = $("#join2").serialize();
 
-    	    // ajax 요청을 보냅니다.
-    	    $.ajax({
-    	      type: "POST",
-    	      url: $("#join2").attr("action"),
-    	      data: formData,
-    	      success: function() {
-    	        // 요청이 성공적으로 처리되었을 때, login 페이지로 이동합니다.
-    	        location.href = 'login';
-    	      },
-    	      error: function() {
-    	        // 요청 처리 중 오류가 발생한 경우에 대한 처리를 여기에 추가할 수 있습니다.
-    	        alert("정보를 처리중에 오류가 발생했습니다. 다시 시도해주세요");
-    	      }
-    	    });
+//     	    // ajax 요청을 보냅니다.
+//     	    $.ajax({
+//     	      type: "POST",
+//     	      url: $("#join2").attr("action"),
+//     	      data: formData,
+//     	      success: function() {
+//     	        // 요청이 성공적으로 처리되었을 때, login 페이지로 이동합니다.
+//     	        location.href = 'login';
+//     	      },
+//     	      error: function() {
+//     	        // 요청 처리 중 오류가 발생한 경우에 대한 처리를 여기에 추가할 수 있습니다.
+//     	        alert("정보를 처리중에 오류가 발생했습니다. 다시 시도해주세요");
+//     	      }
+//     	    });
     	  }
+    	  
    	 	}); 
 
  });
