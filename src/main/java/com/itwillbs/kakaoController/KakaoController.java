@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/member")
 public class KakaoController {
-	@GetMapping("/kakaorcallback")
-	public String kakaojoin(@RequestParam String code) {
-		return "code : " + code;
+	@GetMapping("/kakaocallback")
+	public String kakaojoin(@RequestParam String access_token) {
+		return "access_token : " + access_token;
 	}
 }
 
