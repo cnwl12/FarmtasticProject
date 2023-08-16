@@ -73,10 +73,9 @@ function add(event, member_num, item_num, target) {
           icon.classList.replace("fa-heart-o", "fa-heart");
           icon.classList.add("red");
           alert(response.message);
-          location.reload();
         } else {
           icon.classList.replace("fa-heart", "fa-heart-o");
-           icon.classList.remove("red"); 
+          icon.style.color = "red";
           alert("찜 목록에서 상품이 삭제되었습니다.");
         }
       },
