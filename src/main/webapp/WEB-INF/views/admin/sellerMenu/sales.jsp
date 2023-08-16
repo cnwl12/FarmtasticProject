@@ -186,7 +186,10 @@ $(document).ready(function () {
             // 데이터를 업데이트하는 부분
             $.each(data, function (index, item) {
                 var newRow = $("<tr></tr>");
-                newRow.append($("<td></td>").text(item.seller_num));
+                
+                var sellerSiteLink = $("<a></a>").attr("href", "${pageContext.request.contextPath}/detailSales?seller_num=" + item.seller_num + "&pay_day=" + item.pay_day).text(item.seller_num);
+                
+                newRow.append($("<td></td>").append(sellerSiteLink));
                 newRow.append($("<td></td>").text(item.seller_storeName));
                 newRow.append($("<td></td>").text(item.seller_name));
                 newRow.append($("<td></td>").text(item.pay_day));
@@ -195,12 +198,11 @@ $(document).ready(function () {
                 newRow.append($("<td></td>").text(item.daily_sales));
                 tableBody.append(newRow);
             });
-
+        
             $("#hidden_month").val(monthly);
             var updatedMonth = parseInt(monthly.substr(5, 2));
             $("#current_month_label").text(updatedMonth + "월");
         });
-
         // dataTable2에 대한 업데이트
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody2 = $("#avgContent");
