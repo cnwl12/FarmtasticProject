@@ -76,19 +76,24 @@
                         
                     <!--  7.29성하 로그인시 마이페이지 로그아웃버튼생성 -->
                     <div class="header__top__right__auth">
-                        <c:choose>
-                            <%-- 비로그인 상태인 경우 --%>
-                            <c:when test="${empty sessionScope.member_num }">
-                                <a href="login"></i>Login</a>
-                            </c:when>
-                            <%-- 로그인 상태인 경우 --%>
-                            <c:otherwise>
-                                <!-- <a href="mypage"><i class="fa fa-user"></i>Mypage</a> -->
-                                <a href="farm/logout"><i class="fa fa-sign-out"></i>Logout</a>
-                                 
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+    <c:choose>
+        <%-- 비로그인 상태인 경우 --%>
+        <c:when test="${empty sessionScope.member_num }">
+            <a href="login"></i>Login</a>
+        </c:when>
+        <%-- 로그인 상태인 경우 --%>
+        <c:otherwise>
+            <!-- 카카오 로그인 상태인 경우 -->
+            <c:if test="${not empty sessionScope.accessToken}">
+                <a href="kakaoLogout"><i class="fa fa-sign-out"></i>Kakao Logout</a>
+            </c:if>
+            <!-- 일반 로그인 상태인 경우 -->
+            <c:if test="${empty sessionScope.accessToken}">
+                <a href="logout"><i class="fa fa-sign-out"></i>Logout</a>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+</div>
                 </div>
                           </div>      
                     </div>
