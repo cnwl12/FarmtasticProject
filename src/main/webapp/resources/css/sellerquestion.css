@@ -1,0 +1,84 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    border: 1px solid #f8f9fc;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.text-primary {
+    color: #4e73df;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* 테이블 스타일 */
+.custom-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 1px solid #e3e6f0;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+/* 버튼 스타일 */
+/* 검색 버튼 스타일 (수정됨) */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #ffffff; /* 글자색 변경 */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #28a745; /* 배경색 변경: 초록색으로 수정 */
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
+
+.btn_wrap {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* 판매자 답변 처리 스타일 */
+.ct_box {
+    width: 50%;
+    float: left;
+}
+
+.hd_wrap {
+    margin-bottom: 1rem;
+}
+
+.hd3 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+

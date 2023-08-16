@@ -13,6 +13,11 @@
 
     <title>seller/questionMng</title>
 
+
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/uio_calendar.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/grid.css">
+	
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -25,12 +30,9 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerquestion.css">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/uio_calendar.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/grid.css">
-	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 						
@@ -72,25 +74,18 @@
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">문의관리</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-                        </a>
-                    </div>
+                    <h1 class="h3 mb-2 text-gray-800">문의관리</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
                     <!-- 페이지 상단 끝 -->
 
 
 					<!-- 고객문의관리 시작 -->
-						<div id="wrap">
-							<div id="container">
+						<div class="card shadow mb-4">
+	                        <div class="card-header py-3">
+	                            <h6 class="m-0 font-weight-bold text-primary">고객문의</h6>
+	                        </div>
 								<div id="content2">
-									<div class="hd2_wrap">
-										<h2 class="hd2 h_sell8 fl">
-											<span class="blind">고객문의 관리</span>
-										</h2>
-									</div>
-					
 									<div class="tbl_type">
 										<form id="searchForm" name="searchForm">
 											<input type="submit"
@@ -147,14 +142,11 @@
 													</tr>
 												</tbody>
 											</table>
-											<!--  어디에쓰는건지 몰라서 주석 : 서영 -->
-<!-- 											<input type="hidden" name="orderBy" value=""> <input -->
-<!-- 												type="hidden" name="orderDir" value=""> -->
 										</form>
 									</div>
 					
 									<div class="btn_wrap" style="margin-top: 20px">
-										<button type="button" id="search-btn" onclick="searchFormSubmit(event)">검색</button>
+										<button type="button" id="search-btn" onclick="searchFormSubmit(event)" class="btn">검색</button>
 									</div>
 					
 									<div style="height: 378px;">
