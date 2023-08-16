@@ -75,17 +75,6 @@
                                             <th>가입일</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th><input type="checkbox" class="reject-check-all"/></th>
-                                            <th>번호</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>사업장 번호</th>
-                                            <th>상태</th>
-                                            <th>가입일</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
     								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
     								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
@@ -128,16 +117,6 @@
                                             <th>가입일</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th><input type="checkbox" class="reco-check-all"/></th>
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>사업장 번호</th>
-                                            <th>가입일</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <c:forEach items="${sellers}" var="seller">
    								 		<c:if test="${seller.seller_recoYn == 'Y'}">

@@ -53,8 +53,7 @@
 
                     <!-- 페이지 상단 시작 -->
                     <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net"> official DataTables documentation</a>.</p>
+                    <p class="mb-4"><a target="_blank" href=#></a></p>
                     <!-- 페이지 상단 끝 -->
                     
 
@@ -66,20 +65,28 @@
 					<div class="panel panel-dashboard panel-stats">
 						<div class="panel-body">
 							<div class="text-center">
-								<div data-toggle="buttons" class="btn-group btn-group-customize">
-									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay">
-										<input type="radio">이번달 일자별 매출
+								<div data-toggle="buttons" class="btn-group btn-group-customize chartList">
+<!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay"> -->
+<!-- 										<input type="radio">이번달 일자별 매출 -->
+<!-- 									</label> -->
+<!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer"> -->
+<!-- 										<input type="radio">최근 12개월 매출 -->
+<!-- 									</label>  -->
+									<label id="chart1" class="on">
+										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">이번달 일자별 매출</button>
 									</label>
-									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer">
-										<input type="radio">최근 12개월 매출
+									<label id="chart1" class="on">
+										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="monthlyChart">최근 12개월 매출</button>
 									</label> 
-									<label class="btn btn-default active" ng-class="{active: vm.currentChartIndex === 2}" ng-click="vm.showChart(2)" data-nclicks-code="sales.price">
-										<input type="radio">미정
-									</label>
+									
+<!-- 									<ul class="chartList"> -->
+<!-- 				                        <li id="chart1" class="on"><a href="#" class="toggle-chart" data-target="dailyChart">이번달 일자별 매출</a></li> -->
+<!-- 				                        <li id="chart2" class="on"><a href="#" class="toggle-chart" data-target="monthlyChart">최근 12개월 매출</a></li> -->
+<!-- 			                        </ul> -->
 								</div>
 							</div>
 						</div>
-					</div>	
+					<!-- </div>	첫번째 class 닫는 태그, 일단 밑으로 내려봄 -->
 					
 				    <!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -156,6 +163,7 @@
 					  }
 					</script>
 					</div>
+					
 					<!-- 선진) 최근 12개월의 월별 매출 차트 -->
 					<div>
 					<script>
@@ -202,7 +210,7 @@
 					  });
 					
 					  // 매출 데이터를 가져오는 함수
-					  function ajaxDailySales() {
+					  function ajaxMonthlySales() {
 					    $.ajax({
 					      url: '${pageContext.request.contextPath}/chartMonthlySales',
 					      type: 'get',
@@ -217,95 +225,43 @@
 					    });
 					  }
 					</script>
+					</div>
 					</div>			
 					<!-- 매출통계그래프 끝 -->
 					
-					
-					
-					<!-- 검색바 -->
+					<!-- 검색바 시작 -->
 					<div class="panel panel-seller" ng-include="'shared/products/relation-list/include/search-condition-area.html.inc'">
-						<form name="vm.searchForm" novalidate="" ng-submit="vm.func.search()" class="ng-pristine ng-valid ng-valid-pattern ng-valid-max-size-by-split ng-valid-maxlength ng-valid-required ng-valid-date-time-input">
-							
+						<form id="searchForm" name="vm.searchForm" method="get" action="${pageContext.request.contextPath}/salesMngPro">
 							<div class="panel-body">
 								<div class="seller-search-section">
 									<ul class="seller-list-border">
 										<li>
-										<label class="control-label">매출 발생 기간</label>
-										<div class="input-content">
-											<div class="form-inline narrow-area" ng-class="{'has-error-msg': (vm.searchForm.fromDate.$invalid || vm.searchForm.toDate.$invalid)}">
-												<ncp-datetime-range-picker2 start-date-model="vm.searchFormData.fromDate" start-date-name="fromDate" end-date-model="vm.searchFormData.toDate" end-date-name="toDate" date-max="'TODAY'"
-													datetime-picker-format-name="DATE" date-required="true" date-range-usable="true" date-range-option="vm.config.SearchDateRangePickerPeriodOptions" date-markup-option="{onlyDate:true, disabledDateDimmed:true}">
-													<div class="form-group" ng-if="vm.dateRangeUsable">
-														<div class="btn-toolbar">
-															<div class="btn-group" ng-class="::{'fix-width-col-4' : vm.dateMarkupOption.buttonFixWidth}" ng-attr-data-nclicks-code="{{::vm.nclicksCodeRangeButton}}">
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">오늘</button>
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">1주일</button>
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">1개월</button>
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">3개월</button>
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">6개월</button>
-																<button type="button" class="btn btn-primary2 active" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">1년</button>
-																<button type="button" class="btn btn-primary2" ng-repeat="option in vm.dateRangeOption.periods" ng-click="vm.onClickRangeButton($index)" ng-disabled="vm.dateDisabled" ng-class="{ active: option.active }">전체</button>
-															</div>
-														</div>
-													</div>
-													<div class="form-group only-date disabled-date-dimmed" ng-class="::{'only-date' : vm.dateMarkupOption.onlyDate, 'disabled-date-dimmed' : vm.dateMarkupOption.disabledDateDimmed }">
-														<div class="seller-calendar">
-															<div class="input-daterange date form-inline">
-															
-																<div class="form-group _startDate_dropdown seller-datetime-picker _error_start_date_3978005840 dropdown" ng-class="{dropdown : !vm.datetimePickerDropUp, dropup : vm.datetimePickerDropUp}">
-																	<div class="input-group dropdown-toggle dropdown_1693764282" data-toggle="dropdown" ng-click="vm.isStartDateShow = !vm.dateDisabled &amp;&amp; true" ng-attr-data-nclicks-code="{{::vm.nclicksCode}}">
-																		<input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required ng-valid-date-time-input" name="fromDate" title="날짜 입력"
-																			ng-readonly="::vm.dateInputReadonly" ng-required="vm.dateRequired &amp;&amp; !vm.ignoreStartDateRequired" ng-disabled="vm.dateDisabled || vm.dateDisabledByPeriodType" ncp-disabled="!vm.dateDisabledByPeriodType"
-																			ng-model="vm.startDateModel" model-type="YYYY-MM-DDTHH:mm:ss.SSSZ" date-time-input="YYYY.MM.DD." data-date-formats="::vm.inputModelFormats" ncp-message-container="._error_start_date_3978005840"
-																			ng-required-err-type="required.daterangepicker.startDate" ncp-validate-change-trigger="" required="required" readonly="readOnly">
-																		<span class="input-group-addon" ng-if="!vm.dateDisabled &amp;&amp; !vm.dateDisabledByPeriodType &amp;&amp; !vm.startDatetimePickerDisabled">
-																			<a role="button" href="">
-																				<i class="fn fn-calendar1" aria-hidden="true"></i>
-																				<span class="sr-only">달력보기</span>
-																			</a>
-																		</span>
-																	</div>
-																</div>
-																
-																<div class="form-group dash">
-																	<div class="input-group">
-																		<span class="input-group-addon">~</span>
-																	</div>
-																</div>
-																
-																<div class="form-group _endDate_dropdown seller-datetime-picker _error_end_date_6583036381 dropdown" ng-class="::{dropdown : !vm.datetimePickerDropUp, dropup : vm.datetimePickerDropUp}">
-																	<div class="input-group dropdown-toggle dropdown_8625679209" data-toggle="dropdown" ng-click="vm.isEndDateShow = !vm.dateDisabled &amp;&amp; true" ng-attr-data-nclicks-code="{{::vm.nclicksCode}}">
-																		<input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required ng-valid-date-time-input" name="toDate" title="날짜 입력"
-																			ng-readonly="::vm.dateInputReadonly" ng-required="vm.dateRequired &amp;&amp; !vm.ignoreEndDateRequired" ng-disabled="vm.dateDisabled || vm.dateDisabledByPeriodType" ncp-disabled="!vm.dateDisabledByPeriodType"
-																			ng-model="vm.endDateModel" model-type="YYYY-MM-DDTHH:mm:ss.SSSZ" date-time-input="YYYY.MM.DD." data-date-formats="::vm.inputModelFormats" ncp-message-container="._error_end_date_6583036381"
-																			ng-required-err-type="required.daterangepicker.endDate" ncp-validate-change-trigger="" required="required" readonly="readOnly">
-																		<span class="input-group-addon" ng-if="!vm.dateDisabled &amp;&amp; !vm.dateDisabledByPeriodType &amp;&amp; !vm.endDatetimePickerDisabled">
-																			<a role="button" href="">
-																				<i class="fn fn-calendar1" aria-hidden="true"></i>
-																				<span class="sr-only">달력보기</span>
-																			</a>
-																		</span>
-																	</div>
-																</div>
-																
-															</div>
-														</div>
-													</div>
-												</ncp-datetime-range-picker2>
+											<label class="control-label">날짜 검색</label>
+											<div class="input-content">
+												<div class="form-inline narrow-area">
+													<label for="start-date">시작일: </label> 
+													<input type="date" id="start-date" name="startDate" class="form-control mx-2">
+													<label for="end-date">종료일: </label> 
+													<input type="date" id="end-date" name="endDate" class="form-control mx-2">
+													<!-- 1주, 1개월, 3개월, 6개월, 1년 버튼 추가 -->
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(7)">1주</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(30)">1개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(90)">3개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(180)">6개월</button>
+													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(365)">1년</button>
+												</div>
 											</div>
-										</div>
 										</li>
 									</ul>
 								</div>
 							</div>
-							
 							<div class="panel-footer">
 								<div class="seller-btn-area btn-group-lg">
-									<button type="submit" class="btn btn-primary">검색</button>
-									<button type="button" class="btn btn-default" ng-click="vm.func.reset()">초기화</button>
+									<button id="searchButton" type="submit" class="btn btn-primary">검색</button>
+									<!-- 초기화 버튼 추가 -->
+									<button type="reset" class="btn btn-default">초기화</button>
 								</div>
 							</div>
-							
 						</form>
 					</div>
 					<!-- 검색바 끝 -->
@@ -412,6 +368,55 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 
-</body>
+	<!-- 검색바 함수 -->
+	<script> 
+    function setDateRange(days) { 
+        const now = new Date(); 
+        const startDateInput = document.getElementById('start-date'); 
+        const endDateInput = document.getElementById('end-date'); 
+        const startDate = new Date(now - days * 24 * 60 * 60 * 1000); 
+        startDateInput.valueAsDate = startDate; 
+        endDateInput.valueAsDate = now; 
+    } 
+    // 초기화 버튼 클릭시 검색 조건 초기화 
+    const resetButton = document.querySelector('button[type="reset"]'); 
+    resetButton.addEventListener('click', (event) => { 
+        event.preventDefault(); 
+        document.getElementById('start-date').value = ''; 
+        document.getElementById('end-date').value = ''; 
+    }); 
+    </script>
+   
+   
+   <!-- 매출 차트 토글 함수 -->
+	<script>
+	$(document).ready(function() {
+	    // 마이페이지 전환 초기 설정
+	    $("#getMonthlySalesChart").hide();
+	
+	    // 마이페이지 전환 함수
+	    function toggleMypage(target) {
+	        $("#getDailySalesChart").hide();
+	        $("#chart1").removeClass("on");
+	        $("#getMonthlySalesChart").hide();
+	        $("#chart2").removeClass("on");
+	      
+	      if (target === "dailyChart") {
+	          $("#getDailySalesChart").show();
+	          $("#chart1").addClass("on");
+	      } else if (target === "monthlyChart") {
+	          $("#getMonthlySalesChart").show();
+	          $("#chart2").addClass("on");
+	      }
+	    }
+	  // 메뉴 클릭 이벤트 핸들러
+	  $(".toggle-chart").on("click", function(e) {
+	    e.preventDefault();
+	    let target = $(this).data("target");
+	    toggleMypage(target);
+	  });
+	 });  
+	</script>
 
+</body>
 </html>

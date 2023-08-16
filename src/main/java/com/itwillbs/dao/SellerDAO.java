@@ -76,11 +76,21 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getMonthlySales", seller_num);
 		}
 		
-		// 선진) 매출관리 - 일자별 매출 리스트
-		public List<Map<String,Object>> getDailySalesList(String seller_num) {
+		// 선진) 매출관리 - 검색바
+		public List<Map<String,Object>> getDailySalesList(Map<String, Object> params) {
 			
 			System.out.println("SellerDAO의 getDailySalesList 매핑완");
-			return sqlSession.selectList(namespace + ".getDailySalesList", seller_num);
+		    String seller_num = (String) params.get("seller_num");
+		    Date startDate = (Date) params.get("startDate");
+		    Date endDate = (Date) params.get("endDate");
+		    params.put("startDate", startDate);
+		    params.put("endDate", endDate);
+			return sqlSession.selectList(namespace + ".getDailySalesList", params);
+		}
+		public List<Map<String,Object>> dailySales(String seller_num) {
+			
+			System.out.println("SellerDAO의 dailySales 매핑완");
+			return sqlSession.selectList(namespace + ".dailySales", seller_num);
 		}
 		
 		// 선진) 정산관리

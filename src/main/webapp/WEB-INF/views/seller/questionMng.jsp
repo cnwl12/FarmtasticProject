@@ -13,6 +13,11 @@
 
     <title>seller/questionMng</title>
 
+
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/uio_calendar.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/grid.css">
+	
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -25,12 +30,9 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerquestion.css">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/uio_calendar.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/grid.css">
-	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 						
@@ -72,25 +74,18 @@
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">문의관리</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-                        </a>
-                    </div>
+                    <h1 class="h3 mb-2 text-gray-800">문의관리</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
                     <!-- 페이지 상단 끝 -->
 
 
 					<!-- 고객문의관리 시작 -->
-						<div id="wrap">
-							<div id="container">
+						<div class="card shadow mb-4">
+	                        <div class="card-header py-3">
+	                            <h6 class="m-0 font-weight-bold text-primary">고객문의</h6>
+	                        </div>
 								<div id="content2">
-									<div class="hd2_wrap">
-										<h2 class="hd2 h_sell8 fl">
-											<span class="blind">고객문의 관리</span>
-										</h2>
-									</div>
-					
 									<div class="tbl_type">
 										<form id="searchForm" name="searchForm">
 											<input type="submit"
@@ -147,14 +142,11 @@
 													</tr>
 												</tbody>
 											</table>
-											<!--  어디에쓰는건지 몰라서 주석 : 서영 -->
-<!-- 											<input type="hidden" name="orderBy" value=""> <input -->
-<!-- 												type="hidden" name="orderDir" value=""> -->
 										</form>
 									</div>
 					
 									<div class="btn_wrap" style="margin-top: 20px">
-										<button type="button" id="search-btn" onclick="searchFormSubmit(event)">검색</button>
+										<button type="button" id="search-btn" onclick="searchFormSubmit(event)" class="btn">검색</button>
 									</div>
 					
 									<div style="height: 378px;">
@@ -298,25 +290,23 @@
 												      <col>
 												    </colgroup>
 												    <tbody>
-												      <tr>
-												        <th scope="row">답변내용</th>
-												        <td>
-												          <textarea cols="30" rows="5" id="one_board_reply"
-												            name="one_board_reply" onfocus="this.className='ta scrl ta_on';"
-												            onblur="this.className='ta scrl';" class="ta scrl"
-												            style="width: 100%; height: 250px"></textarea>
-												          <div class="space_h">
-												            <span class="num_meta2 fr"><em><span
-												              class="blind">입력된 글자수 : </span><span
-												              id="_char_count_span">0</span></em>/<strong><span
-												              class="blind">최대 입력 글자 : </span>1,000</strong></span>
-												           <button type="submit" class="btn_d"><span>답변하기</span></button>
-												
-												            <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
-												          </div>
-												        </td>
-												      </tr>
-												    </tbody>
+													  <tr>
+													    <th scope="row">답변내용</th>
+													    <td>
+													      <textarea cols="30" rows="5" id="one_board_reply"
+													                name="one_board_reply" class="ta scrl"
+													                style="width: 100%; height: 250px"></textarea>
+													      <div class="space_h">
+													        <span class="num_meta2 fr"><em><span
+													          class="blind">입력된 글자수 : </span><span
+													          id="_char_count_span">0</span></em>/<strong><span
+													          class="blind">최대 입력 글자 : </span>1,000</strong></span>
+													       <button type="submit" class="btn_d"><span>답변하기</span></button>
+													        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+													      </div>
+													    </td>
+													  </tr>
+													</tbody>
 												  </table>
 												</form>
 
@@ -398,11 +388,6 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 	<!-- 서영: 1대1문의를 위한 js -->
 	<script>
@@ -467,28 +452,6 @@
 	  });
 	}
 	
-// 	function handleClickOneBoardTitle(event) {
-// 	    const targetRow = event.target.closest('tr');
-// 	    const one_board_num = targetRow.getAttribute('data-one-board-num'); // 속성을 변경했습니다.
-// 	    const one_board_repYn = targetRow.querySelector('td:nth-child(2)').textContent;
-
-// 	    if (one_board_num) {
-// 	        const currentForm = document.getElementById('answerForm');
-
-// 	        const regCommentButton = document.getElementById('regComment');
-// 	        const editCommentButton = document.getElementById('editComment');
-
-// 	        if (one_board_repYn === '미답변') {
-// 	            regCommentButton.style.display = 'inline';
-// 	            editCommentButton.style.display = 'none';
-// 	        } else if (one_board_repYn === '답변완료') {
-// 	            regCommentButton.style.display = 'none';
-// 	            editCommentButton.style.display = 'inline';
-// 	        }
-
-// 	        const existingHiddenInput = document.querySelector('input[name="one_board_num"]');
-// 	    }
-// 	}
 
 	document.getElementById("processComment").addEventListener("click", sendFormData);
 
@@ -625,6 +588,26 @@ function sortTable() {
 	  return new Date(parts[0], parts[1] - 1, parts[2]);
 	}
 
+
+
+</script>
+<script>
+$(document).ready(function() {
+    function updateCharCount() {
+        const maxLength = 1000;
+        const textArea = $('#one_board_reply');
+        const textLength = textArea.val().length;
+
+        if (textLength > maxLength) {
+            alert(`글자수는 ${maxLength}자까지 입력 가능합니다.`);
+            textArea.val(textArea.val().substring(0, maxLength));
+        }
+
+        $('#_char_count_span').text(textLength);
+    }
+
+    $('#one_board_reply').on('input', updateCharCount);
+});
 
 
 </script>

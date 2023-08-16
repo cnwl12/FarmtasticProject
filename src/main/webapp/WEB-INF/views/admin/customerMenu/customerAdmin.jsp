@@ -75,15 +75,6 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th><input type="checkbox" class="check-all"/></th>
-                                             <th>회원번호</th>
-                                            <th>아이디</th>
-                                            <th>이름</th>
-                                            <th>상태</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         
                                  	<c:forEach items="${members}" var="member">

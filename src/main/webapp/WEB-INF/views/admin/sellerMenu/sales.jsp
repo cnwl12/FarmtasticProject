@@ -63,7 +63,8 @@
                             <div>
                             
     						<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
-    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 6, 7)}월</label>
+    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 0, 4)}-${fn:substring(currentMonth, 5, 7)}</label>
+
    			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
    			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
 							
@@ -105,17 +106,6 @@
                                             <th>매출액(업체)</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr style="background-color: #edf1f5;">
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>매출일</th>
-                                            <th>정산액</th>
-                                            <th>수수료</th>
-                                            <th>매출액(업체)</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody id="monthlysales">
                                      <c:forEach items="${sellers}" var="seller">
     									<c:set var="sellerMonth" value="${seller.monthly}" />
@@ -197,7 +187,10 @@ $(document).ready(function () {
             // 데이터를 업데이트하는 부분
             $.each(data, function (index, item) {
                 var newRow = $("<tr></tr>");
-                newRow.append($("<td></td>").text(item.seller_num));
+                
+                var sellerSiteLink = $("<a></a>").attr("href", "${pageContext.request.contextPath}/detailSales?seller_num=" + item.seller_num + "&pay_day=" + item.pay_day).text(item.seller_num);
+                
+                newRow.append($("<td></td>").append(sellerSiteLink));
                 newRow.append($("<td></td>").text(item.seller_storeName));
                 newRow.append($("<td></td>").text(item.seller_name));
                 newRow.append($("<td></td>").text(item.pay_day));
@@ -206,12 +199,12 @@ $(document).ready(function () {
                 newRow.append($("<td></td>").text(item.daily_sales));
                 tableBody.append(newRow);
             });
-
+        
             $("#hidden_month").val(monthly);
+            var updatedYear = parseInt(monthly.substr(0, 4));
             var updatedMonth = parseInt(monthly.substr(5, 2));
-            $("#current_month_label").text(updatedMonth + "월");
+            $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
         });
-
         // dataTable2에 대한 업데이트
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody2 = $("#avgContent");

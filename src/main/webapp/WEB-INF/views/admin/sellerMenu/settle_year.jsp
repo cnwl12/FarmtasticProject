@@ -75,25 +75,15 @@
                                             <th>정산액</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>코드</th>
-                                            <th>대표자</th>
-                                            <th>매출월</th>
-                                            <th>매출액</th>
-                                            <th>수수료</th>
-                                            <th>정산액</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
                                             <td>${sale.seller_num}</td>
                                             <td>${sale.seller_name}</td>
-                                            <td>${sale.order_month}</td>
-                                            <td>${sale.revenue}</td>
-                                            <td>${sale.fee}</td>
-                                            <td>${sale.income}</td>
+                                            <td>${sale.order_month}월</td>
+                                            <td>${sale. yearly_revenue}</td>
+                                            <td>${sale.yearly_fee}</td>
+                                            <td>${sale.yearly_income}</td>
                                      	   </tr>	
                                      </c:forEach>
                                     </tbody>

@@ -159,8 +159,6 @@ public class SellerController {
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
 		
 		System.out.println("SellerController의 sellerUpdatePro 매핑완");
-//		Map<String, Object> sellerInfoList2 = sellerService.sellerCheck(sellerInfo);
-//		System.out.println(sellerInfoList2);
 		if(sellerInfo != null) {
 			System.out.println("null 아님");
 			sellerService.updateSeller(sellerInfo);
@@ -193,13 +191,43 @@ public class SellerController {
 	    model.addAttribute("DailySales", DailySales);
 	    model.addAttribute("MonthlySales", MonthlySales);
 	    
-	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
-	    model.addAttribute("DailySalesList", DailySalesList);
-	    
-
 		return "/seller/salesMng";
 	    }
 	}
+	
+	// 선진) 매출관리 페이지 - 검색바
+	@RequestMapping(value = "/salesMngPro", method = RequestMethod.GET)
+	public String salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
+	                            @RequestParam(name = "endDate", required = false) String endDate,
+	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
+		System.out.println("SellerController의 salesMngPro 매핑완");
+		
+	    String seller_num = (String) session.getAttribute("seller_num");
+	    
+	    Date start = null;
+	    Date end = null;
+	    try {
+	        if (startDate != null && !startDate.trim().isEmpty()) {
+	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+	        }
+	        if (endDate != null && !endDate.trim().isEmpty()) {
+	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+	        }
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	        start = null;
+	        end = null;
+	    }
+	    
+	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num, start, end);
+	    model.addAttribute("DailySalesList", DailySalesList);
+	    
+	    String seller_id = sellerService.idCheck(seller_num);
+	    model.addAttribute("seller_id", seller_id);
+	    
+	    session.setAttribute("seller_num", seller_num);
+	    return "/seller/salesMng";
+	}	
 	
 	// 선진) 일자별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)

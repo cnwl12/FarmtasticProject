@@ -4,21 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
-    <jsp:include page="../top.jsp"></jsp:include>
+  
     
     <title>배송 조회</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/zzim.css" type="text/css"> --%>
-<!-- 지마켓  -->  
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myg.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/page.css" type="text/css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
@@ -325,7 +313,7 @@
 </div>
  
  
-<div style="background-color: #efefef;">
+
 <div style="height: 50px;"></div>
 
 <div style="display: flex; justify-content: center;">

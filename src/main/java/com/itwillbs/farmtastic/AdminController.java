@@ -515,7 +515,7 @@ public class AdminController {
             // 로그인한 경우
             String admin_id = (String) session.getAttribute("admin_id");
             Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
-            List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num);
+            List<Map<String,Object>> DailySalesList = sellerService.dailySales(seller_num);
     	    model.addAttribute("seller_num", seller_num);
     	    model.addAttribute("pay_day", pay_day);
     	    model.addAttribute("DailySalesList", DailySalesList);

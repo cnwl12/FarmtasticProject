@@ -577,6 +577,7 @@
         <result column="item_price" property="item_price"/>
         <result column="seller_num" property="seller_num"/>
         <result column="seller_storeName" property="seller_storeName"/>
+        <result column="item_mainImg" property="item_mainImg"/>
     </resultMap>
     
     <select id="getzzimlist" resultMap="zzimlistResultMap">
@@ -585,6 +586,7 @@
     		, item.item_price
     		, item.seller_num
     		, seller.seller_storeName
+    		, item.item_mainImg
 		FROM item
 		JOIN seller 
 		ON item.seller_num = seller.seller_num

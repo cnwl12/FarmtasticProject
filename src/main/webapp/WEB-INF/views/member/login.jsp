@@ -3,6 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+function enterCheck(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault(); // 기본 이벤트(폼의 제출)를 중단합니다.
+        validateAndSubmitPersonal(); // 원하는 로그인 함수를 실행합니다.
+    }
+}
+function enterCheck2(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault(); // 기본 이벤트(폼의 제출)를 중단합니다.
+        validateAndSubmitBusiness(); // 원하는 로그인 함수를 실행합니다.
+    }
+}
+</script>
  <meta name="description" content="Ogani Template">
  <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +75,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="member_id" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="member_id" id="loginId1" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive" onkeypress="enterCheck(event)">
 												<div id="invalid_id0" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -72,7 +86,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="member_pass" id="pwd1" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="member_pass" id="pwd1" value="" onkeypress="enterCheck(event)">
 												<div id="invalid_pass0" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
@@ -125,7 +139,7 @@
 										<li class="full">
 											<div class="col">
 												<label for="f-id"></label>
-												<input type="text" name="seller_id" id="loginId2" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive">
+												<input type="text" name="seller_id" id="loginId2" maxlength="20" placeholder="아이디" value="" style="ime-mode:inactive" onkeypress="enterCheck2(event)">
 												<div id="invalid_id1" class="invalid-feedback">
                 								아이디를 입력해주세요.
               									</div>
@@ -136,7 +150,7 @@
 										<li class="full">
 											<div class="col c-1">
 												<label for="f-pw"></label> <!-- maxlength : 길이제한!   -->
-												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="seller_pass" id="pwd2" value="">
+												<input type="password" maxlength="20" placeholder="비밀번호 (대/소문자 구분)" name="seller_pass" id="pwd2" value="" onkeypress="enterCheck2(event)">
 												<div id="invalid_pass1" class="invalid-feedback">
                 								비밀번호를 입력해주세요.
               									</div>
@@ -180,7 +194,7 @@
 							</div>
 						</div>
 						<!-- //login2-wrap -->
-						
+						   
 					</div>
 					<!-- ### 컨텐츠 끝 ###  -->
 

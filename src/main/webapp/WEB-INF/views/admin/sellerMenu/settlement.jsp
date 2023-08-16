@@ -77,20 +77,6 @@
                                             <th>정산일</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th><input type="checkbox" class="js-check-all"/></th>
-                                            <th>코드</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>매출월</th>
-                                            <th>매출액(업체)</th>
-                                            <th>수수료</th>
-                                            <th>정산액</th>
-                                            <th>정산여부</th>
-                                            <th>정산일</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <c:forEach items="${sales}" var="sale">
                                           <tr>
