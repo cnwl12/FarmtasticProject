@@ -16,6 +16,7 @@
 
     <title>Admin</title>
 
+ 
     <!-- Custom fonts for this template-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -24,7 +25,13 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body id="page-top">
@@ -56,39 +63,48 @@
 							<div class="panel-body">
 								<ul class="seller-list-border">
 									<li>
-									<label class="control-label">이름</label>
-										<div class="input-content">
-											<input type="text" class="form-control" name="seller_email" value="${admin.admin_name}">
-											<div class="form-control-static">${seller.seller_name}</div>
-										</div>
-									</li>
-
-									<li>
 									<label class="control-label">로그인ID</label>
 										<div class="input-content">
-											<input type="text" class="form-control" name="seller_email" value="${admin.admin_id}">
-											<div class="form-control-static">${seller.seller_id}</div>
+											<input type="text" class="form-control" value="${admin.admin_id}" readonly="readonly" >
+										</div>
+									</li>
+									<li>
+									<label class="control-label">이름</label>
+										<div class="input-content">
+											<input type="text" class="form-control" value="${admin.admin_name}" readonly="readonly">
 										</div>
 									</li>
 
 									<li>
-									<label class="control-label">이메일 주소</label>
+									<label class="control-label">닉네임</label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline"> <!-- 이 클래스는 텍스트박스 길이 줄여줌. 없으면 늘어남 -->
-												<input type="text" class="form-control" name="seller_email" value="${seller.seller_email}">
+												<input type="text" class="form-control" value="${admin.admin_nickname}">
 											</div>
 										</div>
 									</li>
-
-									<li> 							
-									<label class="control-label">휴대폰 <br class="visible-xs">번호 <!-- 이 클래스는 뭐지?  --> </label>
+								
+									
+									<li>
+									<label class="control-label">생년월일</label>
 										<div class="input-content">
-											<div class="form-inline mobile-inline">
-												<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
-											</div>
-										</div>
+    										<div class="form-inline mobile-inline">
+        									<input type="date" id="birth_date" class="form-control" value="${admin.admin_birth}">
+    										</div>
+    										</div>
+									</li>
+									<li>
+									<label class="control-label">입사일</label>
+										<div class="input-content">
+    										<div class="form-inline mobile-inline">
+        									<input type="date" id="birth_date" class="form-control" value="${admin.admin_hiredate}" readonly="readonly">
+    										</div>
+    										</div>
 									</li>
 								</ul>
+								   <div class="btn_center">
+                        <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">수정하기</button>
+                     </div>
 							</div>
 
 						</div>
@@ -160,7 +176,17 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
-
+		<script>
+$(document).ready(function () {
+    // DatePicker settings
+    $("#birth_date").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0"
+    });
+});
+</script>
 </body>
 
 </html>

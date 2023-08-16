@@ -130,14 +130,16 @@ input#file-upload-button {
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="${item.item_mainImg}" alt="">
+                            <img class="product__details__pic__item--large" src="${item.item_mainImg}" alt="">
                         </div>
-                        <!-- 사진 하드코딩  -->
-                        <%-- <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="${pageContext.request.contextPath}/resources/img/product/details/product-details-2.jpg"
-                                src="${pageContext.request.contextPath}/resources/img/product/details/thumb-1.jpg" alt="">
-                        </div> --%>
+                        			 <c:choose>
+				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+				                            <div class="overlay sold-out">판매 종료</div>
+				                        </c:when>
+				                        <c:when test="${item.item_left < 3}">
+				                            <div class="overlay sold-out">마감 임박</div>
+				                        </c:when>
+				                    </c:choose>
                     </div>
                 </div>
                 							<!-- class 추가 / 임의로 데이터 item_num 생성 / 모델에 담긴 값  -->
@@ -162,7 +164,6 @@ input#file-upload-button {
 						</div>
 
                         <div class="product__details__price">${item.item_price}</div>
-                       <%--  <p>${item.item_detail}</p> --%>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -170,27 +171,36 @@ input#file-upload-button {
                                 </div>  
                             </div>
                         </div>  
-                        <input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
+                       <c:choose>
+                         <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+                        	<input type="button" class="primary-btn" value="판매종료">
+                         </c:when>
+                         <c:otherwise>
+                        	<input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
+                         </c:otherwise>
+                        </c:choose>
                         <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}" style="color: red;"></i>
 							</a>
 
 
                         
                         <ul>
-                            <li><b>Seller</b> <span>${item.seller_storeName}</span></li>
-                            <li><b>Availability</b> <span>In Stock</span></li>
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                            <li><b>Weight</b> <span>0.5 kg</span></li>
-                            <!-- <li><b>Share on</b>
-                                <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </div>
-                            </li> -->
-                        </ul>
+							<li><b>Seller</b> <span>${item.seller_storeName}</span></li>
+							<li><b>Availability</b> 
+							<c:choose>
+									<c:when
+										test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+										<span>sold out</span>
+									</c:when>
+									<c:otherwise>
+										<span>In Stock</span>
+									</c:otherwise>
+								</c:choose></li>
+							<li><b>Shipping</b> <span>01 day shipping. <samp>Free
+										pickup today</samp></span></li>
+							<li><b>Weight</b> <span>0.5 kg</span></li>
+						</ul>
                         
                         
                     </div>
@@ -708,8 +718,8 @@ input#file-upload-button {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>

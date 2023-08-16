@@ -248,6 +248,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/kakaologin";
 	}
+	
 
 	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
 	public String kakaocallback(Locale locale, Model model) {
@@ -414,6 +415,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		// 주문관리 - 지원
 		List<Map<String, Object>> orderList = memberService.getOrderList(member_num);
 		model.addAttribute("orderList", orderList);
+		List<Map<String, Object>> cancelList = memberService.getCancelList(member_num);
+		model.addAttribute("cancelList", cancelList);
 		
 		return "/member/mypage";
 	}
@@ -442,6 +445,25 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		return "/member/mypage";
 	}
+	
+	@RequestMapping(value="/cancelList", method = RequestMethod.POST)
+	public String cancelList(@RequestParam HashMap<String, Object> cancel) {
+		
+	    String orderNum = cancel.get("orderNum").toString();
+	    cancel.put("order_num", orderNum);
+		
+		//취소하러 오는지 
+		System.out.println("cancelList");
+		// 주문상태 업데이트 
+		memberService.cancelUpdate(cancel);
+		// 취소디비 딜리트 
+		memberService.cancelDelete(cancel);
+		
+		return "/member/mypage";
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
@@ -776,11 +798,55 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
-	public String insertPro2(SellerDTO sellerDTO) {
+	public String insertPro2(HttpServletRequest request, @RequestParam("file") MultipartFile file, HttpSession session) throws Exception {
+	    
+        SellerDTO sellerDTO = new SellerDTO();
+		System.out.println("gd");
+	    // 파일 처리 부분
+	    if (!file.isEmpty() && file.getSize() > 0) {
+	        String uploadPath = session.getServletContext().getRealPath("/resources/upload"); // 첨부파일 올라갈 물리적 경로
+	        String fileName = file.getOriginalFilename(); // 파일 원래 이름
+	        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 
-		sellerService.insertSeller(sellerDTO);
+	        String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+	        String sellerFileName = uuid.substring(0, 8) + "." + fileExtension; // 자리수 0~8까지
 
-		return "redirect:/login";
+	        String filePath = uploadPath + "/" + sellerFileName;
+	        System.out.println("filePath : " + filePath);
+	        
+			// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+			String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + sellerFileName;
+
+	        // 파일을 서버에 저장
+	        File dest = new File(filePath);
+	        file.transferTo(dest);
+	        
+
+	        // 저장된 파일 경로를 sellerDTO에 저장
+	        sellerDTO.setSeller_file(filePath);
+	    }
+	    
+	    sellerDTO.setSeller_type(request.getParameter("seller_type"));
+	    sellerDTO.setSeller_licenseNum(request.getParameter("seller_licenseNum"));
+	    sellerDTO.setSeller_id(request.getParameter("seller_id"));
+	    sellerDTO.setSeller_pass(request.getParameter("seller_pass"));
+	    sellerDTO.setSeller_name(request.getParameter("seller_name"));
+	    sellerDTO.setSeller_storeName(request.getParameter("seller_storeName"));
+	    sellerDTO.setSeller_post(request.getParameter("seller_post"));
+	    sellerDTO.setSeller_addMain(request.getParameter("seller_addMain"));
+	    sellerDTO.setSeller_addSub(request.getParameter("seller_addSub"));
+	    sellerDTO.setSeller_mobile(request.getParameter("seller_mobile"));
+	    sellerDTO.setSeller_phone(request.getParameter("seller_phone"));
+	    sellerDTO.setSeller_bank(request.getParameter("seller_bank"));
+	    sellerDTO.setSeller_accountNum(request.getParameter("seller_accountNum"));
+	    sellerDTO.setSeller_accountHolder(request.getParameter("seller_accountHolder"));
+	    sellerDTO.setSeller_email(request.getParameter("seller_email"));
+	    sellerDTO.setSeller_recoYn(request.getParameter("seller_recoYn"));
+	    
+	    // 회원가입 처리
+	    sellerService.insertSeller(sellerDTO);
+
+	    return "redirect:/login";
 	}
 	
 	

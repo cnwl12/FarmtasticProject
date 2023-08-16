@@ -5,44 +5,6 @@
 
 <mapper namespace="SellerMapper">
     <select id="getSellers" resultType="map">
-	 <!-- 	WITH monthly_seller_data AS (
-    		SELECT s.seller_num,
-    			   s.seller_storeName,
-    			   s.seller_name,
-	 	           SUM(o.sales) AS daily_sales_raw,
-           		   DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m-%d') as pay_day,
-           		   o.monthly
-    		FROM (
-        			SELECT o.order_num, 
-        			o.item_num, 
-        			o.item_cnt, 
-        			i.item_price, 
-        			i.seller_num,
-               	    (i.item_price * o.item_cnt) as sales,
-                	DATE_FORMAT(STR_TO_DATE(SUBSTRING(o.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly
-        FROM order_detail o
-        LEFT JOIN item i 
-        ON i.item_num = o.item_num
-    	) o
-    	LEFT JOIN seller s 
-    	ON s.seller_num = o.seller_num
-    	WHERE o.monthly = #{monthly}
-    	GROUP BY o.monthly, 
-    		 	 s.seller_num, 	
-    		 	 s.seller_storeName, 
-    		 	 s.seller_name, 
-    		 	 pay_day
-		)
-	   SELECT *, 
-       FORMAT(daily_sales_raw, 0) AS daily_sales,
-       FORMAT(FLOOR(daily_sales_raw * 0.05), 0) as daily_fee,
-       FORMAT(daily_sales_raw - (daily_sales_raw * 0.05), 0) as daily_settlement,
-	   FORMAT(SUM(daily_sales_raw) OVER (PARTITION BY monthly), 0) as month_sales,  
-	   FORMAT(SUM(FLOOR(daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_fee,
-       FORMAT(SUM(daily_sales_raw - (daily_sales_raw * 0.05)) OVER (PARTITION BY monthly), 0) as month_settlement
-	   FROM monthly_seller_data
-	   ORDER BY pay_day;
-	   -->
 		WITH monthly_seller_data AS (
     		SELECT s.seller_num,
     			   s.seller_storeName,
@@ -67,7 +29,7 @@
         LEFT JOIN orders o
         ON o.order_num = od.order_num
     	WHERE od.monthly = #{monthly}
-        AND o.order_cancel != 'Y' 
+        AND o.order_cancel = 'N' 
     	GROUP BY od.monthly, 
     		 	 s.seller_num, 	
     		 	 s.seller_storeName, 
@@ -141,7 +103,8 @@
   		seller_accountHolder = #{seller_accountHolder},
   		seller_post = #{seller_post},
   		seller_addMain = #{seller_addMain},
-  		seller_addSub = #{seller_addSub}
+  		seller_addSub = #{seller_addSub},
+  		seller_file = #{seller_file}
   	where seller_num = #{seller_num}
     </update>
     
@@ -413,6 +376,7 @@
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
+       		 ,item_salesStatus
        FROM item
        ORDER BY item_num desc
     </select>
@@ -435,6 +399,7 @@
    <!-- 개별상품 가져오기  -->
    <select id="getItem" resultType="map">
      SELECT item_num
+     	   ,item_name
 		   ,item_price
 		   ,item_mainImg
 		   ,item_detail
@@ -584,7 +549,7 @@ ORDER BY MONTH(os.order_day);
    	<!-- 판매자 회원가입 -->
     <insert id="insertSeller">  
         insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post,
-        seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay)
+        seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay, seller_file)
         values((SELECT *
         FROM (
             SELECT CONCAT(#{seller_type}, LPAD( (SELECT COUNT(*) + 1 as next_num 
@@ -592,7 +557,7 @@ ORDER BY MONTH(os.order_day);
                             WHERE seller_type = #{seller_type}), 3, '0'))
             FROM DUAL
         	 ) A), #{seller_type}, #{seller_licenseNum}, #{seller_id},#{seller_pass}, #{seller_name}, #{seller_storeName}, #{seller_post}, 
-        	 #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now())
+        	 #{seller_addMain}, #{seller_addSub}, #{seller_phone}, #{seller_bank}, #{seller_accountNum}, #{seller_accountHolder}, #{seller_email}, now(), #{seller_file})
     </insert>
 
 <select id="sellerCheck1" resultType="com.itwillbs.domain.SellerDTO">
