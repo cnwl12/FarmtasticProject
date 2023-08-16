@@ -375,6 +375,7 @@
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
+       		 ,item_salesStatus
        FROM item
        ORDER BY item_num desc
     </select>
@@ -397,6 +398,7 @@
    <!-- 개별상품 가져오기  -->
    <select id="getItem" resultType="map">
      SELECT item_num
+     	   ,item_name
 		   ,item_price
 		   ,item_mainImg
 		   ,item_detail
