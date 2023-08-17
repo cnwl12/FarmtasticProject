@@ -85,7 +85,7 @@
         <c:otherwise>
             <!-- 카카오 로그인 상태인 경우 -->
             <c:if test="${not empty sessionScope.accessToken}">
-                <a href="kakaoLogout"><i class="fa fa-sign-out"></i>Kakao Logout</a>
+                <a href="kakaoLogout"><i class="fa fa-sign-out"></i>Logout</a>
             </c:if>
             <!-- 일반 로그인 상태인 경우 -->
             <c:if test="${empty sessionScope.accessToken}">
