@@ -1130,8 +1130,48 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-	public String oneBoardForm(OneBoardDTO oneboardDTO) {
+	public String oneBoardForm(OneBoardDTO oneboardDTO, @RequestParam("one_board_file") MultipartFile file, HttpSession session)throws Exception{
 		System.out.println("oneboardForm() 로드");
+		    int member_num = (int) session.getAttribute("member_num");
+		    int item_num = oneboardDTO.getItem_num();
+
+		// 첨부파일 올라갈 물리적 경로 
+				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+				
+				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+				        String fileName = file.getOriginalFilename(); // 파일 원래 이름
+				        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+				
+				
+				     // 허용되는 파일 확장자 리스트
+				        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+
+				        if (allowedExtensions.contains(fileExtension.toLowerCase())) {
+
+				            String uuid = UUID.randomUUID().toString();
+				            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+
+				            String filePath = uploadPath + "/" + storedFileName;
+
+				            System.out.println("filePath : " + filePath);
+
+				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+				            System.out.println("Received file: " + file.getOriginalFilename());
+
+				            // 서버에 파일 저장
+				            File dest = new File(filePath);
+				            try {
+				                file.transferTo(dest);
+				            } catch (IOException e) {
+				                // 여기서 예외를 처리하세요.
+				                e.printStackTrace();
+				            }
+
+				            oneboardDTO.setOne_board_file(saveFileName);
+				        } else {
+				        }
+				    }
 		memberService.insertOneBoard(oneboardDTO);
 
 		return "/member/success";

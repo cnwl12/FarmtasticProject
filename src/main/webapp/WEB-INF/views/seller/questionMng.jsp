@@ -85,8 +85,8 @@
 	                        <div class="card-header py-3">
 	                            <h6 class="m-0 font-weight-bold text-primary">고객문의</h6>
 	                        </div>
-								<div id="content2">
-									<div class="tbl_type">
+								<div class="card-body">
+									<div class="table-responsive">
 										<form id="searchForm" name="searchForm">
 											<input type="submit"
 												style="position: absolute; left: -5000px; top: -5000px"
@@ -149,12 +149,12 @@
 										<button type="button" id="search-btn" onclick="searchFormSubmit(event)" class="btn">검색</button>
 									</div>
 					
-									<div style="height: 378px;">
+									<div class="table-responsive" style="height: 378px;">
 										<div class="_qna_list_container scrl uio_grid"
 											style="width: 100%; height: 377px;">
 											<div class="_flexible_area flexible_area" style="display: block;">
-												<div class="_header header2" style="height: 35px;">
-													<table>
+												<div style="height: 35px;">
+													<table class="table table-bordered">
 													  <colgroup>
 													    <col style="width: 150px;">
 													    <col style="width: 120px;">
@@ -179,10 +179,10 @@
 
 													<div class="_resize_handle_container resize_handle_container"></div>
 												</div>
-												<div class="_body body" style="height: 350px;  overflow: hidden;">
-													<div class="_table_container" style="height: 350px; overflow-y: scroll;">
+												<div>
+													<div>
 													<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-														<table id="date-table">
+														<table class="table table-bordered" id="date-table">
 															<colgroup>
 															<col data-columnname="regDate" style="width: 150px;">
 															<col data-columnname="answerYn" style="width: 120px;">
@@ -211,8 +211,6 @@
 													<div class="_selection_layer selection_layer"></div>
 												</div>
 											</div>
-											<div class="left_line"></div>
-											<div class="right_line"></div>
 											<textarea class="_clipboard clipboard"></textarea>
 										</div>
 									</div>
@@ -297,10 +295,10 @@
 													                name="one_board_reply" class="ta scrl"
 													                style="width: 100%; height: 250px"></textarea>
 													      <div class="space_h">
-													        <span class="num_meta2 fr"><em><span
-													          class="blind">입력된 글자수 : </span><span
-													          id="_char_count_span">0</span></em>/<strong><span
-													          class="blind">최대 입력 글자 : </span>1,000</strong></span>
+													        <span class="num_meta2 fr">
+													        <em> <span class="blind">입력된 글자수 : </span>
+													          <span id="_char_count_span">0</span></em>/
+													          <strong><span class="blind">최대 입력 글자 : </span>1,000</strong></span>
 													       <button type="submit" class="btn_d"><span>답변하기</span></button>
 													        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
 													      </div>
@@ -592,22 +590,14 @@ function sortTable() {
 
 </script>
 <script>
-$(document).ready(function() {
-    function updateCharCount() {
-        const maxLength = 1000;
-        const textArea = $('#one_board_reply');
-        const textLength = textArea.val().length;
+function updateCharCount() {
+    var charCount = document.getElementById('one_board_reply').value.length;
+    document.getElementById('_char_count_span').innerHTML = charCount;
+}
 
-        if (textLength > maxLength) {
-            alert(`글자수는 ${maxLength}자까지 입력 가능합니다.`);
-            textArea.val(textArea.val().substring(0, maxLength));
-        }
-
-        $('#_char_count_span').text(textLength);
-    }
-
-    $('#one_board_reply').on('input', updateCharCount);
-});
+window.onload = function () {
+    document.getElementById('one_board_reply').addEventListener('input', updateCharCount);
+};
 
 
 </script>
