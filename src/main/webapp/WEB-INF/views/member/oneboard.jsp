@@ -11,7 +11,7 @@
 <body>
   <div class="inquiry-container">
     <h1>상품 Q&amp;A</h1>
-    <form action="oneboardForm" method="get" enctype="multipart/form-data">
+    <form action="oneboardForm" method="post" enctype="multipart/form-data">
       <input type="hidden" name="action" value="write">
 		<%! int item_num; %>
 		<%

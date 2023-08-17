@@ -590,14 +590,22 @@ function sortTable() {
 
 </script>
 <script>
-function updateCharCount() {
-    var charCount = document.getElementById('one_board_reply').value.length;
-    document.getElementById('_char_count_span').innerHTML = charCount;
-}
+<script>
+$(document).ready(function() {
+  $('#one_board_reply').on('input', function() {
+    var inputLength = $(this).val().length;
+    $('#_char_count_span').text(inputLength);
+    
+    if(inputLength > 1000){
+    	alert("최대 입력 글자를 초과하였습니다.");
+    	var shortenedText = $(this).val().substring(0, 1000);
+    	$(this).val(shortenedText);
+    	$('#_char_count_span').text(1000);
+    }
+  });
+});
+</script>
 
-window.onload = function () {
-    document.getElementById('one_board_reply').addEventListener('input', updateCharCount);
-};
 
 
 </script>

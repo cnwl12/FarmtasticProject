@@ -1126,15 +1126,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/oneboard";
 	}
 
-	@RequestMapping(value = "/oneboardForm", method = RequestMethod.GET)
-	public String oneBoardForm(OneBoardDTO oneboardDTO, @RequestParam("one_board_file") MultipartFile file, HttpSession session)throws Exception{
+	@RequestMapping(value = "/oneboardForm", method = RequestMethod.POST)
+	public String oneBoardForm(HttpServletRequest request, @RequestParam("one_board_file") MultipartFile file, HttpSession session)throws Exception{
 		System.out.println("oneboardForm() 로드");
-		    int member_num = (int) session.getAttribute("member_num");
-		    int item_num = oneboardDTO.getItem_num();
 
 		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-				
+				OneBoardDTO oneboardDTO = new OneBoardDTO();
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
 				        String fileName = file.getOriginalFilename(); // 파일 원래 이름
 				        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
@@ -1159,16 +1157,23 @@ public class FarmController { // 소비자 (컨트롤러)
 				            // 서버에 파일 저장
 				            File dest = new File(filePath);
 				            try {
-				                file.transferTo(dest);
+				              file.transferTo(dest);
+				              System.out.println("파일이 정상적으로 저장되었습니다: " + dest.getAbsolutePath()); // 로그 메시지 추가
 				            } catch (IOException e) {
-				                // 여기서 예외를 처리하세요.
-				                e.printStackTrace();
+				              System.out.println("파일 저장 중 오류 발생: " + e.getMessage()); // 에러 발생 시 로그 메시지 추가
+				              e.printStackTrace();
 				            }
 
 				            oneboardDTO.setOne_board_file(saveFileName);
 				        } else {
 				        }
 				    }
+				
+				oneboardDTO.setOne_board_type(request.getParameter("one_board_type"));
+				oneboardDTO.setOne_board_title(request.getParameter("one_board_title"));
+				oneboardDTO.setOne_board_content(request.getParameter("one_board_content"));
+				oneboardDTO.setOne_board_pass(request.getParameter("one_board_pass"));
+				oneboardDTO.setOne_board_private(request.getParameter("one_board_private"));
 		memberService.insertOneBoard(oneboardDTO);
 
 		return "/member/success";
@@ -1190,24 +1195,72 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return "/member/updateoneboard";
 	}
 	
-	@RequestMapping(value = "/updateOneboardForm", method = RequestMethod.GET)
-	public String updateOneboardForm(OneBoardDTO oneBoard, HttpServletRequest request, Model model) {
-		System.out.println("문의 업데이트..");
+	@RequestMapping(value = "/updateOneboardForm", method = RequestMethod.POST)
+	public String updateOneboardForm(@RequestParam("one_board_num") int one_board_num,
+	                                @RequestParam("one_board_title") String one_board_title,
+	                                @RequestParam("one_board_content") String one_board_content,
+	                                @RequestParam("one_board_pass") String one_board_pass,
+	                                @RequestParam("one_board_private") String one_board_private,
+	                                @RequestParam("one_board_file") MultipartFile file,
+	                                HttpServletRequest request, Model model, HttpSession session)throws Exception {
+	    System.out.println("문의 업데이트..");
 	    // 데이터베이스에서 원래의 게시글을 가져옵니다.
-	    OneBoardDTO originalOneBoard = memberService.getOneBoard(oneBoard.getOne_board_num());
+	    OneBoardDTO originalOneBoard = memberService.getOneBoard(one_board_num);
 	    
 	    // 사용자가 작성한 비밀번호와 원래 게시글의 비밀번호를 비교합니다.
-	    if (oneBoard.getOne_board_pass().equals(originalOneBoard.getOne_board_pass())) {
+	    if (one_board_pass.equals(originalOneBoard.getOne_board_pass())) {
 	        // 비밀번호가 일하면, 업데이트를 진행합니다.
-	        memberService.updateOneBoard(oneBoard);
+	        String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+	        OneBoardDTO oneboardDTO = new OneBoardDTO();
+	        oneboardDTO.setOne_board_num(one_board_num); // 이 부분이 추가되었습니다.
+
+	        if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+	                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+	                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+	        
+	         // 허용되는 파일 확장자 리스트
+	                List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+
+	                if (allowedExtensions.contains(fileExtension.toLowerCase())) {
+
+	                    String uuid = UUID.randomUUID().toString();
+	                    String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+
+	                    String filePath = uploadPath + "/" + storedFileName;
+
+	                    System.out.println("filePath : " + filePath);
+
+	                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+	                    System.out.println("Received file: " + file.getOriginalFilename());
+
+	                    // 서버에 파일 저장
+	                    File dest = new File(filePath);
+	                    try {
+	                      file.transferTo(dest);
+	                      System.out.println("파일이 정상적으로 저장되었습니다: " + dest.getAbsolutePath()); // 로그 메시지 추가
+	                    } catch (IOException e) {
+	                      System.out.println("파일 저장 중 오류 발생: " + e.getMessage()); // 에러 발생 시 로그 메시지 추가
+	                      e.printStackTrace();
+	                    }
+
+	                    oneboardDTO.setOne_board_file(saveFileName);
+	                }
+	            }
+	            oneboardDTO.setOne_board_type(request.getParameter("one_board_type")); // 메서드 매개변수를 사용하도록 변경
+	                oneboardDTO.setOne_board_title(one_board_title);
+	                oneboardDTO.setOne_board_content(one_board_content);
+	                oneboardDTO.setOne_board_private(one_board_private);
+	        memberService.updateOneBoard(oneboardDTO);
 	        return "/member/success";
 	    } else {
 	        // 비밀번호가 일치하지 않으면, 오류 메시지를 설정합니다.
-	    	request.getSession().setAttribute("message", "비밀번호가 일치하지 않습니다");
+	        request.getSession().setAttribute("message", "비밀번호가 일치하지 않습니다");
 	        // 다시 수정 폼 페이지로 리다이렉트하거나 다른 행동을 수행할 수 있습니다.
-	        return "redirect:updateoneboard?one_board_num=" + oneBoard.getOne_board_num();
+	        return "redirect:updateoneboard?one_board_num=" + one_board_num;
 	    }
 	}
+
 
 
 

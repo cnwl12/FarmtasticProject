@@ -20,7 +20,7 @@
 <body>
   <div class="inquiry-container">
     <h1>상품 Q&amp;A - 수정하기</h1>
-    <form action="updateOneboardForm" method="get" enctype="multipart/form-data">
+    <form action="updateOneboardForm" method="post" enctype="multipart/form-data">
       <input type="hidden" name="action" value="update">
       <input type="hidden" name="one_board_num" value="${one_board.one_board_num}">
       <input type="hidden" name="item_num" value="${one_board.item_num}">
