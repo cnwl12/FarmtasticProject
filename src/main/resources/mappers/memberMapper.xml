@@ -132,7 +132,16 @@
       <if test="member_pass != null">member_pass = #{member_pass}</if>
   	WHERE member_id = #{member_id}
 	</update>
-
+	
+	
+	<update id="withderawMember">
+ 	 UPDATE member
+  	SET member_delYn = 'N',
+      <if test="member_pass != null">member_pass = #{member_pass}</if>
+  	WHERE member_id = #{member_id}
+  	</update>
+	
+	
 <select id="getItemsearch" parameterType="string" resultType="map">
   SELECT item_num
   		,item_left

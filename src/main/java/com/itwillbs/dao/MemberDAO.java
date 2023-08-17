@@ -330,4 +330,11 @@ public class MemberDAO {
 	public String searchId(String email) {
 		return sqlSession.selectOne(namespace + ".searchId", email);
 	}
+
+
+	public void withderawMember(MemberDTO memberDTO) {
+		System.out.println("MemberDAO withdrawMember()");
+		
+		sqlSession.insert(namespace+".withderawMember", memberDTO);
+	}
 }

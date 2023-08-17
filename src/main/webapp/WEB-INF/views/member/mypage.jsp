@@ -82,7 +82,7 @@
                </div>
             <div>
 
-               <div id="menu1_cont" style="width: 780px; margin-left: 25%;;">
+               <div id="menu1_cont" style="width: 780px; margin-left: 25%;">
                   <form novalidate
                      action="${pageContext.request.contextPath }/updatePro"
                      method="post">
@@ -214,6 +214,9 @@
                         <button type="submit" class="btn_blue_style2" id="img_submit">
                            <span style="color: #fff; text-align: center;">수정하기</span>
                         </button>
+                        <button id="withdrawBtn" onclick="withdraw()" class="btn_blue_style2">
+							<span style="color: #fff; text-align: center;">회원탈퇴</span>
+						</button>
                      </div>
                   </form>
                </div>
@@ -1330,7 +1333,7 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
 $(document).ready(function() {
   // "수정하기" 버튼 클릭 이벤트 처리
   $('#img_submit').click(function(e) {
-    e.preventDefault();
+	e.preventDefault();
 
     // 입력 필드의 값을 가져옵니다.
     var currentPassword = $('#member_pass').val();
@@ -1347,8 +1350,11 @@ $(document).ready(function() {
       alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
+    if (newPassword !== '' && confirmPassword !== '') {
+        $(this).unbind(e);
+      }
   });
-}); 
+ }); 
     
 	function openPopup() {
   		var width = 500;
@@ -1359,7 +1365,34 @@ $(document).ready(function() {
   		var popup = window.open('parcel', 'popupWindow', 'height=' + height + ',width=' + width + ',left=' + left + ',top=' + top);
   			popup.focus();
 	}
- 	
+	
+	function withdraw() {
+		  const result = confirm("정말로 탈퇴하시겠습니까?");
+		  event.preventDefault();
+		  if (result === true) {
+		    // 폼 데이터 전송
+		    
+		    const form = $('<form>', {
+		      'action': '${pageContext.request.contextPath }/withdrawPro',
+		      'method': 'GET'
+		    }).append($('<input>', {
+		      'name': 'member_id',
+		      'value': $('#member_id').val() // id 값 전송
+		    })).append($('<input>', {
+		      'name': 'member_pass',
+		      'value': $('#member_pass').val() // 비밀번호 값 전송
+		    })).append($('<input>', {
+		      'name': 'withdraw',
+		      'value': 'withdraw' // 회원 탈퇴 기능을 처리하는 값을 전송
+		    })).appendTo('body').submit();
+		    $(this).unbind(event);
+		  } else {
+		    // 취소 버튼을 클릭한 경우의 처리
+		    alert("회원 탈퇴가 취소되었습니다.");
+		   
+		  }
+		}
+
 	</script>   
 </body>
 </html>

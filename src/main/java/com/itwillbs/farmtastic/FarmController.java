@@ -381,7 +381,14 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/kakaoLogout";
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
@@ -534,8 +541,9 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberDTO.setMember_post(member_post);
 			memberDTO.setMember_addMain(member_addMain);
 			memberDTO.setMember_addSub(member_addSub);
-
+			
 			memberService.updateMember(memberDTO);
+			sendResponse(response, "비밀번호 변경완료.");
 			return "/main";
 		} else {
 			
@@ -863,7 +871,7 @@ public class FarmController { // 소비자 (컨트롤러)
 			return "redirect:/main";
 		} else if (memberDTO2 != null && "N".equals(memberDTO2.getMember_delYn())){
 			// 승인되지 않은 사용자
-            sendResponse(response, "탈퇴한 회원입니다.");
+            sendResponse(response, "탈퇴한 회원로그인불가.");
             return "redirect:/login";
         } else { 
         	// 아이디 또는 비밀번호가 틀린 경우 또는 예외 상황
@@ -1319,6 +1327,44 @@ public class FarmController { // 소비자 (컨트롤러)
 	    return searchId; // JSON 형식으로 반환
 	}
 
-	
+	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
+	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
+			@RequestParam(value = "member_pass", required = false) String member_pass) throws Exception {
+		System.out.println("FarmController withdrawPro");
+		Integer member_num = (Integer) session.getAttribute("member_num");
+
+		// 입력된 값들도 세션에 저장합니다.
+		session.setAttribute("member_id", member_id);
+		session.setAttribute("member_pass", member_pass);
+		
+
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMember_num(member_num);
+		memberDTO.setMember_id(member_id);
+		memberDTO.setMember_pass(member_pass);
+
+		MemberDTO memberDTO2 = memberService.userCheck1(memberDTO);
+
+		if (memberDTO2 != null && memberDTO2.getMember_pass().equals(member_pass)) {
+			// memberDTO 객체에 입력된 값들을 설정합니다.
+			memberDTO.setMember_id(member_id);
+			memberDTO.setMember_pass(member_pass);
+			
+			
+			memberService.withdrawMember(memberDTO);
+			
+			
+			model.addAttribute("error", "회원탈퇴완료 잘가요.");
+			session.invalidate();
+			
+			return "redirect:/login";
+			
+		} else {
+			
+			
+			sendResponse(response, "비밀번호가 틀립니다.");
+			return "/mypage";
+		}
+	}
 
 }
