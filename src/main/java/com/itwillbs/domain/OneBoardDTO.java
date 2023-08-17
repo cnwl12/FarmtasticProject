@@ -101,7 +101,7 @@ public class OneBoardDTO {
 	public void setOne_board_pass(String one_board_pass) {
 		this.one_board_pass = one_board_pass;
 	}
-	public Date getOne_board_day() {
+	public Date getOne_board_day() { 
 		return one_board_day;
 	}
 	public void setOne_board_day(Date one_board_day) {
