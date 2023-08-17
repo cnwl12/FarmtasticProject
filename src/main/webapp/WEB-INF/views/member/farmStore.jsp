@@ -24,22 +24,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
-   <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css" type="text/css"> --%>
-	
-	
-	
-	
 
 </head>
 
 <body>
 
-	<jsp:include page="../top.jsp"></jsp:include>
+<jsp:include page="../top.jsp"></jsp:include>
 
-
-
-    <!-- Breadcrumb Section Begin -->
-  <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+   <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -65,16 +57,16 @@
                         <div class="sidebar__item">
                             <h4>Department</h4>
                             <ul>
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter & Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya & Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=양파">양파</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/search?query=">기타</a></li>
                             </ul>
                         </div>
                     </div>
@@ -86,18 +78,8 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <!-- <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div> -->
                             </div>
                             <div class="col-lg-4 col-md-4">
-                                <!-- <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -167,7 +149,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<%-- <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
     
 
 </body>

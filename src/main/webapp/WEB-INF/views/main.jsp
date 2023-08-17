@@ -53,14 +53,6 @@
                         <ul>
                             <li class="active"><a href="main">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
-                         <!--    <li><a href="#">기획전</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li> -->
                             <li><a href="blog">제철팜</a></li>
                             <li><a href="contact">고객센터</a></li>
                         </ul>
@@ -113,16 +105,16 @@
                             <span>모든 카테고리</span>
                         </div>
                         <ul>
-                           <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=블루베리">블루베리</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=옥수수">옥수수</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=양파">양파</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=호박">호박</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=">기타</a></li>
                         </ul>
                     </div>
                 </div>
@@ -146,15 +138,6 @@
                             <a href="farmStore" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
-                    <%-- <div class="hero__item set-bg">
-                        <div class="hero__text">
-                            <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br>100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="farmStore" class="primary-btn">SHOP NOW</a>
-                        </div>
-                       <img src="${pageContext.request.contextPath}/resources/img/yangpa.png" alt=""  style="background-image: url(${pageContext.request.contextPath}/resources/img/hero/banner.jpg);">
-                    </div> --%>
                 </div>
             </div>
         </div>
@@ -171,11 +154,11 @@
                     </div>
                     <div class="featured__controls">
                         <ul>
-                            <li class="active" data-filter="*">All</li>
+                           <!--  <li class="active" data-filter="*">All</li>
                             <li data-filter=".oranges">Oranges</li>
                             <li data-filter=".fresh-meat">Fresh Meat</li>
                             <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li>
+                            <li data-filter=".fastfood">Fastfood</li> -->
                         </ul>
                     </div>
                 </div>

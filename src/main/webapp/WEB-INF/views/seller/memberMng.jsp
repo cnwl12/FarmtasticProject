@@ -110,8 +110,7 @@ body {
 					<!-- 검색바 끝 -->
 
 					<!-- 주문회원 목록 시작 -->
-					<table class="table table-bordered" id="dataTable" width="100%"
-						cellspacing="0">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th>회원아이디</th>
@@ -158,15 +157,12 @@ body {
 					</div>
 				</div>
 			</footer>
-			<!-- End of Footer -->
 		</div>
-		<!-- End of Content Wrapper -->
 	</div>
-	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
+	<a class="scroll-to-top rounded" href="#page-top"> 
+		<i class="fas fa-angle-up"></i>
 	</a>
 
 	<!-- Logout Modal-->

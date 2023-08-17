@@ -46,18 +46,6 @@ public class SellerController {
 	@Inject
 	private SellerService sellerService;
 	
-	// 로그인 기능이 없어서 일단 판매자 정보 페이지에 접속하면 이 판매자가 뜨게 하드코딩함
-	// 로그인해서 세션으로 값 가져오면 삭제할 코드
-	 //String seller_num = "TA002"; ->주석해둠-성하
-	
-//	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
-//	public String home(Locale locale, Model model) {
-//		
-//		System.out.println("sellerMain 매핑확인여부");
-//		return "/seller/sellerMain";
-//	}
-
-	
 	
 //  // 응답메시지 전송
 //  private void sendResponse(HttpServletResponse response, String message) {
@@ -81,7 +69,7 @@ public class SellerController {
 	    	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-	    	model.addAttribute("error", "접근위반 로그인하고와라.");
+	    	model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -116,7 +104,7 @@ public class SellerController {
 	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-	    	model.addAttribute("error", "접근위반 로그인하고와라.");	
+	    	model.addAttribute("error", "로그인 후 사용가능");	
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -177,7 +165,7 @@ public class SellerController {
 		
 	    if (session.getAttribute("seller_num") == null) {
 	        
-	    	model.addAttribute("error", "접근위반 로그인하고와라.");
+	    	model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	        
 	    } else {
@@ -256,7 +244,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
@@ -272,7 +260,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("itemDelMng 매핑확인여부");
@@ -289,7 +277,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("itemRetExcMng 매핑확인여부");
@@ -305,7 +293,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		System.out.println("reviewMng 매핑확인여부");
@@ -323,7 +311,7 @@ public class SellerController {
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
@@ -397,7 +385,7 @@ public class SellerController {
 		if (session.getAttribute("seller_num") == null) {
 			
 			// 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 			return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
@@ -445,15 +433,10 @@ public class SellerController {
 	// 상품등록 
 	@RequestMapping(value = "/itemRegister", method = RequestMethod.GET)
 	public String itemInsert(Model model, HttpSession session) {
-		
-
-		
-		// 삭제예정 
-		//String seller_num = "TA002";
 
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
@@ -462,11 +445,6 @@ public class SellerController {
 	    model.addAttribute("seller_id", seller_id);
 	    
 		System.out.println("셀러고유번호 확인 : "+seller_num);
-
-		// System.out.println("셀러고유번호 확인 : "+seller_num);
-
-		
-		//System.out.println("itemRegister 매핑확인여부");
 		
 		return "/seller/itemRegister";
 	    }
@@ -499,17 +477,14 @@ public class SellerController {
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
 					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
-
 					// 임시경로에서 filePath로 파일이동 
 					File dest = new File(filePath);
 					file.transferTo(dest);
-
 
 					// 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
 					// 사진 정보의 경로를 저장
 					itemList.put("item_mainImg", saveFileName);
 
-					// 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
 				}
 			}
 
@@ -523,14 +498,6 @@ public class SellerController {
 			return "redirect:/itemMng";
 		}
 	
-
-                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
-        
-		
-		
-		
-
-	
 	// 상품관리 전체목록
 	@RequestMapping(value = "/itemMng", method = RequestMethod.GET)
 
@@ -538,7 +505,7 @@ public class SellerController {
 	   
 		if (session.getAttribute("seller_num") == null) {
 			// 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -563,7 +530,7 @@ public class SellerController {
 	public String updateStatus(@RequestParam HashMap<String, String> status, Model model, HttpSession session){
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -583,20 +550,14 @@ public class SellerController {
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-   
-	    System.out.println("itemUpdate 매핑확인여부");
-		
 
 		 String seller_num = (String) session.getAttribute("seller_num");
 		 String seller_id = sellerService.idCheck(seller_num);
 		 model.addAttribute("seller_id", seller_id);
          session.setAttribute("seller_num", seller_num);
-		 
-
-		 // item.put("seller_num", seller_num);
 		 
 		 Map<String, Object> item = sellerService.getItem(item_num);
 		
@@ -620,7 +581,7 @@ public class SellerController {
 	        if (!file.isEmpty()) {
 	            String fileName = file.getOriginalFilename();
 	            String fileExtension = FilenameUtils.getExtension(fileName);
-	                        
+	                    
 	            String uuid = UUID.randomUUID().toString();
 	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
@@ -632,18 +593,9 @@ public class SellerController {
 	            file.transferTo(dest);
 
 	            itemList.put("item_mainImg", saveFileName);
-	        } else {
-	            // 이미지 변경 없는 경우, 기존 이미지 경로 사용
-	            String oldImage = itemList.get("item_mainImg");
-	            itemList.put("item_mainImg", oldImage);
 	        }
-	    } else {
-	        // 이미지 변경 없는 경우, 기존 이미지 경로 사용
-	        String oldImage = itemList.get("item_mainImg");
-	        itemList.put("item_mainImg", oldImage);
 	    }
 	            
-	    String seller_num = (String) session.getAttribute("seller_num");
 	    session.setAttribute("seller_num", seller_num);
 	    itemList.put("seller_num", seller_num);
 
@@ -651,7 +603,6 @@ public class SellerController {
 
 	    return "redirect:/itemMng";
 	}
-
 	
 	@RequestMapping("/ch_test")
 	@ResponseBody
@@ -720,7 +671,7 @@ public class SellerController {
 		if (session.getAttribute("seller_num") == null) {
 	        
 			// 세션에 로그인 정보가 없는 경우
-			model.addAttribute("error", "접근위반 로그인하고와라.");
+			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		session.invalidate();

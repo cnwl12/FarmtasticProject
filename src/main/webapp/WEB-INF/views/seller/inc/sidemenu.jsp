@@ -59,8 +59,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="itemRegister">상품등록</a>
                         <a class="collapse-item" href="itemMng">상품관리</a>
-                        <a class="collapse-item" href="itemDelMng">배송관리</a>
-                        <a class="collapse-item" href="itemRetExcMng">반품/교환관리</a>
+                    <!--     <a class="collapse-item" href="itemDelMng">배송관리</a>
+                        <a class="collapse-item" href="itemRetExcMng">반품/교환관리</a> -->
                     </div>
                 </div>
             </li>

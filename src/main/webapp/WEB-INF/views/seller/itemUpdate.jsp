@@ -246,24 +246,25 @@ body {
 									class="icon-must" aria-label="필수항목"></i></label>
 								<div class="col-lg-10 col-sm-9 col-xs-6 input-content"></div>
 							</div>
-							<div class="input-content inner-content" ng-if="vm.isMenuOpen">
+							<div class="input-content inner-content">
 								<div class="form-section-sub">
-									<div ng-form="_REPRESENTATIVE_IMAGE"
-										class="ng-pristine ng-invalid ng-invalid-required">
 										<div class="form-sub-wrap">
-											<label class="control-label">대표이미지<i
-												class="icon-must" aria-label="필수항목"></i></label>
+											<label class="control-label">대표이미지<i class="icon-must" aria-label="필수항목"></i></label>
 											<div class="input-content">
-												
 												<div class="seller-product-img add-img">
 													<div class="wrap-img">
 														<ul class="img-list">
 															<li>
 																<div class="register-img">
-																	<a role="button" href="" class="btn-add-img"> 
+																	<img src="${item.item_mainImg}" style="width:300px; height : 100px;">
+																	<input type="hidden" name="item_mainImg" value="${item.item_mainImg}">
+																</div> 
+															</li>
+															<li>
+																<div class="register-img">
+																<img src="${pageContext.request.contextPath}/resources/img/camera.png">
 																		<input type="file" name="file"><!-- 새로 받을 파일  -->
-																		<img src="${item.item_mainImg}" style="width: 100%; height : 100%" name="item_mainImg">
-																		<span class="sr-only">이미지 등록</span></a>
+																		<span class="sr-only">이미지 등록</span>
 																</div> 
 															</li>
 														</ul>
@@ -272,7 +273,6 @@ body {
 											</div>
 											
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>

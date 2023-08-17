@@ -19,24 +19,8 @@
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
-        <!-- Js Plugins -->
-    <%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 </head>
 <body>
-    <!-- Preloader Begin -->
-<!--     <div class="preloader">
-        <div class="loader"></div>
-    </div> -->
-    <!-- Preloader End -->
-
-    <%-- Header Section Begin --%>
     <header class="header">
         <div class="container">
             <div class="row">
@@ -50,10 +34,8 @@
                         <ul>
                             <li><a href="main">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
-                          <!--   <li><a href="#">기획전</a> </li> -->
                             <li><a href="blog">제철팜</a></li>
-                            <%-- <li><a href="mypage">마이페이지</a></li> --%>
-                            <li class="active"><a href="contact">고객센터</a></li>
+                            <li><a href="contact">고객센터</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -114,15 +96,15 @@
                         </div>
                         <ul>
                             <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=블루베리">블루베리</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=옥수수">옥수수</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=양파">양파</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=호박">호박</a></li>
+                            <li><a href="${pageContext.request.contextPath}/search?query=">기타</a></li>
                         </ul>
                     </div>
                 </div>
