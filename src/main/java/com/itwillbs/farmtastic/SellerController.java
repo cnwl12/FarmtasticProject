@@ -544,18 +544,14 @@ public class SellerController {
 		session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
-
-		// String seller_num = "TA002";
 		
 		status.put("seller_num", seller_num);
-		// System.out.println("updateStatus까지 오는지"+ seller_num);
 		sellerService.updateStatus(status);
 		
 		return "redirect:/itemMng";
 	    }
 	}
 	
-	// 판매 품목 수정 - 해쉬맵으로 수정할예정
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
 
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
@@ -597,10 +593,12 @@ public class SellerController {
 			
 			for (int i = 0; i < files.size(); i++) {
                 MultipartFile file = files.get(i);
+                
+                // 새파일로 바뀔 경우
                 if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
                     String fileName = file.getOriginalFilename(); // 파일 원래 이름
                     String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
-
+                    
                     String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
 
                     String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
@@ -619,26 +617,20 @@ public class SellerController {
                     // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
                     // 사진 정보의 경로를 저장
                     itemList.put("item_mainImg", saveFileName);
+                }else {
+                    // 기존유지 
+                    itemList.put("item_mainImg", itemList.get("item_mainImg"));
                 }
 			}
-
             
 			String seller_num = (String) session.getAttribute("seller_num");
-			itemList.put("seller_num", seller_num);
-
-            // 삭제예정 
-           // String seller_num = "TA002";
-			
 			session.setAttribute("seller_num", seller_num);
 		 	itemList.put("seller_num", seller_num);
 
-			//itemList.put("item_num", item_num);
-            
 			sellerService.itemUpdate(itemList, files, session);
 	
 			return "redirect:/itemMng";
 	    }
-	
 	
 	
 	@RequestMapping("/ch_test")

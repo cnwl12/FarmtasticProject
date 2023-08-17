@@ -271,12 +271,12 @@ body {
 																<div class="register-img">
 																	<a role="button" href="" class="btn-add-img"> <i
 																		class="seller-icon icon-plus" aria-hidden="true"></i>
-																		<input type="file" name="file">
+																		<input type="file" name="file"><!-- 새로 받을 파일  -->
 																		<span class="sr-only">이미지 등록</span></a>
 																</div> 
 															</li>
 														</ul>
-															<img src="${item.item_mainImg}" style="width: 30px; height : 20px">
+															<img src="${item.item_mainImg}" style="width: 30px; height : 20px" name="oldfile">
 													</div>
 												</div>
 											</div>

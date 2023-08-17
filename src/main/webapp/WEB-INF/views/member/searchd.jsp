@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
-<%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css" type="text/css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css" type="text/css"> --%>
 </head>
 
 <body>
@@ -74,15 +74,16 @@
 								</c:choose>
 							</div>
 						</a>
-						<ul class="product__item__pic__hover">
-							<li><a href="#" class="wishlist-btn"
-								data-member-num="${sessionScope.member_num}"
-								data-item-num="${item.item_num}"> <i
-									class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
-							</a></li>
-							<li><a
-								href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i
-									class="fa fa-shopping-cart"></i></a></li>
+						<ul class="featured__item__pic__hover">
+							<li><a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+								 <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+								</a>
+							</li>
+								<c:choose>
+						    <c:when test="${item.item_left > 0 && item.item_salesStatus != 'N'}">
+						        <li><a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a></li>
+						    </c:when>
+						</c:choose>
 						</ul>
 					</div>
 					<div class="product__item__text">

@@ -134,7 +134,11 @@
 	</update>
 
 <select id="getItemsearch" parameterType="string" resultType="map">
-  SELECT item_num, item_name, item_price, item_mainImg, item_detail
+  SELECT item_num
+  		,item_left
+  		,item_name
+  		,item_price
+  		,item_mainImg
   FROM item
   WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
 </select>
