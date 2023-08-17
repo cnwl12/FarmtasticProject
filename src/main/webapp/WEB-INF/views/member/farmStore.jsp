@@ -72,9 +72,6 @@
                     </div>
                 </div>
                <div class="col-lg-9 col-md-7">
-                    
-                    
-                    
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
@@ -149,7 +146,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    
 
 </body>
 

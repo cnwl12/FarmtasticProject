@@ -291,8 +291,7 @@
                               <td>
                               <c:choose>
                               <c:when test="${order.order_cancel eq 'Y'}">
-                              <input type="button" class="cancelList"
-                                 data-order="${order.order_num}" value="취소확인">
+                             <input type="button" class="cancelList" data-order="${order.order_num}" value="취소확인" onclick="openCancelPopup(${order.order_num});">
                                  </c:when>
                                    <c:otherwise>
                                        <input type="button" class="orderCancelButton"
@@ -1348,7 +1347,8 @@ $(document).ready(function() {
       alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
-    
+  });
+}); 
     
 	function openPopup() {
   		var width = 500;
@@ -1359,6 +1359,7 @@ $(document).ready(function() {
   		var popup = window.open('parcel', 'popupWindow', 'height=' + height + ',width=' + width + ',left=' + left + ',top=' + top);
   			popup.focus();
 	}
+ 	
 	</script>   
 </body>
 </html>

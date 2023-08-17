@@ -434,7 +434,7 @@ span.indent, em.indent, strong.indent { display:block; }
 	font-style: normal;
 	font-weight: normal;
 	src: local('NanumBarunGothic');
-	src: url(../fonts/NanumBarunGothic.woff2) format('woff2'),
+	/* src: url(../fonts/NanumBarunGothic.woff2) format('woff2'), */
 	url(../fonts/NanumBarunGothic.woff) format('woff');
 }
 @font-face {

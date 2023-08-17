@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- JSTL 라이브러리를 사용하기 위한 설정입니다. --%>
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,9 +42,6 @@
 		}
 	}
 	</script>
-	
-	
-	
 
 </head>
 
@@ -67,26 +61,11 @@
 
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
-
-					<!-- 페이지 상단 시작 -->
-					<h1 class="h3 mb-2 text-gray-800">상품처리</h1>
-					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">
-							official DataTables documentation</a>.
-					</p>
-					<!-- 페이지 상단 끝 -->
-
-					<div>
-						<p>검색바 내 상품 검색...</p>
-					</div>
-
 					<!-- 상품목록 시작 -->
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">상품관리</h6>
+							<h3 class="m-0 font-weight-bold text-primary">상품관리</h3>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">

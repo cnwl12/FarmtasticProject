@@ -169,7 +169,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="col-lg-6">
-							<div class="shoping__checkout">
+							<div class="shoping__checkout shoping_div">
 								<h5>Cart Total</h5>
 								<ul>
 									<li>Total <span class="cart-total-price">${totalSum}원</span></li>

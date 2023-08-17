@@ -48,68 +48,33 @@
                         </div>
                      </div>
                 </div>
-                <div>
-    <h4>공지사항</h4>
-    <table class="table table-bordered" id="noticeTable" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>작성번호</th>
-                <th>작성자</th>
-                <th>제목</th>
-                <th>작성날짜</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${notice}" var="list">
-                <tr>
-                    <td>${list.admin_cs_num}</td>
-                    <td>${list.admin_id}</td>
-                    <td><a href="${pageContext.request.contextPath}/contactContent?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
-                    <td>${list.admin_cs_day}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</div>
-                
-                
-            </div>
+				<div>
+					<h4>공지사항</h4>
+					<table class="table table-bordered" id="noticeTable" width="100%"cellspacing="0">
+						<thead>
+							<tr>
+								<th>작성번호</th>
+								<th>작성자</th>
+								<th>제목</th>
+								<th>작성날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${notice}" var="list">
+								<tr>
+									<td>${list.admin_cs_num}</td>
+									<td>${list.admin_id}</td>
+									<td><a
+										href="${pageContext.request.contextPath}/contactContent?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
+									<td>${list.admin_cs_day}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
        </div>
      </section>
-
-     
-    
-
-
-    <!-- Contact Form Begin -->
-    <div class="contact-form spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="contact__form__title">
-                        <h2>Leave Message</h2>
-                    </div>
-                </div>
-            </div>
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your name">
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your Email">
-                    </div>
-                    <div class="col-lg-12 text-center">
-                        <textarea placeholder="Your message"></textarea>
-                        <button type="submit" class="site-btn">SEND MESSAGE</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- Contact Form End -->
-
-    
     <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 

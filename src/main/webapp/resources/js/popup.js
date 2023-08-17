@@ -1,69 +1,72 @@
-function openCancelPopup(orderNum) {
-    var cancelup = window.open("", "_blank", "width=600,height=400");
-
-    // 팝업 창이 로드될 때 호출되는 함수 설정
-    cancelup.onload = function() {
-        $.ajax({
-            url: "/cancelList", // 취소 내역을 가져오는 서버 API URL
-            method: "POST",
-            data: { orderNum: orderNum },
-            success: function(response) {
-                var cancelledOrders = response.cancelledOrders;
-                var tableHTML = "<table><thead><tr><th>취소 사유</th><th>상세 취소 사유</th></tr></thead><tbody>";
-
-                for (var i = 0; i < cancelledOrders.length; i++) {
-                    tableHTML += `<tr>`;
-                    tableHTML += `<td>${cancelledOrders[i].cancel_type}</td>`;
-                    tableHTML += `<td>${cancelledOrders[i].cancel_reason}</td>`;
-                    tableHTML += `</tr>`;
-                }
-
-                tableHTML += "</tbody></table>";
-
-                var cancelContent = generateCancelContent(orderNum, tableHTML);
-                cancelup.document.write(cancelContent);
-            },
-            error: function() {
-                alert("서버와의 통신에 문제가 발생했습니다.");
-            }
-        });
-    };
+function cancelClick(button) {
+    var orderNum = $(button).data("order");
+    var content = generateCancelContent(orderNum);
+    openCancelPopup(content);
 }
 
+function openCancelPopup(orderNum) {
+    var popupWindow = window.open("", "_blank", "width=600,height=400");
 
-// 팝업을 호출하는 버튼 클릭 이벤트에 적용
-$(document).ready(function() {
-    $(".cancelList").click(function() {
-        var orderNum = $(this).data("order");
-        openCancelPopup(orderNum);
+    $.ajax({
+        url: "cancelList", // 취소 내역을 가져오는 서버 API URL
+        method: "POST",
+        data: { orderNum: orderNum },
+        success: function(response) {
+            var cancelList = response.cancelledOrders;
+            var content = generateCancelContent(orderNum, cancelList);
+            popupWindow.document.write(content);
+            popupWindow.document.close();
+
+            // JavaScript로 cancelList 내용을 처리
+            for (var i = 0; i < cancelList.length; i++) {
+                var cancelReason = cancelList[i].cancel_reason;
+                var cancelType = cancelList[i].cancel_type;
+                var cancelRequest = cancelList[i].cancel_request;
+
+                // 여기에서 cancelList 내용을 활용하여 필요한 처리를 수행
+            }
+        },
+        error: function() {
+            alert("서버와의 통신에 문제가 발생했습니다.");
+        }
     });
-});
+}
 
-
-// popup.js
-
-function generateCancelContent(orderNum, tableHTML) {
-    return `
+function generateCancelContent(orderNum, cancelList) {
+    var content = `
     <html>
     <head>
         <title>주문 내역</title>
-        <link rel='stylesheet' type='text/css'>
+      <link rel='stylesheet' type='text/css' href='../css/popup-style.css'>
     </head>
     <body>
         <h2>주문 취소 - 주문번호: ${orderNum}</h2>
-        <p>취소 사유: 
-            <select id='cancel_type' name='cancel_type'>
-                <option value='reason1'>취소 사유 1</option>
-            </select>
-        </p>
-        <p>상세 취소 사유:</p>
-        <textarea id='cancel_reason' name='cancel_reason' rows='4' cols='50'>취소 사유를 선택하세요.</textarea>
-        <button id="cancelConfirm">취소철회</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>취소 사유</th>
+                    <th>상세 취소 사유</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    for (var i = 0; i < cancelList.length; i++) {
+        content += `
+            <tr>
+                <td>${cancelList[i].cancel_type}</td>
+                <td>${cancelList[i].cancel_reason}</td>
+            </tr>
+        `;
+    }
+
+    content += `
+            </tbody>
+        </table>
         <button onclick="window.close()">닫기</button>
-        
-        <div id="cancelledOrders">
-            ${tableHTML}
-        </div>
     </body>
-    </html>`;
+    </html>
+    `;
+
+    return content;
 }

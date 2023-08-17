@@ -451,7 +451,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> getCancelledOrders(@RequestParam("orderNum") String orderNum) {
 	    List<Map<String, Object>> cancelList = memberService.getCancelList(orderNum);
-
+	    System.out.println("cancelList: " + cancelList);
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("cancelledOrders", cancelList);
 

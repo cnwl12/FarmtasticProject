@@ -299,7 +299,7 @@ button#submitBtn {
                         </li>
                      
                         <li>
-                        <input type="text" name="seller_post" id="sample4_postcode" placeholder="우편번호">
+                        <input type="text" name="seller_post" id="sample4_postcode" placeholder="사업장주소">
                         <div id="btbt">
                         <input type="button" id="seller_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required>
                         </div>

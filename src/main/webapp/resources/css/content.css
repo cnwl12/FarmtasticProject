@@ -3387,7 +3387,7 @@ legend {
     margin: 5px auto 30px;
 }
 .join2.type .tab-ty2{
-    width:480px;
+    width:477px;
     /* margin:0;  */
 }
 .join2.type .tab-ty2 li a{
@@ -3398,6 +3398,8 @@ legend {
     border-left: none;
 }
 .join2.type .tab-ty2 li.on a{
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     color: #333;
 }

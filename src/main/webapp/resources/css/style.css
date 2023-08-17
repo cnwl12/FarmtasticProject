@@ -2041,9 +2041,15 @@ farm store 재고 이미지
 	width: 15px;
 }
 
+.shoping_div{
+	
+}
+
+
 .primary-btn.cart-btn {
+	margin-top: 5px;
 	color: #6f6f6f;
-	padding: 14px 30px 12px;
+	padding: 10px 20px 10px;
 	background: #f5f5f5;
 }
 
@@ -2089,10 +2095,11 @@ farm store 재고 이미지
 }
 
 .shoping__checkout {
+	width:453px;
 	background: #f5f5f5;
 	padding: 30px;
 	padding-top: 20px;
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 .shoping__checkout h5 {
