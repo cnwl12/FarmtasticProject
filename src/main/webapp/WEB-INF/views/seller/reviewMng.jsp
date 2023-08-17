@@ -89,6 +89,7 @@
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(90)">3개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(180)">6개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(365)">1년</button>
+													<button class="btn btn-primary" type="button" onclick="reset()">초기화</button>
 												</div>
 												</li>
 
@@ -140,7 +141,6 @@
 								<div class="panel-footer">
 									<div class="seller-btn-area btn-group-lg">
 										<button class="btn btn-primary" type="button" onclick="applyFilters()">검색</button>
-										<button class="btn btn-primary" type="button" onclick="reset()">초기화</button>
 									</div>
 								</div>
 							</div>
