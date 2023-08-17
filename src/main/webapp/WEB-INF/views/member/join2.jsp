@@ -481,25 +481,22 @@ button#submitBtn {
       });
     });
  });
- 
-    $('#join2').submit(function(event) {
-        event.preventDefault(); // 폼 제출을 방지합니다.
-        var formData = $(this).serialize(); // 폼 데이터를 직렬화하고, 문자열로 반환합니다.
-        $.ajax({
-            type: 'POST', // HTTP 요청 방식 설정
-            url: '/insertPro2', // 요청을 보낼 URL 설정
-            data: formData, // 서버로 전송할 데이터
-            success: function(response) { // 요청에 대한 응답을 받았을 때 실행할 콜백 함수
-                alert("환영합니다. 승인을 기다려주세요"); // 응답 메시지를 사용자에게 띄웁니다.
-                $('#join2')[0].reset(); // 폼 데이터를 리셋합니다.
-            },
-            error: function(error) { // 요청 처리 중 오류가 발생했을 때 실행할 콜백 함수
-                alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-            }
-        });
-    });
-
     
+    
+    
+    $(document).ready(function() {
+    	  $("#join2").submit(function(e) {
+    	    e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+    	  
+
+    	    // 회원가입이 완료되었음을 알리는 메시지를 표시
+    	    alert("환영합니다. 승인을 기다려주세요!!");
+
+    	    // 메인 페이지로 이동
+    	    location.href = '${pageContext.request.contextPath}/main';
+    	  });
+    	});
     
     // 정규식
     var regId = /^[a-zA-Z0-9]{2,10}$/;
