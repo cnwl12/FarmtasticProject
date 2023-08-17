@@ -57,18 +57,39 @@
     <!-- Breadcrumb Section End -->
 	
 	  <h1>아이디 찾기</h1>
-	<form id="searchIdForm" action="searchId" method="POST">
-		<div class="input-group">
-			<label for="inputEmail">이메일 주소</label>
-			<input type="email" name="email" id="inputEmail" required>
-			<button type="button" id="sendCode">인증 코드 전송</button>
-		</div>
-		<div class="input-group">
-			<label for="inputCode">인증 코드</label>
-			<input type="text" name="code" id="inputCode" required>
-		</div>
-<button type="submit">아이디 찾기</button>
-	</form>
+    <form action="/farmtastic/SendEmailServlet" method="post">
+    	<input type="text" name="email" placeholder="이메일 주소 입력" />
+        <input type="submit" value="이메일 전송"><br>
+		<input type="text" name="verification_code" placeholder="인증번호 입력" />
+		<input type="button" value="인증번호 확인"/>
+    </form>
+    
+<script>
+$(document).ready(function() {
+    $('form').on('submit', function(event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 막음
+
+        var email = $('input[name="email"]').val(); // 이메일 값 가져오기
+
+        // Ajax 호출
+        $.ajax({
+            type: 'POST',
+            url: '/farmtastic/SendEmailServlet',
+            data: { email: email },
+            success: function(data) {
+                // 결과를 처리합니다.
+                // 예: 성공 메시지 표시
+                alert('이메일이 성공적으로 전송되었습니다.');
+            },
+            error: function(xhr, status, error) {
+                // 오류를 처리합니다.
+                // 예: 오류 메시지 표시
+                alert('이메일 전송 중 오류가 발생했습니다.');
+            },
+        });
+    });
+});
+</script>
 
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
