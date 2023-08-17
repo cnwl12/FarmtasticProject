@@ -217,15 +217,12 @@ body {
 											<label class="control-label">대표이미지<i
 												class="icon-must" aria-label="필수항목"></i> <!----> <!----></label>
 											<div class="input-content">
-												<ncp-product-temp-photo-infra-image-upload id="representImage">
 												<div class="seller-product-img add-img">
 													<div class="wrap-img">
 														<ul class="img-list">
-															<li ng-if="!(vm.isReadonly() || vm.isMaxUploaded())">
-																<!----> <!---->
+															<li>
 																<div class="register-img">
-																	<a role="button" href="" class="btn-add-img"> <i
-																		class="seller-icon icon-plus" aria-hidden="true"></i>
+																	<a role="button" href="" class="btn-add-img"> 
 																		<input type="file" name="file" value="">
 																		<span class="sr-only">이미지 등록</span></a>
 																</div> 
@@ -234,7 +231,6 @@ body {
 													</div>
 												</div>
 											</div>
-											</ncp-product-temp-photo-infra-image-upload>
 										</div>
 									</div>
 								</div>

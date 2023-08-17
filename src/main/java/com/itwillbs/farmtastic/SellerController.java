@@ -585,8 +585,6 @@ public class SellerController {
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
 	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
 								@RequestParam("file") List<MultipartFile> files, HttpSession session, HttpServletResponse response) throws Exception {
-		
-			System.out.println("updatePro 오는지");
 			
 			/* 사진등록 여기부터 서비스 메서드 전까지 들고가면됨! */
 			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
@@ -605,8 +603,6 @@ public class SellerController {
 
                     String filePath = uploadPath + "/" + storedFileName;
                     
-                    // System.out.println("filePath : " + filePath);
-                    
                     // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                     String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
@@ -617,11 +613,12 @@ public class SellerController {
                     // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
                     // 사진 정보의 경로를 저장
                     itemList.put("item_mainImg", saveFileName);
-                }else {
-                    // 기존유지 
-                    itemList.put("item_mainImg", itemList.get("item_mainImg"));
                 }
 			}
+			
+			// 사진 변경 안할경우 기존 이미지 가져와서 저장하는 부분 
+			String item_mainImg = itemList.get("item_mainImg");
+		    itemList.put("item_mainImg", item_mainImg);
             
 			String seller_num = (String) session.getAttribute("seller_num");
 			session.setAttribute("seller_num", seller_num);
