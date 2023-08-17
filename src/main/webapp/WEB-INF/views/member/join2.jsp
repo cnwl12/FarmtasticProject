@@ -279,7 +279,7 @@ button#submitBtn {
 								</li>
 							  	
 							  	<li>
-								<input type="text" class="form-control" placeholder="연락처" name="seller_phone" id="seller_phone" maxlength="13">
+								<input type="text" class="form-control" placeholder="연락처 (-)를 포함하여 작성해주세요" name="seller_phone" id="seller_phone" maxlength="13">
 								<div id= "invalid_phone" class="invalid-feedback">
                 				연락처를 입력해주세요.
               					</div>
