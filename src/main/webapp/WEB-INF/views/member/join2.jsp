@@ -630,7 +630,7 @@ button#submitBtn {
         $('#invalid_post').hide();
         return true;
       }
-    }	
+    }	 
 
     function validateAll() {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();

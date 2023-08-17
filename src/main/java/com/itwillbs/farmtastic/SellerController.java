@@ -544,18 +544,14 @@ public class SellerController {
 		session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
-
-		// String seller_num = "TA002";
 		
 		status.put("seller_num", seller_num);
-		// System.out.println("updateStatus까지 오는지"+ seller_num);
 		sellerService.updateStatus(status);
 		
 		return "redirect:/itemMng";
 	    }
 	}
 	
-	// 판매 품목 수정 - 해쉬맵으로 수정할예정
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
 
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
@@ -589,25 +585,23 @@ public class SellerController {
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
 	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
 								@RequestParam("file") List<MultipartFile> files, HttpSession session, HttpServletResponse response) throws Exception {
-		
-			System.out.println("updatePro 오는지");
 			
 			/* 사진등록 여기부터 서비스 메서드 전까지 들고가면됨! */
 			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 			
 			for (int i = 0; i < files.size(); i++) {
                 MultipartFile file = files.get(i);
+                
+                // 새파일로 바뀔 경우
                 if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
                     String fileName = file.getOriginalFilename(); // 파일 원래 이름
                     String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
-
+                    
                     String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
 
                     String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
                     String filePath = uploadPath + "/" + storedFileName;
-                    
-                    // System.out.println("filePath : " + filePath);
                     
                     // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                     String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -621,24 +615,19 @@ public class SellerController {
                     itemList.put("item_mainImg", saveFileName);
                 }
 			}
-
+			
+			// 사진 변경 안할경우 기존 이미지 가져와서 저장하는 부분 
+			String item_mainImg = itemList.get("item_mainImg");
+		    itemList.put("item_mainImg", item_mainImg);
             
 			String seller_num = (String) session.getAttribute("seller_num");
-			itemList.put("seller_num", seller_num);
-
-            // 삭제예정 
-           // String seller_num = "TA002";
-			
 			session.setAttribute("seller_num", seller_num);
 		 	itemList.put("seller_num", seller_num);
 
-			//itemList.put("item_num", item_num);
-            
 			sellerService.itemUpdate(itemList, files, session);
 	
 			return "redirect:/itemMng";
 	    }
-	
 	
 	
 	@RequestMapping("/ch_test")

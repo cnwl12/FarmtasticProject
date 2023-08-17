@@ -338,6 +338,7 @@ input#post {
     	      data: formData,
     	      success: function() {
     	        // 요청이 성공적으로 처리되었을 때, login 페이지로 이동합니다.
+    	        alert("회원가입이 성공적으로 되었습니다. 로그인 창으로 이동합니다.");
     	        location.href = 'login';
     	      },
     	      error: function() {

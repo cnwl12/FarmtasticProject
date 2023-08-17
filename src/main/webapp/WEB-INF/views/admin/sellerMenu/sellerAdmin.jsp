@@ -54,13 +54,15 @@
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="sellerAdmin">
+                      <div>
+                    	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">미승인된 업체 목록</h6>
                         </div>
                         <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
                         <input type="hidden" id="actionType" name="actionType" /> 
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -71,6 +73,7 @@
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업장 번호</th>
+                                            <th>첨부파일</th>
                                             <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
@@ -82,12 +85,13 @@
         							<c:if test="${seller.seller_recoYn != 'Y'}">
             						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
             						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
-            						<tr>
+            						<tr data-status="unapproved">
                 						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
                 						<td>${count}</td> <!-- 순차 카운터 표시 -->
                 						<td>${seller.seller_storeName}</td>
                 						<td>${seller.seller_name}</td>
                 						<td>${seller.seller_licenseNum}</td>
+                						<td>${seller.seller_file}</td>
                 						<td>${seller.seller_recoYn}</td>
                 						<td>${seller.seller_joinDay}</td>
             						</tr>
@@ -102,8 +106,8 @@
                        <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
                         </div>
-                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
-                        <input type="hidden" id="actionType" name="actionType" /> 
+                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
+                        <input type="hidden" id="actionType2" name="actionType" /> 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
@@ -114,18 +118,22 @@
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업장 번호</th>
+                                            <th>첨부파일</th>
+                                            <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${sellers}" var="seller">
    								 		<c:if test="${seller.seller_recoYn == 'Y'}">
-        								<tr>
+        								<tr  data-status="approved">
             							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
             							<td>${seller.seller_num}</td>
             							<td>${seller.seller_storeName}</td>
             							<td>${seller.seller_name}</td>
             							<td>${seller.seller_licenseNum}</td>
+            							<td>${seller.seller_file}</td>
+            							<td>${seller.seller_recoYn}</td>
             							<td>${seller.seller_joinDay}</td>
         								</tr>
     									</c:if>
@@ -135,7 +143,8 @@
                             </div>
                         </div>
                        </form>
-                       </div>   
+                       </div>
+                      </div>   
                        
                 </div>
                 <!-- /.container-fluid -->
@@ -193,6 +202,11 @@
     document.getElementById('rejectSeller').addEventListener('click', function () {
         document.getElementById('actionType').value = 'reject';
         document.getElementById('changeSellerStatus').submit();
+    });
+    
+    document.getElementById('rejectSeller').addEventListener('click', function () {
+        document.getElementById('actionType2').value = 'reject';
+        document.getElementById('changeSellerStatus2').submit();
     });
 
     // Check All checkboxes

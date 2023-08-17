@@ -76,6 +76,7 @@
 		 	, seller_joinDay
 		 	, seller_recoYn
 		 	, seller_num
+		 	, seller_file
 	from seller; 
 	</select>
 	

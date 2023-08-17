@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -26,21 +25,14 @@
 
 
 <!-- Custom fonts for this template -->
-<link
-	href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this page -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
+	
 <!-- Custom styles for this template -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
@@ -260,27 +252,25 @@ body {
 										class="ng-pristine ng-invalid ng-invalid-required">
 										<div class="form-sub-wrap">
 											<label class="control-label">대표이미지<i
-												class="icon-must" aria-label="필수항목"></i> <!----> <!----></label>
+												class="icon-must" aria-label="필수항목"></i></label>
 											<div class="input-content">
-												<ncp-product-temp-photo-infra-image-upload id="representImage">
+												
 												<div class="seller-product-img add-img">
 													<div class="wrap-img">
 														<ul class="img-list">
-															<li ng-if="!(vm.isReadonly() || vm.isMaxUploaded())">
-																<!----> <!---->
+															<li>
 																<div class="register-img">
-																	<a role="button" href="" class="btn-add-img"> <i
-																		class="seller-icon icon-plus" aria-hidden="true"></i>
-																		<input type="file" name="file">
+																	<a role="button" href="" class="btn-add-img"> 
+																		<input type="file" name="file"><!-- 새로 받을 파일  -->
+																		<img src="${item.item_mainImg}" style="width: 100%; height : 100%" name="item_mainImg">
 																		<span class="sr-only">이미지 등록</span></a>
 																</div> 
 															</li>
 														</ul>
-															<img src="${item.item_mainImg}" style="width: 30px; height : 20px">
 													</div>
 												</div>
 											</div>
-											</ncp-product-temp-photo-infra-image-upload>
+											
 										</div>
 									</div>
 								</div>

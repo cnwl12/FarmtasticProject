@@ -801,34 +801,37 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/insertPro2", method = RequestMethod.POST)
-	public String insertPro2(HttpServletRequest request, @RequestParam("file") MultipartFile file, HttpSession session) throws Exception {
+	public String insertPro2(HttpServletRequest request, @RequestParam("file") List<MultipartFile> files, HttpSession session) throws Exception {
 	    
-        SellerDTO sellerDTO = new SellerDTO();
-		System.out.println("gd");
+		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+        
+		SellerDTO sellerDTO = new SellerDTO();
 	    // 파일 처리 부분
-	    if (!file.isEmpty() && file.getSize() > 0) {
-	        String uploadPath = session.getServletContext().getRealPath("/resources/upload"); // 첨부파일 올라갈 물리적 경로
-	        String fileName = file.getOriginalFilename(); // 파일 원래 이름
-	        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
+        for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
+                String fileName = file.getOriginalFilename(); // 파일 원래 이름
+                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 
-	        String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
-	        String sellerFileName = uuid.substring(0, 8) + "." + fileExtension; // 자리수 0~8까지
+                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
 
-	        String filePath = uploadPath + "/" + sellerFileName;
-	        System.out.println("filePath : " + filePath);
-	        
-			// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-			String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + sellerFileName;
+                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
-	        // 파일을 서버에 저장
-	        File dest = new File(filePath);
-	        file.transferTo(dest);
-	        
+                String filePath = uploadPath + "/" + storedFileName;
+                
+                System.out.println("filePath : " + filePath);
+                
+                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+                // 임시경로에서 filePath로 파일이동 
+                File dest = new File(filePath);
+                file.transferTo(dest);
 
 	        // 저장된 파일 경로를 sellerDTO에 저장
-	        sellerDTO.setSeller_file(filePath);
-	    }
-	    
+	        sellerDTO.setSeller_file(saveFileName);
+            }
+        } 
 	    sellerDTO.setSeller_type(request.getParameter("seller_type"));
 	    sellerDTO.setSeller_licenseNum(request.getParameter("seller_licenseNum"));
 	    sellerDTO.setSeller_id(request.getParameter("seller_id"));
