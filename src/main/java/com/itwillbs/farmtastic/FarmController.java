@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.apache.commons.io.FilenameUtils;
+import org.aspectj.lang.reflect.MemberSignature;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -415,8 +416,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		// 주문관리 - 지원
 		List<Map<String, Object>> orderList = memberService.getOrderList(member_num);
 		model.addAttribute("orderList", orderList);
-		List<Map<String, Object>> cancelList = memberService.getCancelList(member_num);
-		model.addAttribute("cancelList", cancelList);
 		
 		return "/member/mypage";
 	}
@@ -433,7 +432,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value="/cancelOrder", method = RequestMethod.POST)
 	public String cancelOrder(@RequestParam HashMap<String, Object> cancel) {
 		
-	   String orderNum = cancel.get("orderNum").toString();
+		String orderNum = cancel.get("orderNum").toString();
 	    cancel.put("order_num", orderNum);
 		
 		//취소하러 오는지 
@@ -448,25 +447,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 	
 	// 주문취소 목록
-	@RequestMapping(value="/cancelList", method = RequestMethod.POST)
-	public String cancelList(@RequestParam HashMap<String, Object> cancel) {
-		
-	    String orderNum = cancel.get("orderNum").toString();
-	    cancel.put("order_num", orderNum);
-		
-	    System.out.println(cancel);
-		//취소하러 오는지 
-		System.out.println("cancelList");
-		// 주문상태 업데이트 
-		memberService.cancelUpdate(cancel);
-		// 취소디비 딜리트 
-		memberService.cancelDelete(cancel);
-		
-		return "/member/mypage";
+	@RequestMapping(value = "/cancelList", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getCancelledOrders(@RequestParam("orderNum") String orderNum) {
+	    List<Map<String, Object>> cancelList = memberService.getCancelList(orderNum);
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("cancelledOrders", cancelList);
+
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
-	
-	
 	
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
@@ -1320,6 +1310,13 @@ public class FarmController { // 소비자 (컨트롤러)
 	    List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
 	    modelAndView.addObject("zzimlist", zzimlist);
 	    return modelAndView;
+	}
+	
+	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
+	@ResponseBody
+	public String searchId(@RequestParam String email) {
+	    String searchId = memberService.searchId(email);
+	    return searchId; // JSON 형식으로 반환
 	}
 
 	

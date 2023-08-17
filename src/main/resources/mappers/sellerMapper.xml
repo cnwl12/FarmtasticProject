@@ -287,6 +287,16 @@
 	WHERE settlementMonth IN (<foreach item="selectedMonth" collection="checkedSettlements" separator=",">#{selectedMonth}</foreach>);
 	</insert>
    
+	<!-- 선진) 정산 신청 여부 -->   
+   	<select id="isSettlementRequested" resultType="int">
+   	SELECT COUNT(*) FROM settlement
+    WHERE seller_num = #{seller_num}
+    AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN
+    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
+    	#{selectedMonth}
+    </foreach>
+    </select>  
+   
 	<!-- 선진) 정산 취소 -->
 	<delete id="deleteSettlementRequest">
     DELETE FROM settlement

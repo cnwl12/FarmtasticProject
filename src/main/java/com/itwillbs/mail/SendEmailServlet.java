@@ -12,7 +12,11 @@ public class SendEmailServlet extends HttpServlet {
 
         // 이메일 보내기 메서드 호출
         VerifyEmail mailSender = new VerifyEmail();
-        mailSender.sendEmail(receiverEmail);
+        
+        String verificationCode = mailSender.sendEmail(receiverEmail); // 인증번호 반환 받음
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("verificationCode", verificationCode);
         
     }
 }

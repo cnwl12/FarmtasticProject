@@ -104,11 +104,18 @@ public class SellerDAO {
 		public void insertSettlementRequest(Map<String, Object> params) {
 			
 		    System.out.println("SellerDAO의 insertSettlementRequest 매핑완");
-		    System.out.println(params);
+		    System.out.println("신청하기-DAO)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 		    sqlSession.update(namespace + ".insertSettlementRequest", params);
-		    
 		}
+		
+		// 선진) 정산신청 여부 알아오기
+		public int isSettlementRequested(Map<String, Object> params) {
+			
+		    System.out.println("SellerDAO의 isSettlementRequested 매핑완");
+		    System.out.println("신청여부-DAO)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 
+		    return sqlSession.selectOne(namespace + ".isSettlementRequested", params);
+		}		
 		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(Map<String, Object> params) {
@@ -118,6 +125,7 @@ public class SellerDAO {
 		    sqlSession.update(namespace + ".deleteSettlementRequest", params);
 		    
 		}
+		
 		public void itemInsert(Map<String, String> itemList) {
 	        sqlSession.insert(namespace + ".itemInsert", itemList);
 			
@@ -258,9 +266,5 @@ public class SellerDAO {
 		    params.put("member_num", member_num);
 		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
-		
-
-
-
 
 }

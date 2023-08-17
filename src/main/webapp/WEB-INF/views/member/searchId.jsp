@@ -61,34 +61,53 @@
     	<input type="text" name="email" placeholder="이메일 주소 입력" />
         <input type="submit" value="이메일 전송"><br>
 		<input type="text" name="verification_code" placeholder="인증번호 입력" />
-		<input type="button" value="인증번호 확인"/>
+		<input type="button" id=check_verification_code value="인증번호 확인"/>
     </form>
     
 <script>
 $(document).ready(function() {
-    $('form').on('submit', function(event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 막음
+	$('form').on('submit', function(event) {
+		event.preventDefault(); // 폼의 기본 제출 동작을 막음
+		
+		var email = $('input[name="email"]').val(); // 이메일 값 가져오기
+		
+		// Ajax 호출
+		$.ajax({
+		    type: 'POST',
+		    url: '/farmtastic/SendEmailServlet',
+		    data: { email: email },
+		    success: function(data) {
+		    	// 결과를 처리합니다.
+		    	// 예: 성공 메시지 표시
+		    	alert('이메일이 성공적으로 전송되었습니다.');
+		    },
+		    error: function(xhr, status, error) {
+		    	// 오류를 처리합니다.
+		    	// 예: 오류 메시지 표시
+		    	alert('이메일 전송 중 오류가 발생했습니다.');
+			},
+		});
+	});
+});
 
-        var email = $('input[name="email"]').val(); // 이메일 값 가져오기
-
-        // Ajax 호출
-        $.ajax({
-            type: 'POST',
-            url: '/farmtastic/SendEmailServlet',
-            data: { email: email },
-            success: function(data) {
-                // 결과를 처리합니다.
-                // 예: 성공 메시지 표시
-                alert('이메일이 성공적으로 전송되었습니다.');
-            },
-            error: function(xhr, status, error) {
-                // 오류를 처리합니다.
-                // 예: 오류 메시지 표시
-                alert('이메일 전송 중 오류가 발생했습니다.');
-            },
-        });
+//인증번호 확인 Ajax 호출
+$("#check_verification_code").on("click", function () {
+    var userEmail = $('input[name="email"]').val(); // 이메일 값 가져오기
+    var userVerificationCode = $('input[name="verification_code"]').val();
+    
+    $.ajax({
+        type: "GET",
+        url: "/farmtastic/CheckVerificationCodeServlet",
+        data: { code: userVerificationCode, email: userEmail }, // 이메일 값 추가
+        success: function (data) {
+            alert(data); // 성공 메시지 또는 오류 메시지 표시
+        },
+        error: function (xhr, status, error) {
+            alert("인증번호 확인 중 오류가 발생했습니다.");
+        },
     });
 });
+
 </script>
 
 	<!-- bottom.jsp로 분리  -->

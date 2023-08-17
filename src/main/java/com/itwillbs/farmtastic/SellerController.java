@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -342,22 +343,47 @@ public class SellerController {
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
 	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
 	    System.out.println("SellerController의 settlementRequest 매핑완");
-	    System.out.println(Arrays.toString(selectedMonths)); // 배열 형태로 출력
-	    System.out.println("가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
+	    System.out.println("정산신청-선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
+	    System.out.println("정산신청-가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
 	    
-
+	 // 판매자의 정산신청 여부 확인
+    	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+    	
 	    if ("request".equals(action)) {
 	        // 정산 신청 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
 	        	System.out.println("신청 기능 여기오나요?? 액션값은? : " + action);
-	            sellerService.insertSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	if(!requestExists) { // 디비에 없다면!
+	        		
+	        		System.out.println("디비에없다면)가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
+	        	    System.out.println("디비에없다면)선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
+	        	    
+	        		sellerService.insertSettlementRequest((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));	
+	        	} else { // 이미 디비에 저장되어 있다면
+	        		// "이미 신청된 정산건입니다!" 메시지 띄우기, 일단 콘솔에 출력
+	        		System.out.println("이미 신청된 정산건입니다!");	        	
+	        	}
+	        } else { // 정산건을 선택하지 않고 신청 버튼을 클릭하면
+	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
+	        
 	    } else if ("cancel".equals(action)) {
-	        // 정산 취소 기능 처리
+	    	// 정산 취소 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
 	        	System.out.println("취소 기능 여기오나요?? 액션값은? : " + action);
-	            sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	if(requestExists) { // 디비에 정산건이 있다면 취소 기능 그대로!
+	        		sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	} else { // 디비에 정산건이 없다면 
+	        		// "신청된 정산건이 존재하지 않습니다!" 메시지 띄우기, 일단 콘솔에 출력
+	        		System.out.println("신청된 정산건이 존재하지 않습니다!");	
+	        	}
+	        } else { // 정산건을 선택하지 않고 취소 버튼을 클릭하면
+	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
+	        
 	    } else {System.out.println("암것도아녀 여기오나요?? 액션값은? : " + action);}
 
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
@@ -581,54 +607,51 @@ public class SellerController {
 	 }
 }
 	
-	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
 	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
-								@RequestParam("file") List<MultipartFile> files, HttpSession session, HttpServletResponse response) throws Exception {
-			
-			/* 사진등록 여기부터 서비스 메서드 전까지 들고가면됨! */
-			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-			
-			for (int i = 0; i < files.size(); i++) {
-                MultipartFile file = files.get(i);
-                
-                // 새파일로 바뀔 경우
-                if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
-                    String fileName = file.getOriginalFilename(); // 파일 원래 이름
-                    String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
-                    
-                    String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+	                            @RequestParam("file") List<MultipartFile> files,
+	                            HttpSession session, HttpServletResponse response) throws Exception {
 
-                    String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
-                    String filePath = uploadPath + "/" + storedFileName;
-                    
-                    // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+	    if (files != null && !files.isEmpty()) {
+	        MultipartFile file = files.get(0); // Assuming only one file will be uploaded
+	        
+	        if (!file.isEmpty()) {
+	            String fileName = file.getOriginalFilename();
+	            String fileExtension = FilenameUtils.getExtension(fileName);
+	                        
+	            String uuid = UUID.randomUUID().toString();
+	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
-                    // 임시경로에서 filePath로 파일이동 
-                    File dest = new File(filePath);
-                    file.transferTo(dest);
-                    
-                    // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
-                    // 사진 정보의 경로를 저장
-                    itemList.put("item_mainImg", saveFileName);
-                }
-			}
-			
-			// 사진 변경 안할경우 기존 이미지 가져와서 저장하는 부분 
-			String item_mainImg = itemList.get("item_mainImg");
-		    itemList.put("item_mainImg", item_mainImg);
-            
-			String seller_num = (String) session.getAttribute("seller_num");
-			session.setAttribute("seller_num", seller_num);
-		 	itemList.put("seller_num", seller_num);
+	            String filePath = uploadPath + "/" + storedFileName;
 
-			sellerService.itemUpdate(itemList, files, session);
-	
-			return "redirect:/itemMng";
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+	            File dest = new File(filePath);
+	            file.transferTo(dest);
+
+	            itemList.put("item_mainImg", saveFileName);
+	        } else {
+	            // 이미지 변경 없는 경우, 기존 이미지 경로 사용
+	            String oldImage = itemList.get("item_mainImg");
+	            itemList.put("item_mainImg", oldImage);
+	        }
+	    } else {
+	        // 이미지 변경 없는 경우, 기존 이미지 경로 사용
+	        String oldImage = itemList.get("item_mainImg");
+	        itemList.put("item_mainImg", oldImage);
 	    }
-	
+	            
+	    String seller_num = (String) session.getAttribute("seller_num");
+	    session.setAttribute("seller_num", seller_num);
+	    itemList.put("seller_num", seller_num);
+
+	    sellerService.itemUpdate(itemList, files, session);
+
+	    return "redirect:/itemMng";
+	}
+
 	
 	@RequestMapping("/ch_test")
 	@ResponseBody
@@ -655,30 +678,39 @@ public class SellerController {
 	
 	// 판매자 로그인 처리
 	
-    @RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
-    public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, Model model) {
-    	
-    	
-    	System.out.println("SellerController sellerloginPro()");
+	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
+	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, Model model) {
+	    if (sellerDTO == null || sellerDTO.getSeller_id() == null || sellerDTO.getSeller_pass() == null) {
+	        // sellerDTO가 null이거나 id/pw 정보가 누락된 경우, 접근권한이 없다는 메시지를 반환
+	        model.addAttribute("error", "접근위반 로그인하고와라");
+	        return "redirect:/login";
+	    } else {
+	        // id와 pw 정보가 모두 제공된 경우, 로그인 절차 수행
+	        SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
 
-        SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
-        
-      
-		if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
-            // 승인된 사용자
-            session.setAttribute("seller_num", sellerDTO2.getSeller_num());
-            return "redirect:/sellerMain";
-        } else if (sellerDTO2 != null && !"Y".equals(sellerDTO2.getSeller_recoYn())) {
-        	// 승인되지 않은 사용자
-        	model.addAttribute("error", "접근위반 로그인하고와라.");
-            return "member/login";
-        } else { 
-        	// 아이디 또는 비밀번호가 틀린 경우 또는 예외 상황
-        	model.addAttribute("error", "접근위반 로그인하고와라.");
-            return "member/login";
-        }
-    }
-       
+	        if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
+	            // 승인된 사용자
+	            session.setAttribute("seller_num", sellerDTO2.getSeller_num());
+	            return "redirect:/sellerMain";
+	        } else if (sellerDTO2 != null && "N".equals(sellerDTO2.getSeller_recoYn())) {
+	            // 승인 거절된 사용자
+	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
+	            return "redirect:/login";
+	        } else if (sellerDTO2 != null && sellerDTO2.getSeller_recoYn() == null) {
+	            // 승인 대기 중인 사용자
+	            model.addAttribute("error", "승인을 기다려주세요.");
+	            return "redirect:/login";
+	        } else { 
+	            // 아이디와 비밀번호 정보가 일치하지 않는 경우
+	            model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
+	            return "redirect:/login"; 
+	        }
+	    }
+	}
+
+
+	
+
 
 	
 	

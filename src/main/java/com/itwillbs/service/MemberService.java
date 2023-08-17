@@ -305,8 +305,8 @@ public class MemberService {
 	public void clearCart(int member_num) {
 		memberDAO.clearCart(member_num);
 	}
-	public List<Map<String, Object>> getCancelList(int member_num) {
-		return memberDAO.getCancelList(member_num);
+	public List<Map<String, Object>> getCancelList(String orderNum) {
+		return memberDAO.getCancelList(orderNum);
 	}
 
 	public void cancelUpdate(HashMap<String, Object> cancel) {
@@ -316,6 +316,9 @@ public class MemberService {
 	public void cancelDelete(HashMap<String, Object> cancel) {
 		 memberDAO.cancelDelete(cancel);
 	}
-
+	
+    public String searchId(String email) {
+        return memberDAO.searchId(email);
+    }
 
 }

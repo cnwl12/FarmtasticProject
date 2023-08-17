@@ -29,7 +29,7 @@ public class VerifyEmail {
 	static String title = "아이디 찾기 인증번호";
 	static String content = generateVerificationCode();
 		
-	public void sendEmail(String receiverEmail) {
+	public String sendEmail(String receiverEmail) {
 			
         // 자바 메일 세션 생성 및 인증 정보 설정
         Properties props = new Properties();
@@ -72,6 +72,7 @@ public class VerifyEmail {
 			e.printStackTrace();
 			System.out.println("서버 설정 또는 서비스 문제 발생!");
 		}
+		return content;
 	}
 
 }

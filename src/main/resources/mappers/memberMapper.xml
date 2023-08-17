@@ -608,8 +608,9 @@
     
   	<!-- 아이디 찾기 -->
 	<select id="searchId" parameterType="String" resultType="String">
-		select id from member where member_email = #{member_email}
-	</select>  
-  
+		SELECT member_id
+		FROM member
+		WHERE member_email = #{member_email}
+	</select>
  
 </mapper>

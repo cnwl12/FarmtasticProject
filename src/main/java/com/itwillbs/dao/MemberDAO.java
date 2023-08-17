@@ -315,8 +315,8 @@ public class MemberDAO {
 		sqlSession.delete(namespace+".deleteAllCart", member_num);
 	}
 
-	public List<Map<String, Object>> getCancelList(int member_num) {
-		return sqlSession.selectList(namespace+".getCancelList", member_num);
+	public List<Map<String, Object>> getCancelList(String orderNum) {
+		return sqlSession.selectList(namespace+".getCancelList", orderNum);
 	}
 
 	public void cancelUpdate(HashMap<String, Object> cancel) {
@@ -325,5 +325,9 @@ public class MemberDAO {
 
 	public void cancelDelete(HashMap<String, Object> cancel) {
 		sqlSession.delete(namespace + ".cancelDelete", cancel);
+	}
+	
+	public String searchId(String email) {
+		return sqlSession.selectOne(namespace + ".searchId", email);
 	}
 }
