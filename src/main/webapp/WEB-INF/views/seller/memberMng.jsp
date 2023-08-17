@@ -93,6 +93,7 @@ body {
 														onclick="setDateRange(180)">6개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2"
 														onclick="setDateRange(365)">1년</button>
+													<button type="reset" class="btn btn-default">초기화</button>
 												</div>
 											</div></li>
 									</ul>
@@ -102,7 +103,7 @@ body {
 								<div class="seller-btn-area btn-group-lg">
 									<button id="searchButton" type="submit" class="btn btn-primary">검색</button>
 									<!-- 초기화 버튼 추가 -->
-									<button type="reset" class="btn btn-default">초기화</button>
+									
 								</div>
 							</div>
 						</form>
