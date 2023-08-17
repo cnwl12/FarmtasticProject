@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -593,54 +594,51 @@ public class SellerController {
 	 }
 }
 	
-	
 	@RequestMapping(value = "/itemUpdatePro", method = RequestMethod.POST)
 	public String itemUpdatePro(@RequestParam HashMap<String, String> itemList,
-								@RequestParam("file") List<MultipartFile> files, HttpSession session, HttpServletResponse response) throws Exception {
-			
-			/* 사진등록 여기부터 서비스 메서드 전까지 들고가면됨! */
-			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-			
-			for (int i = 0; i < files.size(); i++) {
-                MultipartFile file = files.get(i);
-                
-                // 새파일로 바뀔 경우
-                if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
-                    String fileName = file.getOriginalFilename(); // 파일 원래 이름
-                    String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
-                    
-                    String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
+	                            @RequestParam("file") List<MultipartFile> files,
+	                            HttpSession session, HttpServletResponse response) throws Exception {
 
-                    String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
+	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
-                    String filePath = uploadPath + "/" + storedFileName;
-                    
-                    // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+	    if (files != null && !files.isEmpty()) {
+	        MultipartFile file = files.get(0); // Assuming only one file will be uploaded
+	        
+	        if (!file.isEmpty()) {
+	            String fileName = file.getOriginalFilename();
+	            String fileExtension = FilenameUtils.getExtension(fileName);
+	                        
+	            String uuid = UUID.randomUUID().toString();
+	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
-                    // 임시경로에서 filePath로 파일이동 
-                    File dest = new File(filePath);
-                    file.transferTo(dest);
-                    
-                    // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
-                    // 사진 정보의 경로를 저장
-                    itemList.put("item_mainImg", saveFileName);
-                }
-			}
-			
-			// 사진 변경 안할경우 기존 이미지 가져와서 저장하는 부분 
-			String item_mainImg = itemList.get("item_mainImg");
-		    itemList.put("item_mainImg", item_mainImg);
-            
-			String seller_num = (String) session.getAttribute("seller_num");
-			session.setAttribute("seller_num", seller_num);
-		 	itemList.put("seller_num", seller_num);
+	            String filePath = uploadPath + "/" + storedFileName;
 
-			sellerService.itemUpdate(itemList, files, session);
-	
-			return "redirect:/itemMng";
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+	            File dest = new File(filePath);
+	            file.transferTo(dest);
+
+	            itemList.put("item_mainImg", saveFileName);
+	        } else {
+	            // 이미지 변경 없는 경우, 기존 이미지 경로 사용
+	            String oldImage = itemList.get("item_mainImg");
+	            itemList.put("item_mainImg", oldImage);
+	        }
+	    } else {
+	        // 이미지 변경 없는 경우, 기존 이미지 경로 사용
+	        String oldImage = itemList.get("item_mainImg");
+	        itemList.put("item_mainImg", oldImage);
 	    }
-	
+	            
+	    String seller_num = (String) session.getAttribute("seller_num");
+	    session.setAttribute("seller_num", seller_num);
+	    itemList.put("seller_num", seller_num);
+
+	    sellerService.itemUpdate(itemList, files, session);
+
+	    return "redirect:/itemMng";
+	}
+
 	
 	@RequestMapping("/ch_test")
 	@ResponseBody
