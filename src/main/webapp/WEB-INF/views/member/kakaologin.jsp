@@ -8,15 +8,15 @@
     <script type="text/javascript">
         // SDK 초기화
         Kakao.init('fa74773a794ad7a254e291d7cbf8fd00');
-
+		//http://localhost:8080/farmtastic/kakaocallback
         // 카카오 로그인 팝업 창을 자동으로 띄우는 코드
         // 페이지 로딩 시 자동 실행 됩니다.
         Kakao.Auth.authorize({
-            redirectUri: "http://localhost:8080/farmtastic/kakaocallback",
+            redirectUri: "http://c2d2303t2.itwillbs.com/FarmProject/kakaocallback",
             success: function(res) {
                 var code = res.code; // code 값 가져오기
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'http://localhost:8080/farmtastic/kakaocallback', true); // POST 방식으로 변경
+                xhr.open('POST', 'http://c2d2303t2.itwillbs.com/FarmProject/kakaocallback', true); // POST 방식으로 변경
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onreadystatechange = function() {
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
