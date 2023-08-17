@@ -368,7 +368,7 @@ input#file-upload-button {
 														<tr class="boardContent" id="answer${row.one_board_num}" data-one-board-num="${row.one_board_num}" style="display:none;">
 															<td colspan="5">
 																비공개된 게시글입니다.
-															</td>
+															</td> 
 														 </tr>
 													</c:when>
 												<c:otherwise>
