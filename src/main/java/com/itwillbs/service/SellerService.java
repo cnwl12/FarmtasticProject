@@ -164,7 +164,8 @@ public class SellerService {
 			System.out.println("서비스"+sellerNum);
 			return sellerDAO.yearSales(sellerNum);
 		}
-
+		
+		// 관리자 업체관리
 		public void approveSellerStatus(List<String> sellerNum) {
 		    System.out.println("SellerService approveSellerStatus 확인!");
 		    sellerDAO.approveSellerStatus(sellerNum);
