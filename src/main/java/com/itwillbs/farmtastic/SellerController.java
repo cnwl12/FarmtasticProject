@@ -342,15 +342,27 @@ public class SellerController {
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
 	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
 	    System.out.println("SellerController의 settlementRequest 매핑완");
-	    System.out.println(Arrays.toString(selectedMonths)); // 배열 형태로 출력
-	    System.out.println("가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
+	    System.out.println("정산신청-선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
+	    System.out.println("정산신청-가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
 	    
-
 	    if ("request".equals(action)) {
 	        // 정산 신청 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
 	        	System.out.println("신청 기능 여기오나요?? 액션값은? : " + action);
-	            sellerService.insertSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	// 판매자의 정산신청 여부 확인
+	        	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	if(!requestExists) { // 디비에 없다면!
+	        		
+	        		System.out.println("디비에없다면)가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
+	        	    System.out.println("디비에없다면)선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
+	        	    
+	        		sellerService.insertSettlementRequest((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));	
+	        	} else { // 이미 디비에 저장되어 있다면
+	        		// "이미 신청된 정산건입니다!" 메시지 띄우기, 일단 콘솔에 출력
+	        		System.out.println("이미 신청된 정산건입니다!");	        	
+	        	}
 	        }
 	    } else if ("cancel".equals(action)) {
 	        // 정산 취소 기능 처리

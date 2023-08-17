@@ -101,9 +101,23 @@ public class SellerService {
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
-		    System.out.println(params);
+		    System.out.println("신청하기-서비스)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 		    sellerDAO.insertSettlementRequest(params);
 		}
+
+	    // 선진) 정산신청 여부 알아오기
+		public boolean isSettlementRequested(String seller_num, List<String> checkedSettlements) {
+		    System.out.println("SellerService의 isSettlementRequested 매핑완");
+		    
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("checkedSettlements", checkedSettlements);
+
+		    System.out.println("신청여부-서비스)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
+		    
+		    int count = sellerDAO.isSettlementRequested(params);
+			return count > 0;
+		}  		
 
 		// 선진) 정산취소
 		public void deleteSettlementRequest(String seller_num, List<String> checkedSettlements) {
@@ -253,6 +267,6 @@ public class SellerService {
 		}
 	    public boolean deleteSellerReview(int review_num, int member_num) {
 	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
-	    }  
+	    }
 	    
 }
