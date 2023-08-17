@@ -1177,6 +1177,8 @@ public class FarmController { // 소비자 (컨트롤러)
 				oneboardDTO.setOne_board_content(request.getParameter("one_board_content"));
 				oneboardDTO.setOne_board_pass(request.getParameter("one_board_pass"));
 				oneboardDTO.setOne_board_private(request.getParameter("one_board_private"));
+				oneboardDTO.setItem_num(Integer.parseInt(request.getParameter("item_num")));
+				oneboardDTO.setMember_num(Integer.parseInt(request.getParameter("member_num")));
 		memberService.insertOneBoard(oneboardDTO);
 
 		return "/member/success";

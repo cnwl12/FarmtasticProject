@@ -7,6 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>상품 Q&amp;A</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/oneboard.css" type="text/css">
+	<style>
+	textarea#one_board_content {
+  position: relative;
+}
+
+.content_char_count_wrapper {
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+}
+	
+	</style>
 </head>
 <body>
   <div class="inquiry-container">
@@ -31,7 +43,15 @@
       <input type="text" name="one_board_title" id="one_board_title" required><br>
       
       <label for="one_board_content">내용</label>
-      <textarea name="one_board_content" id="one_board_content" rows="4" cols="50" required></textarea><br>
+		<div style="position: relative;">
+		  <textarea name="one_board_content" id="one_board_content" rows="4" cols="50" required onkeyup="updateContentCharCount()" maxlength="200" style="display: block; width: 100%;"></textarea>
+		  <div class="content_char_count_wrapper" style="position: absolute; right: 0; bottom: -20px;">
+		    <span id="content_char_count">0자</span>
+		    <span>/200자</span>
+		  </div>
+		</div>
+
+
       
       <label for="one_board_file">첨부파일</label>
       <input type="file" name="one_board_file" id="one_board_file"><br>
@@ -54,5 +74,27 @@
       <input type="submit" value="작성하기">
     </form>
   </div>
+  <script>
+  function updateContentCharCount() {
+	  var contentTextarea = document.getElementById('one_board_content');
+	  var contentCharCountSpan = document.getElementById('content_char_count');
+	  if (contentTextarea && contentCharCountSpan) {
+	    var charCount = contentTextarea.value.length;
+	    contentCharCountSpan.innerHTML = charCount + '자';
+	  } else {
+	    console.error('Cannot find content textarea element with id "one_board_content" or contentCharCountSpan element.');
+	  }
+	}
+
+	window.onload = function() {
+	  var contentTextarea = document.getElementById('one_board_content');
+	  if(contentTextarea) {
+	    contentTextarea.addEventListener("keyup", updateContentCharCount);
+	  } else {
+	    console.error('Cannot find content textarea element with id "one_board_content" to attach event listener.');
+	  }
+	};
+
+  </script>
 </body>
 </html>
