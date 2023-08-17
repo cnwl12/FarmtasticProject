@@ -316,6 +316,9 @@ public class MemberService {
 	public void cancelDelete(HashMap<String, Object> cancel) {
 		 memberDAO.cancelDelete(cancel);
 	}
-
+	
+    public String searchId(String email) {
+        return memberDAO.searchId(email);
+    }
 
 }

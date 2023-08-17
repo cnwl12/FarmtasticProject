@@ -326,4 +326,8 @@ public class MemberDAO {
 	public void cancelDelete(HashMap<String, Object> cancel) {
 		sqlSession.delete(namespace + ".cancelDelete", cancel);
 	}
+	
+	public String searchId(String email) {
+		return sqlSession.selectOne(namespace + ".searchId", email);
+	}
 }

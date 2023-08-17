@@ -1309,6 +1309,13 @@ public class FarmController { // 소비자 (컨트롤러)
 	    modelAndView.addObject("zzimlist", zzimlist);
 	    return modelAndView;
 	}
+	
+	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
+	@ResponseBody
+	public String searchId(@RequestParam String email) {
+	    String searchId = memberService.searchId(email);
+	    return searchId; // JSON 형식으로 반환
+	}
 
 	
 
