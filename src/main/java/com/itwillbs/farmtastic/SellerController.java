@@ -346,13 +346,13 @@ public class SellerController {
 	    System.out.println("정산신청-선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
 	    System.out.println("정산신청-가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
 	    
+	 // 판매자의 정산신청 여부 확인
+    	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+    	
 	    if ("request".equals(action)) {
 	        // 정산 신청 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
 	        	System.out.println("신청 기능 여기오나요?? 액션값은? : " + action);
-	        	
-	        	// 판매자의 정산신청 여부 확인
-	        	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	        	
 	        	if(!requestExists) { // 디비에 없다면!
 	        		
@@ -367,14 +367,23 @@ public class SellerController {
 	        } else { // 정산건을 선택하지 않고 신청 버튼을 클릭하면
 	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
+	        
 	    } else if ("cancel".equals(action)) {
-	        // 정산 취소 기능 처리
+	    	// 정산 취소 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
 	        	System.out.println("취소 기능 여기오나요?? 액션값은? : " + action);
-	            sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	if(requestExists) { // 디비에 정산건이 있다면 취소 기능 그대로!
+	        		sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	        	
+	        	} else { // 디비에 정산건이 없다면 
+	        		// "신청된 정산건이 존재하지 않습니다!" 메시지 띄우기, 일단 콘솔에 출력
+	        		System.out.println("신청된 정산건이 존재하지 않습니다!");	
+	        	}
 	        } else { // 정산건을 선택하지 않고 취소 버튼을 클릭하면
 	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
+	        
 	    } else {System.out.println("암것도아녀 여기오나요?? 액션값은? : " + action);}
 
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
