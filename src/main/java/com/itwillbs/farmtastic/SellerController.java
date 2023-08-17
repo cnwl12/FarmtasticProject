@@ -364,8 +364,6 @@ public class SellerController {
 	        		// "이미 신청된 정산건입니다!" 메시지 띄우기, 일단 콘솔에 출력
 	        		System.out.println("이미 신청된 정산건입니다!");	        	
 	        	}
-	        } else { // 정산건을 선택하지 않고 신청 버튼을 클릭하면
-	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
 	        
 	    } else if ("cancel".equals(action)) {
@@ -380,8 +378,6 @@ public class SellerController {
 	        		// "신청된 정산건이 존재하지 않습니다!" 메시지 띄우기, 일단 콘솔에 출력
 	        		System.out.println("신청된 정산건이 존재하지 않습니다!");	
 	        	}
-	        } else { // 정산건을 선택하지 않고 취소 버튼을 클릭하면
-	        	System.out.println("정산건을 선택해 주세요!");	
 	        }
 	        
 	    } else {System.out.println("암것도아녀 여기오나요?? 액션값은? : " + action);}
