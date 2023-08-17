@@ -42,6 +42,21 @@
 	 body {font-size: 1rem !important;}
 	</style>
 	<style>
+	.space_h {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.text_info {
+    display: flex;
+    align-items: baseline;
+}
+
+.textCount, .textTotal {
+    margin-right: 10px;
+}
+	
 	.uio_grid table td {
 	white-space: nowrap;
 	word-break: break-all
@@ -291,16 +306,18 @@
 													  <tr>
 													    <th scope="row">답변내용</th>
 													    <td>
-													      <textarea cols="30" rows="5" id="one_board_reply"
-													                name="one_board_reply" class="ta scrl"
-													                style="width: 100%; height: 250px"></textarea>
-													      <div class="space_h">
-													        <span class="num_meta2 fr">
-													        <em> <span class="blind">입력된 글자수 : </span>
-													          <span id="_char_count_span">0</span></em>/
-													          <strong><span class="blind">최대 입력 글자 : </span>1,000</strong></span>
-													       <button type="submit" class="btn_d"><span>답변하기</span></button>
-													        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+													    	<div class="form-group col-12" >
+														      <textarea cols="30" rows="5" id="one_board_reply_td"
+														                name="one_board_reply" class="ta scrl"
+														                style="width: 100%; height: 250px" onkeyup="updateCharCount()" maxlength="200"></textarea>
+														      <div class="space_h">
+														         <div class="text_info">
+															        <p class="textCount" id="_char_count_span">0자</p>
+															        <p class="textTotal">/200자</p>
+															    </div>
+															    <button type="submit" class="btn_d"><span>답변하기</span></button>
+														        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+														      </div>
 													      </div>
 													    </td>
 													  </tr>
@@ -590,25 +607,30 @@ function sortTable() {
 
 </script>
 <script>
-<script>
-$(document).ready(function() {
-  $('#one_board_reply').on('input', function() {
-    var inputLength = $(this).val().length;
-    $('#_char_count_span').text(inputLength);
-    
-    if(inputLength > 1000){
-    	alert("최대 입력 글자를 초과하였습니다.");
-    	var shortenedText = $(this).val().substring(0, 1000);
-    	$(this).val(shortenedText);
-    	$('#_char_count_span').text(1000);
-    }
-  });
-});
+function updateCharCount() {
+	  var textarea = document.getElementById('one_board_reply_td');
+	  var charCountSpan = document.getElementById('_char_count_span');
+	  if (textarea && charCountSpan) {
+	    var charCount = textarea.value.length;
+	    charCountSpan.innerHTML = charCount + '자';
+	  } else {
+	    console.error('Cannot find textarea element with id "one_board_reply" or charCountSpan element.');
+	  }
+	}
+
+	window.onload = function() {
+	  var textarea = document.getElementById('one_board_reply_td');
+	  if(textarea) {
+	    textarea.addEventListener("keyup", updateCharCount);
+	  } else {
+	    console.error('Cannot find textarea element with id "one_board_reply" to attach event listener.');
+	  }
+	};
+
 </script>
 
 
 
-</script>
 
 
 

@@ -228,7 +228,6 @@ input#file-upload-button {
                                     <p>${item.item_detail}</p>
                                 </div>
                             </div>
-                            <!-- 로그인 후 구매내역이 있는지 없는지를 추가로 넣으면 될 듯 -->
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                 	<div>
@@ -237,6 +236,7 @@ input#file-upload-button {
      								 	<p>로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.</p>
     									</c:when>
     								<c:otherwise>
+            						<div id="review-write-section" style="display:none;">
                                     <h6>리뷰 쓰기</h6>
                                     <form action="${pageContext.request.contextPath}/insertReview" method="post" name="insertReview" id="insertReview" enctype="multipart/form-data">
     									<input type="hidden" id="item_num"name="item_num" value="${item.item_num}">
@@ -260,6 +260,8 @@ input#file-upload-button {
     									<br>
     									<button id="write-review-btn" type="submit">리뷰 작성</button>
 									</form>
+									</div>
+									<p id="not-eligible-message" style="display:none;">주문 내역을 찾을 수 없습니다. 리뷰를 작성하려면 제품을 구매하세요.</p>
 									</c:otherwise>
   									</c:choose>
   									</div>
@@ -461,6 +463,31 @@ input#file-upload-button {
 	});
 	
 	// ----------------------------------------------------------------------
+	$(document).ready(function() {
+    var member_num = $("#insertReview input[name=member_num]").val();
+    var item_num = $("#insertReview input[name=item_num]").val();
+
+    if (member_num && item_num) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/getItemOrder",
+            type: "GET",
+            data: {
+              member_num: member_num,
+              item_num: item_num
+            },
+            success: function(data) {
+                if (data && data.length > 0) {
+                    $("#review-write-section").show();
+                } else {
+                    $("#not-eligible-message").show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+});
 	
 	$("#insertReview").submit(function (e) {
     e.preventDefault();
