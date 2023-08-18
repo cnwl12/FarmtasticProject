@@ -165,7 +165,7 @@ input#post {
               					</div>
 								</li>  
 								
-								<li> 
+								<li>  
 								<input type="password"  placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
 								<div id= "invalid_pass4" class="invalid-feedback">
                 				비밀번호가 일치하지 않습니다.
