@@ -25,12 +25,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	  
 <style>
-div#btbt {
-padding : 0px 60px;
-text-align: right;
-
-}
-
 input#post {
     padding: 0px 10px 19px 113px;
     margin: -5px 0px 0px 137px;
@@ -147,8 +141,8 @@ input#post {
 							
 								<li>
 								<input type="hidden" name="join_date" id="join_date">
-								<input type="text" class="form-control" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
-								<input type="button" value="중복체크" class="idcheckbtn">
+								<input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
+								<input type="button" value="중복체크" class="idcheckbtn" style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
 								<div id = "idcheckdiv"></div>
 								<div id="invalid_id" class="invalid-feedback">
                 				아이디를 입력해주세요.
@@ -159,7 +153,7 @@ input#post {
 								</li>   
 								
 								<li>
-								<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
+								<input type="password" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
 								<div id= "invalid_pass" class="invalid-feedback">
                 				비밀번호를 입력해주세요.
               					</div>
@@ -172,14 +166,14 @@ input#post {
 								</li>  
 								
 								<li> 
-								<input type="password" class="form-control" placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
+								<input type="password"  placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
 								<div id= "invalid_pass4" class="invalid-feedback">
                 				비밀번호가 일치하지 않습니다.
               					</div>
 								</li>
 								
 								<li>   
-								<input type="text" class="form-control" placeholder="이름" name="member_name" id="member_name" maxlength="10">
+								<input type="text"  placeholder="이름" name="member_name" id="member_name" maxlength="10">
 								<div id= "invalid_name" class="invalid-feedback">
                 				이름을 입력해주세요.
               					</div>
@@ -189,7 +183,7 @@ input#post {
 								</li>
 							  	
 							  	<li>
-								<input type="text" class="form-control" placeholder="연락처 (-)를 포함하여 작성해주세요" name="member_phone" id="member_phone" maxlength="13">
+								<input type="text"  placeholder="연락처 (-)를 포함하여 작성해주세요" name="member_phone" id="member_phone" maxlength="13">
 								<div id= "invalid_phone" class="invalid-feedback">
                 				연락처를 입력해주세요.
               					</div>
@@ -199,7 +193,7 @@ input#post {
 								</li>
 								
 								<li>
-								<input type="email" class="form-control" placeholder="이메일" name="member_email" id="member_email" >
+								<input type="email" placeholder="이메일" name="member_email" id="member_email" >
 								<div id= "invalid_email" class="invalid-feedback">
                 				이메일을 입력해주세요.
               					</div>
@@ -210,9 +204,7 @@ input#post {
 							
 								<li>
 								<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
-								<div id="btbt">
-								<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required>
-								</div>
+								<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
 								<div id="invalid_post" class="invalid-feedback">
               					주소를 입력해주세요.
            						</div>

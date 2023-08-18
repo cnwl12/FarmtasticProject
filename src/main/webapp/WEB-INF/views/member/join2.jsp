@@ -177,7 +177,7 @@ button#submitBtn {
                         <li>
                         <input type="hidden" name="join_date" id="join_date">
                         <input type="text" class="form-control" placeholder="ID를 작성해주세요" name="seller_id" id="seller_id" maxlength="10" >
-                        <input type="button" value="중복체크" class="idcheckbtn">
+                        <input type="button" value="중복체크" class="idcheckbtn" style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
                         <div id = "idcheckdiv"></div>
                         <div id="invalid_id" class="invalid-feedback">
                             아이디를 입력해주세요.
@@ -239,7 +239,7 @@ button#submitBtn {
                         </li>
                         
                         <li>
-                           <label for="seller_bank">은행명</label>
+                           <label for="seller_bank" style= "margin-left: 25px; margin-top: 9px;">은행명</label>
                            <select name="seller_bank" id="seller_bank">
                                <option value="Kookmin">국민은행</option>
                                 <option value="Busan">부산은행</option>
@@ -300,9 +300,7 @@ button#submitBtn {
                      
                         <li>
                         <input type="text" name="seller_post" id="sample4_postcode" placeholder="사업장주소">
-                        <div id="btbt">
-                        <input type="button" id="seller_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required>
-                        </div>
+                        <input type="button" id="seller_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
                         <div id="invalid_post" class="invalid-feedback">
                              주소를 입력해주세요.
                              </div>
@@ -322,12 +320,12 @@ button#submitBtn {
                         </li>
                         
                         <li>
-                        <label for="attachment">첨부파일:</label>
-                        <input type="file" id="seller_file" name="file" />
+                        <label for="attachment" style= "margin-left: 25px; margin-top: 9px;">첨부파일</label>
+                        <input type="file" id="seller_file" name="file" style= "height:37px;"/>
                         </li>
                         
                         <li>
-                           <label for="seller_type">사업자 분류</label>
+                           <label for="seller_type" style= "margin-left: 25px; margin-top: 9px;">사업자 분류</label>
                            <select name="seller_type" id="seller_type">
                               <option value="">카테고리를 선택해주세요</option>
                               <option value="FR">사과</option>
