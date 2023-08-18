@@ -107,6 +107,8 @@
 		seller_addMain = #{seller_addMain},
 		seller_addSub = #{seller_addSub},
 		seller_file = #{seller_file}
+		seller_pass  = #{new_seller_pass},
+      <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
 	WHERE seller_num = #{seller_num}
     </update>
 	 
