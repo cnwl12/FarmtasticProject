@@ -349,7 +349,7 @@
 							</div>
             				<br>
            	 				<input type="text" id="review-title"><br>
-            				<textarea name="review_content" id="review_content"  cols="80" rows="4" style="font-size:12px;" placeholder="내용을 입력해주세요. 최대 500자까지 작성 가능합니다." required maxlength="500"></textarea><br>
+            				<textarea name="review_content" id="review_content"  cols="80" rows="4" style="font-size:12px;" placeholder="내용을 입력해주세요. 최대 300자까지 작성 가능합니다." required maxlength="300"></textarea><br>
             				<input type="hidden" id="review_num" name="review_num">
             				<input type="file" id="review_img" name="review_image">
             				<button type="submit" class="site-btn" id="submit-edit-review-btn">저장</button>

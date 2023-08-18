@@ -109,15 +109,20 @@
 	    FROM admin_blog
 	    WHERE admin_blog_num = #{admin_blog_num};
 	</select>
-	
+  	
 	<!-- 제철팜 글수정 -->
-   	<update id="blogUpdate" parameterType="Map">
+	<update id="blogUpdate" parameterType="Map">
 	    UPDATE admin_blog
-	    SET admin_blog_mainTitle = #{admin_blog_mainTitle}, 
-	    	admin_blog_subTitle = #{admin_blog_subTitle}, 
-	    	admin_blog_content = #{admin_blog_content}
+	    SET admin_blog_mainTitle = #{admin_blog_mainTitle},
+	        admin_blog_subTitle = #{admin_blog_subTitle},
+	        admin_blog_content = #{admin_blog_content},
+	        admin_blog_file = 
+	        <foreach collection="admin_blog_files" item="file" separator="," open="(" close=")">
+	            #{file}
+	        </foreach>
 	    WHERE admin_blog_num = #{admin_blog_num}
-  	</update>
+	</update>
+  	
   	
   	<!-- 제철팜 글삭제 -->
   	<delete id="blogDelete" parameterType="int">

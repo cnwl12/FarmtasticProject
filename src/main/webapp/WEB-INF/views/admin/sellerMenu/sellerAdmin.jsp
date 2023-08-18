@@ -91,7 +91,16 @@
                 						<td>${seller.seller_storeName}</td>
                 						<td>${seller.seller_name}</td>
                 						<td>${seller.seller_licenseNum}</td>
-                						<td>${seller.seller_file}</td>
+                						<td>
+                        					<c:choose>
+                            					<c:when test="${not empty seller.seller_file}">
+                                				<img src="${seller.seller_file}" style="width: 150px;" alt="첨부 이미지">
+                            					</c:when>
+                            					<c:otherwise>
+                                				<!-- 빈 공간으로 남겨둡니다 -->
+                            					</c:otherwise>
+                        					</c:choose>
+                    					</td>
                 						<td>${seller.seller_recoYn}</td>
                 						<td>${seller.seller_joinDay}</td>
             						</tr>
@@ -132,7 +141,16 @@
             							<td>${seller.seller_storeName}</td>
             							<td>${seller.seller_name}</td>
             							<td>${seller.seller_licenseNum}</td>
-            							<td>${seller.seller_file}</td>
+            							<td>
+                        					<c:choose>
+                            					<c:when test="${not empty seller.seller_file}">
+                                				<img src="${seller.seller_file}" style="width: 150px;">
+                            					</c:when>
+                            					<c:otherwise>
+                                				<!-- 빈 공간으로 남겨둡니다 -->
+                            					</c:otherwise>
+                        					</c:choose>
+                    					</td>
             							<td>${seller.seller_recoYn}</td>
             							<td>${seller.seller_joinDay}</td>
         								</tr>

@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>제철팜</h2> 
+                        <h2>SeasonFarm</h2> 
                         <div class="breadcrumb__option">
                         </div>
                     </div>
@@ -49,8 +49,8 @@
     <!-- Blog Section Begin -->
     <section class="blog spad">
          <div class="container">
-            <div class="row"> 
-                 <div class="col-lg-4 col-md-5">
+            <div class="row" style="justify-content: center;"> 
+                 <!-- <div class="col-lg-4 col-md-5"> -->
                  <!-- 글 검색 바 일단 주석  -->
                   <!-- <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
@@ -60,7 +60,7 @@
                             </form>
                         </div>   
                     </div> -->
-                </div>
+                <!-- </div> -->
                 
                 <div class="col-lg-8 col-md-7">
                     <div class="row">

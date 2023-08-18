@@ -33,10 +33,27 @@
 
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
+
+ <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Contact</h2>
+                        <div class="breadcrumb__option">
+                            <a href="main">Home</a>
+                            <span>Farmtastic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
       <section class="blog spad" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-5">
+                <!-- <div class="col-lg-4 col-md-5"> -->
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__item">
                             <h4>고객센터</h4>
@@ -47,10 +64,10 @@
                             </ul>
                         </div>
                      </div>
-                </div>
-				<div>
+                <!-- </div> -->
+				<div style="padding-top: 50px; padding-left: 195px;">
 					<h4>공지사항</h4>
-					<table class="table table-bordered" id="noticeTable" width="100%"cellspacing="0">
+					<table class="table table-bordered" id="noticeTable" width="100%"cellspacing="0" style="width: 190%;">
 						<thead>
 							<tr>
 								<th>작성번호</th>

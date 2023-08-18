@@ -56,10 +56,11 @@
                             <h6 class="m-0 font-weight-bold text-primary">제철팜 수정</h6>
                             <button type="submit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="저장">저장</button>
                           </div>
-                             <label>작성자: </label><input type="text" name="admin_id" value="${bContent.admin_id}" style="width: 20%; border: none; background-color: white;" /><br>    
+                             <label>작성자: </label><input type="text" name="admin_id" value="${bContent.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
            					 <label>제목: </label><input type="text" name="admin_blog_mainTitle" value="${bContent.admin_blog_mainTitle}" style="width: 40%; border: none; background-color: white;"/><br>
            					 <label>소제목: </label><input type="text" name="admin_blog_subTitle" value="${bContent.admin_blog_subTitle}" style="width: 40%; border: none; background-color: white;"/><br>
-           					 <label>첨부파일: </label><input type="text" name="blogFile" value="${bContent.admin_blog_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/>
+           					 <label>기존파일: </label><input type="text" name="oldBlogFile" value="${bContent.admin_blog_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/><br>
+							 <label>수정파일: </label><input type="file" name="blogFile" style="width: 60%; border: none; background-color: white;">
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">

@@ -98,13 +98,13 @@ public class AdminService {
 
 		adminDAO.insertBlog(blognoticeList); // DB저장 코드 
 	}
-	
-	// 제철팜 글수정
-    public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content) {
-
-        adminDAO.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
-    }
     
+	// 제철팜 글수정
+	public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content, List<String> storedFileNames) {
+	    
+		adminDAO.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content, storedFileNames);
+	}
+
     // 제철팜 글삭제
 	public void blogDelete(int admin_blog_num) {
 
