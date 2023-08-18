@@ -846,7 +846,7 @@ $(document).ready(function() {
 
                 for (var i = 0; i < data.length; i++) {
                     tableHtml += "<tr>";
-                    tableHtml += "<td><a href='#' onclick='event.preventDefault(); window.opener.location.href=\"/FarmProject/farmStoreDetail?item_num=" + data[i].item_num + "\"; window.close();'>" + data[i].item_name + "</a></td>";
+                    tableHtml += "<td><a href='#' onclick='event.preventDefault(); window.opener.location.href=\"/farmtastic/farmStoreDetail?item_num=" + data[i].item_num + "\"; window.close();'>" + data[i].item_name + "</a></td>";
                     tableHtml += "<td>" + data[i].item_cnt + "</td>";
                     tableHtml += "<td>" + data[i].item_price + "</td>";
                     tableHtml += "<td>" + data[i].price + "원</td>";
