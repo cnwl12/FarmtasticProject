@@ -59,7 +59,7 @@
 	  <h1>아이디 찾기</h1>
     <form action="/farmtastic/SendEmailServlet" method="post">
     	<input type="text" name="email" placeholder="이메일 주소 입력" />
-        <input type="submit" value="이메일 전송"><br>
+        <input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
 		<input type="text" name="verification_code" placeholder="인증번호 입력" />
 		<input type="button" id=check_verification_code value="인증번호 확인"/>
     </form>
@@ -70,6 +70,9 @@ $(document).ready(function() {
 		event.preventDefault(); // 폼의 기본 제출 동작을 막음
 		
 		var email = $('input[name="email"]').val(); // 이메일 값 가져오기
+		
+        // 버튼 비활성화
+        $('#sendEmailBtn').attr('disabled', 'disabled');
 		
 		// Ajax 호출
 		$.ajax({
@@ -85,6 +88,9 @@ $(document).ready(function() {
 		    	// 오류를 처리합니다.
 		    	// 예: 오류 메시지 표시
 		    	alert('이메일 전송 중 오류가 발생했습니다.');
+		    
+                // 버튼 다시 활성화
+                $('#sendEmailBtn').removeAttr('disabled');
 			},
 		});
 	});

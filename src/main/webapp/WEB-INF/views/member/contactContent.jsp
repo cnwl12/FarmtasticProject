@@ -33,6 +33,23 @@
 
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
+
+<section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Notice</h2>
+                        <div class="breadcrumb__option">
+                            <a href="main">Home</a>
+                            <span>Farmtastic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
       <section class="blog spad" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
@@ -82,39 +99,6 @@
             </div>
        </div>
      </section>
-
-     
-    
-
-
-    <!-- Contact Form Begin -->
-    <div class="contact-form spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="contact__form__title">
-                        <h2>Leave Message</h2>
-                    </div>
-                </div>
-            </div>
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your name">
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your Email">
-                    </div>
-                    <div class="col-lg-12 text-center">
-                        <textarea placeholder="Your message"></textarea>
-                        <button type="submit" class="site-btn">SEND MESSAGE</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- Contact Form End -->
-
     
     <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>

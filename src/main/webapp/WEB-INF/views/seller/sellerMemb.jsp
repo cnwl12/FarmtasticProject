@@ -9,6 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
+	
 	<title>seller/sellerMng</title>
 	
 	<!-- Custom fonts for this template -->
@@ -168,7 +169,55 @@ document.addEventListener('DOMContentLoaded', function() {
 											<div class="form-control-static">${seller.seller_id}</div>
 										</div>
 									</li>
-
+									<li>
+									
+									<label class="control-label">비밀번호</label>
+										<div class="input-content">
+											<div class="form-inline mobile-inline">
+												<input type="password" class="form-control" id="seller_pass"
+                                             name="seller_pass" size="26" maxlength="15"
+                                             onkeydown="return keycheck(this.event);"
+                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
+                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
+                                             onfocus="helpOn('new_seller_pass');"
+                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             style="width: 195px;"><span class="font_style1">&nbsp;현재
+                                                비밀번호를 입력해 주세요</span>
+											</div>
+										</div>
+									</li>
+									<li>
+									<label class="control-label">새로운비밀번호</label>
+										<div class="input-content">
+											<div class="form-inline mobile-inline">
+												<input type="password" class="form-control" id="new_seller_pass"
+                                             name="new_seller_pass" size="26" maxlength="15"
+                                             onkeydown="return keycheck(this.event);"
+                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
+                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
+                                             onfocus="helpOn('new_seller_pass');"
+                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             style="width: 195px;"><span class="font_style1">&nbsp;새로운
+                                                비밀번호를 입력해 주세요</span>
+											</div>
+										</div>
+									</li>
+									<li>
+									<label class="control-label">새로운비밀번호확인</label>
+										<div class="input-content">
+											<div class="form-inline mobile-inline">
+												<input type="password" class="form-control" id="pwd2"
+                                             name="pwd2" size="26" maxlength="15"
+                                             onkeydown="return keycheck(this.event);"
+                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
+                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
+                                             onfocus="helpOn('new_seller_pass');"
+                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             style="width: 195px;"><span id="message" Style="color: red; margin-left: 10px;"></span>
+											</div>
+										</div>
+									</li>
+										
 									<li>
 									<label class="control-label">이메일 주소</label>
 										<div class="input-content">
@@ -342,14 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												<input type="text" class="form-control" name="seller_addSub" id="seller_addSub" value="${seller.seller_addSub}">
 											</div>
 											
-											<div class="form-inline">
-												<div class="form-group">
-													<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
-												</div>
-												<div class="form-group">
-													<input type="text" class="form-control seller_edit" name="seller_phone" value="${seller.seller_phone}">
-												</div>
-											</div>
+											
 											
 										</div>
 									</li>
@@ -357,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							</div>
 						
 							<div class="seller-btn-area btn-group-xlg">
-								<button class="btn btn-primary" type="submit">정보 수정</button>
+								<button class="btn btn-primary" type="submit" id="img_submit">정보 수정</button>
 							</div>
 						</div>
 						<!-- 배송정보 끝 -->
@@ -406,6 +448,101 @@ document.addEventListener('DOMContentLoaded', function() {
 			</div>
 		</div>
 	</div>
+
+  <script type="text/javascript">
+  
+  function helpOn() {
+	  let modal = document.getElementById("helpOnModal");
+	  modal.style.display = "block";
+	}
+
+
+  function keycheck(e) {
+	  if (e.keyCode == 13 || e.keyCode == 10) {
+	    getLogin();
+	    return false;
+	  } else {
+	    return true;
+	  }
+	}
+
+
+  function Capskeycheck(e) {
+	  let keyCode = e.keyCode ? e.keyCode : e.which;
+	  let shiftKey = e.shiftKey ? e.shiftKey : ((keyCode == 16) ? true : false);
+	  if (((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey)) {
+	    document.getElementById('capsmsg').style.visibility = 'visible';
+	  } else {
+	    document.getElementById('capsmsg').style.visibility = 'hidden';
+	  }
+	}
+
+
+	function validatePasswordType(password) {
+	  let pattern = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z~!@#$%^&*()]{8,16}$/;
+	  return pattern.test(password);
+	}
+
+	function chkBlur(obj, limit) {
+		  let len = obj.value.length;
+		  if (len == limit) {
+		    return true;
+		  } else if (len < limit) {
+		    obj.focus();
+		    return false;
+		  } else if (len > limit) {
+		    obj.value = obj.value.substring(0, limit);
+		    return true;
+		  }
+		}
+  
+  
+  
+	function validateNewPassword() {
+		  var newPassword = document.getElementById("new_seller_pass").value;
+		  var confirmPassword = document.getElementById("pwd2").value;
+
+		  if (newPassword !== confirmPassword) {
+		    document.getElementById("pwd2").style.borderColor = "red";
+		    document.getElementById("message").innerHTML = "두 개의 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.";
+		    document.getElementById("img_submit").setAttribute("disabled", "true");                                                            
+		  } else {
+		    document.getElementById("pwd2").style.borderColor = "";
+		    document.getElementById("message").innerHTML = "";
+		    document.getElementById("img_submit").removeAttribute("disabled");
+		  }
+		}
+
+ $(document).ready(function() {
+	  // "수정하기" 버튼 클릭 이벤트 처리
+	  $('#img_submit').click(function(e) {
+		e.preventDefault();
+
+	    // 입력 필드의 값을 가져옵니다.
+	    var currentPassword = $('#seller_pass').val();
+	    var newPassword = $('#new_seller_pass').val();
+	    var confirmPassword = $('#pwd2').val();
+
+	    // 입력값이 유효한지 검사합니다.
+	    if (currentPassword.trim() === '' || newPassword.trim() === '' || confirmPassword.trim() === '') {
+	      alert('비밀번호를 입력해주세요.');
+	      return;
+	    }
+
+	    if (newPassword !== confirmPassword) {
+	      alert('새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.');
+	      return;
+	    }
+	    if (newPassword !== '' && confirmPassword !== '') {
+	        $(this).unbind(e);
+	      }
+	  });
+	 });
+
+</script>
+
+
+
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>

@@ -374,13 +374,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/kakaoLogout";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
@@ -434,13 +427,10 @@ public class FarmController { // 소비자 (컨트롤러)
 		String orderNum = cancel.get("orderNum").toString();
 	    cancel.put("order_num", orderNum);
 		
-		//취소하러 오는지 
-		System.out.println("cancelOrder");
 		// update, insert 과정 
 		memberService.cancelOrder(cancel);
 		// 취소 했으면 인서트 
 		memberService.cancelInsert(cancel);
-		
 		
 		return "/member/mypage";
 	}
@@ -479,8 +469,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
 	public String searchd(Locale locale, Model model) {
 
-		System.out.println("searchd 매핑확인여부");
-
 		return "/member/searchd";
 	}
 
@@ -491,7 +479,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("itemList", itemList);
 		return "/member/searchd";
 	}
-
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 	public String updatePro(HttpSession session, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
@@ -548,20 +535,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
-		System.out.println("contact 매핑확인여부");
 		List<Map<String, Object>> resultList = adminService.getCnotice();
 		model.addAttribute("notice", resultList);
-		System.out.println(resultList);
 		return "/member/contact";
 	}
 
 	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
 	public String contactContent(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
-		System.out.println("contactContent 매핑확인여부");
 		Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 		model.addAttribute("content", resultMap);
 		model.addAttribute("admin_cs_num", admin_cs_num);
-		System.out.println("controller" + resultMap);
 		return "/member/contactContent";
 	}
 
@@ -571,8 +554,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
-
-		System.out.println("팜팜마켓 매핑확인여부");
 
 		return "/member/farmStore";
 	}
@@ -590,9 +571,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("averageStarRating", averageStarRating);
-
-		/* System.out.println(item); */
-		System.out.println("farmStoreDetail 매핑확인여부");
 
 		List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
 		System.out.println(oneBoardList + "가나다");
@@ -618,9 +596,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		cart.put("member_num", member_num);
 
 		memberService.insertCart(cart);
-		
-		// 수량을 조회하는 메서드 따로 필요
-		System.out.println("countCart 컨트롤러 시작");
 
 		return "redirect:/shoppingCart";
 	}
@@ -628,8 +603,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
 	public String shopingCart(Model model, HttpSession session) {
 
-		System.out.println("shoppingCart 매핑확인여부");
-		
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
 		
@@ -664,8 +637,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(Model model, HttpSession session) {
-
-		System.out.println("checkout 매핑확인여부");
 
 		int member_num = (int)session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
@@ -717,13 +688,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
 	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
 
-		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
-
 		int member_num = (int)session.getAttribute("member_num");
 		orderDetail.put("member_num", member_num);
 
 	    memberService.insertOrderDetail(orderDetail);
-		System.out.println("인서트 다녀왔음!"+ orderDetail );
 		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		memberService.deleteAllCart(orderDetail);
@@ -944,12 +912,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@ResponseBody
 	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO, 
 			@RequestParam("review_image") MultipartFile file, HttpSession session) throws Exception {
-			System.out.println("controller 리뷰작성");
-		 	System.out.println("item_num: " + memberDTO.getItem_num());
-		    System.out.println("member_num: " + memberDTO.getMember_num());
-		    System.out.println("review_title: " + memberDTO.getReview_title());
-		    System.out.println("review_content: " + memberDTO.getReview_content());
-		    System.out.println("File: " + file.getOriginalFilename());
 		
 		    // 세션에서 회원 번호를 가져옵니다.
 		    int member_num = (int) session.getAttribute("member_num");
@@ -1074,7 +1036,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
 	            String filePath = uploadPath + "/" + storedFileName;
-	            String saveFileName = "http://your_website_url/resources/upload/" + storedFileName;
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
 	            // 서버에 파일 저장
 	            File dest = new File(filePath);
@@ -1085,7 +1047,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                        .body("파일 저장 중 문제가 발생했습니다.");
 	            }
-
+	            
 	            // 리뷰 업데이트 작업 진행
 	            memberService.updateReview(review_num, review_star, review_title, review_content, saveFileName);
 	        } else {
@@ -1290,9 +1252,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
 	@ResponseBody
-	public String searchId(@RequestParam String email) {
+	public String searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
 	    String searchId = memberService.searchId(email);
-	    return searchId; // JSON 형식으로 반환
+	    if(code.equals(session.getAttribute("verificationCode"))) {
+	    	System.out.println("일치");
+	        return searchId;
+	    }else {
+	    	System.out.println("일치하지않음");
+	        return "Inconsistency verificationCode"; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
+	    }
 	}
 
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)

@@ -66,7 +66,7 @@
                             <div class="table-responsive">
                             	<table class="table table-bordered" id="dataTable2">
                             		<thead>
-                            		 	<tr id="totalavg" style="background-color: #4167d5; color: #f8f9fc;">
+                            		 	<tr id="totalavg" style="background-color: #7fad39; color: #f8f9fc;">
                                             <th colspan="2">총 정산액</th>
                                             <th colspan="2">총 수수료</th>
                                             <th colspan="2">총 매출</th>

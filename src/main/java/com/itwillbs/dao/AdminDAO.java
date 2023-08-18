@@ -33,8 +33,14 @@ public class AdminDAO {
 			
 			System.out.println("AdminDAO getAdminInfo 매핑완");
 			return sqlSession.selectOne(NAMESPACE+"getAdminInfo", admin_id);
-		}
-		
+	}
+	 public void updateAdmin(Map<String, Object> params) {
+		    sqlSession.update(NAMESPACE + "updateAdmin", params);
+	}
+	 public void updateNicknameAndBirth(Map<String, Object> params) {
+		    sqlSession.update(NAMESPACE + "updateNicknameAndBirth", params);
+	}
+	
 // 글 목록
 	public List<Map<String, Object>> getCnotice() {
 		System.out.println("dao");

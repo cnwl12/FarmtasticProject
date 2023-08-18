@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.tree.AbstractLayoutCache;
 
@@ -61,9 +62,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin(Locale locale, Model model) {
-		
-		System.out.println("adminLogin 매핑확인여부");
-		
 		return "/admin/adminLogin";
 	}
 	
@@ -88,16 +86,7 @@ public class AdminController {
 	        }
 	    }
 
-	/*map쓸때 구문
-	 * @RequestMapping(value = "/Login", method = RequestMethod.POST) public String
-	 * adminLogin(String admin_id, Model model, RedirectAttributes rttr) { try {
-	 * Map<String, Object> admin = adminService.adminCheck(admin_id); if (admin !=
-	 * null) { model.addAttribute("admin", admin); return "redirect:/adminMain"; }
-	 * else { rttr.addFlashAttribute("msg", "로그인에 실패하였습니다."); return
-	 * "redirect:/adminLogin"; } } catch (Exception e) { e.printStackTrace();
-	 * rttr.addFlashAttribute("msg", "로그인 중 오류가 발생했습니다."); return
-	 * "redirect:/adminLogin"; } }
-	 */
+
 	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	 public String logout(HttpServletRequest request) {
 	     HttpSession session = request.getSession();
@@ -109,7 +98,7 @@ public class AdminController {
 	 } 
 	 
 	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	    public String home(Locale locale, Model model, HttpSession session) throws IOException {
+	    public String home(@RequestParam(value = "monthly", required = false) String monthly,Locale locale, Model model, HttpSession session) throws IOException {
 	        System.out.println("adminMain 매핑확인여부");
 	        
 	        if (session.getAttribute("admin_id") == null) {
@@ -120,11 +109,31 @@ public class AdminController {
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
 	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
-	            
-	            List<Map<String, Object>> resultList = sellerService.getSeller();
-	            model.addAttribute("sellers", resultList);
 	            model.addAttribute("admin", adminInfo);
 	            model.addAttribute("admin_id", admin_id);
+
+	            if (monthly == null || monthly.isEmpty()) {
+	                LocalDate currentDate = LocalDate.now();
+	                monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	            }
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	            List<Map<String, Object>> result = sellerService.getSellers(monthly);
+	            List<Map<String, Object>> sellerSalesList = sellerService.totalSales();
+	            
+	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
+	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
+	            model.addAttribute("totalSales", totalSales);
+	            
+	            model.addAttribute("sales", sales);
+
+	            model.addAttribute("sellers", resultList);
+	            model.addAttribute("monthly", monthly);
+	    	    System.out.println(monthly);
+	    	    LocalDate currentDate = LocalDate.now();
+	    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    	    model.addAttribute("currentMonth", currentMonth);
+	            
+	            
 	            return "/admin/adminMain";
 	        }
 	}
@@ -146,32 +155,39 @@ public class AdminController {
 		        }
 			
 	}   
-	@RequestMapping(value = "/notetest", method = RequestMethod.GET)
-	public String notetest(Locale locale, Model model,HttpSession session) {
-		
-		System.out.println("notetest 매핑확인여부");
-		
-		return "/admin/customerMenu/notetest";
-	}
-	@RequestMapping(value = "/writeCnote", method = RequestMethod.GET)
-	public String writeCnote(Locale locale, Model model,HttpSession session) {
-		
-		System.out.println("writeCnote 매핑확인여부");
-		 if (session.getAttribute("admin_id") == null) {
-	            // 세션에 로그인 정보가 없는 경우
-	            model.addAttribute("error", "로그인후 이용해주세요");
-	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
-	        } else {
-	            // 로그인한 경우
-	            String admin_id = (String) session.getAttribute("admin_id");
-	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
-	            model.addAttribute("admin", adminInfo);
-	            model.addAttribute("admin_id", admin_id);
-	            return "/admin/customerMenu/writeCnote";
+	@PostMapping("/updateAdmin")
+	public String updateAdmin(@RequestParam String pass, @RequestParam String newpass, @RequestParam String admin_nickname,
+	                          @RequestParam String admin_birth, HttpSession session, RedirectAttributes redirectAttributes) {
+	    String admin_id = (String) session.getAttribute("admin_id");
+	    AdminDTO adminInfo = adminService.adminCheck(admin_id);
+
+	    if (adminInfo != null) {
+	        // 현재 비밀번호를 입력하지 않은 경우
+	        if (pass == null || pass.isEmpty()) {
+	            redirectAttributes.addFlashAttribute("message", "empty_password");
+	            redirectAttributes.addFlashAttribute("updateMessage", "현재 비밀번호를 입력해주세요.");
+	        } 
+	        // 현재 비밀번호가 일치하지 않을 경우
+	        else if (!adminInfo.getAdmin_pass().equals(pass)) {
+	            redirectAttributes.addFlashAttribute("message", "incorrect_password");
+	        } 
+	        // 현재 비밀번호가 일치할 경우
+	        else {
+	            // 비밀번호가 빈 문자열인 경우, 닉네임과 생일만 변경
+	            if (newpass == null || newpass.isEmpty()) {
+	                adminService.updateNicknameAndBirth(admin_id, admin_nickname, admin_birth);
+	            } 
+	            // 비밀번호가 있을 경우, 비밀번호, 닉네임, 생일 변경
+	            else {
+	                adminService.updateAdmin(admin_id, newpass, admin_nickname, admin_birth);
+	            }
+	            redirectAttributes.addFlashAttribute("message", "success");
+	            redirectAttributes.addFlashAttribute("updateMessage", "수정이 완료되었습니다.");
 	        }
-		
+	    }
+	    
+	    return "redirect:/adminProfile"; // 관리자 페이지로 이동
 	}
-	
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
 	public String content(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model,HttpSession session) {
 		 if (session.getAttribute("admin_id") == null) {
@@ -245,50 +261,7 @@ public class AdminController {
 	    adminService.deleteContent(admin_cs_num);
 	    return "redirect:/cnotice";
 	}
-//	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-//	public String updatePro(@RequestParam HashMap<String, String> noticeList,
-//	                              @RequestParam("file") List<MultipartFile> files,
-//	                             HttpSession session)throws Exception {
-//		
-//		// 첨부파일 올라갈 물리적 경로 
-//		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-//		
-////		System.out.println(uploadPath);
-//		
-//		for (int i = 0; i < files.size(); i++) {
-//            MultipartFile file = files.get(i);
-//            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
-//                String fileName = file.getOriginalFilename(); // 파일 원래 이름
-//                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
-//
-//                String uuid = UUID.randomUUID().toString(); // 랜덤으로 이름 부여 후 저장
-//
-//                String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
-//
-//                String filePath = uploadPath + "/" + storedFileName;
-//                
-//                System.out.println("filePath : " + filePath);
-//                
-//                // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-//                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
-//
-//
-//                // 임시경로에서 filePath로 파일이동 
-//                File dest = new File(filePath);
-//                file.transferTo(dest);
-//                
-//                // 사진경로 url~ string 타입 >> 이걸 db에 저장하는것임! 
-//                // 사진 정보의 경로를 저장
-//                noticeList.put("admin_cs_file", saveFileName);
-//
-//                // 처리해야하는 부분! 마지막 사진 List<String, String> itemImg = new ArrayList<> 을 이용해서 새로 저장을 하던지... 고민해야할 부분임! 
-//        	}
-//        }
-//		
-//		
-//		adminService.insertNotice(noticeList,files, session);
-//	    return "redirect:/cnotice";
-//	}
+
 
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model,HttpSession session) {
@@ -549,8 +522,6 @@ public class AdminController {
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");
 	  sellerService.updateSettlementYn(sellerNum, orderMonth);
-	  System.out.println("sellerNum: " + sellerNum);
-	  System.out.println("orderMonth: " + orderMonth);
 	  String message = "정산 업데이트가 완료되었습니다.";
 	  redirectAttributes.addFlashAttribute("message", message);
 	  return "redirect:/settlement";
@@ -620,63 +591,6 @@ public class AdminController {
 		adminService.insertNotice(noticeList,files, session);
 	    return "redirect:/cnotice";
 	}
-	
-	/*
-	
-	@PostMapping("/writePro")
-	 public String writePro(@RequestParam("writer") String writer, @RequestParam("title") String title, @RequestParam("content") String content) {
-		System.out.println("컨트롤러 writePro()");
-	    adminService.insertBoard(writer, title, content);
-	    return "redirect:/cnotice";
-	 }
-	 */
-	/*
-	@RequestMapping(value="/summerimages", method=RequestMethod.POST)
-	public ResponseEntity<?> summerimage(@RequestParam("file") MultipartFile img, HttpServletRequest request) throws IOException {
-		String path = request.getRealPath("/summerimages");
-		Random random = new Random();
-	
-		long currentTime = System.currentTimeMillis();
-		int	randomValue = random.nextInt(100);
-		String fileName = Long.toString(currentTime) + "_"+randomValue+"_a_"+img.getOriginalFilename();
-		
-		File file = new File(path , fileName);
-		img.transferTo(file);
-		return ResponseEntity.ok().body("/resources/summerimages/"+fileName);
-
-	}
-	*/
-	
-	
-//	//썸머노트 이미지처리 ajax
-//		@PostMapping("/summerimages")
-//		//썸머노트 이미지 처리
-//		public String insertFormData2(
-//				@RequestParam(value="file", required=false) MultipartFile file,HttpSession session
-//				) {
-//			//Gson gson = new Gson();
-//			Map<String, String> map = new HashMap<String, String>();
-//			// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
-//			String WebPath = "/resources/summernoteImages/"; //DB에 저장되는 경로
-//			String serverPath = session.getServletContext().getRealPath(WebPath);
-//			String originalFileName=file.getOriginalFilename();
-//			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-//			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-//			File targetFile = new File(serverPath + savedFileName);	
-//			try {
-//				InputStream fileStream = file.getInputStream();
-//				FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-//				// contextroot + resources + 저장할 내부 폴더명
-//				map.put("url", WebPath+savedFileName);
-//				map.put("responseCode", "success");
-//			} catch (IOException e) {
-//				FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-//				map.put("responseCode", "error");
-//				e.printStackTrace();
-//			}
-//			return gson.toJson(map);
-//		}
-	
 	// 제철팜 관리자 화면
 	@RequestMapping(value = "/blogMng", method = RequestMethod.GET)
 	public String blogMng(Locale locale, Model model, HttpSession session) {
