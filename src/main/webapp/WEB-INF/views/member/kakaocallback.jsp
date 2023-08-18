@@ -11,7 +11,7 @@
 </head>
 <body>
 <%
-String code = request.getParameter("code");
+String code = request.getParameter("code"); 
 
 try {
     String url = "https://kauth.kakao.com/oauth/token";
