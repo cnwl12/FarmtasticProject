@@ -65,8 +65,6 @@ public class SellerController {
 	
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) throws IOException {
-
-	    System.out.println("sellerMain 매핑확인여부");
 	    	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -221,7 +219,6 @@ public class SellerController {
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		System.out.println("itemDelMng 매핑확인여부");
 		String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
@@ -237,7 +234,6 @@ public class SellerController {
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		System.out.println("itemRetExcMng 매핑확인여부");
 		String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
@@ -253,7 +249,6 @@ public class SellerController {
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		System.out.println("reviewMng 매핑확인여부");
 		String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
@@ -446,8 +441,6 @@ public class SellerController {
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    session.setAttribute("seller_num", seller_num);
-
-	    System.out.println("itemInsertList 매핑확인여부");
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
 	    
@@ -478,7 +471,7 @@ public class SellerController {
 	    }
 	}
 	
-	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET) 
 
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {

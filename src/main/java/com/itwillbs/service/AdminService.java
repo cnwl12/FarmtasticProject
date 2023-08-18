@@ -26,23 +26,32 @@ public class AdminService {
 	    return adminDAO.adminCheck(admin_id);
 	    }
 	public Map<String, Object> getAdminInfo(String admin_id) {
-		System.out.println("adminService의 getAdminInfo 매핑완");
 		return adminDAO.getAdminInfo(admin_id);
 	}
+	// AdminService.java
+	public void updateNicknameAndBirth(String admin_id, String admin_nickname, String admin_birth) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("admin_id", admin_id);
+        params.put("admin_nickname", admin_nickname);
+        params.put("admin_birth", admin_birth);
+        adminDAO.updateNicknameAndBirth(params);
+	}
 
+    public void updateAdmin(String admin_id, String newPass, String admin_nickname, String admin_birth) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("admin_id", admin_id);
+        params.put("newPass", newPass);
+        params.put("admin_nickname", admin_nickname);
+        params.put("admin_birth", admin_birth);
+        adminDAO.updateAdmin(params);
+    }
+
+    
 	public List<Map<String, Object>> getCnotice() {
 		System.out.println("서비스 Cnotice() 확인!");
         return adminDAO.getCnotice();
 	}
-	/*
-	 public void insertBoard(String writer, String title, String content) {
-	     Map<String, Object> params = new HashMap<String, Object>();
-	     params.put("writer", writer);
-	     params.put("title", title);
-	     params.put("content", content);
-	     adminDAO.insertNotice(params);
-	}	
-	 */
+	
 	public void insertNotice(HashMap<String, String> noticeList, List<MultipartFile> files,HttpSession session) {
 		System.out.println("insertBoard 확인!!!");
         adminDAO.insertNotice(noticeList); // DB저장 코드 
@@ -89,13 +98,13 @@ public class AdminService {
 
 		adminDAO.insertBlog(blognoticeList); // DB저장 코드 
 	}
-	
-	// 제철팜 글수정
-    public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content) {
-
-        adminDAO.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
-    }
     
+	// 제철팜 글수정
+	public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content, List<String> storedFileNames) {
+	    
+		adminDAO.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content, storedFileNames);
+	}
+
     // 제철팜 글삭제
 	public void blogDelete(int admin_blog_num) {
 

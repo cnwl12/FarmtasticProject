@@ -260,7 +260,7 @@ input#file-upload-button {
         								<input type="file" id="review_img" name="review_image"  style="padding-left: 73px;">
     									<br><br>
     									<label for="review_content"></label>
-    									<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:16px;" placeholder="내용을 입력해주세요. 최대 500자까지 작성 가능합니다." required maxlength="500"></textarea>
+    									<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:14px;" placeholder="내용을 입력해주세요. 최대 300자까지 작성 가능합니다." required maxlength="300"></textarea>
     									<br>
     									<button id="write-review-btn" type="submit">리뷰 작성</button>
 									</form>
@@ -326,7 +326,16 @@ input#file-upload-button {
 								                        <td>${row.one_board_repYn}</td>
 								                        <td>${row.one_board_type}</td>
 								                        <td>${row.one_board_title}</td>
-								                        <td>${row.member_name}</td>
+								                         <td>
+												            <c:choose>
+												                <c:when test="${fn:length(row.member_name) eq 2}">
+												                    ${fn:substring(row.member_name, 0, 1)}*
+												                </c:when>
+												                <c:otherwise>
+												                    ${fn:substring(row.member_name, 0, 1)}*${fn:substring(row.member_name, 2, 3)}
+												                </c:otherwise>
+												            </c:choose>
+												        </td>
 								                        <td>${row.one_board_day}</td>
 								                    </tr>
 								                    

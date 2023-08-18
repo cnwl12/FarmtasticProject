@@ -75,6 +75,20 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                    <span>Sort By</span>
+                                    <select style="display: none;">
+                                        <option value="0">Default</option>
+                                        <option value="0">Default</option>
+                                    </select>
+                                    <div class="nice-select" tabindex="0">
+                                    	<span class="current">등록일순</span>
+                                    	<ul class="list">
+                                    		<li data-value="0" class="option selected">등록일순</li>
+                                    		<li data-value="0" class="option">가격순</li>
+                                    	</ul>
+                                    </div>
+                             </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
                             </div>
