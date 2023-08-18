@@ -552,7 +552,7 @@ public class AdminController {
                 System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+                String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
 
                 // 임시경로에서 filePath로 파일이동 
@@ -641,7 +641,7 @@ public class AdminController {
                 System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+                String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
                 // 임시경로에서 filePath로 파일이동 
                 File dest = new File(filePath);
@@ -736,7 +736,7 @@ public class AdminController {
               File dest = new File(filePath);
               blogFile.transferTo(dest);
 
-              String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+              String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
               storedFileNames.add(saveFileName);
 
 			} else {
