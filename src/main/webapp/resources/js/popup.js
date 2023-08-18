@@ -67,7 +67,9 @@ function generateCancelContent(orderNum, cancelList) {
     content += `
             </tbody>
         </table>
+        <div style="">
         <button onclick="window.close()">닫기</button>
+        </div>
     </body>
     </html>
     `;
