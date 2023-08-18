@@ -86,7 +86,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	public String blog(Locale locale, Model model, HttpServletRequest request) {
 		
 		// 한 페이지에 보여줄 글 개수 설정
-		int pageSize = 2;
+		int pageSize = 4;
 		// 페이지 번호
 		String spageNum = request.getParameter("pageNum");
 		// 페이지 번호가 없을때 1로 설정

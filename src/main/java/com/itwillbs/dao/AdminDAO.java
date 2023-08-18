@@ -93,15 +93,15 @@ public class AdminDAO {
 	}  
 	
 	// 제철팜 글수정
-	public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content) {
-		
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("admin_blog_num", admin_blog_num);
-        params.put("admin_blog_mainTitle", admin_blog_mainTitle);
-        params.put("admin_blog_subTitle", admin_blog_subTitle);
-        params.put("admin_blog_content", admin_blog_content);
+	public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content, List<String> storedFileNames) {
+	    HashMap<String, Object> params = new HashMap<String, Object>();
+	    params.put("admin_blog_num", admin_blog_num);
+	    params.put("admin_blog_mainTitle", admin_blog_mainTitle);
+	    params.put("admin_blog_subTitle", admin_blog_subTitle);
+	    params.put("admin_blog_content", admin_blog_content);
+	    params.put("admin_blog_files", storedFileNames);
 
-        sqlSession.update(NAMESPACE + "blogUpdate", params);
+	    sqlSession.update(NAMESPACE + "blogUpdate", params);
 	}
 	
 	// 제철팜 글삭제

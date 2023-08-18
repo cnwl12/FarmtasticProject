@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.tree.AbstractLayoutCache;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -695,10 +697,9 @@ public class AdminController {
 	            // 제철팜 글목록 가져오기
 	            List<Map<String, Object>> blogList = adminService.getBlogMng();
 	   		 	model.addAttribute("blogList", blogList);
-	           
+
 	            return "/admin/customerMenu/blogMng";
 	        }
-		
 	}	
 	
 	// 제철팜 글쓰기 화면
@@ -817,18 +818,46 @@ public class AdminController {
 	}
 	
 	// 수정 버튼을 누르면
-	@PostMapping("/blogUpdatePro")
-    public String blogUpdatePro(HttpServletRequest request) {
-		
+    @PostMapping("/blogUpdatePro")
+    public String blogUpdatePro(HttpServletRequest request, @RequestParam("blogFile") List<MultipartFile> blogFiles, HttpSession session) throws Exception {
         int admin_blog_num = Integer.parseInt(request.getParameter("admin_blog_num"));
         String admin_blog_mainTitle = request.getParameter("admin_blog_mainTitle");
         String admin_blog_subTitle = request.getParameter("admin_blog_subTitle");
         String admin_blog_content = request.getParameter("admin_blog_content");
 
-        adminService.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
+        String[] blogImgURLs = request.getParameterValues("oldBlogFile");
+        
+        String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+        List<String> storedFileNames = new ArrayList<>();
+
+        for (MultipartFile blogFile : blogFiles) {
+        	if (!blogFile.isEmpty()) {
+              String blogFileName = blogFile.getOriginalFilename();
+              String fileExtension = FilenameUtils.getExtension(blogFileName);
+
+              String uuid = UUID.randomUUID().toString();
+              String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+              String filePath = uploadPath + "/" + storedFileName;
+
+              File dest = new File(filePath);
+              blogFile.transferTo(dest);
+
+              String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+              storedFileNames.add(saveFileName);
+
+			} else {
+		      // 첨부파일 수정 안하고 수정하면
+			  if (blogImgURLs != null && blogImgURLs.length > 0) {
+			      String oldFileURL = blogImgURLs[0];
+			      storedFileNames.add(oldFileURL);
+			  }
+			} 
+        }
+
+        adminService.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content, storedFileNames);
 
         return "redirect:/blogContent?admin_blog_num=" + admin_blog_num;
-	}
+    }
 	
 	// 제철팜 글 삭제
 	@RequestMapping(value = "/blogDelete", method = RequestMethod.GET)

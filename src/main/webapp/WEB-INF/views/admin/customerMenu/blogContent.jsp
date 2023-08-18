@@ -146,6 +146,6 @@
     		window.location.href = "${pageContext.request.contextPath}/blogMng";
  		}
 	</script>
-
+	
 </body>
 </html>
