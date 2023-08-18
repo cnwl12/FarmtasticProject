@@ -478,7 +478,7 @@ public class SellerController {
 	    }
 	}
 	
-	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET) 
 
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {
