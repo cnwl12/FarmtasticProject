@@ -24,7 +24,7 @@
   
     try {
         // 카카오 로그아웃 처리를 위한 URL 생성하기
-        String redirectUri = "http://c2d2303t2.itwillbs.com/farmtastic/main"; // 로그아웃 후 리다이렉트 될 페이지 주소
+        String redirectUri = "http://c2d2303t2.itwillbs.com/FarmProject/main"; // 로그아웃 후 리다이렉트 될 페이지 주소
         String requestUrl = KAKAO_LOGOUT_BASE_URL + "?client_id=" + CLIENT_ID + "&logout_redirect_uri=" + URLEncoder.encode(redirectUri, StandardCharsets.UTF_8.name());
         // 카카오 로그아웃 처리하기
         response.sendRedirect(requestUrl); 

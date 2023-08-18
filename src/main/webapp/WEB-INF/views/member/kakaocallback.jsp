@@ -20,7 +20,7 @@ try {
     
     String grant_type = "authorization_code";
     String client_id = "fa74773a794ad7a254e291d7cbf8fd00";
-    String redirect_uri = "http://c2d2303t2.itwillbs.com/farmtastic/kakaocallback"; // 허용된 Redirect URI 필요
+    String redirect_uri = "http://c2d2303t2.itwillbs.com/FarmProject/kakaocallback"; // 허용된 Redirect URI 필요
     
     String parameters = "grant_type=" + grant_type + "&client_id=" + client_id +
     					"&redirect_uri=" + redirect_uri + "&code=" + code;

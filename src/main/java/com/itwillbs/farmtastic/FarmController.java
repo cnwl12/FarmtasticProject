@@ -780,7 +780,7 @@ public class FarmController { // 소비자 (컨트롤러)
                 System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
+                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
                 // 임시경로에서 filePath로 파일이동 
                 File dest = new File(filePath);
@@ -956,7 +956,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 				            System.out.println("filePath : " + filePath);
 
-				            String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
+				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
 				            System.out.println("Received file: " + file.getOriginalFilename());
 
@@ -1036,7 +1036,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
 	            String filePath = uploadPath + "/" + storedFileName;
-	            String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
 	            // 서버에 파일 저장
 	            File dest = new File(filePath);
@@ -1100,7 +1100,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 				            System.out.println("filePath : " + filePath);
 
-				            String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
+				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
 				            System.out.println("Received file: " + file.getOriginalFilename());
 
@@ -1171,7 +1171,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	                    String filePath = uploadPath + "/" + storedFileName;
 
-	                    String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
+	                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 	                    File dest = new File(filePath);
 	                    try {
 	                      file.transferTo(dest);

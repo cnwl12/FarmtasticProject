@@ -35,7 +35,7 @@ function generateCancelContent(orderNum, cancelList) {
     <html>
     <head>
         <title>주문 내역</title>
-      <link rel='stylesheet' type='text/css' href='/farmtastic/resources/css/popup-style.css'>
+      <link rel='stylesheet' type='text/css' href='/FarmProject/resources/css/popup-style.css'>
     </head>
     <body>
         <h2>주문 취소 - 주문번호: ${orderNum}</h2>
