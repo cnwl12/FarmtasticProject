@@ -1290,9 +1290,15 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
 	@ResponseBody
-	public String searchId(@RequestParam String email) {
+	public String searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
 	    String searchId = memberService.searchId(email);
-	    return searchId; // JSON 형식으로 반환
+	    if(code.equals(session.getAttribute("verificationCode"))) {
+	    	System.out.println("일치");
+	        return searchId;
+	    }else {
+	    	System.out.println("일치하지않음");
+	        return "인증코드가 일치하지 않습니다."; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
+	    }
 	}
 
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
