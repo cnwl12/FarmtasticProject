@@ -1265,7 +1265,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	        return searchId;
 	    }else {
 	    	System.out.println("일치하지않음");
-	        return "인증코드가 일치하지 않습니다."; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
+	        return "Inconsistency verificationCode"; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
 	    }
 	}
 
