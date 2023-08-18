@@ -84,8 +84,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@RequestMapping(value = "/blog", method = RequestMethod.GET)
 	public String blog(Locale locale, Model model, HttpServletRequest request) {
-
-		System.out.println("blog 매핑확인여부");
 		
 		// 한 페이지에 보여줄 글 개수 설정
 		int pageSize = 2;
@@ -120,21 +118,16 @@ public class FarmController { // 소비자 (컨트롤러)
 		List<Map<String, Object>> bContent = adminService.getBlog(bMap);
 		model.addAttribute("bContent", bContent);
 		model.addAttribute("bMap", bMap);
-		System.out.println("제철팜 메인에 컨텐츠 : " + bContent);
-		
-		System.out.println("bMap오나요? : " + bMap);
+
 		return "/member/blog";
 	}
 
 	@RequestMapping(value = "/blogDetails", method = RequestMethod.GET)
 	public String blogDetails(@RequestParam("admin_blog_num") int admin_blog_num, Locale locale, Model model) {
 	    
-		System.out.println("blogDetails 매핑확인여부");
-	    
 	    Map<String, Object> bContent = adminService.getblogContent(admin_blog_num);
 	    model.addAttribute("bContent", bContent);
 	    model.addAttribute("admin_blog_num", admin_blog_num);
-	    System.out.println("제철팜 디테일에 컨텐츠 : " + bContent);
 	    
 	    List<Map<String, Object>> allPosts = adminService.getAllPosts();
 	    List<Map<String, Object>> nextThreePosts = new ArrayList<>();
@@ -153,7 +146,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    }
 	    
 	    model.addAttribute("nextThreePosts", nextThreePosts);
-	    System.out.println("컨트롤러에서 가져오는 nextThreePosts : " + nextThreePosts);
 	    
 	    return "/member/blogDetails";
 	}

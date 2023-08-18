@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +25,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
 
+	<!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
 	 html {font-size: 1rem !important;}
@@ -55,42 +58,22 @@
                     <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
                     <p class="mb-4"><a target="_blank" href=#></a></p>
                     <!-- 페이지 상단 끝 -->
-                    
-
-					
-					<!-- 월별 판매량 테이블 시작 -->
-					<!-- 월별 판매량 테이블 끝 -->
 					
 					<!-- 매출통계그래프 시작 -->
 					<div class="panel panel-dashboard panel-stats">
 						<div class="panel-body">
 							<div class="text-center">
 								<div data-toggle="buttons" class="btn-group btn-group-customize chartList">
-<!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 0}" ng-click="vm.showChart(0)" data-nclicks-code="sales.numofpay"> -->
-<!-- 										<input type="radio">이번달 일자별 매출 -->
-<!-- 									</label> -->
-<!-- 									<label class="btn btn-default" ng-class="{active: vm.currentChartIndex === 1}" ng-click="vm.showChart(1)" data-nclicks-code="sales.payer"> -->
-<!-- 										<input type="radio">최근 12개월 매출 -->
-<!-- 									</label>  -->
 									<label id="chart1" class="on">
 										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">이번달 일자별 매출</button>
 									</label>
 									<label id="chart1" class="on">
 										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="monthlyChart">최근 12개월 매출</button>
 									</label> 
-									
-<!-- 									<ul class="chartList"> -->
-<!-- 				                        <li id="chart1" class="on"><a href="#" class="toggle-chart" data-target="dailyChart">이번달 일자별 매출</a></li> -->
-<!-- 				                        <li id="chart2" class="on"><a href="#" class="toggle-chart" data-target="monthlyChart">최근 12개월 매출</a></li> -->
-<!-- 			                        </ul> -->
 								</div>
 							</div>
 						</div>
 					<!-- </div>	첫번째 class 닫는 태그, 일단 밑으로 내려봄 -->
-					
-				    <!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
-					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-					<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 					
 					<!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->					
 					<div>

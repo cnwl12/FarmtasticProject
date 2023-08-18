@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +23,10 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
     
+	<!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+									
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
 	 html {font-size: 1rem !important;}
@@ -173,9 +176,6 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-									<!-- 선진) 차트를 그리기 위한 스크립트 추가 -->
-									<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-									<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 									
 									<!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->					
 									<div>
@@ -185,7 +185,7 @@
 									<!-- 선진) 해당 월의 일자별 매출 차트 -->
 									<div>
 									<script>
-									  // 차트를 그리기 위한 함수
+									  // 차트를 그리기 위한 함수 - 기존 템플릿거로 수정중
 // 									  function drawDailySalesChart(data) {
 // 									    const labels = data.map(item => item.order_mmdd);
 // 									    const sales = data.map(item => item.order_mmdd_totalSales);

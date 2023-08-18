@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
@@ -81,26 +82,10 @@ public class SellerController {
 		    return "/seller/sellerMain";
 	    }
 	} 
-	    
-	  
-
-	
-//	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨
-//		@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
-//		public String sellerMemb(Locale locale, Model model) {
-//			
-//			System.out.println("SellerController의 sellerMemb 매핑완");
-//			Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-//			model.addAttribute("seller", sellerInfo);
-//			return "/seller/sellerMemb";
-//		}
-	
-	
 		
-	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨->수정조금했습니다 성하->08.08추가
+	// 선진) 판매자 정보 페이지들어가면 디비에 입력된 개인정보 출력됨 -> 수정조금했습니다 성하 -> 08.08추가
 	@RequestMapping(value = "/sellerMemb", method = RequestMethod.GET)
 	public String sellerMemb(Locale locale, Model model, HttpSession session) throws IOException {
-
 	    
 	    if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -108,7 +93,7 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
-	    	System.out.println("SellerController의 sellerMemb 매핑완");
+
 	    	String seller_num = (String) session.getAttribute("seller_num");
 		    String seller_id = sellerService.idCheck(seller_num);
 		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
@@ -116,44 +101,18 @@ public class SellerController {
 		    model.addAttribute("seller_id", seller_id);
 		    return "/seller/sellerMemb";
 	    }
-	   
-	  	    	
 	}
-	
-	
-	
-	
-	/*
-	 * // 선진) 판매자 정보 수정, 안쓰는 코드라 삭제 예정
-	 *
-	 * @RequestMapping(value = "/sellerUpdate", method = RequestMethod.GET) public
-	 * String sellerUpdate(Model model) {
-	 * System.out.println("SellerController의 sellerUpdate 매핑완");
-	 * 
-	 * // 나중에 로그인되면 디비에서 가져올 것 // String seller_num =
-	 * (String)session.getAttribute("seller_num");
-	 * 
-	 * // 위로 뺌 String seller_num = "CR0001"; // Map<String, Object> sellerInfoList =
-	 * sellerService.getSellerInfo(seller_num); //
-	 * model.addAttribute("sellerInfoList", sellerInfoList);
-	 * 
-	 * Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
-	 * model.addAttribute("sellerInfo", sellerInfo);
-	 * 
-	 * return "/seller/sellerUpdate"; }
-	 */
 	
 	// 선진) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
-		
-		System.out.println("SellerController의 sellerUpdatePro 매핑완");
+
 		if(sellerInfo != null) {
-			System.out.println("null 아님");
+
 			sellerService.updateSeller(sellerInfo);
 			return "redirect:/sellerMain";
 		} else {
-			System.out.println("null임");
+
 			return "/seller/mgs";
 		}
 	}
@@ -161,7 +120,6 @@ public class SellerController {
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
-		System.out.println("SellerController의 salesMng 매핑완");
 		
 	    if (session.getAttribute("seller_num") == null) {
 	        
@@ -189,7 +147,6 @@ public class SellerController {
 	public String salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
 	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
-		System.out.println("SellerController의 salesMngPro 매핑완");
 		
 	    String seller_num = (String) session.getAttribute("seller_num");
 	    
@@ -221,6 +178,7 @@ public class SellerController {
 	// 선진) 일자별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)
 	public ResponseEntity<List<Map<String,Object>>> chartDailySales(HttpSession session){
+		
 		String seller_num = (String) session.getAttribute("seller_num");
 		List<Map<String,Object>> jsonDailySales = sellerService.getDailySales(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
@@ -231,6 +189,7 @@ public class SellerController {
 	// 선진) 월별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartMonthlySales", method = RequestMethod.GET)
 	public ResponseEntity<List<Map<String,Object>>> chartMonthlySales(HttpSession session){
+		
 		String seller_num = (String) session.getAttribute("seller_num");
 		List<Map<String,Object>> jsonMonthlySales = sellerService.getMonthlySales(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
@@ -240,7 +199,6 @@ public class SellerController {
 	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
-	    
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -270,7 +228,6 @@ public class SellerController {
 		return "/seller/itemDelMng";
 	    }
 	}
-	
 	
 	@RequestMapping(value = "/itemRetExcMng", method = RequestMethod.GET)
 	public String itemRetExcMng(Locale locale, HttpSession session, Model model) {
@@ -307,7 +264,6 @@ public class SellerController {
 	// 선진) 정산관리	
 	@RequestMapping(value = "/settlementList", method = RequestMethod.GET)
 	public String settlementList(Locale locale, HttpSession session, Model model) {
-		System.out.println("SellerController의 settlementList 매핑완");
 		
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -329,50 +285,43 @@ public class SellerController {
 
 	// 선진) 정산신청 & 정산취소 
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
-	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
-	    System.out.println("SellerController의 settlementRequest 매핑완");
-	    System.out.println("정산신청-선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
-	    System.out.println("정산신청-가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
-	    
-	 // 판매자의 정산신청 여부 확인
+	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, 
+									HttpSession session, Model model, RedirectAttributes reAttributes) {
+
+	    // 판매자의 정산신청 여부 확인
     	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
     	
-	    if ("request".equals(action)) {
+	    if ("request".equals(action)) { // 신청 버튼 클릭
 	        // 정산 신청 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
-	        	System.out.println("신청 기능 여기오나요?? 액션값은? : " + action);
 	        	
 	        	if(!requestExists) { // 디비에 없다면!
-	        		
-	        		System.out.println("디비에없다면)가져오는 셀러넘은 있나요?? : " + session.getAttribute("seller_num"));
-	        	    System.out.println("디비에없다면)선택된 월이 있나요?? : " + Arrays.toString(selectedMonths));
-	        	    
+
 	        		sellerService.insertSettlementRequest((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));	
+	        	
 	        	} else { // 이미 디비에 저장되어 있다면
-	        		// "이미 신청된 정산건입니다!" 메시지 띄우기, 일단 콘솔에 출력
-	        		System.out.println("이미 신청된 정산건입니다!");	        	
+	        		// "이미 신청된 정산건입니다!" 창 띄우기
+	        		reAttributes.addAttribute("msg", "이미 신청된 정산건입니다!");
 	        	}
 	        }
 	        
-	    } else if ("cancel".equals(action)) {
+	    } else if ("cancel".equals(action)) { // 취소 버튼 클릭
 	    	// 정산 취소 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
-	        	System.out.println("취소 기능 여기오나요?? 액션값은? : " + action);
 	        	
 	        	if(requestExists) { // 디비에 정산건이 있다면 취소 기능 그대로!
 	        		sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	        	
 	        	} else { // 디비에 정산건이 없다면 
-	        		// "신청된 정산건이 존재하지 않습니다!" 메시지 띄우기, 일단 콘솔에 출력
-	        		System.out.println("신청된 정산건이 존재하지 않습니다!");	
+	        		// "취소 가능한 정산건이 존재하지 않습니다!" 창 띄우기
+	        		reAttributes.addAttribute("msg", "정산건이 존재하지 않습니다!");
 	        	}
 	        }
 	        
-	    } else {System.out.println("암것도아녀 여기오나요?? 액션값은? : " + action);}
+	    } else {} // 넘어오는 액션 값이 없을 경우엔?
 
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
-
 
 	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
@@ -397,7 +346,6 @@ public class SellerController {
 	    }
 	}
 
-	
 	@RequestMapping("/updateReply")
 	public String updateReply(Locale locale, Model model, HttpSession session, HttpServletRequest request){
 		
@@ -414,10 +362,7 @@ public class SellerController {
 
 	    return "redirect:/questionMng"; // 이 부분은 작성한 코드에 맞게 수정해야 합니다. 업데이트가 완료된 후 원래 페이지로 돌아갑니다.
 	    }
-	
 
-
-	
 	@GetMapping("/getDetails")
 	public ResponseEntity<?> getDetails(@RequestParam("seller_num") String seller_num) {
 		
@@ -445,6 +390,7 @@ public class SellerController {
 		return "/seller/itemRegister";
 	    }
 	}
+	
 	// 상품등록 처리과정 페이지 
 	@RequestMapping(value = "/itemInsertPro", method = RequestMethod.POST)
 	public String itemInsertList(@RequestParam HashMap<String, String> itemList,
@@ -654,12 +600,6 @@ public class SellerController {
 	        }
 	    }
 	}
-
-
-	
-
-
-	
 	
 	/* 로그아웃 사업자*/
 	@RequestMapping(value = "/sellerlogout", method = RequestMethod.GET)
@@ -674,7 +614,6 @@ public class SellerController {
 		return "/member/login";
 	    }
 	}
-	
 	
 	/* sungha 판매자->회원관리....조회..*/
 	@RequestMapping(value = "/memberMngPro", method = RequestMethod.GET)
@@ -706,7 +645,6 @@ public class SellerController {
 	    return "/seller/memberMng";
 	}
 
-
 	//혜원 판매자 리뷰관리
 	@RequestMapping(value = "/getReview", method = RequestMethod.GET)
 	@ResponseBody
@@ -731,6 +669,3 @@ public class SellerController {
 
 
 }
-
-
-

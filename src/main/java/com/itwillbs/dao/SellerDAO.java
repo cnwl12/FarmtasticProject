@@ -26,10 +26,12 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers(String monthly) {
 	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
+	    
 	    public List<Map<String, Object>> totalSales() {
 			// TODO Auto-generated method stub
 			return sqlSession.selectList(namespace + ".totalSales");
 		}
+	    
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList(namespace+".getSeller");
@@ -41,45 +43,33 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
 		}
 		
-		/*
-		 * // 선진) 판매자 체크, 안쓰는 코드라 삭제예정 public Map<String, Object>
-		 * sellerCheck(Map<String, Object> sellerInfoList) {
-		 * System.out.println("SellerDAO sellerCheck 확인"); return
-		 * sqlSession.selectOne(namespace + ".sellerCheck", sellerInfoList); }
-		 */
-		
 		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			
-			System.out.println("SellerDAO getSellerInfo 매핑완");
+
 			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
 		}
 		
 		// 선진) 판매자 정보 수정
 		public void updateSeller(Map<String, Object> sellerInfo) {
 			
-			System.out.println("SellerDAO의 updateSeller 매핑완");
 			sqlSession.update(namespace + ".updateSeller", sellerInfo);
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
 		public List<Map<String,Object>> getDailySales(String seller_num) {
-			
-			System.out.println("SellerDAO의 getDailySales 매핑완");
+
 			return sqlSession.selectList(namespace + ".getDailySales", seller_num);
 		}
 		
 		// 선진) 최근 12개월의 월별 매출 차트
 		public List<Map<String,Object>> getMonthlySales(String seller_num) {
-			
-			System.out.println("SellerDAO의 getMonthlySales 매핑완");
+
 			return sqlSession.selectList(namespace + ".getMonthlySales", seller_num);
 		}
 		
 		// 선진) 매출관리 - 검색바
 		public List<Map<String,Object>> getDailySalesList(Map<String, Object> params) {
-			
-			System.out.println("SellerDAO의 getDailySalesList 매핑완");
+
 		    String seller_num = (String) params.get("seller_num");
 		    Date startDate = (Date) params.get("startDate");
 		    Date endDate = (Date) params.get("endDate");
@@ -87,41 +77,33 @@ public class SellerDAO {
 		    params.put("endDate", endDate);
 			return sqlSession.selectList(namespace + ".getDailySalesList", params);
 		}
+		
 		public List<Map<String,Object>> dailySales(String seller_num) {
 			
-			System.out.println("SellerDAO의 dailySales 매핑완");
 			return sqlSession.selectList(namespace + ".dailySales", seller_num);
 		}
 		
 		// 선진) 정산관리
 		public List<Map<String,Object>> getSettlementList(String seller_num) {
-			
-			System.out.println("SellerDAO의 getSettlementList 매핑완");
+
 			return sqlSession.selectList(namespace + ".getSettlementList", seller_num);
 		}
 		
 		// 선진) 정산신청
 		public void insertSettlementRequest(Map<String, Object> params) {
-			
-		    System.out.println("SellerDAO의 insertSettlementRequest 매핑완");
-		    System.out.println("신청하기-DAO)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
+
 		    sqlSession.update(namespace + ".insertSettlementRequest", params);
 		}
 		
 		// 선진) 정산신청 여부 알아오기
 		public int isSettlementRequested(Map<String, Object> params) {
-			
-		    System.out.println("SellerDAO의 isSettlementRequested 매핑완");
-		    System.out.println("신청여부-DAO)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 
 		    return sqlSession.selectOne(namespace + ".isSettlementRequested", params);
 		}		
 		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(Map<String, Object> params) {
-			
-		    System.out.println("SellerDAO의 deleteSettlementRequest 매핑완");
-		    System.out.println(params);
+
 		    sqlSession.update(namespace + ".deleteSettlementRequest", params);
 		    
 		}
@@ -146,6 +128,7 @@ public class SellerDAO {
 			System.out.println("getSales 오나요");
 			return sqlSession.selectList(namespace + ".getSales");
 		}
+		
 		//정산 일별매출
 		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
 			System.out.println("daySales 오나요");
@@ -155,6 +138,7 @@ public class SellerDAO {
 		    System.out.println(param);
 		    return sqlSession.selectList(namespace + ".daySales", param);
 		}
+		
 		// 정산 'Y'로 바꾸기
 		public void updateSettlementYn(Map<String, Object> parameters) { 
 			System.out.println("dao 오나요"); 
@@ -172,7 +156,6 @@ public class SellerDAO {
 		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
 		}
 		
-		
 		public Map<String, Object> getItem(int item_num) {
 			// System.out.println("dao itemNum : !! " + item_num );
 			return sqlSession.selectOne(namespace+".getItem", item_num);
@@ -184,14 +167,12 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace+".yearSales", sellerNum);
 		}
 
-
 		// 판매자 회원 가입
 		public void insertSeller(SellerDTO sellerDTO) {
 	         System.out.println("SellerDAO insertSeller() 확인");
 	         System.out.println(sellerDTO);
 	         sqlSession.insert(namespace+".insertSeller", sellerDTO); 
 		}
-
 
 		public void itemUpdate(HashMap<String, String> itemList) {
 			sqlSession.update(namespace+".itemUpdate", itemList);
@@ -215,8 +196,6 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".idCheck", seller_id);
 		}
 		
-
-		
 		public List<Map<String, Object>> MemberMngjoin(Map<String, Object> params) {
 		    System.out.println("SellerDAO MemberMngjoin()");
 		    String seller_num = (String) params.get("seller_num");
@@ -227,8 +206,6 @@ public class SellerDAO {
 		    return sqlSession.selectList(namespace + ".MemberMngjoin", params);
 		}
 
-		
-		
 		// 상태 조회 후 변경 
 		public void updateStatus(HashMap<String, String> status) {
 			System.out.println("updateStatus dao");
