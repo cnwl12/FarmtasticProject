@@ -1012,6 +1012,8 @@ function updateReview(selectedReview, review_star, review_title, review_content,
 
     if (review_img) {
       formData.append("review_image", review_img);
+    } else {
+      formData.append("review_image", "");
     }
 
     $.ajax({
