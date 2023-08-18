@@ -321,7 +321,7 @@ body {font-size: 1rem !important;
 </script>
 
 <script>
-//작성자 이름 마스킹 처리 함수
+//작성자 이름 마스킹 처리 함수 
 function maskWriterName(name) {
   if (!name || name.length === 0) {
     return '';
