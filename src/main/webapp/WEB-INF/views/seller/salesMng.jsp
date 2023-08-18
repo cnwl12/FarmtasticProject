@@ -351,23 +351,23 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 
 	<!-- 검색바 함수 -->
-	<script> 
-    function setDateRange(days) { 
-        const now = new Date(); 
-        const startDateInput = document.getElementById('start-date'); 
-        const endDateInput = document.getElementById('end-date'); 
-        const startDate = new Date(now - days * 24 * 60 * 60 * 1000); 
-        startDateInput.valueAsDate = startDate; 
-        endDateInput.valueAsDate = now; 
-    } 
-    // 초기화 버튼 클릭시 검색 조건 초기화 
-    const resetButton = document.querySelector('button[type="reset"]'); 
-    resetButton.addEventListener('click', (event) => { 
-        event.preventDefault(); 
-        document.getElementById('start-date').value = ''; 
-        document.getElementById('end-date').value = ''; 
-    }); 
-    </script>
+<!-- 	<script>  -->
+<!--      function setDateRange(days) {  -->
+<!--          const now = new Date();  -->
+<!--          const startDateInput = document.getElementById('start-date');  -->
+<!--          const endDateInput = document.getElementById('end-date');  -->
+<!--          const startDate = new Date(now - days * 24 * 60 * 60 * 1000);  -->
+<!--          startDateInput.valueAsDate = startDate;  -->
+<!--          endDateInput.valueAsDate = now;  -->
+<!--      }  -->
+<!--      // 초기화 버튼 클릭시 검색 조건 초기화  -->
+<!--      const resetButton = document.querySelector('button[type="reset"]');  -->
+<!--      resetButton.addEventListener('click', (event) => {  -->
+<!--          event.preventDefault();  -->
+<!--          document.getElementById('start-date').value = '';  -->
+<!--          document.getElementById('end-date').value = '';  -->
+<!--      });  -->
+<!--     </script> -->
    
    
    <!-- 매출 차트 토글 함수 -->
@@ -399,6 +399,112 @@
 	  });
 	 });  
 	</script>
+
+<!-- 테스트 -->
+<script>
+    // JavaScript 코드
+    document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date();
+//         var tomorrow = new Date();
+//         tomorrow.setDate(today.getDate() + 1); // 내일인 날짜
+//         var tomorrowString = tomorrow.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
+
+        // 시작일과 종료일 input 요소 가져오기
+        var startDateInput = document.getElementById("start-date");
+        var endDateInput = document.getElementById("end-date");
+
+        // 시작일과 종료일은 오늘까지 선택 가능하도록 설정
+        startDateInput.max = today.toISOString().split('T')[0];
+        endDateInput.max = today.toISOString().split('T')[0];
+
+        // 기존 설정된 날짜가 있으면 해당 날짜로 초기화
+        var storedStartDate = sessionStorage.getItem('storedStartDate');
+        if (storedStartDate) {
+            startDateInput.value = storedStartDate;
+        }
+
+        var storedEndDate = sessionStorage.getItem('storedEndDate');
+        if (storedEndDate) {
+            endDateInput.value = storedEndDate;
+        }
+
+        // 버튼 클릭 시 날짜 범위 설정 및 검색 유효성 확인
+		function setDateRange(days) {
+		    const now = new Date();
+		    const startDateInput = document.getElementById('start-date');
+		    const endDateInput = document.getElementById('end-date');
+		
+		    // 기존의 setDateRange 코드 참고
+		    const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+		
+		    startDateInput.value = formatDate(startDate);
+		    endDateInput.value = formatDate(now);
+		
+		    checkDateValidity();
+		}
+        
+		// 날짜를 'YYYY-MM-DD' 형식으로 변환하는 함수
+		function formatDate(date) {
+		    const year = date.getFullYear();
+		    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+		    const day = date.getDate().toString().padStart(2, '0');
+		    return `${year}-${month}-${day}`;
+		}
+
+        // 검색 유효성 확인 함수
+        function checkDateValidity() {
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+
+            if (startDate > endDate) {
+                alert("잘못된 날짜입니다!");
+                return false;
+            }
+
+            return true;
+        }
+
+        // 8월 19일부터 종료일은 선택 불가능하도록 설정
+        var blockedDate = new Date("2023-08-19");
+        if (today >= blockedDate) {
+            endDateInput.disabled = true;
+        }
+
+        // 검색 버튼 클릭 시 검색 유효성 확인 및 날짜 저장
+        document.getElementById("searchButton").addEventListener("click", function (event) {
+            if (!checkDateValidity()) {
+                event.preventDefault(); // 검색 중지
+            } else {
+                sessionStorage.setItem('storedStartDate', startDateInput.value);
+                sessionStorage.setItem('storedEndDate', endDateInput.value);
+            }
+        });
+
+        // 초기화 버튼 클릭 시 상태 초기화
+        document.querySelector("button[type='reset']").addEventListener("click", function () {
+            startDateInput.max = today.toISOString().split('T')[0];
+            endDateInput.max = today.toISOString().split('T')[0];
+            endDateInput.disabled = false;
+
+            // 저장된 날짜 초기화
+            sessionStorage.removeItem('storedStartDate');
+            sessionStorage.removeItem('storedEndDate');
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

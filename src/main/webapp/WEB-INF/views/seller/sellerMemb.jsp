@@ -104,9 +104,48 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- 							<h1 class="h3 mb-0 text-gray-800">판매자정보</h1> -->
 <!-- 						</div> -->
 						<!-- 페이지 상단 끝 -->
-
-						<!-- 판매자 정보 시작 -->
+						
+						<!-- 상점 정보 시작 -->
 						<div class="panel panel-seller" id="chargePersonInfoPanelInSellerInfoPage">
+
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h3 class="panel-title">상점 정보</h3>
+								</div>
+							</div>
+
+							<div class="panel-body">
+								<ul class="seller-list-border">
+									<li>
+									<label class="control-label">상점명</label>
+										<div class="input-content">
+											<div class="form-control-static">${seller.seller_storeName}</div>
+										</div>
+									</li>
+
+									<li>
+									<label class="control-label">사업자 번호</label>
+										<div class="input-content">
+											<div class="form-control-static">${seller.seller_licenseNum}</div>
+										</div>
+									</li>
+									
+									<li>
+									<label class="control-label">첨부파일</label>
+										<div class="input-content">
+											<div class="form-control-static"><img src="${seller.seller_file}" style="width: 200px; height: 200px;"></div>
+											 
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+
+						</div>
+						<!-- 상점 정보 끝 -->
+						
+						<!-- 판매자 정보 시작 -->
+						<div class="panel panel-seller">
 
 							<div class="panel-heading">
 								<div class="pull-left">

@@ -186,22 +186,22 @@
 	      selectedSettlementMonths.splice(index, 1);
 	    }
 	  }
-	  // 여기에서 "selectedMonths" 값을 업데이트합니다.
+	  // 여기에서 selectedMonths 값을 업데이트
 	  document.getElementById("selectedMonths").value = selectedSettlementMonths.join(",");
 	}
 
 	function submitAction(action) {
 
-	    // 체크박스로 선택하지 않고 버튼을 눌렀다면 메시지 띄우기
-	    let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
-	
-	    if (selectedMonths.length === 0) {
-	        alert("선택된 정산건이 없습니다!");
-	        return; // 폼 제출을 막습니다.
-	    } else{
+		// 체크박스로 선택하지 않고 버튼을 눌렀다면 메시지 띄우기
+		let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
+		
+		if (selectedMonths.length === 0) {
+		    alert("선택된 정산건이 없습니다!");
+		    return; // 폼 제출을 막습니다.
+		} else{
 			$('#action').val(action);
-		    $('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
-	    }
+			$('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
+		}
 	}
 
 	// 중복 신청, 신청되지 않은 정산 취소 시 메시지 띄우기
@@ -209,6 +209,15 @@
 	if(message) {
 	    alert(message);
 	}
+
+// 	$(document).ready(function(){
+// 		$('#cancel').click(function(){
+// 			// 정산 완료된 정산건을 취소한다면?
+// 			if(settlementComplete === 'Y'){ // 체크박스가 선택되고 ${slist.settlementComplete}가 'Y'면 메시지 띄우기
+// 				alert("이미 정산이 완료되어 취소 불가!");
+// 			}
+// 		});
+// 	});
     </script>
 
 </body>

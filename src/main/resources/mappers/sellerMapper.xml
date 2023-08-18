@@ -88,7 +88,22 @@
   	
   	<!-- 선진) 판매자 정보 가져옴 -->
     <select id="getSellerInfo" resultType="map">
-	SELECT * 
+	SELECT	seller_licenseNum, 
+			seller_id, 
+			seller_pass, 
+			seller_name, 
+			seller_storeName, 
+			seller_post, 
+			seller_addMain, 
+			seller_addSub, 
+			seller_mobile, 
+			seller_phone, 
+			seller_bank, 
+			seller_accountNum, 
+			seller_accountHolder, 
+			seller_email, 
+			seller_file
+		
 	FROM seller
 	WHERE seller_num = #{seller_num}
     </select>
@@ -304,9 +319,10 @@
 	<delete id="deleteSettlementRequest">
     DELETE FROM settlement
     WHERE seller_num = #{seller_num} AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN 
-    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
-        #{selectedMonth}
-    </foreach>
+	    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
+	        #{selectedMonth}
+	    </foreach> 
+    	AND settlementComplete = 'N';
 	</delete>
 
     <!-- 가맹점 상태 Y/N -->

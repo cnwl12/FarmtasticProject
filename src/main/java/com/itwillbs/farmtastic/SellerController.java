@@ -291,6 +291,7 @@ public class SellerController {
 	    // 판매자의 정산신청 여부 확인
     	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
     	
+    	// if문 너무 많네..
 	    if ("request".equals(action)) { // 신청 버튼 클릭
 	        // 정산 신청 기능 처리
 	        if (selectedMonths != null && selectedMonths.length > 0) {
@@ -311,7 +312,8 @@ public class SellerController {
 	        	
 	        	if(requestExists) { // 디비에 정산건이 있다면 취소 기능 그대로!
 	        		sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
-	        	
+	        		// 정산건이 있지만 이미 정산 완료된 건이라면??
+	        		
 	        	} else { // 디비에 정산건이 없다면 
 	        		// "취소 가능한 정산건이 존재하지 않습니다!" 창 띄우기
 	        		reAttributes.addAttribute("msg", "정산건이 존재하지 않습니다!");
