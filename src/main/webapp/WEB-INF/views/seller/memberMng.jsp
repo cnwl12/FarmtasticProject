@@ -12,6 +12,7 @@
 <meta name="author" content="">
 <title>seller/memberMng</title>
 
+
 <!-- Custom fonts for this template -->
 <link
 	href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
