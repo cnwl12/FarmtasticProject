@@ -15,6 +15,17 @@
     	select * from admin
     	where admin_id = #{admin_id}
     </select>
+   <update id="updateAdmin" parameterType="map">
+    	UPDATE admin
+    	SET admin_pass = #{newPass}, admin_nickname = #{admin_nickname}, admin_birth = #{admin_birth}
+    	WHERE admin_id = #{admin_id}
+	</update>
+	<update id="updateNicknameAndBirth" parameterType="map">
+    	UPDATE admin
+    	SET  admin_nickname = #{admin_nickname}, admin_birth = #{admin_birth}
+    	WHERE admin_id = #{admin_id}
+	</update>
+	
     <!--공지사항 글목록 -->
     <select id="getCnotice" resultType="map">
     	select * 

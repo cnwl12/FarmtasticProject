@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,8 +53,13 @@
                     <!-- Content Row -->
                     <div class="row">
 	<!-- 판매자 정보 시작 -->
+	<form id="adminUpdateForm" action="${pageContext.request.contextPath}/updateAdmin" method="post">
 						<div class="panel panel-seller" id="chargePersonInfoPanelInSellerInfoPage">
-
+							   <c:if test="${not empty updateMessage}">
+        <div class="alert alert-success">
+            <strong>${updateMessage}</strong>
+        </div>
+    </c:if>
 							<div class="panel-heading">
 								<div class="pull-left">
 									<h3 class="panel-title">관리자 정보</h3>
@@ -74,12 +80,31 @@
 											<input type="text" class="form-control" value="${admin.admin_name}" readonly="readonly">
 										</div>
 									</li>
+									<li>
+									<label class="control-label">현재 비밀번호</label>
+										<div class="input-content">
+											<input type="password" class="form-control" name="pass" >
+										</div>
+									</li>
+									<li>
+									<label class="control-label">새 비밀번호</label>
+										<div class="input-content">
+											<input type="password" class="form-control" name="newpass" >
+										</div>
+									</li>
+									<li>
+									<label class="control-label">새 비밀번호(확인)</label>
+										<div class="input-content">
+											<input type="password" class="form-control" name="newpass2" >
+										</div>
+									</li>
+									
 
 									<li>
 									<label class="control-label">닉네임</label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline"> <!-- 이 클래스는 텍스트박스 길이 줄여줌. 없으면 늘어남 -->
-												<input type="text" class="form-control" value="${admin.admin_nickname}">
+												<input type="text" class="form-control" name="admin_nickname" value="${admin.admin_nickname}">
 											</div>
 										</div>
 									</li>
@@ -89,7 +114,7 @@
 									<label class="control-label">생년월일</label>
 										<div class="input-content">
     										<div class="form-inline mobile-inline">
-        									<input type="date" id="birth_date" class="form-control" value="${admin.admin_birth}">
+        									<input type="date" id="birth_date" class="form-control" name="admin_birth" value="${admin.admin_birth}">
     										</div>
     										</div>
 									</li>
@@ -103,11 +128,11 @@
 									</li>
 								</ul>
 								   <div class="btn_center">
-                        <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">수정하기</button>
+                       <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >수정하기</button>
                      </div>
-							</div>
-
-						</div>
+					</div>
+				</div>
+			</form>	
 						<!-- 판매자 정보 끝 -->
 
 
@@ -176,14 +201,19 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
-		<script>
-$(document).ready(function () {
-    // DatePicker settings
-    $("#birth_date").datepicker({
-        dateFormat: "yy-mm-dd",
-        changeMonth: true,
-        changeYear: true,
-        yearRange: "-100:+0"
+<script>
+$(document).ready(function() {
+    $('#adminUpdateForm').submit(function(e) {
+        e.preventDefault();
+        
+        var newPass = $('input[name="newpass"]').val();
+        var newPassConfirm = $('input[name="newpass2"]').val();
+        
+        if (newPass !== newPassConfirm) {
+            alert('새 비밀번호가 일치하지 않습니다.');
+        } else {
+            this.submit();
+        }
     });
 });
 </script>
