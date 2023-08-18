@@ -323,18 +323,14 @@ public class SellerController {
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
 
-	// 서영 : 문의게시판
 	@RequestMapping(value = "/questionMng", method = RequestMethod.GET)
 	public String questionMng(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
 		
 		if (session.getAttribute("seller_num") == null) {
-			
-			// 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
 			return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
-		System.out.println("questionMng 매핑확인여부");
 		 String seller_num = (String) request.getSession().getAttribute("seller_num");
 	        List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
 	        List<String> itemNames = sellerService.getItemNames(seller_num);
@@ -348,17 +344,12 @@ public class SellerController {
 
 	@RequestMapping("/updateReply")
 	public String updateReply(Locale locale, Model model, HttpSession session, HttpServletRequest request){
-		
-		
-		System.out.println("문의글 답변달자");
 	    String seller_num = (String) request.getSession().getAttribute("seller_num");
 	    String oneboardnum = (String) request.getParameter("one_board_num");
 	    String one_board_reply = request.getParameter("one_board_reply");
 	    int one_board_num = Integer.parseInt(oneboardnum);
 
-	    System.out.println(one_board_num);
 	    sellerService.updateReply(seller_num, one_board_num, one_board_reply);
-	    // 필요한 서비스 또는 리포지토리를 사용하여 해당 게시물의 답변을 업데이트하는 코드를 작성합니다.
 
 	    return "redirect:/questionMng"; // 이 부분은 작성한 코드에 맞게 수정해야 합니다. 업데이트가 완료된 후 원래 페이지로 돌아갑니다.
 	    }

@@ -35,18 +35,13 @@ public class MemberService {
 	}	
 	
 	public MemberDTO nuserCheck(MemberDTO memberDTO) {
-		 System.out.println("MemberDAO nuserCheck() 확인");
 		 if (memberDAO.nuserCheck(memberDTO) == null) {
-		        System.err.println("sqlSession is null!");
 		        return null;
 		    }
 	     return memberDAO.nuserCheck(memberDTO);
 	    }
 	
 	public void ninsertMember(MemberDTO memberDTO) {
-	    System.out.println("MemberService ninsertMemberk() 확인!!!");
-
-	    // ninsertMember 메서드 호출
 	    memberDAO.ninsertMember(memberDTO);
 	}
 	
@@ -62,8 +57,6 @@ public class MemberService {
 	 
 	 
 	 public MemberDTO userCheck(MemberDTO memberDTO) {
-		 System.out.println("MemberService userCheck()");
-		 
 		 return memberDAO.userCheck(memberDTO);
 	 }
 
@@ -159,39 +152,26 @@ public class MemberService {
 
 	
 	public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		System.out.println("MemberService insertOneBoard()");
         memberDAO.insertOneBoard(oneboardDTO);
     }
 
-//    public List<MemberDTO> getOneBoardList() {
-//        return memberDAO.getOneBoardList();
-//    }
-	
-	
 	  public List<OneBoardDTO> findByItemNum(int item_num) {
-		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByItemNum(item_num);
 	  }
  
-	  // 서영 :  마이페이지에서 1대1문의 표시하기(member_num) 기준이라서 상품디테일이랑 불러오는게 좀다름
 	  public List<OneBoardDTO> findByItemNum2(int member_num) {
-		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByItemNum2(member_num);
 	  }
 	  
-	  //서영 :마이페이지 문의수정을위해 문의내용가져오기
 	  public List<OneBoardDTO> findByOneBoardNum(int one_board_num) {
-		  System.out.println("1대1문의 노출");
 	       return memberDAO.findByOneBoardNum(one_board_num);
 	  }
 	  
 	  public OneBoardDTO getOneBoard(int one_board_num) {
-			System.out.println("MemberService getOneBoard()");
 	        return memberDAO.getOneBoard(one_board_num);
 	    }
 	  
 	  public void updateOneBoard(OneBoardDTO OneBoard) {
-			System.out.println("MemberService insertOneBoard()");
 	        memberDAO.updateOneBoard(OneBoard);
 	    }
 	
@@ -231,12 +211,10 @@ public class MemberService {
 		memberDAO.updateInCart(cart);
 	}
 	
-	// 서영 : 찜하기
 	public void insertWishlist(WishlistDTO wishlistDTO) {
 	    memberDAO.insertWishlistItem(wishlistDTO);
 	  }
 	
-
 	public WishlistDTO selectWishlist(WishlistDTO wishlistDTO) {
 		return memberDAO.selectWishlist(wishlistDTO);
 	}

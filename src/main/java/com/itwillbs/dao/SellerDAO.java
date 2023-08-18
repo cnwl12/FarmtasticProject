@@ -212,7 +212,6 @@ public class SellerDAO {
 			sqlSession.update(namespace+".updateStatus", status);
 		}
 		
-		// 판매자 문의 관리
 		public List<OneBoardDTO> selectByque(String seller_num) {
 			return sqlSession.selectList(namespace+".selectByque", seller_num);
 	    }
