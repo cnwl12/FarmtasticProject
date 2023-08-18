@@ -374,13 +374,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		return "/member/kakaoLogout";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
@@ -434,13 +427,10 @@ public class FarmController { // 소비자 (컨트롤러)
 		String orderNum = cancel.get("orderNum").toString();
 	    cancel.put("order_num", orderNum);
 		
-		//취소하러 오는지 
-		System.out.println("cancelOrder");
 		// update, insert 과정 
 		memberService.cancelOrder(cancel);
 		// 취소 했으면 인서트 
 		memberService.cancelInsert(cancel);
-		
 		
 		return "/member/mypage";
 	}
@@ -479,8 +469,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/searchd", method = RequestMethod.GET)
 	public String searchd(Locale locale, Model model) {
 
-		System.out.println("searchd 매핑확인여부");
-
 		return "/member/searchd";
 	}
 
@@ -491,7 +479,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("itemList", itemList);
 		return "/member/searchd";
 	}
-
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
 	public String updatePro(HttpSession session, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
@@ -548,20 +535,16 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(Locale locale, Model model) {
 
-		System.out.println("contact 매핑확인여부");
 		List<Map<String, Object>> resultList = adminService.getCnotice();
 		model.addAttribute("notice", resultList);
-		System.out.println(resultList);
 		return "/member/contact";
 	}
 
 	@RequestMapping(value = "/contactContent", method = RequestMethod.GET)
 	public String contactContent(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model) {
-		System.out.println("contactContent 매핑확인여부");
 		Map<String, Object> resultMap = adminService.getNotice(admin_cs_num);
 		model.addAttribute("content", resultMap);
 		model.addAttribute("admin_cs_num", admin_cs_num);
-		System.out.println("controller" + resultMap);
 		return "/member/contactContent";
 	}
 
@@ -571,8 +554,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
-
-		System.out.println("팜팜마켓 매핑확인여부");
 
 		return "/member/farmStore";
 	}
@@ -590,9 +571,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("averageStarRating", averageStarRating);
-
-		/* System.out.println(item); */
-		System.out.println("farmStoreDetail 매핑확인여부");
 
 		List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
 		System.out.println(oneBoardList + "가나다");
@@ -618,9 +596,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		cart.put("member_num", member_num);
 
 		memberService.insertCart(cart);
-		
-		// 수량을 조회하는 메서드 따로 필요
-		System.out.println("countCart 컨트롤러 시작");
 
 		return "redirect:/shoppingCart";
 	}
@@ -628,8 +603,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/shoppingCart", method = RequestMethod.GET)
 	public String shopingCart(Model model, HttpSession session) {
 
-		System.out.println("shoppingCart 매핑확인여부");
-		
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
 		
@@ -664,8 +637,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 결제 버튼으로 넘어갈때 주문상세 테이블, 주문 테이블 동시 insert가 이루어져야함
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(Model model, HttpSession session) {
-
-		System.out.println("checkout 매핑확인여부");
 
 		int member_num = (int)session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
@@ -717,13 +688,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
 	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
 
-		System.out.println("orderDetail 매핑 처음 됐을 때" + orderDetail);
-
 		int member_num = (int)session.getAttribute("member_num");
 		orderDetail.put("member_num", member_num);
 
 	    memberService.insertOrderDetail(orderDetail);
-		System.out.println("인서트 다녀왔음!"+ orderDetail );
 		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		memberService.deleteAllCart(orderDetail);
