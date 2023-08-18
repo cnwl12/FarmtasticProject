@@ -8,7 +8,7 @@
 
 /* 이전/다음 버튼을 예쁘게 꾸며줍니다. */
 .prev-page, .next-page {
-  background-color: #4CAF50;
+  background-color: #7fad39;
   border: none;
   color: white;
   padding: 8px 16px;
@@ -42,9 +42,9 @@
 
 /* 현재 선택된 페이지의 스타일을 변경하여 구분해줍니다. */
 .page-number.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
+  /* background-color: #4CAF50; */
+  color: black;
+  /* border: 1px solid #4CAF50; */
 }
 
 /* 마우스를 올렸을 때 ��타일을 변경하여 표시해줍니다. */
@@ -54,7 +54,7 @@
 
 /* 이전/다음 버튼에 대한 마우스 호버 및 클릭 시 스타일을 변경해줍니다. */
 .prev-page:hover, .next-page:hover {
-  background-color: #3e8e41;
+  background-color: #7fad39;
 }
 
 .prev-page:active, .next-page:active {
@@ -70,7 +70,7 @@
 
 /* 이전/다음 버튼을 예쁘게 꾸며줍니다. */
 .inquiry-prev-page, .inquiry-next-page {
-  background-color: #4CAF50;
+  background-color: #7fad39;
   border: none;
   color: white;
   padding: 8px 16px;
@@ -104,9 +104,9 @@
 
 /* 현재 선택된 페이지의 스타일을 변경하여 구분해줍니다. */
 .inquiry-page-number.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
+ /*  background-color: #7fad39; */
+  color: black;
+  /* border: 1px solid #7fad39; */
 }
 
 /* 마우스를 올렸을 때 스타일을 변경하여 표시해줍니다. */
@@ -120,6 +120,6 @@
 }
 
 .inquiry-prev-page:active, .inquiry-next-page:active {
-  background-color: #3e8e41;
+  background-color: #7fad39;
   transform: translateY(2px);
 }

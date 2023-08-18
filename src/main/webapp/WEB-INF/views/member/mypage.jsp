@@ -180,10 +180,10 @@
                                        class="form-control" id="sample4_postcode"
                                        value="${memberDTO.member_post}" placeholder="우편번호"
                                        required>
-                                       <div id="btbt">
+                                     <!--   <div id="btbt"> -->
                                           <input type="button" id="sample4_execDaumPostcode()"
-                                             onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-                                       </div>
+                                             onclick="sample4_execDaumPostcode()" style="margin-left: -95px;" value="우편번호 찾기">
+                                       <!-- </div> -->
                                        <div class="invalid-feedback">우편번호를 입력해주세요.</div></td>
                                  </tr>
 
@@ -224,10 +224,17 @@
                <!-- 서영 찜페이지 만드는중 -->
                <div id="menu5_cont" style="width: 780px; margin-left:25%;;">
                   <div class="container">
-                     <h4>내 찜 목록</h4><br> 
-                     <label for="selectAllCheckbox"></label>
-                     <button id="deleteSelectedButton">선택 삭제</button>
-                     <button id="deleteAllButton">전체 삭제</button>
+                     <h4>내 찜 목록</h4> 
+                    <!--  <label for="selectAllCheckbox"> -->
+                     <div style="float: right; margin-bottom: 6px;">
+					<button class="site-btn" id="deleteSelectedButton">선택 삭제</button>			
+					<button class="site-btn" id="deleteAllButton" >전체 삭제</button>
+					</div>
+                     <!-- </label> --> 
+					<!-- 
+                     <button id="deleteSelectedButton" style="border:none;">선택 삭제</button>
+                     <button id="deleteAllButton" style="border:none;">전체 삭제</button> -->
+                     <div style="clear: right;">
                      <ul class="favorite-list">
                         <c:forEach var="item" items="${zzimlist}">
                            <li class="favorite-item" data-item-num="${item.item_num}">
@@ -244,6 +251,7 @@
                            </li>
                         </c:forEach>
                      </ul>
+                     </div>
                      <!-- 페이징 처리를 위한 페이지 네비게이션 추가 -->
                      <div class="pagination">
                         <button class="prev-page">이전</button>
@@ -259,7 +267,7 @@
 
                <div id="menu2_cont" style="width: 780px; margin-left:25%;;">
                   <h4>주문관리</h4>
-                  <table class="table">
+                  <table class="table" style="margin-top:5px;">
                      <thead>
                         <tr style="text-align: center;">
                            <th>주문번호</th>
@@ -313,8 +321,10 @@
 			
 			<div id="menu3_cont" style="width: 780px; margin-left: 25%;">
 			<h4>나의 리뷰</h4>
+			<div style="float: right; margin-bottom: 6px;">
 			<button class="site-btn" id="edit-review-button">수정</button>			
 			<button class="site-btn" id="delete-review-button" >삭제</button>
+			</div>
 				<div id="edit-review-popup" style="display:none; position: fixed; top: 50%; left: 50%; 
 				transform: translate(-50%, -50%);  width: 600px; height: 370px; border: 1px solid #ccc;
 				 padding: 20px; background-color: white;">
@@ -361,11 +371,11 @@
         					<tbody>
         					</tbody>
     					</table>
-    				<div class="pagination">
-    					<span class="prev-page1">이전</span>
-    					<div class="page-numbers1"></div>
-    					<span class="next-page1">다음</span>
-					</div>
+    				<div class="inquiry-pagination">
+                     <button class="inquiry-prev-page">이전</button>
+                     <div class="inquiry-page-numbers"></div>
+                     <button class="inquiry-next-page">다음</button>
+                  </div>
 				</div>
 			</div>
                
@@ -374,7 +384,7 @@
                   <input type="hidden" id="member_num"
                      value="${sessionScope.member_num}">
 
-                  <table class="table">
+                  <table class="table" style="margin-top: 5px;">
                      <thead>
                         <tr>
                            <th>상품명</th>
@@ -858,7 +868,7 @@ $(document).ready(function() {
    $(document).ready(function() {
     $(".orderCancelButton").click(function() {
        var orderNum = $(this).data("order");
-        var popup = window.open("", "_blank", "width=600,height=400");
+        var popup = window.open("", "_blank", "width=480,height=300");
         console.log(orderNum);
 
         // 팝업 창에 내용 작성
@@ -917,15 +927,17 @@ function generatePopupContent(orderNum) {
         </p>
         <p>상세 취소 사유:</p>
         <textarea id='cancel_reason' rows='4' cols='50'></textarea>
+        <div id='btnbox'>
         <button id="confirmCancel">주문 취소</button>
         <button onclick="window.close()">닫기</button>
+        </div>
     </body>
     </html>`;
 	}
 // ---------------(취소된 내역)
+ 
 
-
-
+ 
 </script>
 
    <!-- 주문취소 끝 -->

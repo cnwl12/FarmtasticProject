@@ -3396,6 +3396,7 @@ legend {
     line-height: 70px;
     background: #fff;
     border-left: none;
+    border-right: 1px solid #ddd;
 }
 .join2.type .tab-ty2 li.on a{
 	border-left: 1px solid #ddd;

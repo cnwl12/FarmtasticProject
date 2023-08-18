@@ -92,6 +92,7 @@ table.myg_tab td a {
     height: 31px;
     padding: 0 20px;
     display: inline-block;
+    border: none;
 }
 
 .btn_center {
@@ -114,6 +115,7 @@ div.my_info_setting table th {
 
 div.my_info_setting table {
     width: 100%;
+    margin-top: 10px;
 }
 table {
     border-collapse: collapse;
@@ -121,7 +123,7 @@ table {
 }
 
 .font_style1 {
-    margin-left: 5px;
+    margin-left: -200px;
     color: #888;
     font-size: 11px !important;
     letter-spacing: -1px;
@@ -141,15 +143,12 @@ div.my_info_setting table td ul li input {
 }
 
 input.txt {
-    height: 18px;
+  height: 18px;
     padding-left: 7px;
-    border: 1px solid #e9e9e9;
-    border-top: 1px solid #c5c5c5;
-    border-left: 1px solid #d2d2d2;
-    color: #444;
     font-size: 12px;
     line-height: 18px;
     vertical-align: top;
+    border: none;
 }
 
 div.my_info_setting table td ul li label {

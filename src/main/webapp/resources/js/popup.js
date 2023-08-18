@@ -5,7 +5,7 @@ function cancelClick(button) {
 }
 
 function openCancelPopup(orderNum) {
-    var popupWindow = window.open("", "_blank", "width=600,height=400");
+    var popupWindow = window.open("", "_blank", "width=600,height=250");
 
     $.ajax({
         url: "cancelList", // 취소 내역을 가져오는 서버 API URL
@@ -22,8 +22,6 @@ function openCancelPopup(orderNum) {
                 var cancelReason = cancelList[i].cancel_reason;
                 var cancelType = cancelList[i].cancel_type;
                 var cancelRequest = cancelList[i].cancel_request;
-
-                // 여기에서 cancelList 내용을 활용하여 필요한 처리를 수행
             }
         },
         error: function() {
@@ -37,7 +35,7 @@ function generateCancelContent(orderNum, cancelList) {
     <html>
     <head>
         <title>주문 내역</title>
-      <link rel='stylesheet' type='text/css' href='../css/popup-style.css'>
+      <link rel='stylesheet' type='text/css' href='/farmtastic/resources/css/popup-style.css'>
     </head>
     <body>
         <h2>주문 취소 - 주문번호: ${orderNum}</h2>
@@ -46,16 +44,22 @@ function generateCancelContent(orderNum, cancelList) {
                 <tr>
                     <th>취소 사유</th>
                     <th>상세 취소 사유</th>
+                    <th>취소 요청일</th>
                 </tr>
             </thead>
             <tbody>
     `;
 
     for (var i = 0; i < cancelList.length; i++) {
+    
+        var cancelDate = new Date(cancelList[i].cancel_request);
+    	var formattedDate = cancelDate.toLocaleDateString();
+    	
         content += `
             <tr>
                 <td>${cancelList[i].cancel_type}</td>
                 <td>${cancelList[i].cancel_reason}</td>
+                <td>${formattedDate}</td>
             </tr>
         `;
     }

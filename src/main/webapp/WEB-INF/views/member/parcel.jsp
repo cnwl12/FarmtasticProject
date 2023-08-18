@@ -255,7 +255,7 @@
         
         /* 버튼 스타일 */
 		#submit-button {
-    		background-color: #00BFFF;
+    		background-color: #7fad39;
    			color: #000000;
     		font-size: 16px;
     		font-weight: bold;
@@ -268,7 +268,7 @@
 		}
 
 		#submit-button:hover {
-    		background-color: #00BFFF;
+    		background-color: #7fad39;
 		}
         
     	select,	input {
@@ -280,7 +280,7 @@
 		}
 		
 		#tracking-number {
-    		width: 100%;
+    		width: 96%;
     		height: 60px;
     		font-size: 20px;
     		border-radius: 0;
@@ -378,7 +378,6 @@
     </div>
     <div id="status-message"></div>
    
-</div>
 </div>
 
 
