@@ -62,9 +62,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin(Locale locale, Model model) {
-		
-		System.out.println("adminLogin 매핑확인여부");
-		
 		return "/admin/adminLogin";
 	}
 	
