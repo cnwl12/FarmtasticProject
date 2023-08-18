@@ -321,4 +321,14 @@ public class MemberService {
         return memberDAO.searchId(email);
     }
 
+	public void withdrawMember(MemberDTO memberDTO) {
+		
+		System.out.println("MemberService withdrawMember()");
+		
+		memberDAO.withderawMember(memberDTO);
+		
+	}
+
+	
+
 }
