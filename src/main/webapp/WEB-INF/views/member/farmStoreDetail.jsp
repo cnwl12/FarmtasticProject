@@ -326,7 +326,16 @@ input#file-upload-button {
 								                        <td>${row.one_board_repYn}</td>
 								                        <td>${row.one_board_type}</td>
 								                        <td>${row.one_board_title}</td>
-								                        <td>${row.member_name}</td>
+								                         <td>
+												            <c:choose>
+												                <c:when test="${fn:length(row.member_name) eq 2}">
+												                    ${fn:substring(row.member_name, 0, 1)}*
+												                </c:when>
+												                <c:otherwise>
+												                    ${fn:substring(row.member_name, 0, 1)}*${fn:substring(row.member_name, 2, 3)}
+												                </c:otherwise>
+												            </c:choose>
+												        </td>
 								                        <td>${row.one_board_day}</td>
 								                    </tr>
 								                    
