@@ -201,7 +201,6 @@ public class MemberDAO {
 	    }
 
 	
-	//서영 작업 1대1문의
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
 		 System.out.println("MemberDAO insertOneBoard ()!!");
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
@@ -211,23 +210,19 @@ public class MemberDAO {
 			return sqlSession.selectList(namespace+".findByItemNum", item_num);
 	    }
 
-	 // 서영 마이페이지에서 1대1문의 확인하기 (member_num) 기준
 	 public List<OneBoardDTO> findByItemNum2(int member_num) {
 		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByItemNum2", member_num);
 	    }
-	 // 서영 : 마이페이지에서 문의 수정을 위해 
 	 public List<OneBoardDTO> findByOneBoardNum(int one_board_num) {
 		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByOneBoardNum", one_board_num);
 	    }
 	 
-	 //서영 : 문의수정 비밀번호 확인용
 	 public OneBoardDTO getOneBoard(int one_board_num) {
 		 System.out.println("MemberDAO getOneBoard ()!!");
          return sqlSession.selectOne(namespace + ".getOneBoard", one_board_num);
     }
-	 // 서영 : 문의수정하기
 	 public void updateOneBoard(OneBoardDTO OneBoard) {
 		 System.out.println("MemberDAO updateOneBoard ()!!");
          sqlSession.update(namespace + ".updateOneBoard", OneBoard);
@@ -237,7 +232,6 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
 
-	// 서영 찜하기
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
 		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);

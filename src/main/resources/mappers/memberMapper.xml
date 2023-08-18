@@ -553,14 +553,12 @@
       one_board_num = #{one_board_num}
   </update>
   
-  <!-- 찜기능 불러오기 -->
   	<select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
 	  SELECT * FROM like_farm
 	  WHERE member_num = #{member_num} 
 	  AND item_num = #{item_num}
  	 </select>
  	 	
-  <!--  찜 넣기 -->
   	<insert id="insertWishlistItem">
 	  INSERT INTO like_farm (member_num
 	  						, item_num
@@ -569,7 +567,7 @@
 	  						, #{item_num}
 	  						, now())
   	</insert>
-  <!--  찜 삭제하기 -->
+  	
  	 <delete id="deleteWishlist">
   	DELETE 
   	FROM like_farm

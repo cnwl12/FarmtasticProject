@@ -602,13 +602,7 @@ ORDER BY MONTH(os.order_day);
           o.order_day BETWEEN #{startDate} AND #{endDate}
     ORDER BY o.order_day DESC
 </select>
-
-
-
-
-
 	
-	 <!-- 서영 판매자 문의보기 -->
   	<select id="selectByque" resultType="com.itwillbs.domain.OneBoardDTO">
    	SELECT ob.one_board_repYn
    			, ob.one_board_type

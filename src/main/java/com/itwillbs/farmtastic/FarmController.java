@@ -1112,18 +1112,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		}
 	}
 
-	// 서영 작업중
 	@RequestMapping(value = "/oneboard", method = RequestMethod.GET)
 	public String oneBoard(Model model) {
-		System.out.println("FarmController oneboard()!");
 		return "/member/oneboard";
 	}
 
 	@RequestMapping(value = "/oneboardForm", method = RequestMethod.POST)
 	public String oneBoardForm(HttpServletRequest request, @RequestParam("one_board_file") MultipartFile file, HttpSession session)throws Exception{
-		System.out.println("oneboardForm() 로드");
 
-		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 				OneBoardDTO oneboardDTO = new OneBoardDTO();
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -1131,7 +1127,6 @@ public class FarmController { // 소비자 (컨트롤러)
 				        String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 				
 				
-				     // 허용되는 파일 확장자 리스트
 				        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
 
 				        if (allowedExtensions.contains(fileExtension.toLowerCase())) {
@@ -1147,7 +1142,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 				            System.out.println("Received file: " + file.getOriginalFilename());
 
-				            // 서버에 파일 저장
 				            File dest = new File(filePath);
 				            try {
 				              file.transferTo(dest);
@@ -1176,15 +1170,12 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@RequestMapping(value = "/updateoneboard", method = RequestMethod.GET)
 	public String updateoneBoard(@RequestParam("one_board_num") int one_board_num, Model model) {
-	    System.out.println("FarmController updateoneBoard()!");
 
-	    // 데이터베이스에서 해당 one_board_num을 가진 one_board 객체를 가져옵니다.
 	    List<OneBoardDTO> oneBoard = memberService.findByOneBoardNum(one_board_num);
 
 	    if (oneBoard != null) {
 	        model.addAttribute("one_board", oneBoard.get(0));
 	    } else {
-	        // 필요한 경우 에러 메시지를 추가하세요.
 	        model.addAttribute("errorMessage", "잘못된 접근입니다.");
 	    }
 	    return "/member/updateoneboard";
@@ -1198,13 +1189,9 @@ public class FarmController { // 소비자 (컨트롤러)
 	                                @RequestParam("one_board_private") String one_board_private,
 	                                @RequestParam("one_board_file") MultipartFile file,
 	                                HttpServletRequest request, Model model, HttpSession session)throws Exception {
-	    System.out.println("문의 업데이트..");
-	    // 데이터베이스에서 원래의 게시글을 가져옵니다.
 	    OneBoardDTO originalOneBoard = memberService.getOneBoard(one_board_num);
 	    
-	    // 사용자가 작성한 비밀번호와 원래 게시글의 비밀번호를 비교합니다.
 	    if (one_board_pass.equals(originalOneBoard.getOne_board_pass())) {
-	        // 비밀번호가 일하면, 업데이트를 진행합니다.
 	        String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 	        OneBoardDTO oneboardDTO = new OneBoardDTO();
 	        oneboardDTO.setOne_board_num(one_board_num); // 이 부분이 추가되었습니다.
@@ -1213,7 +1200,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	                String fileName = file.getOriginalFilename(); // 파일 원래 이름
 	                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 	        
-	         // 허용되는 파일 확장자 리스트
 	                List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
 
 	                if (allowedExtensions.contains(fileExtension.toLowerCase())) {
@@ -1223,19 +1209,11 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	                    String filePath = uploadPath + "/" + storedFileName;
 
-	                    System.out.println("filePath : " + filePath);
-
 	                    String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
-
-	                    System.out.println("Received file: " + file.getOriginalFilename());
-
-	                    // 서버에 파일 저장
 	                    File dest = new File(filePath);
 	                    try {
 	                      file.transferTo(dest);
-	                      System.out.println("파일이 정상적으로 저장되었습니다: " + dest.getAbsolutePath()); // 로그 메시지 추가
 	                    } catch (IOException e) {
-	                      System.out.println("파일 저장 중 오류 발생: " + e.getMessage()); // 에러 발생 시 로그 메시지 추가
 	                      e.printStackTrace();
 	                    }
 
@@ -1259,12 +1237,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 
 
-	// 서영 :  찜하기용입니다
 	@RequestMapping(value = "/toggle_favorite", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> addWishlist(WishlistDTO wishlistDTO, @RequestParam("item_num") Integer item_num) {
 		Map<String, String> response = new HashMap<>();
-		System.out.println("찜기능하는중입니다");
 
 		WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
 		System.out.println(existingWishlistDTO);
