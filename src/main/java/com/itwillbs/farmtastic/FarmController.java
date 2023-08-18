@@ -912,12 +912,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@ResponseBody
 	public ResponseEntity<?> insertReview(@ModelAttribute("memberDTO") MemberDTO memberDTO, 
 			@RequestParam("review_image") MultipartFile file, HttpSession session) throws Exception {
-			System.out.println("controller 리뷰작성");
-		 	System.out.println("item_num: " + memberDTO.getItem_num());
-		    System.out.println("member_num: " + memberDTO.getMember_num());
-		    System.out.println("review_title: " + memberDTO.getReview_title());
-		    System.out.println("review_content: " + memberDTO.getReview_content());
-		    System.out.println("File: " + file.getOriginalFilename());
 		
 		    // 세션에서 회원 번호를 가져옵니다.
 		    int member_num = (int) session.getAttribute("member_num");
@@ -1042,7 +1036,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
 
 	            String filePath = uploadPath + "/" + storedFileName;
-	            String saveFileName = "http://your_website_url/resources/upload/" + storedFileName;
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
 	            // 서버에 파일 저장
 	            File dest = new File(filePath);
@@ -1053,7 +1047,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                        .body("파일 저장 중 문제가 발생했습니다.");
 	            }
-
+	            
 	            // 리뷰 업데이트 작업 진행
 	            memberService.updateReview(review_num, review_star, review_title, review_content, saveFileName);
 	        } else {
