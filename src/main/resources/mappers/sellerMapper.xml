@@ -88,31 +88,32 @@
   	
   	<!-- 선진) 판매자 정보 가져옴 -->
     <select id="getSellerInfo" resultType="map">
-    select * from seller
-    where seller_num = #{seller_num}
+	SELECT * 
+	FROM seller
+	WHERE seller_num = #{seller_num}
     </select>
     
     <!-- 선진) 판매자 정보 수정 -->
     <!-- 판매자 코드가 일치하는 판매자의 개인정보를 수정 -->
     <update id="updateSeller">
-  	update seller
-  	set seller_email = #{seller_email}, 
-  		seller_mobile = #{seller_mobile},
-  		seller_phone = #{seller_phone}, 
-  		seller_bank = #{seller_bank},
-  		seller_accountNum = #{seller_accountNum},
-  		seller_accountHolder = #{seller_accountHolder},
-  		seller_post = #{seller_post},
-  		seller_addMain = #{seller_addMain},
-  		seller_addSub = #{seller_addSub},
-  		seller_file = #{seller_file}
-  	where seller_num = #{seller_num}
+	UPDATE seller
+	SET seller_email = #{seller_email}, 
+		seller_mobile = #{seller_mobile},
+		seller_phone = #{seller_phone}, 
+		seller_bank = #{seller_bank},
+		seller_accountNum = #{seller_accountNum},
+		seller_accountHolder = #{seller_accountHolder},
+		seller_post = #{seller_post},
+		seller_addMain = #{seller_addMain},
+		seller_addSub = #{seller_addSub},
+		seller_file = #{seller_file}
+	WHERE seller_num = #{seller_num}
     </update>
-    
-   <!-- 선진) 해당 월의 일자별 매출 차트 -->
-   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-   <select id="getDailySales" resultType="map">
-   <![CDATA[
+	 
+	<!-- 선진) 해당 월의 일자별 매출 차트 -->
+	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+	<select id="getDailySales" resultType="map">
+	<![CDATA[
 	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
 	FROM(SELECT DATE_FORMAT(day_range, '%Y-%m-%d') AS order_mmdd
 		 FROM (SELECT DATE_ADD(DATE_FORMAT(LAST_DAY(CURRENT_DATE), '%Y-%m-01'), INTERVAL d DAY) AS day_range
@@ -125,16 +126,16 @@
 	LEFT JOIN (SELECT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m-%d') AS order_mmdd, SUM(it.item_price * od.item_cnt) AS order_mmdd_totalSales
 			   FROM order_detail od
 			   JOIN item it ON od.item_num = it.item_num
-               LEFT JOIN orders os ON od.order_num = os.order_num
+	           LEFT JOIN orders os ON od.order_num = os.order_num
 			   WHERE od.item_num IN (SELECT item_num FROM item WHERE seller_num = #{seller_num}) AND os.order_cancel = 'N'
 			   GROUP BY order_mmdd) order_totals ON date_range.order_mmdd = order_totals.order_mmdd
 	ORDER BY date_range.order_mmdd; 
 	]]>
-   </select>
+	</select>
 	
-   <!-- 선진) 최근 12개월의 월별 매출 차트 -->
-   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-   <select id="getMonthlySales" resultType="map">
+	<!-- 선진) 최근 12개월의 월별 매출 차트 -->
+	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+	<select id="getMonthlySales" resultType="map">
 	SELECT q1.order_mm, COALESCE(q2.order_mm_totalSales, 0) AS order_mm_totalSales
 	FROM(SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 11 MONTH), '%Y-%m') AS order_mm
 		UNION ALL SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - 10 MONTH), '%Y-%m')
@@ -156,30 +157,30 @@
 																							FROM item
 																							WHERE seller_num = #{seller_num} AND os.order_cancel = 'N')) q2 ON q1.order_mm = q2.order_mm																																					
 	ORDER BY q1.order_mm; 
-   </select>
+	</select>
 
-   <!-- 선진) 매출관리 - 검색바 -->
-   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-   <select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
-     SELECT	od.order_num,
-     		s.seller_num, 
-     		s.seller_storeName,
-     		s.seller_name,
-     		od.item_num, 
-     		it.seller_type, 
-     		it.item_name, 
-     		od.item_cnt, 
-     		it.item_price, 
+	<!-- 선진) 매출관리 - 검색바 -->
+	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT	od.order_num,
+			s.seller_num, 
+			s.seller_storeName,
+			s.seller_name,
+			od.item_num, 
+			it.seller_type, 
+			it.item_name, 
+			od.item_cnt, 
+			it.item_price, 
 			FORMAT((it.item_price * od.item_cnt),0) as dailySales,
-            FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
-            FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
+			FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
+			FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
 	        os.order_day,
 	        DATE_FORMAT(os.order_day, '%Y-%m-%d') as orderday
 	FROM	order_detail od		
-    LEFT JOIN item it 
-    ON od.item_num = it.item_num
-    LEFT JOIN seller s
-    ON it.seller_num = s.seller_num
+	LEFT JOIN item it 
+	ON od.item_num = it.item_num
+	LEFT JOIN seller s
+	ON it.seller_num = s.seller_num
 	LEFT JOIN orders os 
 	ON od.order_num = os.order_num
 	WHERE	od.item_num IN (select	item_num
@@ -188,7 +189,7 @@
 						AND os.order_cancel = 'N'
 						AND os.order_day BETWEEN #{startDate} AND #{endDate}
 	ORDER BY os.order_day;
-   </select>
+	</select>
 	
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="dailySales" resultType="map">
@@ -220,22 +221,22 @@
 	ORDER BY os.order_day;
    </select>
 	
-   <!-- 선진) 정산관리 -->
-   <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-   <select id="getSettlementList" resultType="map">
+	<!-- 선진) 정산관리 -->
+	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+	<select id="getSettlementList" resultType="map">
 	SELECT 
-	    DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
-	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05), 0) AS totalFee,
-	    FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05)), 0) AS totalSettlement,
-	    ss.settlementApplication,
-	    ss.settlementApplication_day AS applyDay,
-	    ss.settlementComplete,
-	    ss.settlementComplete_day AS completeDay
+		DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
+		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
+		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05), 0) AS totalFee,
+		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05)), 0) AS totalSettlement,
+		ss.settlementApplication,
+		ss.settlementApplication_day AS applyDay,
+		ss.settlementComplete,
+		ss.settlementComplete_day AS completeDay
 	FROM order_detail od
-	    LEFT JOIN item it ON od.item_num = it.item_num
-        JOIN orders os ON od.order_num = os.order_num
-	    LEFT JOIN (
+		LEFT JOIN item it ON od.item_num = it.item_num
+		JOIN orders os ON od.order_num = os.order_num
+		LEFT JOIN (
 	        SELECT 
 	            s.order_num,
 	            s.settlementApplication,
@@ -258,7 +259,7 @@
 	    ) AND os.order_cancel = 'N'
 	ORDER BY 
 	    settlementMonth;
-   </select>
+	</select>
 
 	<!-- 정산 신청 -->
 	<insert id="insertSettlementRequest">
@@ -291,10 +292,12 @@
    	<select id="isSettlementRequested" resultType="int">
    	SELECT COUNT(*) FROM settlement
     WHERE seller_num = #{seller_num}
-    AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN
-    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
-    	#{selectedMonth}
-    </foreach>
+    <if test="checkedSettlements != null and checkedSettlements.size() > 0">
+	    AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN
+	    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
+	    	#{selectedMonth}
+	    </foreach>
+    </if>
     </select>  
    
 	<!-- 선진) 정산 취소 -->

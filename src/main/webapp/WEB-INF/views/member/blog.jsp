@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -30,8 +29,6 @@
 <body>
   <!-- 상단 nav top으로 분리  -->
  <jsp:include page="../top.jsp"></jsp:include>
-    
-    <!-- ////////////////////////상이///////////////////// -->
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
@@ -41,10 +38,6 @@
                     <div class="breadcrumb__text">
                         <h2>제철팜</h2> 
                         <div class="breadcrumb__option">
-                            <!-- <a href="./main.html">Home</a>
-                            <span>제철팜</span> 
-                            <a href="main">Home</a>
-                            <span>Blog</span>  -->
                         </div>
                     </div>
                 </div>    
@@ -98,16 +91,9 @@
                             </div>
                         </div>
                         </c:forEach>
-
-
                         
                         <div class="col-lg-12">
                             <div class="product__pagination blog__pagination">
-<!--                                 <a href="#">1</a> -->
-<!--                                 <a href="#">2</a> -->
-<!--                                 <a href="#">3</a> -->
-<!--                                 <a href="#"><i class="fa fa-long-arrow-right"></i></a> -->
-                                
 								<c:if test="${bMap['startPage'] > bMap['pageBlock']}">
         							<a href="${pageContext.request.contextPath}/blog?pageNum=${bMap['startPage'] - bMap['pageBlock']}">이전</a>
 								</c:if>
@@ -142,8 +128,5 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-
-
 </body>
-
 </html>

@@ -70,31 +70,30 @@ public class AdminDAO {
 	 
 	// 제철팜 소비자 화면
 	public List<Map<String, Object>> getBlog(Map<String, Integer> bMap) {
-		System.out.println("AdminDAO getBlog 매핑완");
+
 		return sqlSession.selectList(NAMESPACE + "getBlog", bMap);
 	}
 	
     // 제철팜 관리자 화면
 	public List<Map<String, Object>> getBlogMng() {
-		System.out.println("AdminService getBlogMng 매핑완");
+
         return sqlSession.selectList(NAMESPACE + "getBlogMng");
 	}
 	
 	// 제철팜 글내용 가져오기
 	public Map<String, Object> getblogContent(int admin_blog_num) {
-		System.out.println("AdminDAO getblogContent 매핑완");
+
 		return sqlSession.selectOne(NAMESPACE + "getblogContent", admin_blog_num);
 	}
 	
 	// 제철팜 글쓰기
 	public void insertBlog(HashMap<String, String> blognoticeList) {
-		System.out.println("AdminDAO insertBlog 매핑완");
+
 		sqlSession.insert(NAMESPACE + "insertBlog", blognoticeList);
 	}  
 	
 	// 제철팜 글수정
 	public void blogUpdatePro(int admin_blog_num, String admin_blog_mainTitle, String admin_blog_subTitle, String admin_blog_content) {
-		System.out.println("AdminDAO getblogContent 매핑완");
 		
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("admin_blog_num", admin_blog_num);
@@ -107,20 +106,19 @@ public class AdminDAO {
 	
 	// 제철팜 글삭제
 	public void blogDelete(int admin_blog_num) {
-		System.out.println("AdminDAO blogDelete 매핑완");
 		
 		sqlSession.delete(NAMESPACE + "blogDelete", admin_blog_num);
 	}
 
 	// 제철팜 디테일 이런 레시피는 어떠세요?
 	public List<Map<String, Object>> getAllPosts() {
-	    System.out.println("AdminDAO getAllPosts 매핑완");
+
 	    return sqlSession.selectList(NAMESPACE + "getAllPosts");
 	}
 	
 	// 제철팜 페이징 처리
 	public int getBlogCount() {
-		System.out.println("AdminDAO getBlogCount 매핑완");
+
 		return sqlSession.selectOne(NAMESPACE + "getBlogCount");
 	}
 }

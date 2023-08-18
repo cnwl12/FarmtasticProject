@@ -35,16 +35,7 @@ public class SellerService {
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
 		}
-		
-		// 선진) 판매자 체크
-		// 안쓰는 코드라 삭제 예정
-		/*
-		 * public Map<String, Object> sellerCheck(Map<String, Object> sellerInfoList) {
-		 * System.out.println("SellerService의 sellerCheck 매핑완"); return
-		 * sellerDAO.sellerCheck(sellerInfoList); }
-		 */
-		
-				
+	
 		public Map<String, Object> sellerCheck(String seller_id) {
 			System.out.println("SellerService sellerCheck()");
 			return sellerDAO.sellerCheck(seller_id);
@@ -52,68 +43,65 @@ public class SellerService {
 		
 		// 선진) 판매자의 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			System.out.println("SellerService의 getSellerInfo 매핑완");
+			
 			return sellerDAO.getSellerInfo(seller_num);
 		}
+		
 		// 선진) 판매자 정보 수정
 		public void updateSeller(Map<String, Object> sellerInfo) {
-			System.out.println("SellerService의 updateSeller 매핑완");
+
 			sellerDAO.updateSeller(sellerInfo);
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
 		public List<Map<String,Object>> getDailySales(String seller_num) {
-			System.out.println("SellerService의 getDailySales 매핑완");
+
 			return sellerDAO.getDailySales(seller_num);
 		}
 		
 		// 선진) 최근 12개월의 월별 매출 차트
 		public List<Map<String,Object>> getMonthlySales(String seller_num) {
-			System.out.println("SellerService의 getMonthlySales 매핑완");
+
 			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
 		// 선진) 매출관리 - 검색바
 		public List<Map<String,Object>> getDailySalesList(String seller_num, Date startDate, Date endDate) {
-			System.out.println("SellerService의 getDailySalesList 매핑완");
+
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("startDate", startDate);
 		    params.put("endDate", endDate);
 			return sellerDAO.getDailySalesList(params);
 		}
+		
 		// 선진) 매출관리 - 일자별 매출 리스트
 		public List<Map<String,Object>> dailySales(String seller_num) {
-			System.out.println("SellerService의 dailySales 매핑완");
+
 			return sellerDAO.dailySales(seller_num);
 		}
 		
 		// 선진) 정산관리
 		public List<Map<String,Object>> getSettlementList(String seller_num) {
-			System.out.println("SellerService의 getSettlementList 매핑완");
+
 			return sellerDAO.getSettlementList(seller_num);
 		}
 		
 		// 선진) 정산신청
 		public void insertSettlementRequest(String seller_num, List<String> checkedSettlements) {
-		    System.out.println("SellerService의 insertSettlementRequest 매핑완");
 		    
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
-		    System.out.println("신청하기-서비스)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 		    sellerDAO.insertSettlementRequest(params);
 		}
 
 	    // 선진) 정산신청 여부 알아오기
 		public boolean isSettlementRequested(String seller_num, List<String> checkedSettlements) {
-		    System.out.println("SellerService의 isSettlementRequested 매핑완");
 		    
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
-
-		    System.out.println("신청여부-서비스)가져오는 셀러넘과 체크세틀먼트가 있나요? : " + params);
 		    
 		    int count = sellerDAO.isSettlementRequested(params);
 			return count > 0;
@@ -121,12 +109,10 @@ public class SellerService {
 
 		// 선진) 정산취소
 		public void deleteSettlementRequest(String seller_num, List<String> checkedSettlements) {
-		    System.out.println("SellerService의 deleteSettlementRequest 매핑완");
 		    
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("checkedSettlements", checkedSettlements);
-		    System.out.println(params);
 		    sellerDAO.deleteSettlementRequest(params);
 		}
 		
@@ -150,6 +136,7 @@ public class SellerService {
 			System.out.println("service:getSales()");
 			 return sellerDAO.getSales();
 		}
+		
 		//정산 확인
 		public void updateSettlementYn(String sellerNum, String orderMonth) {
 		    System.out.println("서비스 오나요");
@@ -173,6 +160,7 @@ public class SellerService {
 			System.out.println("서비스"+orderMonth);
 			return sellerDAO.daySales(sellerNum, orderMonth);
 		}
+		
 		//판매자별 연간 매출리스트
 		public List<Map<String, Object>> yearSales(String sellerNum) {
 			System.out.println("서비스"+sellerNum);
@@ -241,7 +229,6 @@ public class SellerService {
 		    return sellerDAO.MemberMngjoin(params);
 		}
 
-
 		public void updateStatus(HashMap<String, String> status) {
 			
 			System.out.println("updateStatus서비스");
@@ -257,6 +244,7 @@ public class SellerService {
 	    	System.out.println("문의글 서비스왔니??");
 	        sellerDAO.updateReply(seller_num, one_board_num, one_board_reply);
 	    }
+	    
 	    public List<String> getItemNames(String seller_num) {
 	        return sellerDAO.getItemNames(seller_num);
 	    }
@@ -265,6 +253,7 @@ public class SellerService {
 	    public List<SellerDTO> getReview(String seller_num) {
 	    	return sellerDAO.getReview(seller_num);
 		}
+	    
 	    public boolean deleteSellerReview(int review_num, int member_num) {
 	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
 	    }

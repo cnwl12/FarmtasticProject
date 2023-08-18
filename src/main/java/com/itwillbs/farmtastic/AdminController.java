@@ -684,7 +684,6 @@ public class AdminController {
 	            model.addAttribute("error", "로그인후 이용해주세요");
 	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
 	        } else {
-	        	System.out.println("AdminController의 blogMng 매핑완");
 	        	
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
@@ -692,6 +691,7 @@ public class AdminController {
 	            
 	            model.addAttribute("admin_id", admin_id);
 	            model.addAttribute("admin", adminInfo);
+	            
 	            // 제철팜 글목록 가져오기
 	            List<Map<String, Object>> blogList = adminService.getBlogMng();
 	   		 	model.addAttribute("blogList", blogList);
@@ -710,7 +710,6 @@ public class AdminController {
 	            model.addAttribute("error", "로그인후 이용해주세요");
 	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
 	        } else {
-	        	System.out.println("AdminController의 blogWrite 매핑완");
 	        	
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
@@ -718,6 +717,7 @@ public class AdminController {
 	            
 	            model.addAttribute("admin_id", admin_id);
 	            model.addAttribute("admin", adminInfo);
+	            
 	            return "/admin/customerMenu/blogWrite";
 	        }
 		
@@ -727,13 +727,9 @@ public class AdminController {
 	@RequestMapping(value = "/blogWritePro", method = RequestMethod.POST)
 	public String blogWritePro(@RequestParam HashMap<String, String> blognoticeList,
 							   @RequestParam("blogFile") List<MultipartFile> blogFiles, HttpSession session) throws Exception {
-		
-		System.out.println("AdminController의 blogWritePro 매핑완");
-		
+
 		// 첨부파일 올라갈 물리적 경로 
 		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-		
-//		System.out.println(uploadPath);
 		
 		for (int i = 0; i <blogFiles.size(); i++) {
             MultipartFile blogFile = blogFiles.get(i);
@@ -751,7 +747,6 @@ public class AdminController {
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                 String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
-
 
                 // 임시경로에서 filePath로 파일이동 
                 File dest = new File(filePath);
@@ -778,7 +773,6 @@ public class AdminController {
 	            model.addAttribute("error", "로그인후 이용해주세요");
 	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
 	        } else {
-	        	System.out.println("AdminController의 blogContent 매핑완");
 	        	
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
@@ -796,7 +790,6 @@ public class AdminController {
 	            
 	            return "/admin/customerMenu/blogContent";
 	        }
-		
 	}
 	
 	//	제철팜 글수정 화면
@@ -808,7 +801,6 @@ public class AdminController {
             model.addAttribute("error", "로그인후 이용해주세요");
             return "redirect:/adminLogin"; // 로그인 페이지로 이동
         } else {
-        	System.out.println("AdminController의 blogUpdate 매핑완");
     		
             // 로그인한 경우
             String admin_id = (String) session.getAttribute("admin_id");
@@ -828,8 +820,6 @@ public class AdminController {
 	@PostMapping("/blogUpdatePro")
     public String blogUpdatePro(HttpServletRequest request) {
 		
-		System.out.println("AdminController의 blogUpdatePro 매핑완");
-		
         int admin_blog_num = Integer.parseInt(request.getParameter("admin_blog_num"));
         String admin_blog_mainTitle = request.getParameter("admin_blog_mainTitle");
         String admin_blog_subTitle = request.getParameter("admin_blog_subTitle");
@@ -838,14 +828,11 @@ public class AdminController {
         adminService.blogUpdatePro(admin_blog_num, admin_blog_mainTitle, admin_blog_subTitle, admin_blog_content);
 
         return "redirect:/blogContent?admin_blog_num=" + admin_blog_num;
-	
 	}
 	
 	// 제철팜 글 삭제
 	@RequestMapping(value = "/blogDelete", method = RequestMethod.GET)
 	public String blogDelete(@RequestParam("admin_blog_num") int admin_blog_num, HttpSession session) {
-		
-		System.out.println("AdminController의 blogDelete 매핑완");
 		
 	    AdminDTO currentAdmin = (AdminDTO) session.getAttribute("admin");
 	    String currentUserId = currentAdmin.getAdmin_id();
@@ -860,6 +847,4 @@ public class AdminController {
 	    adminService.blogDelete(admin_blog_num);
 	    return "redirect:/blogMng";
 	}
-		
-		
 }

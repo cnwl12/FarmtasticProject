@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,8 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
@@ -57,20 +58,17 @@
                         For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
                     <!-- 페이지 상단 끝 -->
                     
-                    <!-- 검색바 시작 -->
-					<!-- 검색바 끝 -->
-                    
                     <!-- 정산 신청 시작 -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
-                        
+					    
                         <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
                         <input type="hidden" id="selectedMonths" name="selectedMonths" value=""/>
                    		
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit">정산신청</button>
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="deleteSettlement()">신청취소</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit" onClick="submitAction('request');">정산신청</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="submitAction('cancel');">신청취소</button> <!-- deleteSettlement();  -->
                    		
                         <div class="card-body">
                             <div class="table-responsive">
@@ -193,13 +191,25 @@
 	}
 
 	function submitAction(action) {
-	    $('#action').val(action);
-	    event.preventDefault(); // 현재 이벤트를 막습니다.
-	    $('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
+
+	    // 체크박스로 선택하지 않고 버튼을 눌렀다면 메시지 띄우기
+	    let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
+	
+	    if (selectedMonths.length === 0) {
+	        alert("선택된 정산건이 없습니다!");
+	        return; // 폼 제출을 막습니다.
+	    } else{
+			$('#action').val(action);
+		    $('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
+	    }
 	}
 
-	</script>
+	// 중복 신청, 신청되지 않은 정산 취소 시 메시지 띄우기
+	var message = "${param['msg']}";
+	if(message) {
+	    alert(message);
+	}
+    </script>
 
 </body>
-
 </html>

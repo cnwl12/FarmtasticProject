@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -323,10 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							</div>
 						</div>
 						<!-- 배송정보 끝 -->
-
-						<!-- 관리자권한 시작 -->
-						<!-- 관리자 권한이 뭐지? 일단 보류 -->
-						<!-- 관리자권한 끝 -->
 						
 					</form>
 				</div>
@@ -391,5 +386,4 @@ document.addEventListener('DOMContentLoaded', function() {
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
-
 </html>
