@@ -98,7 +98,7 @@ public class AdminController {
 	 } 
 	 
 	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	    public String home(Locale locale, Model model, HttpSession session) throws IOException {
+	    public String home(@RequestParam(value = "monthly", required = false) String monthly,Locale locale, Model model, HttpSession session) throws IOException {
 	        System.out.println("adminMain 매핑확인여부");
 	        
 	        if (session.getAttribute("admin_id") == null) {
@@ -109,11 +109,31 @@ public class AdminController {
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
 	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
-	            
-	            List<Map<String, Object>> resultList = sellerService.getSeller();
-	            model.addAttribute("sellers", resultList);
 	            model.addAttribute("admin", adminInfo);
 	            model.addAttribute("admin_id", admin_id);
+
+	            if (monthly == null || monthly.isEmpty()) {
+	                LocalDate currentDate = LocalDate.now();
+	                monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	            }
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	            List<Map<String, Object>> result = sellerService.getSellers(monthly);
+	            List<Map<String, Object>> sellerSalesList = sellerService.totalSales();
+	            
+	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
+	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
+	            model.addAttribute("totalSales", totalSales);
+	            
+	            model.addAttribute("sales", sales);
+
+	            model.addAttribute("sellers", resultList);
+	            model.addAttribute("monthly", monthly);
+	    	    System.out.println(monthly);
+	    	    LocalDate currentDate = LocalDate.now();
+	    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    	    model.addAttribute("currentMonth", currentMonth);
+	            
+	            
 	            return "/admin/adminMain";
 	        }
 	}
@@ -552,7 +572,7 @@ public class AdminController {
                 System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+                String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
 
                 // 임시경로에서 filePath로 파일이동 
@@ -641,7 +661,7 @@ public class AdminController {
                 System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-                String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+                String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
                 // 임시경로에서 filePath로 파일이동 
                 File dest = new File(filePath);
@@ -736,7 +756,7 @@ public class AdminController {
               File dest = new File(filePath);
               blogFile.transferTo(dest);
 
-              String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+              String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
               storedFileNames.add(saveFileName);
 
 			} else {

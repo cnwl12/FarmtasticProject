@@ -403,7 +403,7 @@ public class SellerController {
 					System.out.println("filePath : " + filePath);
 
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
-					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+					String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
 					// 임시경로에서 filePath로 파일이동 
 					File dest = new File(filePath);
@@ -472,7 +472,7 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/itemUpdate", method = RequestMethod.GET) 
-
+  
 	public String itemUpdate(@RequestParam("item_num") int item_num, Model model,HttpSession session, HttpServletResponse response) {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
@@ -513,7 +513,7 @@ public class SellerController {
 
 	            String filePath = uploadPath + "/" + storedFileName;
 
-	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/farmtastic/resources/upload/" + storedFileName;
 
 	            File dest = new File(filePath);
 	            file.transferTo(dest);
