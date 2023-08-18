@@ -98,7 +98,7 @@ public class AdminController {
 	 } 
 	 
 	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	    public String home(Locale locale, Model model, HttpSession session) throws IOException {
+	    public String home(@RequestParam(value = "monthly", required = false) String monthly,Locale locale, Model model, HttpSession session) throws IOException {
 	        System.out.println("adminMain 매핑확인여부");
 	        
 	        if (session.getAttribute("admin_id") == null) {
@@ -109,11 +109,31 @@ public class AdminController {
 	            // 로그인한 경우
 	            String admin_id = (String) session.getAttribute("admin_id");
 	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
-	            
-	            List<Map<String, Object>> resultList = sellerService.getSeller();
-	            model.addAttribute("sellers", resultList);
 	            model.addAttribute("admin", adminInfo);
 	            model.addAttribute("admin_id", admin_id);
+
+	            if (monthly == null || monthly.isEmpty()) {
+	                LocalDate currentDate = LocalDate.now();
+	                monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	            }
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	            List<Map<String, Object>> result = sellerService.getSellers(monthly);
+	            List<Map<String, Object>> sellerSalesList = sellerService.totalSales();
+	            
+	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
+	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
+	            model.addAttribute("totalSales", totalSales);
+	            
+	            model.addAttribute("sales", sales);
+
+	            model.addAttribute("sellers", resultList);
+	            model.addAttribute("monthly", monthly);
+	    	    System.out.println(monthly);
+	    	    LocalDate currentDate = LocalDate.now();
+	    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+	    	    model.addAttribute("currentMonth", currentMonth);
+	            
+	            
 	            return "/admin/adminMain";
 	        }
 	}
