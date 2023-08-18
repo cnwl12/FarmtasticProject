@@ -376,11 +376,11 @@
         					<tbody>
         					</tbody>
     					</table>
-    				<div class="inquiry-pagination">
-                     <button class="inquiry-prev-page">이전</button>
-                     <div class="inquiry-page-numbers"></div>
-                     <button class="inquiry-next-page">다음</button>
-                  </div>
+    				<div class="pagination">
+    					<span class="prev-page1">이전</span>
+    					<div class="page-numbers1"></div>
+    					<span class="next-page1">다음</span>
+					</div>
 				</div>
 			</div>
                
@@ -846,7 +846,7 @@ $(document).ready(function() {
 
                 for (var i = 0; i < data.length; i++) {
                     tableHtml += "<tr>";
-                    tableHtml += "<td><a href='#' onclick='event.preventDefault(); window.opener.location.href=\"/farmtastic/farmStoreDetail?item_num=" + data[i].item_num + "\"; window.close();'>" + data[i].item_name + "</a></td>";
+                    tableHtml += "<td><a href='#' onclick='event.preventDefault(); window.opener.location.href=\"/FarmProject/farmStoreDetail?item_num=" + data[i].item_num + "\"; window.close();'>" + data[i].item_name + "</a></td>";
                     tableHtml += "<td>" + data[i].item_cnt + "</td>";
                     tableHtml += "<td>" + data[i].item_price + "</td>";
                     tableHtml += "<td>" + data[i].price + "원</td>";
