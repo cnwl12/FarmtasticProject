@@ -51,6 +51,11 @@
 #edit-review-popup {
    display: none;
 }
+
+.review-img {
+  width: 80px; 
+  height: 80px;
+}  
 </style>
 
 
@@ -720,7 +725,7 @@ $(document).ready(function () {
                 "<td>" + review.review_title + "</td>" +
                 "<td>" + review.review_content + "</td>" +
                 "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                "<td>" + review.review_img + "</td>" +
+                "<td>" + (review.review_img ? "<img src='" + review.review_img + "' class='review-img'>" : "") + "</td>" +
             "</tr>";
         }
         $("#getItemMyReview tbody").html(rows);
