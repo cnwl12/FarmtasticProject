@@ -31,15 +31,22 @@
 	<!-- Bootstrap Datepicker CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 		
-	<!-- 사이드바 줄어든거 되돌리기 -->
-	<style type="text/css">
-	 html {font-size: 1rem !important;}
-	 body {font-size: 1rem !important;}
+<!-- 사이드바 줄어든거 되돌리기 -->
+<style type="text/css">
+html {font-size: 1rem !important;
+}
+body {font-size: 1rem !important;
+}
 	 
-	  .seller-grid-area {
-            width: 100%;
-            height: 800px;
-        }
+.seller-grid-area {
+    width: 100%;
+    height: 800px;
+}
+
+.review-img {
+  width: 80px; 
+  height: 80px;
+}  
 	 
 	</style>
 
@@ -160,9 +167,6 @@
 					
 					<div class="panel-body">
 					<p class="sub-text text-primary mg-top-reset mg-bottom">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p>
-					<!----><!---->
-					
-					 <!----><!---->
         			 <div class="review-list">
 					<input type="hidden" name="seller_num" value="${sessionScope.seller_num}">
 					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
@@ -170,19 +174,18 @@
 					<input type="hidden" id="review_num"name="review_num" value="${review.review_num}">
     				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         			<thead>
-            		<tr>
-            		<th>리뷰</th>
-            		<th>상품명</th>
-            		<th>별점</th>
-            		<th>작성자</th>
-            		<th>제목</th>
-           			<th>내용</th>
-           			<th>이미지</th>
- 					<th>작성일</th>
-           			</tr>
+            			<tr>
+            				<th>리뷰</th>
+            				<th>상품명</th>
+            				<th>별점</th>
+            				<th>작성자</th>
+            				<th>제목</th>
+           					<th>내용</th>
+           					<th>이미지</th>
+ 							<th>작성일</th>
+           				</tr>
         			</thead>
         			<tbody id="review">
-            	
         			</tbody>
     				</table>
 					</div>
@@ -318,7 +321,7 @@
 </script>
 
 <script>
-//작성자 이름 마스킹 처리 함수
+//작성자 이름 마스킹 처리 함수 
 function maskWriterName(name) {
   if (!name || name.length === 0) {
     return '';
@@ -362,7 +365,7 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                             maskedName,
                             seller.review_title,
                             seller.review_content,
-                            seller.review_img,
+                            seller.review_img ? "<img src='" + seller.review_img + "' class='review-img'>" : "",
                             review_date
                         ]).draw();
                     });

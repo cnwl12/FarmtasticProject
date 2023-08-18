@@ -51,6 +51,11 @@
 #edit-review-popup {
    display: none;
 }
+
+.review-img {
+  width: 80px; 
+  height: 80px;
+}  
 </style>
 
 
@@ -397,7 +402,7 @@
                      <tbody id="inquiryList">
                         <!-- 여기에 문의 내용이 추가됩니다. -->
                         <c:forEach var="row" items="${oneBoardList2}">
-                           <tr class="boardTitle"
+                           <tr class="inquiry-item"
                               onclick="handleRowClick('${row.one_board_private}' == '비공개', ${row.one_board_num}, '${row.one_board_pass}', 'boardPassword${row.one_board_num}');">
                               <td>${row.item_name}</td>
                               <td>${row.one_board_repYn}</td>
@@ -730,7 +735,7 @@ $(document).ready(function () {
                 "<td>" + review.review_title + "</td>" +
                 "<td>" + review.review_content + "</td>" +
                 "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                "<td>" + review.review_img + "</td>" +
+                "<td>" + (review.review_img ? "<img src='" + review.review_img + "' class='review-img'>" : "") + "</td>" +
             "</tr>";
         }
         $("#getItemMyReview tbody").html(rows);
@@ -1019,6 +1024,8 @@ function updateReview(selectedReview, review_star, review_title, review_content,
 
     if (review_img) {
       formData.append("review_image", review_img);
+    } else {
+      formData.append("review_image", "");
     }
 
     $.ajax({
@@ -1294,10 +1301,11 @@ function checkPassword(savedPassword, oneBoardNum, inputPasswordId) {
    });
    
    $(document).ready(function() {
+	   $(".inquiry-item").hide();
 
         // 총 데이터 개수와 한 페이지당 항목 개수를 설정하세요.
         var totalInquiryItems = ${oneBoardList2.size()};
-        var inquiryItemsPerPage = 10;
+        var inquiryItemsPerPage = 8;
 
         // 페이지 번호를 생성하세요.
         var inquiryTotalPages = Math.ceil(totalInquiryItems / inquiryItemsPerPage);

@@ -92,6 +92,10 @@ input#file-upload-button {
     border: none;
 	}		 
 	
+.review-img {
+  width: 80px; 
+  height: 80px;
+}  	
 </style>	
 	
 
@@ -616,7 +620,7 @@ input#file-upload-button {
                 "<td>" + review.review_title + "</td>" +
                 "<td>" + review.review_content + "</td>" +
                 "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                "<td><img src='" + review.review_img + "' alt='Review image' width='100'></td>" +
+                "<td>" + (review.review_img ? "<img src='" + review.review_img + "' class='review-img'>" : "") + "</td>" +
             "</tr>";
         }
         $("#getItemReviews tbody").html(rows);
