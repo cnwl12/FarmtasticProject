@@ -52,9 +52,6 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -76,17 +73,19 @@
                             
 									   <thead>
 									   <tr id="avg" style="background-color: #7fad39; color: #f8f9fc;">
-                                            <th colspan="2">월 정산액</th>
-                                            <th colspan="2">월 수수료</th>
-                                            <th colspan="2">월 매출</th>
+                                            <th colspan="2">업체 월매출</th>
+                                            <th colspan="2">업체 월정산액</th>
+                                            <th colspan="2">본사 월매출액</th>
+                                           
                                         </tr>
                                         </thead>
                                         <tbody id="avgContent">
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr>
+    										<td colspan="2" >${seller.month_sales}</td>
         									<td colspan="2">${seller.month_settlement}</td>
-        									<td colspan="2">${seller.month_fee}</td>
-        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.month_sales}</td>
+        									<td colspan="2"  style="color: black; font-weight: bold;">${seller.month_fee}</td>
+        									
     									</tr>
 									  </c:forEach>
                             			</tbody>
@@ -101,9 +100,10 @@
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>매출일</th>
-                                            <th>정산액</th>
-                                            <th>수수료</th>
-                                            <th>매출액(업체)</th>
+                                            <th>업체 매출액</th>
+                                            <th>업체 정산액</th>
+                                            <th>본사 매출(수수료)</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody id="monthlysales">
@@ -115,9 +115,9 @@
             									<td>${seller.seller_storeName}</td>
             									<td>${seller.seller_name}</td>
             									<td>${seller.pay_day}</td>
+            									<td>${seller.daily_sales}</td>
             									<td>${seller.daily_settlement}</td>
             									<td>${seller.daily_fee}</td>
-            									<td>${seller.daily_sales}</td>
         									</tr>
     									</c:if>
 									</c:forEach>

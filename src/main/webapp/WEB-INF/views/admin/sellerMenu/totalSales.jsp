@@ -52,9 +52,6 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -67,17 +64,19 @@
                             	<table class="table table-bordered" id="dataTable2">
                             		<thead>
                             		 	<tr id="totalavg" style="background-color: #7fad39; color: #f8f9fc;">
-                                            <th colspan="2">총 정산액</th>
-                                            <th colspan="2">총 수수료</th>
-                                            <th colspan="2">총 매출</th>
+                                            <th colspan="2">업체 총매출</th>
+                                            <th colspan="2">업체 총정산액</th>
+                                            <th colspan="2">본사 총매출</th>
+                                          
                                         </tr>
                                       </thead>
                                       <tbody>  
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr>
+    									    <td colspan="2">${seller.total_sales}</td>
         									<td colspan="2">${seller.total_settlement}</td>
-        									<td colspan="2">${seller.total_fee}</td>
-        									<td colspan="2" style="color: black; font-weight: bold;" >${seller.total_sales}</td>
+        									<td colspan="2"  style="color: black; font-weight: bold;" >${seller.total_fee}</td>
+        									
     									</tr>
 									  </c:forEach>
                             		</tbody>

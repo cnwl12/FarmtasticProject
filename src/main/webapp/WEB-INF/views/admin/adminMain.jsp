@@ -59,7 +59,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 매출액 (월별)</div>
                                                 <input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_settlement}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee}</div>
                                         </div>
                                         <div class="col-auto">
                                            <a href="sales"> <i class="fas fa-calendar fa-2x text-gray-300"></i></a>
