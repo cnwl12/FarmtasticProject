@@ -47,53 +47,53 @@
 
                  <jsp:include page="../inc/top.jsp"></jsp:include>
 
-                <!-- Begin Page Content -->
+                  <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">월별매출</h6>
-                            <div>
-                            
-    						<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
-    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 0, 4)}-${fn:substring(currentMonth, 5, 7)}</label>
-
-   			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
-   			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
-							
-							</div>
-                        </div>
+                       <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
+                          
                         <div class="card-body">
-                        
-                            	<table class="table table-bordered" id="dataTable2">
-                            
-									   <thead>
-									   <tr id="avg" style="background-color: #7fad39; color: #f8f9fc;">
-                                            <th colspan="2">업체 월매출</th>
-                                            <th colspan="2">업체 월정산액</th>
-                                            <th colspan="2">본사 월매출액</th>
+                           
+                                <table class="table table-bordered" id="dataTable">
+                                    <thead>
+                                        <tr  id="avg" style="background-color: #7fad39; color: #f8f9fc;">
+                                            <th>업체 월매출</th>
+                                            <th>업체 월정산액</th>
+                                            <th>본사 월매출액</th>
                                            
                                         </tr>
                                         </thead>
                                         <tbody id="avgContent">
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr>
-    										<td colspan="2" >${seller.month_sales}</td>
-        									<td colspan="2">${seller.month_settlement}</td>
-        									<td colspan="2"  style="color: black; font-weight: bold;">${seller.month_fee}</td>
-        									
+    										<td >${seller.month_sales}</td>
+        									<td >${seller.month_settlement}</td>
+        									<td style="color: black; font-weight: bold;">${seller.month_fee}</td>
     									</tr>
 									  </c:forEach>
                             			</tbody>
-                            	</table>
-                            	<div class="table-responsive">
+                                </table>
+                           
+                        </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4" id="sellerAdmin">
+                      <div>
+                        <h6 class="m-0 font-weight-bold text-primary">월별매출</h6>
+                    	<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
+    						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 0, 4)}-${fn:substring(currentMonth, 5, 7)}</label>
+
+   			 				<input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
+   			 				<button id="next_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">다음 월</button>
+							
+                        </div>
+                 
+                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
+                        <input type="hidden" id="actionType2" name="actionType" /> 
+                        <div class="card-body">
+                            <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable2">
-                                 
-                                    <thead>
+                                   <thead>
                                         
                                         <tr style="background-color: #edf1f5;" >
                                             <th>코드</th>
@@ -125,10 +125,19 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-
-                </div>
+                       </form>
+                      </div>
+                   </div>   
+                       
+              
                 <!-- /.container-fluid -->
+                
+                
+                
+                
+                
+                
+              
 
             </div>
             <!-- End of Main Content -->
@@ -214,9 +223,9 @@ $(document).ready(function () {
             $.each(data, function (index, item) {
                 if (index === 0) { // 첫 번째 요소만 추가
                     var newRow = $("<tr></tr>");
-                    newRow.append($("<td colspan='2'></td>").text(item.month_settlement));
-                    newRow.append($("<td colspan='2'></td>").text(item.month_fee));
-                    newRow.append($("<td colspan='2' style='color: black; font-weight: bold;'></td>").text(item.month_sales));
+                    newRow.append($("<td></td>").text(item.month_settlement));
+                    newRow.append($("<td></td>").text(item.month_fee));
+                    newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
                     tableBody2.append(newRow);
                 }
             });
