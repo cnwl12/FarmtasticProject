@@ -55,7 +55,7 @@
                           
                         <div class="card-body">
                            
-                                <table class="table table-bordered" id="dataTable">
+                                <table class="table table-bordered" id="customDataTable">
                                     <thead>
                                         <tr  id="avg" style="background-color: #7fad39; color: #f8f9fc;">
                                             <th>업체 월매출</th>
@@ -167,6 +167,14 @@
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	  $('#customDataTable').DataTable({
+	    "lengthChange": false,
+	    "searching": false,
+	    "paging": false,
+	    "info": false   
+	  });
+	});
 $(document).ready(function () {
     function pad(str) {
         return String(str).padStart(2, "0");
