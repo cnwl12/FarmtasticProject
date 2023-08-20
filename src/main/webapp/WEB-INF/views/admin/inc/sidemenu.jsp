@@ -44,13 +44,6 @@
                 <a class="nav-link" href="customerAdmin">
                     <span>회원관리</span></a>
             </li>
-            
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" href="cnotice">
-                    <span>신고관리</span></a>
-            </li>
-            -->
              <!-- Nav Item - Pages Collapse Menu -->
           
          
@@ -62,63 +55,34 @@
             <div class="sidebar-heading">
                 판매자
             </div>
-           
-
-            <!-- Nav Item - Pages Collapse Menu -->
-           
+      
 			<li class="nav-item">
                 <a class="nav-link" href="sellerAdmin">
                     <span>업체관리</span></a>
             </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">
+                    <span>상품관리</span></a>
+            </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="settlement">
                     <span>정산관리</span></a>
             </li>
-            <!--  	
-            <li class="nav-item">
-                <a class="nav-link" href="sales">
-                    <span>매출관리</span></a>
+            
+             <div class="sidebar-heading">
+                매출관리
+            </div>
+             <li class="nav-item">
+                <a class="nav-link"  href="sales">
+                    <span>월매출관리</span></a>
             </li>
-            -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="sales" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <span>매출관리</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="sales">월매출관리</a>
-                        <a class="collapse-item" href="totalSales">총매출관리</a>
-                    </div>
-                </div>
-            </li>	
- 	<!-- 		
-            <li class="nav-item">
-                <a class="nav-link" href="notetest">
-                    <span>글쓰기테스트</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="totalSales">
+                    <span>총매출관리</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="writeCnote">
-                    <span>글쓰기2</span></a>
-            </li>	
-            <li class="nav-item">
-                <a class="nav-link" href="content">
-                    <span>글보기</span></a>
-            </li>	
-            Nav Item - Charts
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            Nav Item - Tables
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
- -->
+         
+ 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
