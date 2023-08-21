@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
@@ -248,4 +249,11 @@ public class SellerDAO {
 		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
 
+		public void withderawSeller(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerDAO withdrawMember()");
+			sqlSession.insert(namespace+".withderawSeller", sellerDTO);
+			
+		}
+		
 }

@@ -168,6 +168,47 @@ public class SellerController {
 	    }
 	}
 	
+	
+	
+	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
+	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "seller_id", required = false) String seller_id,
+			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
+		System.out.println("SellerController withdrawPro");
+		String seller_num = (String) session.getAttribute("seller_num");
+
+		// 입력된 값들도 세션에 저장합니다.
+		session.setAttribute("seller_id", seller_id);
+		session.setAttribute("seller_pass", seller_pass);
+		
+
+		SellerDTO sellerDTO = new SellerDTO();
+		sellerDTO.setSeller_num(seller_num);
+		sellerDTO.setSeller_id(seller_id);
+		sellerDTO.setSeller_pass(seller_pass);
+
+		SellerDTO sellerDTO2 = sellerService.sellerCheck2(sellerDTO);
+		
+		if (sellerDTO2 != null && sellerDTO2.getSeller_pass().equals(seller_pass)) {
+			// memberDTO 객체에 입력된 값들을 설정합니다.
+			sellerDTO.setSeller_id(seller_id);
+			sellerDTO.setSeller_pass(seller_pass);
+			
+			
+			sellerService.withdrawSeller(sellerDTO);
+			
+			
+			model.addAttribute("error", "회원탈퇴완료 잘가요.");
+			session.invalidate();
+			
+			return "redirect:/login";
+			
+		} else {
+			
+			
+			model.addAttribute("message", "비밀번호가 틀립니다");
+			return "redirect:/sellerMain";
+		}
+	}
 
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)

@@ -607,6 +607,13 @@ ORDER BY MONTH(os.order_day);
     <if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if>
 	
 </select>
+
+<update id="withderawSeller">
+ 	 UPDATE seller
+  	SET seller_recoYn = 'M',
+      <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
+  	WHERE seller_id = #{seller_id}
+  	</update>
   	
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}

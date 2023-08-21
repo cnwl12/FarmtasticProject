@@ -263,4 +263,12 @@ public class SellerService {
 	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
 	    }
 	    
+	    public void withdrawSeller(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerService withdrawMember()");
+			
+			sellerDAO.withderawSeller(sellerDTO);
+			
+		}
+	    
 }
