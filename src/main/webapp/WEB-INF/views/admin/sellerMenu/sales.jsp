@@ -167,7 +167,7 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 
 <script>
-
+var dataTable2; 
 $(document).ready(function(){
     $('#salesTable').DataTable({
         "lengthChange": false,
@@ -177,6 +177,14 @@ $(document).ready(function(){
         "sDom": '<"top"i>rt<"bottom"flp><"clear">',
         "ordering": false
     });
+    dataTable2 = $("#dataTable2").DataTable({
+        "paging": true,
+        "info": true,
+        "ordering": true,
+        "searching": true,
+        "retrieve": true
+    });
+
 });
 
 $(document).ready(function () {
@@ -218,7 +226,7 @@ $(document).ready(function () {
     });
     function updateSalesTableByMonth(monthly) {
         var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
-
+        dataTable2.destroy(); // 이 줄을 추가하세요.
         // 월별 데이터 가져오기
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody = $("#monthlysales");
@@ -239,14 +247,24 @@ $(document).ready(function () {
                 newRow.append($("<td></td>").text(item.daily_sales));
                 tableBody.append(newRow);
             });
-        
+            if ($.fn.DataTable.isDataTable('#dataTable2')) {
+                $('#dataTable2').DataTable().destroy();
+            }
+            dataTable2 = $("#dataTable2").DataTable({
+                "paging": true,
+                "info": true,
+                "ordering": true,
+                "searching": true,
+                "retrieve": true
+            });
+
             $("#hidden_month").val(monthly);
             var updatedYear = parseInt(monthly.substr(0, 4));
             var updatedMonth = parseInt(monthly.substr(5, 2));
             $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
         });
         
-        // dataTable2에 대한 업데이트
+       
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody2 = $("#avgContent");
             tableBody2.empty(); // 기존 데이터 삭제
@@ -263,7 +281,7 @@ $(document).ready(function () {
             });
             
         });
-        
+        updateDataTable2(monthly);
     }
 
 
