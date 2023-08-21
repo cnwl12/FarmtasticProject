@@ -48,22 +48,6 @@ public class SellerController {
 	@Inject
 	private SellerService sellerService;
 	
-	
-//  // 응답메시지 전송
-//  private void sendResponse(HttpServletResponse response, String message) {
-//      try {
-//          response.setContentType("text/html;charset=UTF-8");
-//          PrintWriter out = response.getWriter();
-//          out.println("<script>");
-//          out.println("alert('" + message + "');");
-//          out.println("history.back();");
-//          out.println("</script>");
-//          out.close();
-//      } catch (IOException e) {
-//          e.printStackTrace();
-//      }
-//  }
-	
 		
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) throws IOException {
@@ -459,16 +443,13 @@ public class SellerController {
 	public String itemInsert(Model model, HttpSession session) {
 
 		if (session.getAttribute("seller_num") == null) {
-	        // 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
-	    String seller_num = (String) session.getAttribute("seller_num");
+	    session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
-	    
-		System.out.println("셀러고유번호 확인 : "+seller_num);
 		
 		return "/seller/itemRegister";
 	    }
@@ -529,7 +510,6 @@ public class SellerController {
 	public String itemMng(Model model, HttpSession session) {
 	   
 		if (session.getAttribute("seller_num") == null) {
-			// 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {

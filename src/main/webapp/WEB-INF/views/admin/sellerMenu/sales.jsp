@@ -45,7 +45,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                 <jsp:include page="../inc/top.jsp"></jsp:include>
+               <jsp:include page="../inc/top.jsp"></jsp:include>
 
                   <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -55,7 +55,7 @@
                           
                         <div class="card-body">
                            
-                                <table class="table table-bordered" id="customDataTable">
+                                <table class="table table-bordered" id="salesTable">
                                     <thead>
                                         <tr  id="avg" style="background-color: #7fad39; color: #f8f9fc;">
                                             <th>업체 월매출</th>
@@ -66,7 +66,7 @@
                                         </thead>
                                         <tbody id="avgContent">
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
-    									<tr>
+    									<tr style="background-color: #ffffff;">
     										<td >${seller.month_sales}</td>
         									<td >${seller.month_settlement}</td>
         									<td style="color: black; font-weight: bold;">${seller.month_fee}</td>
@@ -89,7 +89,6 @@
                         </div>
                  
                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
-                        <input type="hidden" id="actionType2" name="actionType" /> 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable2">
@@ -111,7 +110,7 @@
     									<c:set var="sellerMonth" value="${seller.monthly}" />
    										<c:if test="${sellerMonth == currentMonth}">
         									<tr>
-        										 <td><a href="${pageContext.request.contextPath}/detailSales?seller_num=${seller.seller_num}&pay_day=${seller.pay_day}">${seller.seller_num}</a></td>
+        										<td><a href="${pageContext.request.contextPath}/detailSales?seller_num=${seller.seller_num}&pay_day=${seller.pay_day}">${seller.seller_num}</a></td>
             									<td>${seller.seller_storeName}</td>
             									<td>${seller.seller_name}</td>
             									<td>${seller.pay_day}</td>
@@ -166,15 +165,20 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+
 <script>
+
 $(document).ready(function(){
-	  $('#customDataTable').DataTable({
-	    "lengthChange": false,
-	    "searching": false,
-	    "paging": false,
-	    "info": false   
-	  });
-	});
+    $('#salesTable').DataTable({
+        "lengthChange": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "sDom": '<"top"i>rt<"bottom"flp><"clear">',
+        "ordering": false
+    });
+});
+
 $(document).ready(function () {
     function pad(str) {
         return String(str).padStart(2, "0");
@@ -192,7 +196,26 @@ $(document).ready(function () {
         }
         return year + "-" + pad(month);
     }
+    function pad(d) {
+    	   return (d < 10) ? '0' + d.toString() : d.toString();
+    }
+    $(document).ready(function () {
+        $("#prev_month").click(function () {
+            var currentMonth = $("#hidden_month").val();
+            var currentDate = new Date(currentMonth + "-01");
+            currentDate.setMonth(currentDate.getMonth() - 1);
+    		var newMonth = currentDate.toISOString().substr(0, 7);
+            updateSalesTableByMonth(newMonth);
+        });
 
+        $("#next_month").click(function () {
+            var currentMonth = $("#hidden_month").val();
+            var currentDate = new Date(currentMonth + "-01");
+            currentDate.setMonth(currentDate.getMonth() + 1);
+    		var newMonth = currentDate.toISOString().substr(0, 7);
+            updateSalesTableByMonth(newMonth);
+        });
+    });
     function updateSalesTableByMonth(monthly) {
         var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
 
@@ -222,6 +245,7 @@ $(document).ready(function () {
             var updatedMonth = parseInt(monthly.substr(5, 2));
             $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
         });
+        
         // dataTable2에 대한 업데이트
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody2 = $("#avgContent");
@@ -237,22 +261,17 @@ $(document).ready(function () {
                     tableBody2.append(newRow);
                 }
             });
+            
         });
+        
     }
 
-    $("#prev_month").click(function () {
-        var currentMonth = $("#hidden_month").val();
-        var updatedMonth = incrementMonth(currentMonth, -1);
-        updateSalesTableByMonth(updatedMonth);
-    });
 
-    $("#next_month").click(function () {
-        var currentMonth = $("#hidden_month").val();
-        var updatedMonth = incrementMonth(currentMonth, +1);
-        updateSalesTableByMonth(updatedMonth);
-    });
+
 });
 </script>
+
+
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
     <!-- Core plugin JavaScript-->

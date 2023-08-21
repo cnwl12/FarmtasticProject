@@ -63,6 +63,21 @@
 
 <body>
    <jsp:include page="../top.jsp"></jsp:include>
+   
+      <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
+        <div class="container"> 
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>MyPage</h2> 
+                        <div class="breadcrumb__option">
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </section>
+   
    <section class="blog spad" style="padding-top: 10px;">
       <div class="container">
          <div class="row">
@@ -858,7 +873,7 @@ $(document).ready(function() {
                 orderDetailTable.innerHTML += tableHtml;
  
                 // 팝업 창 닫기 버튼 추가
-                popup.document.write('<div><button onclick="window.close()">닫기</button></div>');
+                popup.document.write('<div style="margin: 0% 43%;"><button onclick="window.close()">닫기</button></div>');
  
                 popup.document.write("</body></html>");
             } 

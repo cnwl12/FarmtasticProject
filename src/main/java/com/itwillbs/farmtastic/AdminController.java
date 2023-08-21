@@ -790,4 +790,27 @@ public class AdminController {
 	    adminService.blogDelete(admin_blog_num);
 	    return "redirect:/blogMng";
 	}
+	
+	@RequestMapping(value = "/adminItemList", method = RequestMethod.GET)
+	public String adminItemList(HttpSession session, Model model) {
+
+			String admin_id = (String) session.getAttribute("admin_id");
+			Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+			model.addAttribute("admin", adminInfo);
+		
+			List<Map<String, Object>> itemList = adminService.getItemList();
+			model.addAttribute("itemList", itemList);
+		
+		return "/admin/sellerMenu/adminItemList";
+	}
+	
+	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
+		@RequestMapping(value = "/ChangeItemStatus", method = RequestMethod.GET)
+
+		public String ChangeItemStatus(@RequestParam HashMap<String, String> status, Model model, HttpSession session){
+			
+			adminService.ChangeItemStatus(status);
+			return "redirect:/adminItemList";
+		}
+	
 }

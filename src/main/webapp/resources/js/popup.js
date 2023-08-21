@@ -67,7 +67,7 @@ function generateCancelContent(orderNum, cancelList) {
     content += `
             </tbody>
         </table>
-        <div style="">
+        <div style='margin: 0% 43%;'>
         <button onclick="window.close()">닫기</button>
         </div>
     </body>

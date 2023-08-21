@@ -9,21 +9,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>seller/itemMng</title>
+    <title>ItemList</title>
 
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/app.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/pace.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/naver/naverCss/vendors.css">
-    
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
-
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<!-- 사이드바 줄어든거 되돌리기 -->
 	<style type="text/css">
 	 html {font-size: 1rem !important;}
@@ -32,14 +32,10 @@
 	</style>
 
 <script type="text/javascript">
-	function itemUpdate(item_num){
-		location.href="itemUpdate?item_num="+item_num;
-	}
-	
 	function updateStatus(item_num){
 		
 		if(confirm("판매상태를 변경하시겠습니까?")){
-			location.href="updateStatus?item_num="+item_num;
+			location.href="ChangeItemStatus?item_num="+item_num;
 		}
 	}
 	</script>
@@ -50,7 +46,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-		<jsp:include page="./inc/sidemenu.jsp"></jsp:include>
+		<jsp:include page="../inc/sidemenu.jsp"></jsp:include>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -58,7 +54,7 @@
             <!-- 메인 컨텐츠 시작 -->
 			<div id="content">
 
-				<jsp:include page="./inc/top.jsp"></jsp:include>
+				<jsp:include page="../inc/top.jsp"></jsp:include>
 
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
@@ -71,24 +67,21 @@
 								<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 									<thead>
 										<tr>
-											<th>상품 타입</th>
+											<th>업체명</th>
+											<th>상품번호</th>
+											<th>상품타입</th>
 											<th>상품명</th>
-											<th>가격</th> 
-											<th>상품 이미지</th>
-											<th>상품 설명</th>
 											<th>재고</th>
-											<th>상태</th>
+											<th>판매상태</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="item" items="${itemList}">
 											<tr>
+												<td>${item.seller_storeName}</td>
+												<td>${item.item_num}</td>
 												<td>${item.seller_type}</td>
-												<td>  					
-												<a href="itemUpdate?item_num=${item.item_num}">${item.item_name}</a></td> 
-												<td>${item.item_price}</td>
-												<td><a href="farmStoreDetail?item_num=${item.item_num}"><img src="${item.item_mainImg}" style="width: 200px; height: 100px"></a></td>
-												<td>${item.item_detail}</td>
+												<td>${item.item_name}</td> 
 												<td>${item.item_left}</td>
 												<td>
 													<c:choose>
@@ -96,7 +89,7 @@
 															<button id="none" onclick="updateStatus(${item.item_num})">판매중지</button>
 														</c:when>
 														<c:otherwise>
-															<button id="none" onclick="updateStatus(${item.item_num})">판매중</button>
+															<button id="none" onclick="updateStatus(${item.item_num})">판매</button>
 														</c:otherwise>
 													</c:choose> 
 									     	    </td>

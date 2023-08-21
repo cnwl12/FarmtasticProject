@@ -61,7 +61,7 @@
                     <span>업체관리</span></a>
             </li>
               <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="adminItemList">
                     <span>상품관리</span></a>
             </li>
             
