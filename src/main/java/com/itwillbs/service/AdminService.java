@@ -128,4 +128,7 @@ public class AdminService {
 	public void ChangeItemStatus(HashMap<String, String> status) {
 		adminDAO.ChangeItemStatus(status);
 	}
+	public void insertCate(HashMap<String, String> category) {
+		adminDAO.insertCate(category);
+	}
 }

@@ -74,7 +74,7 @@
 
 								<div class="card-body">
 									<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-										id="addCate" type="submit">카테고리 추가</button>
+										id="addCate" type="button">행추가</button>
 									<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
 										id="insertCate" type="submit">카테고리 등록</button>
 									<div class="table-responsive">
@@ -82,12 +82,14 @@
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
+													<th><input type="checkbox" class="cateCheck"/></th>
 													<th>카테고리타입(seller_type)</th>
 													<th>카테고리명</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
+													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
 													<td><input type="text" name="newCategoryType[]" placeholder="카테고리 타입입력"></td>
 													<td><input type="text" name="newCategoryName[]" placeholder="카테고리 이름입력"></td>
 												</tr>
@@ -194,8 +196,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/adminItem.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/adminItem.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->

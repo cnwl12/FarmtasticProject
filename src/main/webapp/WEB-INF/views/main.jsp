@@ -104,7 +104,7 @@
                             <i class="fa fa-bars"></i>
                             <span>모든 카테고리</span>
                         </div>
-                        <ul>
+                        <ul style="display: block;">
                             <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
                             <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
