@@ -249,7 +249,6 @@ body {
 							<div class="input-content inner-content">
 								<div class="form-section-sub">
 										<div class="form-sub-wrap">
-											<label class="control-label">대표이미지<i class="icon-must" aria-label="필수항목"></i></label>
 											<div class="input-content">
 												<div class="seller-product-img add-img">
 													<div class="wrap-img">
@@ -257,7 +256,8 @@ body {
 															<li>
 																<div class="register-img">
 																	<img src="${item.item_mainImg}" style="width:300px; height : 100px;">
-																	<input type="hidden" name="item_mainImg" value="${item.item_mainImg}">
+																	<input type="hidden" name="item_mainImg" value="${item.item_mainImg}"><br>
+																	<div style="font-size: 17px;">[기존 이미지]</div>
 																</div> 
 															</li>
 															<li>

@@ -63,5 +63,30 @@ function clearCart(){
 	}
 }
 
+// 개별 삭제 (1개의 상품만)
+function insertCart(item_num) {
+    var cart_cnt = 1; 
+
+    $.ajax({
+        url: "insertCart",
+        type: "GET",
+        data: {
+            item_num: item_num,
+            cart_cnt: cart_cnt
+        },
+        success: function(response) {
+            // 추가성공
+        },
+        error: function() {
+            console.log("상품 추가 중 오류 발생");
+        }
+    });
+
+    var confirmMove = confirm("장바구니로 이동하시겠습니까?");
+    if (confirmMove) {
+        location.href = "shoppingCart";
+    }
+}
+
 
 

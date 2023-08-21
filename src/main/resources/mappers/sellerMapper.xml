@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="SellerMapper">
     <select id="getSellers" resultType="map">
 		WITH monthly_seller_data AS (
@@ -121,10 +122,11 @@
 		seller_post = #{seller_post},
 		seller_addMain = #{seller_addMain},
 		seller_addSub = #{seller_addSub},
-		seller_file = #{seller_file}
-		seller_pass  = #{new_seller_pass},
+		seller_file = #{seller_file}, 
+		seller_pass  = #{seller_pass2},
       <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
-	WHERE seller_num = #{seller_num}
+	WHERE seller_id = #{seller_id}
+
     </update>
 	 
 	<!-- 선진) 해당 월의 일자별 매출 차트 -->
@@ -429,7 +431,6 @@
         END
     WHERE item_num = #{item_num} AND seller_num = #{seller_num};
 	</update>
-	
 		
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
@@ -453,6 +454,7 @@
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
+       		 ,item_salesStatus
        FROM item
        WHERE seller_num = #{seller_num}
        ORDER BY item_num desc
@@ -628,12 +630,30 @@ ORDER BY MONTH(os.order_day);
     select * from seller
     where seller_id = #{seller_id}
     and seller_pass = #{seller_pass}
-    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn is null)
+    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'M' or seller_recoYn  is null)
 </select>
 
-
-
-
+<select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">
+    select * from seller
+    where seller_num = #{seller_num}
+    and seller_id = #{seller_id}
+    <if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if>
+	
+</select>
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withdrawSeller">
+ 	 UPDATE seller
+  	SET seller_recoYn = 'M',
+     <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
+  	WHERE seller_id = #{seller_id}
+  	</update>
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withderawSellerstopselling">
+	UPDATE item 
+	JOIN seller s ON item.seller_num = s.seller_num
+	SET item_salesStatus = 'N'
+	WHERE s.seller_recoYn = 'M';
+</update>
 
   	
   	<select id="idCheck" resultType="String">

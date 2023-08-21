@@ -321,11 +321,20 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".cancelDelete", cancel);
 	}
 	
-	public String searchId(String email) {
-		return sqlSession.selectOne(namespace + ".searchId", email);
+	public List<HashMap> searchId(String email) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("member_email", email);
+	    return sqlSession.selectList(namespace + ".searchId", params);
+	}
+	
+	public List<HashMap> searchPwd(String email, String id) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("member_email", email);
+	    params.put("member_id", id);
+	    return sqlSession.selectList(namespace + ".searchPwd", params);
 	}
 
-
+    
 	public void withderawMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO withdrawMember()");
 		

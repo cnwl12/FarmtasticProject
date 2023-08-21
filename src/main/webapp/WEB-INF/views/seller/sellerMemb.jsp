@@ -10,6 +10,7 @@
 	<meta name="author" content="">
 	
 	
+	
 	<title>seller/sellerMng</title>
 	
 	<!-- Custom fonts for this template -->
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<li>
 									<label class="control-label">로그인ID</label>
 										<div class="input-content">
-											<div class="form-control-static">${seller.seller_id}</div>
+											<div class="form-control-static"><input type="hidden" class="form-control" id="seller_id" name="seller_id" value="${seller.seller_id}">${seller.seller_id}</div>
 										</div>
 									</li>
 									<li>
@@ -177,10 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
 												<input type="password" class="form-control" id="seller_pass"
                                              name="seller_pass" size="26" maxlength="15"
                                              onkeydown="return keycheck(this.event);"
-                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
-                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
-                                             onfocus="helpOn('new_seller_pass');"
-                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             onkeypress="Capskeycheck(this,'seller_pass2');"
+                                             onkeyup="validateNewPassword(this,'seller_pass2');"
+                                             onfocus="helpOn('seller_pass2');"
+                                             onblur="chkBlur(this,'seller_pass2');"
                                              style="width: 195px;"><span class="font_style1">&nbsp;현재
                                                 비밀번호를 입력해 주세요</span>
 											</div>
@@ -190,13 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
 									<label class="control-label">새로운비밀번호</label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
-												<input type="password" class="form-control" id="new_seller_pass"
-                                             name="new_seller_pass" size="26" maxlength="15"
+												<input type="password" class="form-control" id="seller_pass2"
+                                             name="seller_pass2" size="26" maxlength="15"
                                              onkeydown="return keycheck(this.event);"
-                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
-                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
-                                             onfocus="helpOn('new_seller_pass');"
-                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             onkeypress="Capskeycheck(this,'seller_pass2');"
+                                             onkeyup="validateNewPassword(this,'seller_pass2');"
+                                             onfocus="helpOn('seller_pass2');"
+                                             onblur="chkBlur(this,'seller_pass2');"
                                              style="width: 195px;"><span class="font_style1">&nbsp;새로운
                                                 비밀번호를 입력해 주세요</span>
 											</div>
@@ -209,10 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
 												<input type="password" class="form-control" id="pwd2"
                                              name="pwd2" size="26" maxlength="15"
                                              onkeydown="return keycheck(this.event);"
-                                             onkeypress="Capskeycheck(this,'new_seller_pass');"
-                                             onkeyup="validateNewPassword(this,'new_seller_pass');"
-                                             onfocus="helpOn('new_seller_pass');"
-                                             onblur="chkBlur(this,'new_seller_pass');"
+                                             onkeypress="Capskeycheck(this,'seller_pass2');"
+                                             onkeyup="validateNewPassword(this,'seller_pass2');"
+                                             onfocus="helpOn('seller_pass2');"
+                                             onblur="chkBlur(this,'seller_pass2');"
                                              style="width: 195px;"><span id="message" Style="color: red; margin-left: 10px;"></span>
 											</div>
 										</div>
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<label class="control-label">휴대폰 <br class="visible-xs">번호 <!-- 이 클래스는 뭐지?  --> </label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
-												<input type="text" class="form-control seller_edit" name="seller_mobile" value="${seller.seller_mobile}">
+												<input type="text" class="form-control seller_edit" name="seller_phone" value="${seller.seller_phone}">
 											</div>
 										</div>
 									</li>
@@ -400,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						
 							<div class="seller-btn-area btn-group-xlg">
 								<button class="btn btn-primary" type="submit" id="img_submit">정보 수정</button>
+								<button id="withdrawBtn" onclick="withdraw()" class="btn btn-primary">회원 탈퇴</button>
 							</div>
 						</div>
 						<!-- 배송정보 끝 -->
@@ -499,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
 	function validateNewPassword() {
-		  var newPassword = document.getElementById("new_seller_pass").value;
+		  var newPassword = document.getElementById("seller_pass2").value;
 		  var confirmPassword = document.getElementById("pwd2").value;
 
 		  if (newPassword !== confirmPassword) {
@@ -520,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	    // 입력 필드의 값을 가져옵니다.
 	    var currentPassword = $('#seller_pass').val();
-	    var newPassword = $('#new_seller_pass').val();
+	    var newPassword = $('#seller_pass2').val();
 	    var confirmPassword = $('#pwd2').val();
 
 	    // 입력값이 유효한지 검사합니다.
@@ -539,6 +541,35 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	 });
 
+ function withdraw() {
+	  const result = confirm("정말로 탈퇴하시겠습니까?");
+	  event.preventDefault();
+	  if (result === true) {
+	    // 폼 데이터 전송
+	    
+	    const form = $('<form>', {
+	      'action': '${pageContext.request.contextPath }/withdrawPro',
+	      'method': 'POST'
+	    }).append($('<input>', {
+	      'name': 'seller_id',
+	      'value': $('#seller_id').val() // id 값 전송
+	    })).append($('<input>', {
+	      'name': 'seller_pass',
+	      'value': $('#seller_pass').val() // 비밀번호 값 전송
+	    })).append($('<input>', {
+	      'name': 'withdraw',
+	      'value': 'withdraw' // 회원 탈퇴 기능을 처리하는 값을 전송
+	    })).appendTo('body').submit();
+	    $(this).unbind(event);
+	  } else {
+	    // 취소 버튼을 클릭한 경우의 처리
+	    alert("회원 탈퇴가 취소되었습니다.");
+	   
+	  }
+	}
+
+ 
+ 
 </script>
 
 

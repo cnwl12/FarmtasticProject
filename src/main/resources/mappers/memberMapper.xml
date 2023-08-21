@@ -614,10 +614,18 @@
     </select>
     
   	<!-- 아이디 찾기 -->
-	<select id="searchId" parameterType="String" resultType="String">
+	<select id="searchId" parameterType="map" resultType="map">
 		SELECT member_id
 		FROM member
 		WHERE member_email = #{member_email}
 	</select>
+	
+		<!-- 비밀번호 찾기 -->
+		<select id="searchPwd" parameterType="map" resultType="map">
+			SELECT member_pass
+			FROM member
+			WHERE member_email = #{member_email}
+			AND member_id = #{member_id}
+		</select>
  
 </mapper>
