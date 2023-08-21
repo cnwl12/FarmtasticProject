@@ -608,13 +608,21 @@ ORDER BY MONTH(os.order_day);
     <if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if>
 	
 </select>
-
-<update id="withderawSeller">
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withdrawSeller">
  	 UPDATE seller
   	SET seller_recoYn = 'M',
-      <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
+     <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
   	WHERE seller_id = #{seller_id}
   	</update>
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withderawSellerstopselling">
+	UPDATE item 
+	JOIN seller s ON item.seller_num = s.seller_num
+	SET item_salesStatus = 'N'
+	WHERE s.seller_recoYn = 'M';
+</update>
+
   	
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}

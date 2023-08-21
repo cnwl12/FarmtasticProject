@@ -266,10 +266,15 @@ public class SellerService {
 	    
 	    public void withdrawSeller(SellerDTO sellerDTO) {
 			
-			System.out.println("SellerService withdrawMember()");
+			System.out.println("SellerService withdrawSeller()");
 			
-			sellerDAO.withderawSeller(sellerDTO);
+			sellerDAO.withdrawSeller(sellerDTO);
 			
+		}
+		public void withderawSellerstopselling(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerService withderawSellerstopselling()");
+			sellerDAO.withderawSellerstopselling(sellerDTO);
 		}
 	    
 }

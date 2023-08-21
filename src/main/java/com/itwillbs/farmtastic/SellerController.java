@@ -156,6 +156,7 @@ public class SellerController {
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.POST)
 	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "seller_id", required = false) String seller_id,
+			@RequestParam(value = "seller_recoYn", required = false) String seller_recoYn,
 			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
 		System.out.println("SellerController withdrawPro");
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -179,8 +180,8 @@ public class SellerController {
 			
 			
 			sellerService.withdrawSeller(sellerDTO);
-			
-			
+			sellerDTO.setSeller_recoYn(seller_recoYn);
+			sellerService.withderawSellerstopselling(sellerDTO);
 			model.addAttribute("error", "회원탈퇴완료 잘가요.");
 			session.invalidate();
 			

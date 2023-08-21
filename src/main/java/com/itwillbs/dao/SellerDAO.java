@@ -248,10 +248,17 @@ public class SellerDAO {
 		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
 
-		public void withderawSeller(SellerDTO sellerDTO) {
+		public void withdrawSeller(SellerDTO sellerDTO) {
 			
-			System.out.println("SellerDAO withdrawMember()");
-			sqlSession.insert(namespace+".withderawSeller", sellerDTO);
+			System.out.println("SellerDAO withdrawSeller()");
+			sqlSession.insert(namespace+".withdrawSeller", sellerDTO);
+			
+		}
+
+		public void withderawSellerstopselling(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerDAO withderawSellerstopselling()");
+			sqlSession.insert(namespace+".withderawSellerstopselling", sellerDTO);
 			
 		}
 		
