@@ -153,7 +153,7 @@ public class SellerController {
 	
 	
 	
-	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
+	@RequestMapping(value = "/withdrawPro", method = RequestMethod.POST)
 	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "seller_id", required = false) String seller_id,
 			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
 		System.out.println("SellerController withdrawPro");

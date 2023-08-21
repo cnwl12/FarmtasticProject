@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    
 	    const form = $('<form>', {
 	      'action': '${pageContext.request.contextPath }/withdrawPro',
-	      'method': 'GET'
+	      'method': 'POST'
 	    }).append($('<input>', {
 	      'name': 'seller_id',
 	      'value': $('#seller_id').val() // id 값 전송
