@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.SellerDAO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
@@ -48,9 +49,9 @@ public class SellerService {
 		}
 		
 		// 선진) 판매자 정보 수정
-		public void updateSeller(Map<String, Object> sellerInfo) {
+		public void updateSeller(SellerDTO sellerDTO) {
 
-			sellerDAO.updateSeller(sellerInfo);
+			sellerDAO.updateSeller(sellerDTO);
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
@@ -214,6 +215,12 @@ public class SellerService {
 		    return sellerDAO.sellerCheck1(sellerDTO);
 	    }
 		
+		public SellerDTO sellerCheck2(SellerDTO sellerDTO) {
+		    System.out.println("SellerService sellerCheck2()");
+		    
+		    return sellerDAO.sellerCheck2(sellerDTO);
+	    }
+	
 		public String idCheck(String seller_num) {
 	         System.out.println("SellerService idCheck()");
 	       

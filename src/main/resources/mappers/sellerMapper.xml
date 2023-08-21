@@ -121,10 +121,11 @@
 		seller_post = #{seller_post},
 		seller_addMain = #{seller_addMain},
 		seller_addSub = #{seller_addSub},
-		seller_file = #{seller_file}
-		seller_pass  = #{new_seller_pass},
+		seller_file = #{seller_file}, 
+		seller_pass  = #{seller_pass2},
       <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
-	WHERE seller_num = #{seller_num}
+	WHERE seller_id = #{seller_id}
+
     </update>
 	 
 	<!-- 선진) 해당 월의 일자별 매출 차트 -->
@@ -599,10 +600,13 @@ ORDER BY MONTH(os.order_day);
     and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn is null)
 </select>
 
-
-
-
-
+<select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">
+    select * from seller
+    where seller_num = #{seller_num}
+    and seller_id = #{seller_id}
+    <if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if>
+	
+</select>
   	
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}

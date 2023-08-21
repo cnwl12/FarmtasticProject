@@ -557,5 +557,14 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
+<script type="text/javascript">
+	 
+	let message = '<%=request.getParameter("message")%>';
+	if (message !== 'null' && message !== null && message !== undefined) {
+        alert(message);
+    }
+	
+	
+</script>
 </body>
 </html>
