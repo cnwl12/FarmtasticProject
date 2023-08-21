@@ -295,7 +295,7 @@ public class MemberService {
 		 memberDAO.cancelDelete(cancel);
 	}
 	
-    public String searchId(String email) {
+    public List<HashMap> searchId(String email) {
         return memberDAO.searchId(email);
     }
     

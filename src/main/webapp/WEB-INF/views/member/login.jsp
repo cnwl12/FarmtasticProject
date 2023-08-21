@@ -102,8 +102,8 @@ function enterCheck2(event) {
 								<legend>체크 옵션</legend>
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
-										<li><a href="searchId" class="fs-13">아이디찾기</a></li>
-										<li><a href="searchPwd" class="fs-13">비밀번호찾기</a></li>
+										<li><a href="#" class="fs-13" onclick="openSearchIdPopup()">아이디찾기</a></li>
+										<li><a href="#" class="fs-13" onclick="openSearchPwdPopup()">비밀번호찾기</a></li>
 									</ul>
 								</div>
 							</fieldset>
@@ -182,6 +182,14 @@ function enterCheck2(event) {
 								<script>
 								    function openNaverLoginPopup() {
 								        window.open('naverlogin', 'naver-login-popup', 'width=600, height=500');
+								    }
+								    
+								    function openSearchIdPopup() {
+								        window.open('searchId', 'search-id-popup', 'width=600, height=500');
+								    }
+								    
+								    function openSearchPwdPopup() {
+								        window.open('searchPwd', 'search-Pwd-popup', 'width=600, height=500');
 								    }
 								</script>
 							</div>

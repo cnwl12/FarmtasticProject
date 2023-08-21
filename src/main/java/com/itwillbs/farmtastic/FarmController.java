@@ -1260,15 +1260,19 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
 	@ResponseBody
-	public String searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
-	    String searchId = memberService.searchId(email);
+	public List<HashMap> searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
+	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
+	    List<HashMap> searchId = memberService.searchId(email);
 	    if(code.equals(session.getAttribute("verificationCode"))) {
 	    	System.out.println("일치");
-	        return searchId;
+	    	result.addAll(searchId); // 검색 결과를 List<HashMap>에 추가
 	    }else {
 	    	System.out.println("일치하지않음");
-	        return "Inconsistency verificationCode"; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
+	        HashMap<String, String> error = new HashMap<>();
+	        error.put("error", "Inconsistency verificationCode");
+	        result.add(error); // 에러 메시지를 List<HashMap>에 추가
 	    }
+	    return result; // List<HashMap> 반환
 	}
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet2", method = RequestMethod.GET)
