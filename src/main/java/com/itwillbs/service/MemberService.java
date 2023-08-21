@@ -231,9 +231,13 @@ public class MemberService {
 		memberDAO.deleteWishlist(wishlistDTO);
 	}
 	
-	public void insertOrders(HashMap<String, Object> payInfo) {
+	public String insertOrders(HashMap<String, Object> payInfo) {
+		System.out.println("MemberService insertOrders" + payInfo );
 		memberDAO.insertOrders(payInfo);
-		System.out.println("MemberService insertOrders");
+		String order_num = (String) payInfo.get("order_num");
+		System.out.println(order_num);
+		
+		return order_num;
 	}
 
 

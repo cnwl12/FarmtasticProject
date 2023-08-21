@@ -70,7 +70,8 @@
 		ON c.member_num = o.member_num
 		JOIN item i
 		ON c.item_num = i.item_num
-		WHERE c.member_num = #{member_num};
+		WHERE c.member_num = #{member_num}
+		AND o.order_num = #{order_num};
 	</insert>	
   	  	  	
   	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
@@ -274,7 +275,7 @@
     JOIN item i ON i.item_num = od.item_num
     WHERE o.member_num = #{member_num}
     GROUP BY o.order_num, o.order_cancel
-    ORDER BY o.order_num;
+    ORDER BY o.order_num desc;
 	</select>
 	
 	<!-- 주문 상세 내역 불러오기  -->
