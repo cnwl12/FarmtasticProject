@@ -167,8 +167,19 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 
 <script>
-$(document).ready(function () {
 
+$(document).ready(function(){
+    $('#salesTable').DataTable({
+        "lengthChange": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "sDom": '<"top"i>rt<"bottom"flp><"clear">',
+        "ordering": false
+    });
+});
+
+$(document).ready(function () {
     function pad(str) {
         return String(str).padStart(2, "0");
     }
@@ -185,7 +196,26 @@ $(document).ready(function () {
         }
         return year + "-" + pad(month);
     }
+    function pad(d) {
+    	   return (d < 10) ? '0' + d.toString() : d.toString();
+    }
+    $(document).ready(function () {
+        $("#prev_month").click(function () {
+            var currentMonth = $("#hidden_month").val();
+            var currentDate = new Date(currentMonth + "-01");
+            currentDate.setMonth(currentDate.getMonth() - 1);
+    		var newMonth = currentDate.toISOString().substr(0, 7);
+            updateSalesTableByMonth(newMonth);
+        });
 
+        $("#next_month").click(function () {
+            var currentMonth = $("#hidden_month").val();
+            var currentDate = new Date(currentMonth + "-01");
+            currentDate.setMonth(currentDate.getMonth() + 1);
+    		var newMonth = currentDate.toISOString().substr(0, 7);
+            updateSalesTableByMonth(newMonth);
+        });
+    });
     function updateSalesTableByMonth(monthly) {
         var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
 
@@ -195,81 +225,51 @@ $(document).ready(function () {
             tableBody.empty(); // 기존 데이터 삭제
 
             // 데이터를 업데이트하는 부분
-            $.each(data, function (index, seller) {
+            $.each(data, function (index, item) {
                 var newRow = $("<tr></tr>");
-
-                newRow.append($("<td></td>").text(seller.seller_num));
-                newRow.append($("<td></td>").text(seller.seller_storeName));
-                newRow.append($("<td></td>").text(seller.seller_name));
-                newRow.append($("<td></td>").text(seller.pay_day));
-                newRow.append($("<td></td>").text(seller.daily_sales));
-                newRow.append($("<td></td>").text(seller.daily_settlement));
-                newRow.append($("<td></td>").text(seller.daily_fee));
-
+                
+                var sellerSiteLink = $("<a></a>").attr("href", "${pageContext.request.contextPath}/detailSales?seller_num=" + item.seller_num + "&pay_day=" + item.pay_day).text(item.seller_num);
+                
+                newRow.append($("<td></td>").append(sellerSiteLink));
+                newRow.append($("<td></td>").text(item.seller_storeName));
+                newRow.append($("<td></td>").text(item.seller_name));
+                newRow.append($("<td></td>").text(item.pay_day));
+                newRow.append($("<td></td>").text(item.daily_settlement));
+                newRow.append($("<td></td>").text(item.daily_fee));
+                newRow.append($("<td></td>").text(item.daily_sales));
                 tableBody.append(newRow);
             });
-
+        
             $("#hidden_month").val(monthly);
-            var year = monthly.substr(0, 4);
-            var month = monthly.substr(5, 2);
-            var formattedDate = year + '-' + month;
-
-            // 월 표시 업데이트
-            $("#current_month_label").text(formattedDate);
+            var updatedYear = parseInt(monthly.substr(0, 4));
+            var updatedMonth = parseInt(monthly.substr(5, 2));
+            $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
         });
+        
+        // dataTable2에 대한 업데이트
+        $.get(apiUrl + "?monthly=" + monthly, function (data) {
+            var tableBody2 = $("#avgContent");
+            tableBody2.empty(); // 기존 데이터 삭제
+
+            // 데이터를 업데이트하는 부분
+            $.each(data, function (index, item) {
+                if (index === 0) { // 첫 번째 요소만 추가
+                    var newRow = $("<tr></tr>");
+                    newRow.append($("<td></td>").text(item.month_settlement));
+                    newRow.append($("<td></td>").text(item.month_fee));
+                    newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
+                    tableBody2.append(newRow);
+                }
+            });
+            
+        });
+        
     }
 
- // 이벤트 핸들러 등록
-    $("#prev_month").click(function () {
-        var currentMonth = $("#hidden_month").val();
-        var prevMonth = incrementMonth(currentMonth, -1);
-        updateSalesTableByMonth(prevMonth);
 
-        // DataTables 초기화 설정 추가
-        $('#salesTable').DataTable({
-        	"retrieve": true, // 이 줄을 추가하세요.
-            "lengthChange": true,
-            "searching": false,
-            "paging": true,
-            "info": false,
-            "sDom": '<"top"i>rt<"bottom"flp><"clear">',
-            "ordering": false
-        });
-    });
 
-    $("#next_month").click(function () {
-        var currentMonth = $("#hidden_month").val();
-        var nextMonth = incrementMonth(currentMonth, 1);
-        updateSalesTableByMonth(nextMonth);
-
-        // DataTables 초기화 설정 추가
-        $('#salesTable').DataTable({
-        	"retrieve": true, // 이 줄을 추가하세요.
-            "lengthChange": true,
-            "searching": false,
-            "paging": true,
-            "info": false,
-            "sDom": '<"top"i>rt<"bottom"flp><"clear">',
-            "ordering": false
-        });
-    });
-
-    // 초기 데이터 로딩
-    var initialMonth = $("#hidden_month").val();
-    updateSalesTableByMonth(initialMonth);
-
-    // 최초로 DataTables 초기화 설정 추가
-    $('#salesTable').DataTable({
-    	"retrieve": true, // 이 줄을 추가하세요.
-        "lengthChange": true,
-        "searching": false,
-        "paging": true,
-        "info": false,
-        "sDom": '<"top"i>rt<"bottom"flp><"clear">',
-        "ordering": false
-    });
 });
-    </script>
+</script>
 
 
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
