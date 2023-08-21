@@ -598,7 +598,7 @@ ORDER BY MONTH(os.order_day);
     select * from seller
     where seller_id = #{seller_id}
     and seller_pass = #{seller_pass}
-    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn is null)
+    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'M' or seller_recoYn  is null)
 </select>
 
 <select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">

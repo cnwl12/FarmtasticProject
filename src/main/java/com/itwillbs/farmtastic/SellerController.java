@@ -154,7 +154,8 @@ public class SellerController {
 	
 	
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.POST)
-	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "seller_id", required = false) String seller_id,
+	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "seller_id", required = false) String seller_id,
 			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
 		System.out.println("SellerController withdrawPro");
 		String seller_num = (String) session.getAttribute("seller_num");
@@ -649,6 +650,10 @@ public class SellerController {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
+	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
+	            // 승인 거절된 사용자
+	            model.addAttribute("error", "탈퇴한 회원입니다.");
+	            return "redirect:/login";    
 	        } else if (sellerDTO2 != null && sellerDTO2.getSeller_recoYn() == null) {
 	            // 승인 대기 중인 사용자
 	            model.addAttribute("error", "승인을 기다려주세요.");

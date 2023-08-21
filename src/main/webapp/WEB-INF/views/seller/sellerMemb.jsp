@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<li>
 									<label class="control-label">로그인ID</label>
 										<div class="input-content">
-											<div class="form-control-static"><input type="hidden" class="form-control" name="seller_id" value="${seller.seller_id}">${seller.seller_id}</div>
+											<div class="form-control-static"><input type="hidden" class="form-control" id="seller_id" name="seller_id" value="${seller.seller_id}">${seller.seller_id}</div>
 										</div>
 									</li>
 									<li>
