@@ -298,6 +298,11 @@ public class MemberService {
     public String searchId(String email) {
         return memberDAO.searchId(email);
     }
+    
+    public List<HashMap> searchPwd(String email, String id) {
+        return memberDAO.searchPwd(email, id);
+    }
+
 
 	public void withdrawMember(MemberDTO memberDTO) {
 		

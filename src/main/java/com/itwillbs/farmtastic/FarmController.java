@@ -454,6 +454,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		return "/member/searchId";
 	}
+	
+	@RequestMapping(value="/searchPwd", method = RequestMethod.GET)
+	public String searchPwd(Locale locale, Model model) {
+		
+		System.out.println("searchPwd 매핑확인여부");
+		
+		return "/member/searchPwd";
+	}
 
 	/* 택배 */
 	@GetMapping
@@ -1262,6 +1270,25 @@ public class FarmController { // 소비자 (컨트롤러)
 	        return "Inconsistency verificationCode"; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
 	    }
 	}
+	
+	@RequestMapping(value = "/CheckVerificationCodeServlet2", method = RequestMethod.GET)
+	@ResponseBody
+	public List<HashMap> searchPwd(@RequestParam String email,@RequestParam String id,@RequestParam String code, HttpSession session) {
+	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
+	    
+	    List<HashMap> searchPwd = memberService.searchPwd(email, id);
+	    if(code.equals(session.getAttribute("verificationCode"))) {
+	        System.out.println("일치");
+	        result.addAll(searchPwd); // 검색 결과를 List<HashMap>에 추가
+	    } else {
+	        System.out.println("일치하지않음");
+	        HashMap<String, String> error = new HashMap<>();
+	        error.put("error", "Inconsistency verificationCode");
+	        result.add(error); // 에러 메시지를 List<HashMap>에 추가
+	    }
+	    return result; // List<HashMap> 반환
+	}
+
 
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
 	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,

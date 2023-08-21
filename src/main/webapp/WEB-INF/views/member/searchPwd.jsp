@@ -8,7 +8,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Farmtastic_searchId</title>
+    <title>Farmtastic_searchPwd</title>
     
     <!-- jQuery -->
     <script type="text/javascript"
@@ -44,10 +44,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>searchId</h2> 
+                        <h2>searchPwd</h2> 
                         <div class="breadcrumb__option">
                             <a href="main">Home</a>
-                            <span>searchId</span> 
+                            <span>searchPwd</span> 
                         </div>
                     </div>
                 </div>    
@@ -56,15 +56,16 @@
     </section>
     <!-- Breadcrumb Section End -->
 	
-	  <h1>아이디 찾기</h1>
-    <form action="/farmtastic/SendEmailServlet" method="post">
+	  <h1>비밀번호 찾기</h1>
+    <form action="/farmtastic/SendEmailServlet2" method="post">
+    	<input type="text" name="id" placeholder="아이디 입력"/>
     	<input type="email" name="email" placeholder="이메일 주소 입력" required />
         <input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
 		<input type="text" name="verification_code" placeholder="인증번호 입력" />
 		<input type="button" id=check_verification_code value="인증번호 확인"/>
     </form>
     
-<script>
+    <script>
 $(document).ready(function() {
 	$('form').on('submit', function(event) {
 		event.preventDefault(); // 폼의 기본 제출 동작을 막음
@@ -77,7 +78,7 @@ $(document).ready(function() {
 		// Ajax 호출
 		$.ajax({
 		    type: 'POST',
-		    url: '/farmtastic/SendEmailServlet',
+		    url: '/farmtastic/SendEmailServlet2',
 		    data: { email: email },
 		    success: function(data) {
 		    	// 결과를 처리합니다.
@@ -99,14 +100,24 @@ $(document).ready(function() {
 //인증번호 확인 Ajax 호출
 $("#check_verification_code").on("click", function () {
     var userEmail = $('input[name="email"]').val(); // 이메일 값 가져오기
+    var userId = $('input[name="id"]').val(); // 아이디 값 가져오기
     var userVerificationCode = $('input[name="verification_code"]').val();
     
     $.ajax({
         type: "GET",
-        url: "/farmtastic/CheckVerificationCodeServlet",
-        data: { code: userVerificationCode, email: userEmail }, // 이메일 값 추가
-        success: function (data) {
-            alert(data); // 성공 메시지 또는 오류 메시지 표시
+        url: "/farmtastic/CheckVerificationCodeServlet2",
+        data: { code: userVerificationCode, email: userEmail, id:userId },
+        dataType: "json",
+        success: function (response) {
+            // response 변수에는 서버에서 반환한 List<HashMap>이 들어있습니다.
+            if (response.length > 0 && response[0].hasOwnProperty('member_pass')) {
+                // List에 항목이 있고, HashMap에 'member_pass' 키가 있는 경우에만 alert에 표시
+                var memberPass = response[0]['member_pass'];
+                alert("비밀번호는 다음과 같습니다: " + memberPass);
+            } else {
+                // 인증번호가 틀렸거나 비밀번호 반환 오류 발생 시
+                alert("인증에 실패했습니다. 이메일, 아이디, 인증번호를 확인해주세요.");
+            }
         },
         error: function (xhr, status, error) {
             alert("인증번호 확인 중 오류가 발생했습니다.");
@@ -114,8 +125,9 @@ $("#check_verification_code").on("click", function () {
     });
 });
 
-</script>
 
+</script>
+    
 	<!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 
