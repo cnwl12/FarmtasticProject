@@ -48,22 +48,7 @@ public class SellerController {
 	@Inject
 	private SellerService sellerService;
 	
-	
-//  // 응답메시지 전송
-//  private void sendResponse(HttpServletResponse response, String message) {
-//      try {
-//          response.setContentType("text/html;charset=UTF-8");
-//          PrintWriter out = response.getWriter();
-//          out.println("<script>");
-//          out.println("alert('" + message + "');");
-//          out.println("history.back();");
-//          out.println("</script>");
-//          out.close();
-//      } catch (IOException e) {
-//          e.printStackTrace();
-//      }
-//  }
-	
+		
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) throws IOException {
 	    	    
@@ -102,20 +87,72 @@ public class SellerController {
 	    }
 	}
 	
-	// 선진) 판매자 정보 수정
+	
+	
+	
+
+	// 성하) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
-	public String sellerUpdatePro(@RequestParam Map<String, Object> sellerInfo) {
+	public String updatePro(HttpSession session, HttpServletRequest request, Model model, 
+	                        HttpServletResponse response, @RequestParam(value = "seller_id", required = false) String seller_id,
+	                        @RequestParam(value = "seller_pass", required = false) String seller_pass,
+	                        @RequestParam(value = "seller_pass2", required = false) String seller_pass2,
+	                        @RequestParam(value = "seller_phone", required = false) String seller_phone,
+	                        @RequestParam(value = "seller_email", required = false) String seller_email,
+	                        @RequestParam(value = "seller_post", required = false) String seller_post,
+	                        @RequestParam(value = "seller_bank", required = false) String seller_bank,
+	                        @RequestParam(value = "seller_accountNum", required = false) String  seller_accountNum,
+	                        @RequestParam(value = "seller_accountHolder", required = false) String seller_accountHolder,
+	                        @RequestParam(value = "seller_addMain", required = false) String seller_addMain,
+	                        @RequestParam(value = "seller_addSub", required = false) String seller_addSub) throws Exception {
+		 
+	    String seller_num = (String) session.getAttribute("seller_num");
 
-		if(sellerInfo != null) {
+	   
+	    // 입력된 값들도 세션에 저장합니다.
+	    session.setAttribute("seller_id", seller_id);
+	    session.setAttribute("seller_pass", seller_pass);
+	    session.setAttribute("seller_phone", seller_phone);
+	    session.setAttribute("seller_email", seller_email);
+	    session.setAttribute("seller_bank", seller_bank);
+	    session.setAttribute("seller_accountNum", seller_accountNum);
+	    session.setAttribute("seller_accountHolder", seller_accountHolder);
+	    session.setAttribute("seller_post", seller_post);
+	    session.setAttribute("seller_addMain", seller_addMain);
+	    session.setAttribute("seller_addSub", seller_addSub);
 
-			sellerService.updateSeller(sellerInfo);
-			return "redirect:/sellerMain";
-		} else {
+	    SellerDTO sellerDTO = new SellerDTO();
+	    sellerDTO.setSeller_num(seller_num);
+	    sellerDTO.setSeller_id(seller_id);
+	    sellerDTO.setSeller_pass(seller_pass);
+	        
 
-			return "/seller/mgs";
-		}
+	    SellerDTO sellerDTO2 = sellerService.sellerCheck2(sellerDTO);
+
+	    if (sellerDTO2 != null && sellerDTO2.getSeller_pass().equals(seller_pass)) {
+	        // memberDTO 객체에 입력된 값들을 설정합니다.
+	    	sellerDTO.setSeller_id(seller_id);
+	        sellerDTO.setSeller_pass(seller_pass2);
+	        sellerDTO.setSeller_phone(seller_phone);
+	        sellerDTO.setSeller_email(seller_email);
+	        sellerDTO.setSeller_bank(seller_bank);
+	        sellerDTO.setSeller_accountNum(seller_accountNum);
+	        sellerDTO.setSeller_accountHolder(seller_accountHolder);
+	        sellerDTO.setSeller_post(seller_post);
+	        sellerDTO.setSeller_addMain(seller_addMain);
+	        sellerDTO.setSeller_addSub(seller_addSub);
+	                
+	        sellerService.updateSeller(sellerDTO);
+	            
+	        model.addAttribute("message", "비밀번호 변경 완료.");
+	        return "redirect:/sellerMain";
+	    } else {    
+	    	model.addAttribute("message", "현재 암호가틀립니다.");
+	        return "redirect:/sellerMain";
+	    }
 	}
 	
+
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
 	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
@@ -365,16 +402,13 @@ public class SellerController {
 	public String itemInsert(Model model, HttpSession session) {
 
 		if (session.getAttribute("seller_num") == null) {
-	        // 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
-	    String seller_num = (String) session.getAttribute("seller_num");
+	    session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
-	    
-		System.out.println("셀러고유번호 확인 : "+seller_num);
 		
 		return "/seller/itemRegister";
 	    }
@@ -435,7 +469,6 @@ public class SellerController {
 	public String itemMng(Model model, HttpSession session) {
 	   
 		if (session.getAttribute("seller_num") == null) {
-			// 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {

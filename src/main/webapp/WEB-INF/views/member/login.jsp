@@ -103,7 +103,7 @@ function enterCheck2(event) {
 								<div class="join-guide type"> <!-- type 추가 -->
 									<ul class="links PC">
 										<li><a href="searchId" class="fs-13">아이디찾기</a></li>
-										<li><a href="javascript:fn_searchPwd();" class="fs-13">비밀번호찾기</a></li>
+										<li><a href="searchPwd" class="fs-13">비밀번호찾기</a></li>
 									</ul>
 								</div>
 							</fieldset>

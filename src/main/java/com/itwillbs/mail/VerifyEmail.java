@@ -26,7 +26,7 @@ public class VerifyEmail {
 
 	static String sender = "qkznlajrjd@gmail.com";
 	static String receiver = "qkznlajrjd@gmail.com";
-	static String title = "아이디 찾기 인증번호";
+	static String title = "팜타스틱에서 보낸 인증번호 메일입니다.";
 	static String content = generateVerificationCode();
 		
 	public String sendEmail(String receiverEmail) {
@@ -72,9 +72,9 @@ public class VerifyEmail {
 			e.printStackTrace();
 			System.out.println("서버 설정 또는 서비스 문제 발생!");
 		}
-		return content;
-	}
-
+			return content;
+		}
+		
 }
 
 // 자바 메일 기능 사용 시 메일 서버 인증을 위한 인증 정보를 관리하는
@@ -84,7 +84,7 @@ class GoogleSMTPAuth extends Authenticator {
 	// javax.mail.PasswordAuthentication 클래스 타입 변수 선언
 	PasswordAuthentication passwordAuthentication;
 	
-	// 기본 생성자 정의
+	// 기본 생성자 정의	
 	public GoogleSMTPAuth() {
 		
 		// 인증에 사용할 아이디와 패스워드 정보를 갖는 PasswordAuthentication 객체 생성

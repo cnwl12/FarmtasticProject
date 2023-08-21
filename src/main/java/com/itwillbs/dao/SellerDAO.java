@@ -50,9 +50,9 @@ public class SellerDAO {
 		}
 		
 		// 선진) 판매자 정보 수정
-		public void updateSeller(Map<String, Object> sellerInfo) {
+		public void updateSeller(SellerDTO sellerDTO) {
 			
-			sqlSession.update(namespace + ".updateSeller", sellerInfo);
+			sqlSession.update(namespace + ".updateSeller", sellerDTO);
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
@@ -190,6 +190,11 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".sellerCheck1", sellerDTO);
 		}
 		
+		public SellerDTO sellerCheck2(SellerDTO sellerDTO) {
+			System.out.println("SellerDAO sellerCheck2()");
+			return sqlSession.selectOne(namespace+".sellerCheck2", sellerDTO);
+		}
+
 		// 판매자 ID 중복체크
 		public String idCheck(String seller_id) {
 			System.out.println("SellerDAO idCheck");
