@@ -20,6 +20,7 @@ import com.itwillbs.domain.SellerDTO;
 @Service
 public class SellerService {
 	
+	
 	 @Autowired
 	    private SellerDAO sellerDAO;
 	 	//매출관리에 판매자별 총매출 불러오기 위한 구문

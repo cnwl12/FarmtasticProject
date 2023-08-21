@@ -14,7 +14,6 @@ import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
 
-
 @Repository
 public class SellerDAO {
 	
