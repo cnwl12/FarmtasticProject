@@ -142,4 +142,29 @@
   		FROM admin_blog
   	</select>
   	
+  	 <!-- 상품전체 가져오기  -->
+    <select id="getItemList" resultType="map">
+      SELECT item_num
+	  		,i.seller_type
+	  		,item_name
+	 	 	,seller_storeName
+      		,item_left
+      		,item_salesStatus
+	  FROM item i 
+	  JOIN seller s
+	  ON i.seller_num = s.seller_num 
+	  ORDER BY item_num desc;   
+    </select>
+  	
+  	<!-- 판매상태 변경 -->
+  	<update id="ChangeItemStatus">
+    UPDATE item
+    SET item_salesStatus = 
+        CASE
+            WHEN item_salesStatus = 'Y' THEN 'N'
+            ELSE 'Y'
+        END
+    WHERE item_num = #{item_num};
+	</update>
+  	
 </mapper>

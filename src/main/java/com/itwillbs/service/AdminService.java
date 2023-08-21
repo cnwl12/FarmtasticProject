@@ -122,4 +122,10 @@ public class AdminService {
 
 		return adminDAO.getBlogCount();
 	}
+	public List<Map<String, Object>> getItemList() {
+		return adminDAO.getItemList();
+	}
+	public void ChangeItemStatus(HashMap<String, String> status) {
+		adminDAO.ChangeItemStatus(status);
+	}
 }

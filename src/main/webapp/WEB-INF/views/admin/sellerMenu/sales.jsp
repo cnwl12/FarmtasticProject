@@ -45,7 +45,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                 <jsp:include page="../inc/top.jsp"></jsp:include>
+               <jsp:include page="../inc/top.jsp"></jsp:include>
 
                   <!-- Begin Page Content -->
                 <div class="container-fluid">

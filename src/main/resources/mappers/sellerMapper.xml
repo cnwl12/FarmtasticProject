@@ -397,7 +397,6 @@
         END
     WHERE item_num = #{item_num} AND seller_num = #{seller_num};
 	</update>
-	
 		
     <!-- 상품전체 가져오기  -->
     <select id="getItems" resultType="map">
@@ -421,6 +420,7 @@
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
+       		 ,item_salesStatus
        FROM item
        WHERE seller_num = #{seller_num}
        ORDER BY item_num desc

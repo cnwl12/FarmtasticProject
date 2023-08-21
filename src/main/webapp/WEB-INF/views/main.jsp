@@ -29,7 +29,7 @@
  	    
  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
- 	
+ 	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
 </head>
 
 <body>
@@ -130,7 +130,7 @@
                             </form>
                         </div>
                     </div> 
-                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/banner.jpg" style="background-image: url(&quot;img/hero/banner.jpg&quot;);">
+                    <div class="hero__item set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/hero/banner.jpg">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br>100% Organic</h2>
@@ -190,8 +190,10 @@
 								</li>
 								<c:choose>
 						    <c:when test="${item.item_left > 0 && item.item_salesStatus != 'N'}">
-						        <li><a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a></li>
-						    </c:when>
+											<li><a href="#" onclick="insertCart(${item.item_num});">
+													<i class="fa fa-shopping-cart"></i>
+											</a></li>
+										</c:when>
 						</c:choose>
                             </ul>
                         </div>

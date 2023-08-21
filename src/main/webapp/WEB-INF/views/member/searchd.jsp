@@ -81,8 +81,10 @@
 							</li>
 								<c:choose>
 						    <c:when test="${item.item_left > 0 && item.item_salesStatus != 'N'}">
-						        <li><a href="insertCart?item_num=${item.item_num}&&cart_cnt=${1}"><i class="fa fa-shopping-cart"></i></a></li>
-						    </c:when>
+								<li><a href="#" onclick="insertCart(${item.item_num});">
+										<i class="fa fa-shopping-cart"></i>
+								</a></li>
+							</c:when>
 						</c:choose>
 						</ul>
 					</div>
@@ -103,6 +105,7 @@
 <!-- Js Plugins -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>

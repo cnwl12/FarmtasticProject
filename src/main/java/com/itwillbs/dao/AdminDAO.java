@@ -127,4 +127,14 @@ public class AdminDAO {
 
 		return sqlSession.selectOne(NAMESPACE + "getBlogCount");
 	}
+	
+	// 관리자 -> 판매자 상품전체목록
+	public List<Map<String, Object>> getItemList() {
+		return sqlSession.selectList(NAMESPACE+"getItemList");
+	}
+	
+	// 관리자 -> 판매 상태 변경 
+	public void ChangeItemStatus(HashMap<String, String> status) {
+		sqlSession.update(NAMESPACE+"ChangeItemStatus", status);
+	}
 }
