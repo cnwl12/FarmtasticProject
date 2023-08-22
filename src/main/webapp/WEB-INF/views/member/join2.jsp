@@ -179,7 +179,6 @@ button#submitBtn {
                         <li>
                         <input type="hidden" name="join_date" id="join_date">
                         <input type="text" class="form-control" placeholder="ID를 작성해주세요" name="seller_id" id="seller_id" maxlength="10" >
-                        <input type="button" value="중복체크" class="idcheckbtn" style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
                         <div id = "idcheckdiv"></div>
                         <div id="invalid_id" class="invalid-feedback">
                             아이디를 입력해주세요.
@@ -451,6 +450,7 @@ button#submitBtn {
            const formattedDate = `${currDate.getFullYear()}-${currDate.getMonth() + 1}-${currDate.getDate()}`; // 날짜 정보 포맷팅
            $("#seller_joinDay").val(formattedDate); // hidden 필드에 채우기
          $("#join2").submit();
+           alert("가입을 환영합니다. 승인을 기다려주세요!")
            // 폼 데이터를 JavaScript 객체로 만듭니다.
 //            var formData = $("#join2").serialize();
 
@@ -475,32 +475,7 @@ button#submitBtn {
  });
     
     var isIdDuplicated = false;
-    
-    $(document).ready(function() {
- $('.idcheckbtn').click(function(){ 
-     if($('#seller_id').val() == "") {
-         alert("아이디 입력하세요");
-         $('#seller_id').focus();
-         return false;
-      } 
-     $.ajax({
-         url: '${pageContext.request.contextPath }/idCheck2',
-         data : {'seller_id' : $('#seller_id').val()},
-         success:function(result){
-            // id = "idcheckdiv" 출력
-            if (result == 'id is used') {
-               result =  "<span class='idcheck-used'>아이디 중복</span>";
-               isIdDuplicated = true;
-            } else {
-               result =  "<span class='idcheck-available'>아이디 사용가능</span>";
-               isIdDuplicated = false;
-            }
-            
-            $('#idcheckdiv').html(result);
-         }
-      });
-    });
- });
+    var isEmailDuplicated = false
     
     // 정규식
     var regId = /^[a-zA-Z0-9]{2,10}$/;
@@ -638,7 +613,11 @@ button#submitBtn {
         $('#invalid_email').show();
         mail.focus();
         return false;
-      } else {
+      } else if (isEmailDuplicated) { // 이메일 중복되었을 경우
+          $('#invalid_email').show();
+          mail.focus();
+          return false;
+        } else {
         $('#invalid_email').hide();
         return true;
       }
@@ -660,53 +639,73 @@ button#submitBtn {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost() && validateStoreName() && validateAccountNum() && validateAccountHolder() && validateLicenseNum();
     }
     
-//     $(document).ready(function() {
-//     	$("#seller_email").on("change", function() {
-//     		var seller_email = $(this).val();
-//     		$.ajax({
-//     			url: "/farmtastic/emailCheck2",
-//     			type: "POST",
-//     			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-//     			data: {
-//     				"seller_email": seller_email
-//     			},
-//     			success: function(data) {
-//     				if (data === 1) {
-//     					$("#invalid_email").text("이메일이 중복입니다.").show();
-//     				} else {
-//     					$("#invalid_email").hide();
-//     				}
-//     			},
-//     			error: function(xhr, textStatus, error) {
-//     				console.log(error);
-//     			}
-//     		});
-//     	});
-//     });
+    $(document).ready(function() {
+        var timeoutId;
+
+        $("#seller_email").on("keyup", function() {
+            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
+
+            var seller_email = $(this).val();
+
+            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
+            timeoutId = setTimeout(function() {
+                $.ajax({
+                    url: "emailCheck2",
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data: {
+                        "seller_email": seller_email
+                    },
+                    success: function(data) {
+                        if (data === 1) {
+                            $("#invalid_email").text("이메일이 중복입니다.").show();
+                            isEmailDuplicated = true;
+                        } else {
+                            $("#invalid_email").hide();
+                            isEmailDuplicated = false;
+                        }
+                    },
+                    error: function(xhr, textStatus, error) {
+                        console.log(error);
+                    }
+                });
+            }, 500); // 타이머 시간 설정 (ms)
+        });
+    });
     
-//     $(document).ready(function() {
-//     	$("#seller_id").on("keyup", function() {
-//     		var seller_id = $(this).val();
-//     		$.ajax({
-//     			url: "/farmtastic/emailCheck",
-//     			type: "POST",
-//     			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-//     			data: {
-//     				"member_email": member_email
-//     			},
-//     			success: function(data) {
-//     				if (data === 1) {
-//     					$("#invalid_email").text("이메일이 중복입니다.").show();
-//     				} else {
-//     					$("#invalid_email").hide();
-//     				}
-//     			},
-//     			error: function(xhr, textStatus, error) {
-//     				console.log(error);
-//     			}
-//     		});
-//     	});
-//     });
+    $(document).ready(function() {
+        var timeoutId;
+
+        $("#seller_id").on("keyup", function() {
+            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
+
+            var seller_id = $(this).val();
+
+            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
+            timeoutId = setTimeout(function() {
+                $.ajax({
+                    url: "/farmtastic/idCheck2",
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data: {
+                        "seller_id": seller_id
+                    },
+                    success: function(data) {
+                        if (data === 1) {
+                            $("#invalid_id").text("아이디가 중복입니다.").show();
+                            isIdDuplicated = true;
+                        } else {
+                            $("#invalid_id").hide();
+                            isIdDuplicated = false;
+                        }
+                    },
+                    error: function(xhr, textStatus, error) {
+                        console.log(error);
+                    }
+                });
+            }, 500); // 타이머 시간 설정 (ms)
+        });
+    });
 
     </script>
 </body>

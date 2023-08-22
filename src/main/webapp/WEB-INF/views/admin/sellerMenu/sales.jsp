@@ -256,7 +256,8 @@ $(document).ready(function () {
                 "info": true,
                 "ordering": true,
                 "searching": true,
-                "retrieve": true
+                "retrieve": true,
+                "destroy": true
             });
 
             $("#hidden_month").val(monthly);
@@ -269,14 +270,14 @@ $(document).ready(function () {
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody2 = $("#avgContent");
             tableBody2.empty(); // 기존 데이터 삭제
-
             // 데이터를 업데이트하는 부분
             $.each(data, function (index, item) {
                 if (index === 0) { // 첫 번째 요소만 추가
                     var newRow = $("<tr></tr>");
+                    newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
                     newRow.append($("<td></td>").text(item.month_settlement));
                     newRow.append($("<td></td>").text(item.month_fee));
-                    newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
+                    
                     tableBody2.append(newRow);
                 }
             });

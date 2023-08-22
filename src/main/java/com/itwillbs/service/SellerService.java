@@ -32,7 +32,10 @@ public class SellerService {
 	    	System.out.println("SellerService의 totalSales 매핑완");
 	        return sellerDAO.totalSales();
 	    }
-	    
+	    public List<Map<String, Object>> selectSalesData() {
+	    	System.out.println("SellerService의 selectSalesData 매핑완");
+	        return sellerDAO.selectSalesData();
+	    }
 	    // 가맹점관리 혜원
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
@@ -236,6 +239,11 @@ public class SellerService {
 	       
 	         return sellerDAO.idCheck(seller_num);
 		}
+		
+		public SellerDTO idCheck2(String seller_id) {
+			System.out.println("SellerService idCheck2()");
+			return sellerDAO.idCheck2(seller_id);
+		}
 
 		public List<Map<String, Object>> MemberMngjoin(String seller_num, Date startDate, Date endDate) {
 		    System.out.println("SellerService의 MemberMngjoin()");
@@ -294,6 +302,11 @@ public class SellerService {
 		public void updateSellerInfo(String seller_num, String seller_storeName, String seller_name, String seller_licenseNum,
 				String seller_file) {
 			sellerDAO.updateSellerInfo(seller_num, seller_storeName, seller_name, seller_licenseNum, seller_file);
+		}
+		
+		public SellerDTO getSellerEmail(String seller_email) {
+			System.out.println("SellerService getSellerEmail()");
+			return sellerDAO.getSellerEmail(seller_email);
 		}
 	    
 }

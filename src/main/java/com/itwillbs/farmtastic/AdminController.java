@@ -547,7 +547,6 @@ public class AdminController {
 	    System.out.println("Monthly: " + monthly); // 로깅 추가
 
 	    List<Map<String, Object>> result = sellerService.getSellers(monthly);
-	    System.out.println("Result: " + result); // 로깅 추가
 
 	    return result;
 	}

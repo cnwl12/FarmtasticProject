@@ -895,28 +895,16 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck 끝
 
-
-	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
-
 	@ResponseBody
-	public ResponseEntity<String> idCheck2(HttpServletRequest request) {
-
-		String seller_id = request.getParameter("seller_id");
-
-		Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
-		String result = "";
-		if (sellerDTO != null) {
-			// 아이디 있음 => 아이디 중복
-			result = "id is used";
-		} else {
-			// 아이디 없음 => 아이디 사용가능
-			result = "id is available";
+	@RequestMapping(value = "/idCheck2", method = RequestMethod.POST)
+	public int idCheck2(@RequestParam("seller_id") String seller_id, HttpServletRequest request) {
+		int result = 0;
+		SellerDTO checkId = sellerService.idCheck2(seller_id);
+		if (checkId != null) {
+			result = 1;
 		}
-		// ResponseEntity에 출력 결과를 담아서 리턴
-		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-
-		return entity;
-	}// idCheck2 끝
+		return result;
+	}
 
 	// Review 기능! - 막내
 	// 리뷰작성 -> 데이터저장 / 사진은 1개만 가능
@@ -1336,6 +1324,17 @@ public class FarmController { // 소비자 (컨트롤러)
 	public int emailCheck(@RequestParam("member_email") String member_email, HttpServletRequest request) {
 		int result = 0;
 		MemberDTO checkEmail = memberService.getMemberEmail(member_email);
+		if (checkEmail != null) {
+			result = 1;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailCheck2", method = RequestMethod.POST)
+	public int emailCheck2(@RequestParam("seller_email") String seller_email, HttpServletRequest request) {
+		int result = 0;
+		SellerDTO checkEmail = sellerService.getSellerEmail(seller_email);
 		if (checkEmail != null) {
 			result = 1;
 		}
