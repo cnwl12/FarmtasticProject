@@ -285,7 +285,7 @@ public class SellerService {
 			System.out.println("SellerService withderawSellerstopselling()");
 			sellerDAO.withderawSellerstopselling(sellerDTO);
 		}
-		
+		 
 		public Map<String, Object> getSellerDetails(String sellerNum) {
 			
 			return sellerDAO.getSellerDetails(sellerNum);
