@@ -273,5 +273,20 @@ public class SellerDAO {
 			sqlSession.insert(namespace+".withderawSellerstopselling", sellerDTO);
 			
 		}
+
+		public Map<String, Object> getSellerDetails(String sellerNum) {
+			return sqlSession.selectOne(namespace + ".sellerDetail", sellerNum);
+		}
+
+		public void updateSellerInfo(String seller_num, String seller_storeName, String seller_name, String seller_licenseNum,
+				String seller_file) {
+			Map<String, Object> params = new HashMap<>();
+	        params.put("seller_num", seller_num);
+	        params.put("seller_storeName", seller_storeName);
+	        params.put("seller_licenseNum", seller_licenseNum);
+	        params.put("seller_name", seller_name);
+			params.put("seller_file", seller_file);
+			sqlSession.update(namespace+".updateSellerInfo", params);
+		}
 		
 }

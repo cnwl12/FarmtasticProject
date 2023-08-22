@@ -285,5 +285,15 @@ public class SellerService {
 			System.out.println("SellerService withderawSellerstopselling()");
 			sellerDAO.withderawSellerstopselling(sellerDTO);
 		}
+		
+		public Map<String, Object> getSellerDetails(String sellerNum) {
+			
+			return sellerDAO.getSellerDetails(sellerNum);
+		}
+		
+		public void updateSellerInfo(String seller_num, String seller_storeName, String seller_name, String seller_licenseNum,
+				String seller_file) {
+			sellerDAO.updateSellerInfo(seller_num, seller_storeName, seller_name, seller_licenseNum, seller_file);
+		}
 	    
 }

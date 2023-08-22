@@ -745,5 +745,17 @@ ORDER BY MONTH(os.order_day);
     where review_num = #{review_num}
     and member_num = #{member_num};
 	</delete>
-   
+   	
+   	<select id="sellerDetail" parameterType="map" resultType="map">
+   		SELECT * FROM seller WHERE seller_num = #{seller_num}
+   	</select>
+   	
+   	<update id="updateSellerInfo">
+   		update seller
+   		set seller_storeName = #{seller_storeName}
+   		  , seller_name = #{seller_name}
+   	      , seller_licenseNum = #{seller_licenseNum}
+   		  , seller_file = #{seller_file}
+   		where seller_num = #{seller_num};	
+   	</update>
 </mapper>
