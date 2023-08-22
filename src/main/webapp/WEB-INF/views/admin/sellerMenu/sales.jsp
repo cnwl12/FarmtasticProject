@@ -30,7 +30,7 @@
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	
 </head>
 
 <body id="page-top">
@@ -183,6 +183,7 @@ $(document).ready(function(){
         "ordering": true,
         "searching": true,
         "retrieve": true
+        
     });
 
 });
@@ -226,7 +227,7 @@ $(document).ready(function () {
     });
     function updateSalesTableByMonth(monthly) {
         var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
-        dataTable2.destroy(); // 이 줄을 추가하세요.
+        dataTable2.destroy();
         // 월별 데이터 가져오기
         $.get(apiUrl + "?monthly=" + monthly, function (data) {
             var tableBody = $("#monthlysales");

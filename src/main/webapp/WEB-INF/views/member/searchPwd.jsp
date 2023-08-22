@@ -143,7 +143,7 @@ $("#check_verification_code").on("click", function () {
             if (response.length > 0 && response[0].hasOwnProperty('member_pass')) {
                 // List에 항목이 있고, HashMap에 'member_pass' 키가 있는 경우에만 alert에 표시
                 var memberPass = response[0]['member_pass'];
-                alert("비밀번호는 다음과 같습니다: " + memberPass);
+                alert("임시 비밀번호: " + memberPass + "임시 비밀번호로 로그인 후 마이페이지에서 비밀번호를 변경해주세요");
             } else {
                 // 인증번호가 틀렸거나 비밀번호 반환 오류 발생 시
                 alert("인증에 실패했습니다. 이메일, 아이디, 인증번호를 확인해주세요.");

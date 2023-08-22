@@ -183,12 +183,7 @@ input#file-upload-button {
                         	<input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
                          </c:otherwise>
                         </c:choose>
-                        <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
-							  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}" style="color: red;"></i>
-							</a>
-
-
-                        
+                        <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}"></a>
                         <ul>
 							<li><b>Seller</b> <span>${item.seller_storeName}</span></li>
 							<li><b>Availability</b> 

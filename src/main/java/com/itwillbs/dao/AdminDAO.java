@@ -43,7 +43,6 @@ public class AdminDAO {
 	
 // 글 목록
 	public List<Map<String, Object>> getCnotice() {
-		System.out.println("dao");
 		return sqlSession.selectList(NAMESPACE+"getCnotice");
 	}  
 	/*
