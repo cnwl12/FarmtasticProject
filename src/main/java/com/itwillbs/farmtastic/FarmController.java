@@ -1334,5 +1334,16 @@ public class FarmController { // 소비자 (컨트롤러)
 			return "/mypage";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
+	public int emailCheck(@RequestParam("member_email") String member_email, HttpServletRequest request) {
+		int result = 0;
+		MemberDTO checkEmail = memberService.getMemberEmail(member_email);
+		if (checkEmail != null) {
+			result = 1;
+		}
+		return result;
+	}
 
 }

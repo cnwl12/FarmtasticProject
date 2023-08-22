@@ -347,4 +347,10 @@ public class MemberDAO {
 		
 		sqlSession.insert(namespace+".withderawMember", memberDTO);
 	}
+
+	public MemberDTO getMemberEmail(String member_email) {
+		System.out.println("MemberDAO getMemberEmail()");
+		return sqlSession.selectOne(namespace + ".getMemberEmail", member_email);
+	}
+
 }

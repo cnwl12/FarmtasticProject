@@ -470,6 +470,30 @@ input#post {
     function validateAll() {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();
     }
+    
+    $(document).ready(function() {
+    	$("#member_email").on("change", function() {
+    		var member_email = $(this).val();
+    		$.ajax({
+    			url: "/farmtastic/emailCheck",
+    			type: "POST",
+    			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+    			data: {
+    				"member_email": member_email
+    			},
+    			success: function(data) {
+    				if (data === 1) {
+    					$("#invalid_email").text("이메일이 중복입니다.").show();
+    				} else {
+    					$("#invalid_email").hide();
+    				}
+    			},
+    			error: function(xhr, textStatus, error) {
+    				console.log(error);
+    			}
+    		});
+    	});
+    });
 
     </script>
 </body>

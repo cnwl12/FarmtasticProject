@@ -319,7 +319,10 @@ public class MemberService {
 		memberDAO.withderawMember(memberDTO);
 		
 	}
-
 	
+	public MemberDTO getMemberEmail(String member_email) {
+		System.out.println("MemberService getMemberEmail()");
+		return memberDAO.getMemberEmail(member_email);
+	}
 
 }

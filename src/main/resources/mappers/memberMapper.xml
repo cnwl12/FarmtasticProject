@@ -621,19 +621,26 @@
 		WHERE member_email = #{member_email}
 	</select>
 	
-		<!-- 비밀번호 찾기 -->
-		<select id="searchPwd" parameterType="map" resultType="map">
-			SELECT member_pass
-			FROM member
-			WHERE member_email = #{member_email}
-			AND member_id = #{member_id}
-		</select>
+	<!-- 비밀번호 찾기 -->
+	<select id="searchPwd" parameterType="map" resultType="map">
+		SELECT member_pass
+		FROM member
+		WHERE member_email = #{member_email}
+		AND member_id = #{member_id}
+	</select>
+	
+	<!-- 임시비밀번호 발급 -->
+	<update id="updatePwd" parameterType="map">
+	    UPDATE member
+	    SET member_pass = CONCAT(LEFT(UUID(), 8), MID(UUID(), 10, 4))
+	    WHERE member_email = #{member_email}
+	    AND member_id = #{member_id};
+	</update>
 		
-		<update id="updatePwd" parameterType="map">
-		    UPDATE member
-		    SET member_pass = CONCAT(LEFT(UUID(), 8), MID(UUID(), 10, 4))
-		    WHERE member_email = #{member_email}
-		    AND member_id = #{member_id};
-		</update>
+	<select id="getMemberEmail" resultType="com.itwillbs.domain.MemberDTO">
+		SELECT member_email
+		FROM member
+		WHERE member_email = #{member_email}
+	</select>
  
 </mapper>
