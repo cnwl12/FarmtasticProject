@@ -653,7 +653,13 @@ ORDER BY MONTH(os.order_day);
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}
      
-  	</select> 
+  	</select>
+  	
+  	<select id="idCheck2" resultType="com.itwillbs.domain.SellerDTO">
+		SELECT seller_id
+		FROM seller
+		WHERE seller_id = #{seller_id}
+	</select> 
   	
 <select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT m.member_id, m.member_name, m.member_phone,  CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain, i.item_name, 
@@ -752,4 +758,10 @@ ORDER BY MONTH(os.order_day);
    		  , seller_file = #{seller_file}
    		where seller_num = #{seller_num};	
    	</update>
+   	
+   	<select id="getSellerEmail" resultType="com.itwillbs.domain.SellerDTO">
+		SELECT seller_email
+		FROM seller
+		WHERE seller_email = #{seller_email}
+	</select>
 </mapper>

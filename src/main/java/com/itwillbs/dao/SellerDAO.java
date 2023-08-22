@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
 
@@ -213,6 +213,11 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace+".idCheck", seller_id);
 		}
 		
+		public SellerDTO idCheck2(String seller_id) {
+			System.out.println("SellerDAO idCheck2()");
+			return sqlSession.selectOne(namespace + ".idCheck2", seller_id);
+		}
+		
 		public List<Map<String, Object>> MemberMngjoin(Map<String, Object> params) {
 		    System.out.println("SellerDAO MemberMngjoin()");
 		    String seller_num = (String) params.get("seller_num");
@@ -288,5 +293,11 @@ public class SellerDAO {
 			params.put("seller_file", seller_file);
 			sqlSession.update(namespace+".updateSellerInfo", params);
 		}
+		
+		public SellerDTO getSellerEmail(String seller_email) {
+			System.out.println("SellerDAO getSellerEmail()");
+			return sqlSession.selectOne(namespace + ".getSellerEmail", seller_email);
+		}
+
 		
 }
