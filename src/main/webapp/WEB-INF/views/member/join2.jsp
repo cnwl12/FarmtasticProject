@@ -502,22 +502,6 @@ button#submitBtn {
     });
  });
     
-    
-    
-    $(document).ready(function() {
-    	  $("#join2").submit(function(e) {
-    	    e.preventDefault(); // 폼의 기본 제출 동작 방지
-
-    	  
-
-    	    // 회원가입이 완료되었음을 알리는 메시지를 표시
-    	    alert("환영합니다. 승인을 기다려주세요!!");
-
-    	    // 메인 페이지로 이동
-    	    location.href = '${pageContext.request.contextPath}/main';
-    	  });
-    	});
-    
     // 정규식
     var regId = /^[a-zA-Z0-9]{2,10}$/;
     var regPw = /^[a-zA-Z0-9]{2,10}$/;
@@ -675,6 +659,54 @@ button#submitBtn {
     function validateAll() {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost() && validateStoreName() && validateAccountNum() && validateAccountHolder() && validateLicenseNum();
     }
+    
+//     $(document).ready(function() {
+//     	$("#seller_email").on("change", function() {
+//     		var seller_email = $(this).val();
+//     		$.ajax({
+//     			url: "/farmtastic/emailCheck2",
+//     			type: "POST",
+//     			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//     			data: {
+//     				"seller_email": seller_email
+//     			},
+//     			success: function(data) {
+//     				if (data === 1) {
+//     					$("#invalid_email").text("이메일이 중복입니다.").show();
+//     				} else {
+//     					$("#invalid_email").hide();
+//     				}
+//     			},
+//     			error: function(xhr, textStatus, error) {
+//     				console.log(error);
+//     			}
+//     		});
+//     	});
+//     });
+    
+//     $(document).ready(function() {
+//     	$("#seller_id").on("keyup", function() {
+//     		var seller_id = $(this).val();
+//     		$.ajax({
+//     			url: "/farmtastic/emailCheck",
+//     			type: "POST",
+//     			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//     			data: {
+//     				"member_email": member_email
+//     			},
+//     			success: function(data) {
+//     				if (data === 1) {
+//     					$("#invalid_email").text("이메일이 중복입니다.").show();
+//     				} else {
+//     					$("#invalid_email").hide();
+//     				}
+//     			},
+//     			error: function(xhr, textStatus, error) {
+//     				console.log(error);
+//     			}
+//     		});
+//     	});
+//     });
 
     </script>
 </body>
