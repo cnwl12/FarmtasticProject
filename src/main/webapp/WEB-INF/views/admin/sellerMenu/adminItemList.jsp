@@ -11,8 +11,8 @@
 
     <title>ItemList</title>
 
-   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -56,11 +56,56 @@
 
 				<jsp:include page="../inc/top.jsp"></jsp:include>
 
+	   <div class="container-fluid">
+	   <div class="card-header py-3">
+							<h3 class="m-0 font-weight-bold text-primary">상품관리</h3>
+						</div>
+
+                    <!-- Page Heading -->
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4" id="sellerAdmin">
+                      	<div>
+                        <div class="card-header py-3">
+                            <h4 class="m-0 font-weight-bold text-primary">상품 카테고리</h4>
+                        </div>
+							<form action="${pageContext.request.contextPath}/makeCategory"
+								method="post" id="makeCategory">
+								<input type="hidden" id="actionCate" name="actionCate" />
+
+								<div class="card-body">
+									<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+										id="addCate" type="button">행추가</button>
+									<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+										id="insertCate" type="submit">카테고리 등록</button>
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th><input type="checkbox" class="cateCheck"/></th>
+													<th>카테고리타입(seller_type)</th>
+													<th>카테고리명</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
+													<td><input type="text" name="newCategoryType[]" placeholder="카테고리 타입입력"></td>
+													<td><input type="text" name="newCategoryName[]" placeholder="카테고리 이름입력"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
 					<!-- 상품목록 시작 -->
 						<div class="card-header py-3">
-							<h3 class="m-0 font-weight-bold text-primary">상품관리</h3>
+							<h4 class="m-0 font-weight-bold text-primary">상품목록</h4>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -72,7 +117,7 @@
 											<th>상품타입</th>
 											<th>상품명</th>
 											<th>재고</th>
-											<th>판매상태</th>
+											<th>판매상태변경</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -152,6 +197,7 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/adminItem.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->

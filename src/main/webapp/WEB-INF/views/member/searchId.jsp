@@ -9,6 +9,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Farmtastic_searchId</title>
+<style>
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #f6f6f6;
+	}
+	
+	.find-id-wrapper {
+		max-width: 400px;
+		margin: 50px auto;
+		padding: 20px;
+		background-color: white;
+		border-radius: 5px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+	
+	.find-id-title {
+		font-size: 24px;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	form input {
+		width: 100%;
+		margin-bottom: 10px;
+		padding: 10px;
+		border: 1px solid #e5e5e5;
+		border-radius: 3px;
+		font-size: 14px;
+		outline: none;
+	}
+	
+	form input[type="submit"],
+	form input[type="button"] {
+		width: 48%;
+		margin-top: 10px;
+		background-color: #007BFF;
+		border: none;
+		color: white;
+		cursor: pointer;
+	}
+	
+	form input[type="submit"]:hover,
+	form input[type="button"]:hover {
+		background-color: #0056b3;
+	}
+</style>
     
     <!-- jQuery -->
     <script type="text/javascript"
@@ -36,33 +83,16 @@
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css"></head>
 
 <body>
-<jsp:include page="../top.jsp"></jsp:include>
 
-	    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb.jpg">
-        <div class="container"> 
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>searchId</h2> 
-                        <div class="breadcrumb__option">
-                            <a href="main">Home</a>
-                            <span>searchId</span> 
-                        </div>
-                    </div>
-                </div>    
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-	
-	  <h1>아이디 찾기</h1>
-    <form action="/farmtastic/SendEmailServlet" method="post">
-    	<input type="email" name="email" placeholder="이메일 주소 입력" required />
-        <input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
-		<input type="text" name="verification_code" placeholder="인증번호 입력" />
-		<input type="button" id=check_verification_code value="인증번호 확인"/>
-    </form>
+	<div class="find-id-wrapper">
+		<h2 class="find-id-title">아이디 찾기</h2>
+		<form action="/farmtastic/SendEmailServlet" method="post">
+			<input type="email" name="email" placeholder="이메일 주소 입력" required />
+			<input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
+			<input type="text" name="verification_code" placeholder="인증번호 입력" />
+			<input type="button" id="check_verification_code" value="인증번호 확인"/>
+		</form>
+	</div>
     
 <script>
 $(document).ready(function() {
@@ -105,19 +135,22 @@ $("#check_verification_code").on("click", function () {
         type: "GET",
         url: "/farmtastic/CheckVerificationCodeServlet",
         data: { code: userVerificationCode, email: userEmail }, // 이메일 값 추가
-        success: function (data) {
-            alert(data); // 성공 메시지 또는 오류 메시지 표시
-        },
-        error: function (xhr, status, error) {
-            alert("인증번호 확인 중 오류가 발생했습니다.");
+        dataType: "json",
+        success: function (response) {
+            // response 변수에는 서버에서 반환한 List<HashMap>이 들어있습니다.
+            if (response.length > 0 && response[0].hasOwnProperty('member_id')) {
+                // List에 항목이 있고, HashMap에 'member_pass' 키가 있는 경우에만 alert에 표시
+                var memberId = response[0]['member_id'];
+                alert("아이디는 다음과 같습니다: " + memberId);
+            } else {
+                // 인증번호가 틀렸거나 아이디 반환 오류 발생 시
+                alert("인증에 실패했습니다. 이메일, 인증번호를 확인해주세요.");
+            }
         },
     });
 });
 
 </script>
-
-	<!-- bottom.jsp로 분리  -->
-	<jsp:include page="../bottom.jsp"></jsp:include>
 
     <!-- Js Plugins -->
  	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>

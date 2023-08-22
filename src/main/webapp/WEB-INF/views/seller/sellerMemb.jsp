@@ -10,6 +10,7 @@
 	<meta name="author" content="">
 	
 	
+	
 	<title>seller/sellerMng</title>
 	
 	<!-- Custom fonts for this template -->
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<li>
 									<label class="control-label">로그인ID</label>
 										<div class="input-content">
-											<div class="form-control-static"><input type="hidden" class="form-control" name="seller_id" value="${seller.seller_id}">${seller.seller_id}</div>
+											<div class="form-control-static"><input type="hidden" class="form-control" id="seller_id" name="seller_id" value="${seller.seller_id}">${seller.seller_id}</div>
 										</div>
 									</li>
 									<li>
@@ -400,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						
 							<div class="seller-btn-area btn-group-xlg">
 								<button class="btn btn-primary" type="submit" id="img_submit">정보 수정</button>
+								<button id="withdrawBtn" onclick="withdraw()" class="btn btn-primary">회원 탈퇴</button>
 							</div>
 						</div>
 						<!-- 배송정보 끝 -->
@@ -539,6 +541,35 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	 });
 
+ function withdraw() {
+	  const result = confirm("정말로 탈퇴하시겠습니까?");
+	  event.preventDefault();
+	  if (result === true) {
+	    // 폼 데이터 전송
+	    
+	    const form = $('<form>', {
+	      'action': '${pageContext.request.contextPath }/withdrawPro',
+	      'method': 'POST'
+	    }).append($('<input>', {
+	      'name': 'seller_id',
+	      'value': $('#seller_id').val() // id 값 전송
+	    })).append($('<input>', {
+	      'name': 'seller_pass',
+	      'value': $('#seller_pass').val() // 비밀번호 값 전송
+	    })).append($('<input>', {
+	      'name': 'withdraw',
+	      'value': 'withdraw' // 회원 탈퇴 기능을 처리하는 값을 전송
+	    })).appendTo('body').submit();
+	    $(this).unbind(event);
+	  } else {
+	    // 취소 버튼을 클릭한 경우의 처리
+	    alert("회원 탈퇴가 취소되었습니다.");
+	   
+	  }
+	}
+
+ 
+ 
 </script>
 
 

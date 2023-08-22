@@ -137,4 +137,7 @@ public class AdminDAO {
 	public void ChangeItemStatus(HashMap<String, String> status) {
 		sqlSession.update(NAMESPACE+"ChangeItemStatus", status);
 	}
+	public void insertCate(HashMap<String, String> category) {
+		sqlSession.insert(NAMESPACE+"insertCate", category);
+	}
 }

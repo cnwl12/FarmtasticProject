@@ -256,8 +256,8 @@ public class MemberDAO {
 	}
 	
 	public void insertOrders(HashMap<String, Object> payInfo) {
-		sqlSession.insert(namespace + ".insertOrders", payInfo);
 		System.out.println("MemberDAO insertOrders");
+		sqlSession.insert(namespace + ".insertOrders", payInfo);
 	}
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
@@ -321,8 +321,10 @@ public class MemberDAO {
 		sqlSession.delete(namespace + ".cancelDelete", cancel);
 	}
 	
-	public String searchId(String email) {
-		return sqlSession.selectOne(namespace + ".searchId", email);
+	public List<HashMap> searchId(String email) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("member_email", email);
+	    return sqlSession.selectList(namespace + ".searchId", params);
 	}
 	
 	public List<HashMap> searchPwd(String email, String id) {

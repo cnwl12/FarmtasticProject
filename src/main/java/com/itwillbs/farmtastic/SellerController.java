@@ -40,8 +40,7 @@ import com.itwillbs.service.SellerService;
 
 @Controller
 public class SellerController {
-	
-	
+		
 
 	private static final String seller_num = null;
 
@@ -152,6 +151,49 @@ public class SellerController {
 	    }
 	}
 	
+	
+	
+	@RequestMapping(value = "/withdrawPro", method = RequestMethod.POST)
+	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "seller_id", required = false) String seller_id,
+			@RequestParam(value = "seller_recoYn", required = false) String seller_recoYn,
+			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
+		System.out.println("SellerController withdrawPro");
+		String seller_num = (String) session.getAttribute("seller_num");
+
+		// 입력된 값들도 세션에 저장합니다.
+		session.setAttribute("seller_id", seller_id);
+		session.setAttribute("seller_pass", seller_pass);
+		
+
+		SellerDTO sellerDTO = new SellerDTO();
+		sellerDTO.setSeller_num(seller_num);
+		sellerDTO.setSeller_id(seller_id);
+		sellerDTO.setSeller_pass(seller_pass);
+
+		SellerDTO sellerDTO2 = sellerService.sellerCheck2(sellerDTO);
+		
+		if (sellerDTO2 != null && sellerDTO2.getSeller_pass().equals(seller_pass)) {
+			// memberDTO 객체에 입력된 값들을 설정합니다.
+			sellerDTO.setSeller_id(seller_id);
+			sellerDTO.setSeller_pass(seller_pass);
+			
+			
+			sellerService.withdrawSeller(sellerDTO);
+			sellerDTO.setSeller_recoYn(seller_recoYn);
+			sellerService.withderawSellerstopselling(sellerDTO);
+			model.addAttribute("error", "회원탈퇴완료 잘가요.");
+			session.invalidate();
+			
+			return "redirect:/login";
+			
+		} else {
+			
+			
+			model.addAttribute("message", "비밀번호가 틀립니다");
+			return "redirect:/sellerMain";
+		}
+	}
 
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
@@ -179,8 +221,42 @@ public class SellerController {
 	}
 	
 	// 선진) 매출관리 페이지 - 검색바
+//	@RequestMapping(value = "/salesMngPro", method = RequestMethod.GET)
+//	public String salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
+//	                            @RequestParam(name = "endDate", required = false) String endDate,
+//	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
+//		
+//	    String seller_num = (String) session.getAttribute("seller_num");
+//	    
+//	    Date start = null;
+//	    Date end = null;
+//	    try {
+//	        if (startDate != null && !startDate.trim().isEmpty()) {
+//	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+//	        }
+//	        if (endDate != null && !endDate.trim().isEmpty()) {
+//	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+//	        }
+//	    } catch (ParseException e) {
+//	        e.printStackTrace();
+//	        start = null;
+//	        end = null;
+//	    }
+//	    
+//	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num, start, end);
+//	    model.addAttribute("DailySalesList", DailySalesList);
+//	    
+//	    String seller_id = sellerService.idCheck(seller_num);
+//	    model.addAttribute("seller_id", seller_id);
+//	    
+//	    session.setAttribute("seller_num", seller_num);
+//	    return "/seller/salesMng";
+//	}	
+	
+	// 검색바 수정중
 	@RequestMapping(value = "/salesMngPro", method = RequestMethod.GET)
-	public String salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
+	@ResponseBody
+	public List<Map<String,Object>> salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
 	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
 		
@@ -208,8 +284,8 @@ public class SellerController {
 	    model.addAttribute("seller_id", seller_id);
 	    
 	    session.setAttribute("seller_num", seller_num);
-	    return "/seller/salesMng";
-	}	
+	    return DailySalesList;
+	}
 	
 	// 선진) 일자별 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartDailySales", method = RequestMethod.GET)
@@ -609,6 +685,10 @@ public class SellerController {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
+	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
+	            // 승인 거절된 사용자
+	            model.addAttribute("error", "탈퇴한 회원입니다.");
+	            return "redirect:/login";    
 	        } else if (sellerDTO2 != null && sellerDTO2.getSeller_recoYn() == null) {
 	            // 승인 대기 중인 사용자
 	            model.addAttribute("error", "승인을 기다려주세요.");

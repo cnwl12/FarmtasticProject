@@ -9,9 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
-
 
 
 @Repository
@@ -68,6 +68,17 @@ public class SellerDAO {
 		}
 		
 		// 선진) 매출관리 - 검색바
+//		public List<Map<String,Object>> getDailySalesList(Map<String, Object> params) {
+//
+//		    String seller_num = (String) params.get("seller_num");
+//		    Date startDate = (Date) params.get("startDate");
+//		    Date endDate = (Date) params.get("endDate");
+//		    params.put("startDate", startDate);
+//		    params.put("endDate", endDate);
+//			return sqlSession.selectList(namespace + ".getDailySalesList", params);
+//		}
+		
+		// 검색바 수정
 		public List<Map<String,Object>> getDailySalesList(Map<String, Object> params) {
 
 		    String seller_num = (String) params.get("seller_num");
@@ -77,6 +88,7 @@ public class SellerDAO {
 		    params.put("endDate", endDate);
 			return sqlSession.selectList(namespace + ".getDailySalesList", params);
 		}
+		
 		
 		public List<Map<String,Object>> dailySales(String seller_num) {
 			
@@ -248,4 +260,18 @@ public class SellerDAO {
 		    return sqlSession.delete(namespace + ".deleteSellerReview", params);
 		}
 
+		public void withdrawSeller(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerDAO withdrawSeller()");
+			sqlSession.insert(namespace+".withdrawSeller", sellerDTO);
+			
+		}
+
+		public void withderawSellerstopselling(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerDAO withderawSellerstopselling()");
+			sqlSession.insert(namespace+".withderawSellerstopselling", sellerDTO);
+			
+		}
+		
 }

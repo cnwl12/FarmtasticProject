@@ -20,6 +20,7 @@ import com.itwillbs.domain.SellerDTO;
 @Service
 public class SellerService {
 	
+	
 	 @Autowired
 	    private SellerDAO sellerDAO;
 	 	//매출관리에 판매자별 총매출 불러오기 위한 구문
@@ -67,6 +68,16 @@ public class SellerService {
 		}
 		
 		// 선진) 매출관리 - 검색바
+//		public List<Map<String,Object>> getDailySalesList(String seller_num, Date startDate, Date endDate) {
+//
+//		    Map<String, Object> params = new HashMap<String, Object>();
+//		    params.put("seller_num", seller_num);
+//		    params.put("startDate", startDate);
+//		    params.put("endDate", endDate);
+//			return sellerDAO.getDailySalesList(params);
+//		}
+		
+		// 검색바 수정중
 		public List<Map<String,Object>> getDailySalesList(String seller_num, Date startDate, Date endDate) {
 
 		    Map<String, Object> params = new HashMap<String, Object>();
@@ -75,7 +86,6 @@ public class SellerService {
 		    params.put("endDate", endDate);
 			return sellerDAO.getDailySalesList(params);
 		}
-		
 		// 선진) 매출관리 - 일자별 매출 리스트
 		public List<Map<String,Object>> dailySales(String seller_num) {
 
@@ -262,5 +272,18 @@ public class SellerService {
 	    public boolean deleteSellerReview(int review_num, int member_num) {
 	        return sellerDAO.deleteSellerReview(review_num, member_num) > 0;
 	    }
+	    
+	    public void withdrawSeller(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerService withdrawSeller()");
+			
+			sellerDAO.withdrawSeller(sellerDTO);
+			
+		}
+		public void withderawSellerstopselling(SellerDTO sellerDTO) {
+			
+			System.out.println("SellerService withderawSellerstopselling()");
+			sellerDAO.withderawSellerstopselling(sellerDTO);
+		}
 	    
 }

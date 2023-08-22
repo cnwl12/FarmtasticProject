@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="SellerMapper">
     <select id="getSellers" resultType="map">
 		WITH monthly_seller_data AS (
@@ -179,7 +180,38 @@
 
 	<!-- 선진) 매출관리 - 검색바 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
+<!--  	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT	od.order_num,
+			s.seller_num, 
+			s.seller_storeName,
+			s.seller_name,
+			od.item_num, 
+			it.seller_type, 
+			it.item_name, 
+			od.item_cnt, 
+			it.item_price, 
+			FORMAT((it.item_price * od.item_cnt),0) as dailySales,
+			FORMAT(floor((it.item_price * od.item_cnt) * 0.05),0) as dailyFee,
+			FORMAT((it.item_price * od.item_cnt) -floor((it.item_price * od.item_cnt) * 0.05),0) AS dailySettlement,
+	        os.order_day,
+	        DATE_FORMAT(os.order_day, '%Y-%m-%d') as orderday
+	FROM	order_detail od		
+	LEFT JOIN item it 
+	ON od.item_num = it.item_num
+	LEFT JOIN seller s
+	ON it.seller_num = s.seller_num
+	LEFT JOIN orders os 
+	ON od.order_num = os.order_num
+	WHERE	od.item_num IN (select	item_num
+							from	item
+							where	seller_num = #{seller_num})
+						AND os.order_cancel = 'N'
+						AND os.order_day BETWEEN #{startDate} AND #{endDate}
+	ORDER BY os.order_day;
+	</select> -->
+	
+	<!-- 검색바 수정중 -->
+<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
 	SELECT	od.order_num,
 			s.seller_num, 
 			s.seller_storeName,
@@ -208,6 +240,7 @@
 						AND os.order_day BETWEEN #{startDate} AND #{endDate}
 	ORDER BY os.order_day;
 	</select>
+	
 	
    <!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
    <select id="dailySales" resultType="map">
@@ -597,7 +630,7 @@ ORDER BY MONTH(os.order_day);
     select * from seller
     where seller_id = #{seller_id}
     and seller_pass = #{seller_pass}
-    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn is null)
+    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'M' or seller_recoYn  is null)
 </select>
 
 <select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">
@@ -607,6 +640,21 @@ ORDER BY MONTH(os.order_day);
     <if test="seller_pass != null"> AND seller_pass = #{seller_pass}</if>
 	
 </select>
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withdrawSeller">
+ 	 UPDATE seller
+  	SET seller_recoYn = 'M',
+     <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
+  	WHERE seller_id = #{seller_id}
+  	</update>
+<!-- 판매자회원탈퇴시 상품중지 -->
+<update id="withderawSellerstopselling">
+	UPDATE item 
+	JOIN seller s ON item.seller_num = s.seller_num
+	SET item_salesStatus = 'N'
+	WHERE s.seller_recoYn = 'M';
+</update>
+
   	
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}

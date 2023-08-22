@@ -671,21 +671,18 @@ public class FarmController { // 소비자 (컨트롤러)
 		    payInfo.put("member_num", member_num);
 		    
 		    System.out.println(payInfo + "item_num 담기는지 확인");
-		    // paySuccess 넘어오는 애들 자체가 pay가 완료해서 넘어오는거임
-		    // pay 먼저 insert ! (pay가 먼저 insert되어야지,  order-detail-cartdelete실행 
-			
-		    // 없어도 될거 같음 일단은 남겨둠 (지원)
-		    // memberService.insertPay(payInfo);
 		    
 		    // orders 테이블에 DB인서트 작업 
-		    memberService.insertOrders(payInfo);
+		    String order_num = memberService.insertOrders(payInfo);
 		    System.out.println(payInfo + " member_num : " + member_num);
 		    
 		    System.out.println("업데이트 들어갈 예정 :" + payInfo);
 		 //   payInfo.put("item_num", item_num);
 		    // 아이템 재고 줄이기
 			//memberService.updateItemLeft(payInfo);
+		    session.setAttribute("order_num", order_num);
 		    
+		    System.out.println("세션저장후 " + order_num);
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
 		}
@@ -695,11 +692,14 @@ public class FarmController { // 소비자 (컨트롤러)
 	// 주문 버튼 눌렀을 때 주문상세테이블에 1차로 추가
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
 	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
-
+		
+		System.out.println(orderDetail);
 		int member_num = (int)session.getAttribute("member_num");
+		String order_num = (String) session.getAttribute("order_num");
 		orderDetail.put("member_num", member_num);
-
-	    memberService.insertOrderDetail(orderDetail);
+		orderDetail.put("order_num", order_num);
+		
+	    memberService.insertOrderDetail(orderDetail); 
 		
 		// cartlist에서 주문테이블로 insert되면 cartlist delete될 예정
 		memberService.deleteAllCart(orderDetail);
@@ -1260,15 +1260,19 @@ public class FarmController { // 소비자 (컨트롤러)
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet", method = RequestMethod.GET)
 	@ResponseBody
-	public String searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
-	    String searchId = memberService.searchId(email);
+	public List<HashMap> searchId(@RequestParam String email,@RequestParam String code, HttpSession session) {
+	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
+	    List<HashMap> searchId = memberService.searchId(email);
 	    if(code.equals(session.getAttribute("verificationCode"))) {
 	    	System.out.println("일치");
-	        return searchId;
+	    	result.addAll(searchId); // 검색 결과를 List<HashMap>에 추가
 	    }else {
 	    	System.out.println("일치하지않음");
-	        return "Inconsistency verificationCode"; // 인증코드가 일치하지 않으면 반환하는 에러 메시지
+	        HashMap<String, String> error = new HashMap<>();
+	        error.put("error", "Inconsistency verificationCode");
+	        result.add(error); // 에러 메시지를 List<HashMap>에 추가
 	    }
+	    return result; // List<HashMap> 반환
 	}
 	
 	@RequestMapping(value = "/CheckVerificationCodeServlet2", method = RequestMethod.GET)

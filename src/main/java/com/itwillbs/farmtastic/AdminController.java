@@ -804,6 +804,22 @@ public class AdminController {
 		return "/admin/sellerMenu/adminItemList";
 	}
 	
+	
+	@RequestMapping(value = "/addRow", method = RequestMethod.GET)
+	public String addRow() {
+
+		return "/admin/sellerMenu/adminItemList";
+	}
+	
+	@RequestMapping(value = "/makeCategory", method = RequestMethod.POST)
+	public String makeCategory(@RequestParam HashMap<String, String> category,HttpSession session, Model model) {
+
+	//	adminService.insertCate(category);
+		
+		return "redirect:/adminItemList";
+	}
+	
+	
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 		@RequestMapping(value = "/ChangeItemStatus", method = RequestMethod.GET)
 
