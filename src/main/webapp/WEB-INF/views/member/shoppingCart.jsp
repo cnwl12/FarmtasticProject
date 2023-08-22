@@ -157,7 +157,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row" style="display: flex !important;">
 				<c:choose>
 					<c:when test="${empty itemList}">
 						<div class="col-lg-12">
@@ -168,7 +168,6 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="col-lg-6">
 							<div class="shoping__checkout shoping_div">
 								<h5>Cart Total</h5>
 								<ul>
@@ -176,14 +175,15 @@
 								</ul>
 							</div>
 							<input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+							<div style="padding-top: 5px; padding-right: 1px; float: right;">
 							<button class="primary-btn" onclick="clearCart()">전체삭제</button>
 							<a href="checkout" class="primary-btn">주문하기</a>
-						</div>
+							</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
 
-		</div>
+		
 	</section>
 
 

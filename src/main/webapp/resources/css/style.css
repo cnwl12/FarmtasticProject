@@ -2095,11 +2095,11 @@ farm store 재고 이미지
 }
 
 .shoping__checkout {
-	width:453px;
+	width:100%;
 	background: #f5f5f5;
 	padding: 30px;
 	padding-top: 20px;
-	margin-top: 20px;
+	margin-top: -10px;
 }
 
 .shoping__checkout h5 {
@@ -2131,6 +2131,7 @@ farm store 재고 이미지
 }
 
 .shoping__checkout ul li span {
+	padding-right: 35px;
 	font-size: 18px;
 	color: #dd2222;
 	float: right;
@@ -2187,7 +2188,8 @@ farm store 재고 이미지
 }
 
 .checkout__input p {
-	color: #1c1c1c;
+	color: black;
+	font-weight : bold;
 	margin-bottom: 20px;
 }
 
@@ -2201,7 +2203,7 @@ farm store 재고 이미지
 	border: 1px solid #ebebeb;
 	padding-left: 20px;
 	font-size: 16px;
-	color: #b2b2b2;
+	color: black;
 	border-radius: 4px;
 }
 

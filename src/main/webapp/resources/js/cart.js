@@ -1,32 +1,3 @@
-function insertCart(){	
-	
-	var cart_cnt = $("#cart_cnt").val(); // cart_cnt id값의 value값 
-	var item_num = $('.item_wrap').data("item_num");
-	
-	//console.log(item_num);
-	
-	/*location.href="insertCart?item_num="+item_num+"&cart_cnt="+cart_cnt;*/
-	
-	$.ajax({
-        url: "insertCart",
-        type: "GET",
-        data: {
-            item_num: item_num,
-            cart_cnt: cart_cnt
-        },
-        success: function(response) {
-            // 추가성공 
-        },
-        error: function() {
-            console.log("상품 추가 중 오류 발생");
-        }
-    });
-
-    var confirmMove = confirm("장바구니로 이동하시겠습니까?");
-    if (confirmMove) {
-        location.href = "shoppingCart";
-    }
-}
 
 
 //  쇼핑카트 내 
