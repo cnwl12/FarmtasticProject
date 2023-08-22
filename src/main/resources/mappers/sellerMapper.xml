@@ -50,25 +50,53 @@
 
 <select id="totalSales" resultType="map">
 
-	SELECT
-   (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt),0) 
-      FROM order_detail o2 
-      LEFT JOIN item i2 
-      ON i2.item_num = o2.item_num) AS total_sales,
-	(SELECT format(FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05),0)
-        FROM order_detail o2
-        LEFT JOIN item i2 ON i2.item_num = o2.item_num
-    ) AS total_fee,
-    (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt) - FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05), 0)
-        FROM order_detail o2
-        LEFT JOIN item i2 ON i2.item_num = o2.item_num
-    ) AS total_settlement
-	FROM
-    order_detail o
-    LEFT JOIN item i ON i.item_num = o.item_num
-    LEFT JOIN seller s ON s.seller_num = i.seller_num;
+			WITH filtered_orders AS (
+  				 SELECT o2.order_num, 
+  		 				o2.item_num, 
+  		 				o2.item_cnt
+  				 FROM order_detail o2
+  				 LEFT JOIN orders o 
+  				 ON o.order_num = o2.order_num
+  				 WHERE o.order_cancel = 'N'
+				)
+		     	SELECT
+  				FORMAT(SUM(i2.item_price * fo.item_cnt), 0) AS total_sales,
+  				FORMAT(FLOOR(SUM(i2.item_price * fo.item_cnt) * 0.05), 0) AS total_fee,
+  				FORMAT(SUM(i2.item_price * fo.item_cnt) - FLOOR(SUM(i2.item_price * fo.item_cnt) * 0.05), 0) AS total_settlement
+				FROM
+  				filtered_orders fo
+				LEFT JOIN item i2 
+				ON i2.item_num = fo.item_num;
+
 </select>
- 
+ <select id="selectSalesData" resultType="map">
+    SELECT
+    t.monthly,
+    FORMAT(t.monthly_sales, 0) as month_sales,
+    FORMAT(FLOOR(t.monthly_sales * 0.05), 0) as month_fee,
+    FORMAT(t.total, 0) as total_sales,
+    FORMAT(FLOOR(t.total * 0.05), 0) as total_fee,
+	FORMAT((t.total - FLOOR(t.total * 0.05)), 0) as total_settlement
+    
+    
+FROM (
+    SELECT
+        DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly,
+        SUM(od.item_cnt * i.item_price) as monthly_sales,
+        (SELECT SUM(item_cnt * item_price)
+         FROM order_detail od2
+         LEFT JOIN orders o2 ON od2.order_num = o2.order_num
+         LEFT JOIN item i2 ON od2.item_num = i2.item_num
+         WHERE o2.order_cancel = 'N') as total
+    FROM
+        order_detail od
+    LEFT JOIN orders o ON od.order_num = o.order_num
+    LEFT JOIN item i ON od.item_num = i.item_num
+    WHERE o.order_cancel = 'N'
+    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m')
+) as t;
+
+</select>
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
 	select seller_licenseNum
@@ -626,7 +654,13 @@ ORDER BY MONTH(os.order_day);
   	<select id="idCheck" resultType="String">
     SELECT seller_id FROM seller WHERE seller_num = #{seller_num}
      
-  	</select> 
+  	</select>
+  	
+  	<select id="idCheck2" resultType="com.itwillbs.domain.SellerDTO">
+		SELECT seller_id
+		FROM seller
+		WHERE seller_id = #{seller_id}
+	</select> 
   	
 <select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
     SELECT m.member_id, m.member_name, m.member_phone,  CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain, i.item_name, 
@@ -712,5 +746,23 @@ ORDER BY MONTH(os.order_day);
     where review_num = #{review_num}
     and member_num = #{member_num};
 	</delete>
-   
+   	
+   	<select id="sellerDetail" parameterType="map" resultType="map">
+   		SELECT * FROM seller WHERE seller_num = #{seller_num}
+   	</select>
+   	
+   	<update id="updateSellerInfo">
+   		update seller
+   		set seller_storeName = #{seller_storeName}
+   		  , seller_name = #{seller_name}
+   	      , seller_licenseNum = #{seller_licenseNum}
+   		  , seller_file = #{seller_file}
+   		where seller_num = #{seller_num};	
+   	</update>
+   	
+   	<select id="getSellerEmail" resultType="com.itwillbs.domain.SellerDTO">
+		SELECT seller_email
+		FROM seller
+		WHERE seller_email = #{seller_email}
+	</select>
 </mapper>

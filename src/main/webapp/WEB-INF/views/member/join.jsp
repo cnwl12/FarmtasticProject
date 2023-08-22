@@ -470,6 +470,38 @@ input#post {
     function validateAll() {
       return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();
     }
+    
+    $(document).ready(function() {
+        var timeoutId;
+
+        $("#member_email").on("keyup", function() {
+            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
+
+            var member_email = $(this).val();
+
+            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
+            timeoutId = setTimeout(function() {
+                $.ajax({
+                    url: "/farmtastic/emailCheck",
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data: {
+                        "member_email": member_email
+                    },
+                    success: function(data) {
+                        if (data === 1) {
+                            $("#invalid_email").text("이메일이 중복입니다.").show();
+                        } else {
+                            $("#invalid_email").hide();
+                        }
+                    },
+                    error: function(xhr, textStatus, error) {
+                        console.log(error);
+                    }
+                });
+            }, 500); // 타이머 시간 설정 (ms)
+        });
+    });
 
     </script>
 </body>

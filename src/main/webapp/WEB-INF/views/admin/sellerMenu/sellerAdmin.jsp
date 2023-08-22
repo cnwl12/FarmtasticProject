@@ -68,7 +68,7 @@
                                             <th>번호</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
-                                            <th>사업장 번호</th>
+                                            <th>사업자 등록번호</th>
                                             <th>첨부파일</th>
                                             <th>상태</th>
                                             <th>가입일</th>
@@ -84,7 +84,7 @@
             						<tr data-status="unapproved">
                 						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
                 						<td>${count}</td> <!-- 순차 카운터 표시 -->
-                						<td>${seller.seller_storeName}</td>
+                						<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
                 						<td>${seller.seller_name}</td>
                 						<td>${seller.seller_licenseNum}</td>
                 						<td>
@@ -122,7 +122,7 @@
                                             <th>코드</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
-                                            <th>사업장 번호</th>
+                                            <th>사업자 등록번호</th>
                                             <th>첨부파일</th>
                                             <th>상태</th>
                                             <th>가입일</th>
@@ -134,7 +134,7 @@
         								<tr  data-status="approved">
             							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
             							<td>${seller.seller_num}</td>
-            							<td>${seller.seller_storeName}</td>
+            							<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
             							<td>${seller.seller_name}</td>
             							<td>${seller.seller_licenseNum}</td>
             							<td>
@@ -252,6 +252,16 @@ function toggleRecoCheckAll() {
 
 toggleRejectCheckAll();
 toggleRecoCheckAll();
+
+function showDetail(sellerNum) {
+    // 회원 정보 조회 API URL
+	  const url = '${pageContext.request.contextPath}/sellerDetail?seller_num=' + sellerNum;
+    // 팝업 창 열기
+    window.open(url, 'sellerInfoPopup', 'width=800,height=600');
+
+    // 팝업 창에서 메인 창으로 포커스 이동
+    opener.focus();
+}
 </script>
 	
 </body>

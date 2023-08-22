@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -341,6 +343,77 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "/sellerDetail", method = RequestMethod.GET)
+    public String sellerDetail(@RequestParam("seller_num") String seller_num, Locale locale, Model model,HttpSession session) {
+        System.out.println("sellerDetail 매핑 확인 여부");
+        if (session.getAttribute("admin_id") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String admin_id = (String) session.getAttribute("admin_id");
+            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+            List<Map<String, Object>> result = sellerService.getSeller();
+            Map<String, Object> resultList = sellerService.getSellerDetails(seller_num);
+	        model.addAttribute("sellerDetail", resultList);
+   		 	model.addAttribute("seller", result);
+            model.addAttribute("admin", adminInfo);
+            model.addAttribute("admin_id", admin_id);
+            return "/admin/sellerMenu/sellerDetail";
+        }
+        
+    }
+	
+	@RequestMapping(value = "/updateSellerInfo", method = RequestMethod.POST)
+    public ResponseEntity<String> updateSellerInfo(
+            @RequestParam("seller_num") String seller_num,
+            @RequestParam("seller_storeName") String seller_storeName,
+            @RequestParam("seller_name") String seller_name,
+            @RequestParam("seller_licenseNum") String seller_licenseNum,
+            @RequestParam("seller_file") MultipartFile file,
+            HttpSession session) {
+		// 파일을 저장할 폴더 경로
+	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
+
+	    if (!file.isEmpty() && file.getSize() > 0) {
+	        String fileName = file.getOriginalFilename();
+	        String fileExtension = FilenameUtils.getExtension(fileName);
+
+	        // 허용되는 확장자 리스트
+	        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+
+	        if (allowedExtensions.contains(fileExtension.toLowerCase())) {
+
+	            String uuid = UUID.randomUUID().toString();
+	            String storedFileName = uuid.substring(0, 8) + "." + fileExtension;
+
+	            String filePath = uploadPath + "/" + storedFileName;
+	            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
+
+	            // 서버에 파일 저장
+	            File dest = new File(filePath);
+	            try {
+	                file.transferTo(dest);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                        .body("파일 저장 중 문제가 발생했습니다.");
+	            }
+	            
+	            // 리뷰 업데이트 작업 진행
+	            sellerService.updateSellerInfo(seller_num, seller_storeName, seller_name, seller_licenseNum, saveFileName);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                    .body("지원하지 않는 이미지 형식입니다.");
+	        }
+	    } else {
+	        // 이미지 업데이트를 진행하지 않음 (기존 이미지 사용)
+	        sellerService.updateSellerInfo(seller_num, seller_storeName, seller_name, seller_licenseNum, null);
+	    }
+
+	    return ResponseEntity.status(HttpStatus.OK).body("The info has been successfully updated.");
+	}
 	
 	@PostMapping("/changeSellerStatus")
 	public String changeSellerStatus(@RequestParam(value = "result", required = false) List<String> sellerNum, @RequestParam("actionType") String actionType, RedirectAttributes redirectAttributes) {
@@ -474,7 +547,6 @@ public class AdminController {
 	    System.out.println("Monthly: " + monthly); // 로깅 추가
 
 	    List<Map<String, Object>> result = sellerService.getSellers(monthly);
-	    System.out.println("Result: " + result); // 로깅 추가
 
 	    return result;
 	}
@@ -800,25 +872,40 @@ public class AdminController {
 		
 			List<Map<String, Object>> itemList = adminService.getItemList();
 			model.addAttribute("itemList", itemList);
+			
+			// 등록된 카테고리 목록들도 불러오고 , add 해서 추가도 할 수 있게 
 		
 		return "/admin/sellerMenu/adminItemList";
 	}
 	
 	
 	@RequestMapping(value = "/addRow", method = RequestMethod.GET)
-	public String addRow() {
+	public String addRow(HttpSession session, Model model) {
+		
+		String admin_id = (String) session.getAttribute("admin_id");
+		Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+		model.addAttribute("admin", adminInfo);
 
 		return "/admin/sellerMenu/adminItemList";
 	}
 	
 	@RequestMapping(value = "/makeCategory", method = RequestMethod.POST)
-	public String makeCategory(@RequestParam HashMap<String, String> category,HttpSession session, Model model) {
+	public String makeCategory(@RequestParam("seller_type[]") String[] sellerTypes,
+	                           @RequestParam("type_name[]") String[] typeNames,
+	                           HttpSession session, Model model) {
+	    if (sellerTypes.length == typeNames.length) {
+	        for (int i = 0; i < sellerTypes.length; i++) {
+	            String sellerType = sellerTypes[i];
+	            String typeName = typeNames[i];
 
-	//	adminService.insertCate(category);
-		
-		return "redirect:/adminItemList";
+	            adminService.insertCate(sellerType, typeName);
+	        }
+	    }
+
+	    return "redirect:/adminItemList";
 	}
-	
+
+
 	
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 		@RequestMapping(value = "/ChangeItemStatus", method = RequestMethod.GET)

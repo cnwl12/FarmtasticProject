@@ -78,6 +78,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
+		
+		List<Map<String, Object>> typeList = adminService.getTypes();
+		model.addAttribute("typeList", typeList);
+		System.out.println("typeList : " + typeList);
 
 		return "main"; 
 	}
@@ -891,28 +895,16 @@ public class FarmController { // 소비자 (컨트롤러)
 		return entity;
 	}// idCheck 끝
 
-
-	@RequestMapping(value = "/idCheck2", method = RequestMethod.GET)
-
 	@ResponseBody
-	public ResponseEntity<String> idCheck2(HttpServletRequest request) {
-
-		String seller_id = request.getParameter("seller_id");
-
-		Map<String, Object> sellerDTO = sellerService.sellerCheck(seller_id);
-		String result = "";
-		if (sellerDTO != null) {
-			// 아이디 있음 => 아이디 중복
-			result = "id is used";
-		} else {
-			// 아이디 없음 => 아이디 사용가능
-			result = "id is available";
+	@RequestMapping(value = "/idCheck2", method = RequestMethod.POST)
+	public int idCheck2(@RequestParam("seller_id") String seller_id, HttpServletRequest request) {
+		int result = 0;
+		SellerDTO checkId = sellerService.idCheck2(seller_id);
+		if (checkId != null) {
+			result = 1;
 		}
-		// ResponseEntity에 출력 결과를 담아서 리턴
-		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-
-		return entity;
-	}// idCheck2 끝
+		return result;
+	}
 
 	// Review 기능! - 막내
 	// 리뷰작성 -> 데이터저장 / 사진은 1개만 가능
@@ -938,14 +930,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    
 		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-				
-//				System.out.println(uploadPath);
-				// 이건 여러개 (map 쓸때 사용할 수도 있어서 남겨둠)
-//				for (int i = 0; i < files.size(); i++) {
-//		            MultipartFile file = files.get(i);
-//		            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
-//		                String fileName = file.getOriginalFilename(); // 파일 원래 이름
-//		                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
 				        String fileName = file.getOriginalFilename(); // 파일 원래 이름
@@ -1026,12 +1010,12 @@ public class FarmController { // 소비자 (컨트롤러)
 									@RequestParam("review_star") int review_star,
 	                                @RequestParam("review_title") String review_title,
 	                                @RequestParam("review_content") String review_content,
-	                                @RequestParam("review_image") MultipartFile file,
+	                                @RequestParam(value="review_image", required = false) MultipartFile file,
 	                                 HttpSession session) {
 		// 파일을 저장할 폴더 경로
 	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
-	    if (!file.isEmpty() && file.getSize() > 0) {
+	    if (file != null && !file.isEmpty() && file.getSize() > 0) {
 	        String fileName = file.getOriginalFilename();
 	        String fileExtension = FilenameUtils.getExtension(fileName);
 
@@ -1280,9 +1264,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	public List<HashMap> searchPwd(@RequestParam String email,@RequestParam String id,@RequestParam String code, HttpSession session) {
 	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
 	    
-	    List<HashMap> searchPwd = memberService.searchPwd(email, id);
 	    if(code.equals(session.getAttribute("verificationCode"))) {
 	        System.out.println("일치");
+	        memberService.updatePwd(email, id);
+		    List<HashMap> searchPwd = memberService.searchPwd(email, id);
 	        result.addAll(searchPwd); // 검색 결과를 List<HashMap>에 추가
 	    } else {
 	        System.out.println("일치하지않음");
@@ -1332,6 +1317,28 @@ public class FarmController { // 소비자 (컨트롤러)
 			sendResponse(response, "비밀번호가 틀립니다.");
 			return "/mypage";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
+	public int emailCheck(@RequestParam("member_email") String member_email, HttpServletRequest request) {
+		int result = 0;
+		MemberDTO checkEmail = memberService.getMemberEmail(member_email);
+		if (checkEmail != null) {
+			result = 1;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailCheck2", method = RequestMethod.POST)
+	public int emailCheck2(@RequestParam("seller_email") String seller_email, HttpServletRequest request) {
+		int result = 0;
+		SellerDTO checkEmail = sellerService.getSellerEmail(seller_email);
+		if (checkEmail != null) {
+			result = 1;
+		}
+		return result;
 	}
 
 }

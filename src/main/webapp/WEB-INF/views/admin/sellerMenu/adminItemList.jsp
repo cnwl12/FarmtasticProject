@@ -90,8 +90,8 @@
 											<tbody>
 												<tr>
 													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
-													<td><input type="text" name="newCategoryType[]" placeholder="카테고리 타입입력"></td>
-													<td><input type="text" name="newCategoryName[]" placeholder="카테고리 이름입력"></td>
+													<td><input type="text" name="seller_type[]" placeholder="카테고리 타입입력"></td>
+													<td><input type="text" name="type_name[]" placeholder="카테고리 이름입력"></td>
 												</tr>
 											</tbody>
 										</table>
