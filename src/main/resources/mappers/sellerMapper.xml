@@ -51,22 +51,15 @@
 <select id="totalSales" resultType="map">
 
 	SELECT
-   (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt),0) 
-      FROM order_detail o2 
-      LEFT JOIN item i2 
-      ON i2.item_num = o2.item_num) AS total_sales,
-	(SELECT format(FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05),0)
-        FROM order_detail o2
-        LEFT JOIN item i2 ON i2.item_num = o2.item_num
-    ) AS total_fee,
-    (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt) - FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05), 0)
-        FROM order_detail o2
-        LEFT JOIN item i2 ON i2.item_num = o2.item_num
-    ) AS total_settlement
-	FROM
-    order_detail o
-    LEFT JOIN item i ON i.item_num = o.item_num
-    LEFT JOIN seller s ON s.seller_num = i.seller_num;
+  (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt), 0)
+   FROM order_detail o2
+   LEFT JOIN item i2 ON i2.item_num = o2.item_num) AS total_sales,
+  (SELECT FORMAT(FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05), 0)
+   FROM order_detail o2
+   LEFT JOIN item i2 ON i2.item_num = o2.item_num) AS total_fee,
+  (SELECT FORMAT(SUM(i2.item_price * o2.item_cnt) - FLOOR(SUM(i2.item_price * o2.item_cnt) * 0.05), 0)
+   FROM order_detail o2
+   LEFT JOIN item i2 ON i2.item_num = o2.item_num) AS total_settlement;
 </select>
  
 	<!-- 가맹점 관리 -->
