@@ -30,7 +30,10 @@
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top">
@@ -86,6 +89,73 @@
                         <div class="card-body">
                         
                         여기에 차트넣기
+                          <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                   
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                   <div class="chart-area">
+  										<canvas id="myChart"></canvas>
+								   </div>
+										   <script>
+        // total_fee와 month_fee를 담을 배열 생성
+        let total_fee = [];
+        let month_fee = [];
+
+        // sellers 데이터에서 total_fee와 month_fee 가져오기
+        <c:forEach items="${sellers}" var="seller">
+            total_fee.push(${seller.total_fee});
+            month_fee.push(${seller.month_fee});
+        </c:forEach>
+
+        // 차트 생성
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+                labels: ['연간', '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                datasets: [{
+                    label: 'Earnings Overview',
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    data: [total_fee[0].toFixed(2)].concat(month_fee) // 첫 번째 항목을 seller.total_fee로 변경
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }]
+                },
+                plugins: {
+                    filler: {
+                        propagate: false
+                    },
+                    'samples-filler-analyser': {
+                        target: 'chart-analyser'
+                    }
+                }
+            }
+        });
+    </script>
+
+                                </div>
+                            
+                            </div>
+                        </div>
+                        
+                        
+                        
                         </div>
                     </div>
 
@@ -133,6 +203,11 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+    <!-- Page level plugins -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
+      <!-- Page level custom scripts -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 	
 </body>
 

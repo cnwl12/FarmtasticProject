@@ -32,7 +32,10 @@ public class SellerService {
 	    	System.out.println("SellerService의 totalSales 매핑완");
 	        return sellerDAO.totalSales();
 	    }
-	    
+	    public List<Map<String, Object>> selectSalesData() {
+	    	System.out.println("SellerService의 selectSalesData 매핑완");
+	        return sellerDAO.selectSalesData();
+	    }
 	    // 가맹점관리 혜원
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
