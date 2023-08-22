@@ -29,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -872,25 +873,40 @@ public class AdminController {
 		
 			List<Map<String, Object>> itemList = adminService.getItemList();
 			model.addAttribute("itemList", itemList);
+			
+			// 등록된 카테고리 목록들도 불러오고 , add 해서 추가도 할 수 있게 
 		
 		return "/admin/sellerMenu/adminItemList";
 	}
 	
 	
 	@RequestMapping(value = "/addRow", method = RequestMethod.GET)
-	public String addRow() {
+	public String addRow(HttpSession session, Model model) {
+		
+		String admin_id = (String) session.getAttribute("admin_id");
+		Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+		model.addAttribute("admin", adminInfo);
 
 		return "/admin/sellerMenu/adminItemList";
 	}
 	
 	@RequestMapping(value = "/makeCategory", method = RequestMethod.POST)
-	public String makeCategory(@RequestParam HashMap<String, String> category,HttpSession session, Model model) {
+	public String makeCategory(@RequestParam("seller_type[]") String[] sellerTypes,
+	                           @RequestParam("type_name[]") String[] typeNames,
+	                           HttpSession session, Model model) {
+	    if (sellerTypes.length == typeNames.length) {
+	        for (int i = 0; i < sellerTypes.length; i++) {
+	            String sellerType = sellerTypes[i];
+	            String typeName = typeNames[i];
 
-	//	adminService.insertCate(category);
-		
-		return "redirect:/adminItemList";
+	            adminService.insertCate(sellerType, typeName);
+	        }
+	    }
+
+	    return "redirect:/adminItemList";
 	}
-	
+
+
 	
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 		@RequestMapping(value = "/ChangeItemStatus", method = RequestMethod.GET)

@@ -78,6 +78,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
+		
+		List<Map<String, Object>> typeList = adminService.getTypes();
+		model.addAttribute("typeList", typeList);
+		System.out.println("typeList : " + typeList);
 
 		return "main"; 
 	}

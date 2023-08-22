@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.AdminDAO;
@@ -128,7 +129,14 @@ public class AdminService {
 	public void ChangeItemStatus(HashMap<String, String> status) {
 		adminDAO.ChangeItemStatus(status);
 	}
-	public void insertCate(HashMap<String, String> category) {
-		adminDAO.insertCate(category);
+	
+	public void insertCate(String sellerType, String typeName) {
+	    adminDAO.insertCate(sellerType, typeName);
+	    System.out.println("카테고리 생성 가능, sellerType: " + sellerType + ", typeName: " + typeName);
 	}
+	public List<Map<String, Object>> getTypes() {
+		return adminDAO.getTypes();
+	}
+
+
 }
