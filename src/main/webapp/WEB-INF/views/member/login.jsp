@@ -254,8 +254,8 @@ $(document).ready(function() {
   // 정규식
   var regId1 = /^[a-zA-Z0-9]{2,10}$/;
   var regId2 = /^[a-zA-Z0-9]{2,10}$/;
-  var regPw1 = /^[a-zA-Z0-9]{2,10}$/;
-  var regPw2 = /^[a-zA-Z0-9]{2,10}$/;
+  var regPw1 = /^[a-zA-Z0-9]{2,12}$/;
+  var regPw2 = /^[a-zA-Z0-9]{2,12}$/;
 
   // 아이디 입력란에 keyup 이벤트 적용
   $("#loginId1").on("keyup", function() {

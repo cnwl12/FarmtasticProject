@@ -1280,9 +1280,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	public List<HashMap> searchPwd(@RequestParam String email,@RequestParam String id,@RequestParam String code, HttpSession session) {
 	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
 	    
-	    List<HashMap> searchPwd = memberService.searchPwd(email, id);
 	    if(code.equals(session.getAttribute("verificationCode"))) {
 	        System.out.println("일치");
+	        memberService.updatePwd(email, id);
+		    List<HashMap> searchPwd = memberService.searchPwd(email, id);
 	        result.addAll(searchPwd); // 검색 결과를 List<HashMap>에 추가
 	    } else {
 	        System.out.println("일치하지않음");

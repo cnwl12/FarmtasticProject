@@ -306,6 +306,10 @@ public class MemberService {
     public List<HashMap> searchPwd(String email, String id) {
         return memberDAO.searchPwd(email, id);
     }
+    
+    public List<HashMap> updatePwd(String email, String id) {
+        return memberDAO.updatePwd(email, id);
+    }
 
 
 	public void withdrawMember(MemberDTO memberDTO) {

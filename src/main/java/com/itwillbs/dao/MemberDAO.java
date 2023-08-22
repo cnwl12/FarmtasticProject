@@ -333,6 +333,13 @@ public class MemberDAO {
 	    params.put("member_id", id);
 	    return sqlSession.selectList(namespace + ".searchPwd", params);
 	}
+	
+	public List<HashMap> updatePwd(String email, String id) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("member_email", email);
+	    params.put("member_id", id);
+	    return sqlSession.selectList(namespace + ".updatePwd", params);
+	}
 
     
 	public void withderawMember(MemberDTO memberDTO) {
