@@ -265,7 +265,8 @@
 									<th>매출액</th>
 									<th>수수료</th>
 									<th>정산액</th>
-									<th>주문일자</th>
+									<th>주문일자order_day</th>
+									<th>주문일자orderday</th>
 								</tr>
 							</thead>
 							<tbody id="getDailySalesList">
@@ -282,6 +283,8 @@
 										<td>${list.dailyFee}</td>
 										<td>${list.dailySettlement}</td>
 										<td>${list.order_day}</td>
+										
+										<td>${list.orderday}</td>
  										</tr> 
 								</c:forEach> 
 							</tbody>
@@ -352,75 +355,6 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 
-	<!-- 검색바 함수 -->
-<!--  	<script>
-	let startDate, endDate,startDateInput, endDateInput, now;
-	
-	// 초기 설정
-	document.addEventListener("DOMContentLoaded", function() {
-
-	    // 페이지 로딩 시 저장된 기간이 있는지 확인하고 있으면 설정
-	    if (localStorage.getItem("startDate") && localStorage.getItem("endDate")) {
-	       	startDate = localStorage.getItem("startDate");
-	        endDate = localStorage.getItem("endDate");
-	        document.getElementById("start-date").value = startDate;
-	        document.getElementById("end-date").value = endDate;
-	    }
-	    // 페이지 새로 들어가면 시작일, 종료일 초기화
-	    localStorage.removeItem("startDate");
-	    localStorage.removeItem("endDate");
-	    
-	});
-	
-    // 최대 오늘까지 설정 가능하게
-    startDateInput = document.getElementById('start-date');
-    endDateInput = document.getElementById('end-date');
-    now = new Date();
-    startDateInput.max = now.toISOString().split("T")[0];
-    endDateInput.max = now.toISOString().split("T")[0];
-	
-	// 검색 폼 전송 함수
-	function submitSearchForm() {
-	    // 검색 폼의 시작일과 종료일 값을 가져옴
-	    startDate = document.getElementById("start-date").value;
-	    endDate = document.getElementById("end-date").value;
-	
-	    // 검색 조건이 유효하면 검색 폼 전송 및 기간 저장
-	    if (startDate && endDate) {
-	        if (startDate > endDate) { // 시작일이 종료일보다 더 크면
-	            alert("잘못된 날짜입니다!");
-	        } else {
-	            localStorage.setItem("startDate", startDate);
-	            localStorage.setItem("endDate", endDate);
-
-	            document.getElementById("searchForm").submit();
-	        }
-	    } else { // 날짜 지정 안하면
-	        alert("시작일과 종료일을 선택해주세요.");
-	    }
-	}
-	// 검색 기간 설정 버튼을 클릭하면 기간 설정 되도록
-	function setDateRange(days) {
-	    now = new Date();
-	    startDateInput = document.getElementById("start-date");
-	    endDateInput = document.getElementById("end-date");
-	    startDate = new Date(now - days * 24 * 60 * 60 * 1000);
-	    startDateInput.valueAsDate = startDate;
-	    endDateInput.valueAsDate = now;
-	}
-	
-	// 초기화 버튼 클릭시 검색 조건 초기화
-	const resetButton = document.querySelector('button[type="reset"]');
-	resetButton.addEventListener("click", function(event) {
-	    event.preventDefault();
-	    // 저장된 기간 제거
-	    localStorage.removeItem("startDate");
-	    localStorage.removeItem("endDate");
-	    document.getElementById("start-date").value = "";
-	    document.getElementById("end-date").value = "";
-	});
-	</script> -->
-	
    <!-- 매출 차트 토글 함수 -->
 	<script>
 	$(document).ready(function() {
@@ -452,95 +386,90 @@
 	</script>
 	
 	<!-- 검색바 수정 -->
-<!-- 수정된 코드 -->
-<!-- 수정된 에이잭스 코드 -->
-<!-- 수정된 에이잭스 코드 -->
-<script>
-/*     function getSalesData(seller_num, startDate, endDate) {
-        $.ajax({
-            type: "GET",
-            url: "${pageContext.request.contextPath}/salesMngPro",
-            data: {
-            	seller_num: seller_num,
-                startDate: startDate,
-                endDate: endDate
-            },
-            dataType: "json",
-            success: function(DailySalesList) {
-                updateTable(DailySalesList); // 받아온 JSON 데이터를 테이블로 업데이트하는 함수 호출
-            },
-            error: function() {
-                alert("데이터를 가져오는 데 실패했습니다.");
-            }
-        });
-    }
+	<script>
+	let startDate, endDate,startDateInput, endDateInput, now;
+	
+	// 최대 오늘까지 설정 가능하게
+	startDateInput = document.getElementById('start-date');
+	endDateInput = document.getElementById('end-date');
+	now = new Date();
+	maxDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+	startDateInput.max = maxDate;
+	endDateInput.max = maxDate;
 
-    // JSON 데이터를 테이블로 업데이트하는 함수
-    function updateTable(data) {
-        var tableBody = $('#getDailySalesList'); // tbody의 id
-        tableBody.empty(); // 기존 내용 삭제
-
-        // JSON 데이터를 테이블 행으로 추가
-        for (var i = 0; i < data.length; i++) {
-            var row = '<tr>' +
-                '<td>' + data[i].order_num + '</td>' +
-                '<td>' + data[i].item_num + '</td>' +
-                '<td>' + data[i].seller_type + '</td>' +
-                '<td>' + data[i].item_name + '</td>' +
-                '<td>' + data[i].item_cnt + '</td>' +
-                '<td>' + data[i].item_price + '</td>' +
-                '<td>' + data[i].dailySales + '</td>' +
-                '<td>' + data[i].dailyFee + '</td>' +
-                '<td>' + data[i].dailySettlement + '</td>' +
-                '<td>' + new Date(data[i].order_day).toLocaleDateString() + '</td>' +
-                '</tr>';
-            tableBody.append(row);
-        }
-    }
-
-    // 검색 폼 전송 함수
+	// 검색 기간 설정 버튼을 클릭하면 기간 설정 되도록
+	function setDateRange(days) {
+	    now = new Date();
+	    maxDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+	    startDateInput = document.getElementById("start-date");
+	    endDateInput = document.getElementById("end-date");
+	    startDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000) - (days * 24 * 60 * 60 * 1000));
+	    startDateInput.valueAsDate = startDate;
+	    // 한국 시간대로 endDate 설정
+	    endDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000));
+	    endDateInput.valueAsDate = endDate;
+	}
+    window.onload = function() {
+        setDateRange(0);	// 날짜 디폴트값 하루로 설정
+        submitSearchForm(); // 검색 폼 제출하여 데이터 출력
+    };
+	// 초기화 버튼 클릭시 검색 조건 초기화
+	const resetButton = document.querySelector('button[type="reset"]');
+	resetButton.addEventListener("click", function(event) {
+	    event.preventDefault();
+	    // 저장된 기간 제거
+	    localStorage.removeItem("startDate");
+	    localStorage.removeItem("endDate");
+	    document.getElementById("start-date").value = "";
+	    document.getElementById("end-date").value = "";
+	});
+    
     function submitSearchForm() {
-        var startDate = document.getElementById("start-date").value;
-        var endDate = document.getElementById("end-date").value;
+        // 검색 폼의 시작일과 종료일 값을 가져옴
+        startDate = document.getElementById("start-date").value;
+        endDate = document.getElementById("end-date").value;
 
-        getSalesData(startDate, endDate);
-    } */
-    
+        if (!startDate || !endDate) {
+            alert("시작일과 종료일을 선택해주세요!");
+        } else if (startDate > endDate) {
+            alert("잘못된 날짜입니다!");
+        } else {
+            localStorage.setItem("startDate", startDate);
+            localStorage.setItem("endDate", endDate);
 
-    
-    $(document).ready(function(){
-    	// 회원목록 클릭하면
-    	$('#searchButton').click(function(){
-            var startDate = document.getElementById("start-date").value;
-            var endDate = document.getElementById("end-date").value;
-//     		alert("클릭!");
-    		$.ajax({
-    			url : "${pageContext.request.contextPath }/salesMngPro", // 가상주소
+            $.ajax({
+                url: "${pageContext.request.contextPath}/salesMngPro", // 가상주소
                 data: {
                     startDate: startDate,
                     endDate: endDate
                 },
-    			dataType : "json", // 데이터 안가져가고 타입만..?
-    			success:function(result){ // 리턴 데이터
+                dataType: "json", // 데이터 안가져가고 타입만..?
+                success: function(result) { // 리턴 데이터
                     $("#getDailySalesList").empty();
-    				// result json 데이터 가져오기
-    				$.each(result, function(index, item){
-    					
-    					// table 태그에 출력
-    					 $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.item_price+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+item.order_day+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
-    										// 문자로 인식되므로 +로 분리
-    				});
-    			}
-    		});
-    	});
+                    // result json 데이터 가져오기
+                    $.each(result, function(index, item) {
+                        // 날짜는 숫자형식이라 자바 스크립트 날짜 형식으로 바꿔줘야함
+                        var dt = new Date(item.order_day);
+                        var d = dt.getFullYear() + "." + (dt.getMonth()+1) + "." + dt.getDate(); // 월은 0~11이라 +1 해줘야함
+                        
+                       /*  var dt2 = new Date(item.orderday);
+                        var d2 = dt.getFullYear() + "." + (dt.getMonth()+1) + "." + dt.getDate(); */ // 월은 0~11이라 +1 해줘야함
+                        // table 태그에 출력
+                        $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.item_price+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+d+"</td><td>"+item.orderday+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
+                        // 문자로 인식되므로 +로 분리
+                    });
+                }
+            });
+        }
+
+    }
+
+    $(document).ready(function() {
+        $("#searchButton").click(function() {
+            submitSearchForm();
+        });
     });
 </script>
-
-
-
-
-
-
 
 </body>
 </html>
