@@ -416,6 +416,7 @@
     		, r.review_img
     		, r.review_day
     		, i.item_name
+    		, r.item_num
 	from review r left join item i
 	on r.item_num = i.item_num
 	WHERE member_num = #{member_num}; 

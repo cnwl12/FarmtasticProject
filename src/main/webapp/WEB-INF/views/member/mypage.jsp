@@ -52,10 +52,22 @@
    display: none;
 }
 
+.content-container {
+  display: flex;
+}
+
+.review-content {
+  flex: 1;
+  margin-right: 10px; /* 내용과 이미지 사이의 간격 */
+}
+
 .review-img {
-  width: 80px; 
-  height: 80px;
-}  
+  width: 100px; /* 원하는 이미지 너비 */
+}
+
+.review-img img {
+  max-width: 100%; /* 이미지가 컨테이너를 벗어나는 것을 방지 */
+}
 </style>
 
 
@@ -383,9 +395,9 @@
             				<th>별점</th>
             				<th>상품명</th>
             				<th>제목</th>
-           					<th>내용</th>
+<!--            					<th>내용</th> -->
            					<th>작성일</th>
- 							<th>이미지</th>
+<!--  							<th>이미지</th> -->
            					</tr>
         					</thead>
         					<tbody>
@@ -603,12 +615,20 @@ $(document).ready(function () {
             rows += "<tr>" +
                 "<td><input type='checkbox' data-member_num='" + review.member_num + "'data-review_num='"+ review.review_num +"' class='review-checkbox' id='review_" + (i + 1) + "' name='review_" + (i + 1) + "'></td>" +
                 "<td class='review-star'>" + review.review_star + "</td>" +
-                "<td>" + review.item_name + "</td>" +
-                "<td>" + review.review_title + "</td>" +
-                "<td>" + review.review_content + "</td>" +
+                "<td><a href='/FarmProject/farmStoreDetail?item_num=" + review.item_num + "' " +
+                "onclick='event.preventDefault(); window.location.href=\"/FarmProject/farmStoreDetail?item_num=" + review.item_num + "\";'>" +
+                review.item_name + "</a></td>" +
+                "<td class='review-title toggle-content' data-content='" + review.review_content + "' data-image='" + (review.review_img || "") + "'>" + review.review_title + "</td>" +
                 "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
-                "<td>" + (review.review_img ? "<img src='" + review.review_img + "' class='review-img'>" : "") + "</td>" +
-            "</tr>";
+            	"</tr>" +
+            	"<tr class='content-row' style='display:none;'>" +
+                "<td colspan='5'>" +
+                "<div class='content-container'>" +
+                    "<div class='review-content'></div>" +
+                    "<div class='review-img'></div>" +
+                "</div>" +    
+                "</td>" +
+            	"</tr>";
         }
         $("#getItemMyReview tbody").html(rows);
 
@@ -640,7 +660,18 @@ $(document).ready(function () {
             dateElement.textContent = date;
         });
     }
-
+	
+ 	// 제목 클릭 시 리뷰 내용과 이미지 표시
+    $(document).on('click', '.toggle-content', function () {
+        const contentRow = $(this).parent().next('.content-row');
+        const content = $(this).data('content');
+        const image = $(this).data('image');
+        
+        contentRow.find('.review-content').html(content);
+        contentRow.find('.review-img').html(image ? "<img src='" + image + "' />" : "");
+        contentRow.toggle();
+    });
+    
     function updatePagination() {
         var totalPages = Math.ceil(allReviews.length / perPage);
 
