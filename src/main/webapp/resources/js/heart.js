@@ -26,7 +26,7 @@ $(function() {
       error: function (request, status, error) {
       },
     }); 
-  }
+  } 
 });
 
 document.addEventListener("DOMContentLoaded", function () {
