@@ -938,14 +938,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    
 		// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
-				
-//				System.out.println(uploadPath);
-				// 이건 여러개 (map 쓸때 사용할 수도 있어서 남겨둠)
-//				for (int i = 0; i < files.size(); i++) {
-//		            MultipartFile file = files.get(i);
-//		            if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
-//		                String fileName = file.getOriginalFilename(); // 파일 원래 이름
-//		                String fileExtension = FilenameUtils.getExtension(fileName); // 확장자
 
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
 				        String fileName = file.getOriginalFilename(); // 파일 원래 이름
@@ -1026,12 +1018,12 @@ public class FarmController { // 소비자 (컨트롤러)
 									@RequestParam("review_star") int review_star,
 	                                @RequestParam("review_title") String review_title,
 	                                @RequestParam("review_content") String review_content,
-	                                @RequestParam("review_image") MultipartFile file,
+	                                @RequestParam(value="review_image", required = false) MultipartFile file,
 	                                 HttpSession session) {
 		// 파일을 저장할 폴더 경로
 	    String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
-	    if (!file.isEmpty() && file.getSize() > 0) {
+	    if (file != null && !file.isEmpty() && file.getSize() > 0) {
 	        String fileName = file.getOriginalFilename();
 	        String fileExtension = FilenameUtils.getExtension(fileName);
 

@@ -866,7 +866,8 @@ $(document).ready(function () {
        var review_title = $('#edit-review-form #review-title').val();
        var review_content = $('#edit-review-form #review_content').val();
        var review_img = $('#edit-review-form input[type="file"]').prop("files")[0];
-
+		
+       
        updateReview(selectedReview, review_star, review_title, review_content, review_img);
      });
 

@@ -48,7 +48,7 @@ body {font-size: 1rem !important;
   height: 80px;
 }  
 	 
-	</style>
+</style>
 
 	
 </head>
