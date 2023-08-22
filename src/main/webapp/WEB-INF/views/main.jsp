@@ -63,16 +63,10 @@
                         <ul>
                             <li><a href="mypage"><i class="fa fa-user"></i></a></li>
                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
-								 <c:choose>
-						            <c:when test="${not empty sessionScope.item_count && not empty sessionScope.member_num}">
-						                <!-- 장바구니가 비어있지 않고, 로그인한 회원인 경우 -->
-						                <span>${sessionScope.item_count}</span>
-						            </c:when>
-						            <c:otherwise>
-						                <!-- 다른 경우 (장바구니가 비어있거나 로그인하지 않은 경우) -->
-						            </c:otherwise>
-						        </c:choose>
-							</a></li>
+										<c:if test="${not empty sessionScope.member_num && sessionScope.item_count > 0}">
+											<span>${sessionScope.item_count}</span>
+										</c:if>
+									 </a></li>
                         </ul>
                      <div class="header__top__right__auth">
   						<c:choose>

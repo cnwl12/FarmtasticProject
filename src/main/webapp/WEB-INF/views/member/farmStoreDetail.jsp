@@ -30,10 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/page.css" type="text/css">
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
 	<!-- 카트추가 함수 -->
-	
-  
    
 <style>
   .special-page .wishlist-btn {
@@ -762,6 +759,38 @@ input#file-upload-button {
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
+	<script type="text/javascript">
+	function insertCart(){	
+		
+		var cart_cnt = $("#cart_cnt").val(); // cart_cnt id값의 value값 
+		var item_num = $('.item_wrap').data("item_num");
+		
+		console.log(item_num);
+		
+		/* location.href="insertCart?item_num="+item_num+"&cart_cnt="+cart_cnt; */
+		
+		$.ajax({
+	        url: "insertCart",
+	        type: "GET",
+	        data: {
+	            item_num: item_num,
+	            cart_cnt: cart_cnt
+	        },
+	        success: function(response) {
+	            // 추가성공 
+	        },
+	        error: function() {
+	            console.log("상품 추가 중 오류 발생");
+	        }
+	    });
+
+	    var confirmMove = confirm("장바구니로 이동하시겠습니까?");
+	    if (confirmMove) {
+	        location.href = "shoppingCart";  
+	    }
+	}
+	
+	</script>
 	
 </body>
 

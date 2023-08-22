@@ -127,29 +127,15 @@
                 <form action="insertOrders">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>주문자정보<span>*</span></p>
-                                        <input type="text" id="member_name" value="${memberDTO.member_name}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
+                            <div class="checkout__input">
+                                <p>주문자정보<span>*</span></p>
+                                <input type="text" id="member_name" class="checkout__input__add" value="${memberDTO.member_name}">
                             </div>
                             <div class="checkout__input">
                                 <p>주소<span>*</span></p>
                                 <input type="text" placeholder="우편번호" id="member_post" class="checkout__input__add" value="${memberDTO.member_post}">
                                 <input type="text" placeholder="메인주소" id="member_addMain" class="checkout__input__add" value="${memberDTO.member_addMain}">
                                 <input type="text" placeholder="상세주소" id="member_addSub" value="${memberDTO.member_addSub}">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>요청 메시지<span>*</span></p>
@@ -175,27 +161,20 @@
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__total" id="total_sum">Total <span id="total_sum_value">${totalSum}원</span></div>
                                 <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
+                                   <!--  <label for="acc-or">
                                         Create an account?
                                         <input type="checkbox" id="acc-or">
                                         <span class="checkmark"></span>
-                                    </label>
+                                    </label> -->
                                 </div>
                                 <div class="checkout__input__checkbox">
-                                    <label for="payment">
+                                   <!--  <label for="payment">
                                         Check Payment
                                         <input type="checkbox" id="payment">
                                         <span class="checkmark"></span>
-                                    </label>
+                                    </label> -->
                                 </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div id="member_email" style="hidden;">${memberDTO.member_email}</div>
+                                <div id="member_email" style="hidden;" value="${memberDTO.member_email}"></div>
 							</form>
                             <button id="example-button" type="button" class="site-btn" onclick="requestPay()">결제하기</button> 
                          </div>
