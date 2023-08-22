@@ -221,39 +221,6 @@ public class SellerController {
 	}
 	
 	// 선진) 매출관리 페이지 - 검색바
-//	@RequestMapping(value = "/salesMngPro", method = RequestMethod.GET)
-//	public String salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
-//	                            @RequestParam(name = "endDate", required = false) String endDate,
-//	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
-//		
-//	    String seller_num = (String) session.getAttribute("seller_num");
-//	    
-//	    Date start = null;
-//	    Date end = null;
-//	    try {
-//	        if (startDate != null && !startDate.trim().isEmpty()) {
-//	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-//	        }
-//	        if (endDate != null && !endDate.trim().isEmpty()) {
-//	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-//	        }
-//	    } catch (ParseException e) {
-//	        e.printStackTrace();
-//	        start = null;
-//	        end = null;
-//	    }
-//	    
-//	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num, start, end);
-//	    model.addAttribute("DailySalesList", DailySalesList);
-//	    
-//	    String seller_id = sellerService.idCheck(seller_num);
-//	    model.addAttribute("seller_id", seller_id);
-//	    
-//	    session.setAttribute("seller_num", seller_num);
-//	    return "/seller/salesMng";
-//	}	
-	
-	// 검색바 수정중
 	@RequestMapping(value = "/salesMngPro", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String,Object>> salesMngPro(@RequestParam(name = "startDate", required = false) String startDate,
@@ -267,17 +234,21 @@ public class SellerController {
 	    try {
 	        if (startDate != null && !startDate.trim().isEmpty()) {
 	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+	            System.out.println("start언제냐 : " + start);
+	            System.out.println("startDate언제냐 : " + startDate);
 	        }
 	        if (endDate != null && !endDate.trim().isEmpty()) {
 	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+	            System.out.println("end언제냐 : " + end);
+	            System.out.println("endDate언제냐 : " + endDate);
 	        }
 	    } catch (ParseException e) {
 	        e.printStackTrace();
 	        start = null;
 	        end = null;
 	    }
-	    
-	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num, start, end);
+
+	    List<Map<String,Object>> DailySalesList = sellerService.getDailySalesList(seller_num, startDate, endDate);
 	    model.addAttribute("DailySalesList", DailySalesList);
 	    
 	    String seller_id = sellerService.idCheck(seller_num);
@@ -394,43 +365,34 @@ public class SellerController {
 
 	// 선진) 정산신청 & 정산취소 
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
-	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, 
-									HttpSession session, Model model, RedirectAttributes reAttributes) {
-
-	    // 판매자의 정산신청 여부 확인
-    	boolean requestExists = sellerService.isSettlementRequested((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
-    	
-    	// if문 너무 많네..
-	    if ("request".equals(action)) { // 신청 버튼 클릭
-	        // 정산 신청 기능 처리
-	        if (selectedMonths != null && selectedMonths.length > 0) {
+	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
+		// 정산 신청 여부
+	    boolean requestExists = sellerService.isSettlementRequested((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	    
+	    switch (action) {
+	        case "request" :
+	            if (selectedMonths != null && selectedMonths.length > 0) { // 선택된 월이 있다
+	                if (!requestExists) { // 디비에 존재하지 않음 => insert 하기
+	                    sellerService.insertSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	                    break; // 브레이크 걸어서 위 메서드 작동하면 거기서 끝나게 함
+	                }
+	            }
+	            break;
+	            
+	        case "cancel" :
+	            if (selectedMonths != null && selectedMonths.length > 0) { // 선택된 월이 있다
+	                if (requestExists) { // 디비에 존재함 => delete 하기
+	                    sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	                    break;
+	                }
+	            }
+	            break;
+	            
+	        default:
 	        	
-	        	if(!requestExists) { // 디비에 없다면!
-
-	        		sellerService.insertSettlementRequest((String)session.getAttribute("seller_num"), Arrays.asList(selectedMonths));	
-	        	
-	        	} else { // 이미 디비에 저장되어 있다면
-	        		// "이미 신청된 정산건입니다!" 창 띄우기
-	        		reAttributes.addAttribute("msg", "이미 신청된 정산건입니다!");
-	        	}
-	        }
-	        
-	    } else if ("cancel".equals(action)) { // 취소 버튼 클릭
-	    	// 정산 취소 기능 처리
-	        if (selectedMonths != null && selectedMonths.length > 0) {
-	        	
-	        	if(requestExists) { // 디비에 정산건이 있다면 취소 기능 그대로!
-	        		sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
-	        		// 정산건이 있지만 이미 정산 완료된 건이라면??
-	        		
-	        	} else { // 디비에 정산건이 없다면 
-	        		// "취소 가능한 정산건이 존재하지 않습니다!" 창 띄우기
-	        		reAttributes.addAttribute("msg", "정산건이 존재하지 않습니다!");
-	        	}
-	        }
-	        
-	    } else {} // 넘어오는 액션 값이 없을 경우엔?
-
+	            // 다른 액션 처리 (필요한 경우)
+	            break;
+	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
 	}
 

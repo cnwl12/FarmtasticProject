@@ -253,9 +253,9 @@
 					<!-- 일별 매출 목록 시작 -->
 					<div class="table-responsive">
 					
-						<table class="table table-bordered" id="dataTable2">
+						<table id="dataTable" class="table table-bordered">
 							<thead>
-								<tr style="background-color: #edf1f5;" >
+								<tr style="background-color: #edf1f5;">
 									<th>주문번호</th>
 									<th>상품번호</th>
 									<th>상품타입</th>
@@ -265,8 +265,7 @@
 									<th>매출액</th>
 									<th>수수료</th>
 									<th>정산액</th>
-									<th>주문일자order_day</th>
-									<th>주문일자orderday</th>
+									<th>주문일자</th>
 								</tr>
 							</thead>
 							<tbody id="getDailySalesList">
@@ -278,13 +277,11 @@
 										<td>${list.seller_type}</td>
 										<td>${list.item_name}</td>
 										<td>${list.item_cnt}</td>
-										<td>${list.item_price}</td>
+										<td>${list.itemPrice}</td>
 										<td>${list.dailySales}</td>
 										<td>${list.dailyFee}</td>
 										<td>${list.dailySettlement}</td>
 										<td>${list.order_day}</td>
-										
-										<td>${list.orderday}</td>
  										</tr> 
 								</c:forEach> 
 							</tbody>
@@ -355,7 +352,7 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 
-   <!-- 매출 차트 토글 함수 -->
+	<!-- 매출 차트 토글 함수 -->
 	<script>
 	$(document).ready(function() {
 	    // 마이페이지 전환 초기 설정
@@ -388,8 +385,8 @@
 	<!-- 검색바 수정 -->
 	<script>
 	let startDate, endDate,startDateInput, endDateInput, now;
-	
-	// 최대 오늘까지 설정 가능하게
+
+	// 달력에서 최대 오늘까지 설정 가능하게
 	startDateInput = document.getElementById('start-date');
 	endDateInput = document.getElementById('end-date');
 	now = new Date();
@@ -397,73 +394,73 @@
 	startDateInput.max = maxDate;
 	endDateInput.max = maxDate;
 
-	// 검색 기간 설정 버튼을 클릭하면 기간 설정 되도록
+	// 기간 설정 버튼을 클릭하면 해당 기간으로 설정되도록
 	function setDateRange(days) {
-	    now = new Date();
-	    maxDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().split("T")[0];
-	    startDateInput = document.getElementById("start-date");
-	    endDateInput = document.getElementById("end-date");
-	    startDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000) - (days * 24 * 60 * 60 * 1000));
-	    startDateInput.valueAsDate = startDate;
-	    // 한국 시간대로 endDate 설정
-	    endDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000));
-	    endDateInput.valueAsDate = endDate;
+		now = new Date();
+		maxDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+		startDateInput = document.getElementById("start-date");
+		endDateInput = document.getElementById("end-date");
+		startDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000) - (days * 24 * 60 * 60 * 1000));
+		startDateInput.valueAsDate = startDate;
+		// 한국 시간대로 endDate 설정
+		endDate = new Date((now.getTime() - now.getTimezoneOffset() * 60000));
+		endDateInput.valueAsDate = endDate;
 	}
-    window.onload = function() {
+	
+    window.onload = function() { // 매출관리 페이지 처음 들어갔을때
         setDateRange(0);	// 날짜 디폴트값 하루로 설정
         submitSearchForm(); // 검색 폼 제출하여 데이터 출력
     };
+    
 	// 초기화 버튼 클릭시 검색 조건 초기화
 	const resetButton = document.querySelector('button[type="reset"]');
 	resetButton.addEventListener("click", function(event) {
 	    event.preventDefault();
 	    // 저장된 기간 제거
-	    localStorage.removeItem("startDate");
-	    localStorage.removeItem("endDate");
 	    document.getElementById("start-date").value = "";
 	    document.getElementById("end-date").value = "";
 	});
-    
+
     function submitSearchForm() {
         // 검색 폼의 시작일과 종료일 값을 가져옴
         startDate = document.getElementById("start-date").value;
         endDate = document.getElementById("end-date").value;
-
+        
         if (!startDate || !endDate) {
             alert("시작일과 종료일을 선택해주세요!");
-        } else if (startDate > endDate) {
-            alert("잘못된 날짜입니다!");
         } else {
-            localStorage.setItem("startDate", startDate);
-            localStorage.setItem("endDate", endDate);
+        	// 날짜에 시간 추가
+            startDate += " 00:00:00";
+            endDate += " 23:59:59";
+            
+            if (startDate > endDate) {
+                alert("잘못된 날짜입니다!");
+            } else {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/salesMngPro", // 가상주소
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    dataType: "json", // 데이터 안가져가고 타입만..?
+                    success: function(result) { // 리턴 데이터
+                        $("#getDailySalesList").empty();
+                        // result json 데이터 가져오기
+                        $.each(result, function(index, item) {
 
-            $.ajax({
-                url: "${pageContext.request.contextPath}/salesMngPro", // 가상주소
-                data: {
-                    startDate: startDate,
-                    endDate: endDate
-                },
-                dataType: "json", // 데이터 안가져가고 타입만..?
-                success: function(result) { // 리턴 데이터
-                    $("#getDailySalesList").empty();
-                    // result json 데이터 가져오기
-                    $.each(result, function(index, item) {
-                        // 날짜는 숫자형식이라 자바 스크립트 날짜 형식으로 바꿔줘야함
-                        var dt = new Date(item.order_day);
-                        var d = dt.getFullYear() + "." + (dt.getMonth()+1) + "." + dt.getDate(); // 월은 0~11이라 +1 해줘야함
-                        
-                       /*  var dt2 = new Date(item.orderday);
-                        var d2 = dt.getFullYear() + "." + (dt.getMonth()+1) + "." + dt.getDate(); */ // 월은 0~11이라 +1 해줘야함
-                        // table 태그에 출력
-                        $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.item_price+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+d+"</td><td>"+item.orderday+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
-                        // 문자로 인식되므로 +로 분리
-                    });
-                }
-            });
+    						var date = new Date(item.order_day);
+    						var d = date.toISOString().slice(0,19).replace('T', ' ');
+
+                            // table 태그에 출력
+                            $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.itemPrice+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+d+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
+                            // 문자로 인식되므로 +로 분리
+                        });
+                    }
+                });
+			 }
         }
-
     }
-
+        
     $(document).ready(function() {
         $("#searchButton").click(function() {
             submitSearchForm();

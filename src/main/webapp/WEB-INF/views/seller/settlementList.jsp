@@ -173,11 +173,12 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-	
-	<script>
+    
+    <!-- 정산 신청/정산 취소 -->
+ 	<script>
 	var selectedSettlementMonths = [];
 
-	function onChangeCheckbox(event, month) {
+	function onChangeCheckbox(event, month) { // 체크박스 선택
 	  if (event.target.checked) {
 	    selectedSettlementMonths.push(month);
 	  } else {
@@ -190,35 +191,97 @@
 	  document.getElementById("selectedMonths").value = selectedSettlementMonths.join(",");
 	}
 
-	function submitAction(action) {
+	function submitAction(action) { // 정산신청, 정산취소 버튼으로 폼 제출
+	    let selectedRows = Array.from(document.querySelectorAll('input.setRequestCB:checked'))
+	        .map(checkbox => checkbox.parentElement.parentElement);
 
-		// 체크박스로 선택하지 않고 버튼을 눌렀다면 메시지 띄우기
-		let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
-		
-		if (selectedMonths.length === 0) {
-		    alert("선택된 정산건이 없습니다!");
-		    return; // 폼 제출을 막습니다.
-		} else{
-			$('#action').val(action);
-			$('#settlementRequest').submit(); // 폼을 서버에 제출합니다.
-		}
+	    if (selectedRows.length === 0) { // 체크박스로 선택하지 않고 버튼을 눌렀다면 메시지 띄우기
+	        alert("선택된 정산건이 없습니다!");
+	        return;
+	    }
+
+	    const messages = {
+	        1: "이미 신청된 정산입니다!",
+	        2: "정산 처리가 완료된 정산입니다!",
+	        3: "정산이 완료된 건입니다. 관리자에게 문의하세요!",
+	        4: "취소 가능한 정산건이 존재하지 않습니다!"
+	    };
+
+	    let alertMessage = null;
+
+	    for (const row of selectedRows) {
+	        const requestStatus = row.children[5].innerText;
+	        const completeStatus = row.children[7].innerText;
+
+	        if (alertMessage) {
+	            // 이미 메시지가 결정된 경우, 더 이상 검사를 진행하지 않는다.
+	            break;
+	        }
+
+	        if (action === 'request') {
+	            if (requestStatus === 'Y' && completeStatus !== 'Y') {
+	                alertMessage = messages[1];
+	            } else if (requestStatus === 'Y' && completeStatus === 'Y') {
+	                alertMessage = messages[2];
+	            }
+	        } else if (action === 'cancel') {
+	            if (requestStatus === 'Y' && completeStatus === 'Y') {
+	                alertMessage = messages[3];
+	            } else if (requestStatus !== 'Y') {
+	                alertMessage = messages[4];
+	            }
+	        }
+	    }
+
+	    if (alertMessage) {
+	        alert(alertMessage);
+	        return;
+	    }
+
+	    $('#action').val(action);
+	    $('#settlementRequest').submit(); // 폼 제출
 	}
+	
+	// 지피티코드
+//     function submitAction(action) {
+//         let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
+        
+//         if (selectedMonths.length === 0) {
+//             alert("선택된 정산건이 없습니다!");
+//             return;
+//         } else {
+//             let errorMessage = null;
 
-	// 중복 신청, 신청되지 않은 정산 취소 시 메시지 띄우기
-	var message = "${param['msg']}";
-	if(message) {
-	    alert(message);
-	}
+//             selectedMonths.forEach(function(month) {
+//                 let row = month.closest('tr');
+//                 let settlementApplication = row.querySelector('td:nth-child(6)').textContent;
+//                 let settlementComplete = row.querySelector('td:nth-child(8)').textContent;
 
-// 	$(document).ready(function(){
-// 		$('#cancel').click(function(){
-// 			// 정산 완료된 정산건을 취소한다면?
-// 			if(settlementComplete === 'Y'){ // 체크박스가 선택되고 ${slist.settlementComplete}가 'Y'면 메시지 띄우기
-// 				alert("이미 정산이 완료되어 취소 불가!");
-// 			}
-// 		});
-// 	});
-    </script>
+//                 if (action === 'request') {
+//                     if (settlementApplication === 'Y') {
+//                         errorMessage = "이미 신청된 정산입니다!";
+//                     } else if (settlementComplete === 'Y') {
+//                         errorMessage = "정산 처리가 완료된 정산입니다!";
+//                     }
+//                 } else if (action === 'cancel') {
+//                     if (settlementComplete === 'Y') {
+//                         errorMessage = "정산이 완료된 건입니다. 관리자에게 문의하세요!";
+//                     } else if (settlementApplication === '') {
+//                         errorMessage = "취소 가능한 정산건이 존재하지 않습니다!";
+//                     }
+//                 }
+//             });
 
+//             if (errorMessage) {
+//                 alert(errorMessage);
+//                 return;
+//             } else {
+//                 $('#action').val(action);
+//                 $('#settlementRequest').submit();
+//             }
+//         }
+//     }
+    </script> 
+    
 </body>
 </html>
