@@ -67,11 +67,13 @@ button#submitBtn {
 .idcheck-used {
     color: red;
     margin-left: 25px;
+    white-space: nowrap;
 }
 
  .idcheck-available {
     color: blue;
-    margin-left: 25px
+    margin-left: 25px;
+    white-space: nowrap;
 }
 
     li {
@@ -219,7 +221,7 @@ button#submitBtn {
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="상점명" name="seller_storeName" id="seller_stoerName" maxlength="10">
+                        <input type="text" class="form-control" placeholder="상점명" name="seller_storeName" id="seller_storeName" maxlength="10">
                         <div id= "invalid_storeName" class="invalid-feedback">
                             상점명을 입력해주세요.
                              </div>
@@ -408,7 +410,23 @@ button#submitBtn {
       $("#seller_name").on("input", function() {
         validateName();
       });
-
+      
+      $("#seller_storeName").on("input", function() {
+    	  validateStoreName();
+      });
+      
+      $("#seller_accountNum").on("input", function() {
+    	  validateAccountNum();
+      });
+     
+      $("#seller_accountHolder").on("input", function() {
+    	  validateAccountHolder();
+      });
+      
+      $("#seller_licenseNum").on("input", function() {
+    	  validateLicenseNum();
+      });
+      
       $("#seller_phone").on("input", function() {
         validatePhone();
       });
@@ -456,6 +474,8 @@ button#submitBtn {
 
  });
     
+    var isIdDuplicated = false;
+    
     $(document).ready(function() {
  $('.idcheckbtn').click(function(){ 
      if($('#seller_id').val() == "") {
@@ -470,8 +490,10 @@ button#submitBtn {
             // id = "idcheckdiv" 출력
             if (result == 'id is used') {
                result =  "<span class='idcheck-used'>아이디 중복</span>";
+               isIdDuplicated = true;
             } else {
                result =  "<span class='idcheck-available'>아이디 사용가능</span>";
+               isIdDuplicated = false;
             }
             
             $('#idcheckdiv').html(result);
@@ -512,7 +534,11 @@ button#submitBtn {
         $('#invalid_id').show();
         uid.focus();
         return false;
-      } else {
+      } else if (isIdDuplicated) { // 아이디가 중복되었을 경우
+        $('#invalid_id').show();
+        uid.focus();
+        return false;
+      }else {
         $('#invalid_id').hide();
         return true;
       }
@@ -577,7 +603,7 @@ button#submitBtn {
     function validateLicenseNum() {
         var ulnum = $("#seller_licenseNum");
         if (ulnum.val() == "" || !regLicenseNum.test(ulnum.val())) {
-          $('#invalid_license_num').show();
+          $('#invalid_licenseNum').show();
           ulnum.focus();
           return false;
         } else {
@@ -600,7 +626,7 @@ button#submitBtn {
     
     function validateAccountHolder() {
         var uaholder = $("#seller_accountHolder");
-        if (uaholder.val() == "" || !regName.test(uanum.val())) {
+        if (uaholder.val() == "" || !regName.test(uaholder.val())) {
           $('#invalid_accountHolder').show();
           uaholder.focus();
           return false;
@@ -647,7 +673,7 @@ button#submitBtn {
     }    
 
     function validateAll() {
-      return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();
+      return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost() && validateStoreName() && validateAccountNum() && validateAccountHolder() && validateLicenseNum();
     }
 
     </script>
