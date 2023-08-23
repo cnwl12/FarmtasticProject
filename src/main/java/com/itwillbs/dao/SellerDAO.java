@@ -104,6 +104,12 @@ public class SellerDAO {
 		    return sqlSession.selectOne(namespace + ".isSettlementRequested", params);
 		}		
 		
+		// 선진) 정산완료 여부 알아오기
+		public int isSettlementCompleted(Map<String, Object> params) {
+
+		    return sqlSession.selectOne(namespace + ".isSettlementCompleted", params);
+		}
+		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(Map<String, Object> params) {
 

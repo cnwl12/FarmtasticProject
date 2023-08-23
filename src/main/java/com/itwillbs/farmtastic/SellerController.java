@@ -62,6 +62,10 @@ public class SellerController {
 		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
 		    model.addAttribute("seller", sellerInfo);
 		    model.addAttribute("seller_id", seller_id);
+		    
+			// 월 매출 정보
+			List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales(seller_num);
+		    model.addAttribute("MonthlySales", MonthlySales);
 		    return "/seller/sellerMain";
 	    }
 	} 
@@ -86,10 +90,6 @@ public class SellerController {
 	    }
 	}
 	
-	
-	
-	
-
 	// 성하) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String updatePro(HttpSession session, HttpServletRequest request, Model model, 
@@ -197,7 +197,7 @@ public class SellerController {
 
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
-	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
+	public String salesMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
 		
 	    if (session.getAttribute("seller_num") == null) {
 	        
@@ -366,8 +366,11 @@ public class SellerController {
 	// 선진) 정산신청 & 정산취소 
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
 	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
+		
 		// 정산 신청 여부
 	    boolean requestExists = sellerService.isSettlementRequested((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	    // 정산 완료 여부
+	    boolean requestCompletes = sellerService.isSettlementCompleted((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	    
 	    switch (action) {
 	        case "request" :
@@ -381,7 +384,7 @@ public class SellerController {
 	            
 	        case "cancel" :
 	            if (selectedMonths != null && selectedMonths.length > 0) { // 선택된 월이 있다
-	                if (requestExists) { // 디비에 존재함 => delete 하기
+	                if (requestExists && !requestCompletes) { // 디비에 존재함 && 정산완료가 Y가 아니면 => delete 하기
 	                    sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	                    break;
 	                }
@@ -389,8 +392,8 @@ public class SellerController {
 	            break;
 	            
 	        default:
-	        	
 	            // 다른 액션 처리 (필요한 경우)
+	        	// 이런 곳에 오류 메시지 띄우나?
 	            break;
 	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
