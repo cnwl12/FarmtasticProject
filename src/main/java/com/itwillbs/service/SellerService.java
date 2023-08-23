@@ -109,8 +109,19 @@ public class SellerService {
 		    
 		    int count = sellerDAO.isSettlementRequested(params);
 			return count > 0;
-		}  		
-
+		}
+		
+	    // 선진) 정산완료 여부 알아오기
+		public boolean isSettlementCompleted(String seller_num, List<String> checkedSettlements) {
+		    
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("checkedSettlements", checkedSettlements);
+		    
+		    int count = sellerDAO.isSettlementCompleted(params);
+			return count > 0;
+		} 
+		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(String seller_num, List<String> checkedSettlements) {
 		    

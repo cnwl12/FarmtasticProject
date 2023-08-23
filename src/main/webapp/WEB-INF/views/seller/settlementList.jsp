@@ -54,12 +54,11 @@
 
                     <!-- 페이지 상단 시작 -->
                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4"><a target="_blank" href="https://datatables.net"></a></p>
                     <!-- 페이지 상단 끝 -->
                     
                     <!-- 정산 신청 시작 -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" id="settlementList">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
                         </div>
@@ -75,7 +74,7 @@
                                 <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th><input type="checkbox" id="allSetRequestCB"/></th>
+                                        	<th><input type="checkbox" class="allSetRequestCB"/></th>
                                             <th>정산월</th>
                                             <th>매출액</th>
                                             <th>수수료</th>
@@ -241,6 +240,24 @@
 	    $('#action').val(action);
 	    $('#settlementRequest').submit(); // 폼 제출
 	}
+	
+	// 체크박스 전체 선택
+	$(document).ready(function() {
+	    function allRequestCheckbox() {
+	        const allRequestCB = $(".allSetRequestCB"); 
+	        const RequestCB = $(".setRequestCB"); 
+	
+	        allRequestCB.on("click", function(event) {
+	            RequestCB.prop("checked", event.target.checked);
+	        });
+	
+	        RequestCB.on("click", function() {
+	            const allChecked = RequestCB.length === RequestCB.filter(":checked").length;
+	            allRequestCB.prop("checked", allChecked);
+	        });
+	    }
+	    allRequestCheckbox();
+	});
 	
 	// 지피티코드
 //     function submitAction(action) {
