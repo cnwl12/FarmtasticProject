@@ -40,8 +40,9 @@
 	<script type="text/javascript">
 		sessionStorage.setItem('pageContext', '${pageContext.request.contextPath}');
 	</script>
-	
 	<script src="${pageContext.request.contextPath}/resources/js/IamPort.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/post.js"></script>
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 
@@ -113,14 +114,6 @@
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
-            <!-- 쿠폰 관련
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
-                    </h6>
-                </div>
-            </div> -->
-            
             <!-- 주문내역 정보 확인 -->
             <div class="checkout__form">
                 <h4>주문정보</h4>
@@ -129,13 +122,14 @@
                         <div class="col-lg-8 col-md-6">
                             <div class="checkout__input">
                                 <p>주문자정보<span>*</span></p>
-                                <input type="text" id="member_name" class="checkout__input__add" value="${memberDTO.member_name}">
+                                <input type="text" id="member_name" class="checkout__input__add" value="${memberDTO.member_name}" readonly="readonly">
                             </div>
                             <div class="checkout__input">
-                                <p>주소<span>*</span></p>
-                                <input type="text" placeholder="우편번호" id="member_post" class="checkout__input__add" value="${memberDTO.member_post}">
-                                <input type="text" placeholder="메인주소" id="member_addMain" class="checkout__input__add" value="${memberDTO.member_addMain}">
-                                <input type="text" placeholder="상세주소" id="member_addSub" value="${memberDTO.member_addSub}">
+                                <p>주소<span>*</span><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="width: 200px; margin-left: 10px; padding-left: 0px;"></p>
+                                <input type="text" placeholder="우편번호" id="sample6_postcode_member_post" class="checkout__input__add" value="${memberDTO.member_post}">
+                                <input type="text" placeholder="메인주소" id="sample6_address_member_addMain" class="checkout__input__add" value="${memberDTO.member_addMain}">
+                                <input type="text" placeholder="상세주소" id="sample6_detailAddress_member_addSub" value="${memberDTO.member_addSub}">
+                                <input type="hidden" placeholder="참고항목" id="sample6_extraAddress">
                             </div>
                             <div class="checkout__input">
                                 <p>요청 메시지<span>*</span></p>
@@ -168,11 +162,6 @@
                                     </label> -->
                                 </div>
                                 <div class="checkout__input__checkbox">
-                                   <!--  <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label> -->
                                 </div>
                                 <div id="member_email" style="hidden;" value="${memberDTO.member_email}"></div>
 							</form>

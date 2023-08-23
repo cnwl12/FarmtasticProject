@@ -33,13 +33,13 @@ function requestPay() {
     const buyerTelElement = document.getElementById("member_phone");
     const buyerTel = buyerTelElement.value;
 
-    const buyerAddrElement = document.getElementById("member_addMain");
+    const buyerAddrElement = document.getElementById("sample6_address_member_addMain");
     const buyerAddr = buyerAddrElement.value;
     
-    const buyerAddrsubElement = document.getElementById("member_addSub");
+    const buyerAddrsubElement = document.getElementById("sample6_detailAddress_member_addSub");
     const buyerAddrsub = buyerAddrsubElement.value;
 
-    const buyerPostcodeElement = document.getElementById("member_post");
+    const buyerPostcodeElement = document.getElementById("sample6_postcode_member_post");
     const buyerPostcode = buyerPostcodeElement.value;
     
     const totalSumElement = document.getElementById("total_sum_value");

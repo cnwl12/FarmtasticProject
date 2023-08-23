@@ -19,6 +19,7 @@
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
+    
 </head>
 <body>
     <header class="header">
@@ -89,16 +90,9 @@
                             <span>모든 카테고리</span>
                         </div>
                         <ul>
-                            <li><a href="${pageContext.request.contextPath}/search?query=바나나">바나나</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=양파">양파</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=">기타</a></li>
+                        <c:forEach var="type_name" items="${sessionScope.type_names}">
+                            <li><a href="${pageContext.request.contextPath}/search?query=${type_name}">${type_name}</a></li>
+                        </c:forEach>
                         </ul>
                     </div>
                 </div>
