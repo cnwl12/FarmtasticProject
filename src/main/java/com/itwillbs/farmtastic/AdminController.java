@@ -540,7 +540,6 @@ public class AdminController {
 	@RequestMapping(value = "/sales_ajax", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, Object>> salesAjax(@RequestParam(value = "monthly", required = true) String monthly) {
-	    System.out.println("sales_ajax 매핑 확인");
 
 	    if (monthly == null || monthly.isEmpty()) {
 	        LocalDate currentDate = LocalDate.now();
