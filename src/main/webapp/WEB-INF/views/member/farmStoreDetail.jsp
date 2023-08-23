@@ -107,10 +107,6 @@ input#file-upload-button {
 }
 </style>	
 	
-
-
- 
-
 </head>
 
 <!--  서영 하트 키우는것때문에 바디에 스페셜페이지 클래스 추가한거에요 -->

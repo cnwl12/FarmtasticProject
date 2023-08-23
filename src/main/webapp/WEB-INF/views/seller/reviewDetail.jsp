@@ -45,7 +45,7 @@
                                         </tr>
 										<tr>
                                         <th>별점</th>
-                                        <td>${reviewDetail.review_star}</td>
+                                        <td class='review-star'>${reviewDetail.review_star}</td>
                                         </tr>
                                         <tr>
                                         <th>작성자</th>
@@ -90,5 +90,18 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+    
+    <script type="text/javascript">
+ 	// 별점을 ★로 변경
+    let reviewStars = document.querySelectorAll('.review-star');
+    reviewStars.forEach(function (starElement) {
+        let starCount = parseInt(starElement.textContent, 10);
+        let stars = '';
+        for (let i = 1; i <= starCount; i++) {
+            stars += '★';
+        }
+        starElement.textContent = stars;
+    });
+    </script>
 </body>
 </html>
