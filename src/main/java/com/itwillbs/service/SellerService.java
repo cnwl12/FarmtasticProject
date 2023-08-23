@@ -173,12 +173,10 @@ public class SellerService {
 		
 		// 관리자 업체관리
 		public void approveSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerService approveSellerStatus 확인!");
 		    sellerDAO.approveSellerStatus(sellerNum);
 		}
 
 		public void rejectSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerService rejectSellerStatus 확인!");
 		    sellerDAO.rejectSellerStatus(sellerNum);
 		}
 	
