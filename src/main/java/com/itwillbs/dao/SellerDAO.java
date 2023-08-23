@@ -288,5 +288,9 @@ public class SellerDAO {
 			return sqlSession.selectOne(namespace + ".getSellerEmail", seller_email);
 		}
 
+		public SellerDTO reviewDetail(Map<String,Object> params) {
+		     return sqlSession.selectOne(namespace + ".reviewDetail", params);
+		}
+
 		
 }
