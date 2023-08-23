@@ -22,6 +22,8 @@ import javax.swing.tree.AbstractLayoutCache;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -584,11 +587,24 @@ public class AdminController {
             String admin_id = (String) session.getAttribute("admin_id");
             Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
             List<Map<String, Object>> resultList = sellerService.totalSales();
+            List<Map<String, Object>> chartData = sellerService.selectSalesData();
+            
+            JSONArray jsonArray = new JSONArray();
+            for(Map<String, Object> data : chartData) {
+            	jsonArray.put(data);
+            }
+            
+            model.addAttribute("data", chartData);
+            model.addAttribute("data_json", jsonArray);
     	    model.addAttribute("sellers", resultList);
             model.addAttribute("admin", adminInfo);
             model.addAttribute("admin_id", admin_id);
             return "/admin/sellerMenu/totalSales";
         }
+	}
+	@GetMapping("/salesData")
+	public List<Map<String, Object>> getSalesData() {
+	    return sellerService.selectSalesData();
 	}
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {

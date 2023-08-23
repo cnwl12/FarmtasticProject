@@ -72,8 +72,10 @@
  <select id="selectSalesData" resultType="map">
     SELECT
     t.monthly,
+    t.month,
     FORMAT(t.monthly_sales, 0) as month_sales,
     FORMAT(FLOOR(t.monthly_sales * 0.05), 0) as month_fee,
+    FLOOR(t.monthly_sales * 0.05) as month_fee2,
     FORMAT(t.total, 0) as total_sales,
     FORMAT(FLOOR(t.total * 0.05), 0) as total_fee,
 	FORMAT((t.total - FLOOR(t.total * 0.05)), 0) as total_settlement
@@ -82,6 +84,7 @@
 FROM (
     SELECT
         DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly,
+        CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월') as month ,
         SUM(od.item_cnt * i.item_price) as monthly_sales,
         (SELECT SUM(item_cnt * item_price)
          FROM order_detail od2
@@ -93,7 +96,8 @@ FROM (
     LEFT JOIN orders o ON od.order_num = o.order_num
     LEFT JOIN item i ON od.item_num = i.item_num
     WHERE o.order_cancel = 'N'
-    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m')
+    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m'),
+			CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월')
 ) as t;
 
 </select>

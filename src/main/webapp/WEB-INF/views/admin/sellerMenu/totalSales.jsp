@@ -103,51 +103,72 @@
                                    <div class="chart-area">
   										<canvas id="myChart"></canvas>
 								   </div>
-										   <script>
-        // total_fee와 month_fee를 담을 배열 생성
-        let total_fee = [];
-        let month_fee = [];
+<script>
+    // total_fee와 month_fee를 담을 배열 생성
+    let total_fee = 0;
+    let month_fee = Array(12).fill(0); 
+    let labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월',
+                  '8월','9월','10월','11월','12월'];
 
-        // sellers 데이터에서 total_fee와 month_fee 가져오기
-        <c:forEach items="${sellers}" var="seller">
-            total_fee.push(${seller.total_fee});
-            month_fee.push(${seller.month_fee});
-        </c:forEach>
-
-        // 차트 생성
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'line',
-
-            data: {
-                labels: ['연간', '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                datasets: [{
-                    label: 'Earnings Overview',
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
-                    data: [total_fee[0].toFixed(2)].concat(month_fee) // 첫 번째 항목을 seller.total_fee로 변경
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }]
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    },
-                    'samples-filler-analyser': {
-                        target: 'chart-analyser'
-                    }
-                }
-            }
-        });
-    </script>
+    // data에서 total_fee와 month_fee 가져오기
+    
+    var list = JSON.parse('${data_json}');
+    
+	const sales = [];
+	
+	labels.forEach((e, i) => {
+		var input = 0;
+		list.forEach((data, index) => {
+			if(e == data.month){
+				input = data.month_fee2;
+			} 
+		});
+		sales.push(input);
+	});
+	
+// 	debugger;
+	
+	// 차트 생성...
+	var ctx = document.getElementById('myChart').getContext('2d');
+    
+     var chart = new Chart(ctx, {
+         type: 'line',
+         data: {
+//              labels : ['연간'].concat(labels),
+			 labels : labels,
+             datasets : [{
+                 label : "Total Fee",
+                 borderColor : "#3e95cd",
+                 fill:false,
+                 yAxisID:'y-axis-1',
+				 // data : [total_fee.toFixed(2)].concat(month_fee)
+				 data : sales
+			 }]
+		 },
+		 options:{
+		     responsive:true,
+		     hoverMode:'index',  
+		  	 stacked:false ,
+		  	 title:{
+		     	display:true ,
+		      	text:"Monthly Total and Month Fees"
+		  },
+		  scales:{   
+		        yAxes:[{
+		            type:"linear" ,// only linear but allow scale type registration . This allows extensions to exist solely for log scale for instance  
+		            display:true ,    
+		            position :"left" ,
+			        id :"y-axis-1"
+		       },{
+			      	type :'linear',//only linear but allow scale type registration . This allows extensions to exist solely for log scale for instance  
+			     	display: true,
+			    	position :'right',
+			    	id :'y-axis-2'
+			  }]
+	      }
+	  }		
+	});
+</script>
 
                                 </div>
                             
