@@ -135,7 +135,7 @@
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(90)">3개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(180)">6개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2" onclick="setDateRange(365)">1년</button>
-													<button type="reset" class="btn btn-default">초기화</button>
+													<button type="reset" class="btn btn-primary btn-sm mx-2">초기화</button>
 												</div>
 											</div>
 										</li>

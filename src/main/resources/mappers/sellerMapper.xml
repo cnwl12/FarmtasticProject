@@ -768,6 +768,25 @@ ORDER BY MONTH(os.order_day);
    		SELECT * FROM seller WHERE seller_num = #{seller_num}
    	</select>
    	
+   	<select id="reviewDetail" resultType="com.itwillbs.domain.SellerDTO">
+   SELECT i.seller_num
+            , i.item_name
+            , r.review_star
+            , r.review_num
+            , r.member_num
+            , m.member_name
+            , r.review_title
+            , r.review_content
+            , r.review_img
+            , r.review_day
+    FROM review r 
+    JOIN item i ON i.item_num = r.item_num 
+    JOIN member m ON m.member_num = r.member_num 
+    JOIN seller s ON s.seller_num = i.seller_num 
+    WHERE s.seller_num = #{seller_num} 
+    AND r.review_num = #{review_num};
+</select>
+   	
    	<update id="updateSellerInfo">
    		update seller
    		set seller_storeName = #{seller_storeName}

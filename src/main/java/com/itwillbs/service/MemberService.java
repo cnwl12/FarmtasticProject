@@ -269,7 +269,6 @@ public class MemberService {
 	}
 
 	public void cancelOrder(HashMap<String, Object> cancel) {
-		System.out.println("취소 서비스");
 		memberDAO.cancelOrder(cancel);
 	}
 

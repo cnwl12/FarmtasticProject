@@ -72,17 +72,25 @@ public class FarmController { // 소비자 (컨트롤러)
 	private NaverController naverController;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, Model model) {
-
-		System.out.println("main 매핑확인여부");
+	public String main(HttpSession session, Model model) {
 
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
 		
 		List<Map<String, Object>> typeList = adminService.getTypes();
 		model.addAttribute("typeList", typeList);
-		System.out.println("typeList : " + typeList);
-
+		
+		if (!typeList.isEmpty()) {
+		    List<String> typeNames = new ArrayList<>();
+		    
+		    for (Map<String, Object> type : typeList) {
+		        String type_name = (String) type.get("type_name");
+		        typeNames.add(type_name);
+		    }
+		    
+		    session.setAttribute("type_names", typeNames);
+		}
+		
 		return "main"; 
 	}
 
@@ -157,23 +165,17 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 
-		System.out.println("login 매핑확인여부");
-
 		return "/member/login";
 	}
 
 	@RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
 	public String naverlogin(Locale locale, Model model) {
 
-		System.out.println("naverlogin 매핑확인여부");
-
 		return "/member/naverlogin";
 	}
 
 	@RequestMapping(value = "/navercallback", method = RequestMethod.GET)
 	public String navercallback(Locale locale, Model model) {
-
-		System.out.println("navercallback 매핑확인여부");
 
 		return "/member/navercallback";
 	}
@@ -217,18 +219,15 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberDTO.setMember_name(member_name);
 			memberDTO.setMember_email(member_email);
 			memberDTO.setMember_phone(member_phone);
-			System.out.println(memberDTO.getMember_name());
 			MemberDAO memberDAO = new MemberDAO();
 
 			MemberDTO existingMember = memberService.nuserCheck(memberDTO);
 			if (existingMember != null) {
-				System.out.println("로그인");
 				session.setAttribute("member_num", existingMember.getMember_num()); 
 
 				return "redirect:/main";
 			} else {
 				memberService.ninsertMember(memberDTO);
-				System.out.println("회원가입");
 				return "redirect:/main";
 			}
 
@@ -241,8 +240,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/kakaologin", method = RequestMethod.GET)
 	public String kakaologin(Locale locale, Model model) {
 
-		System.out.println("kakaologin 매핑확인여부");
-
 		return "/member/kakaologin";
 	}
 	
@@ -250,16 +247,12 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/kakaocallback", method = RequestMethod.GET)
 	public String kakaocallback(Locale locale, Model model) {
 
-		System.out.println("kakaocallback 매핑확인여부");
-
 		return "/member/kakaocallback";
 
 	}
 
 	@RequestMapping(value = "/kakaojoin", method = RequestMethod.GET)
 	public String kakaojoin(HttpServletRequest request, Model model) {
-
-		System.out.println("kakaojoin 매핑확인여부");
 
 		HttpSession session = request.getSession();
 		String access_token = request.getParameter("access_token");
@@ -269,7 +262,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		try {
 			URL url = new URL(apiUrl);
 			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-			System.out.println("토큰값컨트롤러확인:" + access_token);
 
 			// Header에 Access Token 추가
 			con.setRequestMethod("POST");
@@ -278,7 +270,6 @@ public class FarmController { // 소비자 (컨트롤러)
 			/// 응답 받기
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode:" + responseCode);
 
 			if (responseCode == 200) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -299,8 +290,6 @@ public class FarmController { // 소비자 (컨트롤러)
 			e.printStackTrace();
 			return "errorPage";
 		}
-
-		System.out.println("jsonObject -->>>>>" + jsonObject.toString());
 
 		JSONObject userProfile = jsonObject.getJSONObject("kakao_account");
 
@@ -345,8 +334,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    member_phone = "+" + member_phone; // "+"를 붙여서 국제 전화번호 형식으로 변경
 		    // 국가 코드와 지역 번호 파싱이 필요하다면 추가 구현이 필요합니다.
 		}
-		
-		System.out.println("휴대폰번호확인:" + member_phone); // 출력 예시: 010-1234-5678 혹은 02-123-4567 혹은 00123-456-7890
 
 		// MemberDTO 객체를 생성하고 추출된 프로필 정보를 설정
 		MemberDTO memberDTO = new MemberDTO();
@@ -354,17 +341,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		memberDTO.setMember_name(member_name);
 		memberDTO.setMember_email(member_email);
 		memberDTO.setMember_phone(member_phone);
-		System.out.println("휴대폰번호확인2:" + member_phone);
-		System.out.println(memberDTO.getMember_name());
+		
 		MemberDAO memberDAO = new MemberDAO();
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 		if (memberDTO2 != null) {
-			System.out.println("로그인");
 			session.setAttribute("member_num", memberDTO2.getMember_num());
 			return "redirect:/main";
 		} else {
 			memberService.insertMember(memberDTO);
-			System.out.println("회원가입");
 			return "redirect:/main";
 		}
 
@@ -373,15 +357,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/kakaoLogout", method = RequestMethod.GET)
 	public String kakaoLogout(Locale locale, Model model) {
 
-		System.out.println("kakaoLogout 매핑확인여부");
-
 		return "/member/kakaoLogout";
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
-
-		System.out.println("join 매핑확인여부");
 
 		return "/member/join";
 	}
@@ -389,15 +369,12 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/join2", method = RequestMethod.GET)
 	public String join2(Locale locale, Model model) {
 
-		System.out.println("join2 매핑확인여부");
-
 		return "/member/join2";
 	}
 
 	/* sungha 07.29마이페이지 */
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
-		System.out.println("mypage 매핑확인여부");
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		if (member_num == null) {
 	        return "redirect:/login";
@@ -444,7 +421,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> getCancelledOrders(@RequestParam("orderNum") String orderNum) {
 	    List<Map<String, Object>> cancelList = memberService.getCancelList(orderNum);
-	    System.out.println("cancelList: " + cancelList);
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("cancelledOrders", cancelList);
 
@@ -454,15 +430,11 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value="/searchId", method = RequestMethod.GET)
 	public String searchId(Locale locale, Model model) {
 		
-		System.out.println("searchId 매핑확인여부");
-		
 		return "/member/searchId";
 	}
 	
 	@RequestMapping(value="/searchPwd", method = RequestMethod.GET)
 	public String searchPwd(Locale locale, Model model) {
-		
-		System.out.println("searchPwd 매핑확인여부");
 		
 		return "/member/searchPwd";
 	}
@@ -471,8 +443,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@GetMapping
 	@RequestMapping(value = "/parcel", method = RequestMethod.GET)
 	public String parcel(Locale locale, Model model) {
-
-		System.out.println("parcel 매핑확인여부");
 
 		return "/member/parcel";
 	}
@@ -486,7 +456,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@GetMapping("/search")
 	public String search(@RequestParam("query") String query, Model model) {
-		System.out.println("FarmController /search");
 		List<Map<String, Object>> itemList = memberService.getItemsearch(query);
 		model.addAttribute("itemList", itemList);
 		return "/member/searchd";
@@ -562,10 +531,13 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
-	public String farmStore(Locale locale, Model model) {
-
+	public String farmStore(Model model, HttpSession session) {
+		
 		List<Map<String, Object>> itemList = sellerService.getItems();
 		model.addAttribute("itemList", itemList);
+		    
+		List<Map<String, Object>> typeList = adminService.getTypes();
+		model.addAttribute("typeList", typeList);
 
 		return "/member/farmStore";
 	}
@@ -585,7 +557,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("averageStarRating", averageStarRating);
 
 		List<OneBoardDTO> oneBoardList = memberService.findByItemNum(item_num);
-		System.out.println(oneBoardList + "가나다");
 		model.addAttribute("oneBoardList", oneBoardList);
 
 		return "/member/farmStoreDetail";
@@ -618,13 +589,9 @@ public class FarmController { // 소비자 (컨트롤러)
 		Integer member_num = (Integer) session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
 		
-		System.out.println(member_num);
-		
 		 if (member_num == null) {
 		        return "redirect:/login";
 		 }
-		 
-		System.out.println(member_num);
 
  		List<Map<String, Object>> itemList = memberService.getCartList(member_num);
 		model.addAttribute("itemList", itemList);
@@ -673,8 +640,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		    int member_num = (int)session.getAttribute("member_num");
 		    model.addAttribute("payInfo", payInfo);
 		    payInfo.put("member_num", member_num);
-		    
-		    System.out.println(payInfo + "item_num 담기는지 확인");
 		    
 		    // orders 테이블에 DB인서트 작업 
 		    String order_num = memberService.insertOrders(payInfo);
@@ -730,6 +695,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	            memberService.updateItemLeft(orderDetail);
 	        }
 	    }
+	    
 	    return "/member/orderSuccess";
 	}
 	

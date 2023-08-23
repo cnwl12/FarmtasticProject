@@ -98,20 +98,11 @@
                             <i class="fa fa-bars"></i>
                             <span>모든 카테고리</span>
                         </div>
-                          <c:forEach var="type" items="${typeList}">
-                        <ul style="display: block;">
-                            <li><a href="${pageContext.request.contextPath}/search?query=바나나">${type.type_name}</a></li>
-                          <%--   <li><a href="${pageContext.request.contextPath}/search?query=귤">귤</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=배">배</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=사과">사과</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=당근">당근</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=감자">감자</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=고구마">고구마</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=양파">양파</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=버섯">버섯</a></li>
-                            <li><a href="${pageContext.request.contextPath}/search?query=">기타</a></li> --%>
-                        </ul>
+                        <ul style="display: block;"> 
+                        <c:forEach var="type" items="${typeList}">  
+                            <li><a href="${pageContext.request.contextPath}/search?query=${type.type_name}">${type.type_name}</a></li>
                         </c:forEach>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">

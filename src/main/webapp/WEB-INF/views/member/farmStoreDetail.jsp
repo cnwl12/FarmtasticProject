@@ -107,10 +107,6 @@ input#file-upload-button {
 }
 </style>	
 	
-
-
- 
-
 </head>
 
 <!--  서영 하트 키우는것때문에 바디에 스페셜페이지 클래스 추가한거에요 -->
@@ -205,9 +201,9 @@ input#file-upload-button {
 										<span>In Stock</span>
 									</c:otherwise>
 								</c:choose></li>
-							<li><b>Shipping</b> <span>01 day shipping. <samp>Free
-										pickup today</samp></span></li>
-							<li><b>Weight</b> <span>0.5 kg</span></li>
+							<li><b>Shipping</b> <span>01 day shipping. 
+								<samp>Free pickup today</samp></span>
+							</li>
 						</ul>
                         
                         
