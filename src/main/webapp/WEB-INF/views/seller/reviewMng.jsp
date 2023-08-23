@@ -181,8 +181,6 @@ body {font-size: 1rem !important;
             				<th>별점</th>
             				<th>작성자</th>
             				<th>제목</th>
-<!--            					<th>내용</th> -->
-<!--            					<th>이미지</th> -->
  							<th>작성일</th>
            				</tr>
         			</thead>
@@ -366,8 +364,6 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                             seller.member_name,
 //                             maskedName,
                             '<a href="javascript:void(0);" onclick="showDetail(\''+seller.review_num+'\')">'+seller.review_title+'</a>',
-//                             seller.review_content,
-//                             seller.review_img ? "<img src='" + seller.review_img + "' class='review-img'>" : "",
                             review_date
                         ]).draw();
                     });
