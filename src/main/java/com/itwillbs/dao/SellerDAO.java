@@ -156,12 +156,10 @@ public class SellerDAO {
 		
 		//관리자 업체관리
 		public void approveSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerDAO approveSellerStatus 확인");
 		    sqlSession.update(namespace+".approveSellerStatus", sellerNum);
 		}
 
 		public void rejectSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerDAO rejectSellerStatus 확인");
 		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
 		}
 		
