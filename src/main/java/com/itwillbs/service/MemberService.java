@@ -68,8 +68,6 @@ public class MemberService {
 	}
 	
 	public MemberDTO userCheck0(MemberDTO memberDTO) {
-		 System.out.println("MemberService userCheck0()");
-		 
 		 return memberDAO.userCheck0(memberDTO);
 	 }
 	
@@ -119,7 +117,6 @@ public class MemberService {
 		 
 	// 리뷰작성 - 막내
     public void insertReview(MemberDTO memberDTO) {
-        System.out.println("service 리뷰작성");
         memberDAO.insertReview(memberDTO);
     }
 

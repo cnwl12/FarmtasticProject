@@ -109,8 +109,19 @@ public class SellerService {
 		    
 		    int count = sellerDAO.isSettlementRequested(params);
 			return count > 0;
-		}  		
-
+		}
+		
+	    // 선진) 정산완료 여부 알아오기
+		public boolean isSettlementCompleted(String seller_num, List<String> checkedSettlements) {
+		    
+		    Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("seller_num", seller_num);
+		    params.put("checkedSettlements", checkedSettlements);
+		    
+		    int count = sellerDAO.isSettlementCompleted(params);
+			return count > 0;
+		} 
+		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(String seller_num, List<String> checkedSettlements) {
 		    
@@ -173,12 +184,10 @@ public class SellerService {
 		
 		// 관리자 업체관리
 		public void approveSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerService approveSellerStatus 확인!");
 		    sellerDAO.approveSellerStatus(sellerNum);
 		}
 
 		public void rejectSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerService rejectSellerStatus 확인!");
 		    sellerDAO.rejectSellerStatus(sellerNum);
 		}
 	
@@ -297,6 +306,13 @@ public class SellerService {
 		public SellerDTO getSellerEmail(String seller_email) {
 			System.out.println("SellerService getSellerEmail()");
 			return sellerDAO.getSellerEmail(seller_email);
+		}
+		
+		public SellerDTO reviewDetail(String seller_num, int review_num) {
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("seller_num", seller_num);
+		    params.put("review_num", review_num);
+		    return sellerDAO.reviewDetail(params);
 		}
 	    
 }

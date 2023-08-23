@@ -69,7 +69,6 @@
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업자 등록번호</th>
-                                            <th>첨부파일</th>
                                             <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
@@ -87,16 +86,6 @@
                 						<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
                 						<td>${seller.seller_name}</td>
                 						<td>${seller.seller_licenseNum}</td>
-                						<td>
-                        					<c:choose>
-                            					<c:when test="${not empty seller.seller_file}">
-                                				<img src="${seller.seller_file}" style="width: 150px;" alt="첨부 이미지">
-                            					</c:when>
-                            					<c:otherwise>
-                                				<!-- 빈 공간으로 남겨둡니다 -->
-                            					</c:otherwise>
-                        					</c:choose>
-                    					</td>
                 						<td>${seller.seller_recoYn}</td>
                 						<td>${seller.seller_joinDay}</td>
             						</tr>
@@ -123,7 +112,6 @@
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업자 등록번호</th>
-                                            <th>첨부파일</th>
                                             <th>상태</th>
                                             <th>가입일</th>
                                         </tr>
@@ -137,16 +125,6 @@
             							<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
             							<td>${seller.seller_name}</td>
             							<td>${seller.seller_licenseNum}</td>
-            							<td>
-                        					<c:choose>
-                            					<c:when test="${not empty seller.seller_file}">
-                                				<img src="${seller.seller_file}" style="width: 150px;">
-                            					</c:when>
-                            					<c:otherwise>
-                                				<!-- 빈 공간으로 남겨둡니다 -->
-                            					</c:otherwise>
-                        					</c:choose>
-                    					</td>
             							<td>${seller.seller_recoYn}</td>
             							<td>${seller.seller_joinDay}</td>
         								</tr>

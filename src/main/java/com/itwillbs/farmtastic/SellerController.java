@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -62,6 +63,44 @@ public class SellerController {
 		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
 		    model.addAttribute("seller", sellerInfo);
 		    model.addAttribute("seller_id", seller_id);
+		    
+			// 월 매출 정보
+			List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales(seller_num);
+		    model.addAttribute("MonthlySales", MonthlySales);
+		    
+		    // 문의관리 메서드
+		    List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
+		    // 오늘 등록된 문의만 가져오기
+		    List<OneBoardDTO> todayOneboard = new ArrayList<>();
+		    LocalDate today = LocalDate.now();
+		    for (OneBoardDTO board : oneboard) {
+		        // 데이터베이스에서 가져온 날짜 정보를 LocalDate로 변환
+		        LocalDate boardDate = board.getOne_board_day().toLocalDate();
+
+		        // 날짜 비교를 통해 오늘 날짜인지 확인
+		        if (boardDate.isEqual(today)) {
+		            todayOneboard.add(board); // 오늘 등록된 데이터면 리스트에 추가
+		        }
+		    }
+		    model.addAttribute("oneboard", todayOneboard);
+		    
+		    // 리뷰관리 메서드
+		    List<SellerDTO> buyreview = sellerService.getReview(seller_num);
+		    // 오늘 등록된 문의만 가져오기
+		    List<SellerDTO> todayReview = new ArrayList<>();
+			/* LocalDate today = LocalDate.now(); */
+		    for (SellerDTO review : buyreview) {
+		        // 데이터베이스에서 가져온 날짜 정보를 LocalDate로 변환
+		        LocalDate reviewDate = review.getReview_day().toLocalDate();
+
+		        // 날짜 비교를 통해 오늘 날짜인지 확인
+		        if (reviewDate.isEqual(today)) {
+		        	todayReview.add(review); // 오늘 등록된 데이터면 리스트에 추가
+		        }
+		    }
+		    model.addAttribute("buyreview", todayReview);
+		    
+		    
 		    return "/seller/sellerMain";
 	    }
 	} 
@@ -86,10 +125,6 @@ public class SellerController {
 	    }
 	}
 	
-	
-	
-	
-
 	// 성하) 판매자 정보 수정
 	@RequestMapping(value = "/sellerUpdatePro", method = RequestMethod.POST)
 	public String updatePro(HttpSession session, HttpServletRequest request, Model model, 
@@ -197,7 +232,7 @@ public class SellerController {
 
 	// 선진) 매출관리 페이지 - 매출 차트 있음
 	@RequestMapping(value = "/salesMng", method = RequestMethod.GET)
-	public String salesMng(Locale locale, HttpSession session,Model model, HttpServletResponse response) {
+	public String salesMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
 		
 	    if (session.getAttribute("seller_num") == null) {
 	        
@@ -352,7 +387,6 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 
-		String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    
@@ -366,8 +400,11 @@ public class SellerController {
 	// 선진) 정산신청 & 정산취소 
 	@RequestMapping(value = "/settlementRequest", method = RequestMethod.POST)
 	public String settlementRequest(@RequestParam("selectedMonths") String[] selectedMonths, @RequestParam("action") String action, HttpSession session, Model model) {
+		
 		// 정산 신청 여부
 	    boolean requestExists = sellerService.isSettlementRequested((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
+	    // 정산 완료 여부
+	    boolean requestCompletes = sellerService.isSettlementCompleted((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	    
 	    switch (action) {
 	        case "request" :
@@ -381,7 +418,7 @@ public class SellerController {
 	            
 	        case "cancel" :
 	            if (selectedMonths != null && selectedMonths.length > 0) { // 선택된 월이 있다
-	                if (requestExists) { // 디비에 존재함 => delete 하기
+	                if (requestExists && !requestCompletes) { // 디비에 존재함 && 정산완료가 Y가 아니면 => delete 하기
 	                    sellerService.deleteSettlementRequest((String) session.getAttribute("seller_num"), Arrays.asList(selectedMonths));
 	                    break;
 	                }
@@ -389,8 +426,8 @@ public class SellerController {
 	            break;
 	            
 	        default:
-	        	
 	            // 다른 액션 처리 (필요한 경우)
+	        	// 이런 곳에 오류 메시지 띄우나?
 	            break;
 	    }
 	    return "redirect:/settlementList"; // 정산 목록 페이지로 리다이렉트
@@ -727,7 +764,23 @@ public class SellerController {
 	    }
 	}
 	
-	
+	@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
+	public String reviewDetail (@RequestParam("review_num") int review_num, Locale locale, Model model,HttpSession session) {
+		if (session.getAttribute("seller_num") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/Login"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String seller_num = (String) session.getAttribute("seller_num");
+            List<SellerDTO> result = sellerService.getReview(seller_num);
+            SellerDTO reviewDetail = sellerService.reviewDetail(seller_num, review_num);
+	        model.addAttribute("reviewDetail", reviewDetail);
+   		 	model.addAttribute("review", result);
+            return "/seller/reviewDetail";
+        }
+        
+    }
 
 
 }

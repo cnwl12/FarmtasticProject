@@ -64,7 +64,6 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO userCheck0(MemberDTO memberDTO) {
-		System.out.println("MemberDAO userCheck0()");
 		return sqlSession.selectOne(namespace+".userCheck0", memberDTO);
 	}
 	
@@ -139,7 +138,6 @@ public class MemberDAO {
 
 	//리뷰용도 - 막내
 	public void insertReview(MemberDTO memberDTO) {
-        System.out.println("DAO 리뷰작성");
         sqlSession.insert(namespace+".insertReview", memberDTO);
     }
 	
@@ -157,48 +155,46 @@ public class MemberDAO {
 	}
 	
 	// 막냉이 리뷰별점 갯수 기능
-		public int getReviewCountByItemNum(int item_num) {
-			return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
-		 }
+	public int getReviewCountByItemNum(int item_num) {
+		return sqlSession.selectOne(namespace + ".getReviewCountByItemNum", item_num);
+	}
 
 			
-		public double getAverageReviewStarByItemNum(int item_num) { 
-			Double averageReviewStar = null; 
+	public double getAverageReviewStarByItemNum(int item_num) { 
+		Double averageReviewStar = null; 
 			 try { averageReviewStar = sqlSession.selectOne(namespace+ ".getAverageReviewStarByItemNum", item_num);
-			} catch (NullPointerException e) {
-				 
-			} catch (EmptyResultDataAccessException e) {
-			 
-			}
-			return averageReviewStar == null ? 0.0 : averageReviewStar; 
-			}
+			 	} catch (NullPointerException e) {
+			 	} catch (EmptyResultDataAccessException e) {
+			 	}
+		return averageReviewStar == null ? 0.0 : averageReviewStar; 
+	}
 
 
-		public void updateInCart(HashMap<String, Object> cart) {
-			sqlSession.update(namespace+".updateInCart", cart);
-		}
+	public void updateInCart(HashMap<String, Object> cart) {
+		sqlSession.update(namespace+".updateInCart", cart);
+	}
 
-		//막내 마이페이지 리뷰관리
-		public List<MemberDTO> getItemMyReview(int member_num) {
-			return sqlSession.selectList(namespace+".getItemMyReview", member_num);
-		}
+	//막내 마이페이지 리뷰관리
+	public List<MemberDTO> getItemMyReview(int member_num) {
+		return sqlSession.selectList(namespace+".getItemMyReview", member_num);
+	}
 
-		public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
-			Map<String, Object> params = new HashMap<>();
-	        params.put("review_num", review_num);
-	        params.put("review_star", review_star);
-	        params.put("review_title", review_title);
-	        params.put("review_content", review_content);
-			params.put("review_img", review_img);
-			sqlSession.update(namespace+".updateReview", params);
-		}
+	public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("review_num", review_num);
+	    params.put("review_star", review_star);
+	    params.put("review_title", review_title);
+	    params.put("review_content", review_content);
+	    params.put("review_img", review_img);
+		sqlSession.update(namespace+".updateReview", params);
+	}
 	
-		public int deleteReview(int review_num, int member_num) {
-	        Map<String, Integer> params = new HashMap<>();
-	        params.put("review_num", review_num);
-	        params.put("member_num", member_num);
-	        return sqlSession.delete(namespace + ".deleteReview", params);
-	    }
+	public int deleteReview(int review_num, int member_num) {
+		Map<String, Integer> params = new HashMap<>();
+	    params.put("review_num", review_num);
+	    params.put("member_num", member_num);
+	    return sqlSession.delete(namespace + ".deleteReview", params);
+	}
 
 	
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {

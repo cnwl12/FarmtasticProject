@@ -346,6 +346,19 @@ FROM (
     </if>
     </select>  
    
+   	<!-- 선진) 정산 완료 여부 -->   
+   	<select id="isSettlementCompleted" resultType="int">
+   	SELECT COUNT(*) FROM settlement
+    WHERE seller_num = #{seller_num}
+    <if test="checkedSettlements != null and checkedSettlements.size() > 0">
+	    AND DATE_FORMAT(SUBSTRING(order_num, 1, 8), '%Y-%m') IN
+	    <foreach item="selectedMonth" collection="checkedSettlements" open="(" separator="," close=")">
+	    	#{selectedMonth}
+	    </foreach>
+	    AND settlementComplete = 'Y';
+    </if>
+    </select> 
+    
 	<!-- 선진) 정산 취소 -->
 	<delete id="deleteSettlementRequest">
     DELETE FROM settlement
@@ -750,6 +763,25 @@ ORDER BY MONTH(os.order_day);
    	<select id="sellerDetail" parameterType="map" resultType="map">
    		SELECT * FROM seller WHERE seller_num = #{seller_num}
    	</select>
+   	
+   	<select id="reviewDetail" resultType="com.itwillbs.domain.SellerDTO">
+   SELECT i.seller_num
+            , i.item_name
+            , r.review_star
+            , r.review_num
+            , r.member_num
+            , m.member_name
+            , r.review_title
+            , r.review_content
+            , r.review_img
+            , r.review_day
+    FROM review r 
+    JOIN item i ON i.item_num = r.item_num 
+    JOIN member m ON m.member_num = r.member_num 
+    JOIN seller s ON s.seller_num = i.seller_num 
+    WHERE s.seller_num = #{seller_num} 
+    AND r.review_num = #{review_num};
+</select>
    	
    	<update id="updateSellerInfo">
    		update seller

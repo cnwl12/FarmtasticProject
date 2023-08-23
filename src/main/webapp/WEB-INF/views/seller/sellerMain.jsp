@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +63,7 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+<!--                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -76,10 +78,33 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+						<div class="col-xl-3 col-md-6 mb-4">
+						    <div class="card border-left-primary shadow h-100 py-2">
+						        <div class="card-body">
+						            <div class="row no-gutters align-items-center">
+						                <div class="col mr-2">
+						                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+						                        당월 매출액</div>
+						                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+						                        <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+						                            <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales)}" type="number" pattern="#,##0" />
+						                        </c:forEach>
+						                    </div>
+						                </div>
+						                <div class="col-auto">
+						                    <i class="fa-2x text-gray-300"> 
+											<% int currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
+											</i>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+<!--                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -94,37 +119,81 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+						<div class="col-xl-3 col-md-6 mb-4">
+						    <div class="card border-left-success shadow h-100 py-2">
+						        <div class="card-body">
+						            <div class="row no-gutters align-items-center">
+						                <div class="col mr-2">
+						                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+						                        당월 수수료</div>
+						                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+						                        <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+						                            <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales * 0.05)}" type="number" pattern="#,##0" />
+						                        </c:forEach>
+						                    </div>
+						                </div>
+						                <div class="col-auto">
+						                    <i class="fa-2x text-gray-300"> 
+											<% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
+											</i>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+<!--                         <div class="col-xl-3 col-md-6 mb-4"> -->
+<!--                             <div class="card border-left-info shadow h-100 py-2"> -->
+<!--                                 <div class="card-body"> -->
+<!--                                     <div class="row no-gutters align-items-center"> -->
+<!--                                         <div class="col mr-2"> -->
+<!--                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks -->
+<!--                                             </div> -->
+<!--                                             <div class="row no-gutters align-items-center"> -->
+<!--                                                 <div class="col-auto"> -->
+<!--                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> -->
+<!--                                                 </div> -->
+<!--                                                 <div class="col"> -->
+<!--                                                     <div class="progress progress-sm mr-2"> -->
+<!--                                                         <div class="progress-bar bg-info" role="progressbar" -->
+<!--                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0" -->
+<!--                                                             aria-valuemax="100"></div> -->
+<!--                                                     </div> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
+<!--                                         </div> -->
+<!--                                         <div class="col-auto"> -->
+<!--                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+							<div class="col-xl-3 col-md-6 mb-4">
+							    <div class="card border-left-info shadow h-100 py-2">
+							        <div class="card-body">
+							            <div class="row no-gutters align-items-center">
+							                <div class="col mr-2">
+							                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> 당월 정산액
+							                    </div>
+							                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+							                        <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+							                            <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales - (sales.order_mm_totalSales * 0.05))}" type="number" pattern="#,##0" />
+							                        </c:forEach>
+							                    </div>
+							                </div>
+							                <div class="col-auto">
+							                    <i class="fa-2x text-gray-300"> 
+												<% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
+												</i>
+							                </div>
+							            </div>
+							        </div>
+							    </div>
+							</div>
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
@@ -351,13 +420,79 @@
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
 
-                            <!-- Project Card Example -->
+                            <!-- 리뷰관리 시작 -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><a href="${pageContext.request.contextPath}/reviewMng">리뷰 관리</a></h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
+                                <!-- 리뷰관리 가져옴 시작-->
+                                	<div class="table-responsive" style="height: 378px;">
+										<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
+											<div class="_flexible_area flexible_area" style="display: block;">
+												<div style="height: 35px;">
+													<table class="table table-bordered">
+													  <colgroup>
+													    <col style="width: 150px;">
+													    <col style="width: 120px;">
+													    <col style="width: 100px;">
+													    <col style="width: 500px;">
+													    <col style="width: 400px;">
+													    <col style="width: 150px;">
+													    <col style="width: 150px;">
+													  </colgroup>
+													  <tbody>
+													    <tr>
+													<th class="custom-th">접수일</th>
+													  <th class="custom-th">처리상태</th>
+													  <th class="custom-th">문의유형</th>
+													  <th class="custom-th">문의제목</th>
+													  <th class="custom-th">상품명</th>
+													  <th class="custom-th">질문자</th>
+													  <th class="custom-th">처리일시</th>
+													    </tr>
+													  </tbody>
+													</table>
+
+													<div class="_resize_handle_container resize_handle_container"></div>
+												</div>
+												<div>
+													<div>
+													<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+														<table class="table table-bordered" id="date-table">
+															<colgroup>
+															<col data-columnname="regDate" style="width: 150px;">
+															<col data-columnname="answerYn" style="width: 120px;">
+															<col data-columnname="inquiryCategory" style="width: 100px;">
+															<col data-columnname="title" style="width: 500px;">
+															<col data-columnname="productName" style="width: 400px;">
+															<col data-columnname="inquiryMemberName" style="width: 150px;">
+															<col data-columnname="treatmentDate" style="width: 150px;">
+															</colgroup>
+															<tbody>
+															  <c:forEach var="row" items="${oneboard}">
+															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
+															      <td>${row.one_board_day}</td>
+															      <td>${row.one_board_repYn}</td>
+															      <td>${row.one_board_type}</td>
+															      <td class="one_board_title">${row.one_board_title}</td>
+															      <td>${row.item_name}</td>
+															      <td>${row.member_name}</td>
+															      <td>${row.one_board_repDay}</td>
+															    </tr>
+															  </c:forEach>
+															</tbody>
+
+														</table>
+													</div>
+													<div class="_selection_layer selection_layer"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 리뷰관리에서 가져옴 끝 -->
+									
+                                    <!-- <h4 class="small font-weight-bold">Server Migration <span
                                             class="float-right">20%</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
@@ -386,7 +521,8 @@
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    </div> -->
+                                    
                                 </div>
                             </div>
 
@@ -462,22 +598,82 @@
 
                         <div class="col-lg-6 mb-4">
 
-                            <!-- Illustrations -->
+                            <!-- 문의관리 시작 -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">뭐 넣을까</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><a href="${pageContext.request.contextPath}/questionMng">문의 관리</a></h6>
                                 </div>
                                 <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <!-- 문의관리에서 가져옴 시작-->
+                               	<div class="table-responsive" style="height: 378px;">
+									<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
+										<div class="_flexible_area flexible_area" style="display: block;">
+											<div style="height: 35px;">
+												<table class="table table-bordered">
+												  <colgroup>
+												    <col style="width: 150px;">
+												    <col style="width: 120px;">
+												    <col style="width: 100px;">
+												    <col style="width: 500px;">
+												    <col style="width: 400px;">
+												    <col style="width: 150px;">
+												    <col style="width: 150px;">
+												  </colgroup>
+												  <tbody>
+												    <tr>
+												<th class="custom-th">접수일</th>
+												  <th class="custom-th">처리상태</th>
+												  <th class="custom-th">문의유형</th>
+												  <th class="custom-th">문의제목</th>
+												  <th class="custom-th">상품명</th>
+												  <th class="custom-th">질문자</th>
+												  <th class="custom-th">처리일시</th>
+												    </tr>
+												  </tbody>
+												</table>
 
-                                </table>
-                            </div>
+												<div class="_resize_handle_container resize_handle_container"></div>
+											</div>
+											<div>
+												<div>
+												<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+													<table class="table table-bordered" id="date-table">
+														<colgroup>
+														<col data-columnname="regDate" style="width: 150px;">
+														<col data-columnname="answerYn" style="width: 120px;">
+														<col data-columnname="inquiryCategory" style="width: 100px;">
+														<col data-columnname="title" style="width: 500px;">
+														<col data-columnname="productName" style="width: 400px;">
+														<col data-columnname="inquiryMemberName" style="width: 150px;">
+														<col data-columnname="treatmentDate" style="width: 150px;">
+														</colgroup>
+														<tbody>
+														  <c:forEach var="row" items="${oneboard}">
+														    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
+														      <td>${row.one_board_day}</td>
+														      <td>${row.one_board_repYn}</td>
+														      <td>${row.one_board_type}</td>
+														      <td class="one_board_title">${row.one_board_title}</td>
+														      <td>${row.item_name}</td>
+														      <td>${row.member_name}</td>
+														      <td>${row.one_board_repDay}</td>
+														    </tr>
+														  </c:forEach>
+														</tbody>
+
+													</table>
+												</div>
+												<div class="_selection_layer selection_layer"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+		                        <!-- 문의관리에서 가져옴 끝-->    
                                 </div>
                             </div>
 
                             <!-- Approach -->
-                            <div class="card shadow mb-4">
+<!--                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
                                 </div>
@@ -488,7 +684,7 @@
                                     <p class="mb-0">Before working with this theme, you should become familiar with the
                                         Bootstrap framework, especially the utility classes.</p>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>

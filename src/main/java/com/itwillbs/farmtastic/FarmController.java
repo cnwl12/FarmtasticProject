@@ -888,13 +888,13 @@ public class FarmController { // 소비자 (컨트롤러)
 		    // getItemOrder를 호출하여 order_num을 가져옵니다.
 		    List<MemberDTO> order_num = memberService.getItemOrder(member_num, item_num);
 
-		 // 구매 기록이 없는 경우 리뷰 작성을 허용하지 않습니다.
+		    // 구매 기록이 없는 경우 리뷰 작성을 허용하지 않습니다.
 		    if (order_num == null || order_num.isEmpty()) {
 		        return ResponseEntity.status(HttpStatus.FORBIDDEN)
 		                .body("{\"status\": \"failure\", \"message\": \"구매 이력이 존재하지 않아 리뷰를 작성할 수 없습니다.\"}");
 		    }
 		    
-		// 첨부파일 올라갈 물리적 경로 
+		    	// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -969,7 +969,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		return myreview;
 	}
 
-	// 마이페이지 - 리뷰관리 => 리뷰 수정 (개편 하려했으나 선생님 버전이 어려워서 일단 보류)
+	// 마이페이지 - 리뷰관리 => 리뷰 수정 
 	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> updateReview(@RequestParam("review_num") int review_num,

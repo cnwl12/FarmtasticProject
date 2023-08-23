@@ -104,6 +104,12 @@ public class SellerDAO {
 		    return sqlSession.selectOne(namespace + ".isSettlementRequested", params);
 		}		
 		
+		// 선진) 정산완료 여부 알아오기
+		public int isSettlementCompleted(Map<String, Object> params) {
+
+		    return sqlSession.selectOne(namespace + ".isSettlementCompleted", params);
+		}
+		
 		// 선진) 정산취소
 		public void deleteSettlementRequest(Map<String, Object> params) {
 
@@ -150,12 +156,10 @@ public class SellerDAO {
 		
 		//관리자 업체관리
 		public void approveSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerDAO approveSellerStatus 확인");
 		    sqlSession.update(namespace+".approveSellerStatus", sellerNum);
 		}
 
 		public void rejectSellerStatus(List<String> sellerNum) {
-		    System.out.println("SellerDAO rejectSellerStatus 확인");
 		    sqlSession.update(namespace+".rejectSellerStatus", sellerNum);
 		}
 		
@@ -288,6 +292,10 @@ public class SellerDAO {
 		public SellerDTO getSellerEmail(String seller_email) {
 			System.out.println("SellerDAO getSellerEmail()");
 			return sqlSession.selectOne(namespace + ".getSellerEmail", seller_email);
+		}
+
+		public SellerDTO reviewDetail(Map<String,Object> params) {
+		     return sqlSession.selectOne(namespace + ".reviewDetail", params);
 		}
 
 		

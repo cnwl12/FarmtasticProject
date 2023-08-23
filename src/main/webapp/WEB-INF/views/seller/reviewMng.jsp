@@ -166,8 +166,9 @@ body {font-size: 1rem !important;
 					</div>
 					
 					<div class="panel-body">
-					<p class="sub-text text-primary mg-top-reset mg-bottom">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 신고' 기능을 이용해주세요 서비스 규정에 맞춰 관리자 검수하여 삭제 조치될 수 있습니다.</p>
-        			 <div class="review-list">
+					<p class="sub-text text-primary mg-top-reset mg-bottom">욕설, 허위, 비방, 음란물 등 상품과 관련 없는 내용의 부적절한 리뷰는 '리뷰 삭제' 기능을 이용해주세요.</p>
+        			<p class="sub-text text-primary mg-top-reset mg-bottom">상세 리뷰를 확인하시려면 제목을 눌러주세요.</p>
+        			<div class="review-list">
 					<input type="hidden" name="seller_num" value="${sessionScope.seller_num}">
 					<input type="hidden" id="item_name"name="item_name" value="${item.item_name}">
 					<input type="hidden" id="member_num"name="member_num" value="${review.member_num}">
@@ -180,8 +181,6 @@ body {font-size: 1rem !important;
             				<th>별점</th>
             				<th>작성자</th>
             				<th>제목</th>
-           					<th>내용</th>
-           					<th>이미지</th>
  							<th>작성일</th>
            				</tr>
         			</thead>
@@ -322,17 +321,17 @@ body {font-size: 1rem !important;
 
 <script>
 //작성자 이름 마스킹 처리 함수 
-function maskWriterName(name) {
-  if (!name || name.length === 0) {
-    return '';
-  }
+// function maskWriterName(name) {
+//   if (!name || name.length === 0) {
+//     return '';
+//   }
 
-  if (name.length > 2) {
-    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
-  } else {
-    return name[0] + "*";
-  }
-}
+//   if (name.length > 2) {
+//     return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+//   } else {
+//     return name[0] + "*";
+//   }
+// }
 
 function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, keyword) {
     var seller_num = '<%= request.getSession().getAttribute("seller_num") %>';
@@ -351,7 +350,7 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                     $("#review").html("<tr><td colspan='6' style='text-align:center;'>리뷰가 없습니다.</td></tr>");
                 } else {
                     $.each(buyreview, function(index, seller) {
-                    	var maskedName = maskWriterName(seller.member_name);
+//                     	var maskedName = maskWriterName(seller.member_name);
                         var review_stars = '';
                         for (let i = 1; i <= seller.review_star; i++) {
                             review_stars += '★';
@@ -362,10 +361,9 @@ function getReview(startDate, endDate, selectedReviewScore, keywordTypeIndex, ke
                         	'<input type="checkbox" class="review-checkbox" data-review_num="' + seller.review_num + '" data-member_num="' + seller.member_num + '"/>',
                             seller.item_name,
                             review_stars,
-                            maskedName,
-                            seller.review_title,
-                            seller.review_content,
-                            seller.review_img ? "<img src='" + seller.review_img + "' class='review-img'>" : "",
+                            seller.member_name,
+//                             maskedName,
+                            '<a href="javascript:void(0);" onclick="showDetail(\''+seller.review_num+'\')">'+seller.review_title+'</a>',
                             review_date
                         ]).draw();
                     });
@@ -388,6 +386,16 @@ document.getElementById("reviewScoresSelect").addEventListener("change", functio
 
 // 처음 페이지 로드 시 모든 리뷰 가져오기
 getReview(); 
+
+function showDetail(reviewNum) {
+    // 회원 정보 조회 API URL
+	  const url = '${pageContext.request.contextPath}/reviewDetail?review_num=' + reviewNum;
+    // 팝업 창 열기
+    window.open(url, 'reviewInfoPopup', 'width=800,height=600');
+
+    // 팝업 창에서 메인 창으로 포커스 이동
+    opener.focus();
+}
 </script>
 <script type="text/javascript">
 $(document).ready(function () {

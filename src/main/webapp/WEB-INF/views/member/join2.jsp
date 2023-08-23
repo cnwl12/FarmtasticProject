@@ -304,7 +304,7 @@ button#submitBtn {
                         <input type="button" id="seller_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
                         <div id="invalid_post" class="invalid-feedback">
                              주소를 입력해주세요.
-                             </div>
+                        </div>
                         </li>
                         <li>
                         <input type="text" name="seller_addMain" id="sample4_roadAddress" placeholder="도로명주소">
@@ -341,6 +341,9 @@ button#submitBtn {
                               <option value="MU">버섯</option>
                               <option value="ETC">기타</option>
                              </select>
+                             <div id="invalid_type" class="invalid-feedback">
+                             	사업자 분류를 선택해주세요.
+                             </div>
                         </li>
                      </ul>
                      
@@ -634,9 +637,21 @@ button#submitBtn {
         return true;
       }
     }    
+    
+    function validateType() {
+        var type = $("#seller_type");
+        if (type.val() == "") {
+          $('#invalid_type').show();
+          type.focus();
+          return false;
+        } else {
+          $('#invalid_type').hide();
+          return true;
+        }
+      }    
 
     function validateAll() {
-      return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost() && validateStoreName() && validateAccountNum() && validateAccountHolder() && validateLicenseNum();
+      return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost() && validateStoreName() && validateAccountNum() && validateAccountHolder() && validateLicenseNum() && validateType();
     }
     
     $(document).ready(function() {
