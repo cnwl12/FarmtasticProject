@@ -764,7 +764,23 @@ public class SellerController {
 	    }
 	}
 	
-	
+	@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
+	public String reviewDetail (@RequestParam("review_num") int review_num, Locale locale, Model model,HttpSession session) {
+		if (session.getAttribute("seller_num") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/Login"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String seller_num = (String) session.getAttribute("seller_num");
+            List<SellerDTO> result = sellerService.getReview(seller_num);
+            SellerDTO reviewDetail = sellerService.reviewDetail(seller_num, review_num);
+	        model.addAttribute("reviewDetail", reviewDetail);
+   		 	model.addAttribute("review", result);
+            return "/seller/reviewDetail";
+        }
+        
+    }
 
 
 }

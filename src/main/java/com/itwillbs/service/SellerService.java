@@ -307,5 +307,12 @@ public class SellerService {
 			System.out.println("SellerService getSellerEmail()");
 			return sellerDAO.getSellerEmail(seller_email);
 		}
+		
+		public SellerDTO reviewDetail(String seller_num, int review_num) {
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("seller_num", seller_num);
+		    params.put("review_num", review_num);
+		    return sellerDAO.reviewDetail(params);
+		}
 	    
 }
