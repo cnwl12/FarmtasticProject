@@ -68,27 +68,11 @@ public class SellerController {
 			List<Map<String,Object>> MonthlySales = sellerService.getMonthlySales(seller_num);
 		    model.addAttribute("MonthlySales", MonthlySales);
 		    
-		    // 문의관리 메서드
-		    List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
-		    // 오늘 등록된 문의만 가져오기
-		    List<OneBoardDTO> todayOneboard = new ArrayList<>();
-		    LocalDate today = LocalDate.now();
-		    for (OneBoardDTO board : oneboard) {
-		        // 데이터베이스에서 가져온 날짜 정보를 LocalDate로 변환
-		        LocalDate boardDate = board.getOne_board_day().toLocalDate();
-
-		        // 날짜 비교를 통해 오늘 날짜인지 확인
-		        if (boardDate.isEqual(today)) {
-		            todayOneboard.add(board); // 오늘 등록된 데이터면 리스트에 추가
-		        }
-		    }
-		    model.addAttribute("oneboard", todayOneboard);
-		    
 		    // 리뷰관리 메서드
 		    List<SellerDTO> buyreview = sellerService.getReview(seller_num);
-		    // 오늘 등록된 문의만 가져오기
+		    // 오늘 등록된 리뷰만 가져오기
 		    List<SellerDTO> todayReview = new ArrayList<>();
-			/* LocalDate today = LocalDate.now(); */
+		    LocalDate today = LocalDate.now();
 		    for (SellerDTO review : buyreview) {
 		        // 데이터베이스에서 가져온 날짜 정보를 LocalDate로 변환
 		        LocalDate reviewDate = review.getReview_day().toLocalDate();
@@ -100,6 +84,20 @@ public class SellerController {
 		    }
 		    model.addAttribute("buyreview", todayReview);
 		    
+		    // 문의관리 메서드
+		    List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
+		    // 오늘 등록된 문의만 가져오기
+		    List<OneBoardDTO> todayOneboard = new ArrayList<>();
+		    for (OneBoardDTO board : oneboard) {
+		        // 데이터베이스에서 가져온 날짜 정보를 LocalDate로 변환
+		        LocalDate boardDate = board.getOne_board_day().toLocalDate();
+
+		        // 날짜 비교를 통해 오늘 날짜인지 확인
+		        if (boardDate.isEqual(today)) {
+		            todayOneboard.add(board); // 오늘 등록된 데이터면 리스트에 추가
+		        }
+		    }
+		    model.addAttribute("oneboard", todayOneboard);
 		    
 		    return "/seller/sellerMain";
 	    }

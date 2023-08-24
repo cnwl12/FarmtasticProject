@@ -438,19 +438,15 @@
 													    <col style="width: 100px;">
 													    <col style="width: 500px;">
 													    <col style="width: 400px;">
-													    <col style="width: 150px;">
-													    <col style="width: 150px;">
 													  </colgroup>
 													  <tbody>
-													    <tr>
-													<th class="custom-th">접수일</th>
-													  <th class="custom-th">처리상태</th>
-													  <th class="custom-th">문의유형</th>
-													  <th class="custom-th">문의제목</th>
+													  <tr>
 													  <th class="custom-th">상품명</th>
-													  <th class="custom-th">질문자</th>
-													  <th class="custom-th">처리일시</th>
-													    </tr>
+													  <th class="custom-th">별점</th>
+													  <th class="custom-th">작성</th>
+													  <th class="custom-th">제목</th>
+													  <th class="custom-th">작성일</th>
+													  </tr>
 													  </tbody>
 													</table>
 
@@ -461,138 +457,54 @@
 													<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
 														<table class="table table-bordered" id="date-table">
 															<colgroup>
-															<col data-columnname="regDate" style="width: 150px;">
+															<%-- <col data-columnname="regDate" style="width: 150px;">
 															<col data-columnname="answerYn" style="width: 120px;">
 															<col data-columnname="inquiryCategory" style="width: 100px;">
 															<col data-columnname="title" style="width: 500px;">
-															<col data-columnname="productName" style="width: 400px;">
-															<col data-columnname="inquiryMemberName" style="width: 150px;">
-															<col data-columnname="treatmentDate" style="width: 150px;">
+															<col data-columnname="productName" style="width: 400px;"> --%>
+															<col data-columnname="regDate" style="width: 150px;">
+															<col style="width: 120px;">
+															<col style="width: 100px;">
+															<col style="width: 500px;">
+															<col style="width: 400px;">
 															</colgroup>
 															<tbody>
-															  <c:forEach var="row" items="${oneboard}">
-															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
-															      <td>${row.one_board_day}</td>
-															      <td>${row.one_board_repYn}</td>
-															      <td>${row.one_board_type}</td>
-															      <td class="one_board_title">${row.one_board_title}</td>
+										
+															  <c:forEach var="row" items="${buyreview}">
+															    <%-- <tr class="data-row" data-one-board-content="${row.review_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" > --%>
+															    <tr>															     
 															      <td>${row.item_name}</td>
+															      <td id="review-star">${row.review_star}</td>
 															      <td>${row.member_name}</td>
-															      <td>${row.one_board_repDay}</td>
+															      <%-- <td class="one_board_title">${row.one_board_title}</td> --%>
+															      <td><a onclick="reviewPop(${row.review_num})">${row.review_title}</a></td>
+															      <td>${row.review_day}</td>
 															    </tr>
 															  </c:forEach>
+
+															  
 															</tbody>
 
 														</table>
 													</div>
 													<div class="_selection_layer selection_layer"></div>
 												</div>
+												
+												<!-- 목록 없으면 -->
+												<div class="_no_review_message" style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+												<c:if test="${empty buyreview}">
+													<i class="fn-shopping fn-65 fn-shopping-caution1 icon-color-big" aria-hidden="true"></i>
+													<p style="margin: 0;">오늘 등록된 리뷰가 없습니다.</p>
+												</c:if>
+												</div>
+												
+												
 											</div>
 										</div>
 									</div>
 									<!-- 리뷰관리에서 가져옴 끝 -->
-									
-                                    <!-- <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div> -->
-                                    
                                 </div>
                             </div>
-
-                            <!-- Color System -->
-<!--                             <div class="row"> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-primary text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Primary -->
-<!--                                             <div class="text-white-50 small">#4e73df</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-success text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Success -->
-<!--                                             <div class="text-white-50 small">#1cc88a</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-info text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Info -->
-<!--                                             <div class="text-white-50 small">#36b9cc</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-warning text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Warning -->
-<!--                                             <div class="text-white-50 small">#f6c23e</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-danger text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Danger -->
-<!--                                             <div class="text-white-50 small">#e74a3b</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-secondary text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Secondary -->
-<!--                                             <div class="text-white-50 small">#858796</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-light text-black shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Light -->
-<!--                                             <div class="text-black-50 small">#f8f9fc</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-lg-6 mb-4"> -->
-<!--                                     <div class="card bg-dark text-white shadow"> -->
-<!--                                         <div class="card-body"> -->
-<!--                                             Dark -->
-<!--                                             <div class="text-white-50 small">#5a5c69</div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
 
                         </div>
 
@@ -600,12 +512,19 @@
 
                             <!-- 문의관리 시작 -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
+                                 <%-- <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><a href="${pageContext.request.contextPath}/questionMng">문의 관리</a></h6>
-                                </div>
+                                </div> --%>
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary" style="display: flex; align-items: center;">
+										<span id="toggleLink1" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" onclick="toggleContent(1)">오늘의 문의</span>
+										<span id="toggleLink2" style="cursor: pointer; flex: 1; text-align: center; font-weight: normal; padding-left: 10px;" onclick="toggleContent(2)">미답변 문의</span>
+									</h6>
+								</div>
+								 
                                 <div class="card-body">
                                 <!-- 문의관리에서 가져옴 시작-->
-                               	<div class="table-responsive" style="height: 378px;">
+                               	<div class="table-responsive" style="height: 378px; position: relative;"> <!-- 포지션 요소는 밑에 문의관리로이동 박스와 관련있는 요소임 일단 남겨둠 -->
 									<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
 										<div class="_flexible_area flexible_area" style="display: block;">
 											<div style="height: 35px;">
@@ -620,15 +539,15 @@
 												    <col style="width: 150px;">
 												  </colgroup>
 												  <tbody>
-												    <tr>
-												<th class="custom-th">접수일</th>
+												  <tr>
+												  <th class="custom-th">접수일</th>
 												  <th class="custom-th">처리상태</th>
 												  <th class="custom-th">문의유형</th>
-												  <th class="custom-th">문의제목</th>
+												  <th class="custom-th">제목</th>
 												  <th class="custom-th">상품명</th>
 												  <th class="custom-th">질문자</th>
 												  <th class="custom-th">처리일시</th>
-												    </tr>
+												  </tr>
 												  </tbody>
 												</table>
 
@@ -653,39 +572,42 @@
 														      <td>${row.one_board_day}</td>
 														      <td>${row.one_board_repYn}</td>
 														      <td>${row.one_board_type}</td>
-														      <td class="one_board_title">${row.one_board_title}</td>
+														      <td class="one_board_title"><a onclick="boardPop(${row.one_board_num})">${row.one_board_title}</a></td>
 														      <td>${row.item_name}</td>
 														      <td>${row.member_name}</td>
 														      <td>${row.one_board_repDay}</td>
 														    </tr>
 														  </c:forEach>
+  
 														</tbody>
 
 													</table>
 												</div>
 												<div class="_selection_layer selection_layer"></div>
 											</div>
+											
+											<!-- 목록 없으면 -->
+											<div class="_no_board_message">
+											<c:if test="${empty oneboard}">
+												<p style="margin: 0; position: absolute; top: 50%;  left: 50%;  transform: translate(-50%);  text-align: center;">오늘 등록된 문의가 없습니다.</p>
+											</c:if>
+											</div>
+											
 										</div>
 									</div>
+									
+<!-- 									문의 관리로 이동 -->	<!-- 일단 보류 -->
+<!-- 									    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; text-align: center;"> -->
+<%-- 									        <a href="${pageContext.request.contextPath}/questionMng" style="color: #666; border-color: #dbdde2 !important; border: 1px solid; display: block; padding: 10px; text-align: center; text-decoration: none; line-height: 1; background: none;"> --%>
+<!-- 									            문의 관리 -->
+<!-- 									        </a> -->
+<!-- 									    </div> -->
+<!-- 									문의 관리로 이동 -->
+									
 								</div>
 		                        <!-- 문의관리에서 가져옴 끝-->    
                                 </div>
                             </div>
-
-                            <!-- Approach -->
-<!--                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div> -->
-
                         </div>
                     </div>
 
@@ -760,7 +682,38 @@
         alert(message);
     }
 	
+	// 리뷰 제목 누르면 팝업창 띄움
+	function reviewPop(reviewNum) {
+	    // 회원 정보 조회 API URL
+		  const url = '${pageContext.request.contextPath}/reviewDetail?review_num=' + reviewNum;
+	    // 팝업 창 열기
+	    window.open(url, 'reviewInfoPopup', 'width=800,height=600');
+
+	    // 팝업 창에서 메인 창으로 포커스 이동
+	    opener.focus();
+	}
 	
+	// 문의 제목 누르면 팝업창 띄움
+	function boardPop(boardNum) {
+	    // 회원 정보 조회 API URL
+		  const url = '${pageContext.request.contextPath}/questionMng?one_board_num=' + boardNum;
+	    // 팝업 창 열기
+	    window.open(url, 'boardInfoPopup', 'width=800,height=600');
+
+	    // 팝업 창에서 메인 창으로 포커스 이동
+	    opener.focus();
+	}
+		
+ 	// 별점을 ★로 변경
+    let reviewStars = document.querySelectorAll('#review-star');
+    reviewStars.forEach(function (starElement) {
+        let starCount = parseInt(starElement.textContent, 10);
+        let stars = '';
+        for (let i = 1; i <= starCount; i++) {
+            stars += '★';
+        }
+        starElement.textContent = stars;
+    });
 </script>
 </body>
 </html>
