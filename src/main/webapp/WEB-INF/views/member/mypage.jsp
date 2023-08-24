@@ -24,6 +24,19 @@
 <script src="${pageContext.request.contextPath }/resources/js/popup.js"></script>
 
 <style>
+.empty-list {
+  text-align: center;
+  font-weight: bold;
+  color: gray;
+  font-style: italic;
+}
+.no-records-message {
+  font-weight: bold;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 10px;
+}
+
 .edit-button {
     position: relative;
     float: right;
@@ -269,6 +282,11 @@
                      <button id="deleteAllButton" style="border:none;">전체 삭제</button> -->
                      <div style="clear: right;">
                      <ul class="favorite-list">
+                     
+                     <c:if test="${empty zzimlist}">
+					  <li class="empty-list">찜 목록이 비어있습니다.</li>
+					</c:if>
+                     
                         <c:forEach var="item" items="${zzimlist}">
                            <li class="favorite-item" data-item-num="${item.item_num}">
                               <input type="checkbox" class="checkbox"> <a
@@ -428,6 +446,12 @@
                         </tr>
                      </thead>
                      <tbody id="inquiryList">
+                     
+						<c:if test="${empty oneBoardList2}">
+						  <tr class="no-records-message">
+						    <td colspan="5">작성된 문의글이 존재하지 않습니다.</td>
+						  </tr>
+						</c:if>
                         <!-- 여기에 문의 내용이 추가됩니다. -->
                         <c:forEach var="row" items="${oneBoardList2}">
                            <tr class="inquiry-item"

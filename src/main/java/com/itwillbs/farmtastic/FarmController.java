@@ -1154,6 +1154,19 @@ public class FarmController { // 소비자 (컨트롤러)
 	    }
 	}
 
+	@PostMapping("/deleteBoard")
+	public ResponseEntity<?> deleteBoard(@RequestParam("boardNum") int boardNum) {
+	    try {
+	        // 게시물 삭제 로직 수행
+	        memberService.deleteBoard(boardNum);
+	        System.out.println(boardNum);
+
+	        return ResponseEntity.ok().build(); // HTTP 200 OK 응답 반환
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // HTTP 500 Internal Server Error 응답 반환
+	    }
+	}
+
 
 
 
