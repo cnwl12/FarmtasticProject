@@ -235,7 +235,7 @@ button#submitBtn {
                             사업자번호 입력해주세요.
                              </div>
                              <div id= "invalid_licenseNum2" class="invalid-feedback">
-                            양식에 맞추어 작성해주세요.
+                            양식에 맞추어 작성해주세요.(Ex.123-45-67890)
                              </div>
                         </li>
                         
@@ -487,6 +487,7 @@ button#submitBtn {
     var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
     var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
     var regLicenseNum = /^([0-9]{3})-([0-9]{2})-([0-9]{5})$/;
+    var regLicenseNum2 = /^([0-9]{10})$/;
     var regNumber = /^(\d{1,14})$/;
 
     //  유효성 검사 메서드
@@ -563,16 +564,41 @@ button#submitBtn {
       }
     
     function validateLicenseNum() {
-        var ulnum = $("#seller_licenseNum");
-        if (ulnum.val() == "" || !regLicenseNum.test(ulnum.val())) {
-          $('#invalid_licenseNum').show();
-          ulnum.focus();
-          return false;
-        } else {
-          $('#invalid_licenseNum').hide();
-          return true;
-        }
-      }
+    	  var ulnum = $("#seller_licenseNum");
+
+    	  if (ulnum.val() == "") {
+    	    $('#invalid_licenseNum').show();
+    	    ulnum.focus();
+    	    return false;
+    	  } else {
+    	    if (!regLicenseNum.test(ulnum.val()) && regLicenseNum2.test(ulnum.val())){
+    	      var formattedLicenseNum = addHyphenToLicenseNum(ulnum.val());
+    	      ulnum.val(formattedLicenseNum);
+    	    } else if (!regLicenseNum.test(ulnum.val()) && !regLicenseNum2.test(ulnum.val())) {
+    	      $('#invalid_licenseNum').show();
+    	      ulnum.focus();
+    	      return false;
+    	    }
+
+    	    $('#invalid_licenseNum').hide();
+    	    return true;
+    	  }
+    	}
+
+    
+    function addHyphenToLicenseNum(licenseNum) {
+
+    	  // 재배치 후 하이픈 추가
+    	  var formattedLicenseNum =
+    		licenseNum.slice(0, 3) +
+    	    '-' +
+    	    licenseNum.slice(3, 5) +
+    	    '-' +
+    	    licenseNum.slice(5, 10);
+
+    	  return formattedLicenseNum;
+    	}
+
     
     function validateAccountNum() {
         var uanum = $("#seller_accountNum");

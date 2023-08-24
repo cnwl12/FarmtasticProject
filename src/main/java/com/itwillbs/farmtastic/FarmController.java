@@ -1317,4 +1317,11 @@ public class FarmController { // 소비자 (컨트롤러)
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/chatBot", method = RequestMethod.GET)
+	public String chatBot(Locale locale, Model model) {
+
+		return "/member/chatBot";
+	}
+	
 }
