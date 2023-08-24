@@ -99,7 +99,8 @@ input#file-upload-button {
 }
 
 .review-img {
-  width: 100px; /* 원하는 이미지 너비 */
+  width: 130px;
+  height : 130px;
 }
 
 .review-img img {
@@ -280,9 +281,7 @@ input#file-upload-button {
                 					<th>작성자</th>
                 					<th>별점</th>
                 					<th>제목</th>
-<!--                 					<th>내용</th> -->
                 					<th>작성일</th>
-<!--                 					<th>이미지</th> -->
            							</tr>
         							</thead>
         							<tbody>
@@ -626,7 +625,7 @@ input#file-upload-button {
             "<td>" + reversedIndex + "</td>" +
             "<td>" + review.member_name + "</td>" +
             "<td class='review-star'>" + review.review_star + "</td>" +
-            "<td class='review-title toggle-content' data-content='" + review.review_content + "' data-image='" + (review.review_img || "") + "'>" + review.review_title + "</td>" +
+            "<td class='review-title toggle-content' data-content='" + review.review_content + "' data-image='" + (review.review_img || "") + "' style='cursor: pointer;'>" + review.review_title + "</td>" +
             "<td class='review-date' data-timestamp='" + review.review_day + "'></td>" +
         	"</tr>" +
         	"<tr class='content-row' style='display:none;'>" +
