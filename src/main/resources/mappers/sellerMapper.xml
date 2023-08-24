@@ -69,6 +69,7 @@
 				ON i2.item_num = fo.item_num;
 
 </select>
+<!--관리자 월매출 차트-->
  <select id="selectSalesData" resultType="map">
     SELECT
     t.monthly,
@@ -101,6 +102,20 @@ FROM (
 ) as t;
 
 </select>
+
+ <select id="pieChart" resultType="map">
+     
+SELECT i.seller_type, SUM(od.item_cnt * i.item_price) AS total_amount
+FROM order_detail od
+LEFT JOIN item i
+ON od.item_num = i.item_num
+GROUP BY i.seller_type
+order by total_amount desc;
+
+</select>
+
+
+
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
 	select seller_licenseNum
