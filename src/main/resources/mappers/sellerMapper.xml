@@ -125,7 +125,8 @@ order by total_amount desc;
 		 	, seller_recoYn
 		 	, seller_num
 		 	, seller_file
-	from seller; 
+	from seller
+	order by seller_joinDay desc; 
 	</select>
 	
 	<!-- 판매자 체크 -->
