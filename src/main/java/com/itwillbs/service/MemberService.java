@@ -45,6 +45,10 @@ public class MemberService {
 	    memberDAO.ninsertMember(memberDTO);
 	}
 	
+	public MemberDTO idCheck0(String member_id) {
+		return memberDAO.idCheck0(member_id);
+	} 
+	
 	 public List<Map<String, Object>> getMembers() {
 		 System.out.println("MemberService getMembers() 확인!");
 	        return memberDAO.getMembers();

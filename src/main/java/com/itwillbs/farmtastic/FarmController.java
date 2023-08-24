@@ -1306,5 +1306,15 @@ public class FarmController { // 소비자 (컨트롤러)
 		}
 		return result;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/idCheck0", method = RequestMethod.POST)
+	public int idCheck0(@RequestParam("member_id") String member_id, HttpServletRequest request) {
+		int result = 0;
+		MemberDTO idCheck0 = memberService.idCheck0(member_id);
+		if (idCheck0 != null) {
+			result = 1;
+		}
+		return result;
+	}
 }

@@ -120,6 +120,11 @@
     and (member_delYn = 'N' or member_delYn is null)
 </select>
   	
+  	<select id="idCheck0" resultType="com.itwillbs.domain.MemberDTO">
+		SELECT member_id
+		FROM member
+		WHERE member_id = #{member_id}
+	</select>
   	
  	<update id="updateMember">
  	 UPDATE member

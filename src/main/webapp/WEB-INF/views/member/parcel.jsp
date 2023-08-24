@@ -19,7 +19,7 @@
     <%--
      SweetTracker API 키를 설정합니다.
      --%>
-    <% String api_key = "B4WxVwnUkFj7kESy39zWhQ"; %>
+    <% String api_key = "qDNRK6K8shDzjOPvcnoN4A"; %>
     <script>
         $(document).ready(function() {
             /**
