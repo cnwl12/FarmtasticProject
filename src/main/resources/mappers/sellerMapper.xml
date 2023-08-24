@@ -69,11 +69,14 @@
 				ON i2.item_num = fo.item_num;
 
 </select>
+<!--관리자 월매출 차트-->
  <select id="selectSalesData" resultType="map">
     SELECT
     t.monthly,
+    t.month,
     FORMAT(t.monthly_sales, 0) as month_sales,
     FORMAT(FLOOR(t.monthly_sales * 0.05), 0) as month_fee,
+    FLOOR(t.monthly_sales * 0.05) as month_fee2,
     FORMAT(t.total, 0) as total_sales,
     FORMAT(FLOOR(t.total * 0.05), 0) as total_fee,
 	FORMAT((t.total - FLOOR(t.total * 0.05)), 0) as total_settlement
@@ -82,6 +85,7 @@
 FROM (
     SELECT
         DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly,
+        CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월') as month ,
         SUM(od.item_cnt * i.item_price) as monthly_sales,
         (SELECT SUM(item_cnt * item_price)
          FROM order_detail od2
@@ -93,10 +97,25 @@ FROM (
     LEFT JOIN orders o ON od.order_num = o.order_num
     LEFT JOIN item i ON od.item_num = i.item_num
     WHERE o.order_cancel = 'N'
-    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m')
+    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m'),
+			CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월')
 ) as t;
 
 </select>
+
+ <select id="pieChart" resultType="map">
+     
+SELECT i.seller_type, SUM(od.item_cnt * i.item_price) AS total_amount
+FROM order_detail od
+LEFT JOIN item i
+ON od.item_num = i.item_num
+GROUP BY i.seller_type
+order by total_amount desc;
+
+</select>
+
+
+
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
 	select seller_licenseNum
@@ -106,7 +125,8 @@ FROM (
 		 	, seller_recoYn
 		 	, seller_num
 		 	, seller_file
-	from seller; 
+	from seller
+	order by seller_joinDay desc; 
 	</select>
 	
 	<!-- 판매자 체크 -->

@@ -568,6 +568,12 @@
       one_board_num = #{one_board_num}
   </update>
   
+  <delete id="deleteBoard">
+  	DELETE 
+  	FROM one_board
+  	WHERE one_board_num = #{BoardNum} 
+  	</delete>
+  
   	<select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
 	  SELECT * FROM like_farm
 	  WHERE member_num = #{member_num} 

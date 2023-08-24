@@ -53,13 +53,12 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                     <div class="row">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/writeCnote'">글쓰기</button>
+                     
+                    
                      </div>   
                         <div class="card-body">
                             <div class="table-responsive">
+                             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/writeCnote'">글쓰기</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>

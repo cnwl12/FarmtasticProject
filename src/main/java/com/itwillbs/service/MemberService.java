@@ -175,6 +175,9 @@ public class MemberService {
 	  public void updateOneBoard(OneBoardDTO OneBoard) {
 	        memberDAO.updateOneBoard(OneBoard);
 	    }
+	  public void deleteBoard(int BoardNum) {
+		    memberDAO.deleteBoard(BoardNum);
+		}
 	
 	// 막내 리뷰별점 갯수기능
 	 public int getReviewCountByItemNum(int item_num) {
