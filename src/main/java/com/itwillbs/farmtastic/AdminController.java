@@ -127,6 +127,24 @@ public class AdminController {
 	            
 	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
 	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
+	            List<Map<String, Object>> pieData = sellerService.pieChart();
+	            
+	            JSONArray json = new JSONArray();
+	            for(Map<String, Object> doughnut : pieData) {
+	            	json.put(doughnut);
+	            }
+	            List<Map<String, Object>> chartData = sellerService.selectSalesData();
+	            
+	            JSONArray jsonArray = new JSONArray();
+	            for(Map<String, Object> data : chartData) {
+	            	jsonArray.put(data);
+	            }
+	            
+	            model.addAttribute("data", chartData);
+	            model.addAttribute("data_json", jsonArray);
+	            model.addAttribute("doughnut", pieData);
+	            model.addAttribute("jsonData", json);
+	            
 	            model.addAttribute("totalSales", totalSales);
 	            
 	            model.addAttribute("sales", sales);
@@ -601,10 +619,7 @@ public class AdminController {
             return "/admin/sellerMenu/totalSales";
         }
 	}
-	@GetMapping("/salesData")
-	public List<Map<String, Object>> getSalesData() {
-	    return sellerService.selectSalesData();
-	}
+	
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");

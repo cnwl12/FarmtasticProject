@@ -36,6 +36,11 @@ public class SellerService {
 	    	System.out.println("SellerService의 selectSalesData 매핑완");
 	        return sellerDAO.selectSalesData();
 	    }
+	    public List<Map<String, Object>> pieChart() {
+	    	System.out.println("SellerService의 pieChart 매핑완");
+	        return sellerDAO.pieChart();
+	    }
+	 
 	 
 	    // 가맹점관리 혜원
 		public List<Map<String, Object>> getSeller() {
