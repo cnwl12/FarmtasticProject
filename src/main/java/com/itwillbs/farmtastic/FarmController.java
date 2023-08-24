@@ -368,7 +368,10 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@RequestMapping(value = "/join2", method = RequestMethod.GET)
 	public String join2(Locale locale, Model model) {
-
+		
+		List<Map<String, Object>> typeList = adminService.getTypes();
+		model.addAttribute("typeList", typeList);
+		
 		return "/member/join2";
 	}
 

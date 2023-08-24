@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -77,18 +78,9 @@ body {
 										<div class="input-content">
 											<!-- 셀렉트박스로 바꿀 예정 -->
 											<select name="seller_type" id="seller_type">
-												<option value="">카테고리를 선택해주세요</option>
-												<option value="FR">사과</option>
-												<option value="PE">배</option>
-												<option value="TA">감귤</option>
-												<option value="BA">바나나</option>
-												<option value="GR">포도</option>
-												<option value="PO">감자</option>
-												<option value="SW">고구마</option>
-												<option value="ON">양파</option>
-												<option value="CA">당근</option>
-												<option value="MU">버섯</option>
-												<option value="ETC">기타</option>
+												<c:forEach var="type" items="${typeList}">
+													<option value="${type.seller_type}">${type.type_name}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>

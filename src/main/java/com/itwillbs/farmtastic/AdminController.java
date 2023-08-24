@@ -873,6 +873,9 @@ public class AdminController {
 			List<Map<String, Object>> itemList = adminService.getItemList();
 			model.addAttribute("itemList", itemList);
 			
+			List<Map<String, Object>> typeList = adminService.getTypes();
+			model.addAttribute("typeList", typeList);
+			
 			// 등록된 카테고리 목록들도 불러오고 , add 해서 추가도 할 수 있게 
 		
 		return "/admin/sellerMenu/adminItemList";
