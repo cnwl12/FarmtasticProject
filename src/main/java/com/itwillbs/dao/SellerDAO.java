@@ -35,7 +35,10 @@ public class SellerDAO {
 			// TODO Auto-generated method stub
 			return sqlSession.selectList(namespace + ".selectSalesData");
 		}
-	    
+	    public List<Map<String, Object>> pieChart() {
+			// TODO Auto-generated method stub
+			return sqlSession.selectList(namespace + ".pieChart");
+		}
 	    // 가맹점관리
 		public List<Map<String, Object>> getSeller() {
 			return sqlSession.selectList(namespace+".getSeller");

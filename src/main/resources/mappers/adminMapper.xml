@@ -175,7 +175,8 @@
 	
 	<select id="getTypes" resultType="map">
 		SELECT seller_type, type_name
-		FROM category_type;
+		FROM category_type
+		ORDER BY type_name asc;
 	</select>
   	
 </mapper>

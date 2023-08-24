@@ -24,7 +24,9 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
-
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top">
@@ -145,27 +147,76 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="m-0 font-weight-bold text-primary">월별매출차트</h6>
+                                   
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                   <div class="chart-area">
+  										<canvas id="myChart"></canvas>
+								   </div>
+										<script>
+   										 // total_fee와 month_fee를 담을 배열 생성
+    									 let total_fee = 0;
+    									 let month_fee = Array(12).fill(0); 
+    									 let labels = ['1월', '2월', '3월', '4월', '5월', '6월', 
+    										 		   '7월','8월','9월','10월','11월','12월'];
+
+    									 // data에서 total_fee와 month_fee 가져오기
+    
+    									 var list = JSON.parse('${data_json}');
+    
+										 const sales = [];
+	
+											labels.forEach((e, i) => {
+											var input = 0;
+											list.forEach((data, index) => {
+												if(e == data.month){
+												input = data.month_fee2;
+												} 
+											  });
+											sales.push(input);
+											});
+	
+										// 차트 생성...
+										var ctx = document.getElementById('myChart').getContext('2d');
+     								    var chart = new Chart(ctx, {
+         								type: 'line',
+         								data: {
+			 							labels : labels,
+             							datasets : [{
+                 							label : "Total Fee",
+                 							borderColor : "#3e95cd",
+                 							fill:false,
+                 							yAxisID:'y-axis-1',
+				 							data : sales
+			 								}]
+		 								},
+		 								options:{
+		     							responsive:true,
+		     							hoverMode:'index',  
+		  	 							stacked:false ,
+		  	 							title:{
+		     								display:true ,
+		      								text:"Monthly Total and Month Fees"
+		  								},
+		  									scales:{   
+		        								yAxes:[{
+		            							type:"linear" ,
+		            							display:true ,    
+		            							position :"left" ,
+			        							id :"y-axis-1"
+		       									},{
+			      								type :'linear',  
+			     								display: true,
+			    								position :'right',
+			    								id :'y-axis-2'
+			  									}]
+	      									}
+	  									}		
+									});
+									</script>
+
                                 </div>
                             </div>
                         </div>
@@ -176,34 +227,41 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">품목별 매출차트</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart"></canvas>
                                     </div>
-                                    
-                                    
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                
-                                
-                                
-                                </div>
-                            
-                            
-                            
-                            
+                             <script>
+   								 var pieData = ${jsonData};
+
+    							// 상위 5개 데이터만 추출한 후 정렬
+   				 				 pieData.sort(function(a,b) {return b.total_amount - a.total_amount});
+    							 var top5Data = pieData.slice(0, 5);
+    							 var ctx = document.getElementById("myPieChart").getContext("2d");
+    							 var myPieChart = new Chart(ctx, {
+        						 	type: 'doughnut',
+        							data: {
+            						labels: top5Data.map(function(item) { return item.seller_type; }),
+            						datasets: [{
+                						data: top5Data.map(function(item) { return item.total_amount; }),
+                						backgroundColor: [
+                    						"#4e73df",
+                    						"#1cc88a",
+                    						"#36b9cc",
+                    						"#f6c23e",
+                    						"#e74a3b"
+                							]
+            							}]
+        							},
+        						  	options: {
+            						responsive: true
+        							}
+    							});
+								</script>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -212,10 +270,6 @@
                     <div class="row">
 
                         <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-
-                        </div>
 
                         <div class="col-lg-6 mb-4">
 
@@ -263,6 +317,10 @@
                             </div>
 
                           
+
+                        </div>
+                          <div class="col-lg-6 mb-4">
+
 
                         </div>
                     </div>
