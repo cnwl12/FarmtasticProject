@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.SellerDTO;
+import com.itwillbs.service.AdminService;
 import com.itwillbs.service.SellerService;
 
 @Controller
@@ -47,6 +49,8 @@ public class SellerController {
 
 	@Inject
 	private SellerService sellerService;
+	@Autowired
+    private AdminService adminService;
 	
 		
 	@RequestMapping(value = "/sellerMain", method = RequestMethod.GET)
@@ -482,6 +486,9 @@ public class SellerController {
 	    session.setAttribute("seller_num", seller_num);
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
+	    
+		List<Map<String, Object>> typeList = adminService.getTypes();
+		model.addAttribute("typeList", typeList);
 		
 		return "/seller/itemRegister";
 	    }
@@ -596,6 +603,9 @@ public class SellerController {
 		 
 		 Map<String, Object> item = sellerService.getItem(item_num);
 		
+		 List<Map<String, Object>> typeList = adminService.getTypes();
+		 model.addAttribute("typeList", typeList);
+		 
 		 model.addAttribute("item_num", item_num);
 		 model.addAttribute("item", item);
 	    

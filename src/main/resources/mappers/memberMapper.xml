@@ -285,17 +285,25 @@
 	
 	<!-- 주문 상세 내역 불러오기  -->
 	<select id="getOrderDetail" resultType="map">
-	SELECT order_num
+	SELECT od.order_num
 		,  i.item_num
 		,  i.item_name
 		,  item_cnt
         ,  i.item_price
         ,  i.item_price * item_cnt AS price 
-    FROM order_detail o
+        ,  order_name
+        ,  order_msg
+        ,  order_addMain
+        ,  order_addSub
+        ,  order_phone
+		,  order_pay	
+    FROM order_detail od
     JOIN item i
-    ON i.item_num = o.item_num
+    ON i.item_num = od.item_num
+    JOIN orders o
+    ON o.order_num = od.order_num
     WHERE o.member_num =#{member_num}
-    AND order_num = #{order_num};
+    AND od.order_num = #{order_num};
 	</select> 
 	
 	<select id="getOrderPay" resultType="map">
@@ -559,6 +567,12 @@
     WHERE
       one_board_num = #{one_board_num}
   </update>
+  
+  <delete id="deleteBoard">
+  	DELETE 
+  	FROM one_board
+  	WHERE one_board_num = #{BoardNum} 
+  	</delete>
   
   	<select id="selectWishlist" resultType="com.itwillbs.domain.WishlistDTO">
 	  SELECT * FROM like_farm

@@ -68,6 +68,29 @@
                         <div class="card-header py-3">
                             <h4 class="m-0 font-weight-bold text-primary">상품 카테고리</h4>
                         </div>
+                        <div class="card-body">
+                        	<!--  카테고리 list  -->
+                        	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th><input type="checkbox" class="cateCheck"/></th>
+													<th>카테고리타입</th>
+													<th>카테고리명</th>
+												</tr>
+											</thead>
+											<tbody>
+													<c:forEach var="type" items="${typeList}">  
+												<tr>
+													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
+													<td>${type.seller_type}</td>
+													<td>${type.type_name}</td>
+												</tr>
+													</c:forEach>
+											</tbody>
+							</table>
+							</div>
+                        
+                        	<!--  카테고리추가  -->
 							<form action="${pageContext.request.contextPath}/makeCategory"
 								method="post" id="makeCategory">
 								<input type="hidden" id="actionCate" name="actionCate" />
@@ -82,14 +105,14 @@
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th><input type="checkbox" class="cateCheck"/></th>
-													<th>카테고리타입(seller_type)</th>
+													<!-- <th><input type="checkbox" class="cateCheck"/></th> -->
+													<th>카테고리타입</th>
 													<th>카테고리명</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
+													<!-- <td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td> -->
 													<td><input type="text" name="seller_type[]" placeholder="카테고리 타입입력"></td>
 													<td><input type="text" name="type_name[]" placeholder="카테고리 이름입력"></td>
 												</tr>

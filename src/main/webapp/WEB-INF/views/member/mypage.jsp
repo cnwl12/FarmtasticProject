@@ -24,6 +24,19 @@
 <script src="${pageContext.request.contextPath }/resources/js/popup.js"></script>
 
 <style>
+.empty-list {
+  text-align: center;
+  font-weight: bold;
+  color: gray;
+  font-style: italic;
+}
+.no-records-message {
+  font-weight: bold;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 10px;
+}
+
 .edit-button {
     position: relative;
     float: right;
@@ -269,6 +282,11 @@
                      <button id="deleteAllButton" style="border:none;">전체 삭제</button> -->
                      <div style="clear: right;">
                      <ul class="favorite-list">
+                     
+                     <c:if test="${empty zzimlist}">
+					  <li class="empty-list">찜 목록이 비어있습니다.</li>
+					</c:if>
+                     
                         <c:forEach var="item" items="${zzimlist}">
                            <li class="favorite-item" data-item-num="${item.item_num}">
                               <input type="checkbox" class="checkbox"> <a
@@ -428,6 +446,12 @@
                         </tr>
                      </thead>
                      <tbody id="inquiryList">
+                     
+						<c:if test="${empty oneBoardList2}">
+						  <tr class="no-records-message">
+						    <td colspan="5">작성된 문의글이 존재하지 않습니다.</td>
+						  </tr>
+						</c:if>
                         <!-- 여기에 문의 내용이 추가됩니다. -->
                         <c:forEach var="row" items="${oneBoardList2}">
                            <tr class="inquiry-item"
@@ -726,7 +750,7 @@ $(document).ready(function() {
         var memberNum = ${memberDTO.member_num}; // session에서 가져오거나 페이지에서 설정
 
         // 새로운 팝업 창 열기
-        var popup = window.open("", "_blank", "width=600,height=500");
+        var popup = window.open("", "_blank", "width=800,height=500");
 
         // 팝업 창에 내용 작성
         popup.document.write("<html><head><title>주문 상세 내역</title>");
@@ -758,11 +782,30 @@ $(document).ready(function() {
                 }  
  
                 tableHtml += "</tbody></table>";
-
                 orderDetailTable.innerHTML += tableHtml;
+                orderDetailTable.innerHTML += "<div style='margin-bottom: 20px;'></div>";
+                
+                orderDetailTable.innerHTML += "<h3>주문/배송정보</h3>";
+
+                var orderInfo = data[0]; // 주문/배송 정보는 첫 번째 요소로 가정
+
+                var tableHtml2 = "<table>";
+                tableHtml2 += "<thead><tr><th>주문자</th><th>주소</th><th>상세주소</th><th>요청메시지</th><th>연락처</th></tr></thead><tbody>";
+
+                tableHtml2 += "<tr>";
+                tableHtml2 += "<td>"+orderInfo.order_name+"</td>";
+                tableHtml2 += "<td>" + orderInfo.order_addMain+ "</td>";
+                tableHtml2 += "<td>" + orderInfo.order_addSub + "</td>";
+                tableHtml2 += "<td>" + orderInfo.order_msg+"</td>";
+                tableHtml2 += "<td>" + orderInfo.order_phone+"</td>";
+                tableHtml2 += "</tr>";
+
+                tableHtml2 += "</tbody></table>";
+
+                orderDetailTable.innerHTML += tableHtml2;
  
                 // 팝업 창 닫기 버튼 추가
-                popup.document.write('<div style="margin: 0% 43%;"><button onclick="window.close()">닫기</button></div>');
+                popup.document.write('<div style="text-align: center; margin-top: 20px;"><button onclick="window.close()">닫기</button></div>');
  
                 popup.document.write("</body></html>");
             } 

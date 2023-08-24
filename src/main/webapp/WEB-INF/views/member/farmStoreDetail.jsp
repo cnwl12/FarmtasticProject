@@ -33,6 +33,13 @@
 	<!-- 카트추가 함수 -->
    
 <style>
+
+.no-records-message {
+  font-weight: bold;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 10px;
+}
   .special-page .wishlist-btn {
     display: inline-block;
     vertical-align: top;
@@ -360,6 +367,7 @@ input#file-upload-button {
 																	</div>
 																	<div>
 																        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+																        <button type="button" class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 																    </div>
 																</div>
 															</td>
@@ -398,6 +406,7 @@ input#file-upload-button {
 											                        <c:when test="${sessionScope.member_num eq row.member_num}">
 											                            <div>
 											                                <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+											                                <button type="button" class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 											                            </div>
 											                        </c:when>
 											                    </c:choose>
@@ -417,6 +426,12 @@ input#file-upload-button {
 												</c:otherwise>
 											 </c:choose>
 								</c:forEach>
+								
+								<c:if test="${inquiryCount == 0}">
+									<tr class="no-records-message">
+										<td colspan="5">작성된 문의글이 존재하지 않습니다.</td>
+									</tr>
+								</c:if>
 
 			                 </tbody>
 			            	 </table>
@@ -814,6 +829,22 @@ input#file-upload-button {
 	    }
 	}
 	
+	function deleteBoard(boardNum) {
+		  if (confirm("해당 게시물을 삭제하시겠습니까?")) {
+		    $.ajax({
+		      url: "deleteBoard",
+		      type: "POST",
+		      data: { boardNum: boardNum },
+		      success: function() {
+		        alert("게시물이 삭제되었습니다.");
+		        location.reload(); // 삭제 후 페이지 새로고침
+		      },
+		      error: function() {
+		        alert("게시물 삭제에 실패하였습니다.");
+		      }
+		    });
+		  }
+		}
 	</script>
 	
 </body>

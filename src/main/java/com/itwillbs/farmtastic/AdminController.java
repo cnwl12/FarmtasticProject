@@ -22,6 +22,8 @@ import javax.swing.tree.AbstractLayoutCache;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -124,6 +127,24 @@ public class AdminController {
 	            
 	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
 	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
+	            List<Map<String, Object>> pieData = sellerService.pieChart();
+	            
+	            JSONArray json = new JSONArray();
+	            for(Map<String, Object> doughnut : pieData) {
+	            	json.put(doughnut);
+	            }
+	            List<Map<String, Object>> chartData = sellerService.selectSalesData();
+	            
+	            JSONArray jsonArray = new JSONArray();
+	            for(Map<String, Object> data : chartData) {
+	            	jsonArray.put(data);
+	            }
+	            
+	            model.addAttribute("data", chartData);
+	            model.addAttribute("data_json", jsonArray);
+	            model.addAttribute("doughnut", pieData);
+	            model.addAttribute("jsonData", json);
+	            
 	            model.addAttribute("totalSales", totalSales);
 	            
 	            model.addAttribute("sales", sales);
@@ -537,7 +558,6 @@ public class AdminController {
 	@RequestMapping(value = "/sales_ajax", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, Object>> salesAjax(@RequestParam(value = "monthly", required = true) String monthly) {
-	    System.out.println("sales_ajax 매핑 확인");
 
 	    if (monthly == null || monthly.isEmpty()) {
 	        LocalDate currentDate = LocalDate.now();
@@ -584,12 +604,22 @@ public class AdminController {
             String admin_id = (String) session.getAttribute("admin_id");
             Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
             List<Map<String, Object>> resultList = sellerService.totalSales();
+            List<Map<String, Object>> chartData = sellerService.selectSalesData();
+            
+            JSONArray jsonArray = new JSONArray();
+            for(Map<String, Object> data : chartData) {
+            	jsonArray.put(data);
+            }
+            
+            model.addAttribute("data", chartData);
+            model.addAttribute("data_json", jsonArray);
     	    model.addAttribute("sellers", resultList);
             model.addAttribute("admin", adminInfo);
             model.addAttribute("admin_id", admin_id);
             return "/admin/sellerMenu/totalSales";
         }
 	}
+	
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
 		System.out.println("컨트롤러 오나요");
@@ -872,6 +902,9 @@ public class AdminController {
 		
 			List<Map<String, Object>> itemList = adminService.getItemList();
 			model.addAttribute("itemList", itemList);
+			
+			List<Map<String, Object>> typeList = adminService.getTypes();
+			model.addAttribute("typeList", typeList);
 			
 			// 등록된 카테고리 목록들도 불러오고 , add 해서 추가도 할 수 있게 
 		

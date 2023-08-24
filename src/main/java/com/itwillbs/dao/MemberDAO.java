@@ -226,6 +226,10 @@ public class MemberDAO {
 		 System.out.println("MemberDAO updateOneBoard ()!!");
          sqlSession.update(namespace + ".updateOneBoard", OneBoard);
     }
+	 
+	 public void deleteBoard(int BoardNum) {
+			sqlSession.delete(namespace + ".deleteBoard", BoardNum);
+		}
 
 	public void deleteCart(HashMap<String, Object> cart) {
 		sqlSession.delete(namespace + ".deleteCart", cart);
