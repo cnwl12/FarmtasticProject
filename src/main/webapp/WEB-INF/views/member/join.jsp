@@ -140,87 +140,88 @@ input#post {
 							<ul class="form_list">
 							
 								<li>
-								<input type="hidden" name="join_date" id="join_date">
-								<input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
-								<input type="button" value="중복체크" class="idcheckbtn" style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
-								<div id = "idcheckdiv"></div>
-								<div id="invalid_id" class="invalid-feedback">
-                				아이디를 입력해주세요.
-              					</div>
-              					<div id="invalid_id2" class="invalid-feedback">
-              					최소 2자 이상 최대 10자 / 영문 대소문자, 숫자만 입력하세요. 
-              					</div>
+									<input type="hidden" name="join_date" id="join_date">
+									<input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
+									<div id = "idcheckdiv"></div>
+									<div id="invalid_id" class="invalid-feedback">
+                					아이디를 입력해주세요.
+              						</div>
+              						<div id="invalid_id2" class="invalid-feedback">
+              						최소 2자 이상 최대 10자 / 영문 대소문자, 숫자만 입력하세요. 
+              						</div>
 								</li>   
 								
 								<li>
-								<input type="password" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
-								<div id= "invalid_pass" class="invalid-feedback">
-                				비밀번호를 입력해주세요.
-              					</div>
-              					<div id="invalid_pass2" class="invalid-feedback">
-              					최소 2자 이상 최대 15자 / 영문 대소문자, 숫자만 입력하세요. 
-              					</div>
-              					<div id="invalid_pass3" class="invalid-feedback">
-              					아이디와 일치한 비밀번호는 사용이 불가능합니다. 
-              					</div>
+									<input type="password" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
+									<div id= "invalid_pass" class="invalid-feedback">
+                					비밀번호를 입력해주세요.
+              						</div>
+              						<div id="invalid_pass2" class="invalid-feedback">
+              						최소 2자 이상 최대 15자 / 영문 대소문자, 숫자만 입력하세요. 
+              						</div>
+              						<div id="invalid_pass3" class="invalid-feedback">
+              						아이디와 일치한 비밀번호는 사용이 불가능합니다. 
+              						</div>
 								</li>  
 								
 								<li>  
-								<input type="password"  placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
-								<div id= "invalid_pass4" class="invalid-feedback">
-                				비밀번호가 일치하지 않습니다.
-              					</div>
+									<input type="password"  placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
+									<div id= "invalid_pass4" class="invalid-feedback">
+                					비밀번호가 일치하지 않습니다.
+              						</div>
 								</li>
 								
 								<li>   
-								<input type="text"  placeholder="이름" name="member_name" id="member_name" maxlength="10">
-								<div id= "invalid_name" class="invalid-feedback">
-                				이름을 입력해주세요.
-              					</div>
-              					<div id= "invalid_name2" class="invalid-feedback">
-                				최소 2글자 이상, 한글과 영어만 입력하세요.
-              					</div>
+									<input type="text"  placeholder="이름" name="member_name" id="member_name" maxlength="10">
+									<div id= "invalid_name" class="invalid-feedback">
+                					이름을 입력해주세요.
+              						</div>
+              						<div id= "invalid_name2" class="invalid-feedback">
+                					최소 2글자 이상, 한글과 영어만 입력하세요.
+              						</div>
 								</li>
 							  	
 							  	<li>
-								<input type="text"  placeholder="연락처 (-)를 포함하여 작성해주세요" name="member_phone" id="member_phone" maxlength="13">
-								<div id= "invalid_phone" class="invalid-feedback">
-                				연락처를 입력해주세요.
-              					</div>
-              					<div id= "invalid_phone2" class="invalid-feedback">
-                				연락처를 올바르게 입력해주세요.
-              					</div>
+									<input type="text"  placeholder="연락처 (-)를 포함하여 작성해주세요" name="member_phone" id="member_phone" maxlength="13">
+									<div id= "invalid_phone" class="invalid-feedback">
+                					연락처를 입력해주세요.
+              						</div>
+              						<div id= "invalid_phone2" class="invalid-feedback">
+                					연락처를 올바르게 입력해주세요.
+              						</div>
 								</li>
 								
 								<li>
-								<input type="email" placeholder="이메일" name="member_email" id="member_email" >
-								<div id= "invalid_email" class="invalid-feedback">
-                				이메일을 입력해주세요.
-              					</div>
-              					<div id= "invalid_email2" class="invalid-feedback">
-                				이메일을 올바른 형식으로 입력해주세요.
-              					</div>
+									<input type="email" placeholder="이메일" name="member_email" id="member_email" >
+									<div id= "invalid_email" class="invalid-feedback">
+                					이메일을 입력해주세요.
+              						</div>
+              						<div id= "invalid_email2" class="invalid-feedback">
+                					이메일을 올바른 형식으로 입력해주세요.
+              						</div>
 								</li>
 							
 								<li>
-								<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
-								<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
-								<div id="invalid_post" class="invalid-feedback">
-              					주소를 입력해주세요.
-           						</div>
+									<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
+									<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
+									<div id="invalid_post" class="invalid-feedback">
+              						주소를 입력해주세요.
+           							</div>
+								</li>
+								
+								<li>
+									<input type="text" name="member_addMain" id="sample4_roadAddress" placeholder="도로명주소">
+								</li>
+								
+								<li>
+									<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+									<span id="guide" style="color:#999;display:none"></span>
 								</li>
 								<li>
-								<input type="text" name="member_addMain" id="sample4_roadAddress" placeholder="도로명주소">
+									<input type="text" name="member_addSub" id="sample4_detailAddress" placeholder="상세주소">
 								</li>
 								<li>
-								<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-								<span id="guide" style="color:#999;display:none"></span>
-								</li>
-								<li>
-								<input type="text" name="member_addSub" id="sample4_detailAddress" placeholder="상세주소">
-								</li>
-								<li>
-								<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+									<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 								</li>
 								
 							</ul>
@@ -343,45 +344,28 @@ input#post {
 
  });
     
-    $(document).ready(function() {
- $('.idcheckbtn').click(function(){ 
-	  if($('#member_id').val() == "") {
-			alert("아이디 입력하세요");
-			$('#member_id').focus();
-			return false;
-		} 
-	  $.ajax({
-			url: '${pageContext.request.contextPath }/idCheck',
-			data : {'member_id' : $('#member_id').val()},
-			success:function(result){
-				// id = "idcheckdiv" 출력
-				if (result == 'id is used') {
-					result =  "<span class='idcheck-used'>아이디 중복</span>";
-				} else {
-					result =  "<span class='idcheck-available'>아이디 사용가능</span>";
-				}
-				
-				$('#idcheckdiv').html(result);
-			}
-		});
- 	});
- });
- 
+    var isIdDuplicated = false;
+    var isEmailDuplicated = false
+    
     // 정규식
     var regId = /^[a-zA-Z0-9]{2,10}$/;
     var regPw = /^[a-zA-Z0-9]{2,10}$/;
     var regName = /^[가-힣a-zA-Z]{2,15}$/;
     var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
     var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
-
-    //  유효성 검사 메서드
+	
+//  유효성 검사 메서드
     function validateId() {
       var uid = $("#member_id");
       if (uid.val() == "" || !regId.test(uid.val())) {
         $('#invalid_id').show();
         uid.focus();
         return false;
-      } else {
+      } else if (isIdDuplicated) { // 아이디가 중복되었을 경우
+        $('#invalid_id').show();
+        uid.focus();
+        return false;
+      }else {
         $('#invalid_id').hide();
         return true;
       }
@@ -502,7 +486,41 @@ input#post {
             }, 500); // 타이머 시간 설정 (ms)
         });
     });
+	
+    $(document).ready(function() {
+        var timeoutId;
 
+        $("#member_id").on("keyup", function() {
+            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
+
+            var member_id = $(this).val();
+
+            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
+            timeoutId = setTimeout(function() {
+                $.ajax({
+                    url: "/farmtastic/idCheck0",
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data: {
+                        "member_id": member_id
+                    },
+                    success: function(data) {
+                        if (data === 1) {
+                            $("#invalid_id").text("아이디가 중복입니다.").show();
+                            isIdDuplicated = true;
+                        } else {
+                            $("#invalid_id").hide();
+                            isIdDuplicated = false;
+                        }
+                    },
+                    error: function(xhr, textStatus, error) {
+                        console.log(error);
+                    }
+                });
+            }, 500); // 타이머 시간 설정 (ms)
+        });
+    });
+    
     </script>
 </body>
 

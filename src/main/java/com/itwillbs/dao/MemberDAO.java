@@ -46,6 +46,9 @@ public class MemberDAO {
 		 sqlSession.insert(namespace+".ninsertMember", memberDTO); 
 	 }
 	 
+	 public MemberDTO idCheck0(String member_id) {
+			return sqlSession.selectOne(namespace + ".idCheck0", member_id);
+		}
 
 	public List<Map<String, Object>> getMembers() {
 		return sqlSession.selectList("MemberMapper.getMembers");
