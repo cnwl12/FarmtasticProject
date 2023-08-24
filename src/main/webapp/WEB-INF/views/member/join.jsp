@@ -39,16 +39,6 @@ input#post {
     color: #dc3545;
     margin-left: 25px;
 }
-.idcheck-used {
-    color: red;
-    margin-left: 25px;
-}
-
- .idcheck-available {
-    color: blue;
-    margin-left: 25px
-}
-
 </style>
  
 </head>

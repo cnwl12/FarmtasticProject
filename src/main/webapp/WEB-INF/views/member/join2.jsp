@@ -26,12 +26,6 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-div#btbt {
-padding : 0px 60px;   
-text-align: right;
-
-}
-
 input#post {
     padding: 0px 10px 19px 113px;
     margin: -5px 0px 0px 137px;
@@ -64,26 +58,15 @@ button#submitBtn {
     color: #dc3545;
     margin-left: 25px;
 }
-.idcheck-used {
-    color: red;
-    margin-left: 25px;
-    white-space: nowrap;
+
+li {
+    display: flex;
+    align-items: center;
 }
 
- .idcheck-available {
-    color: blue;
-    margin-left: 25px;
-    white-space: nowrap;
+label {
+    margin-right: 5px;
 }
-
-    li {
-        display: flex;
-        align-items: center;
-    }
-
-    label {
-        margin-right: 5px;
-    }
 
 </style>
  
