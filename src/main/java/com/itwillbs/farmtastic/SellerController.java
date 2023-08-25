@@ -101,7 +101,16 @@ public class SellerController {
 		            todayOneboard.add(board); // 오늘 등록된 데이터면 리스트에 추가
 		        }
 		    }
-		    model.addAttribute("oneboard", todayOneboard);
+		    model.addAttribute("todayOneboard", todayOneboard);
+		    
+		    // 미답변 문의만 가져오기
+		    List<OneBoardDTO> unrepboard = new ArrayList<>();
+		    for (OneBoardDTO board : oneboard) {
+		        if ("미답변".equals(board.getOne_board_repYn())) {
+		        	unrepboard.add(board); // 미답변 데이터면 리스트에 추가
+		        }
+		    }
+		    model.addAttribute("unrepboard", unrepboard);
 		    
 		    return "/seller/sellerMain";
 	    }
@@ -388,7 +397,7 @@ public class SellerController {
 			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-
+	    String seller_num = (String) session.getAttribute("seller_num");
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    
@@ -789,6 +798,25 @@ public class SellerController {
         }
         
     }
-
-
+	
+	
+	// 팝업을 위한 문의 디테일
+	@RequestMapping(value = "/questionDetail", method = RequestMethod.GET)
+	public String questionDetail (@RequestParam("one_board_num") int one_board_num, Locale locale, Model model,HttpSession session) {
+		if (session.getAttribute("seller_num") == null) {
+            // 세션에 로그인 정보가 없는 경우
+            model.addAttribute("error", "로그인후 이용해주세요");
+            return "redirect:/Login"; // 로그인 페이지로 이동
+        } else {
+            // 로그인한 경우
+            String seller_num = (String) session.getAttribute("seller_num");
+            
+            List<OneBoardDTO> oneboard = sellerService.getBySellerque(seller_num);
+            OneBoardDTO questionDetail = sellerService.questionDetail(seller_num, one_board_num);
+	        model.addAttribute("questionDetail", questionDetail);
+   		 	model.addAttribute("oneboard", oneboard);
+            return "/seller/questionDetail";
+        }
+        
+    }
 }

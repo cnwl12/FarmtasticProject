@@ -301,5 +301,7 @@ public class SellerDAO {
 		     return sqlSession.selectOne(namespace + ".reviewDetail", params);
 		}
 
-		
+		public OneBoardDTO questionDetail(Map<String,Object> params) {
+		     return sqlSession.selectOne(namespace + ".questionDetail", params);
+		}
 }

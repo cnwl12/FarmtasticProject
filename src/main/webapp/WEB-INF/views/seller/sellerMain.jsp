@@ -61,25 +61,6 @@
                     
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-<!--                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
 						<div class="col-xl-3 col-md-6 mb-4">
 						    <div class="card border-left-primary shadow h-100 py-2">
 						        <div class="card-body">
@@ -102,25 +83,6 @@
 						        </div>
 						    </div>
 						</div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-<!--                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
 						<div class="col-xl-3 col-md-6 mb-4">
 						    <div class="card border-left-success shadow h-100 py-2">
 						        <div class="card-body">
@@ -143,35 +105,6 @@
 						        </div>
 						    </div>
 						</div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-<!--                         <div class="col-xl-3 col-md-6 mb-4"> -->
-<!--                             <div class="card border-left-info shadow h-100 py-2"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <div class="row no-gutters align-items-center"> -->
-<!--                                         <div class="col mr-2"> -->
-<!--                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks -->
-<!--                                             </div> -->
-<!--                                             <div class="row no-gutters align-items-center"> -->
-<!--                                                 <div class="col-auto"> -->
-<!--                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="col"> -->
-<!--                                                     <div class="progress progress-sm mr-2"> -->
-<!--                                                         <div class="progress-bar bg-info" role="progressbar" -->
-<!--                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0" -->
-<!--                                                             aria-valuemax="100"></div> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                         <div class="col-auto"> -->
-<!--                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
 							<div class="col-xl-3 col-md-6 mb-4">
 							    <div class="card border-left-info shadow h-100 py-2">
 							        <div class="card-body">
@@ -449,7 +382,6 @@
 													  </tr>
 													  </tbody>
 													</table>
-
 													<div class="_resize_handle_container resize_handle_container"></div>
 												</div>
 												<div>
@@ -457,11 +389,6 @@
 													<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
 														<table class="table table-bordered" id="date-table">
 															<colgroup>
-															<%-- <col data-columnname="regDate" style="width: 150px;">
-															<col data-columnname="answerYn" style="width: 120px;">
-															<col data-columnname="inquiryCategory" style="width: 100px;">
-															<col data-columnname="title" style="width: 500px;">
-															<col data-columnname="productName" style="width: 400px;"> --%>
 															<col data-columnname="regDate" style="width: 150px;">
 															<col style="width: 120px;">
 															<col style="width: 100px;">
@@ -469,22 +396,16 @@
 															<col style="width: 400px;">
 															</colgroup>
 															<tbody>
-										
 															  <c:forEach var="row" items="${buyreview}">
-															    <%-- <tr class="data-row" data-one-board-content="${row.review_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" > --%>
 															    <tr>															     
 															      <td>${row.item_name}</td>
 															      <td id="review-star">${row.review_star}</td>
 															      <td>${row.member_name}</td>
-															      <%-- <td class="one_board_title">${row.one_board_title}</td> --%>
 															      <td><a onclick="reviewPop(${row.review_num})">${row.review_title}</a></td>
 															      <td>${row.review_day}</td>
 															    </tr>
 															  </c:forEach>
-
-															  
 															</tbody>
-
 														</table>
 													</div>
 													<div class="_selection_layer selection_layer"></div>
@@ -493,7 +414,7 @@
 												<!-- 목록 없으면 -->
 												<div class="_no_review_message" style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
 												<c:if test="${empty buyreview}">
-													<i class="fn-shopping fn-65 fn-shopping-caution1 icon-color-big" aria-hidden="true"></i>
+													<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
 													<p style="margin: 0;">오늘 등록된 리뷰가 없습니다.</p>
 												</c:if>
 												</div>
@@ -505,25 +426,18 @@
 									<!-- 리뷰관리에서 가져옴 끝 -->
                                 </div>
                             </div>
-
                         </div>
-
+                        
                         <div class="col-lg-6 mb-4">
-
                             <!-- 문의관리 시작 -->
                             <div class="card shadow mb-4">
-                                 <%-- <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"><a href="${pageContext.request.contextPath}/questionMng">문의 관리</a></h6>
-                                </div> --%>
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary" style="display: flex; align-items: center;">
-										<span id="toggleLink1" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" onclick="toggleContent(1)">오늘의 문의</span>
-										<span id="toggleLink2" style="cursor: pointer; flex: 1; text-align: center; font-weight: normal; padding-left: 10px;" onclick="toggleContent(2)">미답변 문의</span>
-									</h6>
+ 										<span class="toggle-table on" id="todayQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" data-target="today">오늘의 문의</span>
+ 										<span class="toggle-table on" id="unrepQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-left: 10px;" data-target="unrep">미답변 문의</span>
 								</div>
-								 
                                 <div class="card-body">
-                                <!-- 문의관리에서 가져옴 시작-->
+                                <!-- 문의관리에서 가져옴 시작1-->
                                	<div class="table-responsive" style="height: 378px; position: relative;"> <!-- 포지션 요소는 밑에 문의관리로이동 박스와 관련있는 요소임 일단 남겨둠 -->
 									<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
 										<div class="_flexible_area flexible_area" style="display: block;">
@@ -542,70 +456,100 @@
 												  <tr>
 												  <th class="custom-th">접수일</th>
 												  <th class="custom-th">처리상태</th>
-												  <th class="custom-th">문의유형</th>
 												  <th class="custom-th">제목</th>
 												  <th class="custom-th">상품명</th>
 												  <th class="custom-th">질문자</th>
+												  <th class="custom-th">처리상태</th>
 												  <th class="custom-th">처리일시</th>
 												  </tr>
 												  </tbody>
 												</table>
-
 												<div class="_resize_handle_container resize_handle_container"></div>
 											</div>
 											<div>
 												<div>
 												<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-													<table class="table table-bordered" id="date-table">
+													<!-- 토글1 -->
+													<div id="divTable1">
+													<table class="table table-bordered" id="date-table toggle1">
 														<colgroup>
-														<col data-columnname="regDate" style="width: 150px;">
-														<col data-columnname="answerYn" style="width: 120px;">
-														<col data-columnname="inquiryCategory" style="width: 100px;">
-														<col data-columnname="title" style="width: 500px;">
-														<col data-columnname="productName" style="width: 400px;">
-														<col data-columnname="inquiryMemberName" style="width: 150px;">
-														<col data-columnname="treatmentDate" style="width: 150px;">
+														<col style="width: 150px;">
+														<col style="width: 120px;">
+														<col style="width: 500px;">
+														<col style="width: 400px;">
+														<col style="width: 150px;">
+														<col style="width: 100px;">														
+														<col style="width: 150px;">
 														</colgroup>
 														<tbody>
-														  <c:forEach var="row" items="${oneboard}">
-														    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
-														      <td>${row.one_board_day}</td>
-														      <td>${row.one_board_repYn}</td>
-														      <td>${row.one_board_type}</td>
-														      <td class="one_board_title"><a onclick="boardPop(${row.one_board_num})">${row.one_board_title}</a></td>
-														      <td>${row.item_name}</td>
-														      <td>${row.member_name}</td>
-														      <td>${row.one_board_repDay}</td>
+														  <c:forEach var="today" items="${todayOneboard}">
+														    <tr>  
+														      <td>${today.one_board_day}</td>
+														      <td>${today.one_board_repYn}</td>
+														      <td><a onclick="boardPop(${today.one_board_num})">${today.one_board_title}</a></td> <!--  class="one_board_title" -->
+														      <td>${today.item_name}</td>
+														      <td>${today.member_name}</td>
+														      <td>${today.one_board_type}</td> 
+														      <td>${today.one_board_repDay}</td>
 														    </tr>
 														  </c:forEach>
-  
 														</tbody>
-
 													</table>
-												</div>
-												<div class="_selection_layer selection_layer"></div>
-											</div>
-											
 											<!-- 목록 없으면 -->
-											<div class="_no_board_message">
-											<c:if test="${empty oneboard}">
-												<p style="margin: 0; position: absolute; top: 50%;  left: 50%;  transform: translate(-50%);  text-align: center;">오늘 등록된 문의가 없습니다.</p>
+											<div class="_no_board_message" style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+											<c:if test="${empty todayOneboard}">
+												<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
+												<p style="margin: 0;">오늘 등록된 문의가 없습니다.</p>
 											</c:if>
 											</div>
-											
+													</div>
+													<!-- 토글2 -->
+													<div id="divTable2">
+													<table class="table table-bordered" id="date-table toggle2">
+														<colgroup>
+														<col style="width: 150px;">
+														<col style="width: 120px;">
+														<col style="width: 500px;">
+														<col style="width: 400px;">
+														<col style="width: 150px;">
+														<col style="width: 100px;">														
+														<col style="width: 150px;">
+														</colgroup>
+														<tbody>
+														  <c:forEach var="unrep" items="${unrepboard}">
+														    <tr>  
+														      <td>${unrep.one_board_day}</td>
+														      <td>${unrep.one_board_repYn}</td>
+														      <td><a onclick="boardPop(${unrep.one_board_num})">${unrep.one_board_title}</a></td> <!--  class="one_board_title" -->
+														      <td>${unrep.item_name}</td>
+														      <td>${unrep.member_name}</td>
+														      <td>${unrep.one_board_type}</td> 
+														      <td>${unrep.one_board_repDay}</td>
+														    </tr>
+														  </c:forEach>
+														</tbody>
+													</table>
+											<!-- 목록 없으면 -->
+											<div class="_no_board_message" style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+											<c:if test="${empty unrepboard}">
+												<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
+												<p style="margin: 0;">미답변 문의가 없습니다.</p>
+											</c:if>
+											</div>
+													</div>
+												</div>
+												<div class="_selection_layer selection_layer"></div>
+											</div>									
 										</div>
 									</div>
-									
-<!-- 									문의 관리로 이동 -->	<!-- 일단 보류 -->
-<!-- 									    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 95%; text-align: center;"> -->
-<%-- 									        <a href="${pageContext.request.contextPath}/questionMng" style="color: #666; border-color: #dbdde2 !important; border: 1px solid; display: block; padding: 10px; text-align: center; text-decoration: none; line-height: 1; background: none;"> --%>
-<!-- 									            문의 관리 -->
-<!-- 									        </a> -->
-<!-- 									    </div> -->
-<!-- 									문의 관리로 이동 -->
-									
 								</div>
-		                        <!-- 문의관리에서 가져옴 끝-->    
+								<!-- 문의관리에서 가져옴 끝1--> 		
+								<!-- 문의 관리로 이동1 -->								
+								<div style="text-align:center;">
+								    <a href="${pageContext.request.contextPath}/questionMng" style="color:#666;border-color:#dbdde2!important;border :1px solid;display:block;padding :10px;text-align:center;text-decoration:none;line-height :1;background:none;">
+								        문의 관리
+								    </a>
+								</div>
                                 </div>
                             </div>
                         </div>
@@ -675,8 +619,7 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
-<script type="text/javascript">
-	 
+	<script>
 	let message = '<%=request.getParameter("message")%>';
 	if (message !== 'null' && message !== null && message !== undefined) {
         alert(message);
@@ -688,7 +631,7 @@
 		  const url = '${pageContext.request.contextPath}/reviewDetail?review_num=' + reviewNum;
 	    // 팝업 창 열기
 	    window.open(url, 'reviewInfoPopup', 'width=800,height=600');
-
+	    
 	    // 팝업 창에서 메인 창으로 포커스 이동
 	    opener.focus();
 	}
@@ -696,14 +639,14 @@
 	// 문의 제목 누르면 팝업창 띄움
 	function boardPop(boardNum) {
 	    // 회원 정보 조회 API URL
-		  const url = '${pageContext.request.contextPath}/questionMng?one_board_num=' + boardNum;
+		  const url = '${pageContext.request.contextPath}/questionDetail?one_board_num=' + boardNum;
 	    // 팝업 창 열기
 	    window.open(url, 'boardInfoPopup', 'width=800,height=600');
-
+	    console.log("boardPop is called with", boardNum);
 	    // 팝업 창에서 메인 창으로 포커스 이동
 	    opener.focus();
 	}
-		
+
  	// 별점을 ★로 변경
     let reviewStars = document.querySelectorAll('#review-star');
     reviewStars.forEach(function (starElement) {
@@ -714,6 +657,38 @@
         }
         starElement.textContent = stars;
     });
+    
+    // 문의 팝업창 답변 등록하기 이동
+    function redirectToQuestionMngFromPopup() {
+    window.location.href = "${pageContext.request.contextPath}/questionMng";
+	}
+    
+	// 문의관리 토글함수
+	$(document).ready(function() {
+	    $("#divTable2").hide();
+	
+	    function toggleQuestion(target) {
+	        $("#divTable1").hide();
+	        $("#todayQue").removeClass("on");
+	        $("#divTable2").hide();
+	        $("#unrepQue").removeClass("on");
+	      
+	      if (target === "today") {
+	          $("#divTable1").show();
+	          $("#todayQue").addClass("on");
+	      } else if (target === "unrep") {
+	          $("#divTable2").show();
+	          $("#unrepQue").addClass("on");
+	      }
+	    }
+	  // 메뉴 클릭 이벤트 핸들러
+	  $(".toggle-table").on("click", function(e) {
+	    e.preventDefault();
+	    let target = $(this).data("target");
+	    toggleQuestion(target);
+	  });
+	 });  
 </script>
+
 </body>
 </html>

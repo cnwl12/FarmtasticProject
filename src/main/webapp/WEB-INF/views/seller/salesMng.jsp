@@ -93,7 +93,7 @@
 									<label id="chart1" class="on">
 										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">이번달 일자별 매출</button>
 									</label>
-									<label id="chart1" class="on">
+									<label id="chart2" class="on">
 										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="monthlyChart">최근 12개월 매출</button>
 									</label> 
 								</div>
@@ -258,11 +258,9 @@
 	<!-- 매출 차트 토글 함수 -->
 	<script>
 	$(document).ready(function() {
-	    // 마이페이지 전환 초기 설정
 	    $("#getMonthlySalesChart").hide();
 	
-	    // 마이페이지 전환 함수
-	    function toggleMypage(target) {
+	    function toggleChart(target) {
 	        $("#getDailySalesChart").hide();
 	        $("#chart1").removeClass("on");
 	        $("#getMonthlySalesChart").hide();
@@ -280,7 +278,7 @@
 	  $(".toggle-chart").on("click", function(e) {
 	    e.preventDefault();
 	    let target = $(this).data("target");
-	    toggleMypage(target);
+	    toggleChart(target);
 	  });
 	 });  
 	</script>

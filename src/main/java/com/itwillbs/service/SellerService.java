@@ -320,5 +320,12 @@ public class SellerService {
 		    params.put("review_num", review_num);
 		    return sellerDAO.reviewDetail(params);
 		}
+		
+		public OneBoardDTO questionDetail(String seller_num, int one_board_num) {
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("seller_num", seller_num);
+		    params.put("one_board_num", one_board_num);
+		    return sellerDAO.questionDetail(params);
+		}
 	    
 }
