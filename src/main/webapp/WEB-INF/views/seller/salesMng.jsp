@@ -175,16 +175,17 @@
  								<c:forEach items="${DailySalesList}" var="list"> 
  								<input type="hidden" name="seller_num" value="${seller_num}">
  										<tr> 
-										<td>${list.order_num}</td>
-										<td>${list.item_num}</td>
-										<td>${list.seller_type}</td>
-										<td>${list.item_name}</td>
-										<td>${list.item_cnt}</td>
-										<td>${list.itemPrice}</td>
-										<td>${list.dailySales}</td>
-										<td>${list.dailyFee}</td>
-										<td>${list.dailySettlement}</td>
-										<td>${list.order_day}</td>
+<%-- 										<td>${list.order_num}</td> --%>
+<%-- 										<td>${list.item_num}</td> --%>
+<%-- 										<td>${list.seller_type}</td> --%>
+<%-- 										<td>${list.item_name}</td> --%>
+<%-- 										<td>${list.item_cnt}</td> --%>
+<%-- 										<td>${list.itemPrice}</td> --%>
+<%-- 										<td>${list.dailySales}</td> --%>
+<%-- 										<td>${list.dailyFee}</td> --%>
+<%-- 										<td>${list.dailySettlement}</td> --%>
+<%-- 										<td>${list.order_day}</td> --%>
+									
  										</tr> 
 								</c:forEach> 
 							</tbody>
@@ -473,10 +474,12 @@
 
     						var date = new Date(item.order_day);
     						var d = date.toISOString().slice(0,19).replace('T', ' ');
-
+    						
+//     						getDailySalesList.row.add({
                             // table 태그에 출력
                             $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.itemPrice+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+d+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
                             // 문자로 인식되므로 +로 분리
+//     						}).draw();
                         });
                     }
                 });

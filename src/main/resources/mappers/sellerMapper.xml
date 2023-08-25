@@ -226,6 +226,24 @@ order by total_amount desc;
 	ORDER BY q1.order_mm; 
 	</select>
 
+	<!-- 선진) 품목별 월 매출 차트 -->
+	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
+	<select id="getMonthlyItems" resultType="map">
+	SELECT f.item_num AS item_num, SUM(f.price) AS item_totalSales
+	FROM (select coalesce(SUBSTRING(od.order_num, 1, 6), (DATE_FORMAT(current_timestamp, '%Y%m'))) as order_mm, 
+				 coalesce(od.order_num,0) as dd,
+				 i.item_num, (i.item_price * coalesce(od.item_cnt,0)) as price
+		  from order_detail od right join item i on od.item_num = i.item_num
+		  where i.item_num in (select item_num 
+							   from item 
+	                           where seller_num = #{seller_num})) AS f LEFT JOIN orders os ON f.dd = os.order_num
+	WHERE order_mm = (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m'))
+	AND os.order_cancel != 'Y' OR os.order_cancel IS NULL
+	GROUP BY f.order_mm, f.item_num;
+	</select>
+
+
+
 	<!-- 선진) 매출관리 - 검색바 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
