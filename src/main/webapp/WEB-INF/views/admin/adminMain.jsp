@@ -216,7 +216,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="pieChart"></canvas>
                                     </div>
                              <script>
    								 var pieData = ${jsonData};
@@ -224,7 +224,7 @@
     							// 상위 5개 데이터만 추출한 후 정렬
    				 				 pieData.sort(function(a,b) {return b.total_amount - a.total_amount});
     							 var top5Data = pieData.slice(0, 5);
-    							 var ctx = document.getElementById("myPieChart").getContext("2d");
+    							 var ctx = document.getElementById("pieChart").getContext("2d");
     							 
     							 var myPieChart = new Chart(ctx, {
         						 	type: 'doughnut',

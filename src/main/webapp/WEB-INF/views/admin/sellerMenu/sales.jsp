@@ -31,6 +31,9 @@
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	
+	
+	
+	
 </head>
 
 <body id="page-top">
@@ -65,6 +68,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="avgContent">
+                                        <!-- 
                                       <c:forEach items="${sellers}" var="seller" begin="0" end="0">
     									<tr style="background-color: #ffffff;">
     										<td >${seller.month_sales}</td>
@@ -72,6 +76,7 @@
         									<td style="color: black; font-weight: bold;">${seller.month_fee}</td>
     									</tr>
 									  </c:forEach>
+									   -->
                             			</tbody>
                                 </table>
                            
@@ -105,22 +110,7 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody id="monthlysales">
-                                     <c:forEach items="${sellers}" var="seller">
-    									<c:set var="sellerMonth" value="${seller.monthly}" />
-   										<c:if test="${sellerMonth == currentMonth}">
-        									<tr>
-        										<td><a href="${pageContext.request.contextPath}/detailSales?seller_num=${seller.seller_num}&pay_day=${seller.pay_day}">${seller.seller_num}</a></td>
-            									<td>${seller.seller_storeName}</td>
-            									<td>${seller.seller_name}</td>
-            									<td>${seller.pay_day}</td>
-            									<td>${seller.daily_sales}</td>
-            									<td>${seller.daily_settlement}</td>
-            									<td>${seller.daily_fee}</td>
-        									</tr>
-    									</c:if>
-									</c:forEach>
-                                    </tbody>
+                                    <tbody id="monthlysales"><!-- updateSalesTableByMonth() --></tbody>
                                 </table>
                             </div>
                         </div>
@@ -167,132 +157,109 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 
 <script>
-var dataTable2; 
-$(document).ready(function(){
-    $('#salesTable').DataTable({
-        "lengthChange": false,
-        "searching": false,
-        "paging": false,
-        "info": false,
-        "sDom": '<"top"i>rt<"bottom"flp><"clear">',
-        "ordering": false
+function pad(str) {
+    return String(str).padStart(2, "0");
+}
+
+function incrementMonth(date, increment) {
+    var year = parseInt(date.substr(0, 4));
+    var month = parseInt(date.substr(5, 2)) + increment;
+    if (month < 1) {
+        year -= 1;
+        month = 12 + month;
+    } else if (month > 12) {
+        year += 1;
+        month = month - 12;
+    }
+    return year + "-" + pad(month);
+}
+
+function pad(d) {
+	return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
+function calcMonth(num){
+	var currentMonth = $("#hidden_month").val();
+	var currentDate = new Date(currentMonth + "-01");
+	currentDate.setMonth(currentDate.getMonth() + num);
+	var newMonth = currentDate.toISOString().substr(0, 7);
+	return newMonth;
+}    
+
+function updateSalesTableByMonth(monthly) {
+    var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
+//     dataTable2.destroy();
+    // 월별 데이터 가져오기
+    $.get(apiUrl + "?monthly=" + monthly, function (data) {
+        
+        var tableBody = $('#dataTable2').DataTable();
+        tableBody.clear().draw();
+        
+        // 데이터를 업데이트하는 부분
+        $.each(data, function (index, item) {
+            
+            tableBody.row.add([
+                
+            	'<a href="/FarmProject/detailSales?seller_num=' + item.seller_num + '&pay_day='+item.pay_day+'">' + item.seller_num + '</a>',
+                item.seller_storeName,
+                item.seller_name,
+                item.pay_day,
+                item.daily_settlement,
+                item.daily_fee,
+                item.daily_sales
+            ]).draw();
+        });
+
+        $("#hidden_month").val(monthly);
+        var updatedYear = parseInt(monthly.substr(0, 4));
+        var updatedMonth = parseInt(monthly.substr(5, 2));
+        $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
     });
-    dataTable2 = $("#dataTable2").DataTable({
-        "paging": true,
-        "info": true,
-        "ordering": true,
-        "searching": true,
-        "retrieve": true
+    
+
+    $.get(apiUrl + "?monthly=" + monthly, function (data) {
+    	
+        var tableBody2 = $("#avgContent");
+        tableBody2.empty(); // 기존 데이터 삭제
+        // 데이터를 업데이트하는 부분
+        $.each(data, function (index, item) {
+            if (index === 0) { // 첫 번째 요소만 추가
+                var newRow = $("<tr></tr>");
+                newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
+                newRow.append($("<td></td>").text(item.month_settlement));
+                newRow.append($("<td></td>").text(item.month_fee));
+                
+                tableBody2.append(newRow);
+            }
+        });
         
     });
-
-});
+    // updateDataTable2(monthly);
+}
 
 $(document).ready(function () {
-    function pad(str) {
-        return String(str).padStart(2, "0");
-    }
-
-    function incrementMonth(date, increment) {
-        var year = parseInt(date.substr(0, 4));
-        var month = parseInt(date.substr(5, 2)) + increment;
-        if (month < 1) {
-            year -= 1;
-            month = 12 + month;
-        } else if (month > 12) {
-            year += 1;
-            month = month - 12;
-        }
-        return year + "-" + pad(month);
-    }
-    function pad(d) {
-    	   return (d < 10) ? '0' + d.toString() : d.toString();
-    }
-    $(document).ready(function () {
-        $("#prev_month").click(function () {
-            var currentMonth = $("#hidden_month").val();
-            var currentDate = new Date(currentMonth + "-01");
-            currentDate.setMonth(currentDate.getMonth() - 1);
-    		var newMonth = currentDate.toISOString().substr(0, 7);
-            updateSalesTableByMonth(newMonth);
-        });
-
-        $("#next_month").click(function () {
-            var currentMonth = $("#hidden_month").val();
-            var currentDate = new Date(currentMonth + "-01");
-            currentDate.setMonth(currentDate.getMonth() + 1);
-    		var newMonth = currentDate.toISOString().substr(0, 7);
-            updateSalesTableByMonth(newMonth);
-        });
-    });
-    function updateSalesTableByMonth(monthly) {
-        var apiUrl = "${pageContext.request.contextPath}/sales_ajax";
-        dataTable2.destroy();
-        // 월별 데이터 가져오기
-        $.get(apiUrl + "?monthly=" + monthly, function (data) {
-            var tableBody = $("#monthlysales");
-            tableBody.empty(); // 기존 데이터 삭제
-
-            // 데이터를 업데이트하는 부분
-            $.each(data, function (index, item) {
-                var newRow = $("<tr></tr>");
-                
-                var sellerSiteLink = $("<a></a>").attr("href", "${pageContext.request.contextPath}/detailSales?seller_num=" + item.seller_num + "&pay_day=" + item.pay_day).text(item.seller_num);
-                
-                newRow.append($("<td></td>").append(sellerSiteLink));
-                newRow.append($("<td></td>").text(item.seller_storeName));
-                newRow.append($("<td></td>").text(item.seller_name));
-                newRow.append($("<td></td>").text(item.pay_day));
-                newRow.append($("<td></td>").text(item.daily_settlement));
-                newRow.append($("<td></td>").text(item.daily_fee));
-                newRow.append($("<td></td>").text(item.daily_sales));
-                tableBody.append(newRow);
-            });
-            if ($.fn.DataTable.isDataTable('#dataTable2')) {
-                $('#dataTable2').DataTable().destroy();
-            }
-            dataTable2 = $("#dataTable2").DataTable({
-                "paging": true,
-                "info": true,
-                "ordering": true,
-                "searching": true,
-                "retrieve": true,
-                "destroy": true
-            });
-
-            $("#hidden_month").val(monthly);
-            var updatedYear = parseInt(monthly.substr(0, 4));
-            var updatedMonth = parseInt(monthly.substr(5, 2));
-            $("#current_month_label").text(updatedYear + "-" + pad(updatedMonth));
-        });
-        
-       
-        $.get(apiUrl + "?monthly=" + monthly, function (data) {
-            var tableBody2 = $("#avgContent");
-            tableBody2.empty(); // 기존 데이터 삭제
-            // 데이터를 업데이트하는 부분
-            $.each(data, function (index, item) {
-                if (index === 0) { // 첫 번째 요소만 추가
-                    var newRow = $("<tr></tr>");
-                    newRow.append($("<td style='color: black; font-weight: bold;'></td>").text(item.month_sales));
-                    newRow.append($("<td></td>").text(item.month_settlement));
-                    newRow.append($("<td></td>").text(item.month_fee));
-                    
-                    tableBody2.append(newRow);
-                }
-            });
-            
-        });
-        updateDataTable2(monthly);
-    }
-
-
-
+	
+	var newMonth = calcMonth(0);
+	updateSalesTableByMonth(newMonth);
+	
+	// 다음/이전 월 (prev_month, next_month)
+	$('.btn-primary').click((e) => {
+		var num = e.currentTarget.id.indexOf('prev') > -1 ? -1 : 1;
+		var newMonth = calcMonth(num);
+		updateSalesTableByMonth(newMonth);
+	})
 });
+    
+    
+
+    
+
+
+
 </script>
 
-
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- TODO -->
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
     <!-- Core plugin JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -306,6 +273,7 @@ $(document).ready(function () {
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
+    
 	
 </body>
 
