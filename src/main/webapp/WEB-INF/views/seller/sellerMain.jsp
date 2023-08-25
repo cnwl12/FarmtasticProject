@@ -156,7 +156,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">일자별 매출</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -304,48 +304,61 @@
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
+                        <!-- 도넛 차트 -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="m-0 font-weight-bold text-primary">품목</h6>
+<!--                                     <div class="dropdown no-arrow"> -->
+<!--                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" -->
+<!--                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!--                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> -->
+<!--                                         </a> -->
+<!--                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" -->
+<!--                                             aria-labelledby="dropdownMenuLink"> -->
+<!--                                             <div class="dropdown-header">Dropdown Header:</div> -->
+<!--                                             <a class="dropdown-item" href="#">Action</a> -->
+<!--                                             <a class="dropdown-item" href="#">Another action</a> -->
+<!--                                             <div class="dropdown-divider"></div> -->
+<!--                                             <a class="dropdown-item" href="#">Something else here</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
                                 </div>
-                                <!-- Card Body -->
+                                <!-- 차트 바디 시작 -->
                                 <div class="card-body">
+                                	<!-- 선진) 파이 차트 표시할 캔버스 요소 -->
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="getMonthlyItemsChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+
                                     </div>
                                 </div>
+                                <!-- 차트 바디 끝 -->
+                                <!-- 템플릿 차트 바디 시작 -->
+<!--                                 <div class="card-body"> -->
+<!--                                     <div class="chart-pie pt-4 pb-2"> -->
+<%--                                         <canvas id="myPieChart"></canvas> --%>
+<!--                                     </div> -->
+<!--                                     <div class="mt-4 text-center small"> -->
+<!--                                         <span class="mr-2"> -->
+<!--                                             <i class="fas fa-circle text-primary"></i> Direct -->
+<!--                                         </span> -->
+<!--                                         <span class="mr-2"> -->
+<!--                                             <i class="fas fa-circle text-success"></i> Social -->
+<!--                                         </span> -->
+<!--                                         <span class="mr-2"> -->
+<!--                                             <i class="fas fa-circle text-info"></i> Referral -->
+<!--                                         </span> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+                                <!-- 템플릿 차트 바디 끝 -->
                             </div>
                         </div>
                     </div>
+                    <!-- 도넛 차트 끝 -->
 
                     <!-- Content Row -->
                     <div class="row">
@@ -435,6 +448,7 @@
 									<h6 class="m-0 font-weight-bold text-primary" style="display: flex; align-items: center;">
  										<span class="toggle-table on" id="todayQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" data-target="today">오늘의 문의</span>
  										<span class="toggle-table on" id="unrepQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-left: 10px;" data-target="unrep">미답변 문의</span>
+									</h6>
 								</div>
                                 <div class="card-body">
                                 <!-- 문의관리에서 가져옴 시작1-->
@@ -620,6 +634,92 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 	<script>
+	
+	<!-- 품목별 월 매출 차트 -->
+	// 차트를 그리기 위한 함수
+	function drawMonthlyItemsChart(data) {
+	  const labels = data.map(item => item.item_num);
+	  const sales = data.map(item => item.item_totalSales);
+	
+// 	  const ctx = document.getElementById('getMonthlyItemsChart').getContext('2d');
+// 	  const myChart = new Chart(ctx, {
+// 	    type: 'pie',
+// 	    data: {
+// 	      labels: labels,
+// 	      datasets: [{
+// 	        label: '매출',
+// 	        data: sales,
+// 	        borderColor: 'rgba(75, 192, 192, 1)',
+// 	        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+// 	        borderWidth: 1
+// 	      }]
+// 	    },
+// 	    options: {
+// 	      scales: {
+// 	        x: {
+// 	          title: {
+// 	            display: true,
+// 	            text: '날짜'
+// 	          }
+// 	        },
+// 	        y: { beginAtZero: true, title: { display: true, text: '매출' },
+// 	          gridLines:{
+// 			color: 'rgba(166, 201, 226, 1)',
+// 			lineWidth:3
+// 		}
+// 	        }
+// 	      }
+// 	    }
+// 	  });
+// 	}
+	  const ctx = document.getElementById('getMonthlyItemsChart').getContext('2d');
+	  const myChart = new Chart(ctx, {
+			  type: 'pie',
+			  data: {
+				  labels: labels,
+				  datasets: [{
+				      label: '매출',
+				      data: sales,
+				      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				  }]
+			  },
+			  options: {
+			    responsive: true,
+			    plugins: {
+			      legend: {
+			        position: 'top',
+			      },
+			      title: {
+			        display: true,
+			        text: 'Chart.js Pie Chart'
+			      }
+			    }
+			  }
+			}
+	// 페이지 로딩 시 매출 데이터 가져와서 차트 그리기
+	$(document).ready(function() { 
+	  ajaxMonthlyItems();
+	});
+	
+	// 매출 데이터를 가져오는 함수
+	function ajaxMonthlyItems() {
+	  $.ajax({
+	    url: '${pageContext.request.contextPath}/chartMonthlyItems',
+	    type: 'get',
+	    dataType: 'json',
+	    success: function(result) {
+	      drawMonthlyItemsChart(result);
+	    },
+	    error: function() {
+	      alert('매출 데이터를 가져오는데 실패했습니다.');
+	    }
+	  });
+	}
+	
+	
+	
+	
+	
 	let message = '<%=request.getParameter("message")%>';
 	if (message !== 'null' && message !== null && message !== undefined) {
         alert(message);

@@ -326,6 +326,17 @@ public class SellerController {
 		return entityMonthlySales;
 	}
 	
+	// 선진) 품목별 월 매출 제이슨데이터로 변환
+	@RequestMapping(value = "/chartMonthlyItems", method = RequestMethod.GET)
+	public ResponseEntity<List<Map<String,Object>>> chartMonthlyItems(HttpSession session){
+		
+		String seller_num = (String) session.getAttribute("seller_num");
+		List<Map<String,Object>> jsonMonthlyItems = sellerService.getMonthlyItems(seller_num);
+		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
+		ResponseEntity<List<Map<String,Object>>> entityMonthlyItems = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlyItems, HttpStatus.OK);
+		return entityMonthlyItems;
+	}
+	
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
 		

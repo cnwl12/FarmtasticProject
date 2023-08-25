@@ -74,6 +74,12 @@ public class SellerDAO {
 			return sqlSession.selectList(namespace + ".getMonthlySales", seller_num);
 		}
 		
+		// 선진) 품목별 월 매출 차트
+		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
+
+			return sqlSession.selectList(namespace + ".getMonthlyItems", seller_num);
+		}
+		
 		// 선진) 매출관리 - 검색바
 		public List<Map<String,Object>> getDailySalesList(Map<String, Object> params) {
 		    String seller_num = (String) params.get("seller_num");

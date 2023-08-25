@@ -76,6 +76,12 @@ public class SellerService {
 			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
+		// 선진) 품목별 월 매출 차트
+		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
+
+			return sellerDAO.getMonthlyItems(seller_num);
+		}
+		
 		// 선진) 매출관리 - 검색바
 		public List<Map<String,Object>> getDailySalesList(String seller_num, String startDate, String endDate) {
 		    Map<String, Object> params = new HashMap<String, Object>();
