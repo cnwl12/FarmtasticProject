@@ -945,6 +945,7 @@ public class AdminController {
 	public String makeCategory(@RequestParam("seller_type[]") String[] sellerTypes,
 	                           @RequestParam("type_name[]") String[] typeNames,
 	                           HttpSession session, Model model) {
+		
 	    if (sellerTypes.length == typeNames.length) {
 	        for (int i = 0; i < sellerTypes.length; i++) {
 	            String sellerType = sellerTypes[i];

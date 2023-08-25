@@ -132,8 +132,8 @@ public class AdminService {
 	
 	public void insertCate(String sellerType, String typeName) {
 	    adminDAO.insertCate(sellerType, typeName);
-	    System.out.println("카테고리 생성 가능, sellerType: " + sellerType + ", typeName: " + typeName);
 	}
+	
 	public List<Map<String, Object>> getTypes() {
 		return adminDAO.getTypes();
 	}

@@ -492,9 +492,10 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
+    	String seller_num = (String) session.getAttribute("seller_num");
+ 	    String seller_id = sellerService.idCheck(seller_num);
+ 	    model.addAttribute("seller_id", seller_id);	
 	    session.setAttribute("seller_num", seller_num);
-	    String seller_id = sellerService.idCheck(seller_num);
-	    model.addAttribute("seller_id", seller_id);
 	    
 		List<Map<String, Object>> typeList = adminService.getTypes();
 		model.addAttribute("typeList", typeList);
@@ -558,14 +559,17 @@ public class SellerController {
 	public String itemMng(Model model, HttpSession session) {
 	   
 		if (session.getAttribute("seller_num") == null) {
-			model.addAttribute("error", "로그인 후 사용가능");
-			return "redirect:/login"; // 로그인 페이지로 이동
-		} else {
-		String seller_num = (String) session.getAttribute("seller_num");
-		
-	    String seller_id = sellerService.idCheck(seller_num);
-	    model.addAttribute("seller_id", seller_id);
-	    session.setAttribute("seller_num", seller_num);
+	        
+	    	model.addAttribute("error", "로그인 후 사용가능");
+	        return "redirect:/login"; // 로그인 페이지로 이동
+	        
+	    } else {
+	    	
+	    String seller_num = (String) session.getAttribute("seller_num");
+		String seller_id = sellerService.idCheck(seller_num);
+		model.addAttribute("seller_id", seller_id);	
+	    
+		session.setAttribute("seller_num", seller_num);
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
 	    

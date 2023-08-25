@@ -144,7 +144,6 @@ public class AdminDAO {
 	    paramMap.put("typeName", typeName);
 
 	    sqlSession.insert(NAMESPACE + "insertCate", paramMap);
-	    System.out.println("카테고리 생성 가능, sellerType: " + sellerType + ", typeName: " + typeName);
 	}
 	public List<Map<String, Object>> getTypes() {
 		return sqlSession.selectList(NAMESPACE+"getTypes");

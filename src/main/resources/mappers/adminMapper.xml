@@ -173,6 +173,7 @@
     VALUES (#{sellerType}, #{typeName});
 	</insert>
 	
+	<!-- 상품목록 가져오기 -->
 	<select id="getTypes" resultType="map">
 		SELECT seller_type, type_name
 		FROM category_type

@@ -50,7 +50,7 @@
 <c:if test="${fn:length(itemList) eq 0}">
   <!-- 검색 결과가 없다는 메시지를 띄우는 스크립트 -->
   <script>
-    alert("검색 결과가 없습니다.");
+    alert("상품준비중입니다.");
     location.href = "${pageContext.request.contextPath}/main";
   </script>
 </c:if>

@@ -86,7 +86,7 @@
 	
     <div class="find-id-wrapper">
 		<h2 class="find-id-title">비밀번호 찾기</h2>
-		<form action="/farmtastic/SendEmailServlet2" method="post">
+		<form action="SendEmailServlet2" method="post">
 	    	<input type="text" name="id" placeholder="아이디 입력"/>
 	    	<input type="email" name="email" placeholder="이메일 주소 입력" required />
 	        <input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
@@ -108,7 +108,7 @@ $(document).ready(function() {
 		// Ajax 호출
 		$.ajax({
 		    type: 'POST',
-		    url: '/farmtastic/SendEmailServlet2',
+		    url: 'SendEmailServlet2',
 		    data: { email: email },
 		    success: function(data) {
 		    	// 결과를 처리합니다.
@@ -135,7 +135,7 @@ $("#check_verification_code").on("click", function () {
     
     $.ajax({
         type: "GET",
-        url: "/farmtastic/CheckVerificationCodeServlet2",
+        url: "CheckVerificationCodeServlet2",
         data: { code: userVerificationCode, email: userEmail, id:userId },
         dataType: "json",
         success: function (response) {

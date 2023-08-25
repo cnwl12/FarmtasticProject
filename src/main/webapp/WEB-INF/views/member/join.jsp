@@ -395,7 +395,7 @@ input#post {
             // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
             timeoutId = setTimeout(function() {
                 $.ajax({
-                    url: "/farmtastic/emailCheck",
+                    url: "emailCheck",
                     type: "POST",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     data: {
@@ -427,7 +427,7 @@ input#post {
             // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
             timeoutId = setTimeout(function() {
                 $.ajax({
-                    url: "/farmtastic/idCheck0",
+                    url: "idCheck0",
                     type: "POST",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     data: {
