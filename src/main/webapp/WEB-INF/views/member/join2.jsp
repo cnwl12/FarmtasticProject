@@ -68,6 +68,20 @@ label {
     margin-right: 5px;
 }
 
+form {
+        position: relative;
+    }
+    input#seller_id, #seller_pass, #seller_pass2, #seller_name,
+          #seller_licenseNum, #seller_storeName, #seller_accountNum,
+          #seller_accountHolder, #seller_phone, #seller_email{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+#invalid_id, #invalid_email {
+   position: relative;
+   top: 12px;
+  } 
 </style>
  
 </head>
@@ -97,7 +111,7 @@ label {
                      
                         <li>
                         <input type="hidden" name="join_date" id="join_date">
-                        <input type="text" class="form-control" placeholder="ID를 작성해주세요" name="seller_id" id="seller_id" maxlength="10" >
+                        <input type="text"  placeholder="ID를 작성해주세요" name="seller_id" id="seller_id" maxlength="10" >
                         <div id = "idcheckdiv"></div>
                         <div id="invalid_id" class="invalid-feedback">
                             아이디를 입력해주세요.
@@ -108,7 +122,7 @@ label {
                         </li>   
                         
                         <li>
-                        <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="seller_pass" id="seller_pass" maxlength="15">
+                        <input type="password" placeholder="비밀번호를 입력해주세요" name="seller_pass" id="seller_pass" maxlength="15">
                         <div id= "invalid_pass" class="invalid-feedback">
                             비밀번호를 입력해주세요.
                              </div>
@@ -122,14 +136,14 @@ label {
                         
                         <li> 
                         
-                        <input type="password" class="form-control" placeholder="위의 비밀번호를 다시 입력해주세요" name="seller_pass2" id="seller_pass2" maxlength="15">
+                        <input type="password" placeholder="위의 비밀번호를 다시 입력해주세요" name="seller_pass2" id="seller_pass2" maxlength="15">
                         <div id= "invalid_pass4" class="invalid-feedback">
                             비밀번호가 일치하지 않습니다.
                              </div>
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="이름" name="seller_name" id="seller_name" maxlength="10">
+                        <input type="text" placeholder="이름" name="seller_name" id="seller_name" maxlength="10">
                         <div id= "invalid_name" class="invalid-feedback">
                             이름을 입력해주세요.
                              </div>
@@ -139,7 +153,7 @@ label {
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="상점명" name="seller_storeName" id="seller_storeName" maxlength="10">
+                        <input type="text" placeholder="상점명" name="seller_storeName" id="seller_storeName" maxlength="10">
                         <div id= "invalid_storeName" class="invalid-feedback">
                             상점명을 입력해주세요.
                              </div>
@@ -149,15 +163,14 @@ label {
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="사업자 번호" name="seller_licenseNum" id="seller_licenseNum" maxlength="12">
+                        <input type="text" placeholder="사업자 번호" name="seller_licenseNum" id="seller_licenseNum" maxlength="12">
                         <div id= "invalid_licenseNum" class="invalid-feedback">
                             사업자번호 입력해주세요.
                              </div>
                              <div id= "invalid_licenseNum2" class="invalid-feedback">
                             양식에 맞추어 작성해주세요.(Ex.123-45-67890)
                              </div>
-                        </li>
-                        
+                        </li>                       
                         <li>
                            <label for="seller_bank" style= "margin-left: 25px; margin-top: 9px;">은행명</label>
                            <select name="seller_bank" id="seller_bank">
@@ -179,7 +192,7 @@ label {
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="계좌번호(-없이)" name="seller_accountNum" id="seller_accountNum" maxlength="14">
+                        <input type="text" placeholder="계좌번호(-없이)" name="seller_accountNum" id="seller_accountNum" maxlength="14">
                         <div id= "invalid_accountNum" class="invalid-feedback">
                             계좌번호를 입력해주세요.
                              </div>
@@ -189,7 +202,7 @@ label {
                         </li>
                         
                         <li>   
-                        <input type="text" class="form-control" placeholder="예금주" name="seller_accountHolder" id="seller_accountHolder" maxlength="10">
+                        <input type="text" placeholder="예금주" name="seller_accountHolder" id="seller_accountHolder" maxlength="10">
                         <div id= "invalid_accountHolder" class="invalid-feedback">
                             예금주를 입력해주세요.
                              </div>
@@ -199,7 +212,7 @@ label {
                         </li>
                           
                           <li>
-                        <input type="text" class="form-control" placeholder="연락처 (-)를 포함하여 작성해주세요" name="seller_phone" id="seller_phone" maxlength="13">
+                        <input type="text" placeholder="연락처 (-)를 포함하여 작성해주세요" name="seller_phone" id="seller_phone" maxlength="13">
                         <div id= "invalid_phone" class="invalid-feedback">
                             연락처를 입력해주세요.
                              </div>
@@ -209,7 +222,7 @@ label {
                         </li>
                         
                         <li>
-                        <input type="email" class="form-control" placeholder="이메일" name="seller_email" id="seller_email" >
+                        <input type="email" placeholder="이메일" name="seller_email" id="seller_email" >
                         <div id= "invalid_email" class="invalid-feedback">
                             이메일을 입력해주세요.
                              </div>
