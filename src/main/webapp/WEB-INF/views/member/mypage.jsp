@@ -490,6 +490,7 @@
                                        </div>
                                         <div>
 									        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+									        <button type="button" class="edit-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 									    </div>
                                     </td>
                                  </tr>
@@ -530,6 +531,7 @@
                                        </div>
                                        <div>
 									       <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+									       <button type="button" class="edit-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 									    </div>
                                     </td>
                                  </tr>
@@ -1226,6 +1228,22 @@ $(document).ready(function() {
 		    // 취소 버튼을 클릭한 경우의 처리
 		    alert("회원 탈퇴가 취소되었습니다.");
 		   
+		  }
+		}
+	function deleteBoard(boardNum) {
+		  if (confirm("해당 게시물을 삭제하시겠습니까?")) {
+		    $.ajax({
+		      url: "deleteBoard",
+		      type: "POST",
+		      data: { boardNum: boardNum },
+		      success: function() {
+		        alert("게시물이 삭제되었습니다.");
+		        location.reload(); // 삭제 후 페이지 새로고침
+		      },
+		      error: function() {
+		        alert("게시물 삭제에 실패하였습니다.");
+		      }
+		    });
 		  }
 		}
 
