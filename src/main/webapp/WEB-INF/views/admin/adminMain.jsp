@@ -46,7 +46,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Farmtastic Adminstrator</h1>
+                        <h1 class="m-0 font-weight-bold text-primary">Main</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -95,19 +95,19 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">미승인업체
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${count}</div>
                                                 </div>
-                                                <div class="col">
+                                           <!--      <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -118,23 +118,7 @@
                             </div>
                         </div>
 
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                 
                     </div>
 
                     <!-- Content Row -->
@@ -241,6 +225,7 @@
    				 				 pieData.sort(function(a,b) {return b.total_amount - a.total_amount});
     							 var top5Data = pieData.slice(0, 5);
     							 var ctx = document.getElementById("myPieChart").getContext("2d");
+    							 
     							 var myPieChart = new Chart(ctx, {
         						 	type: 'doughnut',
         							data: {
@@ -298,7 +283,7 @@
     								<c:forEach items="${sellers}" var="seller" varStatus="status">
         							<c:if test="${seller.seller_recoYn != 'Y'}">
             						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
-            						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
+            						<c:set var="count" value="${count + 1}" scope="page"/> <!-- 순차 카운터 변수 증가 -->
             						<tr>
                 						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
                 						<td>${count}</td> <!-- 순차 카운터 표시 -->
@@ -315,14 +300,30 @@
                             </div>
                                 </div>
                             </div>
-
+								
                           
 
                         </div>
                           <div class="col-lg-6 mb-4">
-
-
+								   <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">미승인업체
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${count}</div>
+                                                </div>
+                                           <!--      <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
                         </div>
+                        
+                        
                     </div>
 
                 </div>
