@@ -284,11 +284,10 @@ body {font-size: 1rem !important;
     	  const table = $("#dataTable").DataTable();
     	  
     	  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    		  console.log('Data:', data);  
     	    const rowDate = moment(data[5], "YYYY-MM-DD");
     	    const rowScore = data[2].length;
     	    const rowKeyword = keywordType === "PRODUCT_NAME" ? data[1] : data[3];
-
+ 
     	    const isDateInRange =
     	      (!startDate || moment(startDate).isBefore(rowDate) || moment(startDate).isSame(rowDate)) &&
     	      (!endDate || moment(endDate).isSame(rowDate) || moment(endDate).isAfter(rowDate));
