@@ -150,7 +150,8 @@ public class SellerController {
 	                        @RequestParam(value = "seller_accountHolder", required = false) String seller_accountHolder,
 	                        @RequestParam(value = "seller_addMain", required = false) String seller_addMain,
 	                        @RequestParam(value = "seller_addSub", required = false) String seller_addSub) throws Exception {
-		 
+		
+		System.out.println("sellerUpdatePro()");
 	    String seller_num = (String) session.getAttribute("seller_num");
 
 	   
@@ -224,7 +225,7 @@ public class SellerController {
 			sellerDTO.setSeller_id(seller_id);
 			sellerDTO.setSeller_pass(seller_pass);
 			
-			
+			System.out.println("SellerController withdrawPro");
 			sellerService.withdrawSeller(sellerDTO);
 			sellerDTO.setSeller_recoYn(seller_recoYn);
 			sellerService.withderawSellerstopselling(sellerDTO);
@@ -235,7 +236,7 @@ public class SellerController {
 			
 		} else {
 			
-			
+			System.out.println("SellerController withdrawPro");
 			model.addAttribute("message", "비밀번호가 틀립니다");
 			return "redirect:/sellerMain";
 		}
@@ -702,10 +703,12 @@ public class SellerController {
 	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, Model model) {
 	    if (sellerDTO == null || sellerDTO.getSeller_id() == null || sellerDTO.getSeller_pass() == null) {
 	        // sellerDTO가 null이거나 id/pw 정보가 누락된 경우, 접근권한이 없다는 메시지를 반환
+	    	System.out.println("sellerloginPro()");
 	        model.addAttribute("error", "접근위반 로그인하고와라");
 	        return "redirect:/login";
 	    } else {
 	        // id와 pw 정보가 모두 제공된 경우, 로그인 절차 수행
+	    	System.out.println("sellerloginPro()");
 	        SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
 
 	        if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
@@ -716,7 +719,7 @@ public class SellerController {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
-	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
+	        } else if (sellerDTO2 != null && "D".equals(sellerDTO2.getSeller_recoYn())) {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "탈퇴한 회원입니다.");
 	            return "redirect:/login";    

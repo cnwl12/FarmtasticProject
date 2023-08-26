@@ -676,7 +676,7 @@ ORDER BY MONTH(os.order_day);
     select * from seller
     where seller_id = #{seller_id}
     and seller_pass = #{seller_pass}
-    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'M' or seller_recoYn  is null)
+    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'D' or seller_recoYn  is null)
 </select>
 
 <select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">
@@ -689,7 +689,7 @@ ORDER BY MONTH(os.order_day);
 <!-- 판매자회원탈퇴시 상품중지 -->
 <update id="withdrawSeller">
  	 UPDATE seller
-  	SET seller_recoYn = 'M',
+  	SET seller_recoYn = 'D',
      <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
   	WHERE seller_id = #{seller_id}
   	</update>
@@ -698,7 +698,7 @@ ORDER BY MONTH(os.order_day);
 	UPDATE item 
 	JOIN seller s ON item.seller_num = s.seller_num
 	SET item_salesStatus = 'N'
-	WHERE s.seller_recoYn = 'M';
+	WHERE s.seller_recoYn = 'D';
 </update>
 
   	
