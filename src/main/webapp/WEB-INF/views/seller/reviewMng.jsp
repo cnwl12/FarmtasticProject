@@ -280,12 +280,13 @@ body {font-size: 1rem !important;
     	  const reviewScore = document.getElementById("reviewScoresSelect").value;
     	  const keywordType = document.getElementById("searchKeywordTypeSelect").value;
     	  const keyword = document.getElementById("searchKeywordInput").value;
-
+		
     	  const table = $("#dataTable").DataTable();
     	  
     	  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    	    const rowDate = moment(data[7], "YYYY-MM-DD");
-    	    const rowScore = (data[2] === '★★★★★') ? 5 : data[1].length;
+    		  console.log('Data:', data);  
+    	    const rowDate = moment(data[5], "YYYY-MM-DD");
+    	    const rowScore = data[2].length;
     	    const rowKeyword = keywordType === "PRODUCT_NAME" ? data[1] : data[3];
 
     	    const isDateInRange =

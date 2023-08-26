@@ -789,7 +789,8 @@ ORDER BY MONTH(os.order_day);
 	ON r.member_num = m.member_num
 	join seller s 
 	on i.seller_num = s.seller_num
-	WHERE i.seller_num = #{seller_num};
+	WHERE i.seller_num = #{seller_num}
+	order by r.review_day desc;
    </select>
    
    <delete id="deleteSellerReview" parameterType="map">
