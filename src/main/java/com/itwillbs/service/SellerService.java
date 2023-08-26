@@ -25,19 +25,15 @@ public class SellerService {
 	    private SellerDAO sellerDAO;
 	 	//매출관리에 판매자별 총매출 불러오기 위한 구문
 	    public List<Map<String, Object>> getSellers(String monthly) {
-	    	System.out.println("SellerService의 getSellers 매핑완");
 	        return sellerDAO.getSellers(monthly);
 	    }
 	    public List<Map<String, Object>> totalSales() {
-	    	System.out.println("SellerService의 totalSales 매핑완");
 	        return sellerDAO.totalSales();
 	    }
 	    public List<Map<String, Object>> selectSalesData() {
-	    	System.out.println("SellerService의 selectSalesData 매핑완");
 	        return sellerDAO.selectSalesData();
 	    }
 	    public List<Map<String, Object>> pieChart() {
-	    	System.out.println("SellerService의 pieChart 매핑완");
 	        return sellerDAO.pieChart();
 	    }
 	 
@@ -48,37 +44,31 @@ public class SellerService {
 		}
 	
 		public Map<String, Object> sellerCheck(String seller_id) {
-			System.out.println("SellerService sellerCheck()");
 			return sellerDAO.sellerCheck(seller_id);
 		}
 		
 		// 선진) 판매자의 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
-			
 			return sellerDAO.getSellerInfo(seller_num);
 		}
 		
 		// 선진) 판매자 정보 수정
 		public void updateSeller(SellerDTO sellerDTO) {
-
 			sellerDAO.updateSeller(sellerDTO);
 		}
 
 		// 선진) 해당 월의 일자별 매출 차트
 		public List<Map<String,Object>> getDailySales(String seller_num) {
-
 			return sellerDAO.getDailySales(seller_num);
 		}
 		
 		// 선진) 최근 12개월의 월별 매출 차트
 		public List<Map<String,Object>> getMonthlySales(String seller_num) {
-
 			return sellerDAO.getMonthlySales(seller_num);
 		}
 		
 		// 선진) 품목별 월 매출 차트
 		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
-
 			return sellerDAO.getMonthlyItems(seller_num);
 		}
 		
@@ -93,13 +83,11 @@ public class SellerService {
 		
 		// 선진) 매출관리 - 일자별 매출 리스트
 		public List<Map<String,Object>> dailySales(String seller_num) {
-
 			return sellerDAO.dailySales(seller_num);
 		}
 		
 		// 선진) 정산관리
 		public List<Map<String,Object>> getSettlementList(String seller_num) {
-
 			return sellerDAO.getSettlementList(seller_num);
 		}
 		
@@ -149,24 +137,27 @@ public class SellerService {
 
 		// 마켓 전체 페이지
 		public List<Map<String, Object>> getItems() {
-			
+			return sellerDAO.getItems();
+		}
+		
+		public List<Map<String, Object>> getItemsSortedByPrice() {
+			return sellerDAO.getItems();
+		}
+		public List<Map<String, Object>> getItemsSortedByName() {
 			return sellerDAO.getItems();
 		}
 		
 		public List<Map<String, Object>> getItemSeller(String seller_num) {
-			
 			return sellerDAO.getItemSeller(seller_num);
 		}
 		
 		//정산 위한 판매자별 월별 매출리스트
 		public List<Map<String, Object>> getSales() {
-			System.out.println("service:getSales()");
 			 return sellerDAO.getSales();
 		}
 		
 		//정산 확인
 		public void updateSettlementYn(String sellerNum, String orderMonth) {
-		    System.out.println("서비스 오나요");
 		    List<String> sellerNums = Arrays.asList(sellerNum.split(","));
 		    List<String> orderMonths = Arrays.asList(orderMonth.split(","));
 
@@ -175,22 +166,15 @@ public class SellerService {
 		    parameters.put("orderMonths", orderMonths);
 
 		    sellerDAO.updateSettlementYn(parameters);
-
-		    System.out.println("service sellerNum: " + sellerNums);
-		    System.out.println("service orderMonths: " + orderMonths);
 		}
 
 		//정산 위한 판매자별 일별 매출리스트
 		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
-			System.out.println("서비스");
-			System.out.println("서비스"+sellerNum);
-			System.out.println("서비스"+orderMonth);
 			return sellerDAO.daySales(sellerNum, orderMonth);
 		}
 		
 		//판매자별 연간 매출리스트
 		public List<Map<String, Object>> yearSales(String sellerNum) {
-			System.out.println("서비스"+sellerNum);
 			return sellerDAO.yearSales(sellerNum);
 		}
 		
@@ -205,29 +189,18 @@ public class SellerService {
 	
 		
 		public Map<String, Object> getItem(int item_num) {
-			System.out.println("서비스 아이템넘");
 			return sellerDAO.getItem(item_num);
 		}
 
 		public void insertSeller(SellerDTO sellerDTO) {
-         System.out.println("SellerService insertSeller() 확인!!!");
-         
-         // 날짜 저장 (테스트 dto에서는 date 지웠음)
-         // sellerDTO.setDate(new Timestamp(System.currentTimeMillis()));
-         
-         // insertSeller 메서드 호출  
          sellerDAO.insertSeller(sellerDTO);
 		}
 
 		public void itemUpdate(HashMap<String, String> itemList, List<MultipartFile> files, HttpSession session) {
-			
-			System.out.println("업데이트 서비스 오는지");
 			sellerDAO.itemUpdate(itemList);
 		}
 
 		public void itemSold(HashMap<String, String> itemList) {
-			
-			System.out.println("섭이스 오는지");
 			sellerDAO.itemSold(itemList);
 		}
 
@@ -333,5 +306,5 @@ public class SellerService {
 		    params.put("one_board_num", one_board_num);
 		    return sellerDAO.questionDetail(params);
 		}
-	    
+		
 }

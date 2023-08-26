@@ -75,17 +75,14 @@ public class AdminController {
 	        try {
 	            AdminDTO adminInfo = adminService.adminCheck(admin_id);
 	            if (adminInfo != null && adminInfo.getAdmin_pass().equals(admin_pass)) {
-	            	System.out.println("로그인성공!: "+admin_id);
 	                session.setAttribute("admin", adminInfo);
 	                session.setAttribute("admin_id", admin_id);    // 세션에 admin_id 추가
 	                return "redirect:/adminMain";
 	            } else {
 	                rttr.addFlashAttribute("msg", "로그인 실패");
-	                System.out.println("로그인실패");
 	                return "redirect:/adminLogin";
 	            }
 	        } catch (Exception e) {
-	        	System.out.println("로그인오류");
 	            rttr.addFlashAttribute("msg", "로그인 과정에서 오류가 발생하였습니다: " + e.getMessage());
 	            return "redirect:/adminLogin";
 	        }
@@ -104,7 +101,6 @@ public class AdminController {
 	 
 	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	    public String home(@RequestParam(value = "monthly", required = false) String monthly,Locale locale, Model model, HttpSession session) throws IOException {
-	        System.out.println("adminMain 매핑확인여부");
 	        
 	        if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
@@ -151,7 +147,6 @@ public class AdminController {
 
 	            model.addAttribute("sellers", resultList);
 	            model.addAttribute("monthly", monthly);
-	    	    System.out.println(monthly);
 	    	    LocalDate currentDate = LocalDate.now();
 	    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 	    	    model.addAttribute("currentMonth", currentMonth);
@@ -163,7 +158,6 @@ public class AdminController {
 	@RequestMapping(value = "/adminProfile", method = RequestMethod.GET)
 		public String adminProfile(Locale locale, Model model,HttpSession session) {
 			
-			System.out.println("adminProfile 매핑확인여부");
 			 if (session.getAttribute("admin_id") == null) {
 		            // 세션에 로그인 정보가 없는 경우
 		            model.addAttribute("error", "로그인후 이용해주세요");
@@ -181,7 +175,6 @@ public class AdminController {
 	@RequestMapping(value = "/writeCnote", method = RequestMethod.GET)
 	public String writeCnote(Locale locale, Model model,HttpSession session) {
 		
-		System.out.println("writeCnote 매핑확인여부");
 		 if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -245,7 +238,6 @@ public class AdminController {
 	    	    model.addAttribute("admin_cs_num", admin_cs_num);
 	    	    String adminId = resultMap.get("admin_id").toString();
 	    	    model.addAttribute("admin_id", resultMap.get("admin_id").toString());
-	    	    System.out.println("content 매핑확인여부");
 	    	    
 	            model.addAttribute("admin", adminInfo);
 	            model.addAttribute("admin_id", admin_id);
@@ -258,7 +250,6 @@ public class AdminController {
 //	글 수정화면
 	@RequestMapping(value = "/contentUpdate", method = RequestMethod.GET)
 	public String contentUpdate(@RequestParam("admin_cs_num") int admin_cs_num, Locale locale, Model model,HttpSession session) {
-	    System.out.println("contentUpdate 매핑확인여부");
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
             model.addAttribute("error", "로그인후 이용해주세요");
@@ -308,7 +299,6 @@ public class AdminController {
 	@RequestMapping(value = "/customerAdmin", method = RequestMethod.GET)
 	public String customerAdmin(Locale locale, Model model,HttpSession session) {
 		
-		System.out.println("customerAdmin 매핑확인여부");
 		 if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -329,7 +319,6 @@ public class AdminController {
 	
 	  @RequestMapping(value = "/memberDetail", method = RequestMethod.GET)
 	    public String memberDetail(@RequestParam("member_num") int member_num, Locale locale, Model model,HttpSession session) {
-	        System.out.println("memberDetail 매핑 확인 여부");
 	        if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -354,7 +343,6 @@ public class AdminController {
 	if (memberNums == null || memberNums.isEmpty()) {
 	redirectAttributes.addFlashAttribute("message", "체크된 회원이 없습니다.");
 	} else {
-	System.out.println("/changeMemberStatus 매핑확인여부");
 	memberService.changeMemberStatus(memberNums);
 	redirectAttributes.addFlashAttribute("message", "선택된 회원의 상태가 변경되었습니다.");
 	}
@@ -365,7 +353,6 @@ public class AdminController {
 	@RequestMapping(value = "/sellerAdmin", method = RequestMethod.GET)
 	public String sellerAdmin(Locale locale, Model model,HttpSession session) {
 			
-		System.out.println("sellerAdmin 매핑확인여부");
 		 if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -385,7 +372,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/sellerDetail", method = RequestMethod.GET)
     public String sellerDetail(@RequestParam("seller_num") String seller_num, Locale locale, Model model,HttpSession session) {
-        System.out.println("sellerDetail 매핑 확인 여부");
         if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
             model.addAttribute("error", "로그인후 이용해주세요");
@@ -473,7 +459,6 @@ public class AdminController {
 	@RequestMapping(value = "/settlement", method = RequestMethod.GET)
 	public String settlement(Locale locale, Model model,HttpSession session) {
 		
-		System.out.println("settlement 매핑확인여부");
 		 if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -496,7 +481,6 @@ public class AdminController {
 	@RequestMapping(value = "/settle_day", method = RequestMethod.GET)
 	public String settle_day(@RequestParam("seller_num") String sellerNum, @RequestParam("order_month") String orderMonth, Locale locale, Model model,HttpSession session) {
 
-	    System.out.println("settle_day 매핑확인여부");
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
             model.addAttribute("error", "로그인후 이용해주세요");
@@ -511,7 +495,6 @@ public class AdminController {
     	    model.addAttribute("sales", resultList);
     	    model.addAttribute("seller_num", sellerNum);
     	    model.addAttribute("orderMonth", orderMonth);
-    	    System.out.println("controller" + resultList);
             model.addAttribute("admin", adminInfo);
             model.addAttribute("admin_id", admin_id);
             // 뷰 이름 반환
@@ -523,7 +506,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/settle_year", method = RequestMethod.GET)
 	public String settle_year(@RequestParam("seller_num") String sellerNum,Locale locale, Model model,HttpSession session) {
-	    System.out.println("settle_year 매핑확인여부");
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
             model.addAttribute("error", "로그인후 이용해주세요");
@@ -547,7 +529,6 @@ public class AdminController {
 	// "/sales" 매핑값을 여러번 사용 할 수 없기때문에 한 곳에 몰아서 넣음
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
 	public String sales(@RequestParam(value = "monthly", required = false) String monthly, Locale locale, Model model,HttpSession session) {
-	    System.out.println("sales 매핑확인여부");
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
             model.addAttribute("error", "로그인후 이용해주세요");
@@ -583,7 +564,6 @@ public class AdminController {
 	        monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 	    }
 
-	    System.out.println("Monthly: " + monthly); // 로깅 추가
 
 	    List<Map<String, Object>> result = sellerService.getSellers(monthly);
 
@@ -591,7 +571,6 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/detailSales", method = RequestMethod.GET)
 	public String detaillSales(@RequestParam("seller_num")String seller_num,@RequestParam("pay_day") String pay_day,Locale locale, Model model,HttpSession session) {
-	    System.out.println("detailSales 매핑확인여부");
 	    
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
@@ -612,7 +591,6 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/totalSales", method = RequestMethod.GET)
 	public String totalSales(Locale locale, Model model,HttpSession session) {
-	    System.out.println("totalSales 매핑확인여부");
 	    
 	    if (session.getAttribute("admin_id") == null) {
             // 세션에 로그인 정보가 없는 경우
@@ -641,7 +619,6 @@ public class AdminController {
 	
 	@PostMapping("/updateSettlementYn")
 	public String batchSettlement(@RequestParam String sellerNum, @RequestParam String orderMonth, RedirectAttributes redirectAttributes) {
-		System.out.println("컨트롤러 오나요");
 	  sellerService.updateSettlementYn(sellerNum, orderMonth);
 	  String message = "정산 업데이트가 완료되었습니다.";
 	  redirectAttributes.addFlashAttribute("message", message);
@@ -650,7 +627,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/cnotice", method = RequestMethod.GET)
 	public String cnotice(Locale locale, Model model,HttpSession session) {
-		System.out.println("cnotice 매핑확인여부");
 		 if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
 	            model.addAttribute("error", "로그인후 이용해주세요");
@@ -676,8 +652,6 @@ public class AdminController {
 		// 첨부파일 올라갈 물리적 경로 
 		String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 		
-//		System.out.println(uploadPath);
-		
 		for (int i = 0; i < files.size(); i++) {
             MultipartFile file = files.get(i);
             if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -689,8 +663,6 @@ public class AdminController {
                 String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
                 String filePath = uploadPath + "/" + storedFileName;
-                
-                System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                 String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -778,8 +750,6 @@ public class AdminController {
                 String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
                 String filePath = uploadPath + "/" + storedFileName;
-                
-                System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                 String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;

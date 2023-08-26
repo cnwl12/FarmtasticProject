@@ -11,28 +11,17 @@ import com.itwillbs.domain.AdminDTO;
 
 @Repository
 public class AdminDAO {
-	/*map 사용할때 로그인
-	 * @Autowired private SqlSession sqlSession;
-	 * 
-	 * private static final String NAMESPACE = "adminMapper.";
-	 * 
-	 * public Map<String, Object> adminCheck(String admin_id) { return
-	 * sqlSession.selectOne(NAMESPACE + "adminCheck", admin_id); }
-	 * 
-	 */
 	
     @Autowired
     private SqlSession sqlSession;
     private static final String NAMESPACE = "adminMapper.";
 
     public AdminDTO adminCheck(String admin_id) {
-    	System.out.println("dao");
         return sqlSession.selectOne(NAMESPACE + "adminCheck", admin_id);
     }
     //관리자 정보
 	 public Map<String, Object> getAdminInfo(String admin_id) {
 			
-			System.out.println("AdminDAO getAdminInfo 매핑완");
 			return sqlSession.selectOne(NAMESPACE+"getAdminInfo", admin_id);
 	}
 	 public void updateAdmin(Map<String, Object> params) {
@@ -46,11 +35,6 @@ public class AdminDAO {
 	public List<Map<String, Object>> getCnotice() {
 		return sqlSession.selectList(NAMESPACE+"getCnotice");
 	}  
-	/*
-	public void insertNotice(Map<String, Object> params) {
-	     sqlSession.insert(NAMESPACE + "insertNotice", params);
-	}
-	 */
 //	글 작성
 	public void insertNotice(HashMap<String, String> noticeList) {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeList);

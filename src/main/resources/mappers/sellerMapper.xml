@@ -479,7 +479,7 @@ order by total_amount desc;
 	</update>
 		
     <!-- 상품전체 가져오기  -->
-    <select id="getItems" resultType="map">
+    <select id="getItems" parameterType="string" resultType="map">
        SELECT item_num
        		 ,item_name
        		 ,item_price
@@ -488,7 +488,15 @@ order by total_amount desc;
        		 ,item_left
        		 ,item_salesStatus
        FROM item
-       ORDER BY item_num desc
+        <if test="sortOption == 'price'">
+        ORDER BY item_price
+    </if>
+    <if test="sortOption == 'name'">
+        ORDER BY item_name
+    </if>
+    <if test="sortOption == 'registration'">
+        ORDER BY item_num DESC
+    </if>
     </select>
     
     <!-- 상품전체 가져오기 (본인제품)  -->

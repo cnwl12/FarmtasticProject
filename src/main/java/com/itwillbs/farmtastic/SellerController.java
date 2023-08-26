@@ -151,7 +151,6 @@ public class SellerController {
 	                        @RequestParam(value = "seller_addMain", required = false) String seller_addMain,
 	                        @RequestParam(value = "seller_addSub", required = false) String seller_addSub) throws Exception {
 		
-		System.out.println("sellerUpdatePro()");
 	    String seller_num = (String) session.getAttribute("seller_num");
 
 	   
@@ -205,7 +204,6 @@ public class SellerController {
 			@RequestParam(value = "seller_id", required = false) String seller_id,
 			@RequestParam(value = "seller_recoYn", required = false) String seller_recoYn,
 			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
-		System.out.println("SellerController withdrawPro");
 		String seller_num = (String) session.getAttribute("seller_num");
 
 		// 입력된 값들도 세션에 저장합니다.
@@ -225,7 +223,6 @@ public class SellerController {
 			sellerDTO.setSeller_id(seller_id);
 			sellerDTO.setSeller_pass(seller_pass);
 			
-			System.out.println("SellerController withdrawPro");
 			sellerService.withdrawSeller(sellerDTO);
 			sellerDTO.setSeller_recoYn(seller_recoYn);
 			sellerService.withderawSellerstopselling(sellerDTO);
@@ -236,7 +233,6 @@ public class SellerController {
 			
 		} else {
 			
-			System.out.println("SellerController withdrawPro");
 			model.addAttribute("message", "비밀번호가 틀립니다");
 			return "redirect:/sellerMain";
 		}
@@ -281,13 +277,9 @@ public class SellerController {
 	    try {
 	        if (startDate != null && !startDate.trim().isEmpty()) {
 	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-	            System.out.println("start언제냐 : " + start);
-	            System.out.println("startDate언제냐 : " + startDate);
 	        }
 	        if (endDate != null && !endDate.trim().isEmpty()) {
 	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-	            System.out.println("end언제냐 : " + end);
-	            System.out.println("endDate언제냐 : " + endDate);
 	        }
 	    } catch (ParseException e) {
 	        e.printStackTrace();
@@ -525,8 +517,6 @@ public class SellerController {
 			// 첨부파일 올라갈 물리적 경로 
 			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
-			//		System.out.println(uploadPath);
-
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile file = files.get(i);
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -538,8 +528,6 @@ public class SellerController {
 					String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
 					String filePath = uploadPath + "/" + storedFileName;
-
-					System.out.println("filePath : " + filePath);
 
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
 					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -678,7 +666,6 @@ public class SellerController {
 	@ResponseBody
 	public Map<String, Object> ch_test() throws Exception{
 		
-		System.out.println("test 들어가냐");
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		List<Map<String, Object>> list = new ArrayList();
@@ -703,12 +690,10 @@ public class SellerController {
 	public String sellerloginPro(SellerDTO sellerDTO, HttpSession session, Model model) {
 	    if (sellerDTO == null || sellerDTO.getSeller_id() == null || sellerDTO.getSeller_pass() == null) {
 	        // sellerDTO가 null이거나 id/pw 정보가 누락된 경우, 접근권한이 없다는 메시지를 반환
-	    	System.out.println("sellerloginPro()");
 	        model.addAttribute("error", "접근위반 로그인하고와라");
 	        return "redirect:/login";
 	    } else {
 	        // id와 pw 정보가 모두 제공된 경우, 로그인 절차 수행
-	    	System.out.println("sellerloginPro()");
 	        SellerDTO sellerDTO2 = sellerService.sellerCheck1(sellerDTO);
 
 	        if (sellerDTO2 != null && "Y".equals(sellerDTO2.getSeller_recoYn())) {
@@ -754,7 +739,6 @@ public class SellerController {
 	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDate,
 	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
-	    System.out.println("memberMngPro sellerController()");
 	    String seller_num = (String) session.getAttribute("seller_num");
 	    
 	    Date start = null;

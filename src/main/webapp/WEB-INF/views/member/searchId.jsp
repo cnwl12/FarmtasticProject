@@ -13,10 +13,12 @@
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
 		background-color: #f6f6f6;
+		overflow: hidden;
 	}
 	
 	.find-id-wrapper {
-		height: 40%;
+		height: 55%;
+    	padding: 2%;
 	    max-width: 460px;
 	    background-color: white;
 	    border-radius: 5px;
@@ -44,7 +46,6 @@
 	form input[type="submit"],
 	form input[type="button"] {
 		width: 30%;
-		margin-top:0px;
 		background-color: #7fad39;
 		border: none;
 		color: white;
@@ -61,14 +62,6 @@
     <!-- jQuery -->
     <script type="text/javascript"
       		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
-        <!-- iamport.payment.js -->
-    <script
-      type="text/javascript"
-      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-  
-     
 
     <!-- Google Font --> 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -94,6 +87,10 @@
 			<input type="button" id="check_verification_code" value="인증번호 확인">
 		</form>
 	</div>
+    
+    <div style="margin-top: -8%; margin-left: 33%;">
+    	<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
+    </div>
     
 <script>
 $(document).ready(function() {

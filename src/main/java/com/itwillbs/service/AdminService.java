@@ -49,17 +49,14 @@ public class AdminService {
 
     
 	public List<Map<String, Object>> getCnotice() {
-		System.out.println("서비스 Cnotice() 확인!");
         return adminDAO.getCnotice();
 	}
 	
 	public void insertNotice(HashMap<String, String> noticeList, List<MultipartFile> files,HttpSession session) {
-		System.out.println("insertBoard 확인!!!");
         adminDAO.insertNotice(noticeList); // DB저장 코드 
 	}
 
 	public Map<String, Object> getNotice(int admin_cs_num) {
-	    System.out.println("서비스 getNoticeNum() 확인!");
 	    return adminDAO.getNotice(admin_cs_num);
 	}
 

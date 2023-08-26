@@ -534,9 +534,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
-	public String farmStore(Model model, HttpSession session) {
+	public String farmStore(@RequestParam(name = "sort", defaultValue = "registration") String sortOption, Model model, HttpSession session) {
 		
-		List<Map<String, Object>> itemList = sellerService.getItems();
+		List<Map<String, Object>> itemList = sellerService.getItems(); // 기존 조건(등록일순)
+		
+		switch (sortOption) {
+			case "price":   itemList = sellerService.getItemsSortedByPrice(); break;
+			case "name":	itemList = sellerService.getItemsSortedByName();  break;
+		}
+		
 		model.addAttribute("itemList", itemList);
 		    
 		List<Map<String, Object>> typeList = adminService.getTypes();
@@ -646,15 +652,12 @@ public class FarmController { // 소비자 (컨트롤러)
 		    
 		    // orders 테이블에 DB인서트 작업 
 		    String order_num = memberService.insertOrders(payInfo);
-		    System.out.println(payInfo + " member_num : " + member_num);
 		    
-		    System.out.println("업데이트 들어갈 예정 :" + payInfo);
 		 //   payInfo.put("item_num", item_num);
 		    // 아이템 재고 줄이기
 			//memberService.updateItemLeft(payInfo);
 		    session.setAttribute("order_num", order_num);
 		    
-		    System.out.println("세션저장후 " + order_num);
 		    // paySuccess.jsp 페이지로 리다이렉트
 		    return "redirect:/insertOrderDetail"; // 주문상세테이블에 인서트하고, 
 		}
@@ -665,7 +668,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/insertOrderDetail", method = RequestMethod.GET)
 	public String insertOrderDetail(@RequestParam HashMap<String, Object> orderDetail, HttpSession session) {
 		
-		System.out.println(orderDetail);
 		int member_num = (int)session.getAttribute("member_num");
 		String order_num = (String) session.getAttribute("order_num");
 		orderDetail.put("member_num", member_num);
@@ -710,7 +712,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		int member_num = (int)session.getAttribute("member_num");
 		cart.put("member_num", member_num);
 
-		System.out.println("deleteCart 컨트롤러 오는지");
 		memberService.deleteCart(cart);
 
 		return "redirect:/shoppingCart";
@@ -721,9 +722,7 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		int member_num = (int)session.getAttribute("member_num");
 		session.setAttribute("member_num", member_num);
-		System.out.println(member_num);
 
-		System.out.println("clearCart 컨트롤러 오는지");
 		memberService.clearCart(member_num);
 
 		return "redirect:/shoppingCart";
@@ -757,8 +756,6 @@ public class FarmController { // 소비자 (컨트롤러)
                 String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
                 String filePath = uploadPath + "/" + storedFileName;
-                
-                System.out.println("filePath : " + filePath);
                 
                 // 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
                 String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -798,7 +795,6 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	@RequestMapping(value = "/loginPro", method = RequestMethod.POST)
 	public String loginPro(MemberDTO memberDTO, HttpSession session, HttpServletResponse response) {
-		System.out.println("MemberController loginPro()");
 		
 		MemberDTO memberDTO2 = memberService.userCheck0(memberDTO);
 
@@ -915,11 +911,9 @@ public class FarmController { // 소비자 (컨트롤러)
 
 				            String filePath = uploadPath + "/" + storedFileName;
 
-				            System.out.println("filePath : " + filePath);
 
 				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
 
-				            System.out.println("Received file: " + file.getOriginalFilename());
 
 				            // 서버에 파일 저장
 				            File dest = new File(filePath);
@@ -1059,18 +1053,12 @@ public class FarmController { // 소비자 (컨트롤러)
 
 				            String filePath = uploadPath + "/" + storedFileName;
 
-				            System.out.println("filePath : " + filePath);
-
 				            String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
-
-				            System.out.println("Received file: " + file.getOriginalFilename());
 
 				            File dest = new File(filePath);
 				            try {
 				              file.transferTo(dest);
-				              System.out.println("파일이 정상적으로 저장되었습니다: " + dest.getAbsolutePath()); // 로그 메시지 추가
 				            } catch (IOException e) {
-				              System.out.println("파일 저장 중 오류 발생: " + e.getMessage()); // 에러 발생 시 로그 메시지 추가
 				              e.printStackTrace();
 				            }
 
@@ -1162,7 +1150,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    try {
 	        // 게시물 삭제 로직 수행
 	        memberService.deleteBoard(boardNum);
-	        System.out.println(boardNum);
 
 	        return ResponseEntity.ok().build(); // HTTP 200 OK 응답 반환
 	    } catch (Exception e) {
@@ -1179,7 +1166,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		Map<String, String> response = new HashMap<>();
 
 		WishlistDTO existingWishlistDTO = memberService.selectWishlist(wishlistDTO);
-		System.out.println(existingWishlistDTO);
 		if (existingWishlistDTO == null) {
 			memberService.insertWishlist(wishlistDTO);
 			response.put("message", "찜 목록에 상품이 추가되었습니다.");
@@ -1218,7 +1204,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@GetMapping("/favorites")
 	public ModelAndView showFavorites(WishlistDTO wishlistDTO, @SessionAttribute("member_num") Integer member_num) {
 	    ModelAndView modelAndView = new ModelAndView("favorites");
-	    System.out.println("찜을불러오자");
 	    List<WishlistDTO> zzimlist = memberService.getzzimlist(member_num);
 	    modelAndView.addObject("zzimlist", zzimlist);
 	    return modelAndView;
@@ -1233,7 +1218,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    	System.out.println("일치");
 	    	result.addAll(searchId); // 검색 결과를 List<HashMap>에 추가
 	    }else {
-	    	System.out.println("일치하지않음");
 	        HashMap<String, String> error = new HashMap<>();
 	        error.put("error", "Inconsistency verificationCode");
 	        result.add(error); // 에러 메시지를 List<HashMap>에 추가
@@ -1247,12 +1231,10 @@ public class FarmController { // 소비자 (컨트롤러)
 	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
 	    
 	    if(code.equals(session.getAttribute("verificationCode"))) {
-	        System.out.println("일치");
 	        memberService.updatePwd(email, id);
 		    List<HashMap> searchPwd = memberService.searchPwd(email, id);
 	        result.addAll(searchPwd); // 검색 결과를 List<HashMap>에 추가
 	    } else {
-	        System.out.println("일치하지않음");
 	        HashMap<String, String> error = new HashMap<>();
 	        error.put("error", "Inconsistency verificationCode");
 	        result.add(error); // 에러 메시지를 List<HashMap>에 추가
@@ -1264,7 +1246,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	@RequestMapping(value = "/withdrawPro", method = RequestMethod.GET)
 	public String withdrawPro(Model model, HttpSession session,HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
 			@RequestParam(value = "member_pass", required = false) String member_pass) throws Exception {
-		System.out.println("FarmController withdrawPro");
 		Integer member_num = (Integer) session.getAttribute("member_num");
 
 		// 입력된 값들도 세션에 저장합니다.

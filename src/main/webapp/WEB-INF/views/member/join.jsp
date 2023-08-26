@@ -64,16 +64,13 @@ input#post {
 							<legend>팜타스틱 회원가입 정보입력</legend>
 							<p class="">회원정보를 입력해주세요. 모두 입력하셔야 가입이 가능합니다.</p>
 							
-				<!-- 	구현하는 사람이 NAME, ID 맞추기  -->
- 							
 							<ul class="form_list">
 							
 								<li>
 									<input type="hidden" name="join_date" id="join_date">
-									<input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
+									ID : <input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
 									<div id = "idcheckdiv"></div>
 									<div id="invalid_id" class="invalid-feedback">
-                					아이디를 입력해주세요.
               						</div>
               						<div id="invalid_id2" class="invalid-feedback">
               						최소 2자 이상 최대 10자 / 영문 대소문자, 숫자만 입력하세요. 
@@ -81,9 +78,8 @@ input#post {
 								</li>   
 								
 								<li>
-									<input type="password" placeholder="비밀번호를 입력해주세요" name="member_pass" id="member_pass" maxlength="15">
+									<input type="password" placeholder="비밀번호" name="member_pass" id="member_pass" maxlength="15">
 									<div id= "invalid_pass" class="invalid-feedback">
-                					비밀번호를 입력해주세요.
               						</div>
               						<div id="invalid_pass2" class="invalid-feedback">
               						최소 2자 이상 최대 15자 / 영문 대소문자, 숫자만 입력하세요. 
@@ -94,7 +90,7 @@ input#post {
 								</li>  
 								
 								<li>  
-									<input type="password"  placeholder="위의 비밀번호를 다시 입력해주세요" name="member_pass2" id="member_pass2" maxlength="15">
+									<input type="password"  placeholder="비밀번호 재입력" name="member_pass2" id="member_pass2" maxlength="15">
 									<div id= "invalid_pass4" class="invalid-feedback">
                 					비밀번호가 일치하지 않습니다.
               						</div>
@@ -103,7 +99,6 @@ input#post {
 								<li>   
 									<input type="text"  placeholder="이름" name="member_name" id="member_name" maxlength="10">
 									<div id= "invalid_name" class="invalid-feedback">
-                					이름을 입력해주세요.
               						</div>
               						<div id= "invalid_name2" class="invalid-feedback">
                 					최소 2글자 이상, 한글과 영어만 입력하세요.
@@ -111,9 +106,8 @@ input#post {
 								</li>
 							  	
 							  	<li>
-									<input type="text"  placeholder="연락처 (-)를 포함하여 작성해주세요" name="member_phone" id="member_phone" maxlength="13">
+									<input type="text"  placeholder="연락처 작성" name="member_phone" id="member_phone" maxlength="11" oninput="removeHyphen(event)">
 									<div id= "invalid_phone" class="invalid-feedback">
-                					연락처를 입력해주세요.
               						</div>
               						<div id= "invalid_phone2" class="invalid-feedback">
                 					연락처를 올바르게 입력해주세요.
@@ -123,7 +117,6 @@ input#post {
 								<li>
 									<input type="email" placeholder="이메일" name="member_email" id="member_email" >
 									<div id= "invalid_email" class="invalid-feedback">
-                					이메일을 입력해주세요.
               						</div>
               						<div id= "invalid_email2" class="invalid-feedback">
                 					이메일을 올바른 형식으로 입력해주세요.
@@ -132,7 +125,7 @@ input#post {
 							
 								<li>
 									<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
-									<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
+									<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="[우편번호 찾기]" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
 									<div id="invalid_post" class="invalid-feedback">
               						주소를 입력해주세요.
            							</div>
@@ -355,7 +348,14 @@ input#post {
         return true;
       }
     }
-
+	
+    function removeHyphen(event) {
+    	  var input = event.target;
+    	  var phoneNumber = input.value;
+    	  var cleanedPhoneNumber = phoneNumber.replace(/-/g, '');
+    	  input.value = cleanedPhoneNumber;
+    	}
+    
     function validateEmail() {
       var mail = $("#member_email");
       if (mail.val() == "" || !regMail.test(mail.val())) {
