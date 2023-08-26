@@ -77,7 +77,7 @@
     								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
     								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
     								<c:forEach items="${sellers}" var="seller" varStatus="status">
-        							<c:if test="${seller.seller_recoYn != 'Y'}">
+        							<c:if test="${empty seller.seller_recoYn}">
             						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
             						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
             						<tr data-status="unapproved">
