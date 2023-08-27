@@ -11,7 +11,7 @@ $(document).ready(function() {
                         '<td><input type="text" name="type_name[]" placeholder="카테고리 이름입력"></td>' +
                      '</tr>';
 	            
-	            $("#dataTable tbody").append(newRow);
+	            $("#dataTable_ROW tbody").append(newRow);
 	        },
 	        error: function() {
 	            alert("카테고리 항목 추가 불러오기 실패");

@@ -140,11 +140,17 @@ public class SellerService {
 			return sellerDAO.getItems();
 		}
 		
-		public List<Map<String, Object>> getItemsSortedByPrice() {
-			return sellerDAO.getItems();
+		public List<Map<String, Object>> getItemsSortedByRegistration(Map<String, String> sortOption) {
+			return sellerDAO.getItemsSortedByRegistration(sortOption);
 		}
-		public List<Map<String, Object>> getItemsSortedByName() {
-			return sellerDAO.getItems();
+		
+		public List<Map<String, Object>> getItemsSortedByPrice(Map<String, String> sortOption) {
+		    System.out.println("items");
+		    return sellerDAO.getItemsSortedByPrice(sortOption);
+		}
+		
+		public List<Map<String, Object>> getItemsSortedByName(Map<String, String> sortOption) {
+		    return sellerDAO.getItemsSortedByName(sortOption);
 		}
 		
 		public List<Map<String, Object>> getItemSeller(String seller_num) {
@@ -207,7 +213,6 @@ public class SellerService {
 		
 		/* 판매자 로그인 sungha*/
 		public SellerDTO sellerCheck1(SellerDTO sellerDTO) {
-		    System.out.println("SellerService sellerCheck1()");
 		    
 		    return sellerDAO.sellerCheck1(sellerDTO);
 	    }
@@ -230,7 +235,6 @@ public class SellerService {
 		}
 
 		public List<Map<String, Object>> MemberMngjoin(String seller_num, Date startDate, Date endDate) {
-		    System.out.println("SellerService의 MemberMngjoin()");
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("startDate", startDate);
@@ -240,7 +244,6 @@ public class SellerService {
 
 		public void updateStatus(HashMap<String, String> status) {
 			
-			System.out.println("updateStatus서비스");
 			sellerDAO.updateStatus(status);
 		}	
 		
@@ -306,5 +309,4 @@ public class SellerService {
 		    params.put("one_board_num", one_board_num);
 		    return sellerDAO.questionDetail(params);
 		}
-		
 }

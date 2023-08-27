@@ -130,15 +130,20 @@ public class SellerDAO {
 		}
 
 		public List<Map<String, Object>> getItems() {
-			return sqlSession.selectList(namespace + ".getItems");
+			return sqlSession.selectList(namespace + ".getItems"); //기존 
 		}
 		
-		public List<Map<String, Object>> getItemsSortedByPrice() {
-		    return sqlSession.selectList(namespace + ".getItems", "price");
+		public List<Map<String, Object>> getItemsSortedByRegistration(Map<String, String> sortOption) {
+			return sqlSession.selectList(namespace + ".getItems", sortOption);
+		}
+		
+		public List<Map<String, Object>> getItemsSortedByPrice(Map<String, String> sortOption) {
+			System.out.println("price 요거");
+		    return sqlSession.selectList(namespace + ".getItems", sortOption);
 		}
 
-		public List<Map<String, Object>> getItemsSortedByName() {
-		    return sqlSession.selectList(namespace + ".getItems", "name");
+		public List<Map<String, Object>> getItemsSortedByName(Map<String, String> sortOption) {
+		    return sqlSession.selectList(namespace + ".getItems", sortOption);
 		}
 		
 		public List<Map<String, Object>> getItemSeller(String seller_num) {

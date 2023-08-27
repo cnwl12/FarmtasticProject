@@ -479,25 +479,33 @@ order by total_amount desc;
 	</update>
 		
     <!-- 상품전체 가져오기  -->
-    <select id="getItems" parameterType="string" resultType="map">
-       SELECT item_num
-       		 ,item_name
-       		 ,item_price
-       		 ,item_mainImg
-       		 ,item_detail
-       		 ,item_left
-       		 ,item_salesStatus
-       FROM item
-        <if test="sortOption == 'price'">
-        ORDER BY item_price
-    </if>
-    <if test="sortOption == 'name'">
-        ORDER BY item_name
-    </if>
-    <if test="sortOption == 'registration'">
-        ORDER BY item_num DESC
-    </if>
-    </select>
+   <select id="getItems" resultType="map">
+	    SELECT item_num
+	         ,item_name
+	         ,item_price
+	         ,item_mainImg
+	         ,item_detail
+	         ,item_left
+	         ,item_salesStatus
+	    FROM item
+	    <choose>
+	        <when test="sortOption != null">
+	            <if test="sortOption.equals('price')">
+	                ORDER BY CAST(item_price AS DECIMAL)
+	            </if>
+	            <if test="sortOption.equals('name')">
+	                ORDER BY item_name
+	            </if>
+	            <if test="sortOption.equals('registration')">
+	                ORDER BY item_num DESC
+	            </if>
+	        </when>
+	        <otherwise>
+	            ORDER BY item_num DESC
+	        </otherwise>
+	    </choose>
+	</select>
+
     
     <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">

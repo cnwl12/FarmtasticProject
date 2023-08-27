@@ -920,8 +920,10 @@ public class AdminController {
 	        for (int i = 0; i < sellerTypes.length; i++) {
 	            String sellerType = sellerTypes[i];
 	            String typeName = typeNames[i];
-
-	            adminService.insertCate(sellerType, typeName);
+	            
+	            if (!sellerType.isEmpty() && !typeName.isEmpty()) {
+	                adminService.insertCate(sellerType, typeName);
+	            }
 	        }
 	    }
 

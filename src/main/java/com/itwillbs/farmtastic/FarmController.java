@@ -534,14 +534,15 @@ public class FarmController { // 소비자 (컨트롤러)
 
 	// 팜팜마켓에 등록된 아이템 전부 가지고 올 것임
 	@RequestMapping(value = "/farmStore", method = RequestMethod.GET)
-	public String farmStore(@RequestParam(name = "sort", defaultValue = "registration") String sortOption, Model model, HttpSession session) {
+	public String farmStore(Model model, HttpSession session) {
 		
 		List<Map<String, Object>> itemList = sellerService.getItems(); // 기존 조건(등록일순)
 		
-		switch (sortOption) {
-			case "price":   itemList = sellerService.getItemsSortedByPrice(); break;
-			case "name":	itemList = sellerService.getItemsSortedByName();  break;
-		}
+	//	switch (sortOption) {
+	//		case "price":   itemList = sellerService.getItemsSortedByPrice(sortOption); System.out.println("fs- price"); break;
+			
+	//		case "name":	itemList = sellerService.getItemsSortedByName(sortOption); System.out.println("fs- name"); break;
+	//	}
 		
 		model.addAttribute("itemList", itemList);
 		    
@@ -549,6 +550,26 @@ public class FarmController { // 소비자 (컨트롤러)
 		model.addAttribute("typeList", typeList);
 
 		return "/member/farmStore";
+	}
+	
+	// 상품 정렬 추가 
+	@RequestMapping(value = "/loadItems", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map<String, Object>> loadItems(@RequestParam(name = "sort", defaultValue = "registration") String sort, HttpSession session) {
+	  List<Map<String, Object>> itemList;
+	  	
+	  	System.out.println(sort);
+	  	
+	  	Map<String, String> sortOption = new HashMap<String, String>();
+	  	sortOption.put("sortOption", sort);
+	  	
+	    switch (sortOption.get("sortOption")) {
+	        case "price":   itemList = sellerService.getItemsSortedByPrice(sortOption); break;
+	        case "name":    itemList = sellerService.getItemsSortedByName(sortOption); break;
+	        default:        itemList = sellerService.getItemsSortedByRegistration(sortOption); break;
+	    }
+	    
+	    return itemList;
 	}
 
 	// 상품 개별 페이지로 이동 + 막내 리뷰기능 용도 추가함
@@ -1215,7 +1236,6 @@ public class FarmController { // 소비자 (컨트롤러)
 	    List<HashMap> result = new ArrayList<>(); // 반환값을 담을 List<HashMap> 생성
 	    List<HashMap> searchId = memberService.searchId(email);
 	    if(code.equals(session.getAttribute("verificationCode"))) {
-	    	System.out.println("일치");
 	    	result.addAll(searchId); // 검색 결과를 List<HashMap>에 추가
 	    }else {
 	        HashMap<String, String> error = new HashMap<>();
