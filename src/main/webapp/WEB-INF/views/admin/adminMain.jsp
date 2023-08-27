@@ -61,10 +61,10 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 매출액 (월별)</div>
                                                 <input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee} 원</div>
                                         </div>
                                         <div class="col-auto">
-                                           <a href="sales"> <i class="fas fa-calendar fa-2x text-gray-300"></i></a>
+                                           <a href="sales"> <i class="fas fa-dollar-sign fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                         <div class="col mr-2">
     										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
         										매출액 (연간)</div>
-    										<div class="h5 mb-0 font-weight-bold text-gray-800">${totalSales.total_fee}</div>
+    										<div class="h5 mb-0 font-weight-bold text-gray-800">${totalSales.total_fee} 원</div>
 										  </div>
                                         <div class="col-auto">
                                            <a href="totalSales"> <i class="fas fa-dollar-sign fa-2x text-gray-300"></i></a>
@@ -99,12 +99,12 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${sellers[0].count_null}</div>
-</div>
+   														<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${sellers[0].count_null} 곳</div>
+												</div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                           <a href="totalSales"> <i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -116,11 +116,13 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                오늘 주문 건수</div>
+                                                  <input type="hidden" id="hidden_date" value="${currentDay}" />
+                                                   
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${today[0].count} 건</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +239,7 @@
     							 var myPieChart = new Chart(ctx, {
         						 	type: 'doughnut',
         							data: {
-            						labels: top5Data.map(function(item) { return item.seller_type; }),
+            						labels: top5Data.map(function(item) {  return item.seller_type + ": " + item.type_name; }),
             						datasets: [{
                 						data: top5Data.map(function(item) { return item.total_amount; }),
                 						backgroundColor: [

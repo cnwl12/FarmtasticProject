@@ -103,15 +103,25 @@ FROM (
 
 </select>
 
+ <select id="orderCount" resultType="map">
+select 
+distinct(SELECT COUNT(*) FROM orders WHERE SUBSTRING(order_num, 1, 8) =  #{today}) as count
+from orders;
+</select>
+
  <select id="pieChart" resultType="map">
-     
 SELECT 
 	   i.seller_type, 
+       ct.type_name,
 	   SUM(od.item_cnt * i.item_price) AS total_amount
 FROM order_detail od
 LEFT JOIN item i
 ON od.item_num = i.item_num
-GROUP BY i.seller_type
+LEFT JOIN category_type ct
+ON i.seller_type=ct.seller_type
+LEFT JOIN orders o
+ON od.order_num = o.order_num
+GROUP BY i.seller_type,ct.type_name
 order by total_amount desc;
 
 </select>

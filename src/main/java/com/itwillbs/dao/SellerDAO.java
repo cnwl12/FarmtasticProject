@@ -26,6 +26,9 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers(String monthly) {
 	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
+	    public List<Map<String, Object>> orderCount(String today) {
+	        return sqlSession.selectList(namespace + ".orderCount",today);
+	    }
 	    
 	    public List<Map<String, Object>> totalSales() {
 			// TODO Auto-generated method stub

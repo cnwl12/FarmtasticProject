@@ -27,6 +27,9 @@ public class SellerService {
 	    public List<Map<String, Object>> getSellers(String monthly) {
 	        return sellerDAO.getSellers(monthly);
 	    }
+	    public List<Map<String, Object>> orderCount(String today) {
+	        return sellerDAO.orderCount(today);
+	    }
 	    public List<Map<String, Object>> totalSales() {
 	        return sellerDAO.totalSales();
 	    }
