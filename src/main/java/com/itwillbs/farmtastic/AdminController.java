@@ -100,7 +100,7 @@ public class AdminController {
 	 } 
 	 
 	   @RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	    public String home(@RequestParam(value = "monthly", required = false) String monthly,Locale locale, Model model, HttpSession session) throws IOException {
+	    public String home(@RequestParam(value = "monthly", required = false) String monthly,@RequestParam(value = "today", required = false) String today,Locale locale, Model model, HttpSession session) throws IOException {
 	        
 	        if (session.getAttribute("admin_id") == null) {
 	            // 세션에 로그인 정보가 없는 경우
@@ -115,12 +115,19 @@ public class AdminController {
 
 	            if (monthly == null || monthly.isEmpty()) {
 	                LocalDate currentDate = LocalDate.now();
+	                today = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 	                monthly = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 	            }
+	            
 	            List<Map<String, Object>> resultList = sellerService.getSeller();
 	            List<Map<String, Object>> result = sellerService.getSellers(monthly);
 	            List<Map<String, Object>> sellerSalesList = sellerService.totalSales();
-	            
+	            List<Map<String, Object>> todayOrder = sellerService.orderCount(today);
+	            if (todayOrder == null ||todayOrder.isEmpty()) {
+	                Map<String,Object> defaultMap = new HashMap<>();
+	                defaultMap.put("count", 0);
+	                todayOrder.add(defaultMap);
+	            }
 	            Map<String, Object> sales = result.isEmpty() ? new HashMap<>() : result.get(0);
 	            Map<String, Object> totalSales = sellerSalesList.isEmpty() ? new HashMap<>() : sellerSalesList.get(0);
 	            List<Map<String, Object>> pieData = sellerService.pieChart();
@@ -147,10 +154,10 @@ public class AdminController {
 
 	            model.addAttribute("sellers", resultList);
 	            model.addAttribute("monthly", monthly);
+	            model.addAttribute("today", todayOrder);
 	    	    LocalDate currentDate = LocalDate.now();
 	    	    String currentMonth = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 	    	    model.addAttribute("currentMonth", currentMonth);
-	            
 	            
 	            return "/admin/adminMain";
 	        }

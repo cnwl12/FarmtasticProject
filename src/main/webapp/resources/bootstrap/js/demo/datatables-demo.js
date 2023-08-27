@@ -11,5 +11,17 @@ $(document).ready(function() {
       [0, "asc"]
     ]
   });
-});
 
+
+$('#dataTable3').DataTable({
+    "order": [
+      [0, "asc"]
+    ]
+  });
+  
+  $('#dataTable4').DataTable({
+    "order": [
+      [0, "asc"]
+    ]
+  });
+});

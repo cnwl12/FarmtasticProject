@@ -103,13 +103,25 @@ FROM (
 
 </select>
 
+ <select id="orderCount" resultType="map">
+select 
+distinct(SELECT COUNT(*) FROM orders WHERE SUBSTRING(order_num, 1, 8) =  #{today}) as count
+from orders;
+</select>
+
  <select id="pieChart" resultType="map">
-     
-SELECT i.seller_type, SUM(od.item_cnt * i.item_price) AS total_amount
+SELECT 
+	   i.seller_type, 
+       ct.type_name,
+	   SUM(od.item_cnt * i.item_price) AS total_amount
 FROM order_detail od
 LEFT JOIN item i
 ON od.item_num = i.item_num
-GROUP BY i.seller_type
+LEFT JOIN category_type ct
+ON i.seller_type=ct.seller_type
+LEFT JOIN orders o
+ON od.order_num = o.order_num
+GROUP BY i.seller_type,ct.type_name
 order by total_amount desc;
 
 </select>
@@ -118,15 +130,19 @@ order by total_amount desc;
 
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
-	select seller_licenseNum
-		 	, seller_name
-		 	, seller_storeName
-		 	, seller_joinDay
-		 	, seller_recoYn
-		 	, seller_num
-		 	, seller_file
-	from seller
-	order by seller_joinDay desc; 
+SELECT 
+    seller_licenseNum,
+    seller_name,
+    seller_storeName,
+    seller_joinDay,
+    seller_recoYn,
+    seller_num,
+    seller_file,
+    (SELECT COUNT(*) FROM seller WHERE seller_recoYn IS NULL) as count_null
+FROM 
+    seller
+ORDER BY 
+   seller_joinDay DESC;
 	</select>
 	
 	<!-- 판매자 체크 -->
