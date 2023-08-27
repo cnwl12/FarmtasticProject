@@ -107,7 +107,7 @@ input#file-upload-button {
 
 .review-img {
   width: 130px;
-  height : 130px;
+  height : auto;
 }
 
 .review-img img {
