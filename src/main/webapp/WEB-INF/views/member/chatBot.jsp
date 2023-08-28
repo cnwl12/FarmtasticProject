@@ -176,14 +176,24 @@ body {
 	                                        .text(detailChatBotData.detailChatbotDetailed_question)
 	                                        .attr('data-answer', detailChatBotData.detailChatbotDetailed_answer)
 	                                        .click(function() {
-	                                            // 사용자의 상세질문 추가
-	                                            const userDetailQuestionDiv = $('<div>').addClass('message user-message').text(detailChatBotData.detailChatbotDetailed_question);
-	                                            chatContainer.append(userDetailQuestionDiv);
+	                                        	// 사용자의 상세질문 추가
+	                                        	const userDetailQuestionDiv = $('<div>').addClass('message user-message').text(detailChatBotData.detailChatbotDetailed_question);
+	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
+	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
+	                                        	    const submitButton = $('<button>').text('제출하기').click(function() {
+	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
+	                                        	        var query = $("#queryText").val();
+	                                        	        console.log(query);
+	                                        	    });
+	                                        	    
+	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	} else {
+	                                        	    chatContainer.append(userDetailQuestionDiv);
 
-	                                            // 챗봇의 답변 추가
-	                                            const botAnswerDiv = $('<div>').addClass('message bot-message').text($(this).attr('data-answer'));
-	                                            chatContainer.append(botAnswerDiv);
-
+	                                        	    // 챗봇의 답변 추가
+	                                        	    const botAnswerDiv = $('<div>').addClass('message bot-message').text($(this).attr('data-answer'));
+	                                        	    chatContainer.append(botAnswerDiv);
+	                                        	}
 	                                            setTimeout(function() {
 	                                                var chatContainerElement = document.getElementById('chat-container');
 	                                                console.log("Scroll Height: ", chatContainerElement.scrollHeight);  // 로그 추가
