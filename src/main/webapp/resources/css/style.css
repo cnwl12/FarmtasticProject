@@ -1715,7 +1715,7 @@ farm store 재고 이미지
 }
 
 .product__details__pic__item img {
-	min-width: 100%;
+	min-width: 500px;
 }
 
 .product__details__pic__slider img {

@@ -47,7 +47,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">업체관리</h1>
+                    <h1 class="m-0 font-weight-bold text-primary">업체관리</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="sellerAdmin">
                       <div>
@@ -77,7 +77,7 @@
     								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
     								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
     								<c:forEach items="${sellers}" var="seller" varStatus="status">
-        							<c:if test="${seller.seller_recoYn != 'Y'}">
+        							<c:if test="${empty seller.seller_recoYn}">
             						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
             						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
             						<tr data-status="unapproved">
@@ -135,6 +135,92 @@
                             </div>
                         </div>
                        </form>
+                       
+                       
+                       
+                       
+                       <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">승인거절된 업체 목록</h6>
+                        </div>
+                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus3">
+                        <input type="hidden" id="actionType3" name="actionType" /> 
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="reco-check-all"/></th>
+                                            <th>코드</th>
+                                            <th>업체명</th>
+                                            <th>대표자</th>
+                                            <th>사업자 등록번호</th>
+                                            <th>상태</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${sellers}" var="seller">
+   								 		<c:if test="${seller.seller_recoYn == 'N'}">
+        								<tr  data-status="approved">
+            							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
+            							<td>${seller.seller_num}</td>
+            							<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
+            							<td>${seller.seller_name}</td>
+            							<td>${seller.seller_licenseNum}</td>
+            							<td>${seller.seller_recoYn}</td>
+            							
+        								</tr>
+    									</c:if>
+										</c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                       </form>
+                       
+                       
+                        <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">탈퇴한 업체 목록</h6>
+                        </div>
+                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus4">
+                        <input type="hidden" id="actionType4" name="actionType" /> 
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="reco-check-all"/></th>
+                                            <th>코드</th>
+                                            <th>업체명</th>
+                                            <th>대표자</th>
+                                            <th>사업자 등록번호</th>
+                                            <th>상태</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${sellers}" var="seller">
+   								 		<c:if test="${seller.seller_recoYn == 'D'}">
+        								<tr  data-status="approved">
+            							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
+            							<td>${seller.seller_num}</td>
+            							<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
+            							<td>${seller.seller_name}</td>
+            							<td>${seller.seller_licenseNum}</td>
+            							<td>${seller.seller_recoYn}</td>
+            							
+        								</tr>
+    									</c:if>
+										</c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                       </form>
+                       
+                       
+                       
+                       
                        </div>
                       </div>   
                        
@@ -200,7 +286,16 @@
         document.getElementById('actionType2').value = 'reject';
         document.getElementById('changeSellerStatus2').submit();
     });
+    
+    document.getElementById('rejectSeller').addEventListener('click', function () {
+        document.getElementById('actionType3').value = 'reject';
+        document.getElementById('changeSellerStatus3').submit();
+    });
 
+    document.getElementById('rejectSeller').addEventListener('click', function () {
+        document.getElementById('actionType4').value = 'reject';
+        document.getElementById('changeSellerStatus4').submit();
+    });
     // Check All checkboxes
     function toggleRejectCheckAll() {
   const rejectCheckAll = sellerAdmin.querySelectorAll(".reject-check-all");

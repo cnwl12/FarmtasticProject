@@ -807,7 +807,6 @@ public class SellerController {
         
     }
 	
-	
 	// 팝업을 위한 문의 디테일
 	@RequestMapping(value = "/questionDetail", method = RequestMethod.GET)
 	public String questionDetail (@RequestParam("one_board_num") int one_board_num, Locale locale, Model model,HttpSession session) {

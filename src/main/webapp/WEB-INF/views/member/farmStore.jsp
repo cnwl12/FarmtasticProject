@@ -24,7 +24,18 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+	
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+   	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/itemSorted.js"></script> 
 
+
+	
+	<script>
+    	var memberNum = "${sessionScope.member_num}";
+	</script>
+	
 </head>
 
 <body>
@@ -70,26 +81,25 @@
                             <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
                                     <span>Sort By</span>
-                                    <select style="display: none;">
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
                                     <div class="nice-select" tabindex="0">
                                     	<span class="current">등록일순</span>
                                     	<ul class="list">
-                                    		<li data-value="0" class="option selected">등록일순</li>
-                                    		<li data-value="0" class="option">가격순</li>
+                                    		 <li data-value="registration" class="option selected">등록일순</li>
+									         <li data-value="price" class="option">가격순</li>
+									         <li data-value="name" class="option">이름순</li>
                                     	</ul>
                                     </div>
                              </div>
                             </div>
-                            <div class="col-lg-4 col-md-4">
-                            </div>
+                            <!-- <div class="col-lg-4 col-md-4">
+                            </div> -->
                         </div>
                     </div>
                     
                     <!-- 여기부터 ul 반복 -->
-                    <div class="row">  
+                    
+                   <div class="ajaxSuccess">
+                   <div class="row">  
 	              <c:forEach var="item" items="${itemList}">
 				    <div class="col-lg-4 col-md-6 col-sm-6">
 				        <div class="product__item">
@@ -134,8 +144,9 @@
                             </div> 
                         </div>
                         </c:forEach>
-                    </div>
-                </div>
+                    </div>  
+                    </div>  
+              </div>
             </div> 
         </div>
     </section>
@@ -146,17 +157,14 @@
 
 <!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 main에선 반대 -->
     <!-- Js Plugins -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
-   	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
+  	<script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
+	    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 </body>
 
 </html>

@@ -107,7 +107,7 @@ input#file-upload-button {
 
 .review-img {
   width: 130px;
-  height : 130px;
+  height : auto;
 }
 
 .review-img img {
@@ -147,8 +147,8 @@ input#file-upload-button {
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large" src="${item.item_mainImg}" alt="">
-                        </div>
+                            <img class="product__details__pic__item--large" src="${item.item_mainImg}" alt="" style="height: 400px;">
+                        </div> 
                         			 <c:choose>
 				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
 				                            <div class="overlay sold-out">판매 종료</div>
