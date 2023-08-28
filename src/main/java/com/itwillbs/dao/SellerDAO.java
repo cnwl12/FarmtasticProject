@@ -53,7 +53,7 @@ public class SellerDAO {
 		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
 
-			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
+			return sqlSession.selectOne(namespace + ".getSellerInfo", seller_num);
 		}
 		
 		// 선진) 판매자 정보 수정
@@ -72,6 +72,18 @@ public class SellerDAO {
 		public List<Map<String,Object>> getMonthlySales(String seller_num) {
 
 			return sqlSession.selectList(namespace + ".getMonthlySales", seller_num);
+		}
+		
+		// 선진) 품목별 월 매출 차트
+		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
+
+			return sqlSession.selectList(namespace + ".getMonthlyItems", seller_num);
+		}
+		
+		// 선진) 당일 주문건수
+		public int getTodayOrders(String seller_num) {
+			
+			return sqlSession.selectOne(namespace + ".getTodayOrders", seller_num);
 		}
 		
 		// 선진) 매출관리 - 검색바
@@ -296,12 +308,15 @@ public class SellerDAO {
 			System.out.println("SellerDAO getSellerEmail()");
 			return sqlSession.selectOne(namespace + ".getSellerEmail", seller_email);
 		}
-
+		
+		// 선진) 판매자 메인 - 리뷰관리 팝업
 		public SellerDTO reviewDetail(Map<String,Object> params) {
 		     return sqlSession.selectOne(namespace + ".reviewDetail", params);
 		}
-
+		
+		// 선진) 판매자 메인 - 문의관리 팝업
 		public OneBoardDTO questionDetail(Map<String,Object> params) {
 		     return sqlSession.selectOne(namespace + ".questionDetail", params);
 		}
+
 }

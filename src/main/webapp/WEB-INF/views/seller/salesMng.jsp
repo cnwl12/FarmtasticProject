@@ -56,8 +56,8 @@
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
-                    <h1 class="h3 mb-2 text-gray-800">매출관리</h1>
-                    <p class="mb-4"><a target="_blank" href=#></a></p>
+<!--                     <h1 class="h3 mb-2 text-gray-800">매출관리</h1> -->
+<!--                     <p class="mb-4"><a target="_blank" href=#></a></p> -->
                     <!-- 페이지 상단 끝 -->
                     
                     <!-- 매출 통계 시작 -->
@@ -74,10 +74,9 @@
 								<c:forEach items="${MonthlySales}" var="sales"  begin="11" end="11"> <!-- 데이터가 최근 12개월치라 가장 마지막 행의 데이터가 해당 월의 데이터임 -->
 								<input type="hidden" name="seller_num" value="${seller_num}">
 									<tr style="background-color: #ffffff;">
-									<td ><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales)}" type="number" pattern="#,##0" /></td> <!-- 데이터 형식 바꾸기 -->
-									<td ><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales * 0.05)}" type="number" pattern="#,##0" /></td>
-									<td style="color: black; font-weight: bold;"><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales - (sales.order_mm_totalSales * 0.05))}" type="number" pattern="#,##0" /></td>
-									
+									<td ><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales)}" type="number" pattern="#,##0" />원</td> <!-- 데이터 형식 바꾸기 -->
+									<td ><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales * 0.05)}" type="number" pattern="#,##0" />원</td>
+									<td style="color: black; font-weight: bold;"><fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales - (sales.order_mm_totalSales * 0.05))}" type="number" pattern="#,##0" />원</td>
 									</tr>
 								</c:forEach>
 							</tbody> 
@@ -91,7 +90,7 @@
 							<div class="text-center">
 								<div data-toggle="buttons" class="btn-group btn-group-customize chartList">
 									<label id="chart1" class="on">
-										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">이번달 일자별 매출</button>
+										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="dailyChart">당월 일별 매출</button>
 									</label>
 									<label id="chart2" class="on">
 										<button type="button" class="btn btn-primary btn-sm mx-2 toggle-chart" data-target="monthlyChart">최근 12개월 매출</button>
@@ -104,13 +103,9 @@
 					<div>
 					  <canvas id="getDailySalesChart" width="1000" height="200"></canvas>
 					</div>
-					
 					<div>
 					  <canvas id="getMonthlySalesChart" width="1000" height="200"></canvas>
 					</div>
-					
-					<!-- 선진) 해당 월의 일자별 매출 차트 -->
-					<!-- 선진) 최근 12개월의 월별 매출 차트 -->
 
 					</div>			
 					<!-- 매출통계그래프 끝 -->
@@ -144,9 +139,7 @@
 							</div>
 							<div class="panel-footer">
 								<div class="seller-btn-area btn-group-lg">
-<!-- 									<button id="searchButton" type="submit" class="btn btn-primary searchBtn" onclick="submitSearchForm()">검색</button> -->
 									<button id="searchButton" type="button" class="btn btn-primary searchBtn">검색</button>
-									
 								</div>
 							</div>
 						</form>
@@ -155,7 +148,6 @@
 					
 					<!-- 일별 매출 목록 시작 -->
 					<div class="table-responsive">
-					
 						<table id="dataTable" class="table table-bordered">
 							<thead>
 								<tr style="background-color: #edf1f5;">
@@ -172,21 +164,6 @@
 								</tr>
 							</thead>
 							<tbody id="getDailySalesList">
- 								<c:forEach items="${DailySalesList}" var="list"> 
- 								<input type="hidden" name="seller_num" value="${seller_num}">
- 										<tr> 
-										<td>${list.order_num}</td>
-										<td>${list.item_num}</td>
-										<td>${list.seller_type}</td>
-										<td>${list.item_name}</td>
-										<td>${list.item_cnt}</td>
-										<td>${list.itemPrice}</td>
-										<td>${list.dailySales}</td>
-										<td>${list.dailyFee}</td>
-										<td>${list.dailySettlement}</td>
-										<td>${list.order_day}</td>
- 										</tr> 
-								</c:forEach> 
 							</tbody>
 						</table>
 					</div>
@@ -292,34 +269,52 @@
 	
 	  const ctx = document.getElementById('getDailySalesChart').getContext('2d');
 	  const myChart = new Chart(ctx, {
-	    type: 'line',
-	    data: {
-	      labels: labels,
-	      datasets: [{
-	        label: '매출',
-	        data: sales,
-	        borderColor: 'rgba(75, 192, 192, 1)',
-	        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-	        borderWidth: 1
-	      }]
-	    },
-	    options: {
-	      scales: {
-	        x: {
-	          title: {
-	            display: true,
-	            text: '날짜'
-	          }
-	        },
-	        y: { beginAtZero: true, title: { display: true, text: '매출' },
-	          gridLines:{
-			color: 'rgba(166, 201, 226, 1)',
-			lineWidth:3
-		}
-	        }
-	      }
-	    }
-	  });
+		    type: 'line',
+		    data: {
+		      labels: labels,
+		      datasets: [{
+		            data: sales,
+		            lineTension: 0.3,
+		            borderColor: "rgba(127, 173, 57, 1)",
+		            backgroundColor: "rgba(127, 173, 57, 0.3)",
+		            pointBackgroundColor: "rgba(127, 173, 57, 1)",
+		            pointBorderColor: "rgba(127, 173, 57, 1)",
+		            pointHoverRadius: 3,
+		            pointHoverBackgroundColor:"rgba(127, 173, 57 ,1)",
+		            pointHoverBorderColor:"rgba(127, 173, 57, 1)",
+				    pointHitRadius :10,
+				    pointBorderWidth :2,
+				    fill:true   // 라인 아래 색 채움
+		      }]
+		    },
+		    options:{
+			       scales:{
+			           x:{
+			               grid:{
+			                   display:false,
+			                   drawBorder:false 
+			               }
+			           },
+			           y:{ 
+			               display:false
+			          }
+			       },
+			       plugins:{ 
+			          legend:{ 
+			             display:false 
+			          }, 
+			          tooltip:{  
+			             callbacks:{
+			                label:function(context){
+			                    let salesValue = context.parsed.y;
+			                    salesValue = salesValue.toLocaleString('en');  
+			                    return "매출 : "+salesValue+"원";  
+			                }
+			             }  
+			          }   
+			       }   
+			   }   
+			});
 	}
 	
 	// 페이지 로딩 시 매출 데이터 가져와서 차트 그리기
@@ -357,29 +352,47 @@
 	      data: {
 	        labels: labels,
 	        datasets: [{
-	          label: '매출',
-	          data: sales,
-	          borderColor: 'rgba(75, 192, 192, 1)',
-	          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-	          borderWidth: 1
+	            data: sales,
+	            lineTension: 0.3,
+	            borderColor: "rgba(127, 173, 57, 1)",
+	            backgroundColor: "rgba(127, 173, 57, 0.3)",
+	            pointBackgroundColor: "rgba(127, 173, 57, 1)",
+	            pointBorderColor: "rgba(127, 173, 57, 1)",
+	            pointHoverRadius: 3,
+	            pointHoverBackgroundColor:"rgba(127, 173, 57 ,1)",
+	            pointHoverBorderColor:"rgba(127, 173, 57, 1)",
+			    pointHitRadius :10,
+			    pointBorderWidth :2,
+			    fill:true   // 라인 아래 색 채움
 	        }]
 	      },
-	      options: {
-	        scales: {
-	          x: {
-	            title: {
-	              display: true,
-	              text: '날짜'
-	            }
-	          },
-	          y: { beginAtZero: true, title: { display: true, text: '매출' },
-	            gridLines:{
-					color: 'rgba(166, 201, 226, 1)',
-					lineWidth:3
-				}
-	          }
-	        }
-	      }
+		    options:{
+			       scales:{
+			           x:{
+			               grid:{
+			                   display:false,
+			                   drawBorder:false 
+			               }
+			           },
+			           y:{ 
+			               display:false
+			          }
+			       },
+			       plugins:{ 
+			          legend:{ 
+			             display:false 
+			          }, 
+			          tooltip:{  
+			             callbacks:{
+			                label:function(context){
+			                    let salesValue = context.parsed.y;
+			                    salesValue = salesValue.toLocaleString('en');  
+			                    return "매출 : "+salesValue+"원";  
+			                }
+			             }  
+			          }   
+			       }   
+			   }  
 	    });
 	  }
 	
@@ -467,17 +480,33 @@
                     },
                     dataType: "json", // 데이터 안가져가고 타입만..?
                     success: function(result) { // 리턴 데이터
-                        $("#getDailySalesList").empty();
-                        // result json 데이터 가져오기
+                    	
+                        var table = $('#dataTable').DataTable();
+                        table.clear().draw();
+                        
+                        if (result.length === 0) {
+                            $("#getDailySalesList").html("<tr><td colspan='10' style='text-align:center;'>매출 내역이 없습니다.</td></tr>");
+                        } else {  
                         $.each(result, function(index, item) {
 
     						var date = new Date(item.order_day);
     						var d = date.toISOString().slice(0,19).replace('T', ' ');
 
-                            // table 태그에 출력
-                            $('#getDailySalesList').append("<tr> <td>"+item.order_num+"</td> <td>"+item.item_num+"</td> <td>"+item.seller_type+"</td> <td>"+item.item_name+"</td> <td>"+item.item_cnt+"</td><td>"+item.itemPrice+"</td><td>"+item.dailySales+"</td><td>"+item.dailyFee+"</td><td>"+item.dailySettlement+"</td><td>"+d+"</td> </tr>"); // 덮어쓰는게 아니라 추가하는거라 append
-                            // 문자로 인식되므로 +로 분리
+    						 table.row.add([
+    								item.order_num,
+    								item.item_num,
+    								item.seller_type,
+    								item.item_name,
+    								item.item_cnt,
+    								item.itemPrice,
+    								item.dailySales,
+    								item.dailyFee,
+    								item.dailySettlement,
+    								d
+    						]).draw();
+
                         });
+                        }
                     }
                 });
 			 }
