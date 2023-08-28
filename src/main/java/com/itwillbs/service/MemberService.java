@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
+import com.itwillbs.domain.ChatBotDTO;
+import com.itwillbs.domain.DetailChatBotDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.PayDTO;
@@ -301,5 +303,13 @@ public class MemberService {
 	public MemberDTO getMemberEmail(String member_email) {
 		return memberDAO.getMemberEmail(member_email);
 	}
-
+	
+	public List<ChatBotDTO> getChatBot() {
+		return memberDAO.getChatBot();
+	}
+	
+	public List<DetailChatBotDTO> getChatBot2(int chatbotId) {
+		return memberDAO.getChatBot2(chatbotId);
+	}
+	
 }

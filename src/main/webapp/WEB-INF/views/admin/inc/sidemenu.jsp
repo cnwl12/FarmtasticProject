@@ -57,10 +57,21 @@
             </div>
       
 			<li class="nav-item">
-                <a class="nav-link" href="sellerAdmin">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <span>업체관리</span></a>
+                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    	<div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="sellerAdmin" id="approvedSeller">승인업체</a>
+                        <a class="collapse-item" href="sellerAdmin" id="unapprovedSeller">미승인업체</a>
+                        <a class="collapse-item" href="sellerAdmin" id="rejectedSeller">승인거절업체</a>
+                        <a class="collapse-item" href="sellerAdmin" id="withdrawnSeller">탈퇴된업체</a>
+                        
+                      </div>  
+                     </div> 
             </li>
-              <li class="nav-item">
+            
+            <li class="nav-item">
                 <a class="nav-link" href="adminItemList">
                     <span>상품관리</span></a>
             </li>
