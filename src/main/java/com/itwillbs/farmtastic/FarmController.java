@@ -48,6 +48,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.dao.MemberDAO;
+import com.itwillbs.domain.ChatBotDTO;
+import com.itwillbs.domain.DetailChatBotDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.PayDTO;
@@ -1340,5 +1342,17 @@ public class FarmController { // 소비자 (컨트롤러)
 
 		return "/member/chatBot";
 	}
+	
+	@ResponseBody
+    @RequestMapping(value = "/chatBot2", method = RequestMethod.GET)
+    public List<ChatBotDTO> getChatBotData() {
+        return memberService.getChatBot();
+    }
+	
+	@ResponseBody
+    @RequestMapping(value = "/detailChatBot/{id}", method = RequestMethod.GET)
+	public List<DetailChatBotDTO> getChatBotData2(@PathVariable("id") int chatbotId) {
+		return memberService.getChatBot2(chatbotId);
+    }
 	
 }

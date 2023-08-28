@@ -660,5 +660,15 @@
 		FROM member
 		WHERE member_email = #{member_email}
 	</select>
+	
+	<select id="getChatBot" resultType="com.itwillbs.domain.ChatBotDTO">
+		SELECT * FROM chatbot
+	</select>
+	
+	<select id="getChatBot2" resultType="com.itwillbs.domain.DetailChatBotDTO">
+		SELECT *
+		FROM detail_chatbot
+		WHERE detailchatbotquestion_id = #{_parameter}
+	</select>
  
 </mapper>

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.ChatBotDTO;
+import com.itwillbs.domain.DetailChatBotDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.WishlistDTO;
@@ -327,5 +329,13 @@ public class MemberDAO {
 	public MemberDTO getMemberEmail(String member_email) {
 		return sqlSession.selectOne(namespace + ".getMemberEmail", member_email);
 	}
+	
+    public List<ChatBotDTO> getChatBot() {
+        return sqlSession.selectList(namespace + ".getChatBot");
+    }
+    
+    public List<DetailChatBotDTO> getChatBot2(int chatbotId) {
+        return sqlSession.selectList(namespace + ".getChatBot2", chatbotId);
+    }
 
 }
