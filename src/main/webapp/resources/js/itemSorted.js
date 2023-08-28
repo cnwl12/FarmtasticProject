@@ -13,16 +13,16 @@ $(document).ready(function() {
             data: { sort: selectedOption },
             success: function(data) {
                 updateProductList(data);
+               // $.getScript("/FarmProject/resources/js/heart.js", function() {
+               // console.log("get되는지?");
+            	// heart.js가 로드된 후에 실행할 코드
+             //addClickEventToWishlistButtons();
+            
+        	//});
                 
-                 $.getScript("/FarmProject/resources/js/heart.js", function() {
-                    // heart.js가 로드된 후에 실행할 코드
-                    productListContainer.find(".wishlist-btn").on("click", function() {
-                        // heart.js 관련 클릭 이벤트 처리
-                    });
-                });
-                
-            },
+          },
             error: function(xhr, status, error) {
+              console.log("ajax 에러:", error);
             }
         });
     });
@@ -50,7 +50,7 @@ $(document).ready(function() {
                productHTML += `<div class="overlay sold-out">마감 임박</div>`;
            }
 
-           productHTML += `
+           productHTML += ` 
                                </div>
                            </a>
                            <ul class="product__item__pic__hover">
@@ -83,16 +83,14 @@ $(document).ready(function() {
                `;
 
            productListContainer.append(productHTML);
-       }
-       
-       $.getScript("/FarmProject/resources/js/cart.js", function() {
-           // cart.js가 로드된 후에 실행할 코드
-       });
-		
-		  $.getScript("/FarmProject/resources/js/jquery-3.3.1.min.js", function() {
-           // cart.js가 로드된 후에 실행할 코드
-       });
-		
-   }   
+           }
+           //   addClickEventToWishlistButtons();
+    }
+           
+         //  function addClickEventToWishlistButtons() {
+        //	console.log("addClickEventToWishlistButtons 함수 실행");
+        //	productListContainer.find(".wishlist-btn").on("click", function() {
+         //   console.log("클릭 이벤트 처리2");
+       // });
+   // }
 });
-    

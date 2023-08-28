@@ -157,10 +157,10 @@ input#file-upload-button {
                         </div> 
                         			 <c:choose>
 				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
-				                            <div class="overlay sold-out" style="width:100%;">판매 종료</div>
+				                            <div class="overlay sold-out" style="width:100%; max-width: 585px;">판매 종료</div>
 				                        </c:when>
 				                        <c:when test="${item.item_left < 3}">
-				                            <div class="overlay sold-out" style="width: 100%;">마감 임박</div>
+				                            <div class="overlay sold-out" style="width:100%; max-width: 585px;">마감 임박</div>
 				                        </c:when>
 				                    </c:choose>
                     </div>
