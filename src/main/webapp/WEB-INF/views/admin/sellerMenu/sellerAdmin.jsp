@@ -54,7 +54,7 @@
                     	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
                         <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">미승인된 업체 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary" id="unapprovedHeader">미승인된 업체 목록</h6>
                         </div>
                         <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
                         <input type="hidden" id="actionType" name="actionType" /> 
@@ -98,7 +98,7 @@
                        </form>
                        
                        <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" id="approvedHeader">승인된 업체 목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
                         <input type="hidden" id="actionType2" name="actionType" /> 
@@ -140,7 +140,7 @@
                        
                        
                        <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">승인거절된 업체 목록</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" id="rejectedHeader">승인거절된 업체 목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus3">
                         <input type="hidden" id="actionType3" name="actionType" /> 
@@ -180,7 +180,7 @@
                        
                        
                         <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">탈퇴한 업체 목록</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" id="withdrawnHeader">탈퇴한 업체 목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus4">
                         <input type="hidden" id="actionType4" name="actionType" /> 
@@ -335,6 +335,72 @@ function showDetail(sellerNum) {
     // 팝업 창에서 메인 창으로 포커스 이동
     opener.focus();
 }
+
+
+document.getElementById('approvedSeller').addEventListener('click', function (event) {
+    event.preventDefault(); // 기본 동작 막기
+    showTableAndHeader('dataTable2', 'approvedHeader');
+    showForm('changeSellerStatus2');
+});
+
+document.getElementById('unapprovedSeller').addEventListener('click', function (event) {
+    event.preventDefault(); // 기본 동작 막기
+    showTableAndHeader('dataTable', 'unapprovedHeader');
+    showForm('changeSellerStatus');
+});
+
+document.getElementById('rejectedSeller').addEventListener('click', function (event) {
+    event.preventDefault(); // 기본 동작 막기
+    showTableAndHeader('dataTable3', 'rejectedHeader');
+    showForm("changeSellerStatus3");
+});
+
+document.getElementById("withdrawnSeller").addEventListener("click", function (event) {
+  event.preventDefault(); // 기본 동작 막기
+  showTableAndHeader("dataTable4", "withdrawnHeader");
+  showForm("changeSellerStatus4");
+});
+
+function showTableAndHeader(tableId, headerId) {
+  var tables = ["dataTable", "dataTable2", "dataTable3", "dataTable4"];
+  var headers = ["unapprovedHeader", "approvedHeader", "rejectedHeader", "withdrawnHead"];
+
+  tables.forEach(function (id) {
+      var table = document.getElementById(id);
+      if (id === tableId) {
+          table.style.display = 'table';
+      } else {
+          table.style.display = 'none';
+      }
+  });
+
+  headers.forEach(function (id) {
+      var header = document.getElementById(id);
+      if (id === headerId) {
+          header.style.display = 'block';
+      } else {
+          header.style.display = 'none';
+      }
+  });
+}
+
+function showForm(formId) {
+   var forms = ["changeSellerStatus","changeSellerStatus2","changeSellerStatus3","changeSellerStatu s4"];
+
+   forms.forEach(function(id){
+       var form=document.getElementByld(id);
+       if(id===formId){
+           form.style.display='block';
+       }else{
+           form.style.display='none';
+       }
+   });
+}
+
+
+
+
+
 </script>
 	
 </body>
