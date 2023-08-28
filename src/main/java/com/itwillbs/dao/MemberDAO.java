@@ -26,19 +26,16 @@ public class MemberDAO {
 	private static final String namespace = "MemberMapper";
 
 	public void insertMember(MemberDTO memberDTO) {
-		System.out.println("MemberDAO insertMember() 확인");
 		
 		sqlSession.insert(namespace+".insertMember", memberDTO); 
 	}
 
 	
 	 public MemberDTO nuserCheck(MemberDTO memberDTO) {
-		 System.out.println("MemberDAO nuserCheck() 확인");
 	     return sqlSession.selectOne(namespace+".nuserCheck", memberDTO);
 	    }
 
 	 public void ninsertMember(MemberDTO memberDTO) {
-		 System.out.println("MemberDAO ninsertMember() 확인");
 		 if (sqlSession == null) {
 		        System.err.println("sqlSession is null!");
 		        return;
@@ -55,13 +52,11 @@ public class MemberDAO {
 	}
 	
 	public void changeMemberStatus(List<String> memberNums) {
-		System.out.println("MemberDAO changeMemberStatus 확인");
 	    sqlSession.update("MemberMapper.changeMemberStatus", memberNums);
 	}
 	
 	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
-		System.out.println("MemberDAO userCheck()");
 		
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
 	}
@@ -71,39 +66,32 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO getMember(String member_id) {
-		System.out.println("MemberDAO getMember");
 		return sqlSession.selectOne(namespace+".getMember", member_id);
 	}
 	
 
 		
 	public void insertCart(HashMap<String, Object> cart) {
-		System.out.println("MemberDAO insertCart : " + cart);
 		sqlSession.insert(namespace+".insertCart",cart);
 	}
 
 	public Boolean getCart(HashMap<String, Object> cart) {
-		System.out.println("getCart 확인"+ cart);
 		return sqlSession.selectOne(namespace+".getCart", cart);
 	}
 
 	public List<Map<String, Object>> getCartList(int member_num) {
-		System.out.println("getCartList 확인");
 		return sqlSession.selectList(namespace+".getCartList", member_num);
 	}
 
 	public void updateCart(HashMap<String, Object> cart) {
-		System.out.println("update 카트 (수량 변경)");
 		sqlSession.update(namespace + ".updateCart", cart);
 	}
 
 	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
-		System.out.println("membetDAO insertOrderDetail까지 오는지");
 		sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
 	}
 	
 	public void insertOrderDetail(int member_num) {
-		System.out.println("membetDAO insertOrderDetail까지 오는지");
 		sqlSession.insert(namespace + ".insertOrderDetail", member_num);
 	}
 	
@@ -111,18 +99,15 @@ public class MemberDAO {
 	
 	/* sungha07.29 마이페이지*/
 	public MemberDTO getMember1(Integer member_num) {
-		System.out.println("MemberDAO getMember1");
 		return sqlSession.selectOne(namespace+".getMember1", member_num);
 	}
 	
 	public MemberDTO userCheck1(MemberDTO memberDTO) {
-		System.out.println("MemberDAO userCheck1()");
 		
 		return sqlSession.selectOne(namespace+".userCheck1", memberDTO);
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MemberDAO updateMember()");
 		
 		sqlSession.update(namespace+".updateMember", memberDTO);
 	}
@@ -130,7 +115,6 @@ public class MemberDAO {
 	
 	
 	public List<Map<String, Object>> getItemsearch(String query) {
-		System.out.println("MemberDAO getItemsearch()");
 
         return sqlSession.selectList(namespace+".getItemsearch", query);
     }
@@ -201,7 +185,6 @@ public class MemberDAO {
 
 	
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
-		 System.out.println("MemberDAO insertOneBoard ()!!");
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
 
@@ -210,20 +193,16 @@ public class MemberDAO {
 	    }
 
 	 public List<OneBoardDTO> findByItemNum2(int member_num) {
-		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByItemNum2", member_num);
 	    }
 	 public List<OneBoardDTO> findByOneBoardNum(int one_board_num) {
-		    System.out.println("1대1문의 마이페이지");
 			return sqlSession.selectList(namespace+".findByOneBoardNum", one_board_num);
 	    }
 	 
 	 public OneBoardDTO getOneBoard(int one_board_num) {
-		 System.out.println("MemberDAO getOneBoard ()!!");
          return sqlSession.selectOne(namespace + ".getOneBoard", one_board_num);
     }
 	 public void updateOneBoard(OneBoardDTO OneBoard) {
-		 System.out.println("MemberDAO updateOneBoard ()!!");
          sqlSession.update(namespace + ".updateOneBoard", OneBoard);
     }
 	 
@@ -236,7 +215,6 @@ public class MemberDAO {
 	}
 
 	public void insertWishlistItem(WishlistDTO wishlistDTO) {
-		System.out.println("찜바구니 넣기!!!!!!!!!!!!");
 		sqlSession.insert(namespace + ".insertWishlistItem", wishlistDTO);
 	}
 	
@@ -249,22 +227,18 @@ public class MemberDAO {
 	}
 	
 	public List<WishlistDTO> selectWishlistget (int member_num) {
-		System.out.println("찜하기 리스트좀 가져갑니다");
 		return sqlSession.selectList(namespace+".selectWishlistget", member_num);
 	}
 	
 	public List<WishlistDTO> getzzimlist (int member_num) {
-		System.out.println("찜하기 리스트좀 가져갑니다2222");
 		return sqlSession.selectList(namespace+".getzzimlist", member_num);
 	}
 	
 	public void insertOrders(HashMap<String, Object> payInfo) {
-		System.out.println("MemberDAO insertOrders");
 		sqlSession.insert(namespace + ".insertOrders", payInfo);
 	}
 		
 	public Map<String, Object> getMemberDetails(int memberNum) {
-		System.out.println("다오:"+memberNum);
 	    return sqlSession.selectOne(namespace + ".memberDetail", memberNum);
 	}
 
@@ -346,13 +320,11 @@ public class MemberDAO {
 
     
 	public void withderawMember(MemberDTO memberDTO) {
-		System.out.println("MemberDAO withdrawMember()");
 		
 		sqlSession.insert(namespace+".withderawMember", memberDTO);
 	}
 
 	public MemberDTO getMemberEmail(String member_email) {
-		System.out.println("MemberDAO getMemberEmail()");
 		return sqlSession.selectOne(namespace + ".getMemberEmail", member_email);
 	}
 

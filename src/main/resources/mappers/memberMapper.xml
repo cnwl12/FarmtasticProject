@@ -100,25 +100,24 @@
   	  </if>
   	</select>
 
-<select id="userCheck1"
-	resultType="com.itwillbs.domain.MemberDTO">
-	SELECT * FROM member
-	WHERE member_num = #{member_num}
-	AND member_id = #{member_id}
-	<if test="member_pass != null"> AND member_pass = #{member_pass}</if>
-	
-</select>
+	<select id="userCheck1"
+		resultType="com.itwillbs.domain.MemberDTO">
+		SELECT * FROM member
+		WHERE member_num = #{member_num}
+		AND member_id = #{member_id}
+		<if test="member_pass != null"> AND member_pass = #{member_pass}</if>
+	</select>
 
   	<select id="userCheck0" resultType="com.itwillbs.domain.MemberDTO">
-    select member_id
-    		, member_pass
-    		, member_delYn
-    		, member_num
-    from member
-    where member_id = #{member_id}
-    and member_pass = #{member_pass}
-    and (member_delYn = 'N' or member_delYn is null)
-</select>
+	    select member_id
+	    		, member_pass
+	    		, member_delYn
+	    		, member_num
+	    from member
+	    where member_id = #{member_id}
+	    and member_pass = #{member_pass}
+	    and (member_delYn = 'N' or member_delYn is null)
+	</select>
   	
   	<select id="idCheck0" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT member_id
@@ -128,38 +127,38 @@
   	
  	<update id="updateMember">
  	 UPDATE member
-  	SET member_name = #{member_name},
-      member_phone = #{member_phone},
-      member_email = #{member_email},
-      member_post = #{member_post},
-      member_addMain = #{member_addMain},
-      member_addSub = #{member_addSub},
-      member_pass  = #{new_member_pass},
+	 SET member_name = #{member_name},
+	     member_phone = #{member_phone},
+	     member_email = #{member_email},
+	     member_post = #{member_post},
+	     member_addMain = #{member_addMain},
+	     member_addSub = #{member_addSub},
+	     member_pass  = #{new_member_pass},
       <if test="member_pass != null">member_pass = #{member_pass}</if>
-  	WHERE member_id = #{member_id}
+     WHERE member_id = #{member_id}
 	</update>
 	
 	
 	<update id="withderawMember">
  	 UPDATE member
-  	SET member_delYn = 'N',
-      <if test="member_pass != null">member_pass = #{member_pass}</if>
-  	WHERE member_id = #{member_id}
+  	 SET member_delYn = 'N',
+       <if test="member_pass != null">member_pass = #{member_pass}</if>
+  	 WHERE member_id = #{member_id}
   	</update>
 	
 	
-<select id="getItemsearch" parameterType="string" resultType="map">
-  SELECT item_num
-  		,item_left
-  		,item_name
-  		,item_price
-  		,item_mainImg
-  FROM item
-  WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
-</select>
+	<select id="getItemsearch" parameterType="string" resultType="map">
+	  SELECT item_num
+	  		,item_left
+	  		,item_name
+	  		,item_price
+	  		,item_mainImg
+	  		,item_salesStatus
+	  FROM item
+	  WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
+	</select>
 
   	<!-- sungha end-->
-  	
   	<select id="nuserCheck" 
             resultType="com.itwillbs.domain.MemberDTO">
     	select * 
@@ -181,16 +180,16 @@
 	</insert> 
   	
   	<select id="getMembers" resultType="map">
-    SELECT * FROM member;
+   		 SELECT * FROM member;
    </select>
    
    <update id="changeMemberStatus" parameterType="list">
     UPDATE member
-    SET member_delYn = 'N'
-    WHERE member_num IN
-    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-        #{item}
-    </foreach>
+	    SET member_delYn = 'N'
+	    WHERE member_num IN
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
   </update>
   
   <!-- 장바구니에 목록 추가  -->

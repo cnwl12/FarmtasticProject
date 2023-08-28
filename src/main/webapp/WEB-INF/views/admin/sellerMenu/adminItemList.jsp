@@ -12,14 +12,11 @@
     <title>ItemList</title>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
@@ -81,7 +78,7 @@
 											<tbody>
 													<c:forEach var="type" items="${typeList}">  
 												<tr>
-													<td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td>
+													<td><input type="checkbox" class="cateCheck" value="" /></td>
 													<td>${type.seller_type}</td>
 													<td>${type.type_name}</td>
 												</tr>
@@ -101,18 +98,16 @@
 									<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
 										id="insertCate" type="submit">카테고리 등록</button>
 									<div class="table-responsive">
-										<table class="table table-bordered" id="dataTable"
+										<table class="table table-bordered" id="dataTable_ROW"
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<!-- <th><input type="checkbox" class="cateCheck"/></th> -->
 													<th>카테고리타입</th>
 													<th>카테고리명</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<!-- <td><input type="checkbox" class="cateCheck" name="newCategoryCheck[]" value="" /></td> -->
 													<td><input type="text" name="seller_type[]" placeholder="카테고리 타입입력"></td>
 													<td><input type="text" name="type_name[]" placeholder="카테고리 이름입력"></td>
 												</tr>
@@ -123,7 +118,6 @@
 							</form>
 						</div>
 
-<!-- /////////////////////////////////////////////////////////////////////////////// -->
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
 					<!-- 상품목록 시작 -->

@@ -13,15 +13,17 @@
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
 		background-color: #f6f6f6;
+		overflow: hidden;
 	}
 	
 	.find-id-wrapper {
-		max-width: 400px;
-		margin: 50px auto;
-		padding: 20px;
+		max-width: 460px;
+		height: 55%;
+		padding: 2%;
 		background-color: white;
 		border-radius: 5px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		margin: 12% 10%;
 	}
 	
 	.find-id-title {
@@ -32,7 +34,7 @@
 	}
 	
 	form input {
-		width: 100%;
+		width: 70%;
 		margin-bottom: 10px;
 		padding: 10px;
 		border: 1px solid #e5e5e5;
@@ -43,31 +45,23 @@
 	
 	form input[type="submit"],
 	form input[type="button"] {
-		width: 48%;
-		margin-top: 10px;
-		background-color: #007BFF;
+		width: 30%;
+	 	background-color: #7fad39;
 		border: none;
 		color: white;
 		cursor: pointer;
+		float : right;
 	}
 	
 	form input[type="submit"]:hover,
 	form input[type="button"]:hover {
-		background-color: #0056b3;
+		background-color: #7fad39;
 	}
 </style>
     
     <!-- jQuery -->
     <script type="text/javascript"
       		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
-        <!-- iamport.payment.js -->
-    <script
-      type="text/javascript"
-      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-  
-    
 
     <!-- Google Font --> 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -86,7 +80,7 @@
 	
     <div class="find-id-wrapper">
 		<h2 class="find-id-title">비밀번호 찾기</h2>
-		<form action="/farmtastic/SendEmailServlet2" method="post">
+		<form action="SendEmailServlet2" method="post">
 	    	<input type="text" name="id" placeholder="아이디 입력"/>
 	    	<input type="email" name="email" placeholder="이메일 주소 입력" required />
 	        <input type="submit" value="이메일 전송" id="sendEmailBtn"><br>
@@ -94,6 +88,10 @@
 			<input type="button" id=check_verification_code value="인증번호 확인"/>
 		</form>
 	</div>
+	
+	  <div style="margin-top: -8%; margin-left: 33%;">
+    	<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
+    </div>
     
     <script>
 $(document).ready(function() {
@@ -108,7 +106,7 @@ $(document).ready(function() {
 		// Ajax 호출
 		$.ajax({
 		    type: 'POST',
-		    url: '/farmtastic/SendEmailServlet2',
+		    url: 'SendEmailServlet2',
 		    data: { email: email },
 		    success: function(data) {
 		    	// 결과를 처리합니다.
@@ -135,7 +133,7 @@ $("#check_verification_code").on("click", function () {
     
     $.ajax({
         type: "GET",
-        url: "/farmtastic/CheckVerificationCodeServlet2",
+        url: "CheckVerificationCodeServlet2",
         data: { code: userVerificationCode, email: userEmail, id:userId },
         dataType: "json",
         success: function (response) {

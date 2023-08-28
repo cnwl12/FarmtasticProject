@@ -50,7 +50,7 @@
 <c:if test="${fn:length(itemList) eq 0}">
   <!-- 검색 결과가 없다는 메시지를 띄우는 스크립트 -->
   <script>
-    alert("검색 결과가 없습니다.");
+    alert("상품준비중입니다.");
     location.href = "${pageContext.request.contextPath}/main";
   </script>
 </c:if>
@@ -68,10 +68,13 @@
 								<div class="product-image"
 									style="background-image: url('${item.item_mainImg}');"></div>
 								<c:choose>
-									<c:when test="${item.item_left < 3}">
-										<div class="overlay sold-out">마감 임박</div>
-									</c:when>
-								</c:choose>
+				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
+				                            <div class="overlay sold-out">판매 종료</div>
+				                        </c:when>
+				                        <c:when test="${item.item_left < 3}">
+				                            <div class="overlay sold-out">마감 임박</div>
+				                        </c:when>
+				                    </c:choose>
 							</div>
 						</a>
 						<ul class="featured__item__pic__hover">

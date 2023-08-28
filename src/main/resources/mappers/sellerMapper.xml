@@ -103,13 +103,25 @@ FROM (
 
 </select>
 
+ <select id="orderCount" resultType="map">
+select 
+distinct(SELECT COUNT(*) FROM orders WHERE SUBSTRING(order_num, 1, 8) =  #{today}) as count
+from orders;
+</select>
+
  <select id="pieChart" resultType="map">
-     
-SELECT i.seller_type, SUM(od.item_cnt * i.item_price) AS total_amount
+SELECT 
+	   i.seller_type, 
+       ct.type_name,
+	   SUM(od.item_cnt * i.item_price) AS total_amount
 FROM order_detail od
 LEFT JOIN item i
 ON od.item_num = i.item_num
-GROUP BY i.seller_type
+LEFT JOIN category_type ct
+ON i.seller_type=ct.seller_type
+LEFT JOIN orders o
+ON od.order_num = o.order_num
+GROUP BY i.seller_type,ct.type_name
 order by total_amount desc;
 
 </select>
@@ -118,15 +130,19 @@ order by total_amount desc;
 
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
-	select seller_licenseNum
-		 	, seller_name
-		 	, seller_storeName
-		 	, seller_joinDay
-		 	, seller_recoYn
-		 	, seller_num
-		 	, seller_file
-	from seller
-	order by seller_joinDay desc; 
+SELECT 
+    seller_licenseNum,
+    seller_name,
+    seller_storeName,
+    seller_joinDay,
+    seller_recoYn,
+    seller_num,
+    seller_file,
+    (SELECT COUNT(*) FROM seller WHERE seller_recoYn IS NULL) as count_null
+FROM 
+    seller
+ORDER BY 
+   seller_joinDay DESC;
 	</select>
 	
 	<!-- 판매자 체크 -->
@@ -152,7 +168,6 @@ order by total_amount desc;
 			seller_accountHolder, 
 			seller_email, 
 			seller_file
-		
 	FROM seller
 	WHERE seller_num = #{seller_num}
     </select>
@@ -174,14 +189,13 @@ order by total_amount desc;
 		seller_pass  = #{seller_pass2},
       <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
 	WHERE seller_id = #{seller_id}
-
     </update>
 	 
 	<!-- 선진) 해당 월의 일자별 매출 차트 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getDailySales" resultType="map">
 	<![CDATA[
-	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
+	SELECT DATE_FORMAT(date_range.order_mmdd, '%m-%d') AS order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
 	FROM(SELECT DATE_FORMAT(day_range, '%Y-%m-%d') AS order_mmdd
 		 FROM (SELECT DATE_ADD(DATE_FORMAT(LAST_DAY(CURRENT_DATE), '%Y-%m-01'), INTERVAL d DAY) AS day_range
 			   FROM (SELECT a.digit * 100 + b.digit * 10 + c.digit AS d
@@ -229,21 +243,32 @@ order by total_amount desc;
 	<!-- 선진) 품목별 월 매출 차트 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getMonthlyItems" resultType="map">
-	SELECT f.item_num AS item_num, SUM(f.price) AS item_totalSales
+	SELECT f.item_name AS item_name, SUM(f.price) AS item_totalSales
 	FROM (select coalesce(SUBSTRING(od.order_num, 1, 6), (DATE_FORMAT(current_timestamp, '%Y%m'))) as order_mm, 
 				 coalesce(od.order_num,0) as dd,
-				 i.item_num, (i.item_price * coalesce(od.item_cnt,0)) as price
+				 i.item_name, (i.item_price * coalesce(od.item_cnt,0)) as price
 		  from order_detail od right join item i on od.item_num = i.item_num
 		  where i.item_num in (select item_num 
 							   from item 
 	                           where seller_num = #{seller_num})) AS f LEFT JOIN orders os ON f.dd = os.order_num
 	WHERE order_mm = (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m'))
 	AND os.order_cancel != 'Y' OR os.order_cancel IS NULL
-	GROUP BY f.order_mm, f.item_num;
+	GROUP BY f.order_mm, f.item_name;
 	</select>
 
-
-
+	<!-- 선진) 당일 주문건수 -->
+   	<select id="getTodayOrders" resultType="int">
+   	SELECT COUNT(*) AS orders
+	FROM (SELECT od.item_num, od.order_num, os.order_day
+			FROM order_detail od
+			JOIN orders os ON od.order_num = os.order_num
+			WHERE od.item_num in (SELECT i.item_num
+								FROM item i JOIN seller s ON s.seller_num = i.seller_num 
+								WHERE s.seller_num = #{seller_num})
+			AND os.order_cancel = 'N'
+			AND DATE_FORMAT(os.order_day, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')) AS s;
+   	</select>
+   	
 	<!-- 선진) 매출관리 - 검색바 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
@@ -479,17 +504,33 @@ order by total_amount desc;
 	</update>
 		
     <!-- 상품전체 가져오기  -->
-    <select id="getItems" resultType="map">
-       SELECT item_num
-       		 ,item_name
-       		 ,item_price
-       		 ,item_mainImg
-       		 ,item_detail
-       		 ,item_left
-       		 ,item_salesStatus
-       FROM item
-       ORDER BY item_num desc
-    </select>
+   <select id="getItems" resultType="map">
+	    SELECT item_num
+	         ,item_name
+	         ,item_price
+	         ,item_mainImg
+	         ,item_detail
+	         ,item_left
+	         ,item_salesStatus
+	    FROM item
+	    <choose>
+	        <when test="sortOption != null">
+	            <if test="sortOption.equals('price')">
+	                ORDER BY CAST(item_price AS DECIMAL)
+	            </if>
+	            <if test="sortOption.equals('name')">
+	                ORDER BY item_name
+	            </if>
+	            <if test="sortOption.equals('registration')">
+	                ORDER BY item_num DESC
+	            </if>
+	        </when>
+	        <otherwise>
+	            ORDER BY item_num DESC
+	        </otherwise>
+	    </choose>
+	</select>
+
     
     <!-- 상품전체 가져오기 (본인제품)  -->
     <select id="getItemSeller" resultType="map">
@@ -676,7 +717,7 @@ ORDER BY MONTH(os.order_day);
     select * from seller
     where seller_id = #{seller_id}
     and seller_pass = #{seller_pass}
-    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'M' or seller_recoYn  is null)
+    and (seller_recoYn = 'Y' or seller_recoYn = 'N' or seller_recoYn = 'D' or seller_recoYn  is null)
 </select>
 
 <select id="sellerCheck2" resultType="com.itwillbs.domain.SellerDTO">
@@ -689,7 +730,7 @@ ORDER BY MONTH(os.order_day);
 <!-- 판매자회원탈퇴시 상품중지 -->
 <update id="withdrawSeller">
  	 UPDATE seller
-  	SET seller_recoYn = 'M',
+  	SET seller_recoYn = 'D',
      <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
   	WHERE seller_id = #{seller_id}
   	</update>
@@ -698,7 +739,7 @@ ORDER BY MONTH(os.order_day);
 	UPDATE item 
 	JOIN seller s ON item.seller_num = s.seller_num
 	SET item_salesStatus = 'N'
-	WHERE s.seller_recoYn = 'M';
+	WHERE s.seller_recoYn = 'D';
 </update>
 
   	
@@ -789,7 +830,8 @@ ORDER BY MONTH(os.order_day);
 	ON r.member_num = m.member_num
 	join seller s 
 	on i.seller_num = s.seller_num
-	WHERE i.seller_num = #{seller_num};
+	WHERE i.seller_num = #{seller_num}
+	order by r.review_day desc;
    </select>
    
    <delete id="deleteSellerReview" parameterType="map">

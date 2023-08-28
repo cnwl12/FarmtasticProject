@@ -61,10 +61,10 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 매출액 (월별)</div>
                                                 <input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee} 원</div>
                                         </div>
                                         <div class="col-auto">
-                                           <a href="sales"> <i class="fas fa-calendar fa-2x text-gray-300"></i></a>
+                                           <a href="sales"> <i class="fas fa-dollar-sign fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                         <div class="col mr-2">
     										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
         										매출액 (연간)</div>
-    										<div class="h5 mb-0 font-weight-bold text-gray-800">${totalSales.total_fee}</div>
+    										<div class="h5 mb-0 font-weight-bold text-gray-800">${totalSales.total_fee} 원</div>
 										  </div>
                                         <div class="col-auto">
                                            <a href="totalSales"> <i class="fas fa-dollar-sign fa-2x text-gray-300"></i></a>
@@ -99,25 +99,35 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${count}</div>
-                                                </div>
-                                           <!--      <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div> -->
+   														<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${sellers[0].count_null} 곳</div>
+												</div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                           <a href="totalSales"> <i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+						 <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                오늘 주문 건수</div>
+                                                  <input type="hidden" id="hidden_date" value="${currentDay}" />
+                                                   
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${today[0].count} 건</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                  
                     </div>
 
@@ -229,7 +239,7 @@
     							 var myPieChart = new Chart(ctx, {
         						 	type: 'doughnut',
         							data: {
-            						labels: top5Data.map(function(item) { return item.seller_type; }),
+            						labels: top5Data.map(function(item) {  return item.seller_type + ": " + item.type_name; }),
             						datasets: [{
                 						data: top5Data.map(function(item) { return item.total_amount; }),
                 						backgroundColor: [
@@ -258,71 +268,11 @@
 
                         <div class="col-lg-6 mb-4">
 
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">미승인 업체목록</h6>
-                                </div>
-                                <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" class="reject-check-all"/></th>
-                                            <th>번호</th>
-                                            <th>업체명</th>
-                                            <th>대표자</th>
-                                            <th>사업장 번호</th>
-                                            <th>상태</th>
-                                            <th>가입일</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-    								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
-    								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
-    								<c:forEach items="${sellers}" var="seller" varStatus="status">
-        							<c:if test="${seller.seller_recoYn != 'Y'}">
-            						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
-            						<c:set var="count" value="${count + 1}" scope="page"/> <!-- 순차 카운터 변수 증가 -->
-            						<tr>
-                						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
-                						<td>${count}</td> <!-- 순차 카운터 표시 -->
-                						<td>${seller.seller_storeName}</td>
-                						<td>${seller.seller_name}</td>
-                						<td>${seller.seller_licenseNum}</td>
-                						<td>${seller.seller_recoYn}</td>
-                						<td>${seller.seller_joinDay}</td>
-            						</tr>
-        							</c:if>
-    								</c:forEach>
-									</tbody>
-                                </table>
-                            </div>
-                                </div>
-                            </div>
+                           
 								
                           
 
                         </div>
-                          <div class="col-lg-6 mb-4">
-								   <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">미승인업체
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${count}</div>
-                                                </div>
-                                           <!--      <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                        </div>
-                        
                         
                     </div>
 

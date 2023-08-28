@@ -112,6 +112,10 @@ public class SellerController {
 		    }
 		    model.addAttribute("unrepboard", unrepboard);
 		    
+		    // 당일 주문건수 메서드
+		    int todayOrders = sellerService.getTodayOrders(seller_num);
+		    model.addAttribute("todayOrders", todayOrders);
+		    
 		    return "/seller/sellerMain";
 	    }
 	} 
@@ -126,7 +130,6 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
-
 	    	String seller_num = (String) session.getAttribute("seller_num");
 		    String seller_id = sellerService.idCheck(seller_num);
 		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
@@ -246,12 +249,9 @@ public class SellerController {
 	public String salesMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
 		
 	    if (session.getAttribute("seller_num") == null) {
-	        
 	    	model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
-	        
 	    } else {
-	    	
 	    String seller_num = (String) session.getAttribute("seller_num");
 		String seller_id = sellerService.idCheck(seller_num);
 		model.addAttribute("seller_id", seller_id);	
@@ -280,13 +280,9 @@ public class SellerController {
 	    try {
 	        if (startDate != null && !startDate.trim().isEmpty()) {
 	            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-	            System.out.println("start언제냐 : " + start);
-	            System.out.println("startDate언제냐 : " + startDate);
 	        }
 	        if (endDate != null && !endDate.trim().isEmpty()) {
 	            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-	            System.out.println("end언제냐 : " + end);
-	            System.out.println("endDate언제냐 : " + endDate);
 	        }
 	    } catch (ParseException e) {
 	        e.printStackTrace();
@@ -328,15 +324,17 @@ public class SellerController {
 	
 	// 선진) 품목별 월 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartMonthlyItems", method = RequestMethod.GET)
-	public ResponseEntity<List<Map<String,Object>>> chartMonthlyItems(HttpSession session){
+	public ResponseEntity<List<Map<String,Object>>> chartMonthlyItems(HttpSession session, Model model){
 		
 		String seller_num = (String) session.getAttribute("seller_num");
 		List<Map<String,Object>> jsonMonthlyItems = sellerService.getMonthlyItems(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
 		ResponseEntity<List<Map<String,Object>>> entityMonthlyItems = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlyItems, HttpStatus.OK);
+		
+		model.addAttribute("jsonMonthlyItems", jsonMonthlyItems);
 		return entityMonthlyItems;
 	}
-	
+		
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
 		
@@ -405,7 +403,6 @@ public class SellerController {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
-			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	    String seller_num = (String) session.getAttribute("seller_num");
@@ -809,7 +806,6 @@ public class SellerController {
         }
         
     }
-	
 	
 	// 팝업을 위한 문의 디테일
 	@RequestMapping(value = "/questionDetail", method = RequestMethod.GET)

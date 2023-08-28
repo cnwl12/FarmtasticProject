@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Contact</h2>
+                        <h2>Notice</h2>
                         <div class="breadcrumb__option">
                             <a href="main">Home</a>
                             <span>Farmtastic</span>
@@ -53,34 +53,22 @@
       <section class="blog spad" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
-                <!-- <div class="col-lg-4 col-md-5"> -->
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item">
-                            <h4>고객센터</h4>
-                            <ul>  
-                                <li><a href="contact">공지사항</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="oneboard">1:1 문의</a></li>
-                            </ul>
-                        </div>
-                     </div>
-                <!-- </div> -->
-				<div style="padding-top: 50px; padding-left: 195px;">
+				<div style="padding-top: 50px; padding-left: 20px;">
 					<h4>공지사항</h4>
-					<table class="table table-bordered" id="noticeTable" width="100%"cellspacing="0" style="width: 190%;">
+					<table class="table table-bordered" id="noticeTable" cellspacing="0" style="text-align: center;width: 400%;">
 						<thead>
 							<tr>
-								<th>작성번호</th>
-								<th>작성자</th>
+								<th>NO.</th>
+								<!-- <th>작성자</th> -->
 								<th>제목</th>
-								<th>작성날짜</th>
+								<th>작성일</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${notice}" var="list">
 								<tr>
 									<td>${list.admin_cs_num}</td>
-									<td>${list.admin_id}</td>
+									<%-- <td>${list.admin_id}</td> --%>
 									<td><a
 										href="${pageContext.request.contextPath}/contactContent?admin_cs_num=${list.admin_cs_num}">${list.admin_csnotice_sub}</a></td>
 									<td>${list.admin_cs_day}</td>

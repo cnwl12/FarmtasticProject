@@ -164,11 +164,7 @@ function enterCheck2(event) {
 
 							<fieldset> 
 								<legend>체크 옵션</legend>
-								<div class="join-guide type"> <!-- type 추가 -->
-									<ul class="links PC">
-										<li><a href="javascript:fn_searchId();" class="fs-13">아이디찾기</a></li>
-										<li><a href="javascript:fn_searchPwd();" class="fs-13">비밀번호찾기</a></li>
-									</ul>
+								<div class="join-guide type"> 
 								</div>
 							</fieldset>
 																			<!-- 로그인 넘어가는 페이지 설정  -->
@@ -185,7 +181,7 @@ function enterCheck2(event) {
 								    }
 								    
 								    function openSearchIdPopup() {
-								        window.open('searchId', 'search-id-popup', 'width=600, height=500');
+								        window.open('searchId', 'search-id-popup', 'width=600, height=400');
 								    }
 								    
 								    function openSearchPwdPopup() {

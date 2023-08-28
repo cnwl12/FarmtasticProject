@@ -50,12 +50,10 @@ public class MemberService {
 	} 
 	
 	 public List<Map<String, Object>> getMembers() {
-		 System.out.println("MemberService getMembers() 확인!");
 	        return memberDAO.getMembers();
 	}
 		
 	 public void changeMemberStatus(List<String> memberNums) {
-		 System.out.println("MemberService changeMemberStatus 확인!");
 	        memberDAO.changeMemberStatus(memberNums);
 	 }	
 	 
@@ -66,7 +64,6 @@ public class MemberService {
 
 
 	public MemberDTO getMember(String member_id) {
-		System.out.println("MemberService getMember()");
 		
 		return memberDAO.getMember(member_id);
 	}
@@ -78,8 +75,6 @@ public class MemberService {
 	
 	/* sungha 07.29 마이페이지*/
 	public MemberDTO getMember1(Integer member_num) {
-		
-		System.out.println("MemberService getMember1()");
 		
 		return memberDAO.getMember1(member_num);
 	}
@@ -100,21 +95,17 @@ public class MemberService {
 		// result = null - insert // true -update 진행
 		if(result != null) {// 기존 카트목록 getCart했을때 item에 들어있으면 update(수량변경)
 			memberDAO.updateCart(cart);
-			System.out.println("true update");	
 		}else { // getCart했을 때 item 없으면 insert
-			System.out.println("null 인서트");
 			memberDAO.insertCart(cart);
 		}
 	}
 	
 	// 카트 전체 목록
 	public List<Map<String, Object>> getCartList(int member_num) {
-		 System.out.println("MemberService getCart() 확인!");
 		return memberDAO.getCartList(member_num);
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MemberService updateMember()");
 		
 		memberDAO.updateMember(memberDTO);
 	}
@@ -129,24 +120,20 @@ public class MemberService {
     }
 
 	public void insertOrderDetail(HashMap<String, Object> orderDetail) {
-		System.out.println("서비스 오더디테일 까지 오는징");
 		memberDAO.insertOrderDetail(orderDetail);
 	}
 	
 	// 오버로딩
 	public void insertOrderDetail(int member_num) {
-		System.out.println("서비스 오더디테일 까지 오는징");
 		memberDAO.insertOrderDetail(member_num);
 	}
 	
 	public void deleteCart(HashMap<String, Object> cart) {
-		System.out.println("서비스 오는지 딜리트카트 ");
 		memberDAO.deleteCart(cart);
 	}
 
 
 	public MemberDTO userCheck1(MemberDTO memberDTO) {
-		System.out.println("MemberService userCheck1()");
 		 
 		 return memberDAO.userCheck1(memberDTO);
 	}
@@ -236,10 +223,8 @@ public class MemberService {
 	}
 	
 	public String insertOrders(HashMap<String, Object> payInfo) {
-		System.out.println("MemberService insertOrders" + payInfo );
 		memberDAO.insertOrders(payInfo);
 		String order_num = (String) payInfo.get("order_num");
-		System.out.println(order_num);
 		
 		return order_num;
 	}
@@ -247,8 +232,6 @@ public class MemberService {
 
 	
     public Map<String, Object> getMemberDetails(int memberNum) {
-    	System.out.println("서비스");
-		System.out.println("서비스"+memberNum);
         return memberDAO.getMemberDetails(memberNum);
     }
     
@@ -317,14 +300,11 @@ public class MemberService {
 
 	public void withdrawMember(MemberDTO memberDTO) {
 		
-		System.out.println("MemberService withdrawMember()");
-		
 		memberDAO.withderawMember(memberDTO);
 		
 	}
 	
 	public MemberDTO getMemberEmail(String member_email) {
-		System.out.println("MemberService getMemberEmail()");
 		return memberDAO.getMemberEmail(member_email);
 	}
 

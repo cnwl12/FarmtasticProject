@@ -26,6 +26,9 @@ public class SellerDAO {
 	    public List<Map<String, Object>> getSellers(String monthly) {
 	        return sqlSession.selectList(namespace + ".getSellers",monthly);
 	    }
+	    public List<Map<String, Object>> orderCount(String today) {
+	        return sqlSession.selectList(namespace + ".orderCount",today);
+	    }
 	    
 	    public List<Map<String, Object>> totalSales() {
 			// TODO Auto-generated method stub
@@ -46,14 +49,13 @@ public class SellerDAO {
 		
 		// 판매자 ID 중복체크
 		public Map<String, Object> sellerCheck(String seller_id) {
-			System.out.println("SellerDAO sellerCheck");
 			return sqlSession.selectOne(namespace+".sellerCheck", seller_id);
 		}
 		
 		// 선진) 판매자 모든 정보 가져옴
 		public Map<String, Object> getSellerInfo(String seller_num) {
 
-			return sqlSession.selectOne(namespace+".getSellerInfo", seller_num);
+			return sqlSession.selectOne(namespace + ".getSellerInfo", seller_num);
 		}
 		
 		// 선진) 판매자 정보 수정
@@ -78,6 +80,12 @@ public class SellerDAO {
 		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
 
 			return sqlSession.selectList(namespace + ".getMonthlyItems", seller_num);
+		}
+		
+		// 선진) 당일 주문건수
+		public int getTodayOrders(String seller_num) {
+			
+			return sqlSession.selectOne(namespace + ".getTodayOrders", seller_num);
 		}
 		
 		// 선진) 매출관리 - 검색바
@@ -132,35 +140,41 @@ public class SellerDAO {
 		}
 
 		public List<Map<String, Object>> getItems() {
-			System.out.println("List 오나요");
-			return sqlSession.selectList(namespace + ".getItems");
+			return sqlSession.selectList(namespace + ".getItems"); //기존 
+		}
+		
+		public List<Map<String, Object>> getItemsSortedByRegistration(Map<String, String> sortOption) {
+			return sqlSession.selectList(namespace + ".getItems", sortOption);
+		}
+		
+		public List<Map<String, Object>> getItemsSortedByPrice(Map<String, String> sortOption) {
+			System.out.println("price 요거");
+		    return sqlSession.selectList(namespace + ".getItems", sortOption);
+		}
+
+		public List<Map<String, Object>> getItemsSortedByName(Map<String, String> sortOption) {
+		    return sqlSession.selectList(namespace + ".getItems", sortOption);
 		}
 		
 		public List<Map<String, Object>> getItemSeller(String seller_num) {
-			System.out.println("getItemSeller 확인");
 			return sqlSession.selectList(namespace + ".getItemSeller",seller_num);
 		}
 		
 		// 정산용 매출내역
 		public List<Map<String, Object>> getSales() {
-			System.out.println("getSales 오나요");
 			return sqlSession.selectList(namespace + ".getSales");
 		}
 		
 		//정산 일별매출
 		public List<Map<String, Object>> daySales(String sellerNum, String orderMonth) {
-			System.out.println("daySales 오나요");
 			Map<String, String> param = new HashMap<String, String>();
 		    param.put("sellerNum", sellerNum);
 		    param.put("orderMonth", orderMonth);
-		    System.out.println(param);
 		    return sqlSession.selectList(namespace + ".daySales", param);
 		}
 		
 		// 정산 'Y'로 바꾸기
 		public void updateSettlementYn(Map<String, Object> parameters) { 
-			System.out.println("dao 오나요"); 
-			System.out.println(parameters); 
 			sqlSession.update("SellerMapper.updateSettlementYn", parameters); }
 		
 		//관리자 업체관리
@@ -173,20 +187,16 @@ public class SellerDAO {
 		}
 		
 		public Map<String, Object> getItem(int item_num) {
-			// System.out.println("dao itemNum : !! " + item_num );
 			return sqlSession.selectOne(namespace+".getItem", item_num);
 		}
 
 		//판매자별 연간
 		public List<Map<String, Object>> yearSales(String sellerNum) {
-			System.out.println("dao itemNum : !! " + sellerNum );
 			return sqlSession.selectList(namespace+".yearSales", sellerNum);
 		}
 
 		// 판매자 회원 가입
 		public void insertSeller(SellerDTO sellerDTO) {
-	         System.out.println("SellerDAO insertSeller() 확인");
-	         System.out.println(sellerDTO);
 	         sqlSession.insert(namespace+".insertSeller", sellerDTO); 
 		}
 
@@ -196,34 +206,28 @@ public class SellerDAO {
 
 		// 판매상태 변경
 		public void itemSold(HashMap<String, String> itemList) {
-			System.out.println("디에오");
 			sqlSession.update(namespace+".itemUpdateY", itemList);
 		}
 
 		// 판매자 ID 로그인-성하
 		public SellerDTO sellerCheck1(SellerDTO sellerDTO) {
-			System.out.println("SellerDAO sellerCheck1()");
 			return sqlSession.selectOne(namespace+".sellerCheck1", sellerDTO);
 		}
 		
 		public SellerDTO sellerCheck2(SellerDTO sellerDTO) {
-			System.out.println("SellerDAO sellerCheck2()");
 			return sqlSession.selectOne(namespace+".sellerCheck2", sellerDTO);
 		}
 
 		// 판매자 ID 중복체크
 		public String idCheck(String seller_id) {
-			System.out.println("SellerDAO idCheck");
 			return sqlSession.selectOne(namespace+".idCheck", seller_id);
 		}
 		
 		public SellerDTO idCheck2(String seller_id) {
-			System.out.println("SellerDAO idCheck2()");
 			return sqlSession.selectOne(namespace + ".idCheck2", seller_id);
 		}
 		
 		public List<Map<String, Object>> MemberMngjoin(Map<String, Object> params) {
-		    System.out.println("SellerDAO MemberMngjoin()");
 		    String seller_num = (String) params.get("seller_num");
 		    Date startDate = (Date) params.get("startDate");
 		    Date endDate = (Date) params.get("endDate");
@@ -234,7 +238,6 @@ public class SellerDAO {
 
 		// 상태 조회 후 변경 
 		public void updateStatus(HashMap<String, String> status) {
-			System.out.println("updateStatus dao");
 			sqlSession.update(namespace+".updateStatus", status);
 		}
 		
@@ -247,8 +250,6 @@ public class SellerDAO {
 	    }
 		
 		public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
-		    System.out.println("문의글 업데이트 DAO");
-
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("one_board_num", one_board_num);
@@ -270,17 +271,11 @@ public class SellerDAO {
 		}
 
 		public void withdrawSeller(SellerDTO sellerDTO) {
-			
-			System.out.println("SellerDAO withdrawSeller()");
 			sqlSession.insert(namespace+".withdrawSeller", sellerDTO);
-			
 		}
 
 		public void withderawSellerstopselling(SellerDTO sellerDTO) {
-			
-			System.out.println("SellerDAO withderawSellerstopselling()");
 			sqlSession.insert(namespace+".withderawSellerstopselling", sellerDTO);
-			
 		}
 
 		public Map<String, Object> getSellerDetails(String sellerNum) {
@@ -299,15 +294,17 @@ public class SellerDAO {
 		}
 		
 		public SellerDTO getSellerEmail(String seller_email) {
-			System.out.println("SellerDAO getSellerEmail()");
 			return sqlSession.selectOne(namespace + ".getSellerEmail", seller_email);
 		}
-
+		
+		// 선진) 판매자 메인 - 리뷰관리 팝업
 		public SellerDTO reviewDetail(Map<String,Object> params) {
 		     return sqlSession.selectOne(namespace + ".reviewDetail", params);
 		}
-
+		
+		// 선진) 판매자 메인 - 문의관리 팝업
 		public OneBoardDTO questionDetail(Map<String,Object> params) {
 		     return sqlSession.selectOne(namespace + ".questionDetail", params);
 		}
+
 }

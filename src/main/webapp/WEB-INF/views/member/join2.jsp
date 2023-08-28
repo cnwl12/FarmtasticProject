@@ -104,17 +104,14 @@ form {
                   <fieldset>
                      <legend>팜타스틱 사업자 회원가입 정보입력</legend>
                      <p class="">회원정보를 입력해주세요. 모두 입력하셔야 가입이 가능합니다.</p>
-                     
-            <!--    구현하는 사람이 NAME, ID 맞추기  -->
                       
                      <ul class="form_list">
                      
                         <li>
                         <input type="hidden" name="join_date" id="join_date">
-                        <input type="text"  placeholder="ID를 작성해주세요" name="seller_id" id="seller_id" maxlength="10" >
+                        <input type="text"  placeholder="ID 입력" name="seller_id" id="seller_id" maxlength="10" >
                         <div id = "idcheckdiv"></div>
                         <div id="invalid_id" class="invalid-feedback">
-                            아이디를 입력해주세요.
                              </div>
                              <div id="invalid_id2" class="invalid-feedback">
                              최소 2자 이상 최대 10자 / 영문 대소문자, 숫자만 입력하세요. 
@@ -122,9 +119,8 @@ form {
                         </li>   
                         
                         <li>
-                        <input type="password" placeholder="비밀번호를 입력해주세요" name="seller_pass" id="seller_pass" maxlength="15">
+                        <input type="password" placeholder="비밀번호" name="seller_pass" id="seller_pass" maxlength="15">
                         <div id= "invalid_pass" class="invalid-feedback">
-                            비밀번호를 입력해주세요.
                              </div>
                              <div id="invalid_pass2" class="invalid-feedback">
                              최소 2자 이상 최대 15자 / 영문 대소문자, 숫자만 입력하세요. 
@@ -145,7 +141,6 @@ form {
                         <li>   
                         <input type="text" placeholder="이름" name="seller_name" id="seller_name" maxlength="10">
                         <div id= "invalid_name" class="invalid-feedback">
-                            이름을 입력해주세요.
                              </div>
                              <div id= "invalid_name2" class="invalid-feedback">
                             최소 2글자 이상, 한글과 영어만 입력하세요.
@@ -644,7 +639,7 @@ form {
             // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
             timeoutId = setTimeout(function() {
                 $.ajax({
-                    url: "/farmtastic/idCheck2",
+                    url: "idCheck2",
                     type: "POST",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     data: {
