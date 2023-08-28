@@ -161,10 +161,10 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                            
-                           <!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->               
-                           <div>
-                             <canvas id="getDailySalesChart" width="1000" height="400"></canvas>
-                           </div>
+		                           <!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->               
+		                           <div>
+		                             <canvas id="getDailySalesChart" width="1000" height="300"></canvas>
+		                           </div>
                            
                                     </div>
                                 </div>
