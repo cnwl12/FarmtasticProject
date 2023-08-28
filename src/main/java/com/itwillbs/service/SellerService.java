@@ -156,7 +156,6 @@ public class SellerService {
 		}
 		
 		public List<Map<String, Object>> getItemsSortedByPrice(Map<String, String> sortOption) {
-		    System.out.println("items");
 		    return sellerDAO.getItemsSortedByPrice(sortOption);
 		}
 		
@@ -229,19 +228,16 @@ public class SellerService {
 	    }
 		
 		public SellerDTO sellerCheck2(SellerDTO sellerDTO) {
-		    System.out.println("SellerService sellerCheck2()");
 		    
 		    return sellerDAO.sellerCheck2(sellerDTO);
 	    }
 	
 		public String idCheck(String seller_num) {
-	         System.out.println("SellerService idCheck()");
 	       
 	         return sellerDAO.idCheck(seller_num);
 		}
 		
 		public SellerDTO idCheck2(String seller_id) {
-			System.out.println("SellerService idCheck2()");
 			return sellerDAO.idCheck2(seller_id);
 		}
 
@@ -281,14 +277,12 @@ public class SellerService {
 	    
 	    public void withdrawSeller(SellerDTO sellerDTO) {
 			
-			System.out.println("SellerService withdrawSeller()");
 			
 			sellerDAO.withdrawSeller(sellerDTO);
 			
 		}
 		public void withderawSellerstopselling(SellerDTO sellerDTO) {
 			
-			System.out.println("SellerService withderawSellerstopselling()");
 			sellerDAO.withderawSellerstopselling(sellerDTO);
 		}
 		 
@@ -303,7 +297,6 @@ public class SellerService {
 		}
 		
 		public SellerDTO getSellerEmail(String seller_email) {
-			System.out.println("SellerService getSellerEmail()");
 			return sellerDAO.getSellerEmail(seller_email);
 		}
 		

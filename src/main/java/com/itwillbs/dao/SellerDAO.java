@@ -148,7 +148,6 @@ public class SellerDAO {
 		}
 		
 		public List<Map<String, Object>> getItemsSortedByPrice(Map<String, String> sortOption) {
-			System.out.println("price 요거");
 		    return sqlSession.selectList(namespace + ".getItems", sortOption);
 		}
 

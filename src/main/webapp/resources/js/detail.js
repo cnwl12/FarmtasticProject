@@ -25,22 +25,17 @@ function handleRowClick(isPrivate, oneBoardNum, oneBoardPass, boardPasswordInput
 		  var passwordRowElement = document.getElementById("password_row" + oneBoardNum);
 
 		  // 로그 추가
-		  console.log("handleRowClick 호출됨: isPrivate=" + isPrivate);
-		  console.log(isPrivate)
 
 		  // 내용이 열려있는 것이 숨김 처리되는 경우
 		  if (
 		    (questionElement.style.display !== "none" && isPrivate) ||
 		    (!isPrivate && questionElement.style.display !== "none")
 		  ) {
-			  console.log("여기니?2");
 		    questionElement.style.display = "none";
 		    answerElement.style.display = "none";
 		    passwordRowElement.style.display = "none";
 		  } else {
-			  console.log("여기니3?");
 		    if (isPrivate) {
-		    	console.log("여기니?4");
 		      passwordRowElement.style.display = "";
 		    } else {
 		      questionElement.style.display = "";

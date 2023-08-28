@@ -538,12 +538,6 @@ public class FarmController { // 소비자 (컨트롤러)
 		
 		List<Map<String, Object>> itemList = sellerService.getItems(); // 기존 조건(등록일순)
 		
-	//	switch (sortOption) {
-	//		case "price":   itemList = sellerService.getItemsSortedByPrice(sortOption); System.out.println("fs- price"); break;
-			
-	//		case "name":	itemList = sellerService.getItemsSortedByName(sortOption); System.out.println("fs- name"); break;
-	//	}
-		
 		model.addAttribute("itemList", itemList);
 		    
 		List<Map<String, Object>> typeList = adminService.getTypes();

@@ -113,6 +113,12 @@ input#file-upload-button {
 .review-img img {
   max-width: 100%; /* 이미지가 컨테이너를 벗어나는 것을 방지 */
 }
+
+#oneboardBtn{
+   color: white;
+   background-color: #7fad39;
+   border: none;
+}
 </style>	
 	
 </head>
@@ -151,10 +157,10 @@ input#file-upload-button {
                         </div> 
                         			 <c:choose>
 				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
-				                            <div class="overlay sold-out">판매 종료</div>
+				                            <div class="overlay sold-out" style="width:100%;">판매 종료</div>
 				                        </c:when>
 				                        <c:when test="${item.item_left < 3}">
-				                            <div class="overlay sold-out">마감 임박</div>
+				                            <div class="overlay sold-out" style="width: 100%;">마감 임박</div>
 				                        </c:when>
 				                    </c:choose>
                     </div>
@@ -366,8 +372,8 @@ input#file-upload-button {
 																		${row.one_board_content}
 																	</div>
 																	<div>
-																        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
-																        <button type="button" class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
+																        <button type="button"  class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+																        <button type="button"  class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 																    </div>
 																</div>
 															</td>
@@ -404,9 +410,9 @@ input#file-upload-button {
 																</div>
 																<c:choose>
 											                        <c:when test="${sessionScope.member_num eq row.member_num}">
-											                            <div>
-											                                <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
-											                                <button type="button" class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
+											                            <div style="float: right;">
+											                                <button type="button" id="oneboardBtn" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
+											                                <button type="button" id="oneboardBtn" class="delete-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 											                            </div>
 											                        </c:when>
 											                    </c:choose>

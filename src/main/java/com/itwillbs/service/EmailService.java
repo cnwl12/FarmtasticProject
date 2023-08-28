@@ -40,9 +40,7 @@ public class EmailService {
             mailMessage.setSentDate(new Date());
 
             Transport.send(mailMessage);
-            System.out.println("Email sent successfully");
         } catch (MessagingException | UnsupportedEncodingException e) {
-            System.out.println("Error while sending email");
             e.printStackTrace();
         }
     }

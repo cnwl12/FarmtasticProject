@@ -670,7 +670,6 @@ public class SellerController {
 	@ResponseBody
 	public Map<String, Object> ch_test() throws Exception{
 		
-		System.out.println("test 들어가냐");
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		List<Map<String, Object>> list = new ArrayList();
@@ -744,7 +743,6 @@ public class SellerController {
 	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDate,
 	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
-	    System.out.println("memberMngPro sellerController()");
 	    String seller_num = (String) session.getAttribute("seller_num");
 	    
 	    Date start = null;

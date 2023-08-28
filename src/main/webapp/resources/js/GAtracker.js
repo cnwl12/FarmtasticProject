@@ -180,7 +180,6 @@ function logEvent(name, params) {
     window.webkit.messageHandlers.firebase.postMessage(message);
   } else {
     // No Android or iOS interface found
-    console.log("No native APIs found.");
   }
 }
 

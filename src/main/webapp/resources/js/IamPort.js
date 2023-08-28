@@ -79,7 +79,6 @@ function requestPay() {
     	} else {
         // 실패할 경우 실행할 코드
 	        alert("결제에 실패하였습니다.");
-	        console.log("이 오류의 정보: " + rsp.error_msg);
     	}
       }
     );

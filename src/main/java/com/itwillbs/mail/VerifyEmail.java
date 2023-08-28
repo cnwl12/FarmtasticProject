@@ -67,10 +67,8 @@ public class VerifyEmail {
 			// 메일 전송
 			Transport.send(mailMessage);
 			
-			System.out.println("메일이 정상적으로 발송 되었습니다!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("서버 설정 또는 서비스 문제 발생!");
 		}
 			return content;
 		}

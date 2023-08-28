@@ -28,7 +28,6 @@ function clearCart(){
 	                 location.reload();
 	            },
 	            error: function() {
-	                console.log("오류 발생");
 	            }
     	    });
 	}
@@ -49,7 +48,6 @@ function insertCart(item_num) {
             // 추가성공
         },
         error: function() {
-            console.log("상품 추가 중 오류 발생");
         }
     });
 

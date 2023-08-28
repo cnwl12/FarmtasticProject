@@ -340,7 +340,6 @@
                         }
                     },
                     error: function(xhr, textStatus, error) {
-                        console.log(error);
                     }
                 });
             }, 500); // 타이머 시간 설정 (ms)
@@ -374,7 +373,6 @@
                         }
                     },
                     error: function(xhr, textStatus, error) {
-                        console.log(error);
                     }
                 });
             }, 500); // 타이머 시간 설정 (ms)

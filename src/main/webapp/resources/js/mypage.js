@@ -137,7 +137,6 @@ $(document).ready(function() {
       // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
       selectedReview = checkedReviews.first().data("review_num");
       selectedMember = checkedReviews.first().data("member_num");
-      console.log('Selected review number:', selectedReview);
 
       deleteReview(selectedReview, selectedMember);
     } else {
@@ -156,7 +155,6 @@ $(document).ready(function() {
       },
       dataType: 'text',
       success: function (responseText) {
-        console.log(responseText);
         if (responseText === 'The review has been successfully deleted.') {
           alert('리뷰가 성공적으로 삭제되었습니다.');
           location.reload(); // 페이지를 새로고침합니다.

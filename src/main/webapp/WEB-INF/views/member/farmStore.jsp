@@ -91,8 +91,6 @@
                                     </div>
                              </div>
                             </div>
-                            <!-- <div class="col-lg-4 col-md-4">
-                            </div> -->
                         </div>
                     </div>
                     
@@ -118,7 +116,7 @@
 				                    </div>
 				                </a>
 										<ul class="product__item__pic__hover">
-											<li><a href="#" class="wishlist-btn"
+											<li><a href="#" class="wishlist-btn" id="memberNum"
 												data-member-num="${sessionScope.member_num}"
 												data-item-num="${item.item_num}"> <i
 													class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
@@ -157,13 +155,13 @@
 
 <!--  서영 - 찜기능때문에 heart가 위이고 jquery 아래임 main에선 반대 -->
     <!-- Js Plugins -->
-        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
   	<script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 </body>
 
