@@ -53,32 +53,20 @@
       <section class="blog spad" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-5">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item">
-                            <h4>고객센터</h4>
-                            <ul>  
-                                <li><a href="contact">공지사항</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="oneboard">1:1 문의</a></li>
-                            </ul>
-                        </div>
-                     </div>
-                </div>
-                <div>
-    				<h4>공지사항</h4>
+                <div  style="padding-top: 50px; padding-left: 20px;">
+    				<!-- <h4>공지사항</h4> -->
     					   <!--글쓰기  -->
-                        <div class="card-header py-3">
+                        <div class="card-header py-3" style="width: 1145px;">
                            <div class="row">
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
-                            <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+                          <!--   <h6 class="m-0 font-weight-bold text-primary">공지사항</h6> -->
                           </div>
-                             <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
-           					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
-           					 <label>첨부파일: </label><input type="text" name="file" value="${content.admin_cs_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/>
+                            <%--  <label>작성자: </label>${content.admin_id}<br>    --%> 
+           					 <label></label><b>${content.admin_csnotice_sub}</b><br>
+           					<%--  <label>첨부파일: </label>${content.admin_cs_file} --%>
                         </div>   
-                        <div class="card-body">
+                        <div class="card-body" style="padding: 8px 0 0;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                          			<tr>
@@ -86,7 +74,7 @@
                          				<td>
     										<c:choose>
         										<c:when test="${content.admin_cs_file != null && content.admin_cs_file != ''}">
-            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px;"><br>
+            									<img src="${content.admin_cs_file}" style="width: 500px; height: 500px; margin: 0 27%;"><br>
         										</c:when>
     										</c:choose>
     											<input type="text" name="admin_cs_view" value="${content.admin_cs_view}" style="width: 70%; border: none; background-color: white;" readonly="readonly"/>
@@ -94,8 +82,8 @@
                          			</tr>
                          		</table>
                             </div>
+                            </div>
                           </div>
-				</div>
             </div>
        </div>
      </section>

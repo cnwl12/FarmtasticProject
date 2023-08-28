@@ -29,13 +29,12 @@ $(document).ready(function() {
 function updateProductList(data) {
 
 	console.log("upadate");
-	var productListContainer  = $(".ajaxSuccess");
+	var productListContainer  = $(".ajaxSuccess .row");
    	productListContainer.empty(); // 기존 내용을 지우고 새로운 내용으로 업데이트
     
     for (var i = 0; i < data.length; i++) {
         var item = data[i];
         var productHTML = `
-           <div class="row">  
         	    <div class="col-lg-4 col-md-6 col-sm-6">
          <div class="product__item">
                     <div class="product__item__pic set-bg">
@@ -77,7 +76,6 @@ function updateProductList(data) {
                     <div class="product__item__text">
                         <h6><a href="farmStoreDetail?item_num=${item.item_num}">${item.item_name}</a></h6>
                         <h5>${item.item_price}</h5>
-                    </div>
                     </div>
                     </div>
                     </div>

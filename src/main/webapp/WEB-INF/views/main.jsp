@@ -54,7 +54,7 @@
                             <li class="active"><a href="main">팜타스틱</a></li>
                             <li><a href="farmStore">팜팜마켓</a></li>
                             <li><a href="blog">제철팜</a></li>
-                            <li><a href="contact">고객센터</a></li>
+                            <li><a href="contact">공지사항</a></li>
                         </ul>
                     </nav>
                 </div>
