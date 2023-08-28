@@ -72,11 +72,19 @@ public class SellerService {
 		
 		// 선진) 품목별 월 매출 차트
 		public List<Map<String,Object>> getMonthlyItems(String seller_num) {
+
 			return sellerDAO.getMonthlyItems(seller_num);
 		}
 		
+		// 당일 주문건수
+		public int getTodayOrders(String seller_num) {
+
+			return sellerDAO.getTodayOrders(seller_num);
+		}
+				
 		// 선진) 매출관리 - 검색바
 		public List<Map<String,Object>> getDailySalesList(String seller_num, String startDate, String endDate) {
+			
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("seller_num", seller_num);
 		    params.put("startDate", startDate);
@@ -299,6 +307,7 @@ public class SellerService {
 			return sellerDAO.getSellerEmail(seller_email);
 		}
 		
+		// 선진) 판매자 메인 - 리뷰관리 팝업
 		public SellerDTO reviewDetail(String seller_num, int review_num) {
 		    Map<String, Object> params = new HashMap<>();
 		    params.put("seller_num", seller_num);
@@ -306,6 +315,7 @@ public class SellerService {
 		    return sellerDAO.reviewDetail(params);
 		}
 		
+		// 선진) 판매자 메인 - 문의관리 팝업
 		public OneBoardDTO questionDetail(String seller_num, int one_board_num) {
 		    Map<String, Object> params = new HashMap<>();
 		    params.put("seller_num", seller_num);

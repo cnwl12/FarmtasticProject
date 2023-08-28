@@ -53,8 +53,8 @@
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
-                    <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
-                    <p class="mb-4"><a target="_blank" href="https://datatables.net"></a></p>
+<!--                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1> -->
+<!--                     <p class="mb-4"><a target="_blank" href="https://datatables.net"></a></p> -->
                     <!-- 페이지 상단 끝 -->
                     
                     <!-- 정산 신청 시작 -->
@@ -66,11 +66,12 @@
                         <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
                         <input type="hidden" id="selectedMonths" name="selectedMonths" value=""/>
                    		
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit" onClick="submitAction('request');">정산신청</button>
-                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="submitAction('cancel');">신청취소</button> <!-- deleteSettlement();  -->
-                   		
                         <div class="card-body">
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit" onClick="submitAction('request');">정산신청</button>
+                   		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="submitAction('cancel');">신청취소</button><br><br>
+                                       
                             <div class="table-responsive">
+                            
                                 <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -137,8 +138,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -258,46 +258,6 @@
 	    }
 	    allRequestCheckbox();
 	});
-	
-	// 지피티코드
-//     function submitAction(action) {
-//         let selectedMonths = document.querySelectorAll('input.setRequestCB:checked');
-        
-//         if (selectedMonths.length === 0) {
-//             alert("선택된 정산건이 없습니다!");
-//             return;
-//         } else {
-//             let errorMessage = null;
-
-//             selectedMonths.forEach(function(month) {
-//                 let row = month.closest('tr');
-//                 let settlementApplication = row.querySelector('td:nth-child(6)').textContent;
-//                 let settlementComplete = row.querySelector('td:nth-child(8)').textContent;
-
-//                 if (action === 'request') {
-//                     if (settlementApplication === 'Y') {
-//                         errorMessage = "이미 신청된 정산입니다!";
-//                     } else if (settlementComplete === 'Y') {
-//                         errorMessage = "정산 처리가 완료된 정산입니다!";
-//                     }
-//                 } else if (action === 'cancel') {
-//                     if (settlementComplete === 'Y') {
-//                         errorMessage = "정산이 완료된 건입니다. 관리자에게 문의하세요!";
-//                     } else if (settlementApplication === '') {
-//                         errorMessage = "취소 가능한 정산건이 존재하지 않습니다!";
-//                     }
-//                 }
-//             });
-
-//             if (errorMessage) {
-//                 alert(errorMessage);
-//                 return;
-//             } else {
-//                 $('#action').val(action);
-//                 $('#settlementRequest').submit();
-//             }
-//         }
-//     }
     </script> 
     
 </body>

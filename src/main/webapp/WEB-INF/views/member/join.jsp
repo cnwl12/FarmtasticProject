@@ -38,7 +38,7 @@ input#post {
     margin-top: 0.25rem;
     font-size: 80%;
     color: #dc3545;
-    margin-left: 25px;
+    margin-left: 3px;
 }
 </style>
  
@@ -68,7 +68,7 @@ input#post {
 							
 								<li>
 									<input type="hidden" name="join_date" id="join_date">
-									ID : <input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
+									<input type="text" placeholder="ID를 작성해주세요" name="member_id" id="member_id" maxlength="10" >
 									<div id = "idcheckdiv"></div>
 									<div id="invalid_id" class="invalid-feedback">
               						</div>
@@ -78,7 +78,7 @@ input#post {
 								</li>   
 								
 								<li>
-									<input type="password" placeholder="비밀번호" name="member_pass" id="member_pass" maxlength="15">
+									<input type="password" placeholder="비밀번호를 작성해주세요" name="member_pass" id="member_pass" maxlength="15">
 									<div id= "invalid_pass" class="invalid-feedback">
               						</div>
               						<div id="invalid_pass2" class="invalid-feedback">
@@ -90,7 +90,7 @@ input#post {
 								</li>  
 								
 								<li>  
-									<input type="password"  placeholder="비밀번호 재입력" name="member_pass2" id="member_pass2" maxlength="15">
+									<input type="password"  placeholder="위와 동일한 비밀번호를 작성해주세요" name="member_pass2" id="member_pass2" maxlength="15">
 									<div id= "invalid_pass4" class="invalid-feedback">
                 					비밀번호가 일치하지 않습니다.
               						</div>
@@ -106,7 +106,7 @@ input#post {
 								</li>
 							  	
 							  	<li>
-									<input type="text"  placeholder="연락처 작성" name="member_phone" id="member_phone" maxlength="11" oninput="removeHyphen(event)">
+									<input type="text"  placeholder="연락처(휴대폰)번호 작성" name="member_phone" id="member_phone" maxlength="11" oninput="removeHyphen(event); validatePhone()"">
 									<div id= "invalid_phone" class="invalid-feedback">
               						</div>
               						<div id= "invalid_phone2" class="invalid-feedback">
@@ -124,7 +124,7 @@ input#post {
 								</li>
 							
 								<li>
-									<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호">
+									<input type="text" name="member_post" id="sample4_postcode" placeholder="우편번호" style="color: gray; width: 55px;">
 									<input type="button" id="member_post" onclick="sample4_execDaumPostcode()" value="[우편번호 찾기]" required style="margin: 0px 0px 0px 3px; height: 22px; width: 100px;">
 									<div id="invalid_post" class="invalid-feedback">
               						주소를 입력해주세요.
@@ -150,7 +150,7 @@ input#post {
 							
 								
 							
-							<div class="btn_zone">
+							<div class="btn_zone" style="margin-left: 100px;">
 							<button type="button" id="goMain" class="site-btn">처음으로</button>
 							<button type="button" id="submitBtn" class="site-btn">확인</button>
 							</div>
@@ -164,30 +164,12 @@ input#post {
 	</div>
 </div>
 
-
-
-<script>  
-      window.addEventListener('load', () => { 
-      const forms = document.getElementsByClassName('validation-form'); 
-
-      Array.prototype.filter.call(forms, (form) => { 
-      form.addEventListener('submit', function (event) { 
-      if (form.checkValidity() == false) { 
-          event.preventDefault(); 
-          event.stopPropagation(); 
-       }  
-      form.classList.add('was-validated'); 
-        }, false); 
-      }); 
-    }, false); 
-</script> 
-
-
 <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
 	
 <!-- Js Plugins -->
   	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+       <script src="${pageContext.request.contextPath}/resources/js/join.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
@@ -195,262 +177,7 @@ input#post {
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-    
 
-
-<script>
-    $(document).ready(function() {
-      // 처음으로 버튼 이벤트 핸들러
-      $("#goMain").on("click", function() {
-        location.href = 'main';
-      });
-		
-      // 유효성 검사 이벤트 핸들러를 각 입력란에 추가
-      $("#member_id").on("input", function() {
-        validateId();
-      });
-      
-      $("#member_pass").on("input", function() {
-        validatePass();
-      });
-
-      $("#member_pass2").on("input", function() {
-        validatePass2();
-      });
-
-      $("#member_name").on("input", function() {
-        validateName();
-      });
-
-      $("#member_phone").on("input", function() {
-        validatePhone();
-      });
-
-      $("#member_email").on("input", function() {
-        validateEmail();
-      });
-
-      $("#sample4_postcode").on("input", function() {
-        validatePost();
-      });
-
-  		
-      $("#submitBtn").on("click", function() {
-    	  // Validation 통과시 폼 제출
-    	  if (validateAll()) {
-    	    // 가입 날짜를 hidden 필드에 입력
-    	    const currDate = new Date(); // 현재 시간 정보 가져오기
-    	    const formattedDate = `${currDate.getFullYear()}-${currDate.getMonth() + 1}-${currDate.getDate()}`; // 날짜 정보 포맷팅
-    	    $("#member_joinDay").val(formattedDate); // hidden 필드에 채우기
-
-    	    // 폼 데이터를 JavaScript 객체로 만듭니다.
-    	    var formData = $("#join").serialize();
-
-    	    // ajax 요청을 보냅니다.
-    	    $.ajax({
-    	      type: "POST",
-    	      url: $("#join").attr("action"),
-    	      data: formData,
-    	      success: function() {
-    	        // 요청이 성공적으로 처리되었을 때, login 페이지로 이동합니다.
-    	        alert("회원가입이 성공적으로 되었습니다. 로그인 창으로 이동합니다.");
-    	        location.href = 'login';
-    	      },
-    	      error: function() {
-    	        // 요청 처리 중 오류가 발생한 경우에 대한 처리를 여기에 추가할 수 있습니다.
-    	        alert("정보를 처리중에 오류가 발생했습니다. 다시 시도해주세요");
-    	      }
-    	    });
-    	  }
-   	 	}); 
-
- });
-    
-    var isIdDuplicated = false;
-    var isEmailDuplicated = false
-    
-    // 정규식
-    var regId = /^[a-zA-Z0-9]{2,10}$/;
-    var regPw = /^[a-zA-Z0-9]{2,10}$/;
-    var regName = /^[가-힣a-zA-Z]{2,15}$/;
-    var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-    var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
-	
-//  유효성 검사 메서드
-    function validateId() {
-      var uid = $("#member_id");
-      if (uid.val() == "" || !regId.test(uid.val())) {
-        $('#invalid_id').show();
-        uid.focus();
-        return false;
-      } else if (isIdDuplicated) { // 아이디가 중복되었을 경우
-        $('#invalid_id').show();
-        uid.focus();
-        return false;
-      }else {
-        $('#invalid_id').hide();
-        return true;
-      }
-    }
-
-    function validatePass() {
-      var uid = $("#member_id");
-      var pw = $("#member_pass");
-      if (pw.val() == uid.val()) {
-          $('#invalid_pass3').show();
-          pw.focus();
-          return false;
-        } else if (pw.val() == "" || !regPw.test(pw.val())) {
-          $('#invalid_pass3').hide();
-          $('#invalid_pass2').show();
-          pw.focus();
-          return false;
-        } else {
-          $('#invalid_pass3').hide();
-          $('#invalid_pass2').hide();
-          return true;
-        }
-      }
-
-    function validatePass2() {
-      var pw = $("#member_pass");
-      var cpw = $("#member_pass2");
-      if (cpw.val() == "" || pw.val() != cpw.val()) {
-        $('#invalid_pass4').show();
-        cpw.focus();
-        return false;
-      } else {
-        $('#invalid_pass4').hide();
-        return true;
-      }
-    }
-
-    function validateName() {
-      var uname = $("#member_name");
-      if (uname.val() == "" || !regName.test(uname.val())) {
-        $('#invalid_name').show();
-        uname.focus();
-        return false;
-      } else {
-        $('#invalid_name').hide();
-        return true;
-      }
-    }
-
-    function validatePhone() {
-      var uphone = $("#member_phone");
-      if (uphone.val() == "" || !regPhone.test(uphone.val())) {
-        $('#invalid_phone').show();
-        uphone.focus();
-        return false;
-      } else {
-        $('#invalid_phone').hide();
-        return true;
-      }
-    }
-	
-    function removeHyphen(event) {
-    	  var input = event.target;
-    	  var phoneNumber = input.value;
-    	  var cleanedPhoneNumber = phoneNumber.replace(/-/g, '');
-    	  input.value = cleanedPhoneNumber;
-    	}
-    
-    function validateEmail() {
-      var mail = $("#member_email");
-      if (mail.val() == "" || !regMail.test(mail.val())) {
-        $('#invalid_email').show();
-        mail.focus();
-        return false;
-      } else {
-        $('#invalid_email').hide();
-        return true;
-      }
-    }
-
-    function validatePost() {
-      var post = $("#sample4_postcode");
-      if (post.val() == "") {
-        $('#invalid_post').show();
-        post.focus();
-        return false;
-      } else {
-        $('#invalid_post').hide();
-        return true;
-      }
-    }
-
-    function validateAll() {
-      return validateId() && validatePass() && validatePass2() && validateName() && validatePhone() && validateEmail() && validatePost();
-    }
-    
-    $(document).ready(function() {
-        var timeoutId;
-
-        $("#member_email").on("keyup", function() {
-            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
-
-            var member_email = $(this).val();
-
-            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
-            timeoutId = setTimeout(function() {
-                $.ajax({
-                    url: "emailCheck",
-                    type: "POST",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    data: {
-                        "member_email": member_email
-                    },
-                    success: function(data) {
-                        if (data === 1) {
-                            $("#invalid_email").text("이메일이 중복입니다.").show();
-                        } else {
-                            $("#invalid_email").hide();
-                        }
-                    },
-                    error: function(xhr, textStatus, error) {
-                        console.log(error);
-                    }
-                });
-            }, 500); // 타이머 시간 설정 (ms)
-        });
-    });
-	
-    $(document).ready(function() {
-        var timeoutId;
-
-        $("#member_id").on("keyup", function() {
-            clearTimeout(timeoutId); // 이미 설정된 타이머 제거
-
-            var member_id = $(this).val();
-
-            // 새로운 타이머 설정: 500ms 동안 추가 입력이 없으면 함수 실행
-            timeoutId = setTimeout(function() {
-                $.ajax({
-                    url: "idCheck0",
-                    type: "POST",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    data: {
-                        "member_id": member_id
-                    },
-                    success: function(data) {
-                        if (data === 1) {
-                            $("#invalid_id").text("아이디가 중복입니다.").show();
-                            isIdDuplicated = true;
-                        } else {
-                            $("#invalid_id").hide();
-                            isIdDuplicated = false;
-                        }
-                    },
-                    error: function(xhr, textStatus, error) {
-                        console.log(error);
-                    }
-                });
-            }, 500); // 타이머 시간 설정 (ms)
-        });
-    });
-    
-    </script>
 </body>
 
 </html> 

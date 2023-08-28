@@ -153,6 +153,7 @@
 	  		,item_name
 	  		,item_price
 	  		,item_mainImg
+	  		,item_salesStatus
 	  FROM item
 	  WHERE item_name LIKE CONCAT('%', #{item_query}, '%')
 	</select>

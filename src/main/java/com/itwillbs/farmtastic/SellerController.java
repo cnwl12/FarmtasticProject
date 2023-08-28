@@ -112,6 +112,10 @@ public class SellerController {
 		    }
 		    model.addAttribute("unrepboard", unrepboard);
 		    
+		    // 당일 주문건수 메서드
+		    int todayOrders = sellerService.getTodayOrders(seller_num);
+		    model.addAttribute("todayOrders", todayOrders);
+		    
 		    return "/seller/sellerMain";
 	    }
 	} 
@@ -126,7 +130,6 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	        // 로그인한 경우
-
 	    	String seller_num = (String) session.getAttribute("seller_num");
 		    String seller_id = sellerService.idCheck(seller_num);
 		    Map<String, Object> sellerInfo = sellerService.getSellerInfo(seller_num);
@@ -150,7 +153,7 @@ public class SellerController {
 	                        @RequestParam(value = "seller_accountHolder", required = false) String seller_accountHolder,
 	                        @RequestParam(value = "seller_addMain", required = false) String seller_addMain,
 	                        @RequestParam(value = "seller_addSub", required = false) String seller_addSub) throws Exception {
-		
+		 
 	    String seller_num = (String) session.getAttribute("seller_num");
 
 	   
@@ -204,6 +207,7 @@ public class SellerController {
 			@RequestParam(value = "seller_id", required = false) String seller_id,
 			@RequestParam(value = "seller_recoYn", required = false) String seller_recoYn,
 			@RequestParam(value = "seller_pass", required = false) String seller_pass) throws Exception {
+		System.out.println("SellerController withdrawPro");
 		String seller_num = (String) session.getAttribute("seller_num");
 
 		// 입력된 값들도 세션에 저장합니다.
@@ -223,6 +227,7 @@ public class SellerController {
 			sellerDTO.setSeller_id(seller_id);
 			sellerDTO.setSeller_pass(seller_pass);
 			
+			
 			sellerService.withdrawSeller(sellerDTO);
 			sellerDTO.setSeller_recoYn(seller_recoYn);
 			sellerService.withderawSellerstopselling(sellerDTO);
@@ -232,6 +237,7 @@ public class SellerController {
 			return "redirect:/login";
 			
 		} else {
+			
 			
 			model.addAttribute("message", "비밀번호가 틀립니다");
 			return "redirect:/sellerMain";
@@ -243,12 +249,9 @@ public class SellerController {
 	public String salesMng(Locale locale, HttpSession session, Model model, HttpServletResponse response) {
 		
 	    if (session.getAttribute("seller_num") == null) {
-	        
 	    	model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
-	        
 	    } else {
-	    	
 	    String seller_num = (String) session.getAttribute("seller_num");
 		String seller_id = sellerService.idCheck(seller_num);
 		model.addAttribute("seller_id", seller_id);	
@@ -321,15 +324,17 @@ public class SellerController {
 	
 	// 선진) 품목별 월 매출 제이슨데이터로 변환
 	@RequestMapping(value = "/chartMonthlyItems", method = RequestMethod.GET)
-	public ResponseEntity<List<Map<String,Object>>> chartMonthlyItems(HttpSession session){
+	public ResponseEntity<List<Map<String,Object>>> chartMonthlyItems(HttpSession session, Model model){
 		
 		String seller_num = (String) session.getAttribute("seller_num");
 		List<Map<String,Object>> jsonMonthlyItems = sellerService.getMonthlyItems(seller_num);
 		// 이동이 아니라 ResponseEntity에 출력 결과를 담아서 리턴
 		ResponseEntity<List<Map<String,Object>>> entityMonthlyItems = new ResponseEntity<List<Map<String,Object>>>(jsonMonthlyItems, HttpStatus.OK);
+		
+		model.addAttribute("jsonMonthlyItems", jsonMonthlyItems);
 		return entityMonthlyItems;
 	}
-	
+		
 	@RequestMapping(value = "/memberMng", method = RequestMethod.GET) //성하->수정중
 	public String memberMng(Locale locale, HttpSession session, Model model) {
 		
@@ -398,7 +403,6 @@ public class SellerController {
 		if (session.getAttribute("seller_num") == null) {
 	        // 세션에 로그인 정보가 없는 경우
 			model.addAttribute("error", "로그인 후 사용가능");
-			
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 	    String seller_num = (String) session.getAttribute("seller_num");
@@ -496,10 +500,9 @@ public class SellerController {
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
 		
-    	String seller_num = (String) session.getAttribute("seller_num");
- 	    String seller_id = sellerService.idCheck(seller_num);
- 	    model.addAttribute("seller_id", seller_id);	
 	    session.setAttribute("seller_num", seller_num);
+	    String seller_id = sellerService.idCheck(seller_num);
+	    model.addAttribute("seller_id", seller_id);
 	    
 		List<Map<String, Object>> typeList = adminService.getTypes();
 		model.addAttribute("typeList", typeList);
@@ -517,6 +520,8 @@ public class SellerController {
 			// 첨부파일 올라갈 물리적 경로 
 			String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
+			//		System.out.println(uploadPath);
+
 			for (int i = 0; i < files.size(); i++) {
 				MultipartFile file = files.get(i);
 				if (!file.isEmpty() && file.getSize() > 0) { // 파일이 전송되었는지 확인
@@ -528,6 +533,8 @@ public class SellerController {
 					String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
 					String filePath = uploadPath + "/" + storedFileName;
+
+					System.out.println("filePath : " + filePath);
 
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
 					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -559,17 +566,14 @@ public class SellerController {
 	public String itemMng(Model model, HttpSession session) {
 	   
 		if (session.getAttribute("seller_num") == null) {
-	        
-	    	model.addAttribute("error", "로그인 후 사용가능");
-	        return "redirect:/login"; // 로그인 페이지로 이동
-	        
-	    } else {
-	    	
-	    String seller_num = (String) session.getAttribute("seller_num");
-		String seller_id = sellerService.idCheck(seller_num);
-		model.addAttribute("seller_id", seller_id);	
-	    
-		session.setAttribute("seller_num", seller_num);
+			model.addAttribute("error", "로그인 후 사용가능");
+			return "redirect:/login"; // 로그인 페이지로 이동
+		} else {
+		String seller_num = (String) session.getAttribute("seller_num");
+		
+	    String seller_id = sellerService.idCheck(seller_num);
+	    model.addAttribute("seller_id", seller_id);
+	    session.setAttribute("seller_num", seller_num);
 	    
 	    List<Map<String, Object>> itemList = sellerService.getItemSeller(seller_num);
 	    
@@ -666,6 +670,7 @@ public class SellerController {
 	@ResponseBody
 	public Map<String, Object> ch_test() throws Exception{
 		
+		System.out.println("test 들어가냐");
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		List<Map<String, Object>> list = new ArrayList();
@@ -704,7 +709,7 @@ public class SellerController {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
-	        } else if (sellerDTO2 != null && "D".equals(sellerDTO2.getSeller_recoYn())) {
+	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
 	            // 승인 거절된 사용자
 	            model.addAttribute("error", "탈퇴한 회원입니다.");
 	            return "redirect:/login";    
@@ -739,6 +744,7 @@ public class SellerController {
 	public String memberMngPro(@RequestParam(name = "startDate", required = false) String startDate,
 	                            @RequestParam(name = "endDate", required = false) String endDate,
 	                            Locale locale, Model model, HttpSession session, HttpServletResponse response) {
+	    System.out.println("memberMngPro sellerController()");
 	    String seller_num = (String) session.getAttribute("seller_num");
 	    
 	    Date start = null;
@@ -800,7 +806,6 @@ public class SellerController {
         }
         
     }
-	
 	
 	// 팝업을 위한 문의 디테일
 	@RequestMapping(value = "/questionDetail", method = RequestMethod.GET)

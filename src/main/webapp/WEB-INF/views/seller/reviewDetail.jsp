@@ -30,49 +30,49 @@
 	
 </head>
 <body>
- <div class="card shadow mb-4" id="reviewMng">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">리뷰상세정보</h6>
-                        </div>
-                         <div class="card-body">
-  							<div class="table-responsive">
-  								<input type="hidden" name="review_num" value="${review_num}" />
-                                <table class="table table-bordered" id="dataTable" >
-                                    <tbody>
-                                        <tr>
-                                        <th>상품명</th>
-                                        <td>${reviewDetail.item_name}</td>
-                                        </tr>
-										<tr>
-                                        <th>별점</th>
-                                        <td class='review-star'>${reviewDetail.review_star}</td>
-                                        </tr>
-                                        <tr>
-                                        <th>작성자</th>
-                                        <td>${reviewDetail.member_name}</td>
-                                        </tr>
-                                        <tr>
-                                        <th>작성일</th>
-                                        <td>${reviewDetail.review_day}</td>
-                                        </tr>
-                                        <tr>
-                                        <th>제목</th>
-                                        <td>${reviewDetail.review_title}</td>
-                                        </tr>
-                                        <tr>
-                                        <th>내용</th>
-                                        <td>${reviewDetail.review_content}</td>
-                                        </tr>
-                                        <tr>
-                                        <th>이미지</th>
-                                        <td><img src="${reviewDetail.review_img}" style="width:200px; height:200px;"></td>
-                                        </tr>
-                                        <tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            </div>
-                            </div>
+<div class="card shadow mb-4" id="reviewMng">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">리뷰상세정보</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<input type="hidden" name="review_num" value="${review_num}" />
+		    <table class="table table-bordered" id="dataTable" >
+		        <tbody>
+		            <tr>
+		            <th>상품명</th>
+		            <td>${reviewDetail.item_name}</td>
+					</tr>
+					<tr>
+					<th>별점</th>
+					<td class='review-star'>${reviewDetail.review_star}</td>
+		            </tr>
+		            <tr>
+		            <th>작성자</th>
+		            <td>${reviewDetail.member_name}</td>
+		            </tr>
+		            <tr>
+		            <th>작성일</th>
+		            <td>${reviewDetail.review_day}</td>
+		            </tr>
+		            <tr>
+		            <th>제목</th>
+		            <td>${reviewDetail.review_title}</td>
+		            </tr>
+		            <tr>
+		            <th>내용</th>
+		            <td>${reviewDetail.review_content}</td>
+		            </tr>
+		            <tr>
+		            <th>이미지</th>
+		            <td><img src="${reviewDetail.review_img}" alt="이미지 없음" style="width:200px; height:200px; display: none;"></td>
+		            </tr>
+		            <tr>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
+</div>
                             
                                <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>

@@ -36,54 +36,6 @@
 
 <body id="page-top">
 
-<!-- 페이지에서 번호 중간에 하이픈 추가해서 보여주고 수정 버튼을 누르면 하이픈 뺀 번호만 디비에 전달하는 코드, 불확실해서 잠시 보류 -->
-<!-- <script>
- // DB에서 가져온 전화번호에 하이픈 추가하는 함수
-function formatPhoneNumber(input) {
-  const phoneNumber = input.value.replace(/\D/g, ''); // 입력된 값에서 숫자만 추출
-
-  let formattedPhoneNumber = '';
-  // 번호가 10자리인 경우
-  if (phoneNumber.length === 10) {
-    formattedPhoneNumber = phoneNumber.replace(/^(\d{2,4})(\d{3})(\d{4})$/, '$1-$2-$3');
-  }
-  // 번호가 11자리인 경우
-  else if (phoneNumber.length === 11) {
-    formattedPhoneNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
-  }
-
-  // 디비에 저장할 때는 하이픈을 제거하고 숫자만 저장
-  const phoneNumberWithoutHyphen = phoneNumber.replace(/\D/g, '');
-
-  input.value = formattedPhoneNumber; // input 요소의 값을 변경하여 화면에 출력
-  // 폼 제출 시 디비에 저장할 값을 설정
-  input.setAttribute('data-phone-number', phoneNumberWithoutHyphen);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  const inputElements = document.querySelectorAll('.seller_edit');
-  inputElements.forEach((inputElement) => {
-    formatPhoneNumber(inputElement);
-  });
-
-  const form = document.querySelector('form[action$="/sellerUpdatePro"][method="post"]');
-  if (form) {
-    form.addEventListener('submit', function(event) {
-      event.preventDefault(); // 폼 제출 기본 동작 취소
-      // 폼 제출 시 디비에 저장할 값을 설정
-      const phoneNumberInputs = form.querySelectorAll('.seller_edit');
-      phoneNumberInputs.forEach((inputElement) => {
-        inputElement.value = inputElement.getAttribute('data-phone-number');
-      });
-      // 폼 제출
-      form.submit();
-    });
-  }
-});
-
-</script> -->
-
-
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<jsp:include page="./inc/sidemenu.jsp"></jsp:include>
@@ -101,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					<input type="hidden" name="seller_num" value="${seller.seller_num}">
 
 						<!-- 페이지 상단 시작 -->
-						<!-- 기존 템플릿에 있던 부분인데 굳이 없어도 되니까 일단 주석처리 -->
 <!-- 						<div class="d-sm-flex align-items-center justify-content-between mb-4"> -->
 <!-- 							<h1 class="h3 mb-0 text-gray-800">판매자정보</h1> -->
 <!-- 						</div> -->
@@ -129,14 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
 									<label class="control-label">사업자 번호</label>
 										<div class="input-content">
 											<div class="form-control-static">${seller.seller_licenseNum}</div>
-										</div>
-									</li>
-									
-									<li>
-									<label class="control-label">첨부파일</label>
-										<div class="input-content">
-											<div class="form-control-static"><img src="${seller.seller_file}" style="width: 200px; height: 200px;"></div>
-											 
 										</div>
 									</li>
 									
@@ -229,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									</li>
 
 									<li> 							
-									<label class="control-label">휴대폰 <br class="visible-xs">번호 <!-- 이 클래스는 뭐지?  --> </label>
+									<label class="control-label">휴대폰 <br class="visible-xs">번호</label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
 												<input type="text" class="form-control seller_edit" name="seller_phone" value="${seller.seller_phone}">
@@ -268,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
 										<div class="input-content">
 											<div class="form-inline mobile-inline">
 												<div class="form-control-static">${seller.seller_bank}</div><br>
-<%-- 												<input type="text" class="form-control" name="seller_bank" value="${seller.seller_bank}"> --%>
 												<select name="seller_bank" id="seller_bank" style="margin-left: 150px; width: 150px; height: 40px;">
 													<option value="${seller.seller_bank}" selected="selected">은행을 선택하세요</option>
 												    <option value="Kookmin">국민은행</option>
@@ -288,9 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			  									</select>
 											</div>
 										</div>
-
 									</li>
-
 									<li>
 										<label class="control-label">계좌번호</label>
 										<div class="input-content">
@@ -299,17 +239,8 @@ document.addEventListener('DOMContentLoaded', function() {
 											</div>
 										</div>
 									</li>
-									<!-- 나중에 수정할때 참고하려고 일단 남겨둠. 끝까지 필요없으면 지울거임 -->
-									<!-- <li ng-if="vm.accountInfo.represent.representType === 'DOMESTIC_PERSONAL' || vm.accountInfo.represent.representType === 'DOMESTIC_BUSINESS'">
-								<label class="control-label long-label">정산대금<br class="visible-xs">입금계좌</label>
-								<div class="form-group form-control-static">
-									 <span class="text-sub"></span>
-								</div>
-								<div class="form-group">
-								</div> -->
 								</ul>
 							</div>
-
 						</div>
 						<!-- 계좌정보 끝 -->
 
@@ -323,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							</div>
 
 							<div class="panel-body">
-								<!-- 배송지 설명 입력공간. 일단 남겨두고 끝까지 필요없으면 지울거임 -->
 								<!-- <div class="panel-body-info"></div> -->
 								<ul class="seller-list-border">
 									<li>
@@ -391,18 +321,16 @@ document.addEventListener('DOMContentLoaded', function() {
 												<input type="text" class="form-control" name="seller_addMain" id="seller_addMain" value="${seller.seller_addMain}">
 												<input type="text" class="form-control" name="seller_addSub" id="seller_addSub" value="${seller.seller_addSub}">
 											</div>
-											
-											
-											
 										</div>
 									</li>
 								</ul>
-							</div>
-						
 							<div class="seller-btn-area btn-group-xlg">
 								<button class="btn btn-primary" type="submit" id="img_submit">정보 수정</button>
 								<button id="withdrawBtn" onclick="withdraw()" class="btn btn-primary">회원 탈퇴</button>
 							</div>
+							</div>
+						
+
 						</div>
 						<!-- 배송정보 끝 -->
 						
@@ -452,12 +380,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 
   <script type="text/javascript">
-  
   function helpOn() {
 	  let modal = document.getElementById("helpOnModal");
 	  modal.style.display = "block";
 	}
-
 
   function keycheck(e) {
 	  if (e.keyCode == 13 || e.keyCode == 10) {
@@ -468,7 +394,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 	}
 
-
   function Capskeycheck(e) {
 	  let keyCode = e.keyCode ? e.keyCode : e.which;
 	  let shiftKey = e.shiftKey ? e.shiftKey : ((keyCode == 16) ? true : false);
@@ -478,7 +403,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	    document.getElementById('capsmsg').style.visibility = 'hidden';
 	  }
 	}
-
 
 	function validatePasswordType(password) {
 	  let pattern = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z~!@#$%^&*()]{8,16}$/;
@@ -497,8 +421,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		    return true;
 		  }
 		}
-  
-  
   
 	function validateNewPassword() {
 		  var newPassword = document.getElementById("seller_pass2").value;
@@ -567,13 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	   
 	  }
 	}
-
- 
- 
 </script>
-
-
-
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>

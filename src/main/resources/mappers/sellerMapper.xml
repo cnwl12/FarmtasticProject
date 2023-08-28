@@ -168,7 +168,6 @@ ORDER BY
 			seller_accountHolder, 
 			seller_email, 
 			seller_file
-		
 	FROM seller
 	WHERE seller_num = #{seller_num}
     </select>
@@ -190,14 +189,13 @@ ORDER BY
 		seller_pass  = #{seller_pass2},
       <if test="seller_pass != null">seller_pass = #{seller_pass}</if>
 	WHERE seller_id = #{seller_id}
-
     </update>
 	 
 	<!-- 선진) 해당 월의 일자별 매출 차트 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getDailySales" resultType="map">
 	<![CDATA[
-	SELECT date_range.order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
+	SELECT DATE_FORMAT(date_range.order_mmdd, '%m-%d') AS order_mmdd, COALESCE(order_mmdd_totalSales, 0) AS order_mmdd_totalSales
 	FROM(SELECT DATE_FORMAT(day_range, '%Y-%m-%d') AS order_mmdd
 		 FROM (SELECT DATE_ADD(DATE_FORMAT(LAST_DAY(CURRENT_DATE), '%Y-%m-01'), INTERVAL d DAY) AS day_range
 			   FROM (SELECT a.digit * 100 + b.digit * 10 + c.digit AS d
@@ -245,21 +243,32 @@ ORDER BY
 	<!-- 선진) 품목별 월 매출 차트 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getMonthlyItems" resultType="map">
-	SELECT f.item_num AS item_num, SUM(f.price) AS item_totalSales
+	SELECT f.item_name AS item_name, SUM(f.price) AS item_totalSales
 	FROM (select coalesce(SUBSTRING(od.order_num, 1, 6), (DATE_FORMAT(current_timestamp, '%Y%m'))) as order_mm, 
 				 coalesce(od.order_num,0) as dd,
-				 i.item_num, (i.item_price * coalesce(od.item_cnt,0)) as price
+				 i.item_name, (i.item_price * coalesce(od.item_cnt,0)) as price
 		  from order_detail od right join item i on od.item_num = i.item_num
 		  where i.item_num in (select item_num 
 							   from item 
 	                           where seller_num = #{seller_num})) AS f LEFT JOIN orders os ON f.dd = os.order_num
 	WHERE order_mm = (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m'))
 	AND os.order_cancel != 'Y' OR os.order_cancel IS NULL
-	GROUP BY f.order_mm, f.item_num;
+	GROUP BY f.order_mm, f.item_name;
 	</select>
 
-
-
+	<!-- 선진) 당일 주문건수 -->
+   	<select id="getTodayOrders" resultType="int">
+   	SELECT COUNT(*) AS orders
+	FROM (SELECT od.item_num, od.order_num, os.order_day
+			FROM order_detail od
+			JOIN orders os ON od.order_num = os.order_num
+			WHERE od.item_num in (SELECT i.item_num
+								FROM item i JOIN seller s ON s.seller_num = i.seller_num 
+								WHERE s.seller_num = #{seller_num})
+			AND os.order_cancel = 'N'
+			AND DATE_FORMAT(os.order_day, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')) AS s;
+   	</select>
+   	
 	<!-- 선진) 매출관리 - 검색바 -->
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getDailySalesList" parameterType="java.util.Map" resultType="java.util.Map">
