@@ -1028,7 +1028,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	        }
 	    } else {
 	        // 이미지 업데이트를 진행하지 않음 (기존 이미지 사용)
-	        memberService.updateReview(review_num, review_star, review_title, review_content, null);
+	        memberService.updateReview2(review_num, review_star, review_title, review_content);
 	    }
 
 	    return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");

@@ -338,4 +338,14 @@ public class MemberDAO {
         return sqlSession.selectList(namespace + ".getChatBot2", chatbotId);
     }
 
+
+	public void updateReview2(int review_num, int review_star, String review_title, String review_content) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("review_num", review_num);
+	    params.put("review_star", review_star);
+	    params.put("review_title", review_title);
+	    params.put("review_content", review_content);
+		sqlSession.update(namespace+".updateReview2", params);
+	}
+
 }

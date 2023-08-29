@@ -443,6 +443,14 @@
   where review_num = #{review_num};
   </update>
   
+  <update id="updateReview2">
+  update review 
+  set review_star = #{review_star}
+  	, review_title = #{review_title}
+  	, review_content = #{review_content}
+  where review_num = #{review_num};
+  </update>
+  
   <delete id="deleteReview">
   delete from review
   where review_num = #{review_num}
