@@ -38,13 +38,14 @@ input[type="file"] {
 }
 
 input[type="submit"] {
-  background-color: #4caf50;
+  background-color: #7fad39;
   color: white;
   cursor: pointer;
   font-weight: bold;
   padding: 10px 20px;
   width: auto;
   margin-top: 10px;
+  margin-left: 40%;
 }
 
 input[type="submit"]:hover {

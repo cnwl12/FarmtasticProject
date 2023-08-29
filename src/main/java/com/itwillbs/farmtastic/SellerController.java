@@ -499,10 +499,9 @@ public class SellerController {
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		
-	    session.setAttribute("seller_num", seller_num);
-	    String seller_id = sellerService.idCheck(seller_num);
-	    model.addAttribute("seller_id", seller_id);
+	    	String seller_num = (String) session.getAttribute("seller_num");
+	 	    String seller_id = sellerService.idCheck(seller_num);
+	 	    model.addAttribute("seller_id", seller_id);
 	    
 		List<Map<String, Object>> typeList = adminService.getTypes();
 		model.addAttribute("typeList", typeList);
@@ -533,8 +532,6 @@ public class SellerController {
 					String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
 					String filePath = uploadPath + "/" + storedFileName;
-
-					System.out.println("filePath : " + filePath);
 
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
 					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -570,7 +567,6 @@ public class SellerController {
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {
 		String seller_num = (String) session.getAttribute("seller_num");
-		
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    session.setAttribute("seller_num", seller_num);
@@ -682,12 +678,7 @@ public class SellerController {
 		
 		return model;
 	}
-	
-	
 	/* sungha 사업자로그인.... */
-
-	
-	
 	// 판매자 로그인 처리
 	
 	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)
@@ -709,16 +700,18 @@ public class SellerController {
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
 	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
-	            // 승인 거절된 사용자
+	            // 탈퇴한 회원
 	            model.addAttribute("error", "탈퇴한 회원입니다.");
 	            return "redirect:/login";    
 	        } else if (sellerDTO2 != null && sellerDTO2.getSeller_recoYn() == null) {
 	            // 승인 대기 중인 사용자
 	            model.addAttribute("error", "승인을 기다려주세요.");
+	           
 	            return "redirect:/login";
 	        } else { 
 	            // 아이디와 비밀번호 정보가 일치하지 않는 경우
 	            model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
+				/* model.addAttribute("seller", 1); */
 	            return "redirect:/login"; 
 	        }
 	    }

@@ -52,14 +52,6 @@
                 
                 <!-- 페이지 컨텐츠 시작 -->
                 <div class="container-fluid">
-
-                    <!-- 페이지 상단 시작 -->
-<!--                     <div class="d-sm-flex align-items-center justify-content-between mb-4"> -->
-<!--                         <h1 class="h3 mb-0 text-gray-800"></h1> -->
-<!--                     </div> -->
-                    <!-- 페이지 상단 끝 -->
-                    
-                    <!-- Content Row -->
                     <div class="row">
                   <div class="col-xl-3 col-md-6 mb-4">
                       <div class="card border-left-primary shadow h-100 py-2">
@@ -213,7 +205,7 @@
                                  <div class="_flexible_area flexible_area" style="display: block;">
                                     <div style="height: 35px;">
                                     <!-- 리뷰관리 편집 시작 -->
-                                       <table class="table table-bordered">
+                                       <table class="table table-bordered" style="text-align: center;">
                                          <colgroup>
                                            <col style="width: 300px;">
                                            <col style="width: 100px;">
@@ -286,7 +278,7 @@
                               <div class="_flexible_area flexible_area" style="display: block;">
                                  <div style="height: 35px;">
                                  <div>
-                                    <table class="table table-bordered" id="date-table toggle1">
+                                    <table class="table table-bordered" id="date-table toggle1" style="text-align: center;">
                                       <colgroup>
                                        <col style="width: 250px;">
                                        <col style="width: 250px;">

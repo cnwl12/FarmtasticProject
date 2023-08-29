@@ -147,7 +147,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                    <div class="chart-area">
-  										<canvas id="myChart"></canvas>
+  										<canvas id="myChart" style="margin-left: 15%;"></canvas>
 								   </div>
 										<script>
    										 // total_fee와 month_fee를 담을 배열 생성
@@ -224,9 +224,9 @@
                                     <h6 class="m-0 font-weight-bold text-primary">품목별 매출차트</h6>
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <div class="card-body" style="padding: 41px;">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="pieChart"></canvas>
+                                        <canvas id="pieChart" style="margin-left: 22%;"></canvas>
                                     </div>
                              <script>
    								 var pieData = ${jsonData};

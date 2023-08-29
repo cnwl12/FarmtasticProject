@@ -70,12 +70,9 @@ body {font-size: 1rem !important;
                 <div class="container-fluid">
 
                     <!-- 페이지 상단 시작 -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">리뷰관리</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-                        </a>
-                    </div>
+                    <div class="card-header py-3" style="border-bottom: none;">
+							<h3 class="m-0 font-weight-bold text-primary">리뷰관리</h3>
+						</div>
                     <!-- 페이지 상단 끝 -->                     
 
 					<!-- 검색바(작성일, 타입, 카테고리, 조건, 상세검색) 시작 -->
@@ -161,8 +158,8 @@ body {font-size: 1rem !important;
 					<div class="panel-heading">
   						<div class="pc-pull-left">
     						<h3 class="panel-title">리뷰목록</h3>
-    						<button class="btn btn-primary" id="del-review-button">삭제</button>
   						</div>
+    						<button class="btn btn-primary" id="del-review-button" style="float: right;">삭제</button>
 					</div>
 					
 					<div class="panel-body">

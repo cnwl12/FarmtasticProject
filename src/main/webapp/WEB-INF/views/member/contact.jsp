@@ -55,7 +55,7 @@
             <div class="row">
 				<div style="padding-top: 50px; padding-left: 20px;">
 					<h4>공지사항</h4>
-					<table class="table table-bordered" id="noticeTable" cellspacing="0" style="text-align: center;width: 400%;">
+					<table class="table table-bordered" id="noticeTable" cellspacing="0" style="text-align: center; width: 1145px;;">
 						<thead>
 							<tr>
 								<th>NO.</th>

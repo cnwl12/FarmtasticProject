@@ -405,6 +405,13 @@
 	WHERE item_num = #{item_num}
   </select>
   
+  <select id="hasReviewForOrderItem" resultType="int">
+  		SELECT COUNT(*)
+  		FROM review
+  		WHERE order_num = #{order_num} 
+  		AND item_num = #{item_num}
+  </select>
+  
   <!-- 리뷰모시기 막내 -->
   <select id="getReviewCountByItemNum" resultType="int">
         SELECT COUNT(*) 

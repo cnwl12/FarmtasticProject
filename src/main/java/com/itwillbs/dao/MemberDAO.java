@@ -138,6 +138,12 @@ public class MemberDAO {
 	    return sqlSession.selectList(namespace + ".getItemOrder", params);
 	}
 	
+	// 구매내역당 1번
+	public boolean hasReviewForOrderItem(String order_num, int item_num) {
+        Integer count = sqlSession.selectOne(namespace+ ".hasReviewForOrderItem", Map.of("order_num", order_num, "item_num", item_num));
+        return count != null && count > 0;
+    }
+	
 	//리뷰 목록
 	public List<MemberDTO> getItemReviews(int item_num) {
 	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
