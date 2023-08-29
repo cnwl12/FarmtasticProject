@@ -700,16 +700,18 @@ public class SellerController {
 	            model.addAttribute("error", "승인이 거부된 사용자입니다. 관리자에게 문의바랍니다.");
 	            return "redirect:/login";
 	        } else if (sellerDTO2 != null && "M".equals(sellerDTO2.getSeller_recoYn())) {
-	            // 승인 거절된 사용자
+	            // 탈퇴한 회원
 	            model.addAttribute("error", "탈퇴한 회원입니다.");
 	            return "redirect:/login";    
 	        } else if (sellerDTO2 != null && sellerDTO2.getSeller_recoYn() == null) {
 	            // 승인 대기 중인 사용자
 	            model.addAttribute("error", "승인을 기다려주세요.");
+	           
 	            return "redirect:/login";
 	        } else { 
 	            // 아이디와 비밀번호 정보가 일치하지 않는 경우
 	            model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
+				/* model.addAttribute("seller", 1); */
 	            return "redirect:/login"; 
 	        }
 	    }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,16 +42,27 @@ function enterCheck2(event) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 </head>
-<body>  
+<body id="body2"> 
+<%-- <c:if test="${seller==1 }">
+		<script type="text/javascript">
+		alert("동작");
+		toggleLogin("business");
+		
+		</script>
+	</c:if>  --%>
 <jsp:include page="../top.jsp"></jsp:include>
 
 
 
 <script>
     let error = '<%=request.getParameter("error")%>';
+    
+  <%--   let seller = '<%=request.getParameter("seller")%>'; --%>
     if (error !== 'null' && error !== null && error !== undefined) {
         alert(error);
     }
+    
+  
 </script>
 
 
@@ -222,6 +234,7 @@ function enterCheck2(event) {
 $(document).ready(function() {
   // 로그인 전환 함수
   function toggleLogin(target) {
+	  alert("target"+target);
     if (target === "personal") {
       $("#business-login-wrap").hide();
       $("#business-login-section").removeClass("on");
@@ -350,6 +363,18 @@ $(document).ready(function() {
     }
   }
 });
+
+/* $(document).ready(function(){
+	alert("body");
+
+		
+		if (seller == '1') {
+	    	alert(seller);
+	    	toggleLogin("business");
+	    	
+	   }
+	
+}); */
 </script>
 
 </body>

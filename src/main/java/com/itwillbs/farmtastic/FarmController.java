@@ -910,6 +910,15 @@ public class FarmController { // 소비자 (컨트롤러)
 		                .body("{\"status\": \"failure\", \"message\": \"구매 이력이 존재하지 않아 리뷰를 작성할 수 없습니다.\"}");
 		    }
 		    
+		    // 구매내역당 한번만 쓸 수 있게끔
+		    for(MemberDTO order : order_num) {
+		        boolean hasReviewed = memberService.hasReviewForOrderItem(order.getOrder_num(), item_num);
+		        if(hasReviewed) {
+		            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		                    .body("{\"status\": \"failure\", \"message\": \"해당 주문 항목에 대해 이미 리뷰가 등록되어있습니다.\"}");
+		        }
+		    }
+		    
 		    	// 첨부파일 올라갈 물리적 경로 
 				String uploadPath = session.getServletContext().getRealPath("/resources/upload");
 
@@ -1028,7 +1037,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	        }
 	    } else {
 	        // 이미지 업데이트를 진행하지 않음 (기존 이미지 사용)
-	        memberService.updateReview(review_num, review_star, review_title, review_content, null);
+	        memberService.updateReview2(review_num, review_star, review_title, review_content);
 	    }
 
 	    return ResponseEntity.status(HttpStatus.OK).body("The review has been successfully updated.");

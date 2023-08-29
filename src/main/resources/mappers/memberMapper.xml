@@ -405,6 +405,13 @@
 	WHERE item_num = #{item_num}
   </select>
   
+  <select id="hasReviewForOrderItem" resultType="int">
+  		SELECT COUNT(*)
+  		FROM review
+  		WHERE order_num = #{order_num} 
+  		AND item_num = #{item_num}
+  </select>
+  
   <!-- 리뷰모시기 막내 -->
   <select id="getReviewCountByItemNum" resultType="int">
         SELECT COUNT(*) 
@@ -440,6 +447,14 @@
   	, review_title = #{review_title}
   	, review_content = #{review_content}
   	, review_img = #{review_img}
+  where review_num = #{review_num};
+  </update>
+  
+  <update id="updateReview2">
+  update review 
+  set review_star = #{review_star}
+  	, review_title = #{review_title}
+  	, review_content = #{review_content}
   where review_num = #{review_num};
   </update>
   

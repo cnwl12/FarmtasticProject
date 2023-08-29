@@ -138,6 +138,12 @@ public class MemberDAO {
 	    return sqlSession.selectList(namespace + ".getItemOrder", params);
 	}
 	
+	// 구매내역당 1번
+	public boolean hasReviewForOrderItem(String order_num, int item_num) {
+        Integer count = sqlSession.selectOne(namespace+ ".hasReviewForOrderItem", Map.of("order_num", order_num, "item_num", item_num));
+        return count != null && count > 0;
+    }
+	
 	//리뷰 목록
 	public List<MemberDTO> getItemReviews(int item_num) {
 	    return sqlSession.selectList(namespace+".getItemReviews", item_num);
@@ -176,6 +182,15 @@ public class MemberDAO {
 	    params.put("review_content", review_content);
 	    params.put("review_img", review_img);
 		sqlSession.update(namespace+".updateReview", params);
+	}
+	
+	public void updateReview2(int review_num, int review_star, String review_title, String review_content) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("review_num", review_num);
+	    params.put("review_star", review_star);
+	    params.put("review_title", review_title);
+	    params.put("review_content", review_content);
+		sqlSession.update(namespace+".updateReview2", params);
 	}
 	
 	public int deleteReview(int review_num, int member_num) {

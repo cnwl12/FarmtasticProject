@@ -183,11 +183,20 @@ public class MemberService {
 		    return memberDAO.getItemOrder(member_num, item_num);
 		}  
 	 
+	 // 구매내역당 리뷰 1번
+	 public boolean hasReviewForOrderItem(String order_num, int item_num) {
+		 return memberDAO.hasReviewForOrderItem(order_num, item_num);
+		}
+	 
 	 // 마이페이지 리뷰 수정 기능   
 	 public void updateReview(int review_num, int review_star, String review_title, String review_content, String review_img) {
 		 memberDAO.updateReview(review_num, review_star, review_title, review_content, review_img);
 	}
 	
+	 public void updateReview2(int review_num, int review_star, String review_title, String review_content) {
+		memberDAO.updateReview2(review_num, review_star, review_title, review_content);
+	}
+	 
 	 // 마이페이지 리뷰 삭제 기능 
 	 public boolean deleteReview(int review_num, int member_num) {
 		 return memberDAO.deleteReview(review_num, member_num) > 0;
@@ -311,5 +320,6 @@ public class MemberService {
 	public List<DetailChatBotDTO> getChatBot2(int chatbotId) {
 		return memberDAO.getChatBot2(chatbotId);
 	}
+
 	
 }
