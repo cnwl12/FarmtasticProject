@@ -183,7 +183,7 @@ public class MemberService {
 		    return memberDAO.getItemOrder(member_num, item_num);
 		}  
 	 
-	 // 구매내역당 리뷰 1번 
+	 // 구매내역당 리뷰 1번
 	 public boolean hasReviewForOrderItem(String order_num, int item_num) {
 		 return memberDAO.hasReviewForOrderItem(order_num, item_num);
 		}
