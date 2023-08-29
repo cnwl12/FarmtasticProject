@@ -44,6 +44,9 @@ html {
 body {
 	font-size: 1rem !important;
 }
+
+
+
 </style>
 </head>
 <body id="page-top">
@@ -94,7 +97,7 @@ body {
 														onclick="setDateRange(180)">6개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2"
 														onclick="setDateRange(365)">1년</button>
-													<button type="reset" class="btn btn-default">초기화</button>
+													<button type="reset" class="btn btn-default">날짜초기화</button>
 												</div>
 											</div></li>
 									</ul>
@@ -102,9 +105,9 @@ body {
 							</div>
 							<div class="panel-footer">
 								<div class="seller-btn-area btn-group-lg">
-									<button id="searchButton" type="submit" class="btn btn-primary">검색</button>
+									<button id="searchButton" type="submit" class="btn btn-primary" onclick="return validateForm()">검색</button>
 									<!-- 초기화 버튼 추가 -->
-									
+									 <button type="reset" class="btn btn-default"  onclick= "resetSearch()">검색초기화</button>
 								</div>
 							</div>
 						</form>
@@ -112,6 +115,7 @@ body {
 					<!-- 검색바 끝 -->
 
 					<!-- 주문회원 목록 시작 -->
+					
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
@@ -231,6 +235,75 @@ body {
         document.getElementById('start-date').value = ''; 
         document.getElementById('end-date').value = ''; 
     }); 
+    
+    
+    function validateForm() {
+        var startDate = document.getElementById('start-date').value;
+        var endDate = document.getElementById('end-date').value;
+
+        if (startDate === '' || endDate === '') {
+            alert("날짜를 입력하여 주세요.");
+            return false;
+        }
+    }
+    var message = "${message}";
+    if (message !== "") {
+        alert(message);
+        window.location.href = "${pageContext.request.contextPath}/memberMng";
+    }
+    
+   
+
+    
+
+ function resetSearch() {
+      // 테이블 데이터 리셋
+      var tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+      
+      while (tableBody.firstChild) {
+          tableBody.removeChild(tableBody.firstChild);
+      }
+      
+       // 원본 데이터 복원
+       for (var i = 0; i < originalTableData.length; i++) {
+           var newRow = document.createElement("tr");
+           newRow.innerHTML = originalTableData[i];
+           tableBody.appendChild(newRow);
+       }
+ }
+ 
+
+ window.addEventListener('DOMContentLoaded', function() {
+     adjustTableWidth();
+ });
+
+ function adjustTableWidth() {
+     var table = document.getElementById('dataTable');
+     var tableCells = table.getElementsByTagName('th');
+
+     for (var i = 0; i < tableCells.length; i++) {
+         var cellText = tableCells[i].innerText;
+         var cellWidth = getTextWidth(cellText);
+         tableCells[i].style.width = cellWidth + 'px';
+     }
+ }
+
+ function getTextWidth(text) {
+     var element = document.createElement('span');
+     element.style.visibility = 'hidden';
+     element.style.whiteSpace = 'nowrap';
+     element.innerHTML = text;
+     
+     document.body.appendChild(element);
+     
+     var width = element.offsetWidth;
+     
+     document.body.removeChild(element);
+     
+     return width;
+ }
+
+ 
     </script>
 </body>
 </html>

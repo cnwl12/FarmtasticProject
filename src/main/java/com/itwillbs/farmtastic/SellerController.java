@@ -753,11 +753,23 @@ public class SellerController {
 	        end = null;
 	    }
 	    List<Map<String,Object>> MemberMngjoin = sellerService.MemberMngjoin(seller_num, start, end);
-	    model.addAttribute("MemberMngjoin", MemberMngjoin);
-	    String seller_id = sellerService.idCheck(seller_num);
-	    model.addAttribute("seller_id", seller_id);
-	    session.setAttribute("seller_num", seller_num);
-	    return "/seller/memberMng";
+	    if (MemberMngjoin.isEmpty()) { // 검색 결과가 없을 때
+	        model.addAttribute("message", "검색 결과가 없습니다.");
+	        
+	        // 필요한 경우 기존의 모델 속성들을 초기화하거나 제거할 수 있습니다.
+	        
+	        return "/seller/memberMng"; // 메세지를 표시하는 페이지로 이동
+	    } else {
+	        model.addAttribute("MemberMngjoin", MemberMngjoin);
+	        
+	        String seller_id = sellerService.idCheck(seller_num);
+	        
+	        model.addAttribute("seller_id", seller_id);
+	        
+	        session.setAttribute("seller_num", seller_num);
+	        
+	        return "/seller/memberMng";
+	    }
 	}
 
 	//혜원 판매자 리뷰관리

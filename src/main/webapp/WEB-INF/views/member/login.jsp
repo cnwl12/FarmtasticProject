@@ -42,8 +42,9 @@ function enterCheck2(event) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 </head>
-<body id="body2"> 
-<%-- <c:if test="${seller==1 }">
+<body>
+<%--<body id="body2"> 
+ <c:if test="${seller==1 }">
 		<script type="text/javascript">
 		alert("동작");
 		toggleLogin("business");
@@ -234,7 +235,7 @@ function enterCheck2(event) {
 $(document).ready(function() {
   // 로그인 전환 함수
   function toggleLogin(target) {
-	  alert("target"+target);
+	  /* alert("target"+target); */
     if (target === "personal") {
       $("#business-login-wrap").hide();
       $("#business-login-section").removeClass("on");
