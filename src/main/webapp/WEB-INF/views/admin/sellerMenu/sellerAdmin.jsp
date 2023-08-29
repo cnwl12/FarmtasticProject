@@ -287,15 +287,7 @@
         document.getElementById('changeSellerStatus2').submit();
     });
     
-    document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType3').value = 'reject';
-        document.getElementById('changeSellerStatus3').submit();
-    });
-
-    document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType4').value = 'reject';
-        document.getElementById('changeSellerStatus4').submit();
-    });
+   
     // Check All checkboxes
     function toggleRejectCheckAll() {
   const rejectCheckAll = sellerAdmin.querySelectorAll(".reject-check-all");
@@ -336,66 +328,6 @@ function showDetail(sellerNum) {
     opener.focus();
 }
 
-
-document.getElementById('approvedSeller').addEventListener('click', function (event) {
-    event.preventDefault(); // 기본 동작 막기
-    showTableAndHeader('dataTable2', 'approvedHeader');
-    showForm('changeSellerStatus2');
-});
-
-document.getElementById('unapprovedSeller').addEventListener('click', function (event) {
-    event.preventDefault(); // 기본 동작 막기
-    showTableAndHeader('dataTable', 'unapprovedHeader');
-    showForm('changeSellerStatus');
-});
-
-document.getElementById('rejectedSeller').addEventListener('click', function (event) {
-    event.preventDefault(); // 기본 동작 막기
-    showTableAndHeader('dataTable3', 'rejectedHeader');
-    showForm("changeSellerStatus3");
-});
-
-document.getElementById("withdrawnSeller").addEventListener("click", function (event) {
-  event.preventDefault(); // 기본 동작 막기
-  showTableAndHeader("dataTable4", "withdrawnHeader");
-  showForm("changeSellerStatus4");
-});
-
-function showTableAndHeader(tableId, headerId) {
-  var tables = ["dataTable", "dataTable2", "dataTable3", "dataTable4"];
-  var headers = ["unapprovedHeader", "approvedHeader", "rejectedHeader", "withdrawnHead"];
-
-  tables.forEach(function (id) {
-      var table = document.getElementById(id);
-      if (id === tableId) {
-          table.style.display = 'table';
-      } else {
-          table.style.display = 'none';
-      }
-  });
-
-  headers.forEach(function (id) {
-      var header = document.getElementById(id);
-      if (id === headerId) {
-          header.style.display = 'block';
-      } else {
-          header.style.display = 'none';
-      }
-  });
-}
-
-function showForm(formId) {
-   var forms = ["changeSellerStatus","changeSellerStatus2","changeSellerStatus3","changeSellerStatu s4"];
-
-   forms.forEach(function(id){
-       var form=document.getElementByld(id);
-       if(id===formId){
-           form.style.display='block';
-       }else{
-           form.style.display='none';
-       }
-   });
-}
 
 
 
