@@ -77,8 +77,9 @@ h3 {
     display: block;
     margin: auto;
     margin-top: 2rem;
-    background: #79a268;
+    background: #7fad39;
     border: 0;
+    color:white;
     outline: none;
     border-radius: 30px;
 }
@@ -102,9 +103,12 @@ h3 {
         alert(error);
     }
 </script>
+			
+
            		<form action="${pageContext.request.contextPath}/Login" id="join" method="post">
             		<input type="text" class="input-field" name="admin_id" placeholder="Admin Id" required>
             		<input type="password" class="input-field" name="admin_pass" placeholder="Enter Password" required>
             		<button class="submit" value="Submit">Login</button>
         		</form>
+            
             </div>

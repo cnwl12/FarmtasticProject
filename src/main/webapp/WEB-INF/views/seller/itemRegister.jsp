@@ -39,6 +39,14 @@ html {
 body {
 	font-size: 1rem !important;
 }
+
+#sbmBtn{
+	border: none;
+    background-color: #7fad39;
+    color: white;
+    font-size: 18px;
+    padding: 1%;
+}
 </style>
 
 </head>
@@ -58,7 +66,9 @@ body {
 				<div class="container-fluid">
 
 					<!-- 페이지 상단 시작 -->
-					<h1 class="h3 mb-2 text-gray-800">상품등록</h1>
+					 <div class="card-header py-3" style="border-bottom: none; padding-left: 1px;">
+							<h3 class="m-0 font-weight-bold text-primary">상품등록</h3>
+						</div>
 					<!-- 페이지 상단 끝 -->
 
 					<form action="itemInsertPro" method="post"
@@ -243,7 +253,9 @@ body {
 								</div>
 							</div>
 						</div>
-						<input type="submit" value="등록">
+						<div style="margin-left: 43%;">
+							<input type="submit" value="등록" id="sbmBtn">
+						</div>
 					</form>
 				</div>
 			</div>
@@ -268,13 +280,6 @@ body {
 				</div>
 			</div>
 		</footer>
-		<!-- End of Footer -->
-
-	<!-- End of Content Wrapper -->
-
-	<!-- End of Page Wrapper -->
-
-	
 
 	<!-- Bootstrap core JavaScript-->
 	<script

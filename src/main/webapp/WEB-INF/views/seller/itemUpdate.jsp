@@ -49,6 +49,14 @@ html {
 body {
 	font-size: 1rem !important;
 }
+
+#sbmBtn{
+	border: none;
+    background-color: #7fad39;
+    color: white;
+    font-size: 18px;
+    padding: 1%;
+}
 </style>
 
 <script>
@@ -98,7 +106,9 @@ body {
 				<div class="container-fluid">
 
 					<!-- 페이지 상단 시작 -->
-					<h1 class="h3 mb-2 text-gray-800">상품등록 수정</h1>
+					<div class="card-header py-3" style="border-bottom: none; padding-left: 1px;">
+							<h3 class="m-0 font-weight-bold text-primary">상품정보 수정</h3>
+						</div>
 					<!-- 페이지 상단 끝 -->
 
 					<form action="itemUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -312,7 +322,9 @@ body {
 								</div>
 							</div>
 						</div>
-						<input type="submit" value="수정">
+						<div style="margin-left: 43%;">
+						<input type="submit" value="수정" id="sbmBtn">
+						</div>
 					</form>
 				</div>
 			</div>

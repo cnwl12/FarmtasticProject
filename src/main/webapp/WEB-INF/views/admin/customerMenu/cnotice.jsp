@@ -58,7 +58,7 @@
                      </div>   
                         <div class="card-body">
                             <div class="table-responsive">
-                             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/writeCnote'">글쓰기</button>
+                             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/writeCnote'" style="margin-bottom: 10px;">글쓰기</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>

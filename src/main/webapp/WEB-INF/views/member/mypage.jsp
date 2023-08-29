@@ -40,15 +40,16 @@
 .edit-button {
     position: relative;
     float: right;
-    background-color: #f1f1f1;
-    border: 1px solid #ccc;
-    color: #333;
+    border: none;
     padding: 8px 12px;
     margin-bottom: 8px;
     cursor: pointer;
+    color: white;
+    background-color: #7fad39;
+    margin: 1px;
 }
 
-.star {
+.star { 
    color: lightgray;
    cursor: pointer;
 }
@@ -82,6 +83,13 @@
 .review-img img {
   max-width: 100%; /* 이미지가 컨테이너를 벗어나는 것을 방지 */
 }
+
+#orderBtn{
+   color: white;
+    background-color: #7fad39;
+    border: none;
+}
+
 </style>
 
 
@@ -128,7 +136,7 @@
                </div>
             <div>
 
-               <div id="menu1_cont" style="width: 780px; margin-left: 25%;">
+               <div id="menu1_cont" style="width: 780px;  margin-top: 45px; margin-left: 24%;">
                   <form novalidate
                      action="${pageContext.request.contextPath }/updatePro"
                      method="post">
@@ -268,7 +276,7 @@
                </div>
 
                <!-- 서영 찜페이지 만드는중 -->
-               <div id="menu5_cont" style="width: 780px; margin-left:25%;;">
+               <div id="menu5_cont" style="width: 780px; margin-left:24%; margin-top: 33px;">
                   <div class="container">
                      <h4>내 찜 목록</h4> 
                     <!--  <label for="selectAllCheckbox"> -->
@@ -316,7 +324,7 @@
                <!--  서영 찜페이지 끝 -->
 
 
-               <div id="menu2_cont" style="width: 780px; margin-left:25%;;">
+               <div id="menu2_cont" style="width: 780px; margin-left:24%; margin-top: 45px;">
                   <h4>주문관리</h4>
                   <table class="table" style="margin-top:5px;">
                      <thead>
@@ -347,16 +355,16 @@
                                    </c:otherwise>
                                  </c:choose></td>
                               <td><a href="javascript:void(0);" onclick="openPopup()">
-                              <input type="button" value="배송조회"></a></td>
+                              <input type="button" value="배송조회" id="orderBtn"></a></td>
 								
 
                               <td>
                               <c:choose>
                               <c:when test="${order.order_cancel eq 'Y'}">
-                             <input type="button" class="cancelList" data-order="${order.order_num}" value="취소확인" onclick="openCancelPopup(${order.order_num});">
+                             <input type="button" id="orderBtn" class="cancelList" data-order="${order.order_num}" value="취소확인" onclick="openCancelPopup(${order.order_num});">
                                  </c:when>
                                    <c:otherwise>
-                                       <input type="button" class="orderCancelButton"
+                                       <input type="button" class="orderCancelButton" id="orderBtn"
                                 		 data-order="${order.order_num}" value="주문취소">
                                    </c:otherwise>
                                  </c:choose>
@@ -370,7 +378,7 @@
 
                <!-- 주문관리 토글 끝  -->	
 			
-			<div id="menu3_cont" style="width: 780px; margin-left: 25%;">
+			<div id="menu3_cont" style="width: 780px; margin-left: 24%; margin-top: 45px;">
 			<h4>나의 리뷰</h4>
 			<div style="float: right; margin-bottom: 6px;">
 			<button class="site-btn" id="edit-review-button">수정</button>			
@@ -430,7 +438,7 @@
 				</div>
 			</div>
                
-               <div id="menu4_cont" style="width: 780px; margin-left:25%;;">
+               <div id="menu4_cont" style="width: 780px; margin-left:24%; margin-top: 45px;">
                   <h4>1:1문의</h4>
                   <input type="hidden" id="member_num"
                      value="${sessionScope.member_num}">
@@ -488,7 +496,7 @@
                                           </c:if>
                                           <div class="content">${row.one_board_content}</div>
                                        </div>
-                                        <div>
+                                        <div style="margin: 1px;">
 									        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
 									        <button type="button" class="edit-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 									    </div>

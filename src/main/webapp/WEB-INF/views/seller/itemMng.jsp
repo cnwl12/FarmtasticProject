@@ -63,21 +63,21 @@
 				<!-- 페이지 컨텐츠 시작 -->
 				<div class="container-fluid">
 					<!-- 상품목록 시작 -->
-						<div class="card-header py-3">
+						<div class="card-header py-3" style="border-bottom: none;">
 							<h3 class="m-0 font-weight-bold text-primary">상품관리</h3>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="table-responsive" style="padding: 1%;">
 								<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 									<thead>
 										<tr>
-											<th>상품 타입</th>
-											<th>상품명</th>
-											<th>가격</th> 
-											<th>상품 이미지</th>
-											<th>상품 설명</th>
-											<th>재고</th>
-											<th>상태</th>
+											<th style="width: 40px;">상품 타입</th>
+											<th style="width: 95px;">상품명</th>
+											<th style="width: 40px;">가격</th> 
+											<th style="width: 93px;">상품 이미지</th>
+											<th style="width: 1030px;">상품 설명</th>
+											<th style="width: 37px;">재고</th>
+											<th style="width: 36px;">상태변경</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -93,10 +93,10 @@
 												<td>
 													<c:choose>
 														<c:when test="${item.item_salesStatus eq 'Y'}">
-															<button id="none" onclick="updateStatus(${item.item_num})">판매중지</button>
+															<button id="none" onclick="updateStatus(${item.item_num})">판매중지변경</button>
 														</c:when>
 														<c:otherwise>
-															<button id="none" onclick="updateStatus(${item.item_num})">판매중</button>
+															<button id="none" onclick="updateStatus(${item.item_num})">판매변경</button>
 														</c:otherwise>
 													</c:choose> 
 									     	    </td>

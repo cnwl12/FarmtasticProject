@@ -1051,10 +1051,13 @@ legend,
 .btn_g span {
     display: inline-block;
     background: url(../../img/npay/npay_bg_btn.png) no-repeat;
-    font-size: 12px;
+    font-size: 15px;
     text-decoration: none;
     white-space: nowrap;
-    cursor: pointer
+    cursor: pointer;
+    border: none;
+    background-color: #7fad39;
+    
 }
 
 .btn_a:hover,
@@ -1149,7 +1152,7 @@ legend,
     font-weight: bold;
     line-height: 24px;
     _line-height: 25px;
-    color: #00b5a6 !important
+    color: white !important
 }
 
 .btn_d span {

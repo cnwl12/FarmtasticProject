@@ -52,16 +52,11 @@
                 <!-- 페이지 컨텐츠 시작 -->
                 <div class="container-fluid">
 
-                    <!-- 페이지 상단 시작 -->
-<!--                     <h1 class="h3 mb-2 text-gray-800">정산관리</h1> -->
-<!--                     <p class="mb-4"><a target="_blank" href="https://datatables.net"></a></p> -->
-                    <!-- 페이지 상단 끝 -->
-                    
                     <!-- 정산 신청 시작 -->
                     <div class="card shadow mb-4" id="settlementList">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
-                        </div>
+                        <div class="card-header py-3" style="border-bottom: none; padding-left: 1%;">
+							<h4 class="m-0 font-weight-bold text-primary">정산관리</h4>
+						</div>
 					    
                         <form action="${pageContext.request.contextPath}/settlementRequest" method="post" id="settlementRequest">
                         <input type="hidden" id="selectedMonths" name="selectedMonths" value=""/>
@@ -70,7 +65,7 @@
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="request" id="request" type="submit" onClick="submitAction('request');">정산신청</button>
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name="action" value="cancel" id="cancel" type="submit" onClick="submitAction('cancel');">신청취소</button><br><br>
                                        
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="padding: 1%;">
                             
                                 <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                     <thead>

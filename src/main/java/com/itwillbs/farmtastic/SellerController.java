@@ -499,10 +499,9 @@ public class SellerController {
 			model.addAttribute("error", "로그인 후 사용가능");
 	        return "redirect:/login"; // 로그인 페이지로 이동
 	    } else {
-		
-	    session.setAttribute("seller_num", seller_num);
-	    String seller_id = sellerService.idCheck(seller_num);
-	    model.addAttribute("seller_id", seller_id);
+	    	String seller_num = (String) session.getAttribute("seller_num");
+	 	    String seller_id = sellerService.idCheck(seller_num);
+	 	    model.addAttribute("seller_id", seller_id);
 	    
 		List<Map<String, Object>> typeList = adminService.getTypes();
 		model.addAttribute("typeList", typeList);
@@ -533,8 +532,6 @@ public class SellerController {
 					String storedFileName = uuid.substring(0,8) + "." + fileExtension; // 자리수 0~8까지
 
 					String filePath = uploadPath + "/" + storedFileName;
-
-					System.out.println("filePath : " + filePath);
 
 					// 서버랑 이름 맞춰줘야함 (현재 공동 서버에 업로드 중임)
 					String saveFileName = "http://c2d2303t2.itwillbs.com/FarmProject/resources/upload/" + storedFileName;
@@ -570,7 +567,6 @@ public class SellerController {
 			return "redirect:/login"; // 로그인 페이지로 이동
 		} else {
 		String seller_num = (String) session.getAttribute("seller_num");
-		
 	    String seller_id = sellerService.idCheck(seller_num);
 	    model.addAttribute("seller_id", seller_id);
 	    session.setAttribute("seller_num", seller_num);
@@ -682,12 +678,7 @@ public class SellerController {
 		
 		return model;
 	}
-	
-	
 	/* sungha 사업자로그인.... */
-
-	
-	
 	// 판매자 로그인 처리
 	
 	@RequestMapping(value = "/sellerloginPro", method = RequestMethod.GET)

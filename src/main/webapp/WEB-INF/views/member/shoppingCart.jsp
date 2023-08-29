@@ -174,14 +174,15 @@
 									<li>Total <span class="cart-total-price">${totalSum}원</span></li>
 								</ul>
 							</div>
+							</div>
 							<input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-							<div style="padding-top: 5px; padding-right: 1px; float: right;">
+							<div style="padding-top: 5px; padding-right: 1px; float: right;  margin-right: -16px;">
 							<button class="primary-btn" onclick="clearCart()">전체삭제</button>
 							<a href="checkout" class="primary-btn">주문하기</a>
 							</div>
 					</c:otherwise>
 				</c:choose>
-			</div>
+			
 
 		
 	</section>
