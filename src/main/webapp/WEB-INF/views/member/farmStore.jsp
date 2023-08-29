@@ -25,9 +25,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 	
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/itemSorted.js"></script> 
-   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
    	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
 
 
@@ -119,7 +120,7 @@
 											<li><a href="#" class="wishlist-btn" id="memberNum"
 												data-member-num="${sessionScope.member_num}"
 												data-item-num="${item.item_num}"> <i
-													class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+													class="fa fa-heart-o"></i>
 											</a></li>
 											<c:choose>
 												<c:when

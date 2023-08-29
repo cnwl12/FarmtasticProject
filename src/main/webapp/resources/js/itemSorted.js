@@ -57,7 +57,7 @@ $(document).ready(function() {
                                <li><a href="#" class="wishlist-btn"
                                    data-member-num="${memberNum}"
                                    data-item-num="${item.item_num}">
-                                   <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
+                                   <i class="fa fa-heart-o"></i>
                                </a></li>
                                `;
 
@@ -82,15 +82,31 @@ $(document).ready(function() {
                </div>
                `;
 
-           productListContainer.append(productHTML);
+           productListContainer.append(productHTML); 
+            if (memberNum) {
+		        updateWishlistButtons();
+		    }
+           
            }
-           //   addClickEventToWishlistButtons();
+              addClickEventToWishlistButtons(); 
     }
            
-         //  function addClickEventToWishlistButtons() {
-        //	console.log("addClickEventToWishlistButtons 함수 실행");
-        //	productListContainer.find(".wishlist-btn").on("click", function() {
-         //   console.log("클릭 이벤트 처리2");
-       // });
-   // }
+          function addClickEventToWishlistButtons() {
+    console.log("addClickEventToWishlistButtons 함수 실행");
+    
+    productListContainer.find(".wishlist-btn").on("click", function() {
+        var member_num = $(this).data("member-num");
+
+        if (!member_num) {
+            alert("로그인이 필요한 서비스입니다.");
+            window.location.href = "login"; // 로그인 페이지로 이동
+            return;
+        }
+
+        updateWishlistButtons();
+    });
+}
 });
+
+
+
