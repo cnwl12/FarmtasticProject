@@ -562,7 +562,6 @@ input#file-upload-button {
                     location.reload();
                 },
                 error: function(xhr, textStatus, errorThrown) {
-                    console.log("Error response: ", xhr.responseText);
                     alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
                 }
             });
