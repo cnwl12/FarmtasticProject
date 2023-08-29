@@ -1349,4 +1349,14 @@ public class FarmController { // 소비자 (컨트롤러)
 		return memberService.getChatBot2(chatbotId);
     }
 	
+	@ResponseBody
+    @RequestMapping(value = "/submitQuery", method = RequestMethod.POST)
+    public String submitQuery(@RequestParam("query") String query) {
+        // 여기서 query 값을 처리합니다.
+        System.out.println("Received query: " + query);
+
+        // 필요한 로직을 수행하고, 결과를 반환합니다.
+        // 이 예제에서는 단순히 받은 쿼리 문자열을 그대로 반환합니다.
+        return "Received your query: " + query;
+    }
 }

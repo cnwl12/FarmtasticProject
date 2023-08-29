@@ -132,6 +132,15 @@ public class AdminDAO {
 	public List<Map<String, Object>> getTypes() {
 		return sqlSession.selectList(NAMESPACE+"getTypes");
 	}
+	
+	public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
+	    Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("seller_num", seller_num);
+	    params.put("one_board_num", one_board_num);
+	    params.put("one_board_reply", one_board_reply);
+
+	    sqlSession.update(NAMESPACE + ".updateReply", params);
+	}
 
 
 

@@ -44,6 +44,10 @@
                 <a class="nav-link" href="customerAdmin">
                     <span>회원관리</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="questionAdmin">
+                    <span>회원문의</span></a>
+            </li>
              <!-- Nav Item - Pages Collapse Menu -->
           
          

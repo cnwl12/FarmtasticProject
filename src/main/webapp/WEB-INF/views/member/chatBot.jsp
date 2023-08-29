@@ -184,6 +184,21 @@ body {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
 	                                        	        var query = $("#queryText").val();
 	                                        	        console.log(query);
+	                                        	        $.ajax({
+	                                        	            url: "${pageContext.request.contextPath}/submitQuery",
+	                                        	            type: 'POST',
+	                                        	            data: { 
+	                                        	                'query': query 
+	                                        	            },
+	                                        	            success: function(response) {
+	                                        	                // 서버에서 응답이 오면 이 부분이 실행됩니다.
+	                                        	                // response 변수는 서버에서 보낸 데이터입니다.
+	                                        	                console.log(response);
+	                                        	            },
+	                                        	            error: function(jqXHR, textStatus, errorThrown) {
+	                                        	                console.error(textStatus, errorThrown);
+	                                        	            }
+	                                        	        });
 	                                        	    });
 	                                        	    
 	                                        	    chatContainer.append(inputBox).append(submitButton);
