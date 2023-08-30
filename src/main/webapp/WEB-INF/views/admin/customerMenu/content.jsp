@@ -48,9 +48,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">공지사항글쓰기</h1>
-					 <!-- DataTales Example -->
+                   		<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">공지사항 등록</h3>
+						</div>
                  <div class="card shadow mb-4"  style="width: 1400px; height: 800px; overflow-y: auto;">
                
                     <!--글쓰기  -->
@@ -60,20 +60,18 @@
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_cs_num" value="${admin_cs_num}">
                             
-                            
-                            <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-                            
+                              <div style="margin: 1%;"> 
                                <c:if test="${content.admin_id eq sessionScope.admin.admin_id}">
         						<button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="수정" onclick="updateContent('${content.admin_cs_num}')">수정</button>
         						<button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="삭제" onclick="deleteContent('${content.admin_cs_num}')">삭제</button>
     						   </c:if>
     						   
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
-                     		
+                            	<button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="목록" onclick="cnotice()">목록</button>
+							  </div>	                     		
                           </div>
-                             <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
-           					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: white;" readonly="readonly"/><br>
-           					 <label>첨부파일: </label><input type="text" name="file" value="${content.admin_cs_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/>
+                             <label>작성자: </label><input type="text" name="admin_id" value="${content.admin_id}" style="width: 20%; border: none; background-color: #f8f9fc;" readonly="readonly"/><br>    
+           					 <label>제목: </label><input type="text" name="admin_csnotice_sub" value="${content.admin_csnotice_sub}" style="width: 40%; border: none; background-color: #f8f9fc;" readonly="readonly"/><br>
+           					 <input type="hidden" name="file" value="${content.admin_cs_file}" style="width: 60%; border: none; background-color: #f8f9fc;" readonly="readonly"/>
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
@@ -83,7 +81,7 @@
             									<img src="${content.admin_cs_file}" style="width: 300px; height: 300px;"><br>
         								</c:when>
     								</c:choose>
-    								<textarea name="admin_cs_view" style="width: 450px; height: 300px; border: none; background-color: white;" readonly>${content.admin_cs_view}</textarea>
+    								<textarea name="admin_cs_view" style="width: 100%; height: 100%; border: none; background-color: white;" readonly>${content.admin_cs_view}</textarea>
                             </div>
                           </div>
                       </div>

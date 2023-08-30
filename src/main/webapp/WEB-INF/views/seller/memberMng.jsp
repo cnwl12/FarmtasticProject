@@ -65,10 +65,10 @@ body {
 				<div class="container-fluid">
 
 					<!-- 페이지 상단 시작 -->
-					<h1 class="h3 mb-2 text-gray-800">회원관리</h1>
-					<p class="mb-4">
-						<a>날짜는 필수로 입력해야 검색이됩니다(날짜검색후 하단의 Search에서 다른정보검색)</a>.
-					</p>
+					<div class="card shadow mb-4">
+	                        <div class="card-header py-3" style="border-bottom: none; padding-left: 20px;">
+							<h3 class="m-0 font-weight-bold text-primary">회원관리</h3>
+					</div>
 					<!-- 페이지 상단 끝 -->
 
 					<!-- 검색바 시작 -->
@@ -97,17 +97,17 @@ body {
 														onclick="setDateRange(180)">6개월</button>
 													<button type="button" class="btn btn-primary btn-sm mx-2"
 														onclick="setDateRange(365)">1년</button>
-													<button type="reset" class="btn btn-default">날짜초기화</button>
+													<button type="reset" class="btn btn-primary btn-sm mx-2">날짜초기화</button>
 												</div>
 											</div></li>
-									</ul>
+									</ul>btn-default
 								</div>
 							</div>
 							<div class="panel-footer">
 								<div class="seller-btn-area btn-group-lg">
 									<button id="searchButton" type="submit" class="btn btn-primary" onclick="return validateForm()">검색</button>
 									<!-- 초기화 버튼 추가 -->
-									 <button type="reset" class="btn btn-default"  onclick= "resetSearch()">검색초기화</button>
+									 <button type="reset" class="btn btn-primary"  onclick= "resetSearch()">검색초기화</button>
 								</div>
 							</div>
 						</form>

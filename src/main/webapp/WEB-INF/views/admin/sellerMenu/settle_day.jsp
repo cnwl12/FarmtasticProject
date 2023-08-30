@@ -49,8 +49,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">정산관리</h1>
+			 		<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">업체별 일별 매출</h3>
+						</div>
+
                     <form action="${pageContext.request.contextPath}/settle_year" method="get">
   					<input type="hidden" name="seller_num" value="${seller_num}">
   					<button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">연간상세내역보기</button>

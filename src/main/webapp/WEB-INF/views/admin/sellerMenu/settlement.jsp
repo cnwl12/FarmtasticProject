@@ -48,15 +48,16 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">정산관리</h1>
+                 	 <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">정산관리</h3>
+						</div>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">정산관리</h6>
-                        </div>
                          <form action="updateSettlementYn" method="post" id="settlementForm">
+                         <div style="margin: 10px 5px -10px 20px;">
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit">정산하기</button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">

@@ -54,7 +54,9 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">매출관리</h1>
+                    	<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">총매출관리</h3>
+						</div>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -90,7 +92,7 @@
                      
                           <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4" style="width: 153%;">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -100,7 +102,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                    <div class="chart-area">
-  										<canvas id="myChart"></canvas>
+  										<canvas id="myChart" style="height: 100%; width: 75%; margin-left: 10%;"></canvas>
 								   </div>
 										<script>
    										 // total_fee와 month_fee를 담을 배열 생성

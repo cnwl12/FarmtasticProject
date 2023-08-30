@@ -49,15 +49,19 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">회원관리</h1>
-
+                 	 <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">회원관리</h3>
+						</div>
+						
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="memberAdmin">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">회원목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeMemberStatus" method="post"> 
+                       	<div style="margin: 13px 10px -5px 19px;">
                    		<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="deletemember" type="submit">회원탈퇴</button>
+                       </div>
                         <div class="card-body">
                         <input type="hidden" name="member_num" value="${member_num}">
                             <div class="table-responsive">

@@ -43,13 +43,18 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">제철팜</h1>
+                	<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">제철팜관리</h3>
+						</div>
                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                     <div class="row">
-
-                     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="등록" onclick="location.href='${pageContext.request.contextPath}/blogWrite'">글쓰기</button>
+					<div style="margin: 10px 5px -20px 30px;">
+                     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" 
+                      		 style="margin-bottom: 10px;"
+                     		 value="등록" onclick="location.href='${pageContext.request.contextPath}/blogWrite'">글쓰기</button>
+                     </div>
                      </div>   
                         <div class="card-body">
                             <div class="table-responsive">

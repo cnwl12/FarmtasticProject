@@ -41,34 +41,31 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">제철팜 글쓰기</h1>
-                    <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p> -->
+                 	 	<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">제철팜 등록</h3>
+						</div>
 					
-					 <!-- DataTales Example -->
                  <div class="card shadow mb-4">
                     <!--글쓰기  -->
                     <form action="blogWritePro"  id="insertForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="card-header py-3">
                            <div class="row">
                             <input type="hidden" name="admin_id" value="${admin.admin_id}" />
-                            <h6 class="m-0 font-weight-bold text-primary">제철팜 글쓰기</h6>
-                          	 <button type="submit" onclick="submitForm()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">등록</button>
+                          	 <button type="submit"  style="margin-left: 12px; margin-bottom: 13px;"
+                          	 onclick="submitForm()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">등록</button>
                           </div>
-                         	<label>작성자: </label><input type="text" id="adminId" name="admin_id" style="width: 20%; border: none; background-color: white;" value="${admin.admin_id}" readonly="readonly"/><br>
-							<label>제목: </label><input type="text" name="admin_blog_mainTitle" style="width: 40%; border: none; background-color: white;"/> <br>
-							<label>소제목: </label><input type="text" name="admin_blog_subTitle" style="width: 40%; border: none; background-color: white;"/> <br>
-							<label>작성 시간: </label><input type="hidden" name="admin_blog_day" style="width: 40%; border: none; background-color: white;"/> <br>
-							<label>첨부파일: </label><input type="file" name="blogFile" style="width: 40%; border: none; background-color: white;"/>
+                         	<label>작성자: </label><input type="text" id="adminId" name="admin_id" style="width: 20%; border: none; background-color: #f8f9fc;" value="${admin.admin_id}" readonly="readonly"/><br>
+							<label>제목: </label><input type="text" name="admin_blog_mainTitle" style="width: 40%; border: none; background-color: #f8f9fc;"/> <br>
+							<label>소제목: </label><input type="text" name="admin_blog_subTitle" style="width: 40%; border: none; background-color: #f8f9fc;"/>
+						<input type="hidden" name="admin_blog_day" style="width: 40%; border: none; background-color: white;"/> <br>
+							<label>첨부파일: </label><input type="file" name="blogFile" style="width: 40%; border: none; background-color: #f8f9fc;"/>
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                          			<tr>
                          				
-                         				<td><textarea name="admin_blog_content" rows="25" cols="60" value="" style="border-color:  #e3e6f0;"></textarea></td>
+                         				<td><textarea name="admin_blog_content" rows="25" cols="60" style="width: 100%;" value="" style="border-color: white;"></textarea></td>
                          			
                          			</tr>
                          		</table>

@@ -54,9 +54,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                       <h1 class="m-0 font-weight-bold text-primary">매출관리</h1>
+                      <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">월매출관리</h3>
+						</div>
                           
-                        <div class="card-body">
+                        <div class="card-body" style="padding: 0px !important;">
                            
                                 <table class="table table-bordered" id="salesTable">
                                     <thead>
@@ -68,23 +70,13 @@
                                         </tr>
                                         </thead>
                                         <tbody id="avgContent">
-                                        <!-- 
-                                      <c:forEach items="${sellers}" var="seller" begin="0" end="0">
-    									<tr style="background-color: #ffffff;">
-    										<td >${seller.month_sales}</td>
-        									<td >${seller.month_settlement}</td>
-        									<td style="color: black; font-weight: bold;">${seller.month_fee}</td>
-    									</tr>
-									  </c:forEach>
-									   -->
                             			</tbody>
                                 </table>
                            
                         </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="sellerAdmin">
-                      <div>
-                        <h6 class="m-0 font-weight-bold text-primary">월별매출</h6>
+                      <div style="margin: 13px 0 -7px 10px;">
                     	<button id="prev_month" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">이전 월</button>
     						<label id="current_month_label" for="current_month">${fn:substring(currentMonth, 0, 4)}-${fn:substring(currentMonth, 5, 7)}</label>
 

@@ -33,6 +33,12 @@
     <!-- jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   
+   <style>
+   #adminli{margin: 3%;}
+   
+   </style> 
+    
 </head>
 
 <body id="page-top">
@@ -61,38 +67,38 @@
         </div>
     </c:if>
 							<div class="panel-heading">
-								<div class="pull-left">
-									<h3 class="panel-title">관리자 정보</h3>
+								<div class="card-header py-3" style="border-bottom: none;">
+									<h3 class="m-0 font-weight-bold text-primary">관리자정보</h3>
 								</div>
 							</div>
 
 							<div class="panel-body">
 								<ul class="seller-list-border">
-									<li>
+									<li id="adminli">
 									<label class="control-label">로그인ID</label>
 										<div class="input-content">
 											<input type="text" class="form-control" value="${admin.admin_id}" readonly="readonly" >
 										</div>
 									</li>
-									<li>
+									<li id="adminli">
 									<label class="control-label">이름</label>
 										<div class="input-content">
 											<input type="text" class="form-control" value="${admin.admin_name}" readonly="readonly">
 										</div>
 									</li>
-									<li>
+									<li id="adminli">
 									<label class="control-label">현재 비밀번호</label>
 										<div class="input-content">
 											<input type="password" class="form-control" name="pass" >
 										</div>
 									</li>
-									<li>
+									<li id="adminli">
 									<label class="control-label">새 비밀번호</label>
 										<div class="input-content">
 											<input type="password" class="form-control" name="newpass" >
 										</div>
 									</li>
-									<li>
+									<li id="adminli">
 									<label class="control-label">새 비밀번호(확인)</label>
 										<div class="input-content">
 											<input type="password" class="form-control" name="newpass2" >
@@ -100,7 +106,7 @@
 									</li>
 									
 
-									<li>
+									<li id="adminli">
 									<label class="control-label">닉네임</label>
 										<div class="input-content">
 											<div class="form-inline mobile-inline"> <!-- 이 클래스는 텍스트박스 길이 줄여줌. 없으면 늘어남 -->
@@ -110,7 +116,7 @@
 									</li>
 								
 									
-									<li>
+									<li id="adminli">
 									<label class="control-label">생년월일</label>
 										<div class="input-content">
     										<div class="form-inline mobile-inline">
@@ -118,7 +124,7 @@
     										</div>
     										</div>
 									</li>
-									<li>
+									<li id="adminli">
 									<label class="control-label">입사일</label>
 										<div class="input-content">
     										<div class="form-inline mobile-inline">
@@ -127,8 +133,10 @@
     										</div>
 									</li>
 								</ul>
-								   <div class="btn_center">
-                       <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >수정하기</button>
+								   <div class="btn_center" style="margin-left: 45px;">
+                       <button type="submit" 
+                       style="padding: 9px 74px; font-size: 15px;"
+                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >수정하기</button>
                      </div>
 					</div>
 				</div>

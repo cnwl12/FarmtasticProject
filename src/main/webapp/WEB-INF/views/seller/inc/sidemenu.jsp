@@ -6,9 +6,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                <!--  <div class="sidebar-brand-icon rotate-n-15"> -->
-               <a href="${pageContext.request.contextPath}/main">
+             <%--   <a href="${pageContext.request.contextPath}/main">
                <img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="width: 70%">
-                </a>
+                </a> --%>
                <!--  </div> -->
                <!--  <div class="sidebar-brand-text mx-3">판매자</div> -->
             </a> 
@@ -19,7 +19,6 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="sellerMain">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <span>판매자 메인으로가기</span></a>
             </li>
 
@@ -41,13 +40,6 @@
                     <span>매출관리</span></a>
             </li>
 
-         
-            <!-- Divider -->
-           <!-- 언더바 
-           <hr class="sidebar-divider"> -->
-
-            <!-- Heading -->
-           
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">

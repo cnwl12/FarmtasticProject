@@ -240,22 +240,6 @@ ORDER BY
 	ORDER BY q1.order_mm; 
 	</select>
 
-	<!-- 선진) 품목별 월 매출 차트 -->
-	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
-<!-- 	<select id="getMonthlyItems" resultType="map"> -->
-<!-- 	SELECT f.item_name AS item_name, SUM(f.price) AS item_totalSales -->
-<!-- 	FROM (select coalesce(SUBSTRING(od.order_num, 1, 6), (DATE_FORMAT(current_timestamp, '%Y%m'))) as order_mm,  -->
-<!-- 				 coalesce(od.order_num,0) as dd, -->
-<!-- 				 i.item_name, (i.item_price * coalesce(od.item_cnt,0)) as price -->
-<!-- 		  from order_detail od right join item i on od.item_num = i.item_num -->
-<!-- 		  where i.item_num in (select item_num  -->
-<!-- 							   from item  -->
-<!-- 	                           where seller_num = #{seller_num})) AS f LEFT JOIN orders os ON f.dd = os.order_num -->
-<!-- 	WHERE order_mm = (DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m')) -->
-<!-- 	AND os.order_cancel != 'Y' OR os.order_cancel IS NULL -->
-<!-- 	GROUP BY f.order_mm, f.item_name; -->
-<!-- 	</select> -->
-	
 	<!-- 비율 추가 -->
 	<select id="getMonthlyItems" resultType="map">
 	SELECT f.item_name AS item_name, SUM(f.price) AS item_totalSales,
@@ -358,29 +342,29 @@ ORDER BY
 	<!-- 정산 취소 주문건을 제외하기 위해 order_cancel = 'N' 추가됨 -->
 	<select id="getSettlementList" resultType="map">
 	SELECT 
-		DISTINCT DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
-		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6))), 0) AS totalSales,
-		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05), 0) AS totalFee,
-		FORMAT(FLOOR(SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) - (SUM(it.item_price * od.item_cnt) OVER (PARTITION BY SUBSTRING(od.order_num, 1, 6)) * 0.05)), 0) AS totalSettlement,
-		ss.settlementApplication,
-		ss.settlementApplication_day AS applyDay,
-		ss.settlementComplete,
-		ss.settlementComplete_day AS completeDay
+    DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m') AS settlementMonth,
+    FORMAT(SUM(it.item_price * od.item_cnt), 0) AS totalSales,
+    FORMAT(SUM(it.item_price * od.item_cnt) * 0.05, 0) AS totalFee,
+    FORMAT(SUM(it.item_price * od.item_cnt) - (SUM(it.item_price * od.item_cnt) * 0.05), 0) AS totalSettlement,
+    MAX(ss.settlementApplication) AS settlementApplication,
+    MAX(ss.settlementApplication_day) AS applyDay,
+    MAX(ss.settlementComplete) AS settlementComplete,
+    MAX(ss.settlementComplete_day) AS completeDay
 	FROM order_detail od
-		LEFT JOIN item it ON od.item_num = it.item_num
-		JOIN orders os ON od.order_num = os.order_num
-		LEFT JOIN (
-	        SELECT 
-	            s.order_num,
-	            s.settlementApplication,
-	            s.settlementApplication_day,
-	            s.settlementComplete,
-	            s.settlementComplete_day
-	        FROM 
-	            settlement s
-	        WHERE 
-	            s.seller_num = #{seller_num}
-	    ) ss ON od.order_num = ss.order_num
+    LEFT JOIN item it ON od.item_num = it.item_num
+    JOIN orders os ON od.order_num = os.order_num
+    LEFT JOIN (
+        SELECT 
+            s.order_num,
+            s.settlementApplication,
+            s.settlementApplication_day,
+            s.settlementComplete,
+            s.settlementComplete_day
+        FROM 
+            settlement s
+        WHERE 
+            s.seller_num = #{seller_num}
+    ) ss ON od.order_num = ss.order_num
 	WHERE 
 	    od.item_num IN (
 	        SELECT 
@@ -389,9 +373,11 @@ ORDER BY
 	            item
 	        WHERE 
 	            seller_num = #{seller_num}
-	    ) AND os.order_cancel = 'N'
+    ) AND os.order_cancel = 'N'
+	GROUP BY 
+	    DATE_FORMAT(SUBSTRING(od.order_num, 1, 8), '%Y-%m')
 	ORDER BY 
-	    settlementMonth;
+    settlementMonth;
 	</select>
 
 	<!-- 정산 신청 -->

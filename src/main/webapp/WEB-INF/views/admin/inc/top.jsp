@@ -7,17 +7,17 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+	 				 <div class="input-group">
+                        
+                        <a href="${pageContext.request.contextPath}/main">
+               				<img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="margin-left: -20px; width: 30%;">
+              			 </a>
+                        
+                        </div>
                   
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-
-                        <!-- Nav Item - Alerts -->
-
-                        <!-- Nav Item - Messages -->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

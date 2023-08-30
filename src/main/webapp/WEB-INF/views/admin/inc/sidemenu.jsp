@@ -6,9 +6,6 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                <!--  <div class="sidebar-brand-icon rotate-n-15"> -->
-               <a href="${pageContext.request.contextPath}/main">
-                <img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="width: 70%">
-                </a>
                <!--  </div> -->
                <!--  <div class="sidebar-brand-text mx-3">판매자</div> -->
             </a>  
@@ -66,8 +63,8 @@
                     <span>업체관리</span></a>
                      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     	<div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="sellerAdmin">미승인,승인업체조회</a>
-                        <a class="collapse-item" href="sellerAdmin">승인거절,탈퇴한업체조회</a>
+                        <a class="collapse-item" href="sellerAdmin">업체관리</a>
+                        <a class="collapse-item" href="sellerAdmin">업체미승인관리</a>
              
                         
                       </div>  

@@ -90,7 +90,7 @@
 					<!-- 고객문의관리 시작 -->
 						<div class="card shadow mb-4">
 	                        <div class="card-header py-3" style="border-bottom: none; padding-left: 20px;">
-							<h4 class="m-0 font-weight-bold text-primary">고객문의</h4>
+							<h3 class="m-0 font-weight-bold text-primary">고객문의</h3>
 						</div>
 								<div class="card-body">
 									<div class="table-responsive">

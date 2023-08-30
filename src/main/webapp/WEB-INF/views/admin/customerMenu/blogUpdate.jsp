@@ -43,9 +43,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">제철팜글수정</h1>
-					 <!-- DataTales Example -->
+                   		<div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">제철팜 등록 수정</h3>
+						</div>
                  <div class="card shadow mb-4"  style="width: 1400px; height: 800px; overflow-y: auto;">
                     <!--글쓰기  -->
                     <form action="blogUpdatePro" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -53,14 +53,15 @@
                            <div class="row">
                             <input type="hidden" name="admin_id" value=" ${admin.admin_id}"/>
                             <input type="hidden" name="admin_blog_num" value="${admin_blog_num}">
-                            <h6 class="m-0 font-weight-bold text-primary">제철팜 수정</h6>
-                            <button type="submit"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="저장">저장</button>
+                            <button type="submit"  
+                             style="margin-left: 12px; margin-bottom: 13px;"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="저장">수정 등록</button>
                           </div>
-                             <label>작성자: </label><input type="text" name="admin_id" value="${bContent.admin_id}" style="width: 20%; border: none; background-color: white;" readonly="readonly"/><br>    
-           					 <label>제목: </label><input type="text" name="admin_blog_mainTitle" value="${bContent.admin_blog_mainTitle}" style="width: 40%; border: none; background-color: white;"/><br>
-           					 <label>소제목: </label><input type="text" name="admin_blog_subTitle" value="${bContent.admin_blog_subTitle}" style="width: 40%; border: none; background-color: white;"/><br>
-           					 <label>기존파일: </label><input type="text" name="oldBlogFile" value="${bContent.admin_blog_file}" style="width: 60%; border: none; background-color: white;" readonly="readonly"/><br>
-							 <label>수정파일: </label><input type="file" name="blogFile" style="width: 60%; border: none; background-color: white;">
+                             <label>작성자: </label><input type="text" name="admin_id" value="${bContent.admin_id}" style="width: 20%; border: none; background-color: #f8f9fc;" readonly="readonly"/><br>    
+           					 <label>제목: </label><input type="text" name="admin_blog_mainTitle" value="${bContent.admin_blog_mainTitle}" style="width: 40%; border: none; background-color: #f8f9fc;"/><br>
+           					 <label>소제목: </label><input type="text" name="admin_blog_subTitle" value="${bContent.admin_blog_subTitle}" style="width: 40%; border: none; background-color: #f8f9fc;"/>
+           						<input type="hidden" name="oldBlogFile" value="${bContent.admin_blog_file}" style="width: 60%; border: none; background-color: #f8f9fc;" readonly="readonly"/><br>
+							 <label>수정파일:   </label><input type="file" name="blogFile" style="width: 60%; border: none; background-color: #f8f9fc;">
                         </div>   
                         <div class="card-body">
                             <div class="table-responsive">
@@ -69,7 +70,7 @@
             									<img src="${bContent.admin_blog_file}" style="width: 300px; height: 300px;"><br>
         								</c:when>
     								</c:choose>
-    								<textarea name="admin_blog_content" style="width: 450px; height: 300px; border: none; background-color: white;" >${bContent.admin_blog_content}</textarea>
+    								<textarea name="admin_blog_content" style="width: 100%; height: 100%; border: none; background-color: white;" >${bContent.admin_blog_content}</textarea>
                             </div>
                           </div>
                       	</form>

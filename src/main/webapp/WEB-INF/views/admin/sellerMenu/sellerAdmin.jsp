@@ -46,9 +46,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">업체관리</h1>
-                    <!-- DataTales Example -->
+                   <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">업체관리</h3>
+						</div>
                     <div class="card shadow mb-4" id="sellerAdmin">
                       <div>
                     	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>

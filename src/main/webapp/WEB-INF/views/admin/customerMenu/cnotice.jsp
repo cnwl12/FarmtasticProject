@@ -48,7 +48,9 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">공지사항</h1>
+                   <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">공지사항</h3>
+					</div>
                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
