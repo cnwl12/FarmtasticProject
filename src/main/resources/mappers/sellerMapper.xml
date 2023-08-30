@@ -144,6 +144,7 @@ FROM
 ORDER BY 
    seller_joinDay DESC;
 	</select>
+
 	
 	<!-- 판매자 체크 -->
     <select id="sellerCheck" resultType="map">

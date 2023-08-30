@@ -45,7 +45,7 @@ public class SellerService {
 		public List<Map<String, Object>> getSeller() {
 			return sellerDAO.getSeller();
 		}
-	
+
 		public Map<String, Object> sellerCheck(String seller_id) {
 			return sellerDAO.sellerCheck(seller_id);
 		}

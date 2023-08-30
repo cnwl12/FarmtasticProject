@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin</title>
+    <title>Admin2</title>
 
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -46,52 +46,42 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-
-                  
-
-                   <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
-							<h3 class="m-0 font-weight-bold text-primary">업체관리 미승인.승인된업체</h3>
-						</div>
-
+                    <!-- Page Heading -->
+                    <h3 class="m-0 font-weight-bold text-primary">업체관리 승인.탈퇴한업체</h3>
+                    <!-- DataTales Example -->
                     <div class="card shadow mb-4" id="sellerAdmin">
                       <div>
-                    	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary" id="unapprovedHeader">미승인된 업체 목록</h6>
+                    	
+                       <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">승인거절된 업체 목록</h6>
                         </div>
-                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
-                        <input type="hidden" id="actionType" name="actionType" /> 
-                        
-                        <div class="card-body">
+                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" class="reject-check-all"/></th>
                                             <th>번호</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업자 등록번호</th>
                                             <th>상태</th>
-                                            <th>가입일</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
     								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
     								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
     								<c:forEach items="${sellers}" var="seller" varStatus="status">
-        							<c:if test="${empty seller.seller_recoYn}">
+        							<c:if test="${seller.seller_recoYn == 'N'}">
             						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
             						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
             						<tr data-status="unapproved">
-                						<td><input type="checkbox" class="sellerRejectbox" name="result" value="${seller.seller_num}" /></td>
                 						<td>${count}</td> <!-- 순차 카운터 표시 -->
                 						<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
                 						<td>${seller.seller_name}</td>
                 						<td>${seller.seller_licenseNum}</td>
                 						<td>${seller.seller_recoYn}</td>
-                						<td>${seller.seller_joinDay}</td>
+                						
             						</tr>
         							</c:if>
     								</c:forEach>
@@ -99,46 +89,48 @@
                                 </table>
                             </div>
                         </div>
-                       </form>
+                      
                        
-                       <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
+                       
+                        <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">탈퇴한 업체 목록</h6>
                         </div>
-                       <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
-                        <input type="hidden" id="actionType2" name="actionType" /> 
+                      
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" class="reco-check-all"/></th>
-                                            <th>코드</th>
+                                            <th>번호</th>
                                             <th>업체명</th>
                                             <th>대표자</th>
                                             <th>사업자 등록번호</th>
                                             <th>상태</th>
-                                            <th>가입일</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${sellers}" var="seller">
-   								 		<c:if test="${seller.seller_recoYn == 'Y'}">
-        								<tr  data-status="approved">
-            							<td><input type="checkbox" class="sellerRecobox" name="result" value="${seller.seller_num}" /></td>
-            							<td>${seller.seller_num}</td>
-            							<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
-            							<td>${seller.seller_name}</td>
-            							<td>${seller.seller_licenseNum}</td>
-            							<td>${seller.seller_recoYn}</td>
-            							<td>${seller.seller_joinDay}</td>
-        								</tr>
-    									</c:if>
-										</c:forEach>
-                                    </tbody>
+    								<c:set var="total" value="${fn:length(sellers)}" /> <!-- 전체 업체 수를 계산 -->
+    								<c:set var="count" value="0" /> <!-- 순차 카운터 변수 초기화 -->
+    								<c:forEach items="${sellers}" var="seller" varStatus="status">
+        							<c:if test="${seller.seller_recoYn == 'D'}">
+            						<c:set var="reversedCount" value="${total - status.index}" /> <!-- 역방향 카운트 계산 -->
+            						<c:set var="count" value="${count + 1}" /> <!-- 순차 카운터 변수 증가 -->
+            						<tr data-status="unapproved">
+                						<td>${count}</td> <!-- 순차 카운터 표시 -->
+                						<td><a href="javascript:void(0);" onclick="showDetail('${seller.seller_num}')">${seller.seller_storeName}</a></td>
+                						<td>${seller.seller_name}</td>
+                						<td>${seller.seller_licenseNum}</td>
+                						<td>${seller.seller_recoYn}</td>
+                						
+            						</tr>
+        							</c:if>
+    								</c:forEach>
+									</tbody>
                                 </table>
                             </div>
                         </div>
-                       </form>
+                                          
                        
                        </div>
                       </div>   
@@ -190,53 +182,7 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	
 	<!-- changeSellerStatus -->
-	<script>
-	// Change Seller Status
-    document.getElementById('recoSeller').addEventListener('click', function () {
-        document.getElementById('actionType').value = 'approve';
-        document.getElementById('changeSellerStatus').submit();
-    });
-    document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType').value = 'reject';
-        document.getElementById('changeSellerStatus').submit();
-    });
-    
-    document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType2').value = 'reject';
-        document.getElementById('changeSellerStatus2').submit();
-    });
-    
-   
-    // Check All checkboxes
-    function toggleRejectCheckAll() {
-  const rejectCheckAll = sellerAdmin.querySelectorAll(".reject-check-all");
-  const sellerRejectboxes = sellerAdmin.querySelectorAll(".sellerRejectbox");
-
-  rejectCheckAll.forEach((element) => {
-    element.addEventListener("click", (event) => {
-      sellerRejectboxes.forEach((checkbox) => {
-        checkbox.checked = event.target.checked;
-      });
-    });
-  });
-}
-
-function toggleRecoCheckAll() {
-  const recoCheckAll = sellerAdmin.querySelectorAll(".reco-check-all");
-  const sellerRecoboxes = sellerAdmin.querySelectorAll(".sellerRecobox");
-
-  recoCheckAll.forEach((element) => {
-    element.addEventListener("click", (event) => {
-      sellerRecoboxes.forEach((checkbox) => {
-        checkbox.checked = event.target.checked;
-      });
-    });
-  });
-}
-
-toggleRejectCheckAll();
-toggleRecoCheckAll();
-
+<script>	
 function showDetail(sellerNum) {
     // 회원 정보 조회 API URL
 	  const url = '${pageContext.request.contextPath}/sellerDetail?seller_num=' + sellerNum;
@@ -246,14 +192,7 @@ function showDetail(sellerNum) {
     // 팝업 창에서 메인 창으로 포커스 이동
     opener.focus();
 }
-
-
-
-
-
-
 </script>
-	
 </body>
 
 </html>

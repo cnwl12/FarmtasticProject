@@ -377,6 +377,26 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "/sellerAdmin2", method = RequestMethod.GET)
+	public String sellerAdmin2(Locale locale, Model model,HttpSession session) {
+			
+		 if (session.getAttribute("admin_id") == null) {
+	            // 세션에 로그인 정보가 없는 경우
+	            model.addAttribute("error", "로그인후 이용해주세요");
+	            return "redirect:/adminLogin"; // 로그인 페이지로 이동
+	        } else {
+	            // 로그인한 경우
+	            String admin_id = (String) session.getAttribute("admin_id");
+	            Map<String, Object> adminInfo = adminService.getAdminInfo(admin_id); // 관리자 정보를 가져옵니다.
+	            List<Map<String, Object>> resultList = sellerService.getSeller();
+	   		 	model.addAttribute("sellers", resultList);
+	            model.addAttribute("admin", adminInfo);
+	            model.addAttribute("admin_id", admin_id);
+	            return "/admin/sellerMenu/sellerAdmin2";
+	        }
+		
+	}
+	
 	@RequestMapping(value = "/sellerDetail", method = RequestMethod.GET)
     public String sellerDetail(@RequestParam("seller_num") String seller_num, Locale locale, Model model,HttpSession session) {
         if (session.getAttribute("admin_id") == null) {
