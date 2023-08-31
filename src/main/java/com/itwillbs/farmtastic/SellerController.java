@@ -653,7 +653,8 @@ public class SellerController {
 	            itemList.put("item_mainImg", saveFileName);
 	        }
 	    }
-	            
+	    
+	    String seller_num = (String) session.getAttribute("seller_num");
 	    session.setAttribute("seller_num", seller_num);
 	    itemList.put("seller_num", seller_num);
 

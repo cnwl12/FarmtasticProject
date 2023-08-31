@@ -68,7 +68,7 @@
 					
 					<tr>
 					<th>이미지</th>
-					<td><img src="${questionDetail.one_board_file}" alt="이미지 없음" style="width:200px; height:200px; display: none;"></td>
+					<td><img src="${questionDetail.one_board_file}" alt="이미지 없음" style="width:200px; height:200px;"></td>
 					</tr>
 					
 					<tr>
