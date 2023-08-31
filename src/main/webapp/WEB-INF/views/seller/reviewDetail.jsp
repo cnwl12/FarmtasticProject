@@ -62,7 +62,7 @@
 		            </tr>
 		            <tr>
 		            <th>이미지</th>
-		            <td><img src="${reviewDetail.review_img}" alt="이미지 없음" style="width:200px; height:200px; display: none;"></td>
+		            <td><img src="${reviewDetail.review_img}" alt="이미지 없음" style="width:200px; height:200px;"></td>
 		            </tr>
 		            <tr>
 		        </tbody>
