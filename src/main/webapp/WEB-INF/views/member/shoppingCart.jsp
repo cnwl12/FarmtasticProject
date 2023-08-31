@@ -158,32 +158,32 @@
 			</div>
 
 			<div class="row" style="display: flex !important;">
-				<c:choose>
-					<c:when test="${empty itemList}">
-						<div class="col-lg-12">
-							<div class="shoping__cart__btns">
-								<input type="button" class="primary-btn cart-btn"
-									onclick="history()" value="CONTINUE SHOPPING">
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-							<div class="shoping__checkout shoping_div">
-								<h5>Cart Total</h5>
-								<ul>
-									<li>Total <span class="cart-total-price">${totalSum}원</span></li>
-								</ul>
-							</div>
-							</div>
-							<input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
-							<div style="padding-top: 5px; padding-right: 1px; float: right;  margin-right: -16px;">
-							<button class="primary-btn" onclick="clearCart()">전체삭제</button>
-							<a href="checkout" class="primary-btn">주문하기</a>
-							</div>
-					</c:otherwise>
-				</c:choose>
-			
-
+	    <c:choose>
+	        <c:when test="${empty itemList}">
+	            <div class="col-lg-12">
+	                <div class="shoping__cart__btns">
+	                    <input type="button" class="primary-btn cart-btn"
+	                        onclick="history()" value="CONTINUE SHOPPING">
+	                </div>
+	            </div>
+	        </c:when>
+	        <c:otherwise>
+	            <div class="shoping__checkout shoping_div">
+	                <h5>Cart Total</h5>
+	                <ul>
+	                    <li>Total <span class="cart-total-price">${totalSum}</span></li>
+	                </ul>
+	            </div>
+	            <div class="col-lg-12" style="display: flex; justify-content: space-between; align-items: center; padding-top: 5px; padding-right: 1px;">
+	                <input type="button" class="primary-btn cart-btn" onclick="history()" value="CONTINUE SHOPPING">
+	                <div>
+	                    <button class="primary-btn" onclick="clearCart()">전체삭제</button>
+	                    <a href="checkout" class="primary-btn" onclick="checkQuantityAndProceed(event)">주문하기</a>
+	                </div>
+	            </div>
+	        </c:otherwise>
+	    </c:choose>
+	</div>
 		
 	</section>
 
@@ -201,7 +201,30 @@
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
+    
+    <script>
+	function checkQuantityAndProceed(event) {
+	    var cartCntInputs = document.querySelectorAll('.cart_cnt');
+	    var cartCntNonZero = false;
+	    
+	    // 장바구니 내의 각 상품 수량을 확인
+	    cartCntInputs.forEach(function(input) {
+	        var cartCnt = parseInt(input.value);
+	        if (cartCnt > 0) {
+	            cartCntNonZero = true;
+	            return;
+	        }
+	    });
+	    
+	    // 수량이 0인 경우 알림 띄우고 기본 동작 막기
+	    if (!cartCntNonZero) {
+	        event.preventDefault();
+	        alert("주문하기 위해서는 최소한 하나 이상의 상품을 추가해주세요.");
+	    }
+	}
+	</script>
+    
+   
 </body>
 
 </html>
