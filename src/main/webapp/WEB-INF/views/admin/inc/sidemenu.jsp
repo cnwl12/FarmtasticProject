@@ -63,10 +63,8 @@
                     <span>업체관리</span></a>
                      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     	<div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="sellerAdmin">미승인,승인업체조회</a>
-                        <a class="collapse-item" href="sellerAdmin2">승인거절,탈퇴한업체조회</a>
-             
-                        
+	                        <a class="collapse-item" href="sellerAdmin">승인관리</a>
+	                        <a class="collapse-item" href="sellerAdmin2">탈퇴관리</a>
                       </div>  
                      </div> 
             </li>

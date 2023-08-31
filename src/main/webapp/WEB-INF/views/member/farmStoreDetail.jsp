@@ -119,6 +119,13 @@ input#file-upload-button {
    background-color: #7fad39;
    border: none;
 }
+
+#write-review-btn{
+	border: none;
+    background-color: #7fad39;
+    color: white;
+    padding: 1%;
+}
 </style>	
 	
 </head>
@@ -276,9 +283,11 @@ input#file-upload-button {
         								<input type="file" id="review_img" name="review_image"  style="padding-left: 73px;">
     									<br><br>
     									<label for="review_content"></label>
-    									<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:14px;" placeholder="내용을 입력해주세요. 최대 300자까지 작성 가능합니다." required maxlength="300"></textarea>
+    									<textarea name="review_content" id="review_content" cols="80" rows="4" style="font-size:14px; width: 100%;" placeholder="내용을 입력해주세요. 최대 300자까지 작성 가능합니다." required maxlength="300"></textarea>
     									<br>
-    									<button id="write-review-btn" type="submit">리뷰 작성</button>
+    									<div style="margin-left: 47%;">
+    										<button id="write-review-btn" type="submit">리뷰 작성</button>
+    									</div>
 									</form>
 									</div>
 									<p id="not-eligible-message" style="display:none;">주문 내역을 찾을 수 없습니다. 리뷰를 작성하려면 제품을 구매하세요.</p>
