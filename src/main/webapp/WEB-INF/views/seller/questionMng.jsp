@@ -253,7 +253,7 @@
 														</tr>
 														<tr>
 														<th scope="row">질문자</th>
-															<td id="seller_name" colspan="3" class="line_h18">&nbsp;</td>
+															<td id="member_name" colspan="3" class="line_h18">&nbsp;</td>
 														</tr>
 														<tr>
 															<th scope="row">상품명</th>
@@ -431,7 +431,7 @@
 		 // 이 정보를 사용하여 필요한 곳에 데이터를 채웁니다.
 		    $('#one_board_day').html(one_board_day || '&nbsp;');
 		    $('#one_board_repDay').html(one_board_repDay || '&nbsp;');
-		    $('#seller_name').html(member_name || '&nbsp;');
+		    $('#member_name').html(member_name || '&nbsp;');
 		    $('#item_name').html(item_name || '&nbsp;');
 		    $('#one_board_type').html(one_board_type || '&nbsp;');
 		    $('#one_board_title').html(one_board_title || '&nbsp;');
