@@ -205,6 +205,14 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
+		
+		<!-- 채팅 위한 socket -->
+        <dependency> 
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-websocket</artifactId> 
+            <version>${org.springframework-version}</version> 
+        </dependency>
+        <!-- // 채팅 위한 socket -->
 	</dependencies>
     <build>
         <plugins>

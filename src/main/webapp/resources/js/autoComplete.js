@@ -1,6 +1,7 @@
 window.onload = function(){
-	const dataList = ["상추", "시금치", "가지", "오이", "당근", "양상추", "브로콜리", "양배추", "파프리카",
-					  "토마토", "무", "순무", "케일", "호박", "미나리", "콩나물", "샬롯", "양파", "무청"];
+	const elements = document.querySelectorAll(".hero__categories ul li a");
+	const dataList = Array.from(elements).map(el => el.textContent);
+
 
 	const $searchQuery = document.querySelector("#searchQuery");
 	const $autoComplete = document.querySelector(".autocomplete");
