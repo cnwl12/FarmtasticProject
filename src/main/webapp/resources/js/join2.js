@@ -117,7 +117,7 @@
     function validateId() {
       var uid = $("#seller_id");
       if (uid.val() == "" || !regId.test(uid.val())) {
-        $('#invalid_id').show();
+        $('#invalid_id2').show();
         uid.focus();
         return false;
       } else if (isIdDuplicated) { // 아이디가 중복되었을 경우
@@ -125,7 +125,7 @@
         uid.focus();
         return false;
       }else {
-        $('#invalid_id').hide();
+        $('#invalid_id2').hide();
         return true;
       }
     }
