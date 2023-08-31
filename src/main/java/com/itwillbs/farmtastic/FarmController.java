@@ -696,6 +696,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		memberService.deleteAllCart(orderDetail);
 		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
 		
+		session.removeAttribute("item_count");
+		
 		return "redirect:/orderSuccess";
 	}
 	
@@ -717,6 +719,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	            memberService.updateItemLeft(orderDetail);
 	        }
 	    }
+	    
+	    session.removeAttribute("item_count");
 	    
 	    return "/member/orderSuccess";
 	}

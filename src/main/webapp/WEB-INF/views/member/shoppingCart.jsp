@@ -202,27 +202,32 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
-    <script>
-	function checkQuantityAndProceed(event) {
-	    var cartCntInputs = document.querySelectorAll('.cart_cnt');
-	    var cartCntNonZero = false;
-	    
-	    // 장바구니 내의 각 상품 수량을 확인
-	    cartCntInputs.forEach(function(input) {
-	        var cartCnt = parseInt(input.value);
-	        if (cartCnt > 0) {
-	            cartCntNonZero = true;
-	            return;
-	        }
-	    });
-	    
-	    // 수량이 0인 경우 알림 띄우고 기본 동작 막기
-	    if (!cartCntNonZero) {
-	        event.preventDefault();
-	        alert("주문하기 위해서는 최소한 하나 이상의 상품을 추가해주세요.");
-	    }
-	}
-	</script>
+<script>
+    function checkQuantityAndProceed(event) {
+        var cartCntInputs = document.querySelectorAll('.cart_cnt');
+        var cartCntNonZero = false;
+
+        // 장바구니 내의 각 상품 수량을 확인
+        for (var i = 0; i < cartCntInputs.length; i++) {
+            var cartCnt = parseInt(cartCntInputs[i].value);
+            if (cartCnt === 0) { // 만약 cart_cnt가 0인 경우
+                event.preventDefault(); // 기본 동작 막기
+                alert("주문하기 위해서는 최소한 하나 이상의 상품을 추가해주세요.");
+                return;
+            }
+            if (cartCnt > 0) {
+                cartCntNonZero = true;
+            }
+        }
+
+        // 수량이 모두 0인 경우 알림 띄우고 기본 동작 막기
+        if (!cartCntNonZero) {
+            event.preventDefault();
+            alert("주문하기 위해서는 최소한 하나 이상의 상품을 추가해주세요.");
+        }
+    }
+</script>
+
     
    
 </body>
