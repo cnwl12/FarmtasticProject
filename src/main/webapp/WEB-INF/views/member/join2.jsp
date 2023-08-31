@@ -38,7 +38,6 @@ button#goMain {
     color : #fff !important; 
     min-width: 115px;
     margin-left: 5px;
-    padding-right: 15px;
     min-height: 40px;
 }
 
@@ -47,7 +46,6 @@ button#submitBtn {
    color : #fff !important;
     min-width: 115px;
     margin-left: 5px;
-    padding-right: 15px;
     min-height: 40px;
 }
 
