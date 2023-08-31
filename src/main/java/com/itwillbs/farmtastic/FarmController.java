@@ -1372,4 +1372,11 @@ public class FarmController { // 소비자 (컨트롤러)
         // 이 예제에서는 단순히 받은 쿼리 문자열을 그대로 반환합니다.
         return "Received your query: " + query;
     }
+	
+	@RequestMapping(value = "/realtimechatBot", method = RequestMethod.GET)
+	public String realtimechatBot(Locale locale, Model model) {
+
+		return "/member/realtimechatBot";
+
+	}
 }
