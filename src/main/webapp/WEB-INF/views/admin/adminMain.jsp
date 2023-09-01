@@ -104,7 +104,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                           <a href="totalSales"> <i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a>
+                                           <a href="sellerAdmin"> <i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>
