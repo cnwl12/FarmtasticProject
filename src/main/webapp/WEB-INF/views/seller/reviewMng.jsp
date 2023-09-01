@@ -401,12 +401,12 @@ $(document).ready(function () {
 
   // 삭제 버튼 클릭 이벤트
   $(document).on('click', '#del-review-button', function () {
-	  var checkedReviews = $('input[type=checkbox][name=review-checkbox]:checked');
+	  var checkedReviews = $('.review-checkbox:checked')
+	  
     if (checkedReviews.length === 1) {
       // 첫 번째 체크된 리뷰 요소에서 data-review_num 값을 가져옵니다.
       selectedReview = checkedReviews.first().data("review_num");
       selectedMember = checkedReviews.first().data("member_num");
-      console.log('Selected review number:', selectedReview);
 
       deleteReview(selectedReview, selectedMember);
     } else {
