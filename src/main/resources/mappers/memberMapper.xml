@@ -507,6 +507,26 @@
         <result column="seller_num" property="seller_num"/>
         <result column="item_name" property="item_name"/>
     </resultMap>
+    
+    <insert id="insertTwoBoard">
+	    insert into two_board (member_num
+						    ,  two_board_content
+						    ,  two_board_day
+						    ,  two_board_repYn)
+						values (#{member_num}
+							,  #{two_board_content}
+							,  now()
+							,  "미답변")
+	</insert>
+	
+	<resultMap id="twoBoardResultMap" type="com.itwillbs.domain.TwoBoardDTO">
+		<result column="two_board_num" property="two_board_num"/>
+		<result column="member_num" property="member_num"/>
+		<result column="two_board_content" property="two_board_content"/>
+		<result column="two_board_day" property="two_board_day"/>
+		<result column="two_board_repYn" property="two_board_repYn"/>
+		<result column="member_name" property="member_name"/>
+	</resultMap>
 
 	<select id="findByItemNum" resultMap="oneBoardResultMap">
     SELECT ob.one_board_repYn

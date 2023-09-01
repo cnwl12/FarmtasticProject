@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>seller/questionAdmin</title>
+    <title>member/questionAdmin</title>
 
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/naver/naverCss/npay_seller.css">
@@ -181,7 +181,7 @@
 								<div class="box_column2">
 									<div class="ct_box">
 										<div class="hd_wrap">
-										<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+										<input type="hidden" id="admin_id" value="${sessionScope.admin_id}">
 											<h3 class="hd3">
 												고객문의 내용 보기
 											</h3>
@@ -199,24 +199,24 @@
 												<tbody>
 													<tr>
 														<th scope="row">접수일</th>
-														<td id="one_board_day" colspan="3" class="line_h18">&nbsp;</td>
+														<td id="two_board_day" colspan="3" class="line_h18">&nbsp;</td>
 													</tr>
 													<tr>
 													<th scope="row">처리일</th>
-														<td id="one_board_repDay" colspan="3" class="line_h18">&nbsp;</td>
+														<td id="two_board_repDay" colspan="3" class="line_h18">&nbsp;</td>
 													</tr>
 													<tr>
 													<th scope="row">질문자</th>
-														<td id="seller_name" colspan="3" class="line_h18">&nbsp;</td>
+														<td id="member_num" colspan="3" class="line_h18">&nbsp;</td>
 													</tr>
 													<tr>
 														<th scope="row">문의내용:${query }</th>
-														<td id="one_board_content" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
+														<td id="two_board_content" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
 														
 													</tr>
 													<tr>
 														<th scope="row">답변</th>
-														<td id="one_board_reply" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
+														<td id="two_board_reply" colspan="3" class="line_h18" style="height: 100px;">&nbsp;</td>
 														
 													</tr>
 												</tbody>
@@ -230,9 +230,9 @@
 											
 										</div>
 										<div class="tbl_type">
-											<form id="answerForm" action="updateReply" method="POST">
-											  <input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-											  <input type="hidden" id="one_board_num" name="one_board_num">
+											<form id="answerForm" action="updateAdminReply" method="POST">
+											  <input type="hidden" id="admin_id" value="${sessionScope.admin_id}">
+											  <input type="hidden" id="two_board_num" name="two_board_num">
 											  
 											  <table>
 											    <caption>판매자 답변 처리</caption>
@@ -245,8 +245,8 @@
 												    <th scope="row">답변내용</th>
 												    <td>
 												    	<div class="form-group col-12" >
-													      <textarea cols="30" rows="5" id="one_board_reply_td"
-													                name="one_board_reply" class="ta scrl"
+													      <textarea cols="30" rows="5" id="two_board_reply_td"
+													                name="two_board_reply" class="ta scrl"
 													                style="width: 100%; height: 250px" onkeyup="updateCharCount()" maxlength="200"></textarea>
 													      <div class="space_h">
 													         <div class="text_info">
@@ -338,6 +338,147 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
+    
+    <script>
+	function getDetail() {
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/getAdminDetails",  // 이 URL은 실제 서버의 API 엔드포인트에 따라 변경해야 합니다.
+	        type: "GET",
+	        dataType: "json",
+	        success: function(data) {
+	            var tbody = $(".table-responsive table tbody");
+
+	            data.forEach(function(twoBoard) {
+	                var row = $("<tr class='data-row'></tr>");
+	                row.append($("<td></td>").text(twoBoard.two_board_day));
+	                row.append($("<td></td>").text(twoBoard.two_board_repDay));
+	                row.append($("<td></td>").text(twoBoard.member_num));
+	                row.append($("<td></td>").text(twoBoard.two_board_content));
+	                row.append($("<td></td>").text(twoBoard.two_board_reply));
+	                
+	                row.attr("data-two-board-content", twoBoard.two_board_content);
+	                row.attr("data-two-board-num", twoBoard.two_board_num);
+	                row.attr("data-two-board-reply", twoBoard.two_board_reply);
+
+	                tbody.append(row);
+	            });
+
+	            // 새로 생성된 행에 클릭 이벤트 핸들러 추가
+	            $(".data-row").on("click", function () {
+	              var two_board_day = $(this).find("td:eq(0)").text();
+	              var two_board_repDay = $(this).find("td:eq(1)").text();
+	              var member_num = $(this).find("td:eq(2)").text();
+	              var two_board_content = $(this).data("two-board-content");
+	              var two_board_num = $(this).data("two-board-num");
+	              var two_board_reply = $(this).data("two-board-reply");
+
+	             $('#two_board_day').html(two_board_day || '&nbsp;');
+	             $('#two_board_repDay').html(two_board_repDay || '&nbsp;');
+	             $('#member_num').html(member_num || '&nbsp;');
+	             $('#two_board_content').html(two_board_content || '&nbsp;');
+	             $('#two_board_num').val(two_board_num);
+	             $('#two_board_reply').html(two_board_reply || '&nbsp;');
+	           });
+	        },
+	        error: function(error) {
+	            console.error('Error getting data:', error);
+	        }
+	    });
+	}
+
+	// 페이지 로딩 후 getDetail 함수 호출
+	$(document).ready(function() {
+	    getDetail();
+	});
+
+	
+
+	document.getElementById("processComment").addEventListener("click", sendFormData);
+
+function sendFormData() {
+    const answerForm = document.getElementById("answerForm");
+    const formData = new FormData(answerForm);
+
+    // action 변수를 "update"로 설정
+    const action = "update";
+    formData.append("action", action);
+    for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+
+    $.ajax({
+        url: "${pageContext.request.contextPath}/updateAdminReply",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // 업데이트 성공시 처리
+            // getDetail 함수 호출 시 적절한 member_num 값을 전달해야 합니다.
+            getDetail(formData.get("member_num"));
+        },
+        error: function (error) {
+            console.error("Error sending form data:", error);
+        }
+    });
+}
+
+// 선택한 행의 데이터를 answerForm에 설정하는 함수
+function setAnswerFormData(selectedRow) {
+  const twoBoardNum = selectedRow.getAttribute("data-two-board-num");
+
+  document.getElementById("two_board_num").value = twoBoardNum;
+}
+
+$(document).ready(function () {
+	  searchFormSubmit();
+	  $('#search-btn').on('click', searchFormSubmit); // 검색 버튼의 ID가 'search-btn'인 경우
+	});
+
+
+	  
+
+function searchFormSubmit(event) {
+	  if (event) {
+	    event.preventDefault();
+	  }
+
+	  // 폼 데이터를 가져옵니다.
+	  var sequence = document.querySelector("#sel_choice0").value;
+	  var treatmentStatus = document.querySelector("#sel_choice").value;
+
+
+	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
+	  $("tbody tr.data-row").each(function () {
+	    var $row = $(this);
+	    var two_board_day = $row.find("td").eq(0).text();
+	    var two_board_repYn = $row.find("td").eq(1).text();
+	    console.log($row.find("td").eq(0).text());
+	    console.log($row.find("td").eq(1).text());
+
+	    var match_sequence = sequence === two_board_day || sequence === "asc" || sequence === "desc";
+	    var match_treatmentStatus = treatmentStatus === two_board_repYn || treatmentStatus === "all";
+	    // 필요한 경우 다른 조건을 추가합니다.
+
+	    if (
+	      match_treatmentStatus &&
+	      match_sequence
+	      // 필요한 경우 다른 조건을 추가합니다.
+	    ) {
+	      $row.show();
+	    } else {
+	      $row.hide();
+	    }
+	  });
+
+	  // 날짜 순 정렬 함수 호출
+	  sortTable();
+	}
+
+//실제 데이터 처리 및 필터링 코드를 작성합니다.
+
+
+</script>
 
 <script>
 function sortTable() {
@@ -379,22 +520,22 @@ function sortTable() {
 </script>
 <script>
 function updateCharCount() {
-	  var textarea = document.getElementById('one_board_reply_td');
+	  var textarea = document.getElementById('two_board_reply_td');
 	  var charCountSpan = document.getElementById('_char_count_span');
 	  if (textarea && charCountSpan) {
 	    var charCount = textarea.value.length;
 	    charCountSpan.innerHTML = charCount + '자';
 	  } else {
-	    console.error('Cannot find textarea element with id "one_board_reply" or charCountSpan element.');
+	    console.error('Cannot find textarea element with id "two_board_reply" or charCountSpan element.');
 	  }
 	}
 
 	window.onload = function() {
-	  var textarea = document.getElementById('one_board_reply_td');
+	  var textarea = document.getElementById('two_board_reply_td');
 	  if(textarea) {
 	    textarea.addEventListener("keyup", updateCharCount);
 	  } else {
-	    console.error('Cannot find textarea element with id "one_board_reply" to attach event listener.');
+	    console.error('Cannot find textarea element with id "two_board_reply" to attach event listener.');
 	  }
 	};
 
