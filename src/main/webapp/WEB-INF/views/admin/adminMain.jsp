@@ -58,7 +58,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 15px;">
                                                 매출액 (월별)</div>
                                                 <input type="hidden" id="hidden_month" value="${fn:substring(currentMonth, 0, 7)}" />
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${sales.month_fee} 원</div>
@@ -77,7 +77,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-    										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+    										<div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 15px;">
         										매출액 (연간)</div>
     										<div class="h5 mb-0 font-weight-bold text-gray-800">${totalSales.total_fee} 원</div>
 										  </div>
@@ -95,7 +95,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">미승인업체
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 15px;">미승인업체
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -115,7 +115,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 15px;">
                                                 오늘 주문 건수</div>
                                                   <input type="hidden" id="hidden_date" value="${currentDay}" />
                                                    
