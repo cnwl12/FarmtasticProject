@@ -337,7 +337,7 @@
                                  <div style="height: 35px;">
                                  <!-- 문의관리 편집2 시작 -->
                                  <div>
-                                    <table class="table table-bordered" id="date-table toggle2">
+                                    <table class="table table-bordered" id="date-table toggle2" style="text-align: center;">
                                       <colgroup>
                                        <col style="width: 250px;">
                                        <col style="width: 250px;">
