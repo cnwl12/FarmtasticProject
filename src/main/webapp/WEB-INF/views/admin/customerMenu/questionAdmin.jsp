@@ -61,6 +61,7 @@
 	white-space: nowrap;
 	word-break: break-all
 	}
+	
 	</style>
 	<style>
 	    .custom-th {
@@ -104,10 +105,7 @@
 							<div class="card-body">
 								<div class="table-responsive">
 									<form id="searchForm" name="searchForm">
-										<input type="submit"
-											style="position: absolute; left: -5000px; top: -5000px"
-											value="검색">
-										<table class="custom-table">
+										<table class="custom-table" id="custom-none">
 											<caption>고객문의</caption>
 											<colgroup>
 												<col width="16%">
@@ -119,31 +117,8 @@
 											    <col width="15%">
 											</colgroup>
 
-											<tbody>
-												<tr>
-													<td>
-													  <select id="sel_choice0" name="sequence" style="width: 120px" >
-													    <option value="desc">최근날짜순</option>
-													    <option value="asc">오래된순</option>
-													  </select>
-													</td>
-
-
-													<th scope="row" class="vline_m"><label for="sel_choice">처리상태</label></th>
-													<td><select id="sel_choice" name="treatmentStatus"
-														style="width: 85px">
-															<option value="all">전체</option>
-															<option value="답변완료">답변완료</option>
-															<option value="미답변">미답변</option>
-													</select></td>
-												</tr>
-											</tbody>
 										</table>
 									</form>
-								</div>
-				
-								<div class="btn_wrap" style="margin-top: 20px">
-									<button type="button" id="search-btn" onclick="searchFormSubmit(event)" class="btn">검색</button>
 								</div>
 				
 								<div class="table-responsive" style="height: 378px;">
@@ -164,10 +139,10 @@
 												  <tbody>
 												    <tr>
 												<th class="custom-th">접수일</th>
-												  <th class="custom-th">처리상태</th>
-												  <th class="custom-th">문의제목</th>
-												  <th class="custom-th">질문자</th>
-												  <th class="custom-th">처리일시</th>
+												  <th class="custom-th">처리일</th>
+												  <th class="custom-th">회원 번호</th>
+												  <th class="custom-th">질문</th>
+												  <th class="custom-th">답변</th>
 												    </tr>
 												  </tbody>
 												</table>
@@ -430,94 +405,8 @@ function setAnswerFormData(selectedRow) {
   document.getElementById("two_board_num").value = twoBoardNum;
 }
 
-$(document).ready(function () {
-	  searchFormSubmit();
-	  $('#search-btn').on('click', searchFormSubmit); // 검색 버튼의 ID가 'search-btn'인 경우
-	});
-
-
-	  
-
-function searchFormSubmit(event) {
-	  if (event) {
-	    event.preventDefault();
-	  }
-
-	  // 폼 데이터를 가져옵니다.
-	  var sequence = document.querySelector("#sel_choice0").value;
-	  var treatmentStatus = document.querySelector("#sel_choice").value;
-
-
-	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
-	  $("tbody tr.data-row").each(function () {
-	    var $row = $(this);
-	    var two_board_day = $row.find("td").eq(0).text();
-	    var two_board_repYn = $row.find("td").eq(1).text();
-	    console.log($row.find("td").eq(0).text());
-	    console.log($row.find("td").eq(1).text());
-
-	    var match_sequence = sequence === two_board_day || sequence === "asc" || sequence === "desc";
-	    var match_treatmentStatus = treatmentStatus === two_board_repYn || treatmentStatus === "all";
-	    // 필요한 경우 다른 조건을 추가합니다.
-
-	    if (
-	      match_treatmentStatus &&
-	      match_sequence
-	      // 필요한 경우 다른 조건을 추가합니다.
-	    ) {
-	      $row.show();
-	    } else {
-	      $row.hide();
-	    }
-	  });
-
-	  // 날짜 순 정렬 함수 호출
-	  sortTable();
-	}
-
-//실제 데이터 처리 및 필터링 코드를 작성합니다.
-
-
 </script>
 
-<script>
-function sortTable() {
-	  var table, tbody, rows, sortOrder;
-	  table = document.getElementById("date-table"); // id를 사용하여 테이블 선택
-	  tbody = table.tBodies[0]; // 테이블 본문 선택
-	  sortOrder = document.getElementById("sel_choice0").value; // 선택된 정렬 순서를 가져옴
-
-	  // 행만 선택
-	  rows = tbody.querySelectorAll("tr.data-row");
-
-	  // 선택된 정렬 순서에 따라 행을 정렬합니다.
-	  if (sortOrder === 'desc') {
-	    rows = Array.from(rows).sort(compareRows).reverse();
-	  } else {
-	    rows = Array.from(rows).sort(compareRows);
-	  }
-
-	  // 정렬된 행을 테이블에 추가합니다.
-	  for (const row of rows) {
-	    tbody.appendChild(row);
-	  }
-	}
-
-	function compareRows(a, b) {
-	  var aValue = parseDate(a.children[0].innerText);
-	  var bValue = parseDate(b.children[0].innerText);
-
-	  return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-	}
-
-	function parseDate(dateString) {
-	  var parts = dateString.split("-");
-	  return new Date(parts[0], parts[1] - 1, parts[2]);
-	}
-
-
-
-</script>
 <script>
 function updateCharCount() {
 	  var textarea = document.getElementById('two_board_reply_td');
