@@ -43,6 +43,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.itwillbs.domain.AdminDTO;
+import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.TwoBoardDTO;
 import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -975,8 +977,24 @@ public class AdminController {
 	            return "/admin/customerMenu/questionAdmin";
 	        }
 	}
+	
+	@RequestMapping(value = "/updateAdminReply", method = RequestMethod.POST)
+	public String updateReply(HttpServletRequest request) {
+	    String replyContent = request.getParameter("two_board_reply");
+	    int boardNum = Integer.parseInt(request.getParameter("two_board_num"));
 
+	    // 서비스 호출하여 DB 업데이트
+	    adminService.updateAdminReply(boardNum, replyContent);
 
+	    return "redirect:/questionAdmin";  // 업데이트 후 리다이렉트할 페이지
+	}
+	
+	@ResponseBody
+    @RequestMapping(value = "/getAdminDetails", method = RequestMethod.GET)
+    public ResponseEntity<List<TwoBoardDTO>> getAdminDetails() {
+        List<TwoBoardDTO> twoBoards = adminService.getAllTwoBoards();
+        return ResponseEntity.ok(twoBoards);
+    }	
 	
 	// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
 		@RequestMapping(value = "/ChangeItemStatus", method = RequestMethod.GET)

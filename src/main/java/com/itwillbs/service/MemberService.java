@@ -18,6 +18,7 @@ import com.itwillbs.domain.DetailChatBotDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.PayDTO;
+import com.itwillbs.domain.TwoBoardDTO;
 import com.itwillbs.domain.WishlistDTO;
 
 @Service
@@ -137,6 +138,10 @@ public class MemberService {
 	
 	public void insertOneBoard(OneBoardDTO oneboardDTO) {
         memberDAO.insertOneBoard(oneboardDTO);
+    }
+	
+	public void insertTwoBoard(TwoBoardDTO twoboardDTO) {
+        memberDAO.insertTwoBoard(twoboardDTO);
     }
 
 	  public List<OneBoardDTO> findByItemNum(int item_num) {

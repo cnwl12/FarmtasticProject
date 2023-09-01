@@ -15,6 +15,7 @@ import com.itwillbs.domain.ChatBotDTO;
 import com.itwillbs.domain.DetailChatBotDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.TwoBoardDTO;
 import com.itwillbs.domain.WishlistDTO;
 
 @Repository
@@ -204,6 +205,10 @@ public class MemberDAO {
 	 public void insertOneBoard(OneBoardDTO oneboardDTO) {
         sqlSession.insert(namespace + ".insertOneBoard", oneboardDTO);
     }
+	 
+	 public void insertTwoBoard(TwoBoardDTO twoboardDTO) {
+	        sqlSession.insert(namespace + ".insertTwoBoard", twoboardDTO);
+	    }
 
 	 public List<OneBoardDTO> findByItemNum(int item_num) {
 			return sqlSession.selectList(namespace+".findByItemNum", item_num);
