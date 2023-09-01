@@ -35,7 +35,10 @@
 			location.href="ChangeItemStatus?item_num="+item_num;
 		}
 	}
-	</script>
+</script>	
+
+
+	
 
 </head>
 
@@ -55,7 +58,8 @@
 
 	   <div class="container-fluid">
 	   <div class="card-header py-3">
-							<h3 class="m-0 font-weight-bold text-primary">상품관리</h3>
+	   <div class="container-fluid">
+							<h3 class="m-0 font-weight-bold text-primary">전체 상품관리</h3>
 						</div>
 
                     <!-- Page Heading -->
@@ -65,26 +69,32 @@
                         <div class="card-header py-3">
                             <h4 class="m-0 font-weight-bold text-primary">상품 카테고리</h4>
                         </div>
-                        <div class="card-body">
-                        	<!--  카테고리 list  -->
+                        	<div>
+                        	<div class="card-body">
+                        	<form action="deleteCate" method="post" id="deleteForm">
+                        		<button type="submit"
+                        				style="margin-bottom: 1%;" 
+                        				class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">카테고리 삭제</button>
                         	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
 													<th><input type="checkbox" class="cateCheck"/></th>
 													<th>카테고리타입</th>
 													<th>카테고리명</th>
-												</tr>
+												</tr> 
 											</thead>
 											<tbody>
 													<c:forEach var="type" items="${typeList}">  
 												<tr>
-													<td><input type="checkbox" class="cateCheck" value="" /></td>
+													<td><input type="checkbox" class="cateCheck"  value="${type.seller_type}" name="cateCheck"/></td>
 													<td>${type.seller_type}</td>
 													<td>${type.type_name}</td>
 												</tr>
 													</c:forEach>
 											</tbody>
 							</table>
+							</form>
+							</div>
 							</div>
                         
                         	<!--  카테고리추가  -->
@@ -108,18 +118,17 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td><input type="text" name="seller_type[]" placeholder="카테고리 타입입력"></td>
-													<td><input type="text" name="type_name[]" placeholder="카테고리 이름입력"></td>
+													<td><input type="text" name="seller_type[]" class="seller-type-input" placeholder="카테고리 타입입력" pattern="[A-Z]*" required></td>
+													<td><input type="text" name="type_name[]" class="type-name-input" placeholder="카테고리 이름입력" pattern="[가-힣]*" required></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</form>
-						</div>
 
 				<!-- 페이지 컨텐츠 시작 -->
-				<div class="container-fluid">
+				
 					<!-- 상품목록 시작 -->
 						<div class="card-header py-3">
 							<h4 class="m-0 font-weight-bold text-primary">상품목록</h4>
@@ -229,7 +238,7 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
-
+	
 </body>
 
 </html>

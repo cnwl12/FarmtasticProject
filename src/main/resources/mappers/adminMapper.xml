@@ -179,5 +179,16 @@
 		FROM category_type
 		ORDER BY type_name asc;
 	</select>
+	
+	<delete id="deleteCate">
+	    DELETE FROM category_type
+	    WHERE seller_type IN
+	    <foreach item="sellerType" collection="list" open="(" separator="," close=")">
+	        #{sellerType}
+	    </foreach>
+	</delete>
+
+	
+	
   	
 </mapper>

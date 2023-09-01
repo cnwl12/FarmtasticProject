@@ -986,5 +986,16 @@ public class AdminController {
 			adminService.ChangeItemStatus(status);
 			return "redirect:/adminItemList";
 		}
+		
+		// 판매중지/판매 변경 버튼 - 상태 조회 후 변경 
+		@RequestMapping(value = "/deleteCate", method = RequestMethod.POST)
+
+		public String deleteCate(@RequestParam("cateCheck") List<String> selectedTypes ,HttpSession session){
+			
+			System.out.println(selectedTypes);
+			adminService.deleteCate(selectedTypes);
+			
+			return "redirect:/adminItemList";
+		}
 	
 }

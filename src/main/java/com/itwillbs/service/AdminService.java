@@ -134,6 +134,9 @@ public class AdminService {
 	public List<Map<String, Object>> getTypes() {
 		return adminDAO.getTypes();
 	}
+	public void deleteCate(List<String> selectedTypes) {
+		adminDAO.deleteCate(selectedTypes);
+	}
 
 
 }

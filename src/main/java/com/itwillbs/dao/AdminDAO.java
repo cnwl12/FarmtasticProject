@@ -141,6 +141,9 @@ public class AdminDAO {
 
 	    sqlSession.update(NAMESPACE + ".updateReply", params);
 	}
+	public Object deleteCate(List<String> selectedTypes) {
+		return sqlSession.delete(NAMESPACE+"deleteCate", selectedTypes);
+	}
 
 
 
