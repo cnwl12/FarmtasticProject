@@ -208,9 +208,18 @@
     window.addEventListener("DOMContentLoaded", () => {
     	  initialize_favorite_items();
     	});
-
+	
     </script>
+    <script>
+    let error = '<%=request.getParameter("error")%>';
     
+  <%--   let seller = '<%=request.getParameter("seller")%>'; --%>
+    if (error !== 'null' && error !== null && error !== undefined) {
+        alert(error);
+    }
+    
+  
+</script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
 

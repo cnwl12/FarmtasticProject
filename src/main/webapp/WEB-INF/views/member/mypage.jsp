@@ -186,7 +186,7 @@
                                              onkeyup="validatePasswordType(this,'new_member_pass');"
                                              onfocus="helpOn('new_member_pass');"
                                              onblur="chkBlur(this,'new_member_pass');"
-                                             style="width: 195px;"> <span class="font_style1">현재
+                                             style="width: 195px;"> <span class="font_style1" style="margin-left: 0px;">현재
                                                 비밀번호를 입력해 주세요</span></li>
 
                                           <li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
@@ -593,7 +593,16 @@
 
 
 
-   <script>     
+   <script>  
+   
+   let error = '<%=request.getParameter("error")%>';
+   
+   <%--   let seller = '<%=request.getParameter("seller")%>'; --%>
+     if (error !== 'null' && error !== null && error !== undefined) {
+         alert(error);
+     }
+   
+   
 $(document).ready(function () {
     let allReviews = [];
     let currentPage = 1;

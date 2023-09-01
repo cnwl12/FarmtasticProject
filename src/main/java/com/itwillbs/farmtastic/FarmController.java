@@ -467,7 +467,7 @@ public class FarmController { // 소비자 (컨트롤러)
 	}
 
 	@RequestMapping(value = "/updatePro", method = RequestMethod.POST)
-	public String updatePro(HttpSession session, HttpServletResponse response,@RequestParam(value = "member_id", required = false) String member_id,
+	public String updatePro(HttpSession session, Model model, @RequestParam(value = "member_id", required = false) String member_id,
 			@RequestParam(value = "member_pass", required = false) String member_pass,
 			@RequestParam(value = "new_member_pass", required = false) String new_member_pass,
 			@RequestParam(value = "member_name", required = false) String member_name,
@@ -508,13 +508,13 @@ public class FarmController { // 소비자 (컨트롤러)
 			memberDTO.setMember_addSub(member_addSub);
 			
 			memberService.updateMember(memberDTO);
-			sendResponse(response, "비밀번호 변경완료.");
-			return "/main";
+			model.addAttribute("error", "비밀번호 변경완료.");
+			return "redirect:/main";
 		} else {
 			
 			
-			sendResponse(response, "비밀번호가 틀립니다.");
-			return "/mypage";
+			model.addAttribute("error", "비밀번호가 틀립니다.");
+			return "redirect:/mypage";
 		}
 	}
 
@@ -696,6 +696,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		memberService.deleteAllCart(orderDetail);
 		// 주문완료했다 페이지로 이동~~ (메인으로 이동 등) 
 		
+		session.removeAttribute("item_count");
+		
 		return "redirect:/orderSuccess";
 	}
 	
@@ -717,6 +719,8 @@ public class FarmController { // 소비자 (컨트롤러)
 	            memberService.updateItemLeft(orderDetail);
 	        }
 	    }
+	    
+	    session.removeAttribute("item_count");
 	    
 	    return "/member/orderSuccess";
 	}
@@ -1302,8 +1306,8 @@ public class FarmController { // 소비자 (컨트롤러)
 		} else {
 			
 			
-			sendResponse(response, "비밀번호가 틀립니다.");
-			return "/mypage";
+			model.addAttribute("error", "비밀번호가 틀립니다.");
+			return "redirect:/mypage";
 		}
 	}
 	
@@ -1368,4 +1372,11 @@ public class FarmController { // 소비자 (컨트롤러)
         // 이 예제에서는 단순히 받은 쿼리 문자열을 그대로 반환합니다.
         return "Received your query: " + query;
     }
+	
+	@RequestMapping(value = "/realtimechatBot", method = RequestMethod.GET)
+	public String realtimechatBot(Locale locale, Model model) {
+
+		return "/member/realtimechatBot";
+
+	}
 }

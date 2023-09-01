@@ -28,6 +28,7 @@
                 <div class="col-lg-3">
                     <div class="header__logo">
                         <a href="main"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -37,7 +38,10 @@
                             <li><a href="farmStore">팜팜마켓</a></li>
                             <li><a href="blog">제철팜</a></li>
                             <li><a href="contact">공지사항</a></li>
-                        </ul>
+                           <li style="display: inline-block; vertical-align: middle;">
+    						<a href="javascript:void(0);" onclick="openChatPopup()"><img src="${pageContext.request.contextPath}/resources/img/chat.JPG" alt="" width="20" height="20">실시간채팅</a>
+
+     	                </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
@@ -85,8 +89,9 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="hero__categories">
-                        <div class="hero__categories__all">
+                       <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
+                            
                             <span>모든 카테고리</span>
                         </div>
                         <ul>
@@ -137,6 +142,22 @@
             });
         });
     });
+    
+    function openChatPopup() {
+        // 팝업 창 옵션 설정
+        var popupWidth = 500; // 팝업 창 가로 크기
+        var popupHeight = 400; // 팝업 창 세로 크기
+
+        // 브라우저 창의 가운데 좌표 계산
+        var leftPosition = (window.screen.width - popupWidth) / 2;
+        var topPosition = (window.screen.height - popupHeight) / 2;
+
+        // 실제 팝업 창 열기
+        window.open("realtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+                    ", left=" + leftPosition + ", top=" + topPosition +
+                    ", resizable=no, scrollbars=no, status=no");
+    }
+
     </script>
      
 </body>

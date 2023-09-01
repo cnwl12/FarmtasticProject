@@ -50,15 +50,16 @@
                   
 
                    <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
-							<h3 class="m-0 font-weight-bold text-primary">업체관리 미승인.승인된업체</h3>
+							<h3 class="m-0 font-weight-bold text-primary">승인/미승인 업체관리</h3>
 						</div>
 
                     <div class="card shadow mb-4" id="sellerAdmin">
-                      <div>
+                      <div style="margin: 10px 0px 5px 10px;">
                     	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>
                         <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="rejectSeller" type="submit">업체 거절</button>
+                       </div> 
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary" id="unapprovedHeader">미승인된 업체 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary" id="unapprovedHeader">승인 대기 목록</h6>
                         </div>
                         <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus">
                         <input type="hidden" id="actionType" name="actionType" /> 
@@ -102,7 +103,7 @@
                        </form>
                        
                        <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">승인된 업체 목록</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">승인 업체 목록</h6>
                         </div>
                        <form action="${pageContext.request.contextPath}/changeSellerStatus" method="post" id="changeSellerStatus2">
                         <input type="hidden" id="actionType2" name="actionType" /> 
@@ -140,6 +141,7 @@
                         </div>
                        </form>
                        
+                       </div>
                        </div>
                       </div>   
                        

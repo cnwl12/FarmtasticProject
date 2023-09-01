@@ -105,8 +105,10 @@
                         </tr>                              
                      </tbody>
                   </table>
+                  <div style="margin-left: 35%;   margin-top: 3%;">
                   <Button id="edit-button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">수정</Button>
                   <Button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="window.close()">닫기</Button>
+             	  </div>	 
              </div>
          </div>
     </div>

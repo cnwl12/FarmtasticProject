@@ -201,7 +201,9 @@
 															</colgroup>
 															<tbody>
 															  <c:forEach var="row" items="${oneboard}">
-															    <tr class="data-row" data-one-board-content="${row.one_board_content}" data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}" >
+															    <tr class="data-row" data-one-board-content="${row.one_board_content}"
+															     data-one-board-num="${row.one_board_num}" data-one-board-reply="${row.one_board_reply}"
+															      data-one-board-file="${row.one_board_file}" >
 															      <td>${row.one_board_day}</td>
 															      <td>${row.one_board_repYn}</td>
 															      <td>${row.one_board_type}</td>
@@ -251,7 +253,7 @@
 														</tr>
 														<tr>
 														<th scope="row">질문자</th>
-															<td id="seller_name" colspan="3" class="line_h18">&nbsp;</td>
+															<td id="member_name" colspan="3" class="line_h18">&nbsp;</td>
 														</tr>
 														<tr>
 															<th scope="row">상품명</th>
@@ -262,6 +264,12 @@
 														<tr>
 															<th scope="row">제목</th>
 															<td id="one_board_title" colspan="3" class="line_h18">&nbsp;</td>
+														</tr>
+														<tr>
+															<th scope="row">첨부파일</th>
+															<td colspan="3" class="line_h18" style="height: 100px;">
+														  	<img id="one_board_file" src="" alt="" /> <!-- Add this line -->
+														</td>
 														</tr>
 														<tr>
 															<th scope="row">문의내용</th>
@@ -348,7 +356,6 @@
 	</div>
       <!-- End of Content Wrapper -->
 
-  </div>
   <!-- End of Page Wrapper -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -416,21 +423,22 @@
 		    var one_board_title = $(this).find("td.one_board_title").text();
 		    var item_name = $(this).find("td:eq(4)").text();
 		    var member_name = $(this).find("td:eq(5)").text();
-		    var one_board_repDay = $(this).find("td:eq(6)").text();
 		    var one_board_content = $(this).data("one-board-content");
 		    var one_board_num = $(this).data("one-board-num");
 		    var one_board_reply = $(this).data("one-board-reply");
+		    var one_board_file = $(this).data("one-board-file");
 
 		 // 이 정보를 사용하여 필요한 곳에 데이터를 채웁니다.
 		    $('#one_board_day').html(one_board_day || '&nbsp;');
 		    $('#one_board_repDay').html(one_board_repDay || '&nbsp;');
-		    $('#seller_name').html(member_name || '&nbsp;');
+		    $('#member_name').html(member_name || '&nbsp;');
 		    $('#item_name').html(item_name || '&nbsp;');
 		    $('#one_board_type').html(one_board_type || '&nbsp;');
 		    $('#one_board_title').html(one_board_title || '&nbsp;');
 		    $('#one_board_content').html(one_board_content || '&nbsp;');
 		    $('#one_board_num').val(one_board_num);
 		    $('#one_board_reply').html(one_board_reply || '&nbsp;');
+		    $('#one_board_file').attr('src', one_board_file || '&nbsp;');
 		  });
 		});
 
@@ -452,6 +460,8 @@
 	      $('#one_board_content').html(response.one_board_content || '&nbsp;');
 	      $('#one_board_num').html(response.one_board_num || '&nbsp;');
 	      $('#one_board_reply').html(response.one_board_reply || '&nbsp;');
+	      $('#one_board_file').attr("src",response.one_board_file || '&nbsp;');
+	      
 	    },
 	    error: function(error){
 	      console.error("Error fetching detail data:", error);
@@ -516,11 +526,6 @@ function searchFormSubmit(event) {
 	  var inquiryType = document.querySelector("#sel_choice2").value;
 	  var item_name = document.querySelector("#sel_choice3").value;
 
-	  // 콘솔에 결과를 출력합니다.
-	  console.log("정렬순서", sequence);
-	  console.log("처리상태:", treatmentStatus);
-	  console.log("문의유형:", inquiryType);
-	  console.log("상품명", item_name);
 
 	  // 실제 데이터 처리 및 필터링 코드를 작성합니다.
 	  $("tbody tr.data-row").each(function () {
