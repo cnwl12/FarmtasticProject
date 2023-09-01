@@ -987,4 +987,10 @@ public class AdminController {
 			return "redirect:/adminItemList";
 		}
 	
+		@RequestMapping(value = "/adminrealtimechatBot", method = RequestMethod.GET)
+		public String adminrealtimechatBot(Locale locale, Model model) {
+
+			return "/admin/adminrealtimechatBot";
+
+		}
 }

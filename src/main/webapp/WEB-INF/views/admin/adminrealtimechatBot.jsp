@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contㅡ entType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script type="text/javascript">
     // 서버의 admin의 서블릿으로 웹 소켓을 한다.
-    var webSocket = new WebSocket("ws://localhost:8080/ChatExample/admin");
+    var webSocket = new WebSocket("ws://localhost:8080/farmtastic/adminrealtimechatBot");
     // 운영자에서의 open, close, error는 의미가 없어서 형태만 선언
     webSocket.onopen = function(message) { };
     webSocket.onclose = function(message) { };
@@ -53,7 +53,7 @@
         // console영역을 찾는다.
         let log = $div.find(".console").val();
         // 아래에 메시지를 추가한다.
-        $div.find(".console").val(log + "(user) => " +node.message + "\n");
+        $div.find(".console").val(log + "(소비자) => " +node.message + "\n");
       // bye는 유저가 접속을 끊었을 때 알려주는 메시지이다.
       } else if(node.status === "bye") {
         // 해당 키로 div를 찾아서 dom을 제거한다.
@@ -71,7 +71,7 @@
       // console영역을 찾는다.
       let log = $div.find(".console").val();
       // 아래에 메시지를 추가한다.
-      $div.find(".console").val(log + "(me) => " + message + "\n");
+      $div.find(".console").val(log + "(운영자->me)) => " + message + "\n");
       // 텍스트 박스의 값을 초기화 한다.
       $div.find(".message").val("");
       // 웹소켓으로 메시지를 보낸다.
