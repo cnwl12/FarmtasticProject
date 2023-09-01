@@ -12,7 +12,9 @@
                         <a href="${pageContext.request.contextPath}/main">
                				<img class="logo" src="${pageContext.request.contextPath}/resources/bootstrap/img/logo.png" style="margin-left: -20px; width: 30%;">
               			 </a>
-                        
+                        <li style="display: inline-block; vertical-align: middle;">
+    						<a href="javascript:void(0);" onclick="openChatPopup()"><img src="${pageContext.request.contextPath}/resources/img/chat.JPG" alt="" width="20" height="20">실시간채팅</a>
+                  		    
                         </div>
                   
 
@@ -69,3 +71,21 @@
             		</div>
         		 </div>
    			  </div>
+   			  
+<script>   			  
+  function openChatPopup() {
+        // 팝업 창 옵션 설정
+        var popupWidth = 500; // 팝업 창 가로 크기
+        var popupHeight = 400; // 팝업 창 세로 크기
+
+        // 브라우저 창의 가운데 좌표 계산
+        var leftPosition = (window.screen.width - popupWidth) / 2;
+        var topPosition = (window.screen.height - popupHeight) / 2;
+
+        // 실제 팝업 창 열기
+        window.open("adminrealtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+                    ", left=" + leftPosition + ", top=" + topPosition +
+                    ", resizable=no, scrollbars=no, status=no");
+    }
+
+    </script>

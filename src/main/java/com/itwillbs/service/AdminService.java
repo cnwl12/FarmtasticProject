@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.dao.AdminDAO;
 import com.itwillbs.domain.AdminDTO;
+import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.TwoBoardDTO;
 
 @Service
 public class AdminService {
@@ -137,6 +139,14 @@ public class AdminService {
 	public void deleteCate(List<String> selectedTypes) {
 		adminDAO.deleteCate(selectedTypes);
 	}
+	
+	public void updateAdminReply(int two_board_num, String two_board_reply) {
+        adminDAO.updateAdminReply(two_board_num, two_board_reply);
+    }
+	
+    public List<TwoBoardDTO> getAllTwoBoards() {
+        return adminDAO.getAllTwoBoards();
+    }
 
 
 }

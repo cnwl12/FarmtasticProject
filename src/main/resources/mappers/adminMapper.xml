@@ -190,5 +190,20 @@
 
 	
 	
+	
+	<update id="updateAdminReply" parameterType="com.itwillbs.domain.TwoBoardDTO">
+		UPDATE two_board
+	    SET
+	      two_board_reply = #{two_board_reply},
+	      two_board_repYn = '답변완료',
+	      two_board_repDay = now()
+	    WHERE
+	      two_board_num = #{two_board_num};
+	</update>
+	
+	<select id="getAllTwoBoards" resultType="com.itwillbs.domain.TwoBoardDTO">
+	   	SELECT *
+	   	FROM two_board
+	</select>
   	
 </mapper>

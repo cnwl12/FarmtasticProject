@@ -162,7 +162,6 @@ ORDER BY
 			seller_post, 
 			seller_addMain, 
 			seller_addSub, 
-			seller_mobile, 
 			seller_phone, 
 			seller_bank, 
 			seller_accountNum, 
@@ -178,7 +177,6 @@ ORDER BY
     <update id="updateSeller">
 	UPDATE seller
 	SET seller_email = #{seller_email}, 
-		seller_mobile = #{seller_mobile},
 		seller_phone = #{seller_phone}, 
 		seller_bank = #{seller_bank},
 		seller_accountNum = #{seller_accountNum},

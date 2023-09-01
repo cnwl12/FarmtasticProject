@@ -9,6 +9,7 @@ public class TwoBoardDTO {
     private String two_board_reply;
     private String two_board_repDay;
     private String two_board_repYn;
+    private String member_name;
     
 	public int getTwo_board_num() {
 		return two_board_num;
@@ -51,6 +52,12 @@ public class TwoBoardDTO {
 	}
 	public void setTwo_board_repYn(String two_board_repYn) {
 		this.two_board_repYn = two_board_repYn;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
     
     

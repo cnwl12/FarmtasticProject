@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.MultiValueMap;
 
 import com.itwillbs.domain.AdminDTO;
+import com.itwillbs.domain.OneBoardDTO;
+import com.itwillbs.domain.TwoBoardDTO;
 
 @Repository
 public class AdminDAO {
@@ -133,17 +135,20 @@ public class AdminDAO {
 		return sqlSession.selectList(NAMESPACE+"getTypes");
 	}
 	
-	public void updateReply(String seller_num, int one_board_num, String one_board_reply) {
+	public void updateAdminReply(int two_board_num, String two_board_reply) {
 	    Map<String, Object> params = new HashMap<String, Object>();
-	    params.put("seller_num", seller_num);
-	    params.put("one_board_num", one_board_num);
-	    params.put("one_board_reply", one_board_reply);
+	    params.put("two_board_num", two_board_num);
+	    params.put("two_board_reply", two_board_reply);
 
-	    sqlSession.update(NAMESPACE + ".updateReply", params);
+	    sqlSession.update(NAMESPACE + "updateAdminReply", params);
 	}
 	public Object deleteCate(List<String> selectedTypes) {
 		return sqlSession.delete(NAMESPACE+"deleteCate", selectedTypes);
 	}
+	
+	public List<TwoBoardDTO> getAllTwoBoards() {
+		return sqlSession.selectList(NAMESPACE + "getAllTwoBoards");
+    }
 
 
 
