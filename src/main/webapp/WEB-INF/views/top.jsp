@@ -153,11 +153,13 @@
         var topPosition = (window.screen.height - popupHeight) / 2;
 
         // 실제 팝업 창 열기
-        window.open("realtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+        window.open(contextPath + "/realtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
                     ", left=" + leftPosition + ", top=" + topPosition +
                     ", resizable=no, scrollbars=no, status=no");
     }
 
+    // 서버 사이드 변수인 contextPath을 JavaScript 변수에 할당합니다.
+	var contextPath = "//c2d2303t2.itwillbs.com/FarmProject";
     </script>
      
 </body>
