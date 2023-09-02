@@ -346,14 +346,7 @@
                               </td>
                               <td>${order.item_name}···</td>
                               <td>\ ${order.order_pay}원</td>
-                              <td><c:choose>
-                                    <c:when test="${order.order_cancel eq 'Y'}">
-                                       주문 취소
-                                   </c:when>
-                                    <c:otherwise>
-                                       결제완료
-                                   </c:otherwise>
-                                 </c:choose></td>
+                              <td>${order.order_cancel eq 'Y' ? '주문 취소' : '결제완료'}</td>
                               <td><a href="javascript:void(0);" onclick="openPopup()">
                               <input type="button" value="배송조회" id="orderBtn"></a></td>
 								

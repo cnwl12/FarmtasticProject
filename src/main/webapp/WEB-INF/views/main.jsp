@@ -134,7 +134,7 @@ body {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
- 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
+ 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
  	    
  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
@@ -263,14 +263,9 @@ body {
                               <div class="image-container">
 				                        <div class="product-image"
 				                             style="background-image: url('${item.item_mainImg}');"></div>
-				                       <c:choose>
-				                         <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
-				                            <div class="overlay sold-out">판매 종료</div>
-				                        </c:when>
-				                        <c:when test="${item.item_left < 3}">
-				                            <div class="overlay sold-out">마감 임박</div>
-				                        </c:when>
-				                        </c:choose>
+				                      <div class="overlay ${item.item_left <= 0 || item.item_salesStatus == 'N' ? 'sold-out' : (item.item_left < 3 ? 'sold-out' : '')}">
+										    ${item.item_left <= 0 || item.item_salesStatus == 'N' ? '판매 종료' : (item.item_left < 3 ? '마감 임박' : '')}
+									  </div>
 				                    </div>
 				                  </a>
                             <ul class="featured__item__pic__hover">

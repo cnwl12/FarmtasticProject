@@ -538,7 +538,7 @@ ORDER BY
 	            ORDER BY item_num DESC
 	        </otherwise>
 	    </choose>
-	</select>
+	</select>	
 
     
     <!-- 상품전체 가져오기 (본인제품)  -->

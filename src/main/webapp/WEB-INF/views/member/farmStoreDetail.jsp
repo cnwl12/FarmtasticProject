@@ -162,14 +162,9 @@ input#file-upload-button {
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large" src="${item.item_mainImg}" alt="" style="height: 400px; width: 555px;">
                         </div> 
-                        			 <c:choose>
-				                       <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
-				                            <div class="overlay sold-out" style="width:100%; max-width: 585px;">판매 종료</div>
-				                        </c:when>
-				                        <c:when test="${item.item_left < 3}">
-				                            <div class="overlay sold-out" style="width:100%; max-width: 585px;">마감 임박</div>
-				                        </c:when>
-				                    </c:choose>
+                			<div class="overlay ${item.item_left <= 0 || item.item_salesStatus == 'N' ? 'sold-out' : (item.item_left < 3 ? 'sold-out' : '')}">
+						    	${item.item_left <= 0 || item.item_salesStatus == 'N' ? '판매 종료' : (item.item_left < 3 ? '마감 임박' : '')}
+						    </div>
                     </div>
                 </div>
                 							<!-- class 추가 / 임의로 데이터 item_num 생성 / 모델에 담긴 값  -->

@@ -106,14 +106,9 @@
 				                <a href="farmStoreDetail?item_num=${item.item_num}">
 				                    <div class="image-container">
 				                        <div class="product-image" style="background-image: url('${item.item_mainImg}');"></div>
-				                    <c:choose>
-				                          <c:when test="${item.item_left <= 0 || item.item_salesStatus == 'N'}">
-				                            <div class="overlay sold-out">판매 종료</div>
-				                        </c:when>
-				                        <c:when test="${item.item_left < 3}">
-				                            <div class="overlay sold-out">마감 임박</div>
-				                        </c:when>
-				                    </c:choose>
+						                   <div class="overlay ${item.item_left <= 0 || item.item_salesStatus == 'N' ? 'sold-out' : (item.item_left < 3 ? 'sold-out' : '')}">
+												    ${item.item_left <= 0 || item.item_salesStatus == 'N' ? '판매 종료' : (item.item_left < 3 ? '마감 임박' : '')}
+											  </div>
 				                    </div>
 				                </a>
 										<ul class="product__item__pic__hover">
