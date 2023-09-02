@@ -83,7 +83,7 @@
         var topPosition = (window.screen.height - popupHeight) / 2;
 
         // 실제 팝업 창 열기
-        window.open(contextPath + "adminrealtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+        window.open(contextPath + "/adminrealtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
                     ", left=" + leftPosition + ", top=" + topPosition +
                     ", resizable=no, scrollbars=no, status=no");
     }
