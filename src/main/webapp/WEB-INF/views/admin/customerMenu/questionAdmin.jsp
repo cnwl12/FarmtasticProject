@@ -205,7 +205,7 @@
 											
 										</div>
 										<div class="tbl_type">
-											<form id="answerForm" action="updateAdminReply" method="POST">
+											<form id="answerForm" method="POST">
 											  <input type="hidden" id="admin_id" value="${sessionScope.admin_id}">
 											  <input type="hidden" id="two_board_num" name="two_board_num">
 											  
@@ -228,8 +228,7 @@
 														        <p class="textCount" id="_char_count_span">0자</p>
 														        <p class="textTotal">/200자</p>
 														    </div>
-														    <button type="submit" class="btn_d"><span>답변하기</span></button>
-													        <a href="#" style="display: none;" onclick="sendFormData(event, 'update')" id="editComment" class="btn_d"><span>답변수정</span></a>
+															<button type="button" class="btn_d" onclick="sendFormData()"><span>답변하기</span></button>
 													      </div>
 												      </div>
 												    </td>
@@ -340,6 +339,8 @@
 
 	            // 새로 생성된 행에 클릭 이벤트 핸들러 추가
 	            $(".data-row").on("click", function () {
+	              $(".data-row").removeClass("selected");
+	              $(this).addClass("selected");
 	              var two_board_day = $(this).find("td:eq(0)").text();
 	              var two_board_repDay = $(this).find("td:eq(1)").text();
 	              var member_num = $(this).find("td:eq(2)").text();
@@ -377,10 +378,13 @@ function sendFormData() {
     // action 변수를 "update"로 설정
     const action = "update";
     formData.append("action", action);
-    for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
-
+    
+    // 현재 선택된 행에서 memberNum 값 가져오기
+    var selectedRow = $(".data-row.selected");
+    var memberNum = selectedRow.find("td:eq(2)").text();
+    
+    formData.append("member_num", memberNum);
+    
     $.ajax({
         url: "${pageContext.request.contextPath}/updateAdminReply",
         type: "POST",
@@ -389,8 +393,7 @@ function sendFormData() {
         contentType: false,
         success: function (response) {
             // 업데이트 성공시 처리
-            // getDetail 함수 호출 시 적절한 member_num 값을 전달해야 합니다.
-            getDetail(formData.get("member_num"));
+            getDetail();
         },
         error: function (error) {
             console.error("Error sending form data:", error);

@@ -39,7 +39,7 @@ body {
     padding: 10px;
 }
 
-#chat-toggle, #chat-panel {
+#chat-panel {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -49,6 +49,13 @@ body {
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #EEEED4;
 }
 
 #close-chat {
@@ -105,19 +112,40 @@ body {
 }
 
 .user-message {
-   align-self: flex-end;
-   background-color: #4CAF50; 
-   color: white;
+    align-self: flex-end;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 18px 0px 18px 18px;
+    margin-bottom: 10px;
+    margin-left: 80px;
+    padding: 10px;
+    max-width: 80%;
 }
 
 .bot-message {
    align-self: flex-start;
-   background-color: #f1f0f0; 
+   background-color: #f1f0f0;
+   color: black; 
+   border-radius: 0px 18px 18px 18px;
+   margin-bottom: 10px;
+   margin-right: 80px;
+   padding: 10px;
+   max-width: 80%;
 }
 
 #chat-container {
 	height: 100%;
     overflow-y: auto;
+}
+
+.gamza {
+    width: 50px;
+    height: 50px;
+}
+
+.message-img {
+    width: 40px;
+    height: 40px;
 }
 
 </style>
@@ -313,12 +341,16 @@ body {
         </div>
     </section>
     
-    <button id="chat-toggle" style="display: none;">열기</button>
+    <button id="chat-toggle" style="display: none;">
+    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">
+    </button>
 	<div id="chat-panel" style="display: none;">
 	<input type="hidden" name="member_num" value="${sessionScope.member_num}">
 	    <button id="close-chat">닫기</button>
 	    <div id="chat-container">
-	    <div class="message bot-message">안녕하세요! 어떻게 도와드릴까요?</div>
+		    <div class="message bot-message">
+		    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">안녕하세요! 어떻게 도와드릴까요?
+		    </div>
 	    </div>
 	</div>
 	
@@ -352,8 +384,8 @@ body {
 	                    .data('id', chatbotData.chatbot_id)
 	                    .click(function() {
 	                        // 사용자의 질문 추가
-	                        const userQuestionDiv = $("<div>").addClass("message user-message").text(chatbotData.chatbot_question);
-	                        chatContainer.append(userQuestionDiv);
+							const userQuestionDiv = $("<div>").addClass("message user-message").text(chatbotData.chatbot_question);
+							chatContainer.append(userQuestionDiv);
 
 	                        // 여기서 AJAX 요청을 통해 상세질문 데이터를 가져옵니다.
 	                        $.ajax({
@@ -368,8 +400,23 @@ body {
 	                                        .text(detailChatBotData.detailChatbotDetailed_question)
 	                                        .attr('data-answer', detailChatBotData.detailChatbotDetailed_answer)
 	                                        .click(function() {
+	                                            if (detailChatBotData.detailChatbotDetailed_question == "처음으로") {
+	                                                // 챗봇 패널 내용 초기화
+	                                                chatContainer.empty();
+	                                                
+	                                             	// 초기 메시지 다시 표시
+	                                                const botMessageDiv = $("<div>").addClass("message bot-message").text("또 무엇을 도와드릴까요?");
+	                                                chatContainer.append(botMessageDiv);
+	                                                
+	                                                // 첫 번째 질문들을 다시 로드합니다.
+	                                                loadFirstQuestions(chatContainer);
+	                                            }
 	                                        	// 사용자의 상세질문 추가
-	                                        	const userDetailQuestionDiv = $('<div>').addClass('message user-message').text(detailChatBotData.detailChatbotDetailed_question);
+	                                        	const userDetailQuestion = detailChatBotData.detailChatbotDetailed_question;
+	                                        	const userDetailQuestionDiv = $('<div>').addClass('message user-message').text(userDetailQuestion);
+												 if (userDetailQuestion !== "처음으로") {
+												     chatContainer.append(userDetailQuestionDiv);
+												 }
 	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
 	                                        	    const submitButton = $('<button>').text('제출하기').click(function() {
@@ -400,8 +447,14 @@ body {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
 
 	                                        	    // 챗봇의 답변 추가
-	                                        	    const botAnswerDiv = $('<div>').addClass('message bot-message').text($(this).attr('data-answer'));
-	                                        	    chatContainer.append(botAnswerDiv);
+	                                        	    const botAnswer = detailChatBotData.detailChatbotDetailed_answer;
+													if (botAnswer !== null) {
+													    const botAnswerDiv = $('<div>').addClass('message bot-message');
+													    const botImage = $("<img>").attr("src", "${pageContext.request.contextPath}/resources/img/gamza.png").addClass("message-img");
+													    botAnswerDiv.append(botImage);
+													    botAnswerDiv.append(botAnswer);
+													    chatContainer.append(botAnswerDiv);
+													}
 	                                        	}
 	                                            setTimeout(function() {
 	                                                var chatContainerElement = document.getElementById('chat-container');
@@ -409,8 +462,6 @@ body {
 	                                                chatContainerElement.scrollTop = chatContainerElement.scrollHeight;
 	                                            }, 0);
 	                                        });
-	                                    // 초기에는 모든 상세질문을 보여주기 위해 버튼들을 #chat-container 에 추가합니다.
-	                                    // 필요에 따라 다른 위치(예 : 별도의 패널)에 배치할 수 있습니다.
 	                                    chatContainer.append(detailButton);
 	                                });
 	                            },
@@ -419,9 +470,6 @@ body {
 	                            }
 	                        });
 	                    });
-
-	                // 초기에는 모든 질문을 보여주기 위해 버튼들을 #chat-container 에 추가합니다.
-	                // 필요에 따라 다른 위치(예: 별도의 패널)에 배치할 수 있습니다.
 	                chatContainer.append(button);
 	            });
 
@@ -432,6 +480,116 @@ body {
 	        }
 	    });
 	});
+	
+	function loadFirstQuestions(chatContainer) {
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/chatBot2",
+	        type: "GET",
+	        dataType: "json",
+	        success: function(data) {
+	            $.each(data, function(index, chatbotData) {
+	                const button = $("<button>")
+	                    .addClass("question")
+	                    .text(chatbotData.chatbot_question)
+	                    .data('id', chatbotData.chatbot_id)
+	                    .click(function() {
+	                        // 사용자의 질문 추가
+	                        const userQuestionDiv = $("<div>").addClass("message user-message").text(chatbotData.chatbot_question);
+	                        chatContainer.append(userQuestionDiv);
+
+	                        // 여기서 AJAX 요청을 통해 상세질문 데이터를 가져옵니다.
+	                        $.ajax({
+	                            url: "${pageContext.request.contextPath}/detailChatBot/" + $(this).data('id'),
+	                            type: 'GET',
+	                            dataType: 'json',
+	                            success: function(detailData) {
+	                            	console.log(detailData);
+	                                $.each(detailData, function(index, detailChatBotData) {
+	                                    const detailButton = $('<button>')
+	                                        .addClass('detail-question')
+	                                        .text(detailChatBotData.detailChatbotDetailed_question)
+	                                        .attr('data-answer', detailChatBotData.detailChatbotDetailed_answer)
+	                                        .click(function() {
+	                                            if (detailChatBotData.detailChatbotDetailed_question == "처음으로") {
+	                                            	// 챗봇 패널 내용 초기화
+	                                                chatContainer.empty();
+	                                            	
+	                                                // 초기 메시지 다시 표시
+	                                                const botMessageDiv = $("<div>").addClass("message bot-message").text("또 무엇을 도와드릴까요?");
+	                                                chatContainer.append(botMessageDiv);
+	                                                
+	                                                // 첫 번째 질문들을 다시 로드합니다.
+	                                                loadFirstQuestions(chatContainer);
+	                                            }
+	                                        	// 사용자의 상세질문 추가
+	                                        	const userDetailQuestion = detailChatBotData.detailChatbotDetailed_question;
+	                                        	const userDetailQuestionDiv = $('<div>').addClass('message user-message').text(userDetailQuestion);
+												 if (userDetailQuestion !== "처음으로") {
+												     chatContainer.append(userDetailQuestionDiv);
+												 }
+	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
+	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
+	                                        	    const submitButton = $('<button>').text('제출하기').click(function() {
+	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
+	                                        	        var query = $("#queryText").val();
+	                                        	        var memberNum = $('input[name="member_num"]').val();
+	                                        	        console.log(query);
+	                                        	        $.ajax({
+	                                        	            url: "${pageContext.request.contextPath}/submitQuery",
+	                                        	            type: 'POST',
+	                                        	            data: { 
+	                                        	                'query': query,
+	                                        	                'member_num': memberNum
+	                                        	            },
+	                                        	            success: function(response) {
+	                                        	                // 서버에서 응답이 오면 이 부분이 실행됩니다.
+	                                        	                // response 변수는 서버에서 보낸 데이터입니다.
+	                                        	                console.log(response);
+	                                        	            },
+	                                        	            error: function(jqXHR, textStatus, errorThrown) {
+	                                        	                console.error(textStatus, errorThrown);
+	                                        	            }
+	                                        	        });
+	                                        	    });
+	                                        	    
+	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	} else {
+	                                        	    chatContainer.append(userDetailQuestionDiv);
+
+	                                        	    // 챗봇의 답변 추가
+	                                        	    const botAnswer = detailChatBotData.detailChatbotDetailed_answer;
+													if (botAnswer !== null) {
+													    const botAnswerDiv = $('<div>').addClass('message bot-message');
+													    const botImage = $("<img>").attr("src", "${pageContext.request.contextPath}/resources/img/gamza.png").addClass("message-img");
+													    botAnswerDiv.append(botImage);
+													    botAnswerDiv.append(botAnswer);
+													    chatContainer.append(botAnswerDiv);
+													}
+	                                        	}
+	                                            setTimeout(function() {
+	                                                var chatContainerElement = document.getElementById('chat-container');
+	                                                console.log("Scroll Height: ", chatContainerElement.scrollHeight);  // 로그 추가
+	                                                chatContainerElement.scrollTop = chatContainerElement.scrollHeight;
+	                                            }, 0);
+	                                        });
+	                                    chatContainer.append(detailButton);
+	                                });
+	                            },
+	                            error: function(jqXHR, textStatus, errorThrown) {
+	                                console.error(textStatus, errorThrown);
+	                            }
+	                        });
+	                    });
+	                chatContainer.append(button);
+	            });
+
+	            $("#chat-toggle").show();
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.error(textStatus, errorThrown);
+	        }
+	    });
+	};
 
 	
 	document.getElementById('close-chat').addEventListener('click', function() {

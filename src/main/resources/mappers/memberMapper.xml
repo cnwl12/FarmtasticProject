@@ -706,5 +706,11 @@
 		FROM detail_chatbot
 		WHERE detailchatbotquestion_id = #{_parameter}
 	</select>
+	
+	<select id="getMemberEmail2" resultType="java.lang.String">
+		SELECT member_email
+		FROM member
+		WHERE member_num = #{member_num}
+	</select>
  
 </mapper>

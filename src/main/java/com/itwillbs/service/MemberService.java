@@ -325,6 +325,10 @@ public class MemberService {
 	public List<DetailChatBotDTO> getChatBot2(int chatbotId) {
 		return memberDAO.getChatBot2(chatbotId);
 	}
+	
+	public String getMemberEmail2(int member_num) {
+		return memberDAO.getMemberEmail2(member_num);
+	}
 
 	
 }

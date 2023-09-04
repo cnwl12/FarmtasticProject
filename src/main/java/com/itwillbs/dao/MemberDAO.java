@@ -357,5 +357,9 @@ public class MemberDAO {
     public List<DetailChatBotDTO> getChatBot2(int chatbotId) {
         return sqlSession.selectList(namespace + ".getChatBot2", chatbotId);
     }
+    
+    public String getMemberEmail2(int member_num) {
+        return sqlSession.selectOne(namespace + ".getMemberEmail2", member_num);
+    }
 
 }

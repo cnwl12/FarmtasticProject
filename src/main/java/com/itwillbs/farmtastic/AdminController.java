@@ -45,6 +45,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itwillbs.domain.AdminDTO;
 import com.itwillbs.domain.OneBoardDTO;
 import com.itwillbs.domain.TwoBoardDTO;
+import com.itwillbs.mail.VerifyEmail3;
 import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.SellerService;
@@ -982,9 +983,21 @@ public class AdminController {
 	public String updateReply(HttpServletRequest request) {
 	    String replyContent = request.getParameter("two_board_reply");
 	    int boardNum = Integer.parseInt(request.getParameter("two_board_num"));
+	    
+	    // DB에서 이메일 주소 가져오기
+	    int member_num = Integer.parseInt(request.getParameter("member_num"));
+	    String email = memberService.getMemberEmail2(member_num);
+	    
+	    VerifyEmail3 verifyEmail3 = new VerifyEmail3();
 
 	    // 서비스 호출하여 DB 업데이트
 	    adminService.updateAdminReply(boardNum, replyContent);
+	    System.out.println("!@#!@#");
+	    System.out.println(email);
+	    System.out.println(replyContent);
+	    verifyEmail3.sendAnswerEmail(email, replyContent);
+	    
+	    System.out.println("Received parameters: " + request.getParameterMap());
 
 	    return "redirect:/questionAdmin";  // 업데이트 후 리다이렉트할 페이지
 	}
