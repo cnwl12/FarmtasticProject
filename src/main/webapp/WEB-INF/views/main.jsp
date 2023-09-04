@@ -195,6 +195,8 @@ body {
                             <li><a href="farmStore">팜팜마켓</a></li>
                             <li><a href="blog">제철팜</a></li>
                             <li><a href="contact">공지사항</a></li>
+                            <li style="display: inline-block; vertical-align: middle;">
+    						<a href="javascript:void(0);" onclick="openChatPopup()"><img src="${pageContext.request.contextPath}/resources/img/chat.JPG" alt="" width="20" height="20">실시간채팅</a>
                         </ul>
                     </nav>
                 </div>

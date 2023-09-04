@@ -45,8 +45,7 @@
                             <li><a href="contact">공지사항</a></li>
                            	<li style="display: inline-block; vertical-align: middle;">
     						<a href="javascript:void(0);" onclick="openChatPopup()"><img src="${pageContext.request.contextPath}/resources/img/chat.JPG" alt="" width="20" height="20">실시간채팅</a>
-
-     	                </ul>
+     	                </ul> 
                     </nav>
                 </div>
                 <div class="col-lg-3">
