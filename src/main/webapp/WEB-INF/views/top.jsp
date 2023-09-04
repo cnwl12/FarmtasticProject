@@ -22,6 +22,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>    
 	<script src="${pageContext.request.contextPath}/resources/js/recentlyViewed.js"></script> 
+   	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     
 </head>
 <body>
@@ -59,7 +61,7 @@
 									 </a></li>
 							<c:if test="${not empty sessionScope.member_num}">
 								<li>
-									<a href="#" id="viewed-items-icon">
+									<a id="viewed-items-icon">
 									  <i class="fa fa-history"></i>
 									</a>
 									<div id="recently-viewed-container">
@@ -69,7 +71,10 @@
 									        </button>
 									    </div>
 									    <div id="recently-viewed-list"></div>
-									</div>
+									</div>						
+
+   
+    
 								</li>
 							</c:if>
 						</ul>

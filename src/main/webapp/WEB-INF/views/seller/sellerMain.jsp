@@ -607,24 +607,16 @@
    
    // 리뷰 제목 누르면 팝업창 띄움
    function reviewPop(reviewNum) {
-       // 회원 정보 조회 API URL
-        const url = '${pageContext.request.contextPath}/reviewDetail?review_num=' + reviewNum;
+       let review = '${pageContext.request.contextPath}/reviewDetail?review_num=' + reviewNum;
        // 팝업 창 열기
-       window.open(url, 'reviewInfoPopup', 'width=800,height=600');
-       
-       // 팝업 창에서 메인 창으로 포커스 이동
-       opener.focus();
+       window.open(review, 'reviewInfoPopup', 'width=800,height=600');
    }
-   
+
    // 문의 제목 누르면 팝업창 띄움
    function boardPop(boardNum) {
-       // 회원 정보 조회 API URL
-        const url = '${pageContext.request.contextPath}/questionDetail?one_board_num=' + boardNum;
+       let board = '${pageContext.request.contextPath}/questionDetail?one_board_num=' + boardNum;
        // 팝업 창 열기
-       window.open(url, 'boardInfoPopup', 'width=800,height=600');
-       console.log("boardPop is called with", boardNum);
-       // 팝업 창에서 메인 창으로 포커스 이동
-       opener.focus();
+       window.open(board, 'boardInfoPopup', 'width=800,height=600');
    }
 
     // 별점을 ★로 변경
@@ -638,8 +630,8 @@
         starElement.textContent = stars;
     });
     
-    // 문의 팝업창 답변 등록하기 이동
-    function redirectToQuestionMngFromPopup() {
+   // 문의 팝업창 답변 등록하기 이동
+   function redirectToQuestionMngFromPopup() {
     window.location.href = "${pageContext.request.contextPath}/questionMng";
    }
     

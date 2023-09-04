@@ -87,18 +87,16 @@ function togglePasswordInput(oneBoardNum) {
 		  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
 		}
 
-// 사용자가 상품을 클릭했을 때 실행되는 함수입니다.
+// 회원이 상품을 클릭했을 때(farmStoreDetail 페이지 접속) 실행
 function viewItem(member_num, item) {
     let viewedItems = localStorage.getItem(member_num);
     if (viewedItems === null) {
       viewedItems = [];
-      console.log("상품클릭)아이템null : " + JSON.stringify(viewedItems));
     } else {
       viewedItems = JSON.parse(viewedItems);
-      console.log("상품클릭)아이템있음 : " + JSON.stringify(viewedItems));
     }
 
-    // 이미 본 상품이면 리스트에서 제거 후 다시 추가(최신 위치로)
+    // 이미 본 상품이면 리스트에서 제거 후 다시 추가(목록의 제일 위)
     const existingIndex = viewedItems.findIndex(i => i.num === item.num);
     if (existingIndex > -1) {
       viewedItems.splice(existingIndex, 1);
@@ -106,20 +104,18 @@ function viewItem(member_num, item) {
 
     // 최근 본 상품에 추가
     viewedItems.push(item);
-    console.log("최근 본 상품에 추가 : " + JSON.stringify(viewedItems));
     
-     // 리스트가 너무 길어지지 않도록 항상 일정 크기 유지(예: 최근 10개만 유지)
+     // 최근 본 10개 상품만 보여줌
      while (viewedItems.length > 10) {
        viewedItems.shift();
      }
 
    localStorage.setItem(member_num, JSON.stringify(viewedItems));
-   console.log("로컬스터리지에 저장 : " + JSON.stringify(viewedItems));
 }
 
  // 가상의 UI 이벤트 핸들러
 function onItemClicked(itemNum, itemName, itemPrice, itemMainImg) {
-    let loggedInMemberNum = getLoggedInMemberNum(); // 현재 로그인한 사용자 ID 가져오기
+    let loggedInMemberNum = getLoggedInMemberNum(); // 현재 로그인한 회원num 가져옴
 
     if (loggedInMemberNum !== null) {        
         let item ={
