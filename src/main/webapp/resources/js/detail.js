@@ -86,5 +86,49 @@ function togglePasswordInput(oneBoardNum) {
 		  // 비밀번호 입력창의 display 상태를 전환합니다.
 		  passwordRowElement.style.display = passwordRowElement.style.display === "table-row" ? "none" : "table-row";
 		}
-		
-					
+
+// 사용자가 상품을 클릭했을 때 실행되는 함수입니다.
+function viewItem(member_num, item) {
+    let viewedItems = localStorage.getItem(member_num);
+    if (viewedItems === null) {
+      viewedItems = [];
+      console.log("상품클릭)아이템null : " + JSON.stringify(viewedItems));
+    } else {
+      viewedItems = JSON.parse(viewedItems);
+      console.log("상품클릭)아이템있음 : " + JSON.stringify(viewedItems));
+    }
+
+    // 이미 본 상품이면 리스트에서 제거 후 다시 추가(최신 위치로)
+    const existingIndex = viewedItems.findIndex(i => i.num === item.num);
+    if (existingIndex > -1) {
+      viewedItems.splice(existingIndex, 1);
+    }
+
+    // 최근 본 상품에 추가
+    viewedItems.push(item);
+    console.log("최근 본 상품에 추가 : " + JSON.stringify(viewedItems));
+    
+     // 리스트가 너무 길어지지 않도록 항상 일정 크기 유지(예: 최근 10개만 유지)
+     while (viewedItems.length > 10) {
+       viewedItems.shift();
+     }
+
+   localStorage.setItem(member_num, JSON.stringify(viewedItems));
+   console.log("로컬스터리지에 저장 : " + JSON.stringify(viewedItems));
+}
+
+ // 가상의 UI 이벤트 핸들러
+function onItemClicked(itemNum, itemName, itemPrice, itemMainImg) {
+    let loggedInMemberNum = getLoggedInMemberNum(); // 현재 로그인한 사용자 ID 가져오기
+
+    if (loggedInMemberNum !== null) {        
+        let item ={
+            num : itemNum,
+            name : itemName,
+            price : itemPrice,
+            mainImg : itemMainImg,
+        };
+          
+        viewItem(loggedInMemberNum,item );
+    }
+}

@@ -16,9 +16,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recentlyViewed.css">
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/recentlyViewed.js"></script> 
     
 </head>
 <body>
@@ -46,6 +49,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
+                    <input type="hidden" id="member_num" value="${sessionScope.member_num}">
                         <ul>
                             <li><a href="mypage"><i class="fa fa-user"></i> </a></li>
 							<li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
@@ -53,6 +57,21 @@
 											<span>${sessionScope.item_count}</span>
 										</c:if>
 									 </a></li>
+							<c:if test="${not empty sessionScope.member_num}">
+								<li>
+									<a href="#" id="viewed-items-icon">
+									  <i class="fa fa-history"></i>
+									</a>
+									<div id="recently-viewed-container">
+									    <div id="recently-viewed-icon"> 최근 본 상품
+									        <button id="close-button" style="float: right;">
+									            <i class="fa fa-close"></i>
+									        </button>
+									    </div>
+									    <div id="recently-viewed-list"></div>
+									</div>
+								</li>
+							</c:if>
 						</ul>
                         
                     <!--  7.29성하 로그인시 마이페이지 로그아웃버튼생성 -->
@@ -161,6 +180,6 @@
     // 서버 사이드 변수인 contextPath을 JavaScript 변수에 할당합니다.
 	var contextPath = "//c2d2303t2.itwillbs.com/FarmProject";
     </script>
-     
+
 </body>
 </html>

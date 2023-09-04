@@ -135,10 +135,13 @@ body {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css"> 
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/autoComplete.css">
- 	    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recentlyViewed.css">
+     	    
  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script>
  	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/recentlyViewed.js"></script> 
 </head>
 
 <body>
@@ -169,6 +172,7 @@ body {
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
+                    <input type="hidden" id="member_num" value="${sessionScope.member_num}">
                         <ul>
                             <li><a href="mypage"><i class="fa fa-user"></i></a></li>
                            <li><a href="shoppingCart"><i class="fa fa-shopping-bag"></i>
@@ -176,7 +180,22 @@ body {
 											<span>${sessionScope.item_count}</span>
 										</c:if>
 									 </a></li>
-                        </ul>
+							<c:if test="${not empty sessionScope.member_num}">
+								<li>
+									<a href="#" id="viewed-items-icon">
+									  <i class="fa fa-history"></i>
+									</a>
+									<div id="recently-viewed-container">
+									    <div id="recently-viewed-icon"> 최근 본 상품
+									        <button id="close-button" style="float: right;">
+									            <i class="fa fa-close"></i>
+									        </button>
+									    </div>
+									    <div id="recently-viewed-list"></div>
+									</div>
+								</li>
+							</c:if>
+						</ul>
                      <div class="header__top__right__auth">
   						<c:choose>
       					<c:when test="${empty sessionScope.member_num}">
