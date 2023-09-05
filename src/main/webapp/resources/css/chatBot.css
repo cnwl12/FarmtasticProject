@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#questions {
+    display: flex;
+    flex-direction: column;
+}
+
+.question {
+    margin-bottom: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#answer {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+#chat-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #EEEED4;
+}
+
+#close-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#chat-panel {
+    display: none;
+    width: 300px;
+    height: 400px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    color: black;
+}
+
+#chat-panel #questions {
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 70%;
+}
+
+#chat-panel #answer {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 25%;
+    overflow-y: auto;
+}
+
+.question {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.message {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 18px 0px 18px 18px;
+    margin-bottom: 10px;
+    margin-left: 80px;
+    padding: 10px;
+    max-width: 80%;
+}
+
+.bot-message {
+   align-self: flex-start;
+   background-color: #f1f0f0;
+   color: black; 
+   border-radius: 0px 18px 18px 18px;
+   margin-bottom: 10px;
+   margin-right: 80px;
+   padding: 10px;
+   max-width: 80%;
+}
+
+#chat-container {
+	height: 100%;
+    overflow-y: auto;
+}
+
+.gamza {
+    width: 50px;
+    height: 50px;
+}
+
+.message-img {
+    width: 40px;
+    height: 40px;
+}

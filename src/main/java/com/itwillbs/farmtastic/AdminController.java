@@ -992,9 +992,6 @@ public class AdminController {
 
 	    // 서비스 호출하여 DB 업데이트
 	    adminService.updateAdminReply(boardNum, replyContent);
-	    System.out.println("!@#!@#");
-	    System.out.println(email);
-	    System.out.println(replyContent);
 	    verifyEmail3.sendAnswerEmail(email, replyContent);
 	    
 	    System.out.println("Received parameters: " + request.getParameterMap());
