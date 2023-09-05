@@ -168,8 +168,8 @@
     
     function openChatPopup() {
         // 팝업 창 옵션 설정
-        var popupWidth = 500; // 팝업 창 가로 크기
-        var popupHeight = 400; // 팝업 창 세로 크기
+        var popupWidth = 400; // 팝업 창 가로 크기
+        var popupHeight = 500; // 팝업 창 세로 크기
 
         // 브라우저 창의 가운데 좌표 계산
         var leftPosition = (window.screen.width - popupWidth) / 2;

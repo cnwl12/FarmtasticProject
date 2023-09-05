@@ -3,11 +3,19 @@
 <html>
 <head>
 <title>Web Socket Example</title>
+
+<style type="text/css">
+#textMessage{
+	width: 80%;
+}
+</style>
+
 </head>
 <body>
   <!-- 채팅 영역 -->
   <form>
     <!-- 텍스트 박스에 채팅의 내용을 작성한다. -->
+    <img src="/FarmProject/resources/img/logo.png" alt="">
     <input id="textMessage" type="text" onkeydown="return enter()">
     <!-- 서버로 메시지를 전송하는 버튼 -->
     <input onclick="sendMessage()" value="Send" type="button">

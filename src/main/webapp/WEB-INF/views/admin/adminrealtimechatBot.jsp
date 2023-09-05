@@ -9,6 +9,10 @@
     float:left;
     margin: 5px;
   }
+  
+  .message{
+  	width: 80%;
+  }
 </style>
 </head>
 <body>
@@ -16,6 +20,7 @@
   <div class="template" style="display:none">
     <form>
       <!-- 메시지 텍스트 박스 -->
+      <img src="/FarmProject/resources/img/logo.png" alt="">
       <input type="text" class="message" onkeydown="if(event.keyCode === 13) return false;">
       <!-- 전송 버튼 -->
       <input value="Send" type="button" class="sendBtn">
