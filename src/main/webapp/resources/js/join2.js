@@ -1,23 +1,22 @@
-      window.addEventListener('load', () => { 
-      const forms = document.getElementsByClassName('validation-form'); 
+window.addEventListener('load', () => { 
+    const forms = document.getElementsByClassName('validation-form'); 
 
-      Array.prototype.filter.call(forms, (form) => { 
-      form.addEventListener('submit', function (event) { 
-      if (form.checkValidity() == false) { 
-          event.preventDefault(); 
-          event.stopPropagation(); 
-       }  
-      form.classList.add('was-validated'); 
-        }, false); 
-      }); 
-    }, false);
+    Array.prototype.filter.call(forms, (form) => { 
+        form.addEventListener('submit', function (event) { 
+            if (form.checkValidity() == false) { 
+                event.preventDefault(); // 이 부분만 유지하고
+            }
+            form.classList.add('was-validated'); 
+        }, false);
+    });
+});
 
 
-    $(document).ready(function() {
-      // 처음으로 버튼 이벤트 핸들러
-      $("#goMain").on("click", function() {
+ $(document).ready(function() {
+    // 처음으로 버튼 이벤트 핸들러
+    $("#goMain").on("click", function() {
         location.href = 'main';
-      });
+    });
       
       // 유효성 검사 이벤트 핸들러를 각 입력란에 추가
       $("#seller_id").on("input", function() {
@@ -108,7 +107,7 @@
     var regPw = /^[a-zA-Z0-9]{2,10}$/;
     var regName = /^[가-힣a-zA-Z]{2,15}$/;
     var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-    var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
+    var regPhone = /^01[0-9]{1}[0-9]{8,9}$/;
     var regLicenseNum = /^([0-9]{3})-([0-9]{2})-([0-9]{5})$/;
     var regLicenseNum2 = /^([0-9]{10})$/;
     var regNumber = /^(\d{1,14})$/;
@@ -235,16 +234,6 @@
         }
       }
     
-	function removeHyphen(event) {
-		  var input = event.target;
-		  var phoneNumber = input.value;
-		  var seller_accountNum = input.value;
-		  var cleanedSeller_accountNum = seller_accountNum.replace(/-/g, '');
-		  var cleanedPhoneNumber = phoneNumber.replace(/-/g, '');
-		  input.value = cleanedPhoneNumber;
-		  input.value = cleanedSeller_accountNum;
-		}
-    
     function validateAccountHolder() {
         var uaholder = $("#seller_accountHolder");
         if (uaholder.val() == "" || !regName.test(uaholder.val())) {
@@ -259,15 +248,27 @@
 
     function validatePhone() {
       var uphone = $("#seller_phone");
-      if (uphone.val() == "" || !regPhone.test(uphone.val())) {
-        $('#invalid_phone').show();
+      var phoneNumber = uphone.val();
+       var onlyNumbers = phoneNumber.replace(/[^0-9]/g, '');
+       
+       uphone.val(onlyNumbers);
+       
+     if (phoneNumber !== onlyNumbers) {
+        $('#invalid_phone2').show(); // 다른 문자가 포함된 경우 오류 메시지 표시
+        $('#invalid_phone').hide();
         uphone.focus();
         return false;
-      } else {
+    } else if (!regPhone.test(onlyNumbers)) {
+        $('#invalid_phone').show(); // 올바르지 않은 전화번호 형식일 경우 오류 메시지 표시
+        $('#invalid_phone2').hide();
+        uphone.focus();
+        return false;
+    } else {
         $('#invalid_phone').hide();
+        $('#invalid_phone2').hide();
         return true;
-      }
     }
+   }
 
     function validateEmail() {
       var mail = $("#seller_email");

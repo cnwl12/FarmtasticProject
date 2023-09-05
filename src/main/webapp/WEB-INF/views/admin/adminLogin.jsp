@@ -89,8 +89,11 @@ h3 {
 }
 
 </style>    
+
+
 			<div class="form-wrap">
                 <div class="button-wrap">
+                        <a href="main"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="" style="margin-left: 27px;"></a>
                     <h3>ADMIN LOGIN</h3>
                 </div>
                  <!-- 로그인 실패 메시지 출력 -->

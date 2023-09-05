@@ -106,11 +106,11 @@ input#post {
 								</li>
 							  	
 							  	<li>
-									<input type="text"  placeholder="연락처(휴대폰)번호 작성" name="member_phone" id="member_phone" maxlength="11" oninput="removeHyphen(event); validatePhone()"">
+									<input type="text"  placeholder="연락처(휴대폰)번호 작성" name="member_phone" id="member_phone" maxlength="11">
 									<div id= "invalid_phone" class="invalid-feedback">
               						</div>
               						<div id= "invalid_phone2" class="invalid-feedback">
-                					연락처를 올바르게 입력해주세요.
+                					- 제외 입력 됩니다.
               						</div>
 								</li>
 								
@@ -147,8 +147,7 @@ input#post {
 								</li>
 								
 							</ul>
-							
-								
+								 
 							
 							<div class="btn_zone" style="margin-left: 100px;">
 							<button type="button" id="goMain" class="site-btn">처음으로</button>

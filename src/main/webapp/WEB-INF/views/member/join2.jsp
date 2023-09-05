@@ -181,7 +181,7 @@ form {
                         </li>
                         
                         <li>   
-                        <input type="text" placeholder="계좌번호(-없이)" name="seller_accountNum" id="seller_accountNum" oninput="removeHyphen(event);" maxlength="14">
+                        <input type="text" placeholder="계좌번호(-없이)" name="seller_accountNum" id="seller_accountNum"  maxlength="14">
                         <div id= "invalid_accountNum" class="invalid-feedback">
                             계좌번호를 입력해주세요.
                              </div>

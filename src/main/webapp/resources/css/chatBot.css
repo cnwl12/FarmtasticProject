@@ -2,6 +2,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.detail-question{
+	border: none;
+	margin-bottom: 3px;
+	margin-right: 80px;
+}
+
 #questions {
     display: flex;
     flex-direction: column;
@@ -19,8 +25,9 @@ body {
 
 #answer {
     margin-top: 20px;
-    border: 1px solid #ccc;
+  /*   border: 1px solid #ccc; */
     padding: 10px;
+    margin-bottom: 3px;
 }
 
 #chat-panel {
@@ -40,23 +47,24 @@ body {
     bottom: 20px;
     right: 20px;
     background-color: #EEEED4;
+    border: 1px solid;
 }
 
 #close-chat {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 37px;
+    right: 60px;
     background-color: #f44336;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 19px;
     border-radius: 4px;
     cursor: pointer;
 }
 
 #chat-panel {
     display: none;
-    width: 300px;
+    width: 360px;
     height: 400px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -83,10 +91,12 @@ body {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 5px 18px;
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 10px;
+    margin: 1%;
+    float: right;
 }
 
 .message {
@@ -101,9 +111,10 @@ body {
     color: white;
     border-radius: 18px 0px 18px 18px;
     margin-bottom: 10px;
-    margin-left: 80px;
-    padding: 10px;
-    max-width: 80%;
+    margin-left: 155px;
+    width: 48%;
+    text-align: center;
+    margin-top: 50px;
 }
 
 .bot-message {
@@ -114,12 +125,13 @@ body {
    margin-bottom: 10px;
    margin-right: 80px;
    padding: 10px;
-   max-width: 80%;
+   width: 100%;
 }
 
 #chat-container {
 	height: 100%;
-    overflow-y: auto;
+ 	overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .gamza {

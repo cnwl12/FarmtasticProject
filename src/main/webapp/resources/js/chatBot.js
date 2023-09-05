@@ -36,7 +36,6 @@
 	                            type: 'GET',
 	                            dataType: 'json',
 	                            success: function(detailData) {
-	                            	console.log(detailData);
 	                                $.each(detailData, function(index, detailChatBotData) {
 	                                    const detailButton = $('<button>')
 	                                        .addClass('detail-question')
