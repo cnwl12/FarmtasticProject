@@ -255,7 +255,26 @@
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/resources/js/autoComplete.js"></script> --%>
 
+<script>
+function openChatPopup() {
+    // 팝업 창 옵션 설정
+    var popupWidth = 500; // 팝업 창 가로 크기
+    var popupHeight = 400; // 팝업 창 세로 크기
 
+    // 브라우저 창의 가운데 좌표 계산
+    var leftPosition = (window.screen.width - popupWidth) / 2;
+    var topPosition = (window.screen.height - popupHeight) / 2;
+
+    // 실제 팝업 창 열기
+    window.open(contextPath + "/realtimechatBot", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+                ", left=" + leftPosition + ", top=" + topPosition +
+                ", resizable=no, scrollbars=no, status=no");
+}
+
+// 서버 사이드 변수인 contextPath을 JavaScript 변수에 할당합니다.
+var contextPath = "//c2d2303t2.itwillbs.com/FarmProject";
+
+</script>
 </body>
 
 </html>
