@@ -1363,19 +1363,27 @@ public class FarmController { // 소비자 (컨트롤러)
     }
 	
 	@ResponseBody
-    @RequestMapping(value = "/submitQuery", method = RequestMethod.POST)
-    public String submitQuery(HttpServletRequest request, @RequestParam("query") String query) {
-		TwoBoardDTO twoboardDTO = new TwoBoardDTO();
-        // 여기서 query 값을 처리합니다.
-        System.out.println("Received query: " + query);
+	@RequestMapping(value = "/submitQuery", method = RequestMethod.POST)
+	public String submitQuery(HttpServletRequest request, @RequestParam("query") String query) {
+	    TwoBoardDTO twoboardDTO = new TwoBoardDTO();
+	    // 여기서 query 값을 처리합니다.
+	    System.out.println("Received query: " + query);
 
-        // 필요한 로직을 수행하고, 결과를 반환합니다.
-        // 이 예제에서는 단순히 받은 쿼리 문자열을 그대로 반환합니다.
-		twoboardDTO.setTwo_board_content(query);
-		twoboardDTO.setMember_num(Integer.parseInt(request.getParameter("member_num")));
-        memberService.insertTwoBoard(twoboardDTO);
-        return "Received your query: " + query;
-    }
+	    // 필요한 로직을 수행하고, 결과를 반환합니다.
+	    // 이 예제에서는 단순히 받은 쿼리 문자열을 그대로 반환합니다.
+	    twoboardDTO.setTwo_board_content(query);
+	    
+		try {
+			twoboardDTO.setMember_num(Integer.parseInt(request.getParameter("member_num")));
+		} catch (NumberFormatException e) {
+			System.err.println("Invalid or missing 'member_num' parameter");
+			return "Not logged in";
+		}
+		
+		memberService.insertTwoBoard(twoboardDTO);
+		return "Received your query: " + query;
+	}
+
 	
 	@RequestMapping(value = "/realtimechatBot", method = RequestMethod.GET)
 	public String realtimechatBot(Locale locale, Model model) {

@@ -181,7 +181,7 @@
 														<td id="two_board_repDay" colspan="3" class="line_h18">&nbsp;</td>
 													</tr>
 													<tr>
-													<th scope="row">질문자</th>
+													<th scope="row">회원번호</th>
 														<td id="member_num" colspan="3" class="line_h18">&nbsp;</td>
 													</tr>
 													<tr>
@@ -228,7 +228,7 @@
 														        <p class="textCount" id="_char_count_span">0자</p>
 														        <p class="textTotal">/200자</p>
 														    </div>
-															<button type="button" class="btn_d" onclick="sendFormData()"><span>답변하기</span></button>
+															<button type="button" id="sendBtn" class="btn_d" onclick="sendFormData()"><span>답변하기</span></button>
 													      </div>
 												      </div>
 												    </td>
@@ -316,7 +316,7 @@
     <script>
 	function getDetail() {
 	    $.ajax({
-	        url: "${pageContext.request.contextPath}/getAdminDetails",  // 이 URL은 실제 서버의 API 엔드포인트에 따라 변경해야 합니다.
+	        url: "${pageContext.request.contextPath}/getAdminDetails",  
 	        type: "GET",
 	        dataType: "json",
 	        success: function(data) {
@@ -384,6 +384,7 @@ function sendFormData() {
     var memberNum = selectedRow.find("td:eq(2)").text();
     
     formData.append("member_num", memberNum);
+    $('#sendBtn').prop('disabled', true);
     
     $.ajax({
         url: "${pageContext.request.contextPath}/updateAdminReply",
@@ -394,9 +395,13 @@ function sendFormData() {
         success: function (response) {
             // 업데이트 성공시 처리
             getDetail();
+            // AJAX 요청 성공 후 버튼 다시 활성화
+            $('#sendBtn').prop('disabled', false);
+            alert("메일이 전송되었습니다");
         },
         error: function (error) {
             console.error("Error sending form data:", error);
+            $('#sendBtn').prop('disabled', false);
         }
     });
 }
@@ -432,10 +437,6 @@ function updateCharCount() {
 	};
 
 </script>
-
-
-
-
 
 
 </body>

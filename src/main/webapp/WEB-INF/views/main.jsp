@@ -437,13 +437,26 @@ body {
 	                                        	                // 서버에서 응답이 오면 이 부분이 실행됩니다.
 	                                        	                // response 변수는 서버에서 보낸 데이터입니다.
 	                                        	                console.log(response);
+	                                        	                if(response == "Not logged in"){
+	                                        	                	alert("문의는 로그인 후 이용 가능합니다.");
+	                                        	                }else{
+	                                        	                	alert("문의가 성공적으로 전달되었습니다. 답변은 3일내 가입 시 입력한 이메일로 발송 될 예정입니다.")
+	            	                                                // 챗봇 패널 내용 초기화
+	            	                                                chatContainer.empty();
+	            	                                                
+	            	                                             	// 초기 메시지 다시 표시
+	            	                                                const botMessageDiv = $("<div>").addClass("message bot-message").text("또 무엇을 도와드릴까요?");
+	            	                                                chatContainer.append(botMessageDiv);
+	            	                                                
+	            	                                                // 첫 번째 질문들을 다시 로드합니다.
+	            	                                                loadFirstQuestions(chatContainer);
+	                                        	                }
 	                                        	            },
 	                                        	            error: function(jqXHR, textStatus, errorThrown) {
 	                                        	                console.error(textStatus, errorThrown);
 	                                        	            }
 	                                        	        });
 	                                        	    });
-	                                        	    
 	                                        	    chatContainer.append(inputBox).append(submitButton);
 	                                        	} else {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
@@ -547,6 +560,20 @@ body {
 	                                        	                // 서버에서 응답이 오면 이 부분이 실행됩니다.
 	                                        	                // response 변수는 서버에서 보낸 데이터입니다.
 	                                        	                console.log(response);
+	                                        	                if(response == "Not logged in"){
+	                                        	                	alert("문의는 로그인 후 이용 가능합니다.");
+	                                        	                } else {
+	                                        	                	alert("문의가 성공적으로 전달되었습니다. 답변은 3일내 가입 시 입력한 이메일로 발송 될 예정입니다.")
+	            	                                                // 챗봇 패널 내용 초기화
+	            	                                                chatContainer.empty();
+	            	                                                
+	            	                                             	// 초기 메시지 다시 표시
+	            	                                                const botMessageDiv = $("<div>").addClass("message bot-message").text("또 무엇을 도와드릴까요?");
+	            	                                                chatContainer.append(botMessageDiv);
+	            	                                                
+	            	                                                // 첫 번째 질문들을 다시 로드합니다.
+	            	                                                loadFirstQuestions(chatContainer);
+	                                        	                }
 	                                        	            },
 	                                        	            error: function(jqXHR, textStatus, errorThrown) {
 	                                        	                console.error(textStatus, errorThrown);

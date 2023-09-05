@@ -204,6 +204,7 @@
 	<select id="getAllTwoBoards" resultType="com.itwillbs.domain.TwoBoardDTO">
 	   	SELECT *
 	   	FROM two_board
+	   	ORDER BY two_board_repYn DESC
 	</select>
   	
 </mapper>
