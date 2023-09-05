@@ -34,7 +34,7 @@
     };
     // 서버로부터 메시지가 도착하면 콘솔 화면에 메시지를 남긴다.
     webSocket.onmessage = function(message) {
-      messageTextArea.value += "(운영자) => " + message.data + "\n";
+      messageTextArea.value += "[Farmtastic] => " + message.data + "\n";
     };
     // 서버로 메시지를 발송하는 함수
     // Send 버튼을 누르거나 텍스트 박스에서 엔터를 치면 실행
@@ -42,7 +42,7 @@
       // 텍스트 박스의 객체를 가져옴
       let message = document.getElementById("textMessage");
       // 콘솔에 메세지를 남긴다.
-      messageTextArea.value += "(소비자) => " + message.value + "\n";
+      messageTextArea.value += "[me] => " + message.value + "\n";
       // 소켓으로 보낸다.
       webSocket.send(message.value);
       // 텍스트 박스 추기화
