@@ -71,7 +71,7 @@
       // console영역을 찾는다.
       let log = $div.find(".console").val();
       // 아래에 메시지를 추가한다.
-      $div.find(".console").val(log + "(운영자->me)) => " + message + "\n");
+      $div.find(".console").val(log + "(운영자) => " + message + "\n");
       // 텍스트 박스의 값을 초기화 한다.
       $div.find(".message").val("");
       // 웹소켓으로 메시지를 보낸다.

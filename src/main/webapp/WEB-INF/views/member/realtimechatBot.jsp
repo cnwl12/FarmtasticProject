@@ -42,7 +42,7 @@
       // 텍스트 박스의 객체를 가져옴
       let message = document.getElementById("textMessage");
       // 콘솔에 메세지를 남긴다.
-      messageTextArea.value += "(소비자(나자신)) => " + message.value + "\n";
+      messageTextArea.value += "(소비자) => " + message.value + "\n";
       // 소켓으로 보낸다.
       webSocket.send(message.value);
       // 텍스트 박스 추기화
