@@ -340,6 +340,34 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
+	<script>
+  var contextPath = "//c2d2303t2.itwillbs.com/FarmProject";
+
+  <c:if test="${openChatPopup}">
+    openChatPopup();
+  </c:if>
+  
+  function openChatPopup() {
+    // 팝업 창 옵션 설정
+    var popupWidth = 400; // 팝업 창 가로 크기
+    var popupHeight = 500; // 팝업 창 세로 크기
+
+    // 브라우저 창의 가운데 좌표 계산
+    var leftPosition = (window.screen.width - popupWidth) / 2;
+    var topPosition = (window.screen.height - popupHeight) / 2;
+
+    // 실제 팝업 창 열기
+    var chatPopup = window.open("", "chatPopup", "width=" + popupWidth + ", height=" + popupHeight +
+                ", left=" + leftPosition + ", top=" + topPosition +
+                ", resizable=no, scrollbars=no, status=no");
+
+    // 팝업 내부에서 페이지 이동 처리
+    chatPopup.document.location.href = contextPath + "/adminrealtimechatBot";
+}
+</script>
+	
+
+
 </body>
 
 </html>

@@ -80,6 +80,7 @@ public class AdminController {
 	            if (adminInfo != null && adminInfo.getAdmin_pass().equals(admin_pass)) {
 	                session.setAttribute("admin", adminInfo);
 	                session.setAttribute("admin_id", admin_id);    // 세션에 admin_id 추가
+	                rttr.addFlashAttribute("openChatPopup", true);
 	                return "redirect:/adminMain";
 	            } else {
 	                rttr.addFlashAttribute("msg", "로그인 실패");
