@@ -154,7 +154,7 @@ input#file-upload-button {
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
-    <section class="product-details spad" data-item-num="${item.item_num}" 
+    <section class="product-details spad" data-item-num2="${item.item_num}" 
 										     data-item-name="${item.item_name}" 
 										     data-item-price="${item.item_price}" 
 										     data-item-mainImg="${item.item_mainImg}">
