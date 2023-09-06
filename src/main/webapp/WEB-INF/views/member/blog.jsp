@@ -39,6 +39,8 @@
                     <div class="breadcrumb__text">
                         <h2>SeasonFarm</h2> 
                         <div class="breadcrumb__option">
+                            <a href="main">Home</a>
+                            <span>SeasonFarm</span>                        
                         </div>
                     </div>
                 </div>    

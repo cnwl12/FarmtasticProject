@@ -25,7 +25,7 @@ $(document).ready(function() {
                 productListHTML += '<li style="margin-right: 0;"><div><a href="farmStoreDetail?item_num=' + parsedViewedProduct[i].num + '"><img class="product-image" src="' + parsedViewedProduct[i].mainImg + '" /></a></div>' 
                                 + '<div>' + parsedViewedProduct[i].name + '&nbsp;&nbsp;'
                                 + '<b>' + parsedViewedProduct[i].price + '원</b></div>'
-                                + '<div><button class="btn btn-primary" style="background-color: #7fad39; border-color: #7fad39;"><a href="#" class="wishlist-btn" id="memberNum" data-member-num="' + member_num + '" data-item-num2="' + parsedViewedProduct[i].num + '"><i class="fa fa-heart-o"></i></a></button>&nbsp;&nbsp;'
+                                + '<div><button class="btn btn-primary" style="background-color: #7fad39; border-color: #7fad39;"><a href="#" class="wishlist-btn" id="memberNum" data-member-num="' + member_num + '" data-item-num2="' + parsedViewedProduct[i].num + '"><i class="fa fa-heart-o" style="margin-top: 0; margin-left: 0; font-size: medium;"></i></a></button>&nbsp;&nbsp;'
                                 + '<button class="btn btn-primary" style="background-color: #7fad39; border-color: #7fad39;"><a onclick="insertCart(' + parsedViewedProduct[i].num + ');"><i class="fa fa-shopping-cart"></i></a></button></div></li><br>';
             }
 
