@@ -56,7 +56,7 @@ $(document).ready(function() {
                            <ul class="product__item__pic__hover">
                                <li><a href="#" class="wishlist-btn"
                                    data-member-num="${memberNum}"
-                                   data-item-num="${item.item_num}">
+                                   data-item-num2="${item.item_num}">
                                    <i class="fa fa-heart-o"></i>
                                </a></li>
                                `;

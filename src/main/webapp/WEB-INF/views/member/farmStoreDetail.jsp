@@ -208,7 +208,7 @@ input#file-upload-button {
                         	<input type="button" onclick="insertCart()" class="primary-btn" value="ADD TO CART">
                          </c:otherwise>
                         </c:choose>
-                        <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+                        <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num2="${item.item_num}">
 							  <i class="fa fa-heart-o" style="color: red;"></i>
 						</a>
                         <ul>
@@ -865,7 +865,7 @@ input#file-upload-button {
     <!-- 선진) 수정 -->
     <script>
     $(document).ready(function() {
-    	var itemNum = $('.product-details').data('itemNum');
+    	var itemNum = $('.product-details').data('itemNum2');
     	var itemName = $('.product-details').data('itemName');
     	var itemPrice = $('.product-details').data('itemPrice');
     	var itemMainImg = $('.product-details').data('itemMainimg');

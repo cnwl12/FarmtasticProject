@@ -183,7 +183,7 @@
 				                  </a>
                             <ul class="featured__item__pic__hover">
                                <li>
-	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num="${item.item_num}">
+	                             <a href="#" class="wishlist-btn" data-member-num="${sessionScope.member_num}" data-item-num2="${item.item_num}">
 								  <i class="${item.isFavorited ? 'fa fa-heart' : 'fa fa-heart-o'}"></i>
 								</a>
 								</li>

@@ -23,7 +23,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/detail.js"></script>    
 	<script src="${pageContext.request.contextPath}/resources/js/recentlyViewed.js"></script> 
    	<script src="${pageContext.request.contextPath}/resources/js/cart.js"></script>
-   	<script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     
 </head>
 <body>
