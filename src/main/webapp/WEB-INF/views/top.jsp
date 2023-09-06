@@ -71,9 +71,6 @@
 									    </div>
 									    <div id="recently-viewed-list"></div>
 									</div>						
-
-   
-    
 								</li>
 							</c:if>
 						</ul>

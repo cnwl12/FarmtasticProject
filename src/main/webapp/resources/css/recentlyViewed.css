@@ -1,61 +1,56 @@
-	#recently-viewed-container {
-	    position: fixed;
-	    right: -15vw;
-	    top: 0; 
-	    transform: none;
-	    height: 100vh;
-	    width: 15vw;
-	    overflow-y: auto;
-	    z-index: 9999;
-	    background-color: white;
-
-	}
-
-	#recently-viewed-icon {
-	   cursor: pointer;
-	   border: 1px solid #ddd;
- 	   padding: 15px;
-	   background-color: #7fad39;
-	   text-align: left;
-	   font-size: 20px;
-	   font-weight: bold;
-	   color: white;
-   display:flex;
-   align-items:center; 
-   justify-content: space-between;
-	}
-
-#close-button { 
-    cursor:pointer;  
-    border:none; 
-    background:none; 
-    font-size:30px;
-    color: white;
-    
-	    height: 50px;
-	    width: 50px;    
+#recently-viewed-container {
+	position: fixed;
+	right: -15vw;
+	top: 0; 
+	transform: none;
+	width: 15vw;
+	z-index: 9999;
+	background-color: white;
 }
 
-	
-	#recently-viewed-list {
-/* 	   margin-top: 10px; */
-	   	    border: 5px solid #7fad39; 
-	}
-	
-    #recently-viewed-list li div {
-       display: block;
-       margin-top: 10px;
-       
-    }
-    
-    #recently-viewed-list li {
-	    display: flex;
-	    flex-direction: column;
-	    align-items: start;
-	    
-	}
+#recently-viewed-icon {
+	cursor: pointer;
+	border: 5px solid #7fad39; 
+	padding: 5px;
+	background-color: #7fad39;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	display:flex;
+	align-items:center; 
+	justify-content: space-between;
+}
 
-	#recently-viewed-list .product-image {
-	    width: 200px;
-	    height: 200px;
-	}
+#close-button { 
+	cursor:pointer;  
+	border:none; 
+	background:none; 
+	font-size:30px;
+	color: white;
+}
+	
+#recently-viewed-list {
+	border: 5px solid #7fad39; 
+	height: calc(100vh - 90px);
+	overflow-y: auto;
+}
+   
+#recently-viewed-list li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	justify-content:center;
+}
+
+#recently-viewed-list li div {
+	display: block;
+	margin-top: 10px;  
+}
+
+#recently-viewed-list .product-image {
+	width: 200px;
+	height: 200px;
+	border-bottom: 5px solid #7fad39; 
+}
