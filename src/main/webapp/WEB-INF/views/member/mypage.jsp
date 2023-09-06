@@ -489,7 +489,7 @@
                                           </c:if>
                                           <div class="content">${row.one_board_content}</div>
                                        </div>
-                                        <div style="margin: 1px;">
+                                        <div style="margin: 1px;"> 
 									        <button type="button" class="edit-button" onclick="openEditPopup('${row.one_board_num}');">수정하기</button>
 									        <button type="button" class="edit-button" onclick="deleteBoard(${row.one_board_num});">삭제하기</button>
 									    </div>
