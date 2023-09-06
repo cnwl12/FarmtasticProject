@@ -30,14 +30,13 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/sb-admin-2.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerquestion.css">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 						
 	<!-- 사이드바 줄어든거 되돌리기 -->
-	<style type="text/css">
+<style type="text/css">
 	 html {font-size: 1rem !important;}
 	 body {font-size: 1rem !important;}
 	</style>
@@ -83,35 +82,31 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- 메인 컨텐츠 시작 -->
-			<div id="content">
+			<div id="content2">
 
 				<jsp:include page="../inc/top.jsp"></jsp:include>
 
                 <!-- 페이지 컨텐츠 시작 -->
                 <div class="container-fluid">
+                
+                	 <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
+							<h3 class="m-0 font-weight-bold text-primary">챗봇 문의관리</h3>
+						</div>
 
-                    <!-- 페이지 상단 시작 -->
-<!--                     <h1 class="h3 mb-2 text-gray-800">문의관리</h1> -->
-<!--                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. -->
-<!--                         For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
-                    <!-- 페이지 상단 끝 -->
-
-
-					<!-- 고객문의관리 시작 -->
 						<div class="card shadow mb-4">
 	                        <div class="card-header py-3">
-	                            <h6 class="m-0 font-weight-bold text-primary">고객문의</h6>
+	                            <h6 class="m-0 font-weight-bold text-primary">챗봇문의</h6>
 	                        </div>
 							<div class="card-body">
 								<div class="table-responsive">
 									<form id="searchForm" name="searchForm">
 										<table class="custom-table" id="custom-none">
-											<caption>고객문의</caption>
+											<caption>챗봇문의</caption>
 											<colgroup>
-												<col width="16%">
-											    <col width="12%">
-											    <col width="12%">
-											    <col width="15%">
+												<col width="15%">
+											    <col width="10%">
+											    <col width="10%">
+											    <col width="10%">
 											    <col width="15%">
 											    <col width="15%">
 											    <col width="15%">
@@ -125,16 +120,14 @@
 									<div class="_qna_list_container scrl uio_grid"
 										style="width: 100%; height: 377px;">
 										<div class="_flexible_area flexible_area" style="display: block;">
-											<div style="height: 35px;">
+											<div style="height: 35px; text-align: center;">
 												<table class="table table-bordered">
 												  <colgroup>
-												    <col style="width: 150px;">
-												    <col style="width: 120px;">
-												    <col style="width: 100px;">
-												    <col style="width: 500px;">
-												    <col style="width: 400px;">
-												    <col style="width: 150px;">
-												    <col style="width: 150px;">
+												    <col style="width: 10%;">
+												    <col style="width: 8%;">
+												    <col style="width: 8%;">
+												    <col style="width: 40%;">
+												    <col style="width: 45%;">
 												  </colgroup>
 												  <tbody>
 												    <tr>
@@ -158,13 +151,13 @@
 										<div class="hd_wrap">
 										<input type="hidden" id="admin_id" value="${sessionScope.admin_id}">
 											<h3 class="hd3">
-												고객문의 내용 보기
+												챗봇문의 내용 보기
 											</h3>
 										</div>
 										<div class="tbl_type">
 				
 											<table>
-												<caption>고객문의 내용 보기</caption>
+												<caption>챗봇문의 내용 보기</caption>
 												<colgroup>
 													<col width="25%">
 													<col width="25%">
@@ -201,7 +194,7 @@
 				
 									<div class="ct_box fr">
 										<div class="hd_wrap">
-											<h3 class="hd3 fl">판매자 답변 처리</h3>
+											<h3 class="hd3 fl">관리자 답변 처리</h3>
 											
 										</div>
 										<div class="tbl_type">
@@ -255,9 +248,8 @@
 				
 							</div>
 						</div>
-					<!-- 고객문의관리 끝 -->
+					</div>
 
-			</div>
 				<!-- 페이지 컨텐츠 끝 -->
 				
 		</div>
