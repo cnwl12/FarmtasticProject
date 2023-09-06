@@ -154,7 +154,7 @@ input#file-upload-button {
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
-    <section class="product-details spad" data-item-num2="${item.item_num}" 
+    <section class="product-details spad" 
 										     data-item-name="${item.item_name}" 
 										     data-item-price="${item.item_price}" 
 										     data-item-mainImg="${item.item_mainImg}">
@@ -865,7 +865,7 @@ input#file-upload-button {
     <!-- 선진) 수정 -->
     <script>
     $(document).ready(function() {
-    	var itemNum = $('.product-details').data('itemNum2');
+    	var itemNum = $('.item_wrap').data("item_num")
     	var itemName = $('.product-details').data('itemName');
     	var itemPrice = $('.product-details').data('itemPrice');
     	var itemMainImg = $('.product-details').data('itemMainimg');
