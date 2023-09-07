@@ -199,13 +199,15 @@
         document.getElementById('changeSellerStatus').submit();
     });
     document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType').value = 'reject';
-        document.getElementById('changeSellerStatus').submit();
-    });
-    
-    document.getElementById('rejectSeller').addEventListener('click', function () {
-        document.getElementById('actionType2').value = 'reject';
-        document.getElementById('changeSellerStatus2').submit();
+        const isAnyUnapprovedChecked = $('.sellerRejectbox:checked').length > 0;
+
+        if (isAnyUnapprovedChecked) {
+            document.getElementById('actionType').value = 'reject';
+            document.getElementById('changeSellerStatus').submit();
+        } else {
+            document.getElementById('actionType2').value = 'reject';
+            document.getElementById('changeSellerStatus2').submit();
+        }
     });
     
    

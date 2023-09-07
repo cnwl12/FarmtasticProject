@@ -181,7 +181,6 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/demo/datatables-demo.js"></script>
 	
-	<!-- changeSellerStatus -->
 <script>	
 function showDetail(sellerNum) {
     // 회원 정보 조회 API URL
