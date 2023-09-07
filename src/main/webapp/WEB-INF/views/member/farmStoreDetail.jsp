@@ -862,7 +862,6 @@ input#file-upload-button {
 		}
 	</script>
 	
-    <!-- 선진) 수정 -->
     <script>
     $(document).ready(function() {
     	var itemNum = $('.item_wrap').data("item_num")
@@ -873,20 +872,11 @@ input#file-upload-button {
     	// 현재 보고 있는 상품 정보로 onItemClicked 함수 호출
     	onItemClicked(itemNum, itemName, itemPrice, itemMainImg);
    	 
-   	    // 페이지 로드 완료 후 최근 본 상품 목록 출력
-<%--    	    showViewedItemList('<%= session.getAttribute("member_num") %>'); --%>
-   	    
-   	 	console.log("테스트)지금 보는 아이템정보 : " + itemNum +", "+ itemName +", "+ itemPrice +", "+ itemMainImg);
-    	});
-    	
-
-    	// 가상의 로그인 사용자 ID 가져오기 함수
+    	// 로그인한 회원의 멤버넘 가져옴
     	function getLoggedInMemberNum() { 
-    	   console.log("테스트)멤버정보: " + '<%= session.getAttribute("member_num") %>'); 
     	   return '<%= session.getAttribute("member_num") %>'; 
     	}	    	
     	
     </script>		
 </body>
-
 </html>
