@@ -208,7 +208,7 @@
             document.getElementById('actionType2').value = 'reject';
             document.getElementById('changeSellerStatus2').submit();
         }
-    });
+    }); 
     
    
     // Check All checkboxes
