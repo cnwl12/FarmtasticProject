@@ -877,12 +877,13 @@ input#file-upload-button {
 
     	// 현재 보고 있는 상품 정보로 onItemClicked 함수 호출
     	onItemClicked(itemNum, itemName, itemPrice, itemMainImg);
-   	 
-    	// 로그인한 회원의 멤버넘 가져옴
-    	function getLoggedInMemberNum() { 
-    	   return '<%= session.getAttribute("member_num") %>'; 
-    	}	    	
+    });
+    
+   	// 로그인한 회원의 멤버넘 가져옴
+   	function getLoggedInMemberNum() { 
+		return '<%= session.getAttribute("member_num") %>'; 
+   	}	    	
+    </script>	
     	
-    </script>		
 </body>
 </html>
