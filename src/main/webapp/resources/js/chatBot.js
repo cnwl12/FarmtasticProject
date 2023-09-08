@@ -61,7 +61,7 @@
 												 }
 	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
-	                                        	    const submitButton = $('<button>').text('제출하기').click(function() {
+	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
 	                                        	        var query = $("#queryText").val();
 	                                        	        var memberNum = $('input[name="member_num"]').val();
@@ -184,7 +184,7 @@
 												 }
 	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
-	                                        	    const submitButton = $('<button>').text('제출하기').click(function() {
+	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
 	                                        	        var query = $("#queryText").val();
 	                                        	        var memberNum = $('input[name="member_num"]').val();
