@@ -572,7 +572,13 @@ input#file-upload-button {
                     location.reload();
                 },
                 error: function(xhr, textStatus, errorThrown) {
-                    alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+                    if (xhr.status === 409) { // Conflict
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message); // 서버에서 보낸 에러 메시지 출력
+                    } else {
+                        alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+                    }
+                    
                 }
             });
         } else {

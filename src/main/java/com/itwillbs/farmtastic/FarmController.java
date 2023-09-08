@@ -918,7 +918,7 @@ public class FarmController { // 소비자 (컨트롤러)
 		    for(MemberDTO order : order_num) {
 		        boolean hasReviewed = memberService.hasReviewForOrderItem(order.getOrder_num(), item_num);
 		        if(hasReviewed) {
-		            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            return ResponseEntity.status(HttpStatus.CONFLICT).contentType(MediaType.APPLICATION_JSON_UTF8)
 		                    .body("{\"status\": \"failure\", \"message\": \"해당 주문 항목에 대해 이미 리뷰가 등록되어있습니다.\"}");
 		        }
 		    }
