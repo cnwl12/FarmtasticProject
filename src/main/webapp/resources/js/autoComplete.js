@@ -60,6 +60,12 @@ window.onload = function(){
 	      `
 	    )
 	    .join("");
+		// 자동완성 항목들에 클릭 이벤트 리스너 추가
+	    Array.from($autoComplete.children).forEach((child, index) => {
+	        child.addEventListener('click', () => {
+	            $searchQuery.value = data[index];
+	            $autoComplete.innerHTML = '';
+	        });
+	    });
 	};
-
 }
