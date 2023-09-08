@@ -47,373 +47,342 @@
 
             <!-- 메인 컨텐츠 시작 -->
             <div id="content">
-
                 <jsp:include page="./inc/top.jsp"></jsp:include>
                 
                 <!-- 페이지 컨텐츠 시작 -->
-                <div class="container-fluid">
-                    <div class="row">
-                  <div class="col-xl-3 col-md-6 mb-4">
-                      <div class="card border-left-primary shadow h-100 py-2">
-                          <div class="card-body">
-                              <div class="row no-gutters align-items-center">
-                                  <div class="col mr-2">
-                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 15px;">당월 매출액</div>
-                                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                          <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
-                                              <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales)}" type="number" pattern="#,##0"/>원
-                                          </c:forEach>
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <i class="fa-2x text-gray-300"> 
-                                 <% int currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
-                                 </i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6 mb-4">
-                      <div class="card border-left-success shadow h-100 py-2">
-                          <div class="card-body">
-                              <div class="row no-gutters align-items-center">
-                                  <div class="col mr-2">
-                                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 15px;">당월 수수료</div>
-                                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                          <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
-                                              <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales * 0.05)}" type="number" pattern="#,##0"/>원
-                                          </c:forEach>
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <i class="fa-2x text-gray-300"> 
-                                 <% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
-                                 </i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                     <div class="col-xl-3 col-md-6 mb-4">
-                         <div class="card border-left-info shadow h-100 py-2">
-                             <div class="card-body">
-                                 <div class="row no-gutters align-items-center">
-                                     <div class="col mr-2">
-                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 15px;">당월 정산액</div>
-                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                             <c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
-                                                 <fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales - (sales.order_mm_totalSales * 0.05))}" type="number" pattern="#,##0"/>원
-                                             </c:forEach>
-                                         </div>
-                                     </div>
-                                     <div class="col-auto">
-                                         <i class="fa-2x text-gray-300"> 
-                                    <% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %>
-                                    </i>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 15px;">당일 주문건</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <c:out value="${todayOrders}" />건
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                      <i class="fa-2x text-gray-300"> 
-                                 <%= java.time.LocalDate.now().getMonthValue() + "월 " + java.time.LocalDate.now().getDayOfMonth() + "일" %>
-                                 </i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+				<div class="container-fluid">
+				
+					<div class="row">
+						<!-- 당월 매출액 카드 시작 -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-primary shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 15px;">당월 매출액</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+													<fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales)}" type="number" pattern="#,##0"/>원
+												</c:forEach>
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fa-2x text-gray-300"><% int currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 당월 매출액 카드 끝 -->
+						<!-- 당월 수수료 카드 시작 -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 15px;">당월 수수료</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+													<fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales * 0.05)}" type="number" pattern="#,##0"/>원
+												</c:forEach>
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fa-2x text-gray-300"><% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 당월 수수료 카드 끝 -->
+						<!-- 당월 정산액 카드 시작 -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 15px;">당월 정산액</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<c:forEach items="${MonthlySales}" var="sales" begin="11" end="11">
+													<fmt:formatNumber value="${Math.floor(sales.order_mm_totalSales - (sales.order_mm_totalSales * 0.05))}" type="number" pattern="#,##0"/>원
+												</c:forEach>
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fa-2x text-gray-300"><% currentMonth = java.time.LocalDate.now().getMonthValue(); out.print(currentMonth + "월"); %></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 당월 정산액 카드 끝 -->
+						<!-- 당일 주문건 카드 시작 -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-warning shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 15px;">당일 주문건</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<c:out value="${todayOrders}" />건
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fa-2x text-gray-300"><%= java.time.LocalDate.now().getMonthValue() + "월 " + java.time.LocalDate.now().getDayOfMonth() + "일" %></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 당일 주문건 카드 끝 -->
+					</div>
 
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">일별 매출 차트</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                           
-		                           <!-- 선진) 매출 그래프를 표시할 캔버스 요소 -->               
-		                           <div>
-		                             <canvas id="getDailySalesChart" width="1000" height="300"></canvas>
-		                           </div>
-                           
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">품목별 매출</h6>
-                                </div>
-
-                        <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2" style="position: relative; text-align: center;">
-                                        <canvas id="getMonthlyItemsChart"></canvas>
-                                        <i id="noDataMessage" class="fa-2x text-gray-300" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; font-size: 20px; white-space: nowrap;">품목별 매출 정보가 없습니다.</i>                                   
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                       <span class="mr-2"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   <!-- 차트편집 -->
+					<div class="row">
+						<!-- 일별 매출 차트 -->
+						<div class="col-xl-8 col-lg-7">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">일별 매출 차트</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-area">
+									<!-- 선진) 매출 차트를 표시할 캔버스 요소 -->               
+										<div>
+											<canvas id="getDailySalesChart" width="1000" height="300"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 품목별 매출 차트 -->
+						<div class="col-xl-4 col-lg-5">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">품목별 매출 차트</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<!-- 선진) 매출 차트를 표시할 캔버스 요소 -->
+									<div class="chart-pie pt-4 pb-2" style="position: relative; text-align: center;">
+										<canvas id="getMonthlyItemsChart"></canvas>
+										<i id="noDataMessage" class="fa-2x text-gray-300" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; font-size: 20px; white-space: nowrap;">품목별 매출 정보가 없습니다.</i>                                   
+									</div>
+									<div class="mt-4 text-center small">
+										<span class="mr-2"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
                     
                     <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-                  <input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
-
-                            <!-- 리뷰관리 시작 -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary" style="text-align: center;">오늘의 리뷰</h6>
+					<div class="row">
+						<!-- 리뷰 영역 시작 -->
+						<div class="col-lg-6 mb-4"> 
+						<input type="hidden" id="seller_num" value="${sessionScope.seller_num}">
+                            <div class="card shadow mb-4"> 
+                            	<!-- 리뷰 영역 제목 -->
+                            	<div class="card-header py-3">
+                            		<h6 class="m-0 font-weight-bold text-primary" style="text-align: center;">오늘의 리뷰</h6>
+                            	</div>
+                                <div class="card-body"> 
+									<div class="table-responsive" style="height: 378px;">
+										<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
+											<div class="_flexible_area flexible_area" style="display: block;">
+												<div style="height: 35px;">
+													<div>                                    
+														<table class="table table-bordered" style="text-align: center;">
+															<colgroup>
+																<col style="width: 300px;">
+																<col style="width: 100px;">
+																<col style="width: 250px;">
+																<col style="width: 150px;">
+																<col style="width: 250px;">
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="custom-th">상품명</th>
+																	<th class="custom-th">별점</th>
+																	<th class="custom-th">작성자</th>
+																	<th class="custom-th">제목</th>
+																	<th class="custom-th">작성일</th>
+																</tr>
+															</thead>
+															<tbody>
+																<div class="_resize_handle_container resize_handle_container">
+																	<c:forEach var="row" items="${buyreview}">
+																	<tr>                                                  
+																		<td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${row.item_name}</td>
+																		<td id="review-star">${row.review_star}</td>
+																		<td>${row.member_name}</td>
+																		<td><a onclick="reviewPop(${row.review_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${row.review_title}</a></td>
+																		<td>${row.review_day}</td>
+																	</tr>
+																	</c:forEach>
+																</div>
+															</tbody>
+														</table>
+													</div>
+													<!-- 보여줄 리뷰 없으면 -->
+													<c:if test="${empty buyreview}">
+														<div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+															<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
+															<p style="margin: 0;">오늘 등록된 리뷰가 없습니다.</p>
+														</div>
+													</c:if>
+												</div>                                    
+											</div>
+										</div>
+									</div>
+									<!-- 리뷰 관리로 이동 -->                        
+									<div style="text-align:center;">
+										<a href="${pageContext.request.contextPath}/reviewMng" style="color:#666;border-color:#dbdde2!important;border :1px solid;display:block;padding :10px;text-align:center;text-decoration:none;line-height :1;background:none;">리뷰 관리</a>
+									</div>                           
                                 </div>
-                                <div class="card-body">
-                                <!-- 리뷰관리 가져옴 시작-->
-                                   <div class="table-responsive" style="height: 378px;">
-                              <div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
-                                 <div class="_flexible_area flexible_area" style="display: block;">
-                                    <div style="height: 35px;">
-                                    <!-- 리뷰관리 편집 시작 -->
-                                       <table class="table table-bordered" style="text-align: center;">
-                                         <colgroup>
-                                           <col style="width: 300px;">
-                                           <col style="width: 100px;">
-                                           <col style="width: 250px;">
-                                           <col style="width: 150px;">
-                                           <col style="width: 250px;">
-                                         </colgroup>
-                                         <thead>
-                                         <tr>
-                                         <th class="custom-th">상품명</th>
-                                         <th class="custom-th">별점</th>
-                                         <th class="custom-th">작성자</th>
-                                         <th class="custom-th">제목</th>
-                                         <th class="custom-th">작성일</th>
-                                         </tr>
-                                         </thead>
-                                       <tbody>
-                                       
-                                        <div class="_resize_handle_container resize_handle_container">
-                                       <c:forEach var="row" items="${buyreview}">
-                                                 <tr>                                                  
-                                                  <td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                   ${row.item_name}
-                                                  </td>
-                                                   <td id="review-star">${row.review_star}</td>
-                                                   <td>${row.member_name}</td>
-                                                   <td><a onclick="reviewPop(${row.review_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${row.review_title}</a></td>
-                                                   <td>${row.review_day}</td>
-                                                 </tr>
-                                               </c:forEach>
-                                                </div>
-                                             </tbody>
-                                          </table>
-                                       </div>
-                                    <!-- 목록 없으면 -->
-                                    <div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
-                                    <c:if test="${empty buyreview}">
-                                       <i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
-                                       <p style="margin: 0;">오늘 등록된 리뷰가 없습니다.</p>
-                                    </c:if>
-                                    </div>
-                                                                           
-                                    </div>
-                              </div>
-                           </div>
-                           <!-- 리뷰관리에서 가져옴 끝 -->
-                           <!-- 리뷰 관리로 이동 -->                        
-                           <div style="text-align:center;">
-                               <a href="${pageContext.request.contextPath}/reviewMng" style="color:#666;border-color:#dbdde2!important;border :1px solid;display:block;padding :10px;text-align:center;text-decoration:none;line-height :1;background:none;">
-                                   리뷰 관리
-                               </a>
-                           </div>                           
-                                </div>
-                            </div>
-                        </div>
+                            </div> 
+						</div>
+						<!-- 리뷰 영역 끝 -->
                         
-                        <div class="col-lg-6 mb-4">
-                            <!-- 문의관리 시작 -->
-                            <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                           <h6 class="m-0 font-weight-bold text-primary" style="display: flex; align-items: center;">
-                               <span class="toggle-table on" id="todayQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" data-target="today">오늘의 문의</span>
-                               <span class="toggle-table on" id="unrepQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-left: 10px;" data-target="unrep">미답변 문의</span>
-                           </h6>
-                        </div>
+                        <!-- 문의 영역 시작 -->
+						<div class="col-lg-6 mb-4">
+							<div class="card shadow mb-4">
+								<!-- 문의 영역 제목 -->
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary" style="display: flex; align-items: center;">
+										<span class="toggle-table on" id="todayQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-right: 10px; border-right: 1px solid #ccc;" data-target="today">오늘의 문의</span>
+										<span class="toggle-table on" id="unrepQue" style="cursor: pointer; flex: 1; text-align: center; font-weight: bold; padding-left: 10px;" data-target="unrep">미답변 문의</span>
+									</h6>
+								</div>
                                 <div class="card-body">
-                                <!-- 문의관리에서 가져옴1-->
-                                   <div class="table-responsive" id="divTable1" style="height: 378px;">
-                           <div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
-                              <div class="_flexible_area flexible_area" style="display: block;">
-                                 <div style="height: 35px;">
-                                 <div>
-                                    <table class="table table-bordered" id="date-table toggle1" style="text-align: center;">
-                                      <colgroup>
-                                       <col style="width: 250px;">
-                                       <col style="width: 250px;">
-                                       <col style="width: 150px;">
-                                       <col style="width: 300px;">
-                                       <col style="width: 300px;">
-                                      </colgroup>
-                                      <thead>
-                                       <tr>
-                                       <th class="custom-th">처리상태</th>
-                                       <th class="custom-th">문의유형</th>
-                                       <th class="custom-th">제목</th>
-                                       <th class="custom-th">상품명</th>
-                                       <th class="custom-th">질문자</th>
-                                       </tr>
-                                      </thead>
-                                      <tbody>
+                                	<!-- 토글1 시작 -->
+                                	<div class="table-responsive" id="divTable1" style="height: 378px;"> 
+										<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
+											<div class="_flexible_area flexible_area" style="display: block;">
+												<div style="height: 35px;">
+													<div>
+														<!-- 오늘의 문의 테이블 시작 -->
+														<table class="table table-bordered" id="date-table toggle1" style="text-align: center;">
+															<colgroup>
+																<col style="width: 250px;">
+																<col style="width: 250px;">
+																<col style="width: 150px;">
+																<col style="width: 300px;">
+																<col style="width: 300px;">
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="custom-th">처리상태</th>
+																	<th class="custom-th">문의유형</th>
+																	<th class="custom-th">제목</th>
+																	<th class="custom-th">상품명</th>
+																	<th class="custom-th">질문자</th>
+																</tr>
+															</thead>
+															<tbody>
+																 <div class="_resize_handle_container resize_handle_container">
+																	<c:forEach var="today" items="${todayOneboard}">
+																		<tr>
+																			<td>${today.one_board_repYn}</td>  
+																			<td>${today.one_board_type}</td>
+																			<td><a onclick="boardPop(${today.one_board_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${today.one_board_title}</a></td>
+																			<td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${today.item_name}</td>
+																			<td>${today.member_name}</td>
+																		</tr>
+																	</c:forEach>                                    
+																</div>
+															</tbody>
+														</table>
+														<!-- 오늘의 문의 테이블 끝 -->                                    
+													</div>
+													<!-- 보여줄 문의 없으면 -->
+													<c:if test="${empty todayOneboard}">
+														<div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+															<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
+															<p style="margin: 0;">오늘 등록된 문의가 없습니다.</p>
+														</div>
+													</c:if>                                 
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 토글1 끝 -->
+									<!-- 토글2 시작 -->
+									<div class="table-responsive" id="divTable2" style="height: 378px;">   <!-- 9 -->
+										<div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
+											<div class="_flexible_area flexible_area" style="display: block;">
+												<div style="height: 35px;">
+													<div>
+														<!-- 미답변 문의 테이블 시작 -->
+														<table class="table table-bordered" id="date-table toggle2" style="text-align: center;">
+															<colgroup>
+																<col style="width: 250px;">
+																<col style="width: 250px;">
+																<col style="width: 150px;">
+																<col style="width: 300px;">
+																<col style="width: 300px;">
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="custom-th">접수일</th>
+																	<th class="custom-th">문의유형</th>
+																	<th class="custom-th">제목</th>
+																	<th class="custom-th">상품명</th>
+																	<th class="custom-th">질문자</th>
+																</tr>
+															</thead>
+															<tbody>
+																<div class="_resize_handle_container resize_handle_container">
+																	<c:forEach var="unrep" items="${unrepboard}">
+																		<tr>  
+																			<td>${unrep.one_board_day}</td>
+																			<td>${unrep.one_board_type}</td>
+																			<td><a onclick="boardPop(${unrep.one_board_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${unrep.one_board_title}</a></td>
+																			<td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${unrep.item_name}</td>
+																			<td>${unrep.member_name}</td>
+																		</tr>
+																	</c:forEach>                                    
+																</div>
+															</tbody>
+														</table>
+														<!-- 미답변 문의 테이블 끝 -->                               
+													</div>
+													<!-- 보여줄 없으면 -->
+													<c:if test="${empty unrepboard}">
+														<div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
+															<i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
+															<p style="margin: 0;">미답변 문의가 없습니다.</p>
+														</div>
+													</c:if>
+												</div>
+											<!-- 문의관리 편집2 끝 -->
+											</div>
+										</div>
+									</div>     
+									<!-- 문의 관리로 이동 -->
+									<div style="text-align:center;">  
+									<a href="${pageContext.request.contextPath}/questionMng" style="color:#666;border-color:#dbdde2!important;border :1px solid;display:block;padding :10px;text-align:center;text-decoration:none;line-height :1;background:none;">문의 관리</a>
+									</div> 
+								</div> 
+							</div> 
+						</div> 
+						<!-- 문의 영역 끝 -->
+					</div>
+					 
+				</div>
+				<!-- 페이지 컨텐츠 끝 -->
+			</div>
+			<!-- 메인 컨텐츠 끝 -->
 
-                                       <div class="_resize_handle_container resize_handle_container">
-                                            <c:forEach var="today" items="${todayOneboard}">
-                                              <tr>
-                                                <td>${today.one_board_repYn}</td>  
-                                                <td>${today.one_board_type}</td>
-                                                <td><a onclick="boardPop(${today.one_board_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                ${today.one_board_title}
-                                                </a>
-                                                </td>
-                                               <td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                               ${today.item_name}
-                                               </td>
-                                                <td>${today.member_name}</td>
-                                              </tr>
-                                            </c:forEach>                                    
-                                       </div>
-                                    
-                                      </tbody>
-                                    </table>                                    
-                                 </div>
-                                 <!-- 목록 없으면 -->
-                                 <div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
-                                 <c:if test="${empty todayOneboard}">
-                                    <i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
-                                    <p style="margin: 0;">오늘 등록된 문의가 없습니다.</p>
-                                 </c:if>
-                                 </div>
-                                 </div>
-                                 <!-- 문의관리 편집1 끝 -->
-                                      </div>
-                                  </div>
-                              </div>
-                              
-                                <!-- 문의관리에서 가져옴2-->
-                                   <div class="table-responsive" id="divTable2" style="height: 378px;">
-                           <div class="_qna_list_container scrl uio_grid" style="width: 100%; height: 377px;">
-                              <div class="_flexible_area flexible_area" style="display: block;">
-                                 <div style="height: 35px;">
-                                 <!-- 문의관리 편집2 시작 -->
-                                 <div>
-                                    <table class="table table-bordered" id="date-table toggle2" style="text-align: center;">
-                                      <colgroup>
-                                       <col style="width: 250px;">
-                                       <col style="width: 250px;">
-                                       <col style="width: 150px;">
-                                       <col style="width: 300px;">
-                                       <col style="width: 300px;">
-                                      </colgroup>
-                                      <thead>
-                                       <tr>
-                                       <th class="custom-th">접수일</th>
-                                       <th class="custom-th">문의유형</th>
-                                       <th class="custom-th">제목</th>
-                                       <th class="custom-th">상품명</th>
-                                       <th class="custom-th">질문자</th>
-                                       </tr>
-                                      </thead>
-                                      <tbody>
-
-                                       <div class="_resize_handle_container resize_handle_container">
-                                            <c:forEach var="unrep" items="${unrepboard}">
-                                              <tr>  
-                                                <td>${unrep.one_board_day}</td>
-                                                <td>${unrep.one_board_type}</td>
-                                               <td>
-                                               <a onclick="boardPop(${unrep.one_board_num})" style="display: inline-block; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                               ${unrep.one_board_title}
-                                               </a>
-                                               </td>
-                                             <td style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                 ${unrep.item_name}
-                                             </td>
-                                                <td>${unrep.member_name}</td>
-                                              </tr>
-                                            </c:forEach>                                    
-                                       </div>
-                                      </tbody>
-                                    </table>
-                                                                        
-                                 </div>
-                                 <!-- 목록 없으면 -->
-                                 <div style="text-align: center; padding-top: 50%; transform: translateY(-50%);">
-                                 <c:if test="${empty unrepboard}">
-                                    <i class="far fa-comment-dots" style="font-size: 70px;"></i><br>
-                                    <p style="margin: 0;">미답변 문의가 없습니다.</p>
-                                 </c:if>
-                                 </div>
-                                 </div>
-                                 <!-- 문의관리 편집2 끝 -->
-                                      </div>
-                                  </div>
-                              </div>                              
-                              <!-- 문의 관리로 이동 -->
-                        <div style="text-align:center;">
-                           <a href="${pageContext.request.contextPath}/questionMng" style="color:#666;border-color:#dbdde2!important;border :1px solid;display:block;padding :10px;text-align:center;text-decoration:none;line-height :1;background:none;">
-                           문의 관리
-                           </a>
-                        </div>
-                          </div>
-                  </div>
-                  <!-- 페이지 컨텐츠 끝 -->
-            
-         </div>
-         <!-- 메인 컨텐츠 끝 -->
-      </div>
-      </div>
-      </div>
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2021</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
