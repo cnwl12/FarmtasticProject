@@ -41,12 +41,6 @@ $(document).ready(function() {
 
 
     $('#close-button').click(function() { // X버튼 클릭 시 창 꺼짐
-        $('#recently-viewed-container').animate({ right:'-15vw' }, 'fast');
+      	location.reload();
     });
-    
-	$(document).click(function(e) { // 클릭한 곳이 최근 본 상품 목록 창이 아니거나 그 내부 요소가 아닐 경우 창 꺼짐(X버튼 외 클릭해도 창 꺼지도록)
-    if (!$(e.target).is("#recently-viewed-container") && $("#recently-viewed-container").has(e.target).length === 0) {
-        $('#recently-viewed-container').animate({ right:'-15vw' }, 'fast');
-    }
-	});
 });
