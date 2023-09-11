@@ -148,13 +148,20 @@ body {
 }
 
 .submit-button {
-    position: relative;
-    background-color: antiquewhite;
-    color: black;
-    left: 145px;
+	position: relative;
+    background-color: #4CAF50;
+    color: aliceblue;
+    left: 259px;
+    bottom: 57px;
+    height: 51px;
+    border: none;
+    border-radius: 8.5px;
+}
 }
 
 #queryText {
-	background-color: blanchedalmond;
-	padding: 0px 59px;
+    background-color: whitesmoke;
+    padding: 0px 1px;
+    width: 260px;
+    border-radius: 8.5px;
 }

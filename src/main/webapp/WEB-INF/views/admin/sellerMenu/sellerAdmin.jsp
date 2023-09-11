@@ -51,8 +51,12 @@
 
                    <div class="card-header py-3" style="border-bottom: none; margin-left: -10px;">
 							<h3 class="m-0 font-weight-bold text-primary">승인/미승인 업체관리</h3>
-						</div>
-
+					</div>
+					
+					  <c:if test="${not empty message}">
+        				<div class="alert alert-info">${message}</div>
+    				  </c:if>
+					
                     <div class="card shadow mb-4" id="sellerAdmin">
                       <div style="margin: 10px 0px 5px 10px;">
                     	<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="recoSeller" type="submit">업체 승인</button>

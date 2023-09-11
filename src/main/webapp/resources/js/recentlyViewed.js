@@ -24,7 +24,7 @@ $(document).ready(function() {
 
                 productListHTML += '<li style="margin-right: 0;"><div><a href="farmStoreDetail?item_num=' + parsedViewedProduct[i].num + '"><img class="product-image" src="' + parsedViewedProduct[i].mainImg + '" /></a></div>' 
                                 + '<div>' + parsedViewedProduct[i].name + '&nbsp;&nbsp;'
-                                + '<b>' + parsedViewedProduct[i].price + '원</b></div>'
+                                + '<b>' + parsedViewedProduct[i].price + '</b></div>'
                                 + '<div><button class="btn btn-primary" style="background-color: #7fad39; border-color: #7fad39;"><a href="#" class="wishlist-btn" id="memberNum" data-member-num="' + member_num + '" data-item-num2="' + parsedViewedProduct[i].num + '"><i class="fa fa-heart-o" style="margin-top: 0; margin-left: 0; font-size: medium;"></i></a></button>&nbsp;&nbsp;'
                                 + '<button class="btn btn-primary" style="background-color: #7fad39; border-color: #7fad39;"><a onclick="insertCart(' + parsedViewedProduct[i].num + ');"><i class="fa fa-shopping-cart"></i></a></button></div></li><br>';
             }
@@ -41,12 +41,6 @@ $(document).ready(function() {
 
 
     $('#close-button').click(function() { // X버튼 클릭 시 창 꺼짐
-        $('#recently-viewed-container').animate({ right:'-15vw' }, 'fast');
+      	location.reload();
     });
-    
-	$(document).click(function(e) { // 클릭한 곳이 최근 본 상품 목록 창이 아니거나 그 내부 요소가 아닐 경우 창 꺼짐(X버튼 외 클릭해도 창 꺼지도록)
-    if (!$(e.target).is("#recently-viewed-container") && $("#recently-viewed-container").has(e.target).length === 0) {
-        $('#recently-viewed-container').animate({ right:'-15vw' }, 'fast');
-    }
-	});
 });
