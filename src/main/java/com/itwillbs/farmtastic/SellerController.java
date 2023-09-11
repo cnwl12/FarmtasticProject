@@ -180,7 +180,11 @@ public class SellerController {
 	    if (sellerDTO2 != null && sellerDTO2.getSeller_pass().equals(seller_pass)) {
 	        // memberDTO 객체에 입력된 값들을 설정합니다.
 	    	sellerDTO.setSeller_id(seller_id);
-	        sellerDTO.setSeller_pass(seller_pass2);
+	    	 if (seller_pass2 != null && !seller_pass2.isEmpty()) {
+	             sellerDTO.setSeller_pass(seller_pass2);
+	         } else {
+	             sellerDTO.setSeller_pass(seller_pass);
+	         }
 	        sellerDTO.setSeller_phone(seller_phone);
 	        sellerDTO.setSeller_email(seller_email);
 	        sellerDTO.setSeller_bank(seller_bank);
