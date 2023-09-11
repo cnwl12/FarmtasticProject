@@ -70,79 +70,77 @@
 
 </select>
 <!--관리자 월매출 차트-->
- <select id="selectSalesData" resultType="map">
-    SELECT
-    t.monthly,
-    t.month,
-    FORMAT(t.monthly_sales, 0) as month_sales,
-    FORMAT(FLOOR(t.monthly_sales * 0.05), 0) as month_fee,
-    FLOOR(t.monthly_sales * 0.05) as month_fee2,
-    FORMAT(t.total, 0) as total_sales,
-    FORMAT(FLOOR(t.total * 0.05), 0) as total_fee,
-	FORMAT((t.total - FLOOR(t.total * 0.05)), 0) as total_settlement
-    
-    
-FROM (
-    SELECT
-        DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly,
-        CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월') as month ,
-        SUM(od.item_cnt * i.item_price) as monthly_sales,
-        (SELECT SUM(item_cnt * item_price)
-         FROM order_detail od2
-         LEFT JOIN orders o2 ON od2.order_num = o2.order_num
-         LEFT JOIN item i2 ON od2.item_num = i2.item_num
-         WHERE o2.order_cancel = 'N') as total
-    FROM
-        order_detail od
-    LEFT JOIN orders o ON od.order_num = o.order_num
-    LEFT JOIN item i ON od.item_num = i.item_num
-    WHERE o.order_cancel = 'N'
-    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m'),
-			CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월')
-) as t;
+	 <select id="selectSalesData" resultType="map">
+	    SELECT
+	    t.monthly,
+	    t.month,
+	    FORMAT(t.monthly_sales, 0) as month_sales,
+	    FORMAT(FLOOR(t.monthly_sales * 0.05), 0) as month_fee,
+	    FLOOR(t.monthly_sales * 0.05) as month_fee2,
+	    FORMAT(t.total, 0) as total_sales,
+	    FORMAT(FLOOR(t.total * 0.05), 0) as total_fee,
+		FORMAT((t.total - FLOOR(t.total * 0.05)), 0) as total_settlement
+	    
+	    
+	FROM (
+	    SELECT
+	        DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m') as monthly,
+	        CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월') as month ,
+	        SUM(od.item_cnt * i.item_price) as monthly_sales,
+	        (SELECT SUM(item_cnt * item_price)
+	         FROM order_detail od2
+	         LEFT JOIN orders o2 ON od2.order_num = o2.order_num
+	         LEFT JOIN item i2 ON od2.item_num = i2.item_num
+	         WHERE o2.order_cancel = 'N') as total
+	    FROM
+	        order_detail od
+	    LEFT JOIN orders o ON od.order_num = o.order_num
+	    LEFT JOIN item i ON od.item_num = i.item_num
+	    WHERE o.order_cancel = 'N'
+	    GROUP BY DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%Y-%m'),
+				CONCAT(DATE_FORMAT(STR_TO_DATE(SUBSTRING(od.order_num, 1, 8), '%Y%m%d'), '%c'), '월')
+	) as t;
+	
+	</select>
 
-</select>
+	 <select id="orderCount" resultType="map">
+	select 
+	distinct(SELECT COUNT(*) FROM orders WHERE SUBSTRING(order_num, 1, 8) =  #{today}) as count
+	from orders;
+	</select>
 
- <select id="orderCount" resultType="map">
-select 
-distinct(SELECT COUNT(*) FROM orders WHERE SUBSTRING(order_num, 1, 8) =  #{today}) as count
-from orders;
-</select>
-
- <select id="pieChart" resultType="map">
-SELECT 
-	   i.seller_type, 
-       ct.type_name,
-	   SUM(od.item_cnt * i.item_price) AS total_amount
-FROM order_detail od
-LEFT JOIN item i
-ON od.item_num = i.item_num
-LEFT JOIN category_type ct
-ON i.seller_type=ct.seller_type
-LEFT JOIN orders o
-ON od.order_num = o.order_num
-GROUP BY i.seller_type,ct.type_name
-order by total_amount desc;
-
-</select>
+	 <select id="pieChart" resultType="map">
+		SELECT 
+			   i.seller_type, 
+		       ct.type_name,
+			   SUM(od.item_cnt * i.item_price) AS total_amount
+		FROM order_detail od
+		LEFT JOIN item i
+		ON od.item_num = i.item_num
+		LEFT JOIN category_type ct
+		ON i.seller_type=ct.seller_type
+		LEFT JOIN orders o
+		ON od.order_num = o.order_num
+		GROUP BY i.seller_type,ct.type_name
+		order by total_amount desc;
+	</select>
 
 
 
 	<!-- 가맹점 관리 -->
 	<select id="getSeller" resultType="map"> 
-SELECT 
-    seller_licenseNum,
-    seller_name,
-    seller_storeName,
-    seller_joinDay,
-    seller_recoYn,
-    seller_num,
-    seller_file,
-    (SELECT COUNT(*) FROM seller WHERE seller_recoYn IS NULL) as count_null
-FROM 
-    seller
-ORDER BY 
-   seller_joinDay DESC;
+	SELECT 
+	    seller_licenseNum,
+	    seller_name,
+	    seller_storeName,
+	    seller_joinDay,
+	    seller_recoYn,
+	    seller_num,
+	    seller_file,
+	    (SELECT COUNT(*) FROM seller WHERE seller_recoYn IS NULL) as count_null
+	FROM 
+	    seller
+	ORDER BY seller_joinDay DESC;
 	</select>
 
 	
@@ -516,7 +514,7 @@ ORDER BY
    <select id="getItems" resultType="map">
 	    SELECT item_num
 	         ,item_name
-	         ,item_price
+	         ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
 	         ,item_mainImg
 	         ,item_detail
 	         ,item_left
@@ -546,7 +544,7 @@ ORDER BY
        SELECT item_num
        		 ,seller_type
        		 ,item_name
-       		 ,item_price
+       		 ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
@@ -562,7 +560,7 @@ ORDER BY
      SELECT item_num
      	   ,item_name
      	   ,i.seller_type
-		   ,item_price
+		   ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
 		   ,item_mainImg
 		   ,item_detail
 		   ,item_salesStatus
@@ -690,8 +688,23 @@ ORDER BY
    
    	<!-- 판매자 회원가입 -->
     <insert id="insertSeller">  
-        insert into seller(seller_num, seller_type, seller_licenseNum, seller_id, seller_pass, seller_name, seller_storeName, seller_post,
-        seller_addMain, seller_addSub, seller_phone, seller_bank, seller_accountNum, seller_accountHolder, seller_email, seller_joinDay, seller_file)
+        insert into seller(seller_num
+        				, seller_type
+        				, seller_licenseNum
+        				, seller_id
+        				, seller_pass
+        				, seller_name
+        				, seller_storeName
+        				, seller_post
+        				, seller_addMain
+        				, seller_addSub
+        				, seller_phone
+        				, seller_bank
+        				, seller_accountNum
+        				, seller_accountHolder
+        				, seller_email
+        				, seller_joinDay
+        				, seller_file)
         values((SELECT *
         FROM (
             SELECT CONCAT(#{seller_type}, LPAD( (SELECT COUNT(*) + 1 as next_num 
@@ -743,17 +756,25 @@ ORDER BY
 		WHERE seller_id = #{seller_id}
 	</select> 
   	
-<select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
-    SELECT m.member_id, m.member_name, m.member_phone,  CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain, i.item_name, 
-           o.order_day, od.item_cnt * i.item_price AS order_pay, od.item_cnt, o.order_phone, o.order_name   
-    FROM member m 
-    INNER JOIN orders o ON m.member_num = o.member_num 
-    INNER JOIN order_detail od ON o.order_num = od.order_num 
-    INNER JOIN item i ON od.item_num = i.item_num 
-    WHERE i.seller_num = #{seller_num} AND
-          o.order_day BETWEEN #{startDate} AND #{endDate}
-    ORDER BY o.order_day DESC
-</select>
+	<select id="MemberMngjoin" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT m.member_id
+	    	 , m.member_name
+	    	 , m.member_phone
+	    	 , CONCAT(o.order_addMain, ',', o.order_addSub) order_addMain
+	    	 , i.item_name
+	    	 , o.order_day
+	    	 , od.item_cnt * i.item_price AS order_pay
+	    	 , od.item_cnt
+	    	 , o.order_phone
+	    	 , o.order_name   
+	    FROM member m 
+	    INNER JOIN orders o ON m.member_num = o.member_num 
+	    INNER JOIN order_detail od ON o.order_num = od.order_num 
+	    INNER JOIN item i ON od.item_num = i.item_num 
+	    WHERE i.seller_num = #{seller_num} AND
+	          o.order_day BETWEEN #{startDate} AND #{endDate}
+	    ORDER BY o.order_day DESC
+	</select>
 	
   	<select id="selectByque" resultType="com.itwillbs.domain.OneBoardDTO">
    	SELECT ob.one_board_repYn
