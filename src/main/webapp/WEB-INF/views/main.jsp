@@ -237,12 +237,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/chatBot.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
     <script>
-    window.addEventListener("DOMContentLoaded", () => {
-    	  initialize_favorite_items();
-    	});
-	
-    </script>
-    <script>
     let error = '<%=request.getParameter("error")%>';
     
   <%--   let seller = '<%=request.getParameter("seller")%>'; --%>
