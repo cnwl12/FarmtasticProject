@@ -65,7 +65,7 @@
 												        window.location.href = "/FarmProject/login";
 												    } else {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
-	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
+	                                        	    const submitButton = $('<button>').text('제출').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
 	                                        	        var query = $("#queryText").val();
 	                                        	        var memberNum = $('input[name="member_num"]').val();
@@ -101,7 +101,11 @@
 	                                        	            }
 	                                        	        });
 	                                        	    });
-	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	    var inputDiv = $('<div>');
+													inputDiv.append(inputBox);
+													inputDiv.append(submitButton);
+													
+													chatContainer.append(inputDiv); 
 	                                        	  }
 	                                        	} else {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
@@ -194,7 +198,7 @@
 												        window.location.href = "/FarmProject/login";
 												    } else {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
-	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
+	                                        	    const submitButton = $('<button>').text('제출').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
 	                                        	        var query = $("#queryText").val();
 	                                        	        var memberNum = $('input[name="member_num"]').val();
@@ -231,7 +235,12 @@
 	                                        	        });
 	                                        	    });
 	                                        	    
-	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	    var inputDiv = $('<div>');
+													inputDiv.append(inputBox);
+													inputDiv.append(submitButton);
+													
+													chatContainer.append(inputDiv); 
+
 	                                        	  }
 	                                        	} else {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
