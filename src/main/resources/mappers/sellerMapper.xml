@@ -514,7 +514,7 @@
    <select id="getItems" resultType="map">
 	    SELECT item_num
 	         ,item_name
-	         ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
+	         ,item_price
 	         ,item_mainImg
 	         ,item_detail
 	         ,item_left
@@ -544,7 +544,7 @@
        SELECT item_num
        		 ,seller_type
        		 ,item_name
-       		 ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
+       		 ,item_price
        		 ,item_mainImg
        		 ,item_detail
        		 ,item_left
@@ -560,7 +560,7 @@
      SELECT item_num
      	   ,item_name
      	   ,i.seller_type
-		   ,CONCAT(FORMAT(item_price, 0), '원') AS item_price
+		   ,item_price
 		   ,item_mainImg
 		   ,item_detail
 		   ,item_salesStatus
