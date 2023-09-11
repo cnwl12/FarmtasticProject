@@ -174,7 +174,6 @@ public class SellerController {
 	    sellerDTO.setSeller_id(seller_id);
 	    sellerDTO.setSeller_pass(seller_pass);
 	        
-
 	    SellerDTO sellerDTO2 = sellerService.sellerCheck2(sellerDTO);
 
 	    if (sellerDTO2 != null && sellerDTO2.getSeller_pass().equals(seller_pass)) {
