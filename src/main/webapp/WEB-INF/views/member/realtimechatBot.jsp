@@ -31,7 +31,7 @@
     // 접속이 완료되면
     webSocket.onopen = function(message) {
       // 콘솔에 메시지를 남긴다.
-      messageTextArea.value += "메세지를입력해주세요...\n";
+    	messageTextArea.value += "메세지를입력해주세요...(창을닫을경우 내용이 모두사라지며 대화가 종료됩니다.)\n ";
     };
     // 접속이 끝기는 경우는 브라우저를 닫는 경우이기 떄문에 이 이벤트는 의미가 없음.
     webSocket.onclose = function(message) { };
