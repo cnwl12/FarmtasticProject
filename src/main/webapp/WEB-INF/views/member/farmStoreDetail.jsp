@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/page.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chatBot.css" type="text/css">
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<!-- 카트추가 함수 -->
@@ -469,6 +470,19 @@ input#file-upload-button {
                 </div>
         
     </section>
+    
+    <button id="chat-toggle" style="display: none;">
+    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">
+    </button>
+	<div id="chat-panel" style="display: none;">
+	<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+	    <button id="close-chat">닫기</button>
+	    <div id="chat-container">
+		    <div class="message bot-message">
+		    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">안녕하세요! 어떻게 도와드릴까요?
+		    </div>
+	    </div>
+	</div>
 
    <!-- bottom.jsp로 분리  -->
 	<jsp:include page="../bottom.jsp"></jsp:include>
@@ -817,7 +831,8 @@ input#file-upload-button {
     <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-	 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/chatBot.js"></script>
 	
 	<script type="text/javascript">
 	function insertCart(){	

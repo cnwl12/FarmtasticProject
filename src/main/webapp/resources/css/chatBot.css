@@ -6,6 +6,7 @@ body {
 	border: none;
 	margin-bottom: 3px;
 	margin-right: 80px;
+	z-index: 2;
 }
 
 #questions {
@@ -48,16 +49,17 @@ body {
     right: 20px;
     background-color: #EEEED4;
     border: 1px solid;
+    z-index: 2;
 }
 
 #close-chat {
     position: fixed;
-    bottom: 38px;
+    bottom: 17px;
     right: 60px;
     background-color: #f44336;
     color: white;
     border: none;
-    padding: 4px 19px;
+    padding: 1px 19px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -71,6 +73,7 @@ body {
     padding: 20px;
     background-color: white;
     color: black;
+    z-index: 2;
 }
 
 #chat-panel #questions {

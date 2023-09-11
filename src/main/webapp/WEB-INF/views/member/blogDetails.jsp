@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chatBot.css" type="text/css">
 </head>
 
 <body>
@@ -208,6 +209,19 @@
 	        </div>
 	    </div>
 	</section>
+	
+	<button id="chat-toggle" style="display: none;">
+    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">
+    </button>
+	<div id="chat-panel" style="display: none;">
+	<input type="hidden" name="member_num" value="${sessionScope.member_num}">
+	    <button id="close-chat">닫기</button>
+	    <div id="chat-container">
+		    <div class="message bot-message">
+		    <img src="${pageContext.request.contextPath}/resources/img/gamza.png" alt="" class="gamza">안녕하세요! 어떻게 도와드릴까요?
+		    </div>
+	    </div>
+	</div>
 	<!-- Related Blog Section End -->
 
 	<!-- bottom.jsp로 분리  -->
@@ -223,6 +237,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/heart.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/chatBot.js"></script>
 
 </body>
 </html>

@@ -109,6 +109,7 @@
 													    botAnswerDiv.append(botImage);
 													    botAnswerDiv.append(botAnswer);
 													    chatContainer.append(botAnswerDiv);
+													    loadFirstQuestions(chatContainer)
 													}
 	                                        	}
 	                                            setTimeout(function() {
@@ -233,6 +234,7 @@
 													    botAnswerDiv.append(botImage);
 													    botAnswerDiv.append(botAnswer);
 													    chatContainer.append(botAnswerDiv);
+													    loadFirstQuestions(chatContainer);
 													}
 	                                        	}
 	                                            setTimeout(function() {
@@ -243,6 +245,7 @@
 	                                        });
 	                                    chatContainer.append(detailButton);
 	                                });
+	                                
 	                            },
 	                            error: function(jqXHR, textStatus, errorThrown) {
 	                                console.error(textStatus, errorThrown);
@@ -251,7 +254,7 @@
 	                    });
 	                chatContainer.append(button);
 	            });
-
+	            
 	            $("#chat-toggle").show();
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {

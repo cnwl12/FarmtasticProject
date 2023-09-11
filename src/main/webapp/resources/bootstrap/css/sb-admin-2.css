@@ -1232,6 +1232,7 @@ pre code {
   .col-lg-12 {
     flex: 0 0 100%;
     max-width: 100%;
+    z-index: 1;
   }
   .order-lg-first {
     order: -1;
