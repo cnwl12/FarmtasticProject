@@ -318,7 +318,7 @@ body {
 							<div class="input-content inner-content">
 								<div class="form-section-sub">
 									<div class="form-sub-wrap"></div>
-									<textarea name="item_detail" style=" width: 100%;  height: 150px; resize: vertical;">${item.item_detail}</textarea>
+									<textarea name="item_detail" maxlength="500" style=" width: 100%;  height: 150px; resize: vertical;">${item.item_detail}</textarea>
 								</div>
 							</div>
 						</div>

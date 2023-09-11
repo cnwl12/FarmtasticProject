@@ -32,7 +32,6 @@
 	<script type="text/javascript">
 	$(window).on('load', function () {
 	    $('input[type=text]').change(function () {
-	        console.log($(this));
 	    });
 
 	    $('.pro-qty').click(function () {
@@ -42,9 +41,6 @@
             var cart_cnt_int = parseInt(cart_cnt);
             var total = item_price * cart_cnt_int;
             $(this).closest('tr').find('.item_total').text(total.toFixed()) 
-            
-	        console.log("카트수량 :" + cart_cnt);
-	        console.log("아이템번호 : " + item_num);
 			
 	        var totalSum = 0;
 	        // 하단 전체 가격 
@@ -57,11 +53,9 @@
 	            url: 'cartInUpdate?item_num=' + item_num,
 	            data: { 'cart_cnt': cart_cnt },
 	            success: function (response) {
-                console.log('장바구니 수량 업데이트 성공:', response);
                
                 },
                 error: function (error) {
-                console.error('장바구니 수량 업데이트 실패:', error);
 	            }
 	        });
 	    });

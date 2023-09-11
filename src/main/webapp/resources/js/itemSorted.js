@@ -2,7 +2,6 @@ $(document).ready(function() {
    
    var memberNum = document.getElementById("memberNum").getAttribute("data-member-num");
     var productListContainer = $(".ajaxSuccess .row");
-   console.log(memberNum);
    
     $(".filter__item .list li").on("click", function() {
         var selectedOption = $(this).data("value");

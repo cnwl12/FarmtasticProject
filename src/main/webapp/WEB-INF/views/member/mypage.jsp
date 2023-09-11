@@ -187,8 +187,7 @@
                                              onkeyup="validatePasswordType(this,'new_member_pass');"
                                              onfocus="helpOn('new_member_pass');"
                                              onblur="chkBlur(this,'new_member_pass');"
-                                             style="width: 195px;"> <span class="font_style1" style="margin-left: 0px;">현재
-                                                비밀번호를 입력해 주세요</span></li>
+                                             style="width: 195px;"></li>
 
                                           <li><label for="newpw"> <span class="bg_bul"></span>새비밀번호
                                           </label> <input type="password" class="txt" id="new_member_pass"
