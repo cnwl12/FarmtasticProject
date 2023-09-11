@@ -60,6 +60,10 @@
 												     chatContainer.append(userDetailQuestionDiv);
 												 }
 	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
+                                        		    if ($('input[name="member_num"]').val() == "") {
+												        alert("로그인 후 이용해주세요");
+												        window.location.href = "/FarmProject/login";
+												    } else {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
 	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
@@ -98,6 +102,7 @@
 	                                        	        });
 	                                        	    });
 	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	  }
 	                                        	} else {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
 
@@ -184,6 +189,10 @@
 												     chatContainer.append(userDetailQuestionDiv);
 												 }
 	                                        	if (detailChatBotData.detailChatbotDetailed_question == "문의 남기기") {
+		                                        	if ($('input[name="member_num"]').val() == "") {
+												        alert("로그인 후 이용해주세요");
+												        window.location.href = "/FarmProject/login";
+												    } else {
 	                                        	    const inputBox = $('<textarea>').attr('id', 'queryText');
 	                                        	    const submitButton = $('<button>').text('제출하기').addClass('submit-button').click(function() {
 	                                        	        // 여기서 query 변수를 서버에 전송하거나 처리합니다.
@@ -223,6 +232,7 @@
 	                                        	    });
 	                                        	    
 	                                        	    chatContainer.append(inputBox).append(submitButton);
+	                                        	  }
 	                                        	} else {
 	                                        	    chatContainer.append(userDetailQuestionDiv);
 
